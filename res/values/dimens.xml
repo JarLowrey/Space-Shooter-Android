@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    
+    <dimen name="activity_margin_small">16dp</dimen>
+    <dimen name="activity_margin_med">32dp</dimen>
+    <dimen name="activity_margin_large">45dp</dimen>
+    <dimen name="activity_margin_xlarge">75dp</dimen>    
+    <dimen name="activity_margin_xxlarge">100dp</dimen>
+
+    <dimen name="btn_large_len">100dp</dimen>
+    <dimen name="btn_small_width">60dp</dimen>
+    <dimen name="btn_small_height">45dp</dimen>
+    <dimen name="control_panel_height">150dp</dimen>
+    
+    <dimen name="space_junk_length">30dp</dimen>
+    <dimen name="rocket_exhaust_height">40dp</dimen>
+    <dimen name="rocket_exhaust_width">25dp</dimen>
+    <dimen name="rocket_game_height">60dp</dimen>
+    <dimen name="rocket_game_width">33dp</dimen>
+    <dimen name="bullet_width">10dp</dimen>
+    <dimen name="bullet_height">20dp</dimen>
+    
+    <dimen name="ic_small">30dp</dimen>
+    <dimen name="ic_med">40dp</dimen>
+    <dimen name="ic_large">50dp</dimen>
+    
+    <dimen name="title_canvas_height">75dp</dimen>
+    <dimen name="title_size">60dp</dimen>
+    <dimen name="title_outline_size">3dp</dimen>
+    
+    
+    <dimen name="moon_length">80dp</dimen>
+    
+    <dimen name="ad_banner_margin">130dp</dimen>
+</resources>

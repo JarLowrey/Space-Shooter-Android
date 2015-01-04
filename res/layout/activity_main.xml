@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/stars"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/level4" 
+        />
+        
+    <ImageView
+        android:id="@+id/moon"
+        android:layout_width="@dimen/moon_length"
+        android:layout_height="@dimen/moon_length"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/moon" />
+    
+    <ImageView
+        android:id="@+id/rocket_main"
+        android:layout_width="22dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/rocket" />
+    
+    <ImageView
+        android:id="@+id/earth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-225dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/level3" />
+    
+    
+    <RelativeLayout
+        android:id="@+id/playBtn"
+        android:layout_width="@dimen/btn_large_len"
+        android:layout_height="@dimen/btn_large_len"
+        android:layout_alignTop="@+id/earth"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_gray" >
+
+        <ImageView
+            android:layout_width="@dimen/ic_med"
+            android:layout_height="@dimen/ic_med"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_action_play"/>
+    </RelativeLayout>
+
+    <com.jtronlabs.views.DrawTextPanel
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_canvas_height"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/moon"
+        android:visibility="visible" />
+
+</RelativeLayout>

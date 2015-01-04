@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">new_proj</string>
+    <string name="hello_world">Hello world!</string>
+
+    <color name="dark_yellow">#736D22</color>
+    <color name="light_yellow">#E1F505</color>
+    <color name="light_green">#008500</color>
+    <color name="dark_green">#00FF00</color>
+    <color name="dark_red">#960303</color>
+    <color name="red">#f50000</color>
+    <color name="light_red">#FF2659</color>
+    <color name="light_blue">#26C9FF</color>
+    <color name="blue">#0015FC</color>
+    <color name="dark_blue">#23118C</color>
+    <color name="gray">#918383</color>
+    <color name="dark_gray">#4D4D4D</color>
+
+    <string name="title_activity_game">GameActivity</string>
+
+</resources>
