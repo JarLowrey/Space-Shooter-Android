@@ -1,5 +1,7 @@
 package com.jtronlabs.new_proj;
 
+import com.jtronlabs.views.DrawTextView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -44,7 +46,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		playBtn.setOnClickListener(this);
 
 		//draw title words
-	    DrawTextPanel titlePanel = (DrawTextPanel)findViewById(R.id.title);
+	    DrawTextView titlePanel = (DrawTextView)findViewById(R.id.title);
 	    titlePanel.drawText("To The Moon!");
 	    
 	    //launch the rocket

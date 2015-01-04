@@ -20,6 +20,7 @@ public class EnemyFactory{
     public int movingSideToSideShooterInterval=5000;
     
     Handler enemySpawnHandler = new Handler();
+    
     Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {

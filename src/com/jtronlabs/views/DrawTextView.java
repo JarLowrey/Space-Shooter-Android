@@ -1,4 +1,4 @@
-package com.jtronlabs.new_proj;
+package com.jtronlabs.views;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -20,8 +20,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.jtronlabs.new_proj.R;
+import com.jtronlabs.new_proj.R.color;
+import com.jtronlabs.new_proj.R.dimen;
+import com.jtronlabs.new_proj.R.raw;
 
-public class DrawTextPanel extends SurfaceView implements SurfaceHolder.Callback
+public class DrawTextView extends SurfaceView implements SurfaceHolder.Callback
 {
 	Paint strokePaint = new Paint();
 	Paint textPaint = new Paint();
@@ -35,7 +38,7 @@ public class DrawTextPanel extends SurfaceView implements SurfaceHolder.Callback
 	private int wordColor,outlineColor;
 	private String prevWord=null;
 	
-	public DrawTextPanel(Context context,AttributeSet attr) {
+	public DrawTextView(Context context,AttributeSet attr) {
 		super(context,attr);
 		
 		myFont= getFontFromRes(context,R.raw.roboto_condensed_bold);
