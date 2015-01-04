@@ -182,7 +182,7 @@ public class ProjectileView extends ImageView{
 
 	}
 
-	public boolean collisionDetection( View two){
+	public boolean collisionDetection(ProjectileView two){
 		float left1,right1,top1,bottom1;
 		float left2,right2,top2,bottom2;
 		

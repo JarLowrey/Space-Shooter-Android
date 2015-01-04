@@ -11,6 +11,7 @@ public class SideToSideMovingShooter extends ShootingView{
 	
 	private final static double DEFAULT_SPEED_UP=15,DEFAULT_SPEED_DOWN=5,DEFAULT_SPEEDX=10,DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=10,DEFAULT_BULLET_SPEED=8,DEFAULT_BULLET_DAMAGE=5,DEFAULT_BULLET_SPAWNING_FREQ=(3000+Math.random()*4000);
+	
 	public final static int NUM_SHOOTERS_IN_A_ROW=5;
 	
 	public static ArrayList<SideToSideMovingShooter> allSideToSideShooters= new ArrayList<SideToSideMovingShooter>();

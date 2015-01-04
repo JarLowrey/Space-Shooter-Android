@@ -18,5 +18,6 @@
     <color name="dark_gray">#4D4D4D</color>
 
     <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_asdasdamain">ASDASDAMainActivity</string>
 
 </resources>
