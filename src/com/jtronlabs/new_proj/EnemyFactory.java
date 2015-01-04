@@ -1,16 +1,12 @@
 package com.jtronlabs.new_proj;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
-import com.jtronlabs.views.GravityView;
-import com.jtronlabs.views.ProjectileView;
+import com.jtronlabs.views.MeteorView;
+import com.jtronlabs.views.SideToSideMovingShooter;
 
 public class EnemyFactory{
 	
@@ -21,9 +17,10 @@ public class EnemyFactory{
 	
     //
     public int meteorInterval=5000;
+    public int movingSideToSideShooterInterval=5000;
     
     Handler enemySpawnHandler = new Handler();
-    Runnable meteorRunnable = new Runnable(){
+    Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
 //    		double rand = Math.random()*100;
@@ -44,11 +41,24 @@ public class EnemyFactory{
 //    			
 //    			break;
 //    		}
-    		GravityView new_junk_img = createNewSpaceJunk(1,1,1,1);
-    		GameActivity.gameScreen.addView(new_junk_img,1);
-    		GameActivity.dangerousObjects.add(new_junk_img);
+    		MeteorView meteor = new MeteorView(ctx);
+    		GameActivity.gameScreen.addView(meteor,1);
+    		GameActivity.dangerousObjects.add(meteor);
     		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
-    		enemySpawnHandler.postDelayed(this, (long) (meteorInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*1000));
+    		enemySpawnHandler.postDelayed(this, getMeteorInterval());
+    	}
+	};
+	
+	Runnable spawnMovingSideToSideShootingRunnable = new Runnable(){
+    	@Override
+        public void run() {
+    		if(levelInfo.getLevel()>1 /*&& SideToSideMovingShooter.allSideToSideShooters.size()<SideToSideMovingShooter.NUM_SHOOTERS_IN_A_ROW*4*/){
+    			SideToSideMovingShooter shooter = new SideToSideMovingShooter(ctx);
+        		GameActivity.gameScreen.addView(shooter,1);
+        		GameActivity.dangerousObjects.add(shooter);
+        		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
+    		}
+    		enemySpawnHandler.postDelayed(this, getMovingSideToSideShooterInterval());
     	}
 	};
 	
@@ -62,34 +72,21 @@ public class EnemyFactory{
 	    screenDens = displayMetrics.density;
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
-	    
-	    enemySpawnHandler.post(meteorRunnable);
 	}
 	
 	public void cleanUpThreads(){
-		enemySpawnHandler.removeCallbacks(meteorRunnable);
+		enemySpawnHandler.removeCallbacks(meteorSpawningRunnable);
+	    enemySpawnHandler.removeCallbacks(spawnMovingSideToSideShootingRunnable);
 	}
 	public void restartThreads(){
-		enemySpawnHandler.post(meteorRunnable);
-	}
-
-	public GravityView createNewSpaceJunk(double speedY,double speedX, double damage, double health){
-		//create a new space junk ImageView and modify force of gravity by screenDens
-		GravityView new_junk_img = new GravityView(ctx,speedY,speedX,damage,health);
-		
-		//set image background
-		new_junk_img.setImageResource(R.drawable.meteor);
-		
-		//add image to layout
-		int len=(int)ctx.getResources().getDimension(R.dimen.space_junk_length);
-		new_junk_img.setLayoutParams(new LayoutParams(len,len));
-		
-		//position View
-		float xRand = (float) ((widthPixels-len)*Math.random());
-		new_junk_img.setX(xRand);
-		new_junk_img.setY(-len/2);//slightly off top of screen
-		
-		return new_junk_img;
+		enemySpawnHandler.postDelayed(meteorSpawningRunnable,getMeteorInterval());
+	    enemySpawnHandler.postDelayed(spawnMovingSideToSideShootingRunnable,getMovingSideToSideShooterInterval());
 	}
 	
+	private long getMeteorInterval(){
+		return (long) (meteorInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*1000);
+	}
+	private long getMovingSideToSideShooterInterval(){
+		return (long) (movingSideToSideShooterInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*3000);
+	}
 }

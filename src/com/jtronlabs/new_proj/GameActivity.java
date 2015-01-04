@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -22,9 +20,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jtronlabs.views.GravityView;
 import com.jtronlabs.views.ProjectileView;
 import com.jtronlabs.views.RocketView;
+import com.jtronlabs.views.SideToSideMovingShooter;
 
 public class GameActivity extends Activity implements OnClickListener{
 
@@ -36,7 +34,7 @@ public class GameActivity extends Activity implements OnClickListener{
 	private RelativeLayout btnBackground;
 
 	public static RelativeLayout gameScreen;
-	public static ArrayList<ProjectileView> dangerousObjects=new ArrayList<ProjectileView>();;
+	public static ArrayList<ProjectileView> dangerousObjects=new ArrayList<ProjectileView>();
 	
 	//MODEL
 	private Levels levelInfo;
@@ -49,7 +47,6 @@ public class GameActivity extends Activity implements OnClickListener{
         @Override
         public void run() {
         	
-
             timerHandler.postDelayed(this, 51);
         }
     };
@@ -84,19 +81,22 @@ public class GameActivity extends Activity implements OnClickListener{
 		
 		//set up rocket
 		rocket = (RocketView)findViewById(R.id.rocket_game);
+//		rocket.threshold=heightPixels/8;
 		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
 		    @Override 
 		    public void onGlobalLayout() { 
-		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this); 
-				rocket.threshold=btnBackground.getY();
+		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+		        //have a little portion of the rocket poking out above the bottom
+				rocket.threshold=btnBackground.getY()
+						-rocket.getHeight()/4;
 		    } 
 		});
-		rocket.threshold=btnBackground.getY();
 		
 		//set up the game
 		levelInfo = new Levels();
 		enemyFactory = new EnemyFactory(this);
+		resetGame();
 	}
 
 	@Override
@@ -113,9 +113,9 @@ public class GameActivity extends Activity implements OnClickListener{
 					if(levelInfo.numBtnTaps()%20==0){			
 						rocket.runRocketExhaust(rocket_exhaust);
 					}
-					rocket.moveRocketUp();
+					rocket.move(ProjectileView.UP,false);
 				}else{
-					rocket.moveRocketToSide(true);
+					rocket.move(ProjectileView.LEFT,false);
 				}
 				break; 
 			case R.id.btnRight:
@@ -129,9 +129,9 @@ public class GameActivity extends Activity implements OnClickListener{
 					if(levelInfo.numBtnTaps()%20==0){			
 						rocket.runRocketExhaust(rocket_exhaust);
 					}  
-					rocket.moveRocketUp();
+					rocket.move(ProjectileView.UP,false);
 				}else{
-					rocket.moveRocketToSide(false);
+					rocket.move(ProjectileView.RIGHT,false);
 				}
 				break;
 			case R.id.btnMiddle:
@@ -154,6 +154,7 @@ public class GameActivity extends Activity implements OnClickListener{
         for(int i=0;i<dangerousObjects.size();i++){
         	dangerousObjects.get(i).cleanUpThreads();
         }
+        rocket.cleanUpThreads();
         enemyFactory.cleanUpThreads();
 //        timerHandler.removeCallbacks(timerRunnable);
     }
@@ -167,6 +168,7 @@ public class GameActivity extends Activity implements OnClickListener{
         for(int i=0;i<dangerousObjects.size();i++){
         	dangerousObjects.get(i).restartThreads();
         }
+        rocket.restartThreads();
         enemyFactory.restartThreads();
 //	    timerHandler.post(timerRunnable);
 	}
@@ -190,5 +192,23 @@ public class GameActivity extends Activity implements OnClickListener{
 			
 		});
 		gameWindowOverlay.startAnimation(fade_out);
+	}
+	
+	/**
+	 * Reset all static variables, so that the game can be run multiple times
+	 */
+	private void resetGame(){
+		levelInfo.reset();
+		gameScreen = (RelativeLayout)findViewById(R.id.gameScreen);
+
+		for(ProjectileView a:dangerousObjects){//not sure if this looping is needed, but just double checking everything was removed from memory
+			a.removeView(false);
+		}
+		dangerousObjects=new ArrayList<ProjectileView>();
+		
+		for(SideToSideMovingShooter a:SideToSideMovingShooter.allSideToSideShooters){
+			a.removeView(false);
+		}
+		SideToSideMovingShooter.allSideToSideShooters = new ArrayList<SideToSideMovingShooter>();
 	}
 }

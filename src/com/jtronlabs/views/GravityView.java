@@ -4,20 +4,21 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 
+/**
+ * A ProjectileView with a constant downwards force that is a different speed than ProjectileView's SpeedY
+ * @author JAMES LOWREY
+ *
+ */
 public class GravityView extends ProjectileView{
-
-	double downwardForce=9.8;
-	public float threshold=-10;
-	private final int HOW_OFTEN_GRAVITY_IS_APPLIED=200;
 	
-	public GravityView(Context context,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
-		super(context,projectileSpeedY,projectileSpeedX,projectileDamage,projectileHealth);
+	public GravityView(Context context,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+		super(context,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 
 		gravityHandler.post(gravityRunnable);
 	}
 	
-	public GravityView(Context context,AttributeSet at,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
-		super(context,at,projectileSpeedY,projectileSpeedX,projectileDamage,projectileHealth);
+	public GravityView(Context context,AttributeSet at,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+		super(context,at,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 
 		gravityHandler.post(gravityRunnable);
 	}
@@ -28,37 +29,21 @@ public class GravityView extends ProjectileView{
     	@Override
         public void run() {
 			float y=GravityView.this.getY();
-    		y+=GravityView.this.getDownwardForce();
     		//if object is off the screen, stop wasting resources on it and mark it for removal. 
 			//Otherwise, shift it downwards and repost gravityHandler
     		if(y>heightPixels){
     			gravityHandler.removeCallbacks(this);
-    			removeView=true;
+    			removeView(false);
     		}else{
-        		//threshold marks maximum distance downwards. if y is past threshold, do not apply gravity
-        		//if threshold is negative, ignore it
-        		if(threshold>0){
-    				if((y+10*screenDens)<threshold){//add a few pixels so the View will peak above threshold. the exact number is chosen because it looks good
-    	    			GravityView.this.setY(y);
-    				}
-        		}else{
-        			GravityView.this.setY(y);
-        		}
-	    		gravityHandler.postDelayed(this, HOW_OFTEN_GRAVITY_IS_APPLIED);
+        		move(ProjectileView.DOWN,false);
+	    		gravityHandler.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE);
     		}
     	}
     };
-    
-	/**
-	 * modify the speed by a given ratio amount
-	 * @param ratio-speed will change by amount equal to @param/ratio. So, to double the speed, ratio should be 2
-	 */
-	public void changeDownwardForce(double ratio){
-		downwardForce*=ratio;
-	}
-	
-	public double getDownwardForce(){
-		return downwardForce;
+
+	public void removeView(boolean showExplosion){
+		super.removeView(showExplosion);
+		cleanUpThreads();
 	}
 	
 	public void cleanUpThreads(){

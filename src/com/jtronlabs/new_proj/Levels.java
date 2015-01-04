@@ -4,8 +4,7 @@ public class Levels {
 	//GAME STATUS DATA
 	public boolean rightBtnWasTappedPreviously=true;//indicates which button the user should tap. 
 	public final int[] levelBackgrounds={R.drawable.level1,R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
-	private static int numBtnTaps=0,numMissed=0;
-	private static int level=1;
+	private static int numBtnTaps=0,level=1;
 	
 	//VARIABLE GET/SET METHODS
 	public void incrementNumBtnTaps(){ 
@@ -13,12 +12,6 @@ public class Levels {
 	}
 	public int numBtnTaps(){
 		return numBtnTaps;
-	}
-	public void incrementNumMissed(){
-		numMissed++;
-	}
-	public int numMissed(){
-		return numMissed;
 	}
 	/**
 	 * Checks if the level needs to be increased, does so if necessary, and returns the new gameScreen background's resource Id
@@ -55,5 +48,9 @@ public class Levels {
 		default:
 			return Integer.MAX_VALUE;
 		}
+	}
+	public void reset(){
+		numBtnTaps=0;
+		level=1;
 	}
 }

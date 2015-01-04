@@ -1,5 +1,7 @@
 package com.jtronlabs.views;
 
+import com.jtronlabs.new_proj.GameActivity;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -8,13 +10,16 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 public class ProjectileView extends ImageView{
+
+	public static int HOW_OFTEN_TO_MOVE=100;
+	public static final int UP=0,RIGHT=1,DOWN=2,LEFT=3;
 	
-	double speedY,speedX, damage, health;
+	double speedYUp,speedYDown,speedX, damage, health;
+	public float threshold=-10;
 	float screenDens,widthPixels,heightPixels;
-	boolean removeView=false;
 	Context ctx;
 	
-	public ProjectileView(Context context,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+	public ProjectileView(Context context,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX,double projectileDamage,double projectileHealth) {
 		super(context);	
 		
 		ctx = context;
@@ -27,13 +32,14 @@ public class ProjectileView extends ImageView{
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
 		
-		speedY=projectileSpeedY*screenDens;
+		speedYUp=projectileSpeedYUp*screenDens;
+		speedYDown=projectileSpeedYDown*screenDens;
 		speedX=projectileSpeedX*screenDens;
 		damage=projectileDamage;
 		health=projectileHealth;
 	}
 	
-	public ProjectileView(Context context,AttributeSet at,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+	public ProjectileView(Context context,AttributeSet at,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
 		super(context,at);	
 		
 		ctx = context;
@@ -46,7 +52,8 @@ public class ProjectileView extends ImageView{
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
 		
-		speedY=projectileSpeedY*screenDens;
+		speedYUp=projectileSpeedYUp*screenDens;
+		speedYDown=projectileSpeedYDown*screenDens;
 		speedX=projectileSpeedX*screenDens;
 		damage=projectileDamage;
 		health=projectileHealth;
@@ -55,15 +62,72 @@ public class ProjectileView extends ImageView{
 	/**
 	 * show an explosion on top of this view
 	 */
-	public void explode(){
+	public void createExplosion(){
 		
+	}
+	
+	/**
+	 * Move the View on the screen according to is speedY or speedX
+	 * @param direction-whichDirection the View should move. Input needs to be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT
+	 * @return-true if a valid direction was passed in, false otherwise
+	 */
+	public boolean move(int direction,boolean canMoveOffScreen){
+		boolean validDirection=false;
+		float x =this.getX();
+		float y =this.getY();
+		
+		switch(direction){
+		case UP:
+			y-=speedYUp;
+			validDirection=true;
+			break;
+		case RIGHT:
+			x+=speedX;
+			validDirection=true;
+			break;
+		case DOWN:
+			y+=speedYDown;
+			validDirection=true;
+			break;
+		case LEFT:
+			x-=speedX;
+			validDirection=true;
+			break;
+		}
+		if(canMoveOffScreen){
+			this.setX(x);
+			this.setY(y);
+		}else {
+			//cannot move off side of screen
+			if(x>=0 && (x+this.getWidth()<=widthPixels)){
+				this.setX(x);
+			}
+			if( ( y+getHeight() ) >=0){
+				//Cannot move off top or bottom of screen or past lower threshold
+				if(threshold>0){
+					if(y<=threshold){this.setY(y);}
+				}else{
+					this.setY(y);
+				}
+			}
+		}
+		
+		return validDirection;
 	}
 
 	public void takeDamage(double amountOfDamage){
 		health-=amountOfDamage;
 		if(health<=0){
-			removeView=true;
+			removeView(true);
+		}else{
+			createExplosion();			
 		}
+	}
+	
+	public void removeView(boolean showExplosion){
+		if(showExplosion){createExplosion();}
+		cleanUpThreads();
+		GameActivity.gameScreen.removeView(this);
 	}
 	
 	public void heal(double howMuchHealed){
@@ -74,8 +138,17 @@ public class ProjectileView extends ImageView{
 	 * modify the vertical speed by a given ratio amount
 	 * @param ratio-speed will change by amount equal to @param/ratio. So, to double the speed, ratio should be 2
 	 */
-	public void changeSpeedY(double ratio){
-		speedY*=ratio;
+	public void changeSpeedYUp(double ratio){
+		speedYUp*=ratio;
+	}
+	
+
+	/**
+	 * modify the speed by a given ratio amount
+	 * @param ratio-speed will change by amount equal to @param/ratio. So, to double the speed, ratio should be 2
+	 */
+	public void changeSpeedYDown(double ratio){
+		speedYDown*=ratio;
 	}
 	
 	/**
@@ -87,7 +160,11 @@ public class ProjectileView extends ImageView{
 	}
 	
 	public double getSpeedY(){
-		return speedY;
+		return speedYUp;
+	}
+	
+	public double getSpeedYDown(){
+		return speedYDown;
 	}
 
 	public double getSpeedX(){
@@ -96,13 +173,6 @@ public class ProjectileView extends ImageView{
 	
 	public double getHealth(){
 		return health;
-	}
-	/**
-	 * Freeing up Views to be removed improves memory performance
-	 * @return-Views should be removed if they are dead or offscreen
-	 */
-	public boolean toRemoveView(){
-		return removeView;
 	}
 	
 	public void cleanUpThreads(){

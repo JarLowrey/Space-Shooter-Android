@@ -10,16 +10,16 @@ import android.widget.ImageView;
 
 public class RocketView extends ShootingView{
 	
-	private final static double DEFAULT_SPEEDY=12.5,DEFAULT_SPEEDX=12.5,DEFAULT_COLLISION_DAMAGE=20, 
-			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED=40,DEFAULT_BULLET_DAMAGE=10;
+	private final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=2,DEFAULT_SPEEDX=12.5,DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED=3,DEFAULT_BULLET_DAMAGE=10;
 	
 	public RocketView(Context context, AttributeSet at) {
-		super(context, at,DEFAULT_SPEEDY,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context, at,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser1);
 	}
 
 	public RocketView(Context context) {
-		super(context,DEFAULT_SPEEDY,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser1);
 	}
 	
@@ -64,33 +64,7 @@ public class RocketView extends ShootingView{
 			}
          }
     };
-	
-	/**
-	 * method to move rocket right or left of its current position.
-	 * @param moveLeft true if the rocket needs to be moved left, false if right
-	 */
-	public void moveRocketToSide(boolean moveLeft){
-		float x =this.getX();
-		if(moveLeft){
-			x-=speedX;
-		}else{
-			x+=speedX;
-		}
-		
-		//cannot move rocket off of screen
-		if(x>0 && (x+this.getWidth()<widthPixels)){
-			this.setX(x);
-		}
-	}
-	
-	public void moveRocketUp(){
-		float y=this.getY();
-		y-=speedY;
-		//Cannot move rocket off top of screen
-		if(y>=0){
-			setY(y);
-		}
-	}
+    
 	@Override
 	public void cleanUpThreads(){
 		super.cleanUpThreads();
@@ -103,5 +77,11 @@ public class RocketView extends ShootingView{
 	public void runRocketExhaust(ImageView rocketExhaustView){
 		rocket_exhaust=rocketExhaustView;
 		rocketHandler.post(showRocketExhaustRunnable);
+	}
+	
+
+	public void removeView(){
+		super.removeView(true);
+		cleanUpThreads();
 	}
 }

@@ -15,7 +15,6 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.views.DrawTextPanel;
 
 public class MainActivity extends Activity implements OnClickListener{
 
