@@ -175,6 +175,10 @@ public class ProjectileView extends ImageView{
 		return health;
 	}
 	
+	public double getDamage(){
+		return damage;
+	}
+	
 	public void cleanUpThreads(){
 
 	}

@@ -41,13 +41,20 @@ public class GameActivity extends Activity implements OnClickListener{
 	private EnemyFactory enemyFactory;
 	
 	//TIMER (by using threads via handler/runner)
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
+    Handler gameHandler = new Handler();
+    Runnable mainGameLoopRunnable = new Runnable() {
 
         @Override
         public void run() {
-        	
-            timerHandler.postDelayed(this, 51);
+        	for(int i=dangerousObjects.size()-1;i>=0;i--){
+        		ProjectileView enemy = dangerousObjects.get(i);
+        		if(rocket.collisionDetection(enemy)){
+        			rocket.takeDamage(enemy.getDamage());
+        			enemy.removeView(true);
+        			dangerousObjects.remove(i);
+        		}
+        	}
+            gameHandler.postDelayed(this, 50);
         }
     };
 	
@@ -156,6 +163,7 @@ public class GameActivity extends Activity implements OnClickListener{
         }
         rocket.cleanUpThreads();
         enemyFactory.cleanUpThreads();
+        gameHandler.removeCallbacks(mainGameLoopRunnable);
 //        timerHandler.removeCallbacks(timerRunnable);
     }
 	
@@ -170,6 +178,7 @@ public class GameActivity extends Activity implements OnClickListener{
         }
         rocket.restartThreads();
         enemyFactory.restartThreads();
+        gameHandler.post(mainGameLoopRunnable);
 //	    timerHandler.post(timerRunnable);
 	}
 	

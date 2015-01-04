@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class RocketView extends ShootingView{
 	
-	private final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=2,DEFAULT_SPEEDX=12.5,DEFAULT_COLLISION_DAMAGE=20, 
+	private final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=3,DEFAULT_SPEEDX=12.5,DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED=3,DEFAULT_BULLET_DAMAGE=10;
 	
 	public RocketView(Context context, AttributeSet at) {
