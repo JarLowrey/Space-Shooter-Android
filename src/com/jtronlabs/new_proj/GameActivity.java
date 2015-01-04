@@ -134,6 +134,9 @@ public class GameActivity extends Activity implements OnClickListener{
 					rocket.moveRocketToSide(false);
 				}
 				break;
+			case R.id.btnMiddle:
+				rocket.spawnBullet();
+				break;
 		}
 		
 		int id = levelInfo.incrementLevel();

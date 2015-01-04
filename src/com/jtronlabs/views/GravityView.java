@@ -10,19 +10,15 @@ public class GravityView extends ProjectileView{
 	public float threshold=-10;
 	private final int HOW_OFTEN_GRAVITY_IS_APPLIED=200;
 	
-	public GravityView(Context context) {
-		super(context);
-		initGravityView();
-	}
-	public GravityView(Context context,AttributeSet atSet) {
-		super(context,atSet);
-		initGravityView();
-	}
 	public GravityView(Context context,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
 		super(context,projectileSpeedY,projectileSpeedX,projectileDamage,projectileHealth);
-		initGravityView();
-	}	
-	private void initGravityView(){
+
+		gravityHandler.post(gravityRunnable);
+	}
+	
+	public GravityView(Context context,AttributeSet at,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+		super(context,at,projectileSpeedY,projectileSpeedX,projectileDamage,projectileHealth);
+
 		gravityHandler.post(gravityRunnable);
 	}
 

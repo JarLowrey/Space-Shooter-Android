@@ -14,26 +14,37 @@ public class ProjectileView extends ImageView{
 	boolean removeView=false;
 	Context ctx;
 	
-	public ProjectileView(Context context) {
-		super(context);
-		initProjectileView(context);
-	}
-	
-	public ProjectileView(Context context, AttributeSet attSet){
-		super(context,attSet);
-		initProjectileView(context);
-	}
-	
-	/**
-	 * Create a new projectileView with given base speed, damage, and health
-	 * @param context
-	 * @param projectileSpeed
-	 * @param projectileDamage
-	 * @param projectileHealth
-	 */
 	public ProjectileView(Context context,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
-		super(context);
-		initProjectileView(context);
+		super(context);	
+		
+		ctx = context;
+		
+		//find screen density and width/height of screen in pixels
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+	    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+	    screenDens = displayMetrics.density;
+	    widthPixels = displayMetrics.widthPixels;
+	    heightPixels = displayMetrics.heightPixels;
+		
+		speedY=projectileSpeedY*screenDens;
+		speedX=projectileSpeedX*screenDens;
+		damage=projectileDamage;
+		health=projectileHealth;
+	}
+	
+	public ProjectileView(Context context,AttributeSet at,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+		super(context,at);	
+		
+		ctx = context;
+		
+		//find screen density and width/height of screen in pixels
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+	    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+	    screenDens = displayMetrics.density;
+	    widthPixels = displayMetrics.widthPixels;
+	    heightPixels = displayMetrics.heightPixels;
 		
 		speedY=projectileSpeedY*screenDens;
 		speedX=projectileSpeedX*screenDens;
@@ -100,28 +111,6 @@ public class ProjectileView extends ImageView{
 	public void restartThreads(){
 
 	}
-	
-	/**
-	 * Set speed, damage, and health to default values, find properties of user device's screen, and post the effect of gravity on this ProjectileView
-	 * @param context
-	 */
-	private void initProjectileView(Context context){		
-		ctx = context;
-		
-		//find screen density and width/height of screen in pixels
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-	    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-	    screenDens = displayMetrics.density;
-	    widthPixels = displayMetrics.widthPixels;
-	    heightPixels = displayMetrics.heightPixels;
-	    
-		speedY=12.5*screenDens;
-		speedX=12.5*screenDens;
-		damage=10;
-		health=100;
-	}
-	
 
 	public boolean collisionDetection( View two){
 		float left1,right1,top1,bottom1;

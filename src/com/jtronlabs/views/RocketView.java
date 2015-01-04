@@ -1,15 +1,31 @@
 package com.jtronlabs.views;
 
+import com.jtronlabs.new_proj.R;
+
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-public class RocketView extends GravityView{
+public class RocketView extends ShootingView{
+	
+	private final static double DEFAULT_SPEEDY=12.5,DEFAULT_SPEEDX=12.5,DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED=40,DEFAULT_BULLET_DAMAGE=10;
+	
+	public RocketView(Context context, AttributeSet at) {
+		super(context, at,DEFAULT_SPEEDY,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser1);
+	}
+
+	public RocketView(Context context) {
+		super(context,DEFAULT_SPEEDY,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser1);
+	}
 	
 	private ImageView rocket_exhaust;
 	private boolean exhaust_visible=false,removeRunnablePosted=false;
+	
     Handler rocketHandler = new Handler(); 
     Runnable removeExhaustRunnable = new Runnable() {
         @Override
@@ -48,13 +64,6 @@ public class RocketView extends GravityView{
 			}
          }
     };
-    
-    public RocketView(Context context) {
-		super(context);
-	}
-	public RocketView(Context context,AttributeSet atSet) {
-		super(context,atSet);
-	}
 	
 	/**
 	 * method to move rocket right or left of its current position.

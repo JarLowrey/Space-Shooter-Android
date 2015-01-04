@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.AttributeSet;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.new_proj.GameActivity;
@@ -11,37 +12,18 @@ import com.jtronlabs.new_proj.R;
 
 public class ShootingView extends GravityView{
 	
-	int bulletImgId;
-	double bulletDamage,bulletSpeed,bulletFreq;
+	private int bulletImgId;
+	private double bulletDamage,bulletSpeed,bulletFreq;
 	
 	ArrayList<ProjectileView> myBullets = new ArrayList<ProjectileView>();
-	private boolean shootingDown=true;
+	private boolean shootingUp=true;
 	private final int bulletMovingFreq=50;
 	
 	Handler shooterHandler = new Handler();
     Runnable shootBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		ProjectileView bullet = new ProjectileView(ctx,bulletSpeed,1,bulletDamage,0.1);
-    		
-    		//add bullet to layout
-    		bullet.setBackgroundResource(bulletImgId);
-    		int width=(int)ctx.getResources().getDimension(R.dimen.bullet_width);
-    		int height=(int)ctx.getResources().getDimension(R.dimen.bullet_height);
-    		bullet.setLayoutParams(new LayoutParams(width,height));
-    		
-    		//position Bullet View
-    		float xAvg = (ShootingView.this.getX()+ShootingView.this.getX()+ShootingView.this.getWidth())/2;
-    		bullet.setX(xAvg);
-    		if(shootingDown){
-    			bullet.setY(ShootingView.this.getY()+ShootingView.this.getHeight());//middle and bottom of ShootingView
-    		}else{
-    			bullet.setY(ShootingView.this.getY());//middle and top of ShootingView
-    		}
-    		GameActivity.gameScreen.addView(bullet,1);
-    		GameActivity.dangerousObjects.add(bullet);
-
-    		myBullets.add(bullet);
+    		spawnBullet();
     		shooterHandler.postDelayed(this, (long) bulletFreq);
     	}
 	};
@@ -52,7 +34,7 @@ public class ShootingView extends GravityView{
     		for(int i=0;i<myBullets.size();i++){
     			ProjectileView bullet = myBullets.get(i);
 				float y = bullet.getY();
-	    		if(shootingDown){
+	    		if(shootingUp){
 	    			y-=bullet.speedY;
 	    		}else{
 	    			y+=bullet.speedY;
@@ -64,15 +46,34 @@ public class ShootingView extends GravityView{
     	}
 	};
 	
-	public ShootingView(Context context,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg, double bulletFrequency,int bulletBackground) {
+	public ShootingView(Context context,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
 		super(context,projectileSpeedY,projectileSpeedX,projectileDamage,projectileHealth);
 		
-		bulletFreq=bulletFrequency;
 		bulletDamage=bulletDmg;
-		bulletSpeed=bulletSpd;
+		bulletSpeed=bulletSpd*screenDens;
 		bulletImgId=bulletBackground;
 		
-		shooterHandler.postDelayed(shootBulletRunnable,(long) bulletFreq);
+		shooterHandler.post(moveTheBulletsRunnable);
+	}
+	
+	public ShootingView(Context context,AttributeSet at,double projectileSpeedY,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
+		super(context,projectileSpeedY,projectileSpeedX,projectileDamage,projectileHealth);
+		
+		bulletDamage=bulletDmg;
+		bulletSpeed=bulletSpd*screenDens;
+		bulletImgId=bulletBackground;
+		
+		shooterHandler.post(moveTheBulletsRunnable);
+	}
+	
+	/**
+	 * Assign default values to bullet damage, speed, and background Id. Post runnable in charge of moving bullets
+	 */
+	private void initShootingView(){
+		bulletDamage=10;
+		bulletSpeed=25*screenDens;
+		bulletImgId=R.drawable.laser1;
+		
 		shooterHandler.post(moveTheBulletsRunnable);
 	}
 	
@@ -86,7 +87,6 @@ public class ShootingView extends GravityView{
 		super.restartThreads();
 		shooterHandler.postDelayed(shootBulletRunnable,(long) bulletFreq);		
 		shooterHandler.post(moveTheBulletsRunnable);
-
 	}
 	
 	public void changeBulletFrequency(double newBulletFreq){
@@ -95,19 +95,46 @@ public class ShootingView extends GravityView{
 	public void changeBulletBackground(int newBackgroundResourceId){
 		bulletImgId=newBackgroundResourceId;
 	}
-	public void changeBullerSpeed(double newBulletSpeed){
+	public void changeBulletSpeed(double newBulletSpeed){
 		bulletSpeed=newBulletSpeed;
 	}
 	public void changeBulletDamage(double newBulletDamage){
 		bulletDamage=newBulletDamage;
 	}
+	/**
+	 * set View to automatically create bullets. These bullets will be shot downwards, toward the protagonist
+	 * @param bulletSpawningFrequency-frequency at which bullets are automatically spawned
+	 */
+	public void spawnBulletsAutomatically(double bulletSpawningFrequency){
+		bulletFreq=bulletSpawningFrequency;
+		shooterHandler.postDelayed(shootBulletRunnable,(long) bulletFreq);
+		shootingUp=false;
+	}
 	
 	/**
-	 * By default, a ShootingView shoots downward to the bottom of the screen. This method makes the 
-	 * bullets travel upwards, to the top of the screen
+	 * Create a bullet and add it to the screen
 	 */
-	public void switchShootingDirection(){
-		shootingDown=!shootingDown;
+	public void spawnBullet(){
+		ProjectileView bullet = new ProjectileView(ctx,bulletSpeed,1,bulletDamage,0.1);
+		
+		//add bullet to layout
+		bullet.setBackgroundResource(bulletImgId);
+		int width=(int)ctx.getResources().getDimension(R.dimen.bullet_width);
+		int height=(int)ctx.getResources().getDimension(R.dimen.bullet_height);
+		bullet.setLayoutParams(new LayoutParams(width,height));
+		
+		//position Bullet View
+		float xAvg = (ShootingView.this.getX()+ShootingView.this.getX()+ShootingView.this.getWidth())/2;
+		bullet.setX(xAvg);
+		if(shootingUp){
+			bullet.setY(ShootingView.this.getY()+ShootingView.this.getHeight());//middle and bottom of ShootingView
+		}else{
+			bullet.setY(ShootingView.this.getY());//middle and top of ShootingView
+		}
+		GameActivity.gameScreen.addView(bullet,1);
+		GameActivity.dangerousObjects.add(bullet);
+
+		myBullets.add(bullet);
 	}
 	
 }
