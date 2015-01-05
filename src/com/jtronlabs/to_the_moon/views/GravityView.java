@@ -35,7 +35,7 @@ public class GravityView extends ProjectileView implements GameObject{
     			GravityView.this.removeCallbacks(this);
     			removeView(false);
     		}else{
-        		boolean atThreshold=move(ProjectileView.DOWN,false);//move the View downwards
+        		boolean atThreshold=move(ProjectileView.DOWN);//move the View downwards
         		
         		if(atThreshold && !(GravityView.this instanceof RocketView)){//if View is at threshold and is not the protagonist, stop running this Runnable
         			GravityView.this.removeCallbacks(this);

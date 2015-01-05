@@ -1,12 +1,15 @@
 package com.jtronlabs.to_the_moon;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.os.Handler;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.jtronlabs.to_the_moon.views.DiagonalShooterView;
+import com.jtronlabs.to_the_moon.views.DiagonalMovingShooterView;
 import com.jtronlabs.to_the_moon.views.MeteorView;
+import com.jtronlabs.to_the_moon.views.ProjectileView;
 import com.jtronlabs.to_the_moon.views.SimpleEnemyShooterArray;
 
 public class EnemyFactory{
@@ -15,7 +18,6 @@ public class EnemyFactory{
 	private Levels levelInfo = new Levels();
 	private RelativeLayout gameLayout;
 	
-    //
     public int meteorInterval=4000;
     public int simpleArrayShooterInterval=5000;
     public int diagonalShooterInterval=5500;
@@ -25,7 +27,6 @@ public class EnemyFactory{
     private Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
-    		spawnGiantMeteor();
     		MeteorView meteor = new MeteorView(ctx);
     		gameLayout.addView(meteor,1);
     		GameActivity.enemies.add(meteor);
@@ -61,7 +62,7 @@ public class EnemyFactory{
 	Runnable spawnDiagonalShooterRunnable = new Runnable(){
 		@Override
 		public void run() {
-			DiagonalShooterView shooter = new DiagonalShooterView(ctx);
+			DiagonalMovingShooterView shooter = new DiagonalMovingShooterView(ctx);
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
@@ -109,15 +110,18 @@ public class EnemyFactory{
 	public void spawnGiantMeteor(){
 		MeteorView giant = new MeteorView(ctx);
 		
-		//change width and height
-		final int wid = (int)ctx.getResources().getDimension(R.dimen.giant_meteor_width);
+		//change width and height. set X and Y positions
+		final int width = (int)ctx.getResources().getDimension(R.dimen.giant_meteor_width);
 		final int height= (int)ctx.getResources().getDimension(R.dimen.giant_meteor_height);
-		giant.setLayoutParams(new LayoutParams(wid,height));
+		giant.setLayoutParams(new LayoutParams(width,height));
+		giant.setY(-height);
+		giant.setX((float) ((ProjectileView.widthPixels-width)*Math.random()));
 		
 		//set damage and health to 200, score to 20
-		giant.setDamage(200);
-		giant.heal(200-MeteorView.DEFAULT_HEALTH);
+		giant.setDamage(150);
+		giant.heal(150-MeteorView.DEFAULT_HEALTH);
 		giant.setScoreValue(20);
+		giant.changeSpeedYDown(.45);
 		
 		//add to layout
 		gameLayout.addView(giant,1);

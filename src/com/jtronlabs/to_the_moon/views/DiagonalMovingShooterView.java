@@ -5,7 +5,7 @@ import android.widget.RelativeLayout;
  
 import com.jtronlabs.to_the_moon.R;
 
-public class DiagonalShooterView extends ShootingView implements GameObject{
+public class DiagonalMovingShooterView extends ShootingView implements GameObject{
 	
 	private final static int DEFAULT_SCORE=10;
 	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=.5,DEFAULT_SPEEDX=15,
@@ -16,33 +16,34 @@ public class DiagonalShooterView extends ShootingView implements GameObject{
 
 		@Override
 		public void run() {
-			boolean offScreen = DiagonalShooterView.this.move(ProjectileView.DOWN, true);
+			boolean offScreen = DiagonalMovingShooterView.this.move(ProjectileView.DOWN);
 			if(offScreen){
-				DiagonalShooterView.this.removeView(false);
+				DiagonalMovingShooterView.this.removeView(false);
+				DiagonalMovingShooterView.this.removeCallbacks(this);
 				return;
 			}
 			if(travelingRight){
-				DiagonalShooterView.this.move(ProjectileView.RIGHT, true);
-				final double farRight = widthPixels-DiagonalShooterView.this.getSpeedX();
-				final double rightSideOfShip = DiagonalShooterView.this.getX()+DiagonalShooterView.this.getWidth();
+				DiagonalMovingShooterView.this.move(ProjectileView.RIGHT);
+				final double farRight = widthPixels-DiagonalMovingShooterView.this.getSpeedX();
+				final double rightSideOfShip = DiagonalMovingShooterView.this.getX()+DiagonalMovingShooterView.this.getWidth();
 				if(rightSideOfShip>=farRight){//ship is on far right portion of screen
 					travelingRight=false;
 				}				
 			}else{
-				DiagonalShooterView.this.move(ProjectileView.LEFT, true);
-				final double farLeft = DiagonalShooterView.this.getSpeedX();
-				final double leftSideOfShip = DiagonalShooterView.this.getX();
+				DiagonalMovingShooterView.this.move(ProjectileView.LEFT);
+				final double farLeft = DiagonalMovingShooterView.this.getSpeedX();
+				final double leftSideOfShip = DiagonalMovingShooterView.this.getX();
 				if(leftSideOfShip <= farLeft){//ship is on far left portion of screen
 					travelingRight=true;
 				}		
 			}
 			
-			DiagonalShooterView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+			DiagonalMovingShooterView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
 		}
 		
 	};
 	
-	public DiagonalShooterView(Context context) {
+	public DiagonalMovingShooterView(Context context) {
 		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser2);
 		

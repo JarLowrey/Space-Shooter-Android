@@ -182,10 +182,10 @@ public class GameActivity extends Activity implements OnClickListener{
 					
 					//pause gravity and move the rocket
 					rocket.stopGravity();
-					rocket.move(ProjectileView.UP,false);
+					rocket.move(ProjectileView.UP);
 					rocket.startGravity();
 				}else{
-					rocket.move(ProjectileView.LEFT,false);
+					rocket.move(ProjectileView.LEFT);
 				}
 				break; 
 			case R.id.btnRight:
@@ -202,14 +202,14 @@ public class GameActivity extends Activity implements OnClickListener{
 					
 					//pause gravity and move the rocket
 					rocket.stopGravity();
-					rocket.move(ProjectileView.UP,false);
+					rocket.move(ProjectileView.UP);
 					rocket.startGravity();
 				}else{
-					rocket.move(ProjectileView.RIGHT,false);
+					rocket.move(ProjectileView.RIGHT);
 				}
 				break;
 			case R.id.btnMiddle:
-				rocket.spawnBullet();
+				rocket.spawnCenteredBullet();
 				break;
 		}
 		

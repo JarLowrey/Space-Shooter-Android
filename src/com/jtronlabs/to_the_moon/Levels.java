@@ -5,8 +5,8 @@ package com.jtronlabs.to_the_moon;
 public class Levels {
 	//GAME STATUS DATA
 	public boolean rightBtnWasTappedPreviously;//indicates which button the user should tap. 
-	public final int[] levelBackgrounds={R.drawable.level1,R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
-	private final int MAX_LEVEL=25, INCREASE_LEVEL_GOAL_INCREMENT=5,BTN_TAP_SCORE_WEIGHT=1;
+	private final int[] levelBackgrounds={R.drawable.level1,R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
+	public final int MAX_LEVEL=25, INCREASE_LEVEL_GOAL_INCREMENT=5,BTN_TAP_SCORE_WEIGHT=1;
 	private static int score,numBtnTaps,level;
 	
 	public Levels(){
@@ -66,6 +66,9 @@ public class Levels {
 	}
 	public int levelDifficulty(){
 		return level/INCREASE_LEVEL_GOAL_INCREMENT+1;
+	}
+	public boolean isLastLevelInDifficulty(){
+		return level%INCREASE_LEVEL_GOAL_INCREMENT==(INCREASE_LEVEL_GOAL_INCREMENT-1);
 	}
 	public void reset(){
 		numBtnTaps=0;

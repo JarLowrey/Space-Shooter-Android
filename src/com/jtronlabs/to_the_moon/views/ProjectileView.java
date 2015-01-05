@@ -20,7 +20,7 @@ public class ProjectileView extends ImageView implements GameObject{
 	int score;
 	double speedYUp,speedYDown,speedX, damage, health;
 	public float lowestPositionThreshold=-1,highestPositionThreshold=-1;
-	float screenDens,widthPixels,heightPixels;
+	public static float screenDens,widthPixels,heightPixels;
 	Context ctx;
 	
     private Runnable setBackgroundTransparentRunnable = new Runnable(){
@@ -84,7 +84,7 @@ public class ProjectileView extends ImageView implements GameObject{
 	 * @param direction-whichDirection the View should move. Input needs to be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT
 	 * @return-true if ProjectileView is at threshold
 	 */
-	public boolean move(int direction,boolean canMoveOffScreen) throws IllegalArgumentException{
+	public boolean move(int direction) throws IllegalArgumentException{
 		if(direction!=UP && direction!=RIGHT && direction!=DOWN && direction!=LEFT){
 			throw new IllegalArgumentException("direction argument must be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT");
 		}
@@ -95,8 +95,9 @@ public class ProjectileView extends ImageView implements GameObject{
 		boolean atThreshold=false;
 		switch(direction){
 		case UP:
+			Log.d("lowrey","thresh="+highestPositionThreshold);
 			y-=speedYUp;
-			if(highestPositionThreshold>0){
+			if(highestPositionThreshold>=-this.getHeight()){
 				if(y>=highestPositionThreshold){this.setY(y);}
 				else{atThreshold=true;}					
 			}
@@ -108,7 +109,7 @@ public class ProjectileView extends ImageView implements GameObject{
 		case DOWN:
 			y+=speedYDown;
 			if(lowestPositionThreshold>0){
-				if(y<=lowestPositionThreshold){this.setY(y);}
+				if((y+getHeight())<=lowestPositionThreshold){this.setY(y);}
 				else{atThreshold=true;}
 			}
 			break;
@@ -117,12 +118,6 @@ public class ProjectileView extends ImageView implements GameObject{
 			if(x>=0){this.setX(x);}
 			break;
 		}
-		
-		if(canMoveOffScreen){
-			if(direction == RIGHT ||direction==LEFT){this.setX(x);}
-			else{this.setY(y);}
-		}
-			
 		
 		return atThreshold;
 	}

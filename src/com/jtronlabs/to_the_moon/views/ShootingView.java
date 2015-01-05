@@ -3,8 +3,8 @@ package com.jtronlabs.to_the_moon.views;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -21,7 +21,7 @@ public class ShootingView extends GravityView{
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		spawnBullet();
+    		spawnCenteredBullet();
     		ShootingView.this.postDelayed(this, (long) bulletFreq);
     	}
 	};
@@ -30,25 +30,28 @@ public class ShootingView extends GravityView{
     	@Override
         public void run() {
     		for(int i=0;i<myBullets.size();i++){
+        		boolean atThreshold=false;
     			ProjectileView bullet = myBullets.get(i);
 	    		if(shootingUp){
-	    			bullet.move(ProjectileView.UP,true);
+	    			atThreshold=bullet.move(ProjectileView.UP);
 	    		}else{
-	    			bullet.move(ProjectileView.DOWN,true);
+	    			atThreshold=bullet.move(ProjectileView.DOWN);
+	    		}
+	    		if(atThreshold){
+	    			bullet.removeView(false);
+	    			myBullets.remove(i);
 	    		}
     		}
-    		ShootingView.this.postDelayed(moveMyBulletsRunnable, HOW_OFTEN_TO_MOVE);
-			
+    		if(ShootingView.this.getHealth()<=0 && myBullets.size()==0){
+    			ShootingView.this.removeCallbacks(this);				
+			}else{
+    			ShootingView.this.postDelayed(moveMyBulletsRunnable, HOW_OFTEN_TO_MOVE);
+    		}
     	}
 	};
 	
 
 	public int removeView(boolean showExplosion){
-		cleanUpThreads();
-		for(ProjectileView bullet : myBullets){
-			bullet.removeView(false);
-		}
-		myBullets=null;
 		return super.removeView(showExplosion);
 	}
 	
@@ -59,6 +62,7 @@ public class ShootingView extends GravityView{
 		bulletDamage=bulletDmg;
 		bulletSpeed=bulletSpd*screenDens;
 		bulletImgId=bulletBackground;
+		post(moveMyBulletsRunnable);
 	}
 	
 	public ShootingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
@@ -68,12 +72,12 @@ public class ShootingView extends GravityView{
 		bulletDamage=bulletDmg;
 		bulletSpeed=bulletSpd*screenDens;
 		bulletImgId=bulletBackground;
+		post(moveMyBulletsRunnable);
 	}
 	
 	public void cleanUpThreads(){
 		super.cleanUpThreads();
 		this.removeCallbacks(spawnBulletRunnable);
-		this.removeCallbacks(moveMyBulletsRunnable);
 	}
 	
 	public void restartThreads(){
@@ -81,7 +85,6 @@ public class ShootingView extends GravityView{
 		if(autoSpawnBullets){
 			this.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
 		}
-		this.post(moveMyBulletsRunnable);
 	}
 	
 	public void changeBulletFrequency(double newBulletFreq){
@@ -109,7 +112,7 @@ public class ShootingView extends GravityView{
 	/**
 	 * Create a bullet and add it to the screen
 	 */
-	public void spawnBullet(){
+	public void spawnCenteredBullet(){
 		ProjectileView bullet = new ProjectileView(ctx,0,bulletSpeed,bulletSpeed,1,bulletDamage,0.1);
 		
 		//add bullet to layout
@@ -123,8 +126,10 @@ public class ShootingView extends GravityView{
 		bullet.setX(xAvg);
 		if(shootingUp){
 			bullet.setY(ShootingView.this.getY());//middle and top of ShootingView
+			bullet.highestPositionThreshold=-bullet.getHeight();
 		}else{
 			bullet.setY(ShootingView.this.getY()+ShootingView.this.getHeight());//middle and bottom of ShootingView
+			bullet.lowestPositionThreshold=heightPixels;
 		}
 		
 		((RelativeLayout)this.getParent()).addView(bullet,1);
