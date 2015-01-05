@@ -1,0 +1,87 @@
+package com.jtronlabs.to_the_moon;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class IntroActivity extends Activity implements OnClickListener{
+	
+	private TextView text;
+	private Button next;
+	private final String[] introText={"Strange things are happening on the moon.","Tides are out of alignment, meteors plummet from above.","Strange, strange things are happening on the moon.",
+			"Soldier, you are the last hope.\n\nSteer your vessel to the heavens above and solve this.","For humanity.\nFor your family.\nFor the ladies.","You are equipped with the latest "+
+	"and greatest ship.","Deliver fuel to the engines by pushing the red buttons on your control panel.\n\nTo move upwards, alternate engines. To move to one side, power an engine repeatedly.",
+	"God speed..."};
+	private int posInArray=0,posInCurrentString=0,newCharInterval=50;
+	private boolean allCharsDisplayed=false;
+	   
+	//Handler and runnable to display one extra character every newCharInterval
+    Handler introHandler = new Handler();
+    Runnable showNewCharsRunnable = new Runnable() {
+		@Override
+		public void run() {
+			posInCurrentString++;
+			String currentStringInArray = introText[posInArray];
+			
+			//if position in current string is less than length, display another char from the string and repost runnable. Otherwise, flag all chars displayed and do not repost
+			if(posInCurrentString<=currentStringInArray.length()){
+				String displayedString = currentStringInArray.substring(0,posInCurrentString);
+				text.setText(displayedString);
+				
+				introHandler.postDelayed(this, newCharInterval);
+			}else{
+				if(posInArray==(introText.length-1)){
+					next.setText("Begin");
+				}
+				allCharsDisplayed=true;
+				introHandler.removeCallbacks(showNewCharsRunnable);
+			}
+		}
+    };
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_intro);
+		
+		text = (TextView)findViewById(R.id.intro_text);
+		next = (Button)findViewById(R.id.intro_btn_next);
+		next.setOnClickListener(this);
+		
+		introHandler.post(showNewCharsRunnable);
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		switch(arg0.getId()){
+		case R.id.intro_btn_next: 
+			if(allCharsDisplayed){
+				if(posInArray==(introText.length-1)){//start game					 
+					Intent i= new Intent(this, GameActivity.class);
+					startActivity(i);
+					finish();
+				}else{//increment position in array and post displayNewChars runnable
+					posInArray++;
+					allCharsDisplayed=false;
+					posInCurrentString=0;
+					
+					introHandler.post(showNewCharsRunnable);
+				}
+			}else{//display all characters
+				if(posInArray==(introText.length-1)){//start game					 
+					next.setText("Begin");
+				}
+				introHandler.removeCallbacks(showNewCharsRunnable);
+				text.setText(introText[posInArray]);
+				allCharsDisplayed=true;
+			}
+			break;
+		}
+		
+	}
+}

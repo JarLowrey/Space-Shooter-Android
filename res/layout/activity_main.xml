@@ -55,7 +55,7 @@
             android:background="@drawable/ic_action_play"/>
     </RelativeLayout>
 
-    <com.jtronlabs.views.DrawTextView
+    <com.jtronlabs.to_the_moon.views.DrawTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_canvas_height"

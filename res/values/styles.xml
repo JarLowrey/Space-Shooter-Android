@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -17,4 +17,15 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="Game_Text">
+	    <item name="android:textColor">@android:color/white</item>
+	    <item name="android:textSize">30sp</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:gravity">center</item>
+	
+	    <item name="android:shadowColor">#ffffff</item>
+	    <item name="android:shadowDx">1</item>
+	    <item name="android:shadowDy">2</item>
+	    <item name="android:shadowRadius">3</item>
+	</style>
 </resources>

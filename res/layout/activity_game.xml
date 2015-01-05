@@ -22,7 +22,7 @@
         android:visibility="gone"
         android:src="@drawable/rockets_fire" />
     
-    <com.jtronlabs.views.RocketView
+    <com.jtronlabs.to_the_moon.views.RocketView
         android:id="@+id/rocket_game"
         android:layout_width="@dimen/rocket_game_width"
         android:layout_height="@dimen/rocket_game_height"
