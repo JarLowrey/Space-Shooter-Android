@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-public class RocketView extends ShootingView{
+public class RocketView extends ShootingView implements GameObject{
 	
 	private final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=3,DEFAULT_SPEEDX=12.5,DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED=3,DEFAULT_BULLET_DAMAGE=10;

@@ -4,12 +4,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 
+import com.jtronlabs.views.RocketView;
 /**
  * A ProjectileView with a constant downwards force that is a different speed than ProjectileView's SpeedY
  * @author JAMES LOWREY
  *
  */
-public class GravityView extends ProjectileView{
+public class GravityView extends ProjectileView implements GameObject{
 	
 	public GravityView(Context context,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
 		super(context,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
@@ -35,8 +36,13 @@ public class GravityView extends ProjectileView{
     			gravityHandler.removeCallbacks(this);
     			removeView(false);
     		}else{
-        		move(ProjectileView.DOWN,false);
-	    		gravityHandler.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE);
+        		boolean atThreshold=move(ProjectileView.DOWN,false);//move the View downwards
+        		
+        		if(atThreshold && !(GravityView.this instanceof RocketView)){//if View is at threshold and is not the protagonist, stop running this Runnable
+        			gravityHandler.removeCallbacks(this);
+        		}else{
+        			gravityHandler.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE);
+        		}
     		}
     	}
     };

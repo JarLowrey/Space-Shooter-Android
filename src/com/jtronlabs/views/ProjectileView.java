@@ -1,19 +1,21 @@
 package com.jtronlabs.views;
 
+import com.jtronlabs.new_proj.GameActivity;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-public class ProjectileView extends ImageView{
+public class ProjectileView extends ImageView implements GameObject{
 
 	public static int HOW_OFTEN_TO_MOVE=100;
 	public static final int UP=0,RIGHT=1,DOWN=2,LEFT=3;
 	
 	double speedYUp,speedYDown,speedX, damage, health;
-	public float threshold=-10;
+	public float lowestPositionOnScreen=-10;
 	float screenDens,widthPixels,heightPixels;
 	Context ctx;
 	
@@ -67,65 +69,77 @@ public class ProjectileView extends ImageView{
 	/**
 	 * Move the View on the screen according to is speedY or speedX
 	 * @param direction-whichDirection the View should move. Input needs to be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT
-	 * @return-true if a valid direction was passed in, false otherwise
+	 * @return-true if ProjectileView is at threshold
 	 */
-	public boolean move(int direction,boolean canMoveOffScreen){
-		boolean validDirection=false;
+	public boolean move(int direction,boolean canMoveOffScreen) throws IllegalArgumentException{
+		if(direction!=UP && direction!=RIGHT && direction!=DOWN && direction!=LEFT){
+			throw new IllegalArgumentException("direction argument must be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT");
+		}
+		
 		float x =this.getX();
 		float y =this.getY();
+		boolean horizontalMovement=(direction == RIGHT ||direction==LEFT), verticalMovement = (direction == UP ||direction==DOWN);
+		
 		
 		switch(direction){
 		case UP:
 			y-=speedYUp;
-			validDirection=true;
 			break;
 		case RIGHT:
 			x+=speedX;
-			validDirection=true;
 			break;
 		case DOWN:
 			y+=speedYDown;
-			validDirection=true;
 			break;
 		case LEFT:
 			x-=speedX;
-			validDirection=true;
 			break;
 		}
+		boolean atThreshold=false;
 		if(canMoveOffScreen){
-			this.setX(x);
-			this.setY(y);
+			if(horizontalMovement){this.setX(x);}
+			else{this.setY(y);}
 		}else {
 			//cannot move off side of screen
-			if(x>=0 && (x+this.getWidth()<=widthPixels)){
+			if(horizontalMovement && (x>=0 && (x+this.getWidth()<=widthPixels))){
 				this.setX(x);
 			}
-			if( ( y+getHeight() ) >=0){
+			if( verticalMovement && y>=0){
 				//Cannot move off top or bottom of screen or past lower threshold
-				if(threshold>0){
-					if(y<=threshold){this.setY(y);}
+				if(lowestPositionOnScreen>0){
+					if(y<=lowestPositionOnScreen){this.setY(y);}
+					else{atThreshold=true;}
 				}else{
 					this.setY(y);
 				}
 			}
 		}
 		
-		return validDirection;
+		return atThreshold;
 	}
 
-	public void takeDamage(double amountOfDamage){
+	/**
+	 * Subtract @param/amountOfDamage from this View's health. Return true if the view dies and remove it from the game. Otherwise, return false and create an explosion.
+	 * @param amountOfDamage-how much the view's health should be subtracted
+	 * @return-true if the view 'dies', false otherwise
+	 */
+	public boolean takeDamage(double amountOfDamage){
+		boolean viewDies=false;
 		health-=amountOfDamage;
 		if(health<=0){
 			removeView(true);
+			viewDies= true;
 		}else{
-			createExplosion();			
+			createExplosion();
 		}
+		return viewDies;
 	}
 	
 	public void removeView(boolean showExplosion){
-		if(showExplosion){createExplosion();}
-		cleanUpThreads();
-		((RelativeLayout)this.getParent()).removeView(this);
+		if(showExplosion){createExplosion();}//show explosion
+		if(GameActivity.enemies.contains(this)){GameActivity.enemies.remove(this);}//remove from list of enemies
+		cleanUpThreads();//destroy all threads
+		((ViewGroup)this.getParent()).removeView(this);//remove from game layout
 	}
 	
 	public void heal(double howMuchHealed){

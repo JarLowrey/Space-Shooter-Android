@@ -5,9 +5,9 @@ import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.new_proj.R;
 
-public class MeteorView extends GravityView{
+public class MeteorView extends GravityView implements GameObject{
 	
-	private final static double DEFAULT_SPEED_UP=1,DEFAULT_SPEED_DOWN=4,DEFAULT_SPEEDX=1,DEFAULT_COLLISION_DAMAGE=20, 
+	private final static double DEFAULT_SPEED_UP=1,DEFAULT_SPEED_DOWN=4,DEFAULT_SPEEDX=1,DEFAULT_COLLISION_DAMAGE=12, 
 			DEFAULT_HEALTH=5;
 	
 	public MeteorView(Context context) {
@@ -23,9 +23,16 @@ public class MeteorView extends GravityView{
 		//set initial position of View
 		float xRand = (float) ((widthPixels-len)*Math.random());
 		this.setX(xRand);
-		this.setY(-len/2);//slightly off top of screen
+		this.setY(0);
 		
 		cleanUpThreads();
 		restartThreads();
+	}
+
+	public void cleanUpThreads(){
+		super.cleanUpThreads();
+	}
+	public void restartThreads(){
+		super.restartThreads();
 	}
 }

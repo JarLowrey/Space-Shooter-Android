@@ -55,7 +55,7 @@ public class EnemyFactory{
 	Runnable spawnMovingSideToSideShootingRunnable = new Runnable(){
     	@Override
         public void run() {
-    		if(levelInfo.getLevel()>1 /*&& SideToSideMovingShooter.allSideToSideShooters.size()<SideToSideMovingShooter.NUM_SHOOTERS_IN_A_ROW*4*/){
+    		if(levelInfo.getLevel()>1 && SideToSideMovingShooter.allSideToSideShooters.size()<SideToSideMovingShooter.MAX_NUM_SIDE_TO_SIDE_SHOOTERS){
     			SideToSideMovingShooter shooter = new SideToSideMovingShooter(ctx);
     			gameLayout.addView(shooter,1);
         		GameActivity.enemies.add(shooter);

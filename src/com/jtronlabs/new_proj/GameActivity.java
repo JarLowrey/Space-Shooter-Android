@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jtronlabs.views.GameObject;
 import com.jtronlabs.views.ProjectileView;
 import com.jtronlabs.views.RocketView;
 import com.jtronlabs.views.ShootingView;
@@ -33,9 +34,10 @@ public class GameActivity extends Activity implements OnClickListener{
 	private RocketView rocket;
 	private ImageView rocket_exhaust;
 	private RelativeLayout btnBackground;
-
-	public RelativeLayout gameScreen;
-	public static ArrayList<ProjectileView> enemies=new ArrayList<ProjectileView>();
+	private RelativeLayout gameScreen;
+	
+	
+	public static ArrayList<GameObject> enemies=new ArrayList<GameObject>();
 	
 	//MODEL
 	private Levels levelInfo;
@@ -48,16 +50,20 @@ public class GameActivity extends Activity implements OnClickListener{
         @Override
         public void run() {
         	for(int i=enemies.size()-1;i>=0;i--){
-        		ProjectileView enemy = enemies.get(i);
+        		/*			COLLISION DETECTION			*/
+        		boolean enemyDies=false,protagonistDies=false;
+        		ProjectileView projectileCastedEnemy = (ProjectileView)enemies.get(i);
+        		
         		//if enemy can shoot, check if its bullets have hit the protagonist
-        		if(enemy instanceof ShootingView){
-        			ArrayList<ProjectileView> enemyBullets = ((ShootingView) enemy).myBullets;
+        		if(enemies.get(i) instanceof ShootingView){
+        			ArrayList<ProjectileView> enemyBullets = ((ShootingView) enemies.get(i)).myBullets;
         			
         			for(int j=enemyBullets.size()-1;j>=0;j--){
         				ProjectileView bullet = enemyBullets.get(j);
         				if(rocket.collisionDetection(bullet)){//bullet collided with rocket
         					//rocket is damaged
-                			rocket.takeDamage(bullet.getDamage());
+                			protagonistDies = rocket.takeDamage(bullet.getDamage());
+                			if(protagonistDies){gameOver();return;}
                 			//remove the bullet from the game
                 			enemyBullets.remove(j);
                 			bullet.cleanUpThreads();
@@ -67,26 +73,40 @@ public class GameActivity extends Activity implements OnClickListener{
         		}
         		
     			//check if the enemy itself has collided with the  protagonist
-        		if(rocket.collisionDetection(enemy)){
-        			rocket.takeDamage(enemy.getDamage());
-        			enemies.remove(i);
+        		if(rocket.collisionDetection(projectileCastedEnemy)){
+        			protagonistDies = rocket.takeDamage(projectileCastedEnemy.getDamage());
+        			if(protagonistDies){gameOver();return;}
+        			
+        			enemies.get(i).removeView(false);
         		}
         		
         		//check if protagonist's bullets have hit the enemy
-    			ArrayList<ProjectileView> protagonistBullets = ((ShootingView) enemy).myBullets;
+    			ArrayList<ProjectileView> protagonistBullets = rocket.myBullets;
     			for(int j=protagonistBullets.size()-1;j>=0;j--){
+    				boolean stopCheckingIfProtagonistBulletsHitEnemy=false;
     				ProjectileView bullet = protagonistBullets.get(j);
-    				if(bullet.collisionDetection(enemy)){//bullet collided with rocket
-    					//rocket is damaged
-            			enemy.takeDamage(bullet.getDamage());
+    				
+    				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
+    					//enemy is damaged
+            			enemyDies = projectileCastedEnemy.takeDamage(bullet.getDamage());
             			//remove the bullet from the game
             			protagonistBullets.remove(j);
             			bullet.cleanUpThreads();
             			bullet.removeView(true);
+            			/*
+            			 * only one bullet can hit a specific enemy at once. 
+            			 * If that enemy were to die, then checking to see if the other bullets hit 
+            			 * him will cause a NullPointerException. Also, breaking here saves resources.
+            			 */
+            			stopCheckingIfProtagonistBulletsHitEnemy=true;
             		}
-    			}
-        		
+    				if(stopCheckingIfProtagonistBulletsHitEnemy){
+            			break;
+    				}
+    			}    			
         	}
+
+			/*			DO OTHER STUFF 		*/
             gameHandler.postDelayed(this, 50);
         }
     };
@@ -128,7 +148,7 @@ public class GameActivity extends Activity implements OnClickListener{
 		    public void onGlobalLayout() { 
 		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 		        //have a little portion of the rocket poking out above the bottom
-				rocket.threshold=btnBackground.getY()
+				rocket.lowestPositionOnScreen=btnBackground.getY()
 						-rocket.getHeight()/4;
 		    } 
 		});
@@ -136,7 +156,6 @@ public class GameActivity extends Activity implements OnClickListener{
 		//set up the game
 		levelInfo = new Levels();
 		enemyFactory = new EnemyFactory(this,gameScreen);
-		resetGame();
 	}
 
 	@Override
@@ -236,21 +255,16 @@ public class GameActivity extends Activity implements OnClickListener{
 		gameWindowOverlay.startAnimation(fade_out);
 	}
 	
-	/**
-	 * Reset all static variables, so that the game can be run multiple times
-	 */
-	private void resetGame(){
-		levelInfo.reset();
-		gameScreen = (RelativeLayout)findViewById(R.id.gameScreen);
-
-		for(ProjectileView a:enemies){//not sure if this looping is needed, but just double checking everything was removed from memory
-			a.removeView(false);
+	private void gameOver(){
+		//clean up all threads
+		gameHandler.removeCallbacks(mainGameLoopRunnable);
+		enemyFactory.cleanUpThreads();
+		for(int i=0;i<enemies.size();i++){
+			enemies.get(i).removeView(false);//this cleans up the threads and removes the Views from the Activity
 		}
-		enemies=new ArrayList<ProjectileView>();
 		
-		for(SideToSideMovingShooter a:SideToSideMovingShooter.allSideToSideShooters){
-			a.removeView(false);
-		}
+		//clean up static variables
+		enemies=new ArrayList<GameObject>();
 		SideToSideMovingShooter.allSideToSideShooters = new ArrayList<SideToSideMovingShooter>();
 	}
 }
