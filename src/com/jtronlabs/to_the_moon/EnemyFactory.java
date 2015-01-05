@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.views.MeteorView;
-import com.jtronlabs.to_the_moon.views.SimpleEnemyShooter;
+import com.jtronlabs.to_the_moon.views.SimpleEnemyShooterArray;
 
 public class EnemyFactory{
 	
@@ -18,9 +18,9 @@ public class EnemyFactory{
     public int meteorInterval=4000;
     public int movingSideToSideShooterInterval=5000;
     
-    Handler enemySpawnHandler = new Handler();
+    private Handler enemySpawnHandler = new Handler();
     
-    Runnable meteorSpawningRunnable = new Runnable(){
+    private Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
 //    		double rand = Math.random()*100;
@@ -52,8 +52,8 @@ public class EnemyFactory{
 	Runnable spawnSimpleShooterRunnable = new Runnable(){
     	@Override
         public void run() {
-    		final int numShootersAlive = SimpleEnemyShooter.allSimpleShooters.size();
-    		final int maxNumShooters = SimpleEnemyShooter.getMaxNumShips();
+    		final int numShootersAlive = SimpleEnemyShooterArray.allSimpleShooters.size();
+    		final int maxNumShooters = SimpleEnemyShooterArray.getMaxNumShips();
     		final int numShootersAliveCutoff = 4;
     		
     		if(levelInfo.getLevel()>1 && numShootersAlive<maxNumShooters){
@@ -63,7 +63,7 @@ public class EnemyFactory{
     			}
     			//otherwise, respawn just 1 simple shooter
     			else{
-	    			SimpleEnemyShooter shooter = new SimpleEnemyShooter(ctx);
+	    			SimpleEnemyShooterArray shooter = new SimpleEnemyShooterArray(ctx);
 	    			gameLayout.addView(shooter,1);
 	        		GameActivity.enemies.add(shooter);
     			}
@@ -76,7 +76,7 @@ public class EnemyFactory{
 		ctx=context;
 		gameLayout=gameScreen;
 		
-		SimpleEnemyShooter.resetSimpleShooterPositions();
+		SimpleEnemyShooterArray.resetSimpleShooterPositions();
 	}
 	
 	public void cleanUpThreads(){
@@ -95,12 +95,12 @@ public class EnemyFactory{
 		return (long) (movingSideToSideShooterInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*3000);
 	}
 	public void spawnAllSimpleShooters(){
-		int temp=SimpleEnemyShooter.allSimpleShooters.size();//needed due to the intricacies of a for loop
+		int temp=SimpleEnemyShooterArray.allSimpleShooters.size();//needed due to the intricacies of a for loop
 		Log.d("lowrey","size="+temp);
-		Log.d("lowrey","max="+SimpleEnemyShooter.getMaxNumShips());
+		Log.d("lowrey","max="+SimpleEnemyShooterArray.getMaxNumShips());
 		
-		for(int i=temp;i<SimpleEnemyShooter.getMaxNumShips();i++){
-			SimpleEnemyShooter shooter = new SimpleEnemyShooter(ctx);
+		for(int i=temp;i<SimpleEnemyShooterArray.getMaxNumShips();i++){
+			SimpleEnemyShooterArray shooter = new SimpleEnemyShooterArray(ctx);
 			shooter.changeSpeedYDown(1.2);
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);

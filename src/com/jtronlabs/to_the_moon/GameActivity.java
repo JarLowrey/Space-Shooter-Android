@@ -17,6 +17,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,7 +25,7 @@ import com.jtronlabs.to_the_moon.views.GameObject;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 import com.jtronlabs.to_the_moon.views.RocketView;
 import com.jtronlabs.to_the_moon.views.ShootingView;
-import com.jtronlabs.to_the_moon.views.SimpleEnemyShooter;
+import com.jtronlabs.to_the_moon.views.SimpleEnemyShooterArray;
 
 public class GameActivity extends Activity implements OnClickListener{
 
@@ -35,6 +36,7 @@ public class GameActivity extends Activity implements OnClickListener{
 	private ImageView rocket_exhaust;
 	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
+	private ProgressBar healthBar;
 	
 	
 	public static ArrayList<GameObject> enemies=new ArrayList<GameObject>();
@@ -64,6 +66,7 @@ public class GameActivity extends Activity implements OnClickListener{
         					//rocket is damaged
                 			protagonistDies = rocket.takeDamage(bullet.getDamage());
                 			if(protagonistDies){gameOver();return;}
+                			else{healthBar.setProgress((int) rocket.getHealth());}
                 			//remove the bullet from the game
                 			enemyBullets.remove(j);
                 			bullet.cleanUpThreads();
@@ -76,6 +79,7 @@ public class GameActivity extends Activity implements OnClickListener{
         		if(rocket.collisionDetection(projectileCastedEnemy)){
         			protagonistDies = rocket.takeDamage(projectileCastedEnemy.getDamage());
         			if(protagonistDies){gameOver();return;}
+        			else{healthBar.setProgress((int) rocket.getHealth());}
         			
         			enemies.get(i).removeView(false);
         		}
@@ -138,6 +142,9 @@ public class GameActivity extends Activity implements OnClickListener{
 		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
 		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
 		btn_taps_text=(TextView)findViewById(R.id.num_btn_taps_textview);
+		healthBar=(ProgressBar)findViewById(R.id.health_bar);
+		healthBar.setMax((int) RocketView.DEFAULT_HEALTH);
+		healthBar.setProgress(healthBar.getMax());
 		
 		//set up rocket
 		rocket = (RocketView)findViewById(R.id.rocket_game);
@@ -257,6 +264,8 @@ public class GameActivity extends Activity implements OnClickListener{
 	}
 	
 	private void gameOver(){
+		healthBar.setProgress(0);
+		
 		//remove OnClickListeners
 		btnLeft.setOnClickListener(null);
 		btnRight.setOnClickListener(null);
@@ -271,6 +280,6 @@ public class GameActivity extends Activity implements OnClickListener{
 		
 		//clean up static variables
 		enemies=new ArrayList<GameObject>();
-		SimpleEnemyShooter.allSimpleShooters = new ArrayList<SimpleEnemyShooter>();
+		SimpleEnemyShooterArray.allSimpleShooters = new ArrayList<SimpleEnemyShooterArray>();
 	}
 }

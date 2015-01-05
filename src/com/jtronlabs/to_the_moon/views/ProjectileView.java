@@ -1,13 +1,16 @@
 package com.jtronlabs.to_the_moon.views;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.R;
 
 public class ProjectileView extends ImageView implements GameObject{
 
@@ -18,6 +21,15 @@ public class ProjectileView extends ImageView implements GameObject{
 	public float lowestPositionThreshold=-10;
 	float screenDens,widthPixels,heightPixels;
 	Context ctx;
+
+    private Handler projectileHandler = new Handler();
+    
+    private Runnable setBackgroundTransparentRunnable = new Runnable(){
+		@Override
+		public void run() {
+			ProjectileView.this.setBackgroundColor(Color.TRANSPARENT);
+		}
+    };
 	
 	public ProjectileView(Context context,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX,double projectileDamage,double projectileHealth) {
 		super(context);	
@@ -118,20 +130,27 @@ public class ProjectileView extends ImageView implements GameObject{
 		return atThreshold;
 	}
 
-	/**
-	 * Subtract @param/amountOfDamage from this View's health. Return true if the view dies and remove it from the game. Otherwise, return false and create an explosion.
+	/** 
+	 * Subtract @param/amountOfDamage from this View's health. Flash the View's background red to indicate damage taken. Return true if the view dies and remove it from the game. Otherwise, return false and create an explosion.
 	 * @param amountOfDamage-how much the view's health should be subtracted
 	 * @return-true if the view 'dies', false otherwise
 	 */
 	public boolean takeDamage(double amountOfDamage){
 		boolean viewDies=false;
 		health-=amountOfDamage;
+		
 		if(health<=0){
 			removeView(true);
 			viewDies= true;
 		}else{
+			//set the background behind this view, and then remove it after howLongBackgroundIsApplied milliseconds
+			this.setBackgroundResource(R.color.light_red);
+			final int howLongBackgroundIsApplied=200;
+			this.postDelayed(setBackgroundTransparentRunnable, howLongBackgroundIsApplied);
+			
 			createExplosion();
 		}
+		
 		return viewDies;
 	}
 	

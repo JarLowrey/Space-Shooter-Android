@@ -76,6 +76,13 @@
 			    android:background="@drawable/btn_red" />
 		</RelativeLayout>
 
+	    <ProgressBar
+	        android:id="@+id/health_bar"
+	        style="?android:attr/progressBarStyleHorizontal"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true" />
 
 	</RelativeLayout>
 

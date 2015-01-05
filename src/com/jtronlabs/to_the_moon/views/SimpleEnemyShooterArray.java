@@ -7,9 +7,9 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
 
-public class SimpleEnemyShooter extends ShootingView implements GameObject{
+public class SimpleEnemyShooterArray extends ShootingView implements GameObject{
 	
-	private final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=5,DEFAULT_SPEEDX=10,DEFAULT_COLLISION_DAMAGE=20, 
+	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=5,DEFAULT_SPEEDX=10,DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=10,DEFAULT_BULLET_SPEED=7,DEFAULT_BULLET_DAMAGE=5;
 	
 	public final static int NUM_SHOOTERS_IN_A_ROW=8,NUM_ROWS=4;
@@ -17,9 +17,9 @@ public class SimpleEnemyShooter extends ShootingView implements GameObject{
 	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
 	private int myPosition;
 	
-	public static ArrayList<SimpleEnemyShooter> allSimpleShooters= new ArrayList<SimpleEnemyShooter>();
+	public static ArrayList<SimpleEnemyShooterArray> allSimpleShooters= new ArrayList<SimpleEnemyShooterArray>();
 	
-	public SimpleEnemyShooter(Context context) {
+	public SimpleEnemyShooterArray(Context context) {
 		super(context,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser2);
 		
