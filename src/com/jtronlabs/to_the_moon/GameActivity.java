@@ -207,7 +207,6 @@ public class GameActivity extends Activity implements OnClickListener{
 		
 		int id = levelInfo.incrementLevel();
 		if(id>0){
-			Log.d("lowrey","id="+id);
 			changeGameBackgroundImage(id);
 		}
 	}
@@ -280,7 +279,8 @@ public class GameActivity extends Activity implements OnClickListener{
 		
 		//clean up static variables
 		enemies=new ArrayList<GameObject>();
-		SimpleEnemyShooterArray.allSimpleShooters = new ArrayList<SimpleEnemyShooterArray>();
+		SimpleEnemyShooterArray.resetSimpleShooterArray();
+		
 		
 	}
 }

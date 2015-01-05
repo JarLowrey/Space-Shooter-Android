@@ -1,6 +1,5 @@
 package com.jtronlabs.to_the_moon;
 
-import android.util.Log;
 
 
 public class Levels {
@@ -33,7 +32,7 @@ public class Levels {
 		int prevDifficulty=levelDifficulty();
 		
 		if(numBtnTaps>getLevelGoal(level)){level++;}
-		if(prevDifficulty==levelDifficulty()){retVal = getLevelBackground();}
+		if(prevDifficulty!=levelDifficulty()){retVal = getLevelBackground();}
 		
 		return retVal;
 	}
@@ -41,7 +40,7 @@ public class Levels {
 		return level;
 	}
 	public int getLevelBackground(){
-		return levelBackgrounds[(level/MAX_LEVEL)];
+		return levelBackgrounds[(level/levelDifficulty())];
 	}
 	/**
 	 * 

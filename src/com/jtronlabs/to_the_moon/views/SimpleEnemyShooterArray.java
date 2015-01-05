@@ -74,10 +74,11 @@ public class SimpleEnemyShooterArray extends ShootingView implements GameObject{
 		freePositions.add(myPosition);
 		cleanUpThreads();
 	}
-	public static void resetSimpleShooterPositions(){
+	public static void resetSimpleShooterArray(){
 		for(int i=0;i<getMaxNumShips();i++){
 			freePositions.add(i);
 		}
+		allSimpleShooters =  new ArrayList<SimpleEnemyShooterArray>();
 	}
 	
 }
