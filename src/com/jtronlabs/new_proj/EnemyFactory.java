@@ -11,14 +11,12 @@ import com.jtronlabs.views.SideToSideMovingShooter;
 
 public class EnemyFactory{
 	
-    private final int[] spaceJunkDrawableIds = {R.drawable.ufo,R.drawable.satellite,R.drawable.meteor};
-    private float screenDens,widthPixels,heightPixels;    
 	private Context ctx;
 	private Levels levelInfo = new Levels();
 	private RelativeLayout gameLayout;
 	
     //
-    public int meteorInterval=5000;
+    public int meteorInterval=4000;
     public int movingSideToSideShooterInterval=5000;
     
     Handler enemySpawnHandler = new Handler();
@@ -48,7 +46,7 @@ public class EnemyFactory{
     		gameLayout.addView(meteor,1);
     		GameActivity.enemies.add(meteor);
     		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
-    		enemySpawnHandler.postDelayed(this, getMeteorInterval());
+    		enemySpawnHandler.postDelayed(this, calculateMeteorInterval());
     	}
 	};
 	
@@ -61,21 +59,13 @@ public class EnemyFactory{
         		GameActivity.enemies.add(shooter);
         		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
     		}
-    		enemySpawnHandler.postDelayed(this, getMovingSideToSideShooterInterval());
+    		enemySpawnHandler.postDelayed(this, calculateMovingSideToSideShooterInterval());
     	}
 	};
 	
 	public EnemyFactory(Context context,RelativeLayout gameScreen){
 		ctx=context;
 		gameLayout=gameScreen;
-		
-		//find screen density and width/height of screen in pixels
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-	    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-	    screenDens = displayMetrics.density;
-	    widthPixels = displayMetrics.widthPixels;
-	    heightPixels = displayMetrics.heightPixels;
 	}
 	
 	public void cleanUpThreads(){
@@ -83,14 +73,14 @@ public class EnemyFactory{
 	    enemySpawnHandler.removeCallbacks(spawnMovingSideToSideShootingRunnable);
 	}
 	public void restartThreads(){
-		enemySpawnHandler.postDelayed(meteorSpawningRunnable,getMeteorInterval());
-	    enemySpawnHandler.postDelayed(spawnMovingSideToSideShootingRunnable,getMovingSideToSideShooterInterval());
+		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorInterval());
+	    enemySpawnHandler.postDelayed(spawnMovingSideToSideShootingRunnable,calculateMovingSideToSideShooterInterval());
 	}
 	
-	private long getMeteorInterval(){
+	private long calculateMeteorInterval(){
 		return (long) (meteorInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*1000);
 	}
-	private long getMovingSideToSideShooterInterval(){
+	private long calculateMovingSideToSideShooterInterval(){
 		return (long) (movingSideToSideShooterInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*3000);
 	}
 }

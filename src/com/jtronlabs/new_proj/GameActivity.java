@@ -259,7 +259,7 @@ public class GameActivity extends Activity implements OnClickListener{
 		//clean up all threads
 		gameHandler.removeCallbacks(mainGameLoopRunnable);
 		enemyFactory.cleanUpThreads();
-		for(int i=0;i<enemies.size();i++){
+		for(int i=enemies.size()-1;i>=0;i--){
 			enemies.get(i).removeView(false);//this cleans up the threads and removes the Views from the Activity
 		}
 		
