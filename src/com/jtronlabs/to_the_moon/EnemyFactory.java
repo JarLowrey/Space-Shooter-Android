@@ -56,7 +56,7 @@ public class EnemyFactory{
     		final int maxNumShooters = SimpleEnemyShooterArray.getMaxNumShips();
     		final int numShootersAliveCutoff = 4;
     		
-    		if(levelInfo.getLevel()>1 && numShootersAlive<maxNumShooters){
+    		if(levelInfo.levelDifficulty()>1 && numShootersAlive<maxNumShooters){
     			//if num shooters< .33 of the max, there is a 33% chance to respawn all shooters
     			if(numShootersAlive<(maxNumShooters/numShootersAliveCutoff) && Math.random()<0.33 ){
     				spawnAllSimpleShooters();
@@ -89,10 +89,10 @@ public class EnemyFactory{
 	}
 	
 	private long calculateMeteorInterval(){
-		return (long) (meteorInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*1000);
+		return (long) (meteorInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*1000);
 	}
 	private long calculateMovingSideToSideShooterInterval(){
-		return (long) (movingSideToSideShooterInterval/(Math.sqrt(levelInfo.getLevel()))+Math.random()*3000);
+		return (long) (movingSideToSideShooterInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*3000);
 	}
 	public void spawnAllSimpleShooters(){
 		int temp=SimpleEnemyShooterArray.allSimpleShooters.size();//needed due to the intricacies of a for loop

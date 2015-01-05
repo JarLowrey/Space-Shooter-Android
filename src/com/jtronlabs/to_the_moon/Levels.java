@@ -3,13 +3,21 @@ package com.jtronlabs.to_the_moon;
 
 public class Levels {
 	//GAME STATUS DATA
-	public boolean rightBtnWasTappedPreviously=true;//indicates which button the user should tap. 
+	public boolean rightBtnWasTappedPreviously;//indicates which button the user should tap. 
 	public final int[] levelBackgrounds={R.drawable.level1,R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
-	private static int numBtnTaps=0,level=1;
+	private final int MAX_LEVEL=25, INCREASE_LEVEL_GOAL_INCREMENT=5,BTN_TAP_SCORE_WEIGHT=1;
+	private static int score,numBtnTaps,level;
 	
+	public Levels(){
+		score=0;
+		numBtnTaps=0;
+		level=0;
+		rightBtnWasTappedPreviously=true;
+	}
 	//VARIABLE GET/SET METHODS
 	public void incrementNumBtnTaps(){ 
-		numBtnTaps++;  
+		numBtnTaps++; 
+		score+=BTN_TAP_SCORE_WEIGHT;
 	}
 	public int numBtnTaps(){
 		return numBtnTaps;
@@ -30,25 +38,32 @@ public class Levels {
 		return level;
 	}
 	public int getLevelBackground(){
-		return levelBackgrounds[(level-1)];
+		return levelBackgrounds[(level/MAX_LEVEL)];
 	}
 	/**
-	 * get number of taps needed for current level. (There must be a better way?)
-	 * @return-the number of taps needed for current level
+	 * 
+	 * get number of taps needed to beat level
+	 * @param whichLevel-the level whose goal you wish to know
+	 * @return-the number of taps needed to beat given level
 	 */
 	public int getLevelGoal(int whichLevel){
-		switch(whichLevel){
-		case 1:
-			return 50;
-		case 2:
-			return getLevelGoal(whichLevel-1)+200;
-		case 3:
-			return getLevelGoal(whichLevel-1)+400;
-		case 4:
-			return getLevelGoal(whichLevel-1)+800;
-		default:
+		if(whichLevel==0){
+			return 20;
+		}else if(level>MAX_LEVEL){
 			return Integer.MAX_VALUE;
+		}else{
+			final int levelDifference = levelDifficulty()*20;
+			return getLevelGoal(whichLevel-1)+levelDifference;
 		}
+	}
+	public void incrementScore(int howMuch){
+		score+=howMuch;
+	}
+	public int getScore(){
+		return score;
+	}
+	public int levelDifficulty(){
+		return MAX_LEVEL/INCREASE_LEVEL_GOAL_INCREMENT+1;
 	}
 	public void reset(){
 		numBtnTaps=0;

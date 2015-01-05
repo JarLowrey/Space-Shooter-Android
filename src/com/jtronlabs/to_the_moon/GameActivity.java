@@ -281,5 +281,6 @@ public class GameActivity extends Activity implements OnClickListener{
 		//clean up static variables
 		enemies=new ArrayList<GameObject>();
 		SimpleEnemyShooterArray.allSimpleShooters = new ArrayList<SimpleEnemyShooterArray>();
+		
 	}
 }
