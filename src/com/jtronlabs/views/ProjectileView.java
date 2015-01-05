@@ -1,13 +1,11 @@
 package com.jtronlabs.views;
 
-import com.jtronlabs.new_proj.GameActivity;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class ProjectileView extends ImageView{
 
@@ -127,7 +125,7 @@ public class ProjectileView extends ImageView{
 	public void removeView(boolean showExplosion){
 		if(showExplosion){createExplosion();}
 		cleanUpThreads();
-		GameActivity.gameScreen.removeView(this);
+		((RelativeLayout)this.getParent()).removeView(this);
 	}
 	
 	public void heal(double howMuchHealed){

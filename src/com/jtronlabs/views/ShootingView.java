@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.jtronlabs.new_proj.GameActivity;
 import com.jtronlabs.new_proj.R;
 
 public class ShootingView extends GravityView{
@@ -15,7 +15,7 @@ public class ShootingView extends GravityView{
 	private int bulletImgId;
 	private double bulletDamage,bulletSpeed,bulletFreq;
 	
-	ArrayList<ProjectileView> myBullets = new ArrayList<ProjectileView>();
+	public ArrayList<ProjectileView> myBullets = new ArrayList<ProjectileView>();
 	private boolean shootingUp=true,autoSpawnBullets=false;
 	
 	Handler shooterHandler = new Handler();
@@ -47,6 +47,10 @@ public class ShootingView extends GravityView{
 	public void removeView(boolean showExplosion){
 		super.removeView(showExplosion);
 		cleanUpThreads();
+		for(ProjectileView bullet : myBullets){
+			bullet.removeView(false);
+		}
+		myBullets=null;
 	}
 	
 	public ShootingView(Context context,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
@@ -113,7 +117,7 @@ public class ShootingView extends GravityView{
 		int height=(int)ctx.getResources().getDimension(R.dimen.bullet_height);
 		bullet.setLayoutParams(new LayoutParams(width,height));
 		
-		//initially position the Bullet View
+		//initially position the Bullet View to avg of shooter's left & right, and at top if shooting up (or at bottom if shooting down)
 		float xAvg = (ShootingView.this.getX()+ShootingView.this.getX()+ShootingView.this.getWidth())/2;
 		bullet.setX(xAvg);
 		if(shootingUp){
@@ -121,8 +125,8 @@ public class ShootingView extends GravityView{
 		}else{
 			bullet.setY(ShootingView.this.getY()+ShootingView.this.getHeight());//middle and bottom of ShootingView
 		}
-		GameActivity.gameScreen.addView(bullet,1);
-		GameActivity.dangerousObjects.add(bullet);
+		
+		((RelativeLayout)this.getParent()).addView(bullet,1);
 
 		myBullets.add(bullet);
 	}

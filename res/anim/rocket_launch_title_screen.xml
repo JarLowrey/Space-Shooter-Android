@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- this is a 'scale' tag instead of a 'set' because set cannot repeat forever -->
-<scale xmlns:android="http://schemas.android.com/apk/res/android">
-    
-   	<translate 
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
         android:startOffset="4000"
       	android:fromYDelta="0%"
       	android:toYDelta="-5000%" 
        	android:interpolator="@android:anim/linear_interpolator"
 		android:repeatCount="infinite"
-      	android:duration="5000">
-   	</translate>
-   	
-</scale>
+      	android:duration="5000"/>

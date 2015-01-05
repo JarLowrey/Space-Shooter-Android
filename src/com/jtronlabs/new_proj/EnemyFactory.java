@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.views.MeteorView;
 import com.jtronlabs.views.SideToSideMovingShooter;
@@ -14,6 +15,7 @@ public class EnemyFactory{
     private float screenDens,widthPixels,heightPixels;    
 	private Context ctx;
 	private Levels levelInfo = new Levels();
+	private RelativeLayout gameLayout;
 	
     //
     public int meteorInterval=5000;
@@ -43,8 +45,8 @@ public class EnemyFactory{
 //    			break;
 //    		}
     		MeteorView meteor = new MeteorView(ctx);
-    		GameActivity.gameScreen.addView(meteor,1);
-    		GameActivity.dangerousObjects.add(meteor);
+    		gameLayout.addView(meteor,1);
+    		GameActivity.enemies.add(meteor);
     		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
     		enemySpawnHandler.postDelayed(this, getMeteorInterval());
     	}
@@ -55,16 +57,17 @@ public class EnemyFactory{
         public void run() {
     		if(levelInfo.getLevel()>1 /*&& SideToSideMovingShooter.allSideToSideShooters.size()<SideToSideMovingShooter.NUM_SHOOTERS_IN_A_ROW*4*/){
     			SideToSideMovingShooter shooter = new SideToSideMovingShooter(ctx);
-        		GameActivity.gameScreen.addView(shooter,1);
-        		GameActivity.dangerousObjects.add(shooter);
+    			gameLayout.addView(shooter,1);
+        		GameActivity.enemies.add(shooter);
         		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
     		}
     		enemySpawnHandler.postDelayed(this, getMovingSideToSideShooterInterval());
     	}
 	};
 	
-	public EnemyFactory(Context context){
+	public EnemyFactory(Context context,RelativeLayout gameScreen){
 		ctx=context;
+		gameLayout=gameScreen;
 		
 		//find screen density and width/height of screen in pixels
 		DisplayMetrics displayMetrics = new DisplayMetrics();

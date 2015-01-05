@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- this is a 'scale' tag instead of a 'set' because set cannot repeat forever -->
-<scale xmlns:android="http://schemas.android.com/apk/res/android"
-  android:interpolator="@android:anim/linear_interpolator">
- <rotate
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
    	    android:startOffset="0"
        	android:fromDegrees="0"
        	android:toDegrees="360"
@@ -11,4 +9,3 @@
        	android:interpolator="@android:anim/linear_interpolator"
 		android:repeatCount="infinite"
        	android:duration="10000"/>
-</scale>
