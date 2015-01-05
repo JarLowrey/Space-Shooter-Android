@@ -2,9 +2,9 @@ package com.jtronlabs.to_the_moon.views;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -17,8 +17,9 @@ public class ProjectileView extends ImageView implements GameObject{
 	public static int HOW_OFTEN_TO_MOVE=100;
 	public static final int UP=0,RIGHT=1,DOWN=2,LEFT=3;
 	
+	int score;
 	double speedYUp,speedYDown,speedX, damage, health;
-	public float lowestPositionThreshold=-10;
+	public float lowestPositionThreshold=-1,highestPositionThreshold=-1;
 	float screenDens,widthPixels,heightPixels;
 	Context ctx;
 	
@@ -29,7 +30,7 @@ public class ProjectileView extends ImageView implements GameObject{
 		}
     };
 	
-	public ProjectileView(Context context,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX,double projectileDamage,double projectileHealth) {
+	public ProjectileView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX,double projectileDamage,double projectileHealth) {
 		super(context);	
 		
 		ctx = context;
@@ -42,6 +43,7 @@ public class ProjectileView extends ImageView implements GameObject{
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
 		
+	    score=scoreValue;
 		speedYUp=projectileSpeedYUp*screenDens;
 		speedYDown=projectileSpeedYDown*screenDens;
 		speedX=projectileSpeedX*screenDens;
@@ -49,7 +51,7 @@ public class ProjectileView extends ImageView implements GameObject{
 		health=projectileHealth;
 	}
 	
-	public ProjectileView(Context context,AttributeSet at,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+	public ProjectileView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
 		super(context,at);	
 		
 		ctx = context;
@@ -62,6 +64,7 @@ public class ProjectileView extends ImageView implements GameObject{
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
 		
+	    score=scoreValue;
 		speedYUp=projectileSpeedYUp*screenDens;
 		speedYDown=projectileSpeedYDown*screenDens;
 		speedX=projectileSpeedX*screenDens;
@@ -88,42 +91,38 @@ public class ProjectileView extends ImageView implements GameObject{
 		
 		float x =this.getX();
 		float y =this.getY();
-		boolean horizontalMovement=(direction == RIGHT ||direction==LEFT), verticalMovement = (direction == UP ||direction==DOWN);
 		
-		
+		boolean atThreshold=false;
 		switch(direction){
 		case UP:
 			y-=speedYUp;
+			if(highestPositionThreshold>0){
+				if(y>=highestPositionThreshold){this.setY(y);}
+				else{atThreshold=true;}					
+			}
 			break;
 		case RIGHT:
 			x+=speedX;
+			if((x+this.getWidth())<=widthPixels){this.setX(x);}
 			break;
 		case DOWN:
 			y+=speedYDown;
+			if(lowestPositionThreshold>0){
+				if(y<=lowestPositionThreshold){this.setY(y);}
+				else{atThreshold=true;}
+			}
 			break;
 		case LEFT:
 			x-=speedX;
+			if(x>=0){this.setX(x);}
 			break;
 		}
-		boolean atThreshold=false;
+		
 		if(canMoveOffScreen){
-			if(horizontalMovement){this.setX(x);}
+			if(direction == RIGHT ||direction==LEFT){this.setX(x);}
 			else{this.setY(y);}
-		}else {
-			//cannot move off side of screen
-			if(horizontalMovement && (x>=0 && (x+this.getWidth()<=widthPixels))){
-				this.setX(x);
-			}
-			if( verticalMovement && y>=0){
-				//Cannot move off top or bottom of screen or past lower threshold
-				if(lowestPositionThreshold>0){
-					if(y<=lowestPositionThreshold){this.setY(y);}
-					else{atThreshold=true;}
-				}else{
-					this.setY(y);
-				}
-			}
 		}
+			
 		
 		return atThreshold;
 	}
@@ -142,7 +141,7 @@ public class ProjectileView extends ImageView implements GameObject{
 			viewDies= true;
 		}else{
 			//set the background behind this view, and then remove it after howLongBackgroundIsApplied milliseconds
-			this.setBackgroundResource(R.color.light_red);
+			this.setBackgroundResource(R.drawable.danger);
 			final int howLongBackgroundIsApplied=200;
 			this.postDelayed(setBackgroundTransparentRunnable, howLongBackgroundIsApplied);
 			
@@ -152,11 +151,13 @@ public class ProjectileView extends ImageView implements GameObject{
 		return viewDies;
 	}
 	
-	public void removeView(boolean showExplosion){
+	public int removeView(boolean showExplosion){
 		if(showExplosion){createExplosion();}//show explosion
 		if(GameActivity.enemies.contains(this)){GameActivity.enemies.remove(this);}//remove from list of enemies
 		cleanUpThreads();//destroy all threads
 		((ViewGroup)this.getParent()).removeView(this);//remove from game layout
+		
+		return score;
 	}
 	
 	public void heal(double howMuchHealed){
@@ -206,6 +207,14 @@ public class ProjectileView extends ImageView implements GameObject{
 	
 	public double getDamage(){
 		return damage;
+	}
+	
+	public void setDamage(double newDamage){
+		damage=newDamage;
+	}
+	
+	public void setScoreValue(int newScore){
+		score=newScore;
 	}
 	
 	public void cleanUpThreads(){

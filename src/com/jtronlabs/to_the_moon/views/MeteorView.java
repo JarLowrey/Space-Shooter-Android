@@ -7,12 +7,16 @@ import com.jtronlabs.to_the_moon.R;
 
 public class MeteorView extends GravityView implements GameObject{
 	
-	private final static double DEFAULT_SPEED_UP=1,DEFAULT_SPEED_DOWN=4,DEFAULT_SPEEDX=1,DEFAULT_COLLISION_DAMAGE=12, 
+	public final static int DEFAULT_SCORE=5;
+	public final static double DEFAULT_SPEED_UP=1,DEFAULT_SPEED_DOWN=6.4,DEFAULT_SPEEDX=1,DEFAULT_COLLISION_DAMAGE=12, 
 			DEFAULT_HEALTH=5;
 	
 	public MeteorView(Context context) {
-		super(context,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
+
+		this.lowestPositionThreshold=heightPixels;
+		
 		//set image background
 		this.setImageResource(R.drawable.meteor);
 		
@@ -27,12 +31,5 @@ public class MeteorView extends GravityView implements GameObject{
 		
 		cleanUpThreads();
 		restartThreads();
-	}
-
-	public void cleanUpThreads(){
-		super.cleanUpThreads();
-	}
-	public void restartThreads(){
-		super.restartThreads();
 	}
 }

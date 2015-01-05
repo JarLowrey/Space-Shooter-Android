@@ -10,17 +10,20 @@ import com.jtronlabs.to_the_moon.R;
 
 public class RocketView extends ShootingView implements GameObject{
 	
-	public final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=2.8,DEFAULT_SPEEDX=14,DEFAULT_COLLISION_DAMAGE=20, 
+	private final static int DEFAULT_SCORE=0;
+	public final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=2.7,DEFAULT_SPEEDX=14,DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED=6.2,DEFAULT_BULLET_DAMAGE=10;
 	
 	public RocketView(Context context, AttributeSet at) {
-		super(context, at,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context, at,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser1);
+		this.highestPositionThreshold=heightPixels/3;
 	}
 
 	public RocketView(Context context) {
-		super(context,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser1);
+		this.highestPositionThreshold=heightPixels/3;
 	}
 	
 	private ImageView rocket_exhaust;
@@ -67,7 +70,7 @@ public class RocketView extends ShootingView implements GameObject{
 	@Override
 	public void cleanUpThreads(){
 		super.cleanUpThreads();
-		this.post(removeExhaustRunnable);
+		this.post(removeExhaustRunnable); 
 	}
 	/**
 	 * Flash an image of exhaust behind this rocket.
@@ -78,7 +81,6 @@ public class RocketView extends ShootingView implements GameObject{
 		this.post(showRocketExhaustRunnable);
 	}
 	
-
 	public void removeView(){
 		super.removeView(true);
 		cleanUpThreads();

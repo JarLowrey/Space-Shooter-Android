@@ -4,5 +4,5 @@ public interface GameObject {
 
 	public void restartThreads();
 	public void cleanUpThreads();
-	public void removeView(boolean showExplosion);
+	public int removeView(boolean showExplosion);
 }

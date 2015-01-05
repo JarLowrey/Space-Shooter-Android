@@ -9,6 +9,7 @@ import com.jtronlabs.to_the_moon.R;
 
 public class SimpleEnemyShooterArray extends ShootingView implements GameObject{
 	
+	private final static int DEFAULT_SCORE=15;
 	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=5,DEFAULT_SPEEDX=10,DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=10,DEFAULT_BULLET_SPEED=7,DEFAULT_BULLET_DAMAGE=5;
 	
@@ -20,7 +21,7 @@ public class SimpleEnemyShooterArray extends ShootingView implements GameObject{
 	public static ArrayList<SimpleEnemyShooterArray> allSimpleShooters= new ArrayList<SimpleEnemyShooterArray>();
 	
 	public SimpleEnemyShooterArray(Context context) {
-		super(context,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser2);
 		
 		final double bulletFreq = (5000+Math.random()*4000);
@@ -40,7 +41,7 @@ public class SimpleEnemyShooterArray extends ShootingView implements GameObject{
 		//set image background, width, and height
 		this.setImageResource(R.drawable.ufo);
 		final int height_int=(int)height;
-		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_height);
+		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
 		//set initial position
@@ -68,11 +69,12 @@ public class SimpleEnemyShooterArray extends ShootingView implements GameObject{
 		return NUM_SHOOTERS_IN_A_ROW*NUM_ROWS;
 	}
 
-	public void removeView(boolean showExplosion){
-		super.removeView(showExplosion);
+	public int removeView(boolean showExplosion){
 		allSimpleShooters.remove(this);
 		freePositions.add(myPosition);
 		cleanUpThreads();
+
+		return super.removeView(showExplosion);
 	}
 	public static void resetSimpleShooterArray(){
 		for(int i=0;i<getMaxNumShips();i++){

@@ -179,7 +179,11 @@ public class GameActivity extends Activity implements OnClickListener{
 					if(levelInfo.numBtnTaps()%20==0){			
 						rocket.runRocketExhaust(rocket_exhaust);
 					}
+					
+					//pause gravity and move the rocket
+					rocket.stopGravity();
 					rocket.move(ProjectileView.UP,false);
+					rocket.startGravity();
 				}else{
 					rocket.move(ProjectileView.LEFT,false);
 				}
@@ -195,7 +199,11 @@ public class GameActivity extends Activity implements OnClickListener{
 					if(levelInfo.numBtnTaps()%20==0){			
 						rocket.runRocketExhaust(rocket_exhaust);
 					}  
+					
+					//pause gravity and move the rocket
+					rocket.stopGravity();
 					rocket.move(ProjectileView.UP,false);
+					rocket.startGravity();
 				}else{
 					rocket.move(ProjectileView.RIGHT,false);
 				}

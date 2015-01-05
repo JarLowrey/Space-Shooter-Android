@@ -12,14 +12,14 @@ import com.jtronlabs.to_the_moon.views.RocketView;
  */
 public class GravityView extends ProjectileView implements GameObject{
 	
-	public GravityView(Context context,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
-		super(context,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
+	public GravityView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+		super(context,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 
 		this.post(gravityRunnable);
 	}
 	
-	public GravityView(Context context,AttributeSet at,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
-		super(context,at,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
+	public GravityView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+		super(context,at,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 
 		this.post(gravityRunnable);
 	}
@@ -46,18 +46,24 @@ public class GravityView extends ProjectileView implements GameObject{
     	}
     };
 
-	public void removeView(boolean showExplosion){
-		super.removeView(showExplosion);
+	public int removeView(boolean showExplosion){
 		cleanUpThreads();
+		return super.removeView(showExplosion);
 	}
 	
 	public void cleanUpThreads(){
 		super.cleanUpThreads();
-		this.removeCallbacks(gravityRunnable);
+		stopGravity();
 	}
 	public void restartThreads(){
 		super.restartThreads();
-		this.post(gravityRunnable);
+		startGravity();
+	}
+	public void stopGravity(){
+		this.removeCallbacks(gravityRunnable);		
+	}
+	public void startGravity(){
+		this.post(gravityRunnable);		
 	}
 	
 }

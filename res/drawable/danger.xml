@@ -4,10 +4,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/very_light_green" />
+            <solid android:color="#CC0000" />
             <stroke
                 android:width="1dp"
-                android:color="@color/light_green" />
+                android:color="#992f2f" />
+            <corners
+                android:radius="90dp" />
         </shape>
     </item>
 </selector>

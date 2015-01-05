@@ -1,5 +1,5 @@
 package com.jtronlabs.to_the_moon.views;
-
+  
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -15,7 +15,7 @@ public class ShootingView extends GravityView{
 	private int bulletImgId;
 	private double bulletDamage,bulletSpeed,bulletFreq;
 	
-	public ArrayList<ProjectileView> myBullets = new ArrayList<ProjectileView>();
+	public ArrayList<ProjectileView> myBullets;
 	private boolean shootingUp=true,autoSpawnBullets=false;
 	
     Runnable spawnBulletRunnable = new Runnable(){
@@ -43,26 +43,28 @@ public class ShootingView extends GravityView{
 	};
 	
 
-	public void removeView(boolean showExplosion){
-		super.removeView(showExplosion);
+	public int removeView(boolean showExplosion){
 		cleanUpThreads();
 		for(ProjectileView bullet : myBullets){
 			bullet.removeView(false);
 		}
 		myBullets=null;
+		return super.removeView(showExplosion);
 	}
 	
-	public ShootingView(Context context,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
-		super(context,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,projectileDamage,projectileHealth);
+	public ShootingView(Context context,int scoreValue,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
+		super(context,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,projectileDamage,projectileHealth);
 		
+		myBullets= new ArrayList<ProjectileView>();
 		bulletDamage=bulletDmg;
 		bulletSpeed=bulletSpd*screenDens;
 		bulletImgId=bulletBackground;
 	}
 	
-	public ShootingView(Context context,AttributeSet at,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
-		super(context,at,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,projectileDamage,projectileHealth);
+	public ShootingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
+		super(context,at,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,projectileDamage,projectileHealth);
 		
+		myBullets = new ArrayList<ProjectileView>();
 		bulletDamage=bulletDmg;
 		bulletSpeed=bulletSpd*screenDens;
 		bulletImgId=bulletBackground;
@@ -108,7 +110,7 @@ public class ShootingView extends GravityView{
 	 * Create a bullet and add it to the screen
 	 */
 	public void spawnBullet(){
-		ProjectileView bullet = new ProjectileView(ctx,bulletSpeed,bulletSpeed,1,bulletDamage,0.1);
+		ProjectileView bullet = new ProjectileView(ctx,0,bulletSpeed,bulletSpeed,1,bulletDamage,0.1);
 		
 		//add bullet to layout
 		bullet.setBackgroundResource(bulletImgId);
