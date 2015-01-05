@@ -26,14 +26,13 @@ public class RocketView extends ShootingView implements GameObject{
 	private ImageView rocket_exhaust;
 	private boolean exhaust_visible=false,removeRunnablePosted=false;
 	
-    Handler rocketHandler = new Handler(); 
     Runnable removeExhaustRunnable = new Runnable() {
         @Override
         public void run() {
         	exhaust_visible=false;
         	if(rocket_exhaust!=null){rocket_exhaust.setVisibility(View.GONE);}
-        	rocketHandler.removeCallbacks(showRocketExhaustRunnable);//clean up the runnable moving the fire
-        	rocketHandler.removeCallbacks(this);//just in case this runnable was posted multiple times, remove all callbacks
+        	RocketView.this.removeCallbacks(showRocketExhaustRunnable);//clean up the runnable moving the fire
+        	RocketView.this.removeCallbacks(this);//just in case this runnable was posted multiple times, remove all callbacks
         	removeRunnablePosted=false;
         }
     };
@@ -56,10 +55,10 @@ public class RocketView extends ShootingView implements GameObject{
 	 			exhaust_visible=true;
 			}
 			
-			rocketHandler.postDelayed(this, 20);//repost this runnable so the exhaust will reposition in 20milliseconds
+			RocketView.this.postDelayed(this, 20);//repost this runnable so the exhaust will reposition in 20milliseconds
 			//post the removal of the exhaust after 0.5 seconds. Utilize if() to ensure the removeRunnable is not posted multiple times
 			if(!removeRunnablePosted){
-				rocketHandler.postDelayed(removeExhaustRunnable, 500);
+				RocketView.this.postDelayed(removeExhaustRunnable, 500);
 				removeRunnablePosted=true;
 			}
          }
@@ -68,7 +67,7 @@ public class RocketView extends ShootingView implements GameObject{
 	@Override
 	public void cleanUpThreads(){
 		super.cleanUpThreads();
-		rocketHandler.post(removeExhaustRunnable);
+		this.post(removeExhaustRunnable);
 	}
 	/**
 	 * Flash an image of exhaust behind this rocket.
@@ -76,7 +75,7 @@ public class RocketView extends ShootingView implements GameObject{
 	 */
 	public void runRocketExhaust(ImageView rocketExhaustView){
 		rocket_exhaust=rocketExhaustView;
-		rocketHandler.post(showRocketExhaustRunnable);
+		this.post(showRocketExhaustRunnable);
 	}
 	
 

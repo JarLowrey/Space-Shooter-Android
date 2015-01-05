@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
@@ -37,7 +38,6 @@ public class GameActivity extends Activity implements OnClickListener{
 	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
 	private ProgressBar healthBar;
-	
 	
 	public static ArrayList<GameObject> enemies=new ArrayList<GameObject>();
 	
@@ -207,8 +207,8 @@ public class GameActivity extends Activity implements OnClickListener{
 		
 		int id = levelInfo.incrementLevel();
 		if(id>0){
+			Log.d("lowrey","id="+id);
 			changeGameBackgroundImage(id);
-			enemyFactory.spawnAllSimpleShooters();
 		}
 	}
 	

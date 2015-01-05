@@ -18,12 +18,11 @@ public class ShootingView extends GravityView{
 	public ArrayList<ProjectileView> myBullets = new ArrayList<ProjectileView>();
 	private boolean shootingUp=true,autoSpawnBullets=false;
 	
-	Handler shooterHandler = new Handler();
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
     		spawnBullet();
-    		shooterHandler.postDelayed(this, (long) bulletFreq);
+    		ShootingView.this.postDelayed(this, (long) bulletFreq);
     	}
 	};
 	
@@ -38,7 +37,7 @@ public class ShootingView extends GravityView{
 	    			bullet.move(ProjectileView.DOWN,true);
 	    		}
     		}
-			shooterHandler.postDelayed(moveMyBulletsRunnable, HOW_OFTEN_TO_MOVE);
+    		ShootingView.this.postDelayed(moveMyBulletsRunnable, HOW_OFTEN_TO_MOVE);
 			
     	}
 	};
@@ -71,16 +70,16 @@ public class ShootingView extends GravityView{
 	
 	public void cleanUpThreads(){
 		super.cleanUpThreads();
-		shooterHandler.removeCallbacks(spawnBulletRunnable);
-		shooterHandler.removeCallbacks(moveMyBulletsRunnable);
+		this.removeCallbacks(spawnBulletRunnable);
+		this.removeCallbacks(moveMyBulletsRunnable);
 	}
 	
 	public void restartThreads(){
 		super.restartThreads();
 		if(autoSpawnBullets){
-			shooterHandler.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
+			this.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
 		}
-		shooterHandler.post(moveMyBulletsRunnable);
+		this.post(moveMyBulletsRunnable);
 	}
 	
 	public void changeBulletFrequency(double newBulletFreq){

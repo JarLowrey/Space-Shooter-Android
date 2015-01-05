@@ -1,5 +1,7 @@
 package com.jtronlabs.to_the_moon;
 
+import android.util.Log;
+
 
 public class Levels {
 	//GAME STATUS DATA
@@ -24,15 +26,16 @@ public class Levels {
 	}
 	/**
 	 * Checks if the level needs to be increased, does so if necessary, and returns the new gameScreen background's resource Id
-	 * @return-resourceId of new background if level was incremented. Return -1 if level was not incremented
+	 * @return-resourceId of new background if levelDifficulty was incremented. Return -1 if levelDifficulty was not incremented
 	 */
 	public int incrementLevel(){
-		if(numBtnTaps>getLevelGoal(level)){
-			level++;
-			return getLevelBackground();
-		}else{
-			return -1;
-		}
+		int retVal=-1;
+		int prevDifficulty=levelDifficulty();
+		
+		if(numBtnTaps>getLevelGoal(level)){level++;}
+		if(prevDifficulty==levelDifficulty()){retVal = getLevelBackground();}
+		
+		return retVal;
 	}
 	public int getLevel(){
 		return level;
@@ -63,10 +66,10 @@ public class Levels {
 		return score;
 	}
 	public int levelDifficulty(){
-		return MAX_LEVEL/INCREASE_LEVEL_GOAL_INCREMENT+1;
+		return level/INCREASE_LEVEL_GOAL_INCREMENT+1;
 	}
 	public void reset(){
 		numBtnTaps=0;
-		level=1;
+		level=1; 
 	}
 }

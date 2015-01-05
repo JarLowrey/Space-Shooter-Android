@@ -57,6 +57,10 @@ public class EnemyFactory{
     		final int numShootersAliveCutoff = 4;
     		
     		if(levelInfo.levelDifficulty()>1 && numShootersAlive<maxNumShooters){
+
+    			Log.d("lowrey","level="+levelInfo.getLevel());
+    			Log.d("lowrey","goal="+levelInfo.getLevelGoal(levelInfo.getLevel()));
+    			
     			//if num shooters< .33 of the max, there is a 33% chance to respawn all shooters
     			if(numShootersAlive<(maxNumShooters/numShootersAliveCutoff) && Math.random()<0.33 ){
     				spawnAllSimpleShooters();
@@ -96,8 +100,6 @@ public class EnemyFactory{
 	}
 	public void spawnAllSimpleShooters(){
 		int temp=SimpleEnemyShooterArray.allSimpleShooters.size();//needed due to the intricacies of a for loop
-		Log.d("lowrey","size="+temp);
-		Log.d("lowrey","max="+SimpleEnemyShooterArray.getMaxNumShips());
 		
 		for(int i=temp;i<SimpleEnemyShooterArray.getMaxNumShips();i++){
 			SimpleEnemyShooterArray shooter = new SimpleEnemyShooterArray(ctx);

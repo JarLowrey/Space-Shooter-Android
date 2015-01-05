@@ -21,9 +21,7 @@ public class ProjectileView extends ImageView implements GameObject{
 	public float lowestPositionThreshold=-10;
 	float screenDens,widthPixels,heightPixels;
 	Context ctx;
-
-    private Handler projectileHandler = new Handler();
-    
+	
     private Runnable setBackgroundTransparentRunnable = new Runnable(){
 		@Override
 		public void run() {
@@ -211,7 +209,7 @@ public class ProjectileView extends ImageView implements GameObject{
 	}
 	
 	public void cleanUpThreads(){
-
+		this.removeCallbacks(setBackgroundTransparentRunnable);
 	}
 	public void restartThreads(){
 
