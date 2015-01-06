@@ -65,7 +65,7 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		super(context, score, speedY, speedY,
 				speedX, collisionDamage, health);
 
-		this.setMyBulletType(whichBullet);
+		this.setMyBulletProperties(whichBullet);
 		startShooting(bulletFreq);
 
 		final int randPos = (int) (freePositions.size() * Math.random());

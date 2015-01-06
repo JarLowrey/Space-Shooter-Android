@@ -18,18 +18,18 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 	private double bulletSpawnFreqInMilliseconds=200;
 	
 	public RocketView(Context context, AttributeSet at) {
-		super(context, at,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context, at,true,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 		this.highestPositionThreshold=(int)(heightPixels/3);
-		this.setMyBulletType(Gravity_ShootingView.BULLET_FRIENDLY_ONE);
+		this.setMyBulletType(Gravity_ShootingView.LASER_ONE);
 		this.stopGravity();
 	}
 
 	public RocketView(Context context) {
-		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context,true,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 		this.highestPositionThreshold=(int)(heightPixels/3);
-		this.setMyBulletType(Gravity_ShootingView.BULLET_FRIENDLY_ONE);
+		this.setMyBulletType(Gravity_ShootingView.LASER_ONE);
 		this.stopGravity();
 	}
 	
@@ -129,6 +129,11 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		super.cleanUpThreads();
 		this.removeCallbacks(moveRunnable);
 //		this.post(removeExhaustRunnable); 
+	}
+	@Override
+	public void restartThreads(){
+		super.restartThreads();
+		stopShooting();
 	}
 	
 	public void removeView(){

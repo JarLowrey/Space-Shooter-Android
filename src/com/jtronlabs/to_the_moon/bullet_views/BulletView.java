@@ -8,6 +8,8 @@ import com.jtronlabs.to_the_moon.misc.ProjectileView;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
 public class BulletView extends ProjectileView{
+
+	public final static int BULLET_LEFT=-1,BULLET_MIDDLE=0,BULLET_RIGHT=1;
 	
 	public static final double DEFAULT_HEALTH=0.1;
 	public static final int DEFAULT_SCORE=0;
@@ -40,32 +42,26 @@ public class BulletView extends ProjectileView{
     	}
 	};
 	
-	public BulletView(Context context,Gravity_ShootingView shooter,boolean shootBulletUp,boolean shootBulletRight,float bulletHeight,float startingPixelPositionY,
+	public BulletView(Context context,Gravity_ShootingView shooter,boolean shootBulletUp,float bulletHeight,
+			float bulletWidth,int whichSideIsBulletOn,
 			double projectileSpeedVertical,double projectileSpeedX, double projectileDamage) {
 		super(context,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
 				projectileSpeedX,projectileDamage,DEFAULT_HEALTH);
 		
-		theOneWhoShotMe=shooter;
-		
-		//set thresholds to off screen
-		this.highestPositionThreshold=(int) -bulletHeight;
-		this.lowestPositionThreshold=(int) (heightPixels+bulletHeight);
-		
-		//set Y position and the instance boolean for whether or not bullet is traveling up or down, left or right
-		this.setY(startingPixelPositionY);
-		shootingUp=shootBulletUp;
-		shootingRight=shootBulletRight;
-		
-		//post the movement runnable
-		this.post(moveBulletRunnable);
+
+		initBullet(shooter,shootBulletUp,bulletHeight,bulletWidth,whichSideIsBulletOn);
 	}
 	
-	public BulletView(Context context,AttributeSet at,Gravity_ShootingView shooter,boolean shootBulletUp, boolean shootBulletRight,float bulletHeight,
-			float startingPixelPositionY,double projectileSpeedVertical,double projectileSpeedX, 
+	public BulletView(Context context,AttributeSet at,Gravity_ShootingView shooter,boolean shootBulletUp,
+			float bulletHeight,float bulletWidth,int whichSideIsBulletOn,double projectileSpeedVertical,double projectileSpeedX, 
 			double projectileDamage) {
 		super(context,at,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
 				projectileSpeedX,projectileDamage,DEFAULT_HEALTH);
 
+		initBullet(shooter,shootBulletUp,bulletHeight,bulletWidth,whichSideIsBulletOn);
+	}
+	private void initBullet(Gravity_ShootingView shooter,boolean shootBulletUp,
+			float bulletHeight,float bulletWidth,int whichSideIsBulletOn){
 		theOneWhoShotMe=shooter;
 		
 		//set thresholds to off screen
@@ -73,9 +69,35 @@ public class BulletView extends ProjectileView{
 		this.lowestPositionThreshold=(int) (heightPixels+bulletHeight);
 		
 		//set Y position and the instance boolean for whether or not bullet is traveling up or down,left or right
-		this.setY(startingPixelPositionY);
 		shootingUp=shootBulletUp;
-		shootingRight=shootBulletRight;
+		if(shootingUp){
+			this.setY(shooter.getY());			
+		}else{
+			this.setY(shooter.getY()+shooter.getHeight());			
+		}
+		
+		//set X position
+		float x;
+		switch(whichSideIsBulletOn){
+		case BULLET_LEFT:
+			shootingRight=false;
+			x= shooter.getX();
+			final float rotationValueLeft = (float) (-this.getSpeedY()/this.getSpeedX()*360);
+			this.setRotation(rotationValueLeft);
+			break;
+		case BULLET_RIGHT:
+			shootingRight=true;
+			final float rotationValueRight = (float) (this.getSpeedY()/this.getSpeedX()*360);
+			this.setRotation(rotationValueRight);
+			x= shooter.getWidth();			
+			break;
+		default:
+			shootingRight=true;//not needed, but set just in case
+			x= (shooter.getX()+shooter.getWidth())/2;
+			break;
+		}
+		x-=bulletWidth/2;
+		this.setX(x);
 				
 		//post the movement runnable
 		this.post(moveBulletRunnable);

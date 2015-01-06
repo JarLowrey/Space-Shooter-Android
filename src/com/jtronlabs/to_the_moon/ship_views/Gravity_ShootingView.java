@@ -7,23 +7,32 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.bullet_views.BulletCentered_One;
+import com.jtronlabs.to_the_moon.bullet_views.Bullet_LaserOne;
 import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 
 public class Gravity_ShootingView extends GravityView{
 	
-	public static final int BULLET_ENEMY_ONE=0,BULLET_FRIENDLY_ONE=1;
-	private int myBulletType=BULLET_ENEMY_ONE;
+	public static final int LASER_ONE=0;
+	boolean triShot=false;
+	double bulletSpeedY=10,
+			bulletSpeedX=-10,
+			bulletDamage=5;
+	
+	private int myBulletType=LASER_ONE;
 	
 	private double bulletFreq;
 	public ArrayList<BulletView> myBullets;
-	private boolean autoSpawnBullets=false;
+	private boolean shootingUp=false;
 	
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
     		Log.d("lowrey","shooting");
-    		spawnMyBullet();
+    		spawnMyBullet(BulletView.BULLET_MIDDLE);
+    		if(triShot){
+    			spawnMyBullet(BulletView.BULLET_LEFT);
+    			spawnMyBullet(BulletView.BULLET_RIGHT);
+    		}
     		Gravity_ShootingView.this.postDelayed(this, (long) bulletFreq);
     	}
 	};
@@ -33,21 +42,23 @@ public class Gravity_ShootingView extends GravityView{
 		return super.removeView(showExplosion);
 	}
 	
-	public Gravity_ShootingView(Context context,int scoreValue,double projectileSpeedUp,
+	public Gravity_ShootingView(Context context,boolean shootingUpwards,int scoreValue,double projectileSpeedUp,
 			double projectileSpeedDown,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
 		super(context,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
 				projectileDamage,projectileHealth);
 		
+		shootingUp= shootingUpwards;
 		myBullets= new ArrayList<BulletView>();
 	}
 	
-	public Gravity_ShootingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedUp,
+	public Gravity_ShootingView(Context context,AttributeSet at,boolean shootingUpwards,int scoreValue,double projectileSpeedUp,
 			double projectileSpeedDown,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
 		super(context,at,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
 				projectileDamage,projectileHealth);
-		
+
+		shootingUp= shootingUpwards;
 		myBullets = new ArrayList<BulletView>();
 	}
 	
@@ -62,9 +73,7 @@ public class Gravity_ShootingView extends GravityView{
 	
 	public void restartThreads(){
 		super.restartThreads();
-		if(autoSpawnBullets){
-			this.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
-		}
+		startShooting(bulletFreq);
 	}
 	
 	public void changeBulletFrequency(double newBulletFreq){
@@ -72,34 +81,33 @@ public class Gravity_ShootingView extends GravityView{
 	}
 	
 	public void startShooting(double bulletSpawningFrequency){
-		autoSpawnBullets=true;
 		bulletFreq=bulletSpawningFrequency;
 		this.post(spawnBulletRunnable);		
 	}
-	/**
-	 * set View to automatically create bullets. These bullets will be shot downwards, toward the protagonist
-	 * @param bulletSpawningFrequency-frequency at which bullets are automatically spawned
-	 */
-	public void spawnBulletsAutomatically(double bulletSpawningFrequency){
-		bulletFreq=bulletSpawningFrequency;
-		autoSpawnBullets=true;
-	}
-	
-	public void setMyBulletType(int whichBullet) throws IllegalArgumentException{
-		if(whichBullet!=BULLET_ENEMY_ONE &&  whichBullet != BULLET_FRIENDLY_ONE){
+	public void setMyBulletProperties(int whichBullet,double bulletSpeedVertical,
+			double bulletSpeedHorizontal,double bulletDamage) throws IllegalArgumentException{
+		if(whichBullet!=LASER_ONE){
 			throw new IllegalArgumentException("Unknown bullet type");
+		}else{
+			myBulletType=whichBullet;
+			bulletSpeedY=10,
+			bulletSpeedX=-10,
+			bulletDamage=5;
 		}
-		myBulletType=whichBullet;
+		
 	}
-	
-	private void spawnMyBullet(){
+	/**
+	 * 
+	 * @param whichSideBulletIsOn
+	 * @param ySpeed
+	 * @param xSpeed
+	 * @param damage
+	 */
+	private void spawnMyBullet(int whichSideBulletIsOn){
 		BulletView bullet=null;
 		switch(this.myBulletType){
-		case BULLET_ENEMY_ONE:
-			bullet = new BulletCentered_One(super.ctx,this,false, this.getY()+this.getHeight(), this.getX(), this.getX()+this.getWidth());
-			break;
-		case BULLET_FRIENDLY_ONE:
-			bullet = new BulletCentered_One(super.ctx,this,true, this.getY(), this.getX(), this.getX()+this.getWidth());
+		case LASER_ONE:
+			bullet = new Bullet_LaserOne(ctx, this, shootingUp,whichSideBulletIsOn, bulletSpeedY, bulletSpeedX, bulletDamage);
 			break;
 		}
 		((RelativeLayout)this.getParent()).addView(bullet,1);
