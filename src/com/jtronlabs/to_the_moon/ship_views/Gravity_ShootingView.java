@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 import com.jtronlabs.to_the_moon.bullet_views.BulletCentered_One;
+import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 
 public class Gravity_ShootingView extends GravityView{
 	
@@ -21,6 +22,7 @@ public class Gravity_ShootingView extends GravityView{
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
+    		Log.d("lowrey","shooting");
     		spawnMyBullet();
     		Gravity_ShootingView.this.postDelayed(this, (long) bulletFreq);
     	}

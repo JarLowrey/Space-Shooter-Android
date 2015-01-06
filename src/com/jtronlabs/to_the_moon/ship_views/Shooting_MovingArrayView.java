@@ -15,6 +15,7 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 
 	public static final int DEFAULT_NUM_COLS=5,DEFAULT_NUM_ROWS=5;
 	public static final boolean DEFAULT_STAGGERED=true;
+	private static final float LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
 	
 	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
 	public static ArrayList<Shooting_MovingArrayView> allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
@@ -65,7 +66,7 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 				speedX, collisionDamage, health);
 
 		this.setMyBulletType(whichBullet);
-		spawnBulletsAutomatically(bulletFreq);
+		startShooting(bulletFreq);
 
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);
@@ -76,7 +77,7 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 				(int)heightView));
 
 		//set Y destination
-		final float lowestPointOnScreen = (heightPixels) / 2;//lowest row is at HeightPixels/2
+		final float lowestPointOnScreen = heightPixels*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
 		final float myRowNum = (myPosition / numCols) * heightView;//, multiply that by heightOfView to get top of row
 		this.lowestPositionThreshold = (int) (lowestPointOnScreen - myRowNum);
 
@@ -92,8 +93,10 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		this.setY(0);
 
 		allSimpleShooters.add(this);
-		  
-		Log.d("lowrey","num of this shooter = " + allSimpleShooters.size());
+		
+		
+		cleanUpThreads();
+		restartThreads();
 	}
 
 
@@ -149,16 +152,24 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		return numCols*numRows;
 	}
 
-	public static void resetSimpleShooterArray(int numberRows,int numberCols,boolean staggerShips) throws IllegalStateException{
-		if(!canReset()){
-			throw new IllegalStateException("Not all instances of this class are dead");
+	/**
+	 * Reset all static variables for this class
+	 * @param numberRows-the array of shooter will have this many rows
+	 * @param numberCols-the array of shooter will have this many columns
+	 * @param staggerShips-true for each row to be slightly offset from the next
+	 * @return-true if successful there are no instances of this class alive, and thus the static portions can be reset. false otherwise
+	 */
+	public static boolean resetSimpleShooterArray(int numberRows,int numberCols,boolean staggerShips){
+		if(!(freePositions.size()==0 || allSimpleShooters.size()==0)){
+			return false;
 		}else{
+			//reset static variables
 			numRows=numberRows;
 			numCols=numberCols;
 			staggered=staggerShips;
 			howManyTimesMoved=0;
 			currentPos = TOP_LEFT;
-			
+			simpleShooterHandler.removeCallbacks(moveInASquareRunnable);
 			
 			//reset the arraylist of free positions
 			freePositions = new ArrayList<Integer>();
@@ -175,16 +186,16 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 				allSimpleShooters.get(i).removeView(false);
 			}
 			allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
+			return true;
 		}
 	}
 	
-	public static void resetSimpleShooterArray() throws IllegalStateException{
-		simpleShooterHandler.removeCallbacks(moveInASquareRunnable);
-		resetSimpleShooterArray(DEFAULT_NUM_COLS,DEFAULT_NUM_ROWS,DEFAULT_STAGGERED); 
+	/**
+	 * Reset all static variables for this class. Set these variables to their default values
+	 * @return-true if successful there are no instances of this class alive, and thus the static portions can be reset. false otherwise
+	 */
+	public static boolean resetSimpleShooterArray(){
+		return resetSimpleShooterArray(DEFAULT_NUM_COLS,DEFAULT_NUM_ROWS,DEFAULT_STAGGERED); 
 	} 
-	
-	public static boolean canReset(){
-		return freePositions.size()==0 || allSimpleShooters.size()==0;
-	}
 
 }

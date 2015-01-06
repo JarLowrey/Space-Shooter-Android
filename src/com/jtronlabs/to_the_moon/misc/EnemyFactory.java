@@ -80,7 +80,7 @@ public class EnemyFactory{
 		ctx=context;
 		gameLayout=gameScreen;
 		
-		Shooting_MovingArrayView.resetSimpleShooterArray(6,6,true);
+		Shooting_MovingArrayView.resetSimpleShooterArray();
 		Shooting_MovingArrayView.startMovingAllShooters();
 	} 
 	

@@ -50,7 +50,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 				DEFAULT_HEALTH);
 		
 		final double bulletFreq = (2000+Math.random()*4000);
-		spawnBulletsAutomatically(bulletFreq);
+		startShooting(bulletFreq);
 		
 		this.lowestPositionThreshold=(int) heightPixels;
 		
