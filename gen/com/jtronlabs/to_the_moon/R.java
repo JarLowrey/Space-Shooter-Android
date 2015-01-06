@@ -105,10 +105,10 @@ public final class R {
         public static final int intro_btn_next=0x7f0a000b;
         public static final int intro_text=0x7f0a000a;
         public static final int moon=0x7f0a000e;
-        public static final int num_btn_taps_textview=0x7f0a0004;
         public static final int playBtn=0x7f0a0011;
         public static final int rocket_game=0x7f0a0002;
         public static final int rocket_main=0x7f0a000f;
+        public static final int score_textview=0x7f0a0004;
         public static final int stars=0x7f0a000d;
         public static final int title=0x7f0a0012;
     }

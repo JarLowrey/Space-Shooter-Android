@@ -142,7 +142,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		gameScreen=(RelativeLayout)findViewById(R.id.gameScreen);
 		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
 		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
-		text_score=(TextView)findViewById(R.id.num_btn_taps_textview);
+		text_score=(TextView)findViewById(R.id.score_textview);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) RocketView.DEFAULT_HEALTH);
 		healthBar.setProgress(healthBar.getMax());
