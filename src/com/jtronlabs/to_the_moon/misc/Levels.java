@@ -1,13 +1,12 @@
 package com.jtronlabs.to_the_moon.misc;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.R.drawable;
+ 
 
-
-
+ 
 public class Levels {
 	//GAME STATUS DATA
-	private final int[] levelBackgrounds={R.drawable.level1,R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
+	private final int[] levelBackgrounds={R.drawable.btn_gray,R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
 	public final int MAX_LEVEL=25, INCREASE_LEVEL_GOAL_INCREMENT=5,BTN_TAP_SCORE_WEIGHT=1;
 	private static int score,level;
 	
@@ -23,7 +22,7 @@ public class Levels {
 		int retVal=-1;
 		int prevDifficulty=levelDifficulty();
 		
-		if(score>getLevelGoal(level)){level++;}
+		if(score>getLevelGoal(level)){level++;} 
 		if(prevDifficulty!=levelDifficulty()){retVal = getLevelBackground();}
 		
 		return retVal;

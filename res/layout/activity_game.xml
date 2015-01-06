@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/level1"/>
+        android:background="@drawable/btn_gray"/>
     <!-- 
     <ImageView
         android:id="@+id/rocket_exhaust"

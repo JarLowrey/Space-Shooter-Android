@@ -26,10 +26,6 @@ public class EnemyFactory{
 	private Context ctx;
 	private Levels levelInfo = new Levels();
 	private RelativeLayout gameLayout;
-	
-    public int meteorInterval=4000;
-    public int simpleArrayShooterInterval=5000;
-    public int diagonalShooterInterval=5500;
     
     private Handler enemySpawnHandler = new Handler();
     
@@ -94,18 +90,21 @@ public class EnemyFactory{
 	    enemySpawnHandler.removeCallbacks(spawnDiagonalShooterRunnable);
 	}
 	public void restartThreads(){
-//		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
+		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnSimpleShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
-//	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	}  
 	
 	private long calculateMeteorSpawnInterval(){
+		final int meteorInterval = 3000;
 		return (long) (meteorInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*3000);
 	}
 	private long calculateMovingSideToSideShooterSpawnInterval(){
+		final int simpleArrayShooterInterval = 6000;
 		return (long) (simpleArrayShooterInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*3000);
 	}
 	private long calculatDiagonalShooterSpawnInterval(){
+		final int diagonalShooterInterval=2000; 
 		return (long) (diagonalShooterInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*4000);
 	}
 	public void spawnAllSimpleShooters(){
