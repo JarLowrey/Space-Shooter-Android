@@ -34,13 +34,12 @@ public class GameActivity extends Activity implements OnTouchListener{
 
 	//VIEWS
 	private Button btnLeft, btnRight,btnMiddle;
-	private TextView btn_taps_text,gameWindowOverlay;
+	private TextView text_score,gameWindowOverlay;
 	private RocketView rocket;
 //	private ImageView rocket_exhaust;
 	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
 	private ProgressBar healthBar;
-	private int numMoveButtonsCurrentlyPressed=0;
 	
 	public static ArrayList<GameObject> enemies=new ArrayList<GameObject>();
 	
@@ -84,7 +83,11 @@ public class GameActivity extends Activity implements OnTouchListener{
         			if(protagonistDies){gameOver();return;}
         			else{healthBar.setProgress((int) rocket.getHealth());}
         			
-        			enemies.get(i).removeView(false);
+        			enemyDies=projectileCastedEnemy.takeDamage(rocket.getDamage());
+        			if(enemyDies){
+        				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
+        				text_score.setText(""+levelInfo.getScore());
+        			}
         		}
         		
         		//check if protagonist's bullets have hit the enemy
@@ -96,6 +99,11 @@ public class GameActivity extends Activity implements OnTouchListener{
     				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
     					//enemy is damaged
             			enemyDies = projectileCastedEnemy.takeDamage(bullet.getDamage());
+            			if(enemyDies){
+            				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
+            				text_score.setText(""+levelInfo.getScore());
+            			}
+            			
             			//remove the bullet from the game
             			protagonistBullets.remove(j);
             			bullet.cleanUpThreads();
@@ -103,7 +111,7 @@ public class GameActivity extends Activity implements OnTouchListener{
             			/*
             			 * only one bullet can hit a specific enemy at once. 
             			 * If that enemy were to die, then checking to see if the other bullets hit 
-            			 * him will cause a NullPointerException. Also, breaking here saves resources.
+            			 * him wastes resources and may cause issues.
             			 */
             			stopCheckingIfProtagonistBulletsHitEnemy=true;
             		}
@@ -117,21 +125,11 @@ public class GameActivity extends Activity implements OnTouchListener{
             gameHandler.postDelayed(this, 50);
         }
     };
-	
-	//SCREEN VARIABLES
-	private float widthPixels,heightPixels;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-
-		//find screen density and width/height of screen in pixels
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-	    WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
-	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-	    widthPixels = displayMetrics.widthPixels;
-	    heightPixels = displayMetrics.heightPixels;
 		
 		//set up Views and OnClickListeners and layouts
 		btnLeft= (Button)findViewById(R.id.btnLeft); 
@@ -144,7 +142,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		gameScreen=(RelativeLayout)findViewById(R.id.gameScreen);
 		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
 		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
-		btn_taps_text=(TextView)findViewById(R.id.num_btn_taps_textview);
+		text_score=(TextView)findViewById(R.id.num_btn_taps_textview);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) RocketView.DEFAULT_HEALTH);
 		healthBar.setProgress(healthBar.getMax());

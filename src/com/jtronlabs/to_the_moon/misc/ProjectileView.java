@@ -215,6 +215,9 @@ public class ProjectileView extends ImageView implements GameObject{
 	public void setScoreValue(int newScore){
 		score=newScore;
 	}
+	public int getScoreForKilling(){
+		return score;
+	}
 	
 	public void cleanUpThreads(){
 		this.removeCallbacks(setBackgroundTransparentRunnable);
