@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
 public class ProjectileView extends ImageView implements GameObjectInterface{
 
@@ -137,7 +138,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		}else{
 			//set the background behind this view, and then remove it after howLongBackgroundIsApplied milliseconds
 			this.setBackgroundResource(R.drawable.danger);
-			final int howLongBackgroundIsApplied=200;
+			final int howLongBackgroundIsApplied=100;
 			this.postDelayed(setBackgroundTransparentRunnable, howLongBackgroundIsApplied);
 			
 			createExplosion();
@@ -148,7 +149,16 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	
 	public int removeView(boolean showExplosion){
 		if(showExplosion){createExplosion();}//show explosion
-		if(GameActivity.enemies.contains(this)){GameActivity.enemies.remove(this);}//remove from list of enemies
+		
+		//do not remove from the list of enemies if this is a ShootingView and this still has bullets remaining
+		if(this instanceof Gravity_ShootingView){
+			Gravity_ShootingView casted = (Gravity_ShootingView)this;
+			if(casted.myBullets.size()==0){
+				if(GameActivity.enemies.contains(this)){GameActivity.enemies.remove(this);}//remove from list of enemies				
+			}
+		}else if(GameActivity.enemies.contains(this)){
+			GameActivity.enemies.remove(this);
+		}
 		cleanUpThreads();//destroy all threads
 		
 		ViewGroup parent = (ViewGroup)this.getParent();

@@ -3,6 +3,7 @@ package com.jtronlabs.to_the_moon.bullet_views;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
@@ -80,9 +81,15 @@ public class BulletView extends ProjectileView{
 		this.post(moveBulletRunnable);
 	}
 	
+	/**
+	 * Clean up threads. Remove bullet from Shooter's list of bullets. Check if Shooter is dead and all bullets are gone, if so remove Shooter from GameActivity.enemies. call super
+	 */
 	public int removeView(boolean showExplosion){
 		cleanUpThreads();
 		theOneWhoShotMe.myBullets.remove(this);
+		if(theOneWhoShotMe.getHealth()<=0 && theOneWhoShotMe.myBullets.size()==0){
+			GameActivity.enemies.remove(theOneWhoShotMe);
+		}
 		return super.removeView(showExplosion);
 	}
 	public void cleanUpThreads(){

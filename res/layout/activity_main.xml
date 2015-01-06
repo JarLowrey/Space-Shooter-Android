@@ -23,8 +23,8 @@
     
     <ImageView
         android:id="@+id/rocket_main"
-        android:layout_width="22dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/rocket_game_width"
+        android:layout_height="@dimen/rocket_game_height"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"

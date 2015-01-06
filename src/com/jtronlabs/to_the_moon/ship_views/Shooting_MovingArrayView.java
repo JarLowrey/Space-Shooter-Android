@@ -6,21 +6,17 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
 
 public class Shooting_MovingArrayView extends Gravity_ShootingView implements GameObjectInterface {
 
-	private final static int DEFAULT_SCORE = 15;
-	public final static double DEFAULT_SPEED_UP = 3, DEFAULT_SPEED_DOWN = 3,
-			DEFAULT_SPEEDX = 3, DEFAULT_COLLISION_DAMAGE = 20,
-			DEFAULT_HEALTH = 10;
-
-	public final static int NUM_SHOOTERS_IN_A_ROW = 7, NUM_ROWS = 4;
-
+	public static final int DEFAULT_NUM_COLS=7,DEFAULT_NUM_ROWS=4;
+	public static final boolean DEFAULT_STAGGERED=true;
+	
 	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
 	private static boolean staggered = false;
+	private static int numRows=4,numCols=7;
 
 	private int myPosition;
 
@@ -60,37 +56,31 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 
 	public static ArrayList<Shooting_MovingArrayView> allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
 
-	public Shooting_MovingArrayView(Context context) {
-		super(context, DEFAULT_SCORE, DEFAULT_SPEED_UP, DEFAULT_SPEED_DOWN,
-				DEFAULT_SPEEDX, DEFAULT_COLLISION_DAMAGE, DEFAULT_HEALTH);
+	public Shooting_MovingArrayView(Context context, int score,double speedY, double speedX,double collisionDamage, double health, double bulletFreq,
+			int backgroundId,int whichBullet,float height,float width) {
+		super(context, score, speedY, speedY,
+				speedX, collisionDamage, health);
 
-		final double bulletFreq = (5000 + Math.random() * 4000);
+		this.setMyBulletType(whichBullet);
 		spawnBulletsAutomatically(bulletFreq);
 
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);
 
-		// ships move to a certain position on screen. There a set number of
-		// ships in each row, if the number is exceeded move to the next row
-		final float height = context.getResources().getDimension(
-				R.dimen.simple_enemy_shooter_height);
-		final float lowestPointOnScreen = heightPixels / NUM_ROWS;
-		final float myRowNum = (myPosition / NUM_SHOOTERS_IN_A_ROW) * height;
+		final float lowestPointOnScreen = heightPixels / numRows;
+		final float myRowNum = (myPosition / numCols) * height;
 		this.lowestPositionThreshold = lowestPointOnScreen - myRowNum;
 
 		// set image background, width, and height
-		this.setImageResource(R.drawable.ufo);
-		final int height_int = (int) height;
-		int width_int = (int) context.getResources().getDimension(
-				R.dimen.simple_enemy_shooter_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,
-				height_int));
+		this.setImageResource(backgroundId);
+		this.setLayoutParams(new RelativeLayout.LayoutParams((int)width,
+				(int)height));
 
 		// set initial position
 		final float marginOnSides = screenDens * 30;
 		final float shipXInterval = (widthPixels - marginOnSides)
-				/ NUM_SHOOTERS_IN_A_ROW;
-		final float myColPos = myPosition % NUM_SHOOTERS_IN_A_ROW;
+				/ numCols;
+		final float myColPos = myPosition % numCols;
 		float xPos = shipXInterval * myColPos + marginOnSides / 2;
 		if (staggered && myRowNum % 2 == 1) {
 			xPos += marginOnSides / 2;
@@ -111,11 +101,6 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		return super.removeView(showExplosion);
 	}
 
-	public static boolean toggleStaggered() {
-		staggered = !staggered;
-		return staggered;
-	}
-
 	public static void beginMovingAllShootersInASquare() {
 		simpleShooterHandler.post(moveInASquareRunnable);
 	}
@@ -125,14 +110,41 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 	}
 
 	public static int getMaxNumShips() {
-		return NUM_SHOOTERS_IN_A_ROW * NUM_ROWS;
+		return numCols*numRows;
 	}
 
-	public static void resetSimpleShooterArray() {
-		for (int i = 0; i < getMaxNumShips(); i++) {
-			freePositions.add(i);
+	public static void resetSimpleShooterArray(int numRowsOfShooters,int numShootersInARow,boolean staggerEnemies) throws UnsupportedOperationException{
+		if(!canReset()){
+			throw new UnsupportedOperationException("Not all instances of this class are dead");
+		}else{
+			numRows=numRowsOfShooters;
+			numCols=numShootersInARow;
+			staggered=staggerEnemies;
+			
+			for (int i = 0; i < getMaxNumShips(); i++) {
+				freePositions.add(i);
+			}
+			allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
 		}
-		allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
+	}
+	
+	public static void resetSimpleShooterArray() throws UnsupportedOperationException{
+		if(!canReset()){
+			throw new UnsupportedOperationException("Not all instances of this class are dead");
+		}else{
+			numRows=DEFAULT_NUM_ROWS;
+			numCols=DEFAULT_NUM_COLS;
+			staggered=DEFAULT_STAGGERED;
+			
+			for (int i = 0; i < getMaxNumShips(); i++) {
+				freePositions.add(i);
+			}
+			allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
+		}
+	}
+	
+	public static boolean canReset(){
+		return freePositions.size()==0 || allSimpleShooters.size()==0;
 	}
 
 }

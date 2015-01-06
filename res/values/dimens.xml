@@ -24,9 +24,9 @@
     
     <dimen name="giant_meteor_height">160dp</dimen>
     <dimen name="giant_meteor_width">100dp</dimen>
-    
+    <!-- 
     <dimen name="rocket_exhaust_height">40dp</dimen>
-    <dimen name="rocket_exhaust_width">25dp</dimen>
+    <dimen name="rocket_exhaust_width">25dp</dimen>-->
     <dimen name="rocket_game_height">30dp</dimen>
     <dimen name="rocket_game_width">48dp</dimen>
     <dimen name="bullet_width">5dp</dimen>

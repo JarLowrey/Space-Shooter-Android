@@ -7,13 +7,22 @@ import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.R.dimen;
-import com.jtronlabs.to_the_moon.ship_views.Shooting_DiagonalMovingView;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_MeteorView;
+import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.ship_views.Shooting_DiagonalMovingView;
 import com.jtronlabs.to_the_moon.ship_views.Shooting_MovingArrayView;
 
 public class EnemyFactory{
 	
+//	public final static double ENEMY_ONE_SCORE=10,
+//			ENEMY_ONE_HEALTH=10,
+//			ENEMY_ONE_COLLISION_DAMAGE=10,
+//			ENEMY_ONE_SPEED_X_AND_Y=3,
+//			ENEMY_ONE_BULLET_FREQ
+			
+			
+			
+			
 	private Context ctx;
 	private Levels levelInfo = new Levels();
 	private RelativeLayout gameLayout;
@@ -77,7 +86,6 @@ public class EnemyFactory{
 		
 		Shooting_MovingArrayView.resetSimpleShooterArray();
 		Shooting_MovingArrayView.beginMovingAllShootersInASquare();
-		Shooting_MovingArrayView.toggleStaggered();
 	} 
 	
 	public void cleanUpThreads(){
@@ -89,7 +97,7 @@ public class EnemyFactory{
 //		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnSimpleShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 //	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
-	}
+	}  
 	
 	private long calculateMeteorSpawnInterval(){
 		return (long) (meteorInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*3000);
@@ -104,11 +112,22 @@ public class EnemyFactory{
 		int temp=Shooting_MovingArrayView.allSimpleShooters.size();
 		
 		for(int i=temp;i<Shooting_MovingArrayView.getMaxNumShips();i++){
-			Shooting_MovingArrayView shooter = new Shooting_MovingArrayView(ctx);
-			shooter.changeSpeedYDown(1.2);
+			Shooting_MovingArrayView shooter = spawnOneShooting_MovingArrayView();
+			
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 		}
+	}
+	private Shooting_MovingArrayView spawnOneShooting_MovingArrayView(){
+		final int diff = levelInfo.levelDifficulty();
+		final double bulletFreq = (5000/Math.sqrt(diff))+Math.random()*(3000/Math.sqrt(diff));
+		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height);
+		final float width = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		
+		Shooting_MovingArrayView shooter = new Shooting_MovingArrayView(ctx,10*diff,3*diff,3*diff,10*diff,10*diff,bulletFreq,
+				R.drawable.ufo,Gravity_ShootingView.BULLET_ENEMY_ONE,height,width);
+		
+		return shooter;
 	}
 	public void spawnGiantMeteor(){
 		Gravity_MeteorView giant = new Gravity_MeteorView(ctx);

@@ -58,7 +58,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         		boolean enemyDies=false,protagonistDies=false;
         		ProjectileView projectileCastedEnemy = (ProjectileView)enemies.get(i);
         		
-        		//if enemy can shoot, check if its bullets have hit the protagonist
+        		//if enemy has shoot, check if its bullets have hit the protagonist
         		if(enemies.get(i) instanceof Gravity_ShootingView){
         			ArrayList<BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myBullets;
         			
@@ -69,16 +69,15 @@ public class GameActivity extends Activity implements OnTouchListener{
                 			protagonistDies = rocket.takeDamage(bullet.getDamage());
                 			if(protagonistDies){gameOver();return;}
                 			else{healthBar.setProgress((int) rocket.getHealth());}
-                			//remove the bullet from the game
-                			enemyBullets.remove(j);
-                			bullet.cleanUpThreads();
+                			
+                			
                 			bullet.removeView(true);
                 		}
         			}
         		}
         		
     			//check if the enemy itself has collided with the  protagonist
-        		if(rocket.collisionDetection(projectileCastedEnemy)){
+        		if(projectileCastedEnemy.getHealth()>0 && rocket.collisionDetection(projectileCastedEnemy)){
         			protagonistDies = rocket.takeDamage(projectileCastedEnemy.getDamage());
         			if(protagonistDies){gameOver();return;}
         			else{healthBar.setProgress((int) rocket.getHealth());}
@@ -91,34 +90,33 @@ public class GameActivity extends Activity implements OnTouchListener{
         		}
         		
         		//check if protagonist's bullets have hit the enemy
-    			ArrayList<BulletView> protagonistBullets = rocket.myBullets;
-    			for(int j=protagonistBullets.size()-1;j>=0;j--){
-    				boolean stopCheckingIfProtagonistBulletsHitEnemy=false;
-    				BulletView bullet = protagonistBullets.get(j);
-    				
-    				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
-    					//enemy is damaged
-            			enemyDies = projectileCastedEnemy.takeDamage(bullet.getDamage());
-            			if(enemyDies){
-            				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
-            				text_score.setText(""+levelInfo.getScore());
-            			}
-            			
-            			//remove the bullet from the game
-            			protagonistBullets.remove(j);
-            			bullet.cleanUpThreads();
-            			bullet.removeView(true);
-            			/*
-            			 * only one bullet can hit a specific enemy at once. 
-            			 * If that enemy were to die, then checking to see if the other bullets hit 
-            			 * him wastes resources and may cause issues.
-            			 */
-            			stopCheckingIfProtagonistBulletsHitEnemy=true;
-            		}
-    				if(stopCheckingIfProtagonistBulletsHitEnemy){
-            			break;
-    				}
-    			}    			
+        		if(projectileCastedEnemy.getHealth()>0){
+	    			ArrayList<BulletView> protagonistBullets = rocket.myBullets;
+	    			for(int j=protagonistBullets.size()-1;j>=0;j--){
+	    				boolean stopCheckingIfProtagonistBulletsHitEnemy=false;
+	    				BulletView bullet = protagonistBullets.get(j);
+	    				
+	    				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
+	    					//enemy is damaged
+	            			enemyDies = projectileCastedEnemy.takeDamage(bullet.getDamage());
+	            			if(enemyDies){
+	            				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
+	            				text_score.setText(""+levelInfo.getScore());
+	            			}
+	            			
+	            			bullet.removeView(true);
+	            			/*
+	            			 * only one bullet can hit a specific enemy at once. 
+	            			 * If that enemy were to die, then checking to see if the other bullets hit 
+	            			 * him wastes resources and may cause issues.
+	            			 */
+	            			stopCheckingIfProtagonistBulletsHitEnemy=true;
+	            		}
+	    				if(stopCheckingIfProtagonistBulletsHitEnemy){
+	            			break;
+	    				}
+	    			}
+        		}
         	}
 
 			/*			DO OTHER STUFF 		*/
