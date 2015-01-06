@@ -11,15 +11,17 @@ import android.widget.ImageView;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.ship_views.RocketView;
 
 public class ProjectileView extends ImageView implements GameObjectInterface{
 
 	public static int HOW_OFTEN_TO_MOVE=100;
 	public static final int UP=0,RIGHT=1,DOWN=2,LEFT=3;
+	public static final int NO_THRESHOLD=Integer.MAX_VALUE;
 	
 	int score;
 	double speedYUp,speedYDown,speedX, damage, health;
-	public float lowestPositionThreshold=-1,highestPositionThreshold=-1;
+	public int lowestPositionThreshold=NO_THRESHOLD,highestPositionThreshold=NO_THRESHOLD;
 	public static float screenDens,widthPixels,heightPixels;
 	protected Context ctx;
 	
@@ -98,25 +100,21 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		switch(direction){
 		case UP:
 			y-=speedYUp;
-			if(highestPositionThreshold>=-this.getHeight()){
-				if(y>=highestPositionThreshold){this.setY(y);}
-				else{atThreshold=true;}					
-			}
+			atThreshold=highestPositionThreshold!=NO_THRESHOLD && y<highestPositionThreshold;
+			this.setY(y);
 			break;
 		case RIGHT:
 			x+=speedX;
-			if((x+this.getWidth())<=widthPixels){this.setX(x);}
+			this.setX(x);
 			break;
 		case DOWN:
 			y+=speedYDown;
-			if(lowestPositionThreshold>0){
-				if((y+getHeight())<=lowestPositionThreshold){this.setY(y);}
-				else{atThreshold=true;}
-			}
+			atThreshold=lowestPositionThreshold!=NO_THRESHOLD && (y+getHeight())>lowestPositionThreshold;
+			this.setY(y);
 			break;
 		case LEFT:
 			x-=speedX;
-			if(x>=0){this.setX(x);}
+			this.setX(x);
 			break;
 		}
 		

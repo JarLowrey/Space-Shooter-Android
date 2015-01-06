@@ -16,7 +16,7 @@ public class Gravity_MeteorView extends GravityView implements GameObjectInterfa
 		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 
-		this.lowestPositionThreshold=heightPixels;
+		this.lowestPositionThreshold=(int) heightPixels;
 		
 		//set image background
 		this.setImageResource(R.drawable.meteor);

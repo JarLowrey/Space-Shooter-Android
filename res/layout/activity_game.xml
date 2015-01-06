@@ -23,15 +23,6 @@
         android:src="@drawable/rockets_fire" />
         -->
     
-    <com.jtronlabs.to_the_moon.ship_views.RocketView
-        android:id="@+id/rocket_game"
-        android:layout_width="@dimen/rocket_game_width"
-        android:layout_height="@dimen/rocket_game_height"
-        android:layout_above="@+id/btn_background"
-        android:layout_marginBottom="@dimen/activity_margin_med"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/rocket" />
-    
     <RelativeLayout
         android:id="@+id/btn_background"
         android:layout_width="match_parent"
@@ -86,5 +77,14 @@
 	        android:layout_alignParentTop="true" />
 
 	</RelativeLayout>
+
+    <com.jtronlabs.to_the_moon.ship_views.RocketView
+        android:id="@+id/rocket_game"
+        android:layout_width="@dimen/rocket_game_width"
+        android:layout_height="@dimen/rocket_game_height"
+        android:layout_above="@+id/btn_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_margin_small"
+        android:src="@drawable/rocket" />
 
 </RelativeLayout>

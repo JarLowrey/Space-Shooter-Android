@@ -48,8 +48,8 @@ public class BulletView extends ProjectileView{
 		theOneWhoShotMe=shooter;
 		
 		//set thresholds to off screen
-		this.highestPositionThreshold=-bulletHeight;
-		this.lowestPositionThreshold=heightPixels+bulletHeight;
+		this.highestPositionThreshold=(int) -bulletHeight;
+		this.lowestPositionThreshold=(int) (heightPixels+bulletHeight);
 		
 		//set Y position and the instance boolean for whether or not bullet is traveling up or down, left or right
 		this.setY(startingPixelPositionY);
@@ -69,8 +69,8 @@ public class BulletView extends ProjectileView{
 		theOneWhoShotMe=shooter;
 		
 		//set thresholds to off screen
-		this.highestPositionThreshold=-bulletHeight;
-		this.lowestPositionThreshold=heightPixels+bulletHeight;
+		this.highestPositionThreshold=(int) -bulletHeight;
+		this.lowestPositionThreshold=(int) (heightPixels+bulletHeight);
 		
 		//set Y position and the instance boolean for whether or not bullet is traveling up or down,left or right
 		this.setY(startingPixelPositionY);

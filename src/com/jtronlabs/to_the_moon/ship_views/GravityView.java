@@ -1,10 +1,10 @@
 package com.jtronlabs.to_the_moon.ship_views;
 
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.misc.ProjectileView;
-
 import android.content.Context;
 import android.util.AttributeSet;
+
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
+import com.jtronlabs.to_the_moon.misc.ProjectileView;
 /**
  * A ProjectileView with a constant downwards force that is a different speed than ProjectileView's SpeedY
  * @author JAMES LOWREY
@@ -37,15 +37,12 @@ public class GravityView extends ProjectileView implements GameObjectInterface{
     		}else{
         		boolean atThreshold=move(ProjectileView.DOWN);//move the View downwards
         		
-        		if(atThreshold && !(GravityView.this instanceof RocketView)){//if View is at threshold and is not the protagonist, stop running this Runnable
-        			if(GravityView.this instanceof Gravity_OrbitingView){
-        				
-        			}
-        			GravityView.this.removeCallbacks(this);
+        		if(atThreshold){//if View is at threshold stop reposting runnable
+        				stopGravity();
         		}else{
-        			GravityView.this.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE);
+        			GravityView.this.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE/2);
         		}
-    		}
+    		} 
     	}
     };
 
@@ -66,7 +63,7 @@ public class GravityView extends ProjectileView implements GameObjectInterface{
 		this.removeCallbacks(gravityRunnable);		
 	}
 	public void startGravity(){
-		this.post(gravityRunnable);		
+		this.postDelayed(gravityRunnable,ProjectileView.HOW_OFTEN_TO_MOVE);		
 	}
 	
 }

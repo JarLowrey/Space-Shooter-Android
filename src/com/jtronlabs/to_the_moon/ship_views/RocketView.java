@@ -1,12 +1,11 @@
 package com.jtronlabs.to_the_moon.ship_views;
 
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.misc.ProjectileView;
-
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.ImageView;
+import android.util.Log;
+
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
+import com.jtronlabs.to_the_moon.misc.ProjectileView;
 
 public class RocketView extends Gravity_ShootingView implements GameObjectInterface{
 	
@@ -21,7 +20,7 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 	public RocketView(Context context, AttributeSet at) {
 		super(context, at,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
-		this.highestPositionThreshold=heightPixels/3;
+		this.highestPositionThreshold=(int)(heightPixels/3);
 		this.setMyBulletType(Gravity_ShootingView.BULLET_FRIENDLY_ONE);
 		this.stopGravity();
 	}
@@ -29,7 +28,7 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 	public RocketView(Context context) {
 		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
-		this.highestPositionThreshold=heightPixels/3;
+		this.highestPositionThreshold=(int)(heightPixels/3);
 		this.setMyBulletType(Gravity_ShootingView.BULLET_FRIENDLY_ONE);
 		this.stopGravity();
 	}
@@ -91,6 +90,28 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		}
 		
 	};
+	
+	/**
+	 * Do not allow the rocket to move off the sides of the screen
+	 */
+	@Override
+	public boolean move(int direction){
+		float x =this.getX();
+		
+		switch(direction){
+		case ProjectileView.RIGHT:
+			x+=this.getSpeedX();
+			if((x+this.getWidth())<=widthPixels){this.setX(x);}
+			break;
+		case ProjectileView.LEFT:
+			x-=this.getSpeedX();
+			if(x>=0){this.setX(x);}			
+			break;
+		default:
+			return super.move(direction);			
+		}
+		return false;
+	}
 	
 	public void beginMoving(int direction){
 		directionMoving = direction;

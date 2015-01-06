@@ -2,7 +2,7 @@ package com.jtronlabs.to_the_moon.ship_views;
 
 import android.content.Context;
 import android.widget.RelativeLayout;
- 
+
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
@@ -52,7 +52,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		final double bulletFreq = (2000+Math.random()*4000);
 		spawnBulletsAutomatically(bulletFreq);
 		
-		this.lowestPositionThreshold=heightPixels;
+		this.lowestPositionThreshold=(int) heightPixels;
 		
 		//set image background, width, and height
 		this.setImageResource(R.drawable.ufo);

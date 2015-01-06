@@ -154,7 +154,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		    public void onGlobalLayout() { 
 		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 		        //have a little portion of the rocket poking out above the bottom
-				rocket.lowestPositionThreshold=btnBackground.getY();
+				rocket.lowestPositionThreshold= (int) (btnBackground.getY()-GameActivity.this.getResources().getDimension(R.dimen.activity_margin_small));
 		    } 
 		});
 		
@@ -287,7 +287,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		//clean up static variables
 		enemies=new ArrayList<GameObjectInterface>();
 		Shooting_MovingArrayView.resetSimpleShooterArray();
-		Shooting_MovingArrayView.beginMovingAllShootersInASquare();
+		Shooting_MovingArrayView.stopMovingAllShooters();
 		
 	}
 

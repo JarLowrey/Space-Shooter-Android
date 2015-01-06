@@ -80,8 +80,8 @@ public class EnemyFactory{
 		ctx=context;
 		gameLayout=gameScreen;
 		
-		Shooting_MovingArrayView.resetSimpleShooterArray();
-		Shooting_MovingArrayView.beginMovingAllShootersInASquare();
+		Shooting_MovingArrayView.resetSimpleShooterArray(6,6,true);
+		Shooting_MovingArrayView.startMovingAllShooters();
 	} 
 	
 	public void cleanUpThreads(){
@@ -92,7 +92,7 @@ public class EnemyFactory{
 	public void restartThreads(){
 		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnSimpleShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	}  
 	
 	private long calculateMeteorSpawnInterval(){
