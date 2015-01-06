@@ -40,7 +40,7 @@ public class Levels {
 		return level;
 	}
 	public int getLevelBackground(){
-		return levelBackgrounds[(level/levelDifficulty())];
+		return levelBackgrounds[levelDifficulty()-1];
 	}
 	/**
 	 * 
