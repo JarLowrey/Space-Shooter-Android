@@ -4,10 +4,10 @@ import android.content.Context;
 import android.widget.RelativeLayout;
  
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.misc.GameObject;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
 
-public class DiagonalMovingShooterView extends ShootingView implements GameObject{
+public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements GameObjectInterface{
 	
 	private final static int DEFAULT_SCORE=10;
 	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=.5,DEFAULT_SPEEDX=15,
@@ -18,34 +18,34 @@ public class DiagonalMovingShooterView extends ShootingView implements GameObjec
 
 		@Override
 		public void run() {
-			boolean offScreen = DiagonalMovingShooterView.this.move(ProjectileView.DOWN);
+			boolean offScreen = Shooting_DiagonalMovingView.this.move(ProjectileView.DOWN);
 			if(offScreen){
-				DiagonalMovingShooterView.this.removeView(false);
-				DiagonalMovingShooterView.this.removeCallbacks(this);
+				Shooting_DiagonalMovingView.this.removeView(false);
+				Shooting_DiagonalMovingView.this.removeCallbacks(this);
 				return;
 			}
 			if(travelingRight){
-				DiagonalMovingShooterView.this.move(ProjectileView.RIGHT);
-				final double farRight = widthPixels-DiagonalMovingShooterView.this.getSpeedX();
-				final double rightSideOfShip = DiagonalMovingShooterView.this.getX()+DiagonalMovingShooterView.this.getWidth();
+				Shooting_DiagonalMovingView.this.move(ProjectileView.RIGHT);
+				final double farRight = widthPixels-Shooting_DiagonalMovingView.this.getSpeedX();
+				final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
 				if(rightSideOfShip>=farRight){//ship is on far right portion of screen
 					travelingRight=false;
 				}				
 			}else{
-				DiagonalMovingShooterView.this.move(ProjectileView.LEFT);
-				final double farLeft = DiagonalMovingShooterView.this.getSpeedX();
-				final double leftSideOfShip = DiagonalMovingShooterView.this.getX();
+				Shooting_DiagonalMovingView.this.move(ProjectileView.LEFT);
+				final double farLeft = Shooting_DiagonalMovingView.this.getSpeedX();
+				final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
 				if(leftSideOfShip <= farLeft){//ship is on far left portion of screen
 					travelingRight=true;
 				}		
 			}
 			
-			DiagonalMovingShooterView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+			Shooting_DiagonalMovingView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
 		}
 		
 	};
 	
-	public DiagonalMovingShooterView(Context context) {
+	public Shooting_DiagonalMovingView(Context context) {
 		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 		

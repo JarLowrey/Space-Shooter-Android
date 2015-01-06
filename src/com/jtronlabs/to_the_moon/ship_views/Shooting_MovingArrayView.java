@@ -7,10 +7,10 @@ import android.os.Handler;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.misc.GameObject;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
 
-public class MovingShooterArrayView extends ShootingView implements GameObject {
+public class Shooting_MovingArrayView extends Gravity_ShootingView implements GameObjectInterface {
 
 	private final static int DEFAULT_SCORE = 15;
 	public final static double DEFAULT_SPEED_UP = 3, DEFAULT_SPEED_DOWN = 3,
@@ -58,9 +58,9 @@ public class MovingShooterArrayView extends ShootingView implements GameObject {
 		}
 	};
 
-	public static ArrayList<MovingShooterArrayView> allSimpleShooters = new ArrayList<MovingShooterArrayView>();
+	public static ArrayList<Shooting_MovingArrayView> allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
 
-	public MovingShooterArrayView(Context context) {
+	public Shooting_MovingArrayView(Context context) {
 		super(context, DEFAULT_SCORE, DEFAULT_SPEED_UP, DEFAULT_SPEED_DOWN,
 				DEFAULT_SPEEDX, DEFAULT_COLLISION_DAMAGE, DEFAULT_HEALTH);
 
@@ -132,7 +132,7 @@ public class MovingShooterArrayView extends ShootingView implements GameObject {
 		for (int i = 0; i < getMaxNumShips(); i++) {
 			freePositions.add(i);
 		}
-		allSimpleShooters = new ArrayList<MovingShooterArrayView>();
+		allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
 	}
 
 }

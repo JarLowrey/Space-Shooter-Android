@@ -8,9 +8,9 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.R.dimen;
-import com.jtronlabs.to_the_moon.ship_views.DiagonalMovingShooterView;
-import com.jtronlabs.to_the_moon.ship_views.MeteorView;
-import com.jtronlabs.to_the_moon.ship_views.MovingShooterArrayView;
+import com.jtronlabs.to_the_moon.ship_views.Shooting_DiagonalMovingView;
+import com.jtronlabs.to_the_moon.ship_views.Gravity_MeteorView;
+import com.jtronlabs.to_the_moon.ship_views.Shooting_MovingArrayView;
 
 public class EnemyFactory{
 	
@@ -27,7 +27,7 @@ public class EnemyFactory{
     private Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
-    		MeteorView meteor = new MeteorView(ctx);
+    		Gravity_MeteorView meteor = new Gravity_MeteorView(ctx);
     		gameLayout.addView(meteor,1);
     		GameActivity.enemies.add(meteor);
     		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
@@ -38,8 +38,8 @@ public class EnemyFactory{
 	Runnable spawnSimpleShooterRunnable = new Runnable(){
     	@Override
         public void run() {
-    		final int numShootersAlive = MovingShooterArrayView.allSimpleShooters.size();
-    		final int maxNumShooters = MovingShooterArrayView.getMaxNumShips();
+    		final int numShootersAlive = Shooting_MovingArrayView.allSimpleShooters.size();
+    		final int maxNumShooters = Shooting_MovingArrayView.getMaxNumShips();
     		final int numShootersAliveCutoff = 4;
     		
     		if(levelInfo.levelDifficulty()>0 && numShootersAlive<maxNumShooters){
@@ -63,7 +63,7 @@ public class EnemyFactory{
 	Runnable spawnDiagonalShooterRunnable = new Runnable(){
 		@Override
 		public void run() {
-			DiagonalMovingShooterView shooter = new DiagonalMovingShooterView(ctx);
+			Shooting_DiagonalMovingView shooter = new Shooting_DiagonalMovingView(ctx);
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
@@ -75,9 +75,9 @@ public class EnemyFactory{
 		ctx=context;
 		gameLayout=gameScreen;
 		
-		MovingShooterArrayView.resetSimpleShooterArray();
-		MovingShooterArrayView.beginMovingAllShootersInASquare();
-		MovingShooterArrayView.toggleStaggered();
+		Shooting_MovingArrayView.resetSimpleShooterArray();
+		Shooting_MovingArrayView.beginMovingAllShootersInASquare();
+		Shooting_MovingArrayView.toggleStaggered();
 	} 
 	
 	public void cleanUpThreads(){
@@ -101,17 +101,17 @@ public class EnemyFactory{
 		return (long) (diagonalShooterInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*4000);
 	}
 	public void spawnAllSimpleShooters(){
-		int temp=MovingShooterArrayView.allSimpleShooters.size();
+		int temp=Shooting_MovingArrayView.allSimpleShooters.size();
 		
-		for(int i=temp;i<MovingShooterArrayView.getMaxNumShips();i++){
-			MovingShooterArrayView shooter = new MovingShooterArrayView(ctx);
+		for(int i=temp;i<Shooting_MovingArrayView.getMaxNumShips();i++){
+			Shooting_MovingArrayView shooter = new Shooting_MovingArrayView(ctx);
 			shooter.changeSpeedYDown(1.2);
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 		}
 	}
 	public void spawnGiantMeteor(){
-		MeteorView giant = new MeteorView(ctx);
+		Gravity_MeteorView giant = new Gravity_MeteorView(ctx);
 		
 		//change width and height. set X and Y positions
 		final int width = (int)ctx.getResources().getDimension(R.dimen.giant_meteor_width);
@@ -122,7 +122,7 @@ public class EnemyFactory{
 		
 		//set damage and health to 200, score to 20
 		giant.setDamage(150);
-		giant.heal(150-MeteorView.DEFAULT_HEALTH);
+		giant.heal(150-Gravity_MeteorView.DEFAULT_HEALTH);
 		giant.setScoreValue(20);
 		giant.changeSpeedYDown(.45);
 		

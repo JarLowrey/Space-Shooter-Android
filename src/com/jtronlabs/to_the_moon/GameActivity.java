@@ -23,12 +23,12 @@ import android.widget.TextView;
 
 import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
-import com.jtronlabs.to_the_moon.misc.GameObject;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.Levels;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
-import com.jtronlabs.to_the_moon.ship_views.MovingShooterArrayView;
+import com.jtronlabs.to_the_moon.ship_views.Shooting_MovingArrayView;
 import com.jtronlabs.to_the_moon.ship_views.RocketView;
-import com.jtronlabs.to_the_moon.ship_views.ShootingView;
+import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
 public class GameActivity extends Activity implements OnTouchListener{
 
@@ -41,7 +41,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	private RelativeLayout gameScreen;
 	private ProgressBar healthBar;
 	
-	public static ArrayList<GameObject> enemies=new ArrayList<GameObject>();
+	public static ArrayList<GameObjectInterface> enemies=new ArrayList<GameObjectInterface>();
 	
 	//MODEL
 	private Levels levelInfo;
@@ -59,8 +59,8 @@ public class GameActivity extends Activity implements OnTouchListener{
         		ProjectileView projectileCastedEnemy = (ProjectileView)enemies.get(i);
         		
         		//if enemy can shoot, check if its bullets have hit the protagonist
-        		if(enemies.get(i) instanceof ShootingView){
-        			ArrayList<BulletView> enemyBullets = ((ShootingView) enemies.get(i)).myBullets;
+        		if(enemies.get(i) instanceof Gravity_ShootingView){
+        			ArrayList<BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myBullets;
         			
         			for(int j=enemyBullets.size()-1;j>=0;j--){
         				BulletView bullet = enemyBullets.get(j);
@@ -287,9 +287,9 @@ public class GameActivity extends Activity implements OnTouchListener{
 		}
 		
 		//clean up static variables
-		enemies=new ArrayList<GameObject>();
-		MovingShooterArrayView.resetSimpleShooterArray();
-		MovingShooterArrayView.beginMovingAllShootersInASquare();
+		enemies=new ArrayList<GameObjectInterface>();
+		Shooting_MovingArrayView.resetSimpleShooterArray();
+		Shooting_MovingArrayView.beginMovingAllShootersInASquare();
 		
 	}
 

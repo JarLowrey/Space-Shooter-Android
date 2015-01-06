@@ -4,13 +4,13 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
-import com.jtronlabs.to_the_moon.ship_views.ShootingView;
+import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
 public class BulletView extends ProjectileView{
 	
 	public static final double DEFAULT_HEALTH=0.1;
 	public static final int DEFAULT_SCORE=0;
-	private ShootingView theOneWhoShotMe;
+	private Gravity_ShootingView theOneWhoShotMe;
 	
 	private boolean shootingUp,shootingRight;
 	
@@ -39,7 +39,7 @@ public class BulletView extends ProjectileView{
     	}
 	};
 	
-	public BulletView(Context context,ShootingView shooter,boolean shootBulletUp,boolean shootBulletRight,float bulletHeight,float startingPixelPositionY,
+	public BulletView(Context context,Gravity_ShootingView shooter,boolean shootBulletUp,boolean shootBulletRight,float bulletHeight,float startingPixelPositionY,
 			double projectileSpeedVertical,double projectileSpeedX, double projectileDamage) {
 		super(context,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
 				projectileSpeedX,projectileDamage,DEFAULT_HEALTH);
@@ -59,7 +59,7 @@ public class BulletView extends ProjectileView{
 		this.post(moveBulletRunnable);
 	}
 	
-	public BulletView(Context context,AttributeSet at,ShootingView shooter,boolean shootBulletUp, boolean shootBulletRight,float bulletHeight,
+	public BulletView(Context context,AttributeSet at,Gravity_ShootingView shooter,boolean shootBulletUp, boolean shootBulletRight,float bulletHeight,
 			float startingPixelPositionY,double projectileSpeedVertical,double projectileSpeedX, 
 			double projectileDamage) {
 		super(context,at,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,

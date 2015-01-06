@@ -1,6 +1,6 @@
 package com.jtronlabs.to_the_moon.ship_views;
 
-import com.jtronlabs.to_the_moon.misc.GameObject;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
 
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-public class RocketView extends ShootingView implements GameObject{
+public class RocketView extends Gravity_ShootingView implements GameObjectInterface{
 	
 	private final static int DEFAULT_SCORE=0;
 	public final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=2.7,DEFAULT_SPEEDX=14,DEFAULT_COLLISION_DAMAGE=20, 
@@ -22,7 +22,7 @@ public class RocketView extends ShootingView implements GameObject{
 		super(context, at,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 		this.highestPositionThreshold=heightPixels/3;
-		this.setMyBulletType(ShootingView.BULLET_FRIENDLY_ONE);
+		this.setMyBulletType(Gravity_ShootingView.BULLET_FRIENDLY_ONE);
 		this.stopGravity();
 	}
 
@@ -30,7 +30,7 @@ public class RocketView extends ShootingView implements GameObject{
 		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 		this.highestPositionThreshold=heightPixels/3;
-		this.setMyBulletType(ShootingView.BULLET_FRIENDLY_ONE);
+		this.setMyBulletType(Gravity_ShootingView.BULLET_FRIENDLY_ONE);
 		this.stopGravity();
 	}
 	

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 
-public class ProjectileView extends ImageView implements GameObject{
+public class ProjectileView extends ImageView implements GameObjectInterface{
 
 	public static int HOW_OFTEN_TO_MOVE=100;
 	public static final int UP=0,RIGHT=1,DOWN=2,LEFT=3;

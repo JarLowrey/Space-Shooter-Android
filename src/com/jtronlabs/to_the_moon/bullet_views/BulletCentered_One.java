@@ -6,9 +6,9 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.ship_views.ShootingView;
+import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
-public class BulletViewOne extends CenteredBulletView{
+public class BulletCentered_One extends BulletCenteredView{
 		
 	private static final int ENEMY_BACKGROUND=R.drawable.laser1_enemy;
 	private static final double ENEMY_DAMAGE=5,ENEMY_SPEED_Y=8;
@@ -19,7 +19,7 @@ public class BulletViewOne extends CenteredBulletView{
 	
 	private static final double SPEED_X=-10;
 	
-	public BulletViewOne(Context context,ShootingView shooter, boolean shootBulletUp,float startingPixelPositionY,
+	public BulletCentered_One(Context context,Gravity_ShootingView shooter, boolean shootBulletUp,float startingPixelPositionY,
 			float leftPositionShooter,float rightPositionShooter){
 		super(context,shooter,shootBulletUp,getBulletHeight(context),getBulletWidth(context),startingPixelPositionY, 
 				leftPositionShooter, rightPositionShooter,
@@ -34,7 +34,7 @@ public class BulletViewOne extends CenteredBulletView{
 		this.setBackgroundResource(getBackgroundId(shootBulletUp));
 	}
 	
-	public BulletViewOne(Context context,AttributeSet at,ShootingView shooter,boolean shootBulletUp,
+	public BulletCentered_One(Context context,AttributeSet at,Gravity_ShootingView shooter,boolean shootBulletUp,
 			float startingPixelPositionY,float leftPositionShooter,float rightPositionShooter) {
 		super(context,at,shooter,shootBulletUp,getBulletHeight(context),getBulletWidth(context),
 				startingPixelPositionY, leftPositionShooter,rightPositionShooter,

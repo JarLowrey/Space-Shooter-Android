@@ -1,6 +1,6 @@
 package com.jtronlabs.to_the_moon.ship_views;
 
-import com.jtronlabs.to_the_moon.misc.GameObject;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,12 +9,12 @@ import android.util.AttributeSet;
  * @author JAMES LOWREY
  *
  */
-public class OrbitingView extends GravityView implements GameObject{
+public class Gravity_OrbitingView extends GravityView implements GameObjectInterface{
 	
 	private float orbitX,orbitY;
 	private int orbitDist;
 	
-	public OrbitingView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth, float orbitXPixel,float orbitYPixel,int orbitingDistance) {
+	public Gravity_OrbitingView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth, float orbitXPixel,float orbitYPixel,int orbitingDistance) {
 		super(context,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 	
 		orbitDist=orbitingDistance;
@@ -22,7 +22,7 @@ public class OrbitingView extends GravityView implements GameObject{
 		orbitY=orbitYPixel;
 	}
 	
-	public OrbitingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth,float orbitXPixel,float orbitYPixel,int orbitingDistance) {
+	public Gravity_OrbitingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth,float orbitXPixel,float orbitYPixel,int orbitingDistance) {
 		super(context,at,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 	
 		orbitDist=orbitingDistance;

@@ -7,9 +7,9 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.bullet_views.BulletView;
-import com.jtronlabs.to_the_moon.bullet_views.BulletViewOne;
+import com.jtronlabs.to_the_moon.bullet_views.BulletCentered_One;
 
-public class ShootingView extends GravityView{
+public class Gravity_ShootingView extends GravityView{
 	
 	public static final int BULLET_ENEMY_ONE=0,BULLET_FRIENDLY_ONE=1;
 	private int myBulletType=BULLET_ENEMY_ONE;
@@ -22,7 +22,7 @@ public class ShootingView extends GravityView{
     	@Override
         public void run() {
     		spawnMyBullet();
-    		ShootingView.this.postDelayed(this, (long) bulletFreq);
+    		Gravity_ShootingView.this.postDelayed(this, (long) bulletFreq);
     	}
 	};
 
@@ -31,7 +31,7 @@ public class ShootingView extends GravityView{
 		return super.removeView(showExplosion);
 	}
 	
-	public ShootingView(Context context,int scoreValue,double projectileSpeedUp,
+	public Gravity_ShootingView(Context context,int scoreValue,double projectileSpeedUp,
 			double projectileSpeedDown,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
 		super(context,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
@@ -40,7 +40,7 @@ public class ShootingView extends GravityView{
 		myBullets= new ArrayList<BulletView>();
 	}
 	
-	public ShootingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedUp,
+	public Gravity_ShootingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedUp,
 			double projectileSpeedDown,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
 		super(context,at,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
@@ -94,10 +94,10 @@ public class ShootingView extends GravityView{
 		BulletView bullet=null;
 		switch(this.myBulletType){
 		case BULLET_ENEMY_ONE:
-			bullet = new BulletViewOne(super.ctx,this,false, this.getY()+this.getHeight(), this.getX(), this.getX()+this.getWidth());
+			bullet = new BulletCentered_One(super.ctx,this,false, this.getY()+this.getHeight(), this.getX(), this.getX()+this.getWidth());
 			break;
 		case BULLET_FRIENDLY_ONE:
-			bullet = new BulletViewOne(super.ctx,this,true, this.getY(), this.getX(), this.getX()+this.getWidth());
+			bullet = new BulletCentered_One(super.ctx,this,true, this.getY(), this.getX(), this.getX()+this.getWidth());
 			break;
 		}
 		((RelativeLayout)this.getParent()).addView(bullet,1);

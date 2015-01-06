@@ -4,15 +4,15 @@ import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.misc.GameObject;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 
-public class MeteorView extends GravityView implements GameObject{
+public class Gravity_MeteorView extends GravityView implements GameObjectInterface{
 	
 	public final static int DEFAULT_SCORE=5;
 	public final static double DEFAULT_SPEED_UP=1,DEFAULT_SPEED_DOWN=6.4,DEFAULT_SPEEDX=1,DEFAULT_COLLISION_DAMAGE=12, 
 			DEFAULT_HEALTH=5;
 	
-	public MeteorView(Context context) {
+	public Gravity_MeteorView(Context context) {
 		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 
