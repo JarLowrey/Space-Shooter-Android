@@ -23,7 +23,7 @@
         android:src="@drawable/rockets_fire" />
         -->
     
-    <com.jtronlabs.to_the_moon.views.RocketView
+    <com.jtronlabs.to_the_moon.ship_views.RocketView
         android:id="@+id/rocket_game"
         android:layout_width="@dimen/rocket_game_width"
         android:layout_height="@dimen/rocket_game_height"

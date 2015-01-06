@@ -12,7 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.views.DrawTextView;
+import com.jtronlabs.to_the_moon.misc.DrawTextView;
 
 
 public class MainActivity extends Activity implements OnClickListener{

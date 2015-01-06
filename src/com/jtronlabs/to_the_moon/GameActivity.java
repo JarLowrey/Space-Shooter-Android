@@ -17,16 +17,18 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jtronlabs.to_the_moon.views.GameObject;
-import com.jtronlabs.to_the_moon.views.MovingShooterArrayView;
-import com.jtronlabs.to_the_moon.views.ProjectileView;
-import com.jtronlabs.to_the_moon.views.RocketView;
-import com.jtronlabs.to_the_moon.views.ShootingView;
+import com.jtronlabs.to_the_moon.bullet_views.BulletView;
+import com.jtronlabs.to_the_moon.misc.EnemyFactory;
+import com.jtronlabs.to_the_moon.misc.GameObject;
+import com.jtronlabs.to_the_moon.misc.Levels;
+import com.jtronlabs.to_the_moon.misc.ProjectileView;
+import com.jtronlabs.to_the_moon.ship_views.MovingShooterArrayView;
+import com.jtronlabs.to_the_moon.ship_views.RocketView;
+import com.jtronlabs.to_the_moon.ship_views.ShootingView;
 
 public class GameActivity extends Activity implements OnTouchListener{
 
@@ -59,10 +61,10 @@ public class GameActivity extends Activity implements OnTouchListener{
         		
         		//if enemy can shoot, check if its bullets have hit the protagonist
         		if(enemies.get(i) instanceof ShootingView){
-        			ArrayList<ProjectileView> enemyBullets = ((ShootingView) enemies.get(i)).myBullets;
+        			ArrayList<BulletView> enemyBullets = ((ShootingView) enemies.get(i)).myBullets;
         			
         			for(int j=enemyBullets.size()-1;j>=0;j--){
-        				ProjectileView bullet = enemyBullets.get(j);
+        				BulletView bullet = enemyBullets.get(j);
         				if(rocket.collisionDetection(bullet)){//bullet collided with rocket
         					//rocket is damaged
                 			protagonistDies = rocket.takeDamage(bullet.getDamage());
@@ -86,10 +88,10 @@ public class GameActivity extends Activity implements OnTouchListener{
         		}
         		
         		//check if protagonist's bullets have hit the enemy
-    			ArrayList<ProjectileView> protagonistBullets = rocket.myBullets;
+    			ArrayList<BulletView> protagonistBullets = rocket.myBullets;
     			for(int j=protagonistBullets.size()-1;j>=0;j--){
     				boolean stopCheckingIfProtagonistBulletsHitEnemy=false;
-    				ProjectileView bullet = protagonistBullets.get(j);
+    				BulletView bullet = protagonistBullets.get(j);
     				
     				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
     					//enemy is damaged
