@@ -15,8 +15,7 @@ public class IntroActivity extends Activity implements OnClickListener{
 	private Button next;
 	private final String[] introText={"Strange things are happening on the moon.","Tides are out of alignment, meteors plummet from above.","Strange, strange things are happening on the moon.",
 			"Soldier, you are the last hope.\n\nSteer your vessel to the heavens above and solve this.","For humanity.\nFor your family.\nFor the ladies.","You are equipped with the latest "+
-	"and greatest ship.","Deliver fuel to the engines by pushing the red buttons on your control panel.\n\nTo move upwards, alternate engines. To move to one side, power an engine repeatedly.",
-	"God speed..."};
+	"and greatest ship.","God speed..."};
 	private int posInArray=0,posInCurrentString=0,newCharInterval=50;
 	private boolean allCharsDisplayed=false;
 	   

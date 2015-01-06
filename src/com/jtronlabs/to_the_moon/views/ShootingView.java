@@ -12,16 +12,16 @@ import com.jtronlabs.to_the_moon.R;
 
 public class ShootingView extends GravityView{
 	
-	private int bulletImgId;
-	private double bulletDamage,bulletSpeed,bulletFreq;
-	
+	private double bulletFreq;
+	private double bulletDamageRatio=1,bulletSpeedRatio=1;
+	private static double BULLET_ONE_DMG=5,BULLET_ONE_SPEED=7;
 	public ArrayList<ProjectileView> myBullets;
 	private boolean shootingUp=true,autoSpawnBullets=false;
 	
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		spawnCenteredBullet();
+    		spawnLevelOneCenteredBullet();
     		ShootingView.this.postDelayed(this, (long) bulletFreq);
     	}
 	};
@@ -55,29 +55,29 @@ public class ShootingView extends GravityView{
 		return super.removeView(showExplosion);
 	}
 	
-	public ShootingView(Context context,int scoreValue,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
+	public ShootingView(Context context,int scoreValue,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, 
+			double projectileDamage,double projectileHealth) {
 		super(context,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,projectileDamage,projectileHealth);
 		
 		myBullets= new ArrayList<ProjectileView>();
-		bulletDamage=bulletDmg;
-		bulletSpeed=bulletSpd*screenDens;
-		bulletImgId=bulletBackground;
 		post(moveMyBulletsRunnable);
 	}
 	
-	public ShootingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, double projectileDamage,double projectileHealth,double bulletSpd,double bulletDmg,int bulletBackground) {
+	public ShootingView(Context context,AttributeSet at,int scoreValue,double projectileSpeedUp,double projectileSpeedDown,double projectileSpeedX, 
+			double projectileDamage,double projectileHealth) {
 		super(context,at,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,projectileDamage,projectileHealth);
 		
 		myBullets = new ArrayList<ProjectileView>();
-		bulletDamage=bulletDmg;
-		bulletSpeed=bulletSpd*screenDens;
-		bulletImgId=bulletBackground;
 		post(moveMyBulletsRunnable);
 	}
 	
 	public void cleanUpThreads(){
 		super.cleanUpThreads();
-		this.removeCallbacks(spawnBulletRunnable);
+		stopShooting();
+	}
+	
+	public void stopShooting(){
+		this.removeCallbacks(spawnBulletRunnable);		
 	}
 	
 	public void restartThreads(){
@@ -90,14 +90,11 @@ public class ShootingView extends GravityView{
 	public void changeBulletFrequency(double newBulletFreq){
 		bulletFreq=newBulletFreq;
 	}
-	public void changeBulletBackground(int newBackgroundResourceId){
-		bulletImgId=newBackgroundResourceId;
-	}
-	public void changeBulletSpeed(double newBulletSpeed){
-		bulletSpeed=newBulletSpeed;
-	}
-	public void changeBulletDamage(double newBulletDamage){
-		bulletDamage=newBulletDamage;
+	
+	public void startShooting(double bulletSpawningFrequency){
+		autoSpawnBullets=true;
+		bulletFreq=bulletSpawningFrequency;
+		this.post(spawnBulletRunnable);		
 	}
 	/**
 	 * set View to automatically create bullets. These bullets will be shot downwards, toward the protagonist
@@ -105,29 +102,27 @@ public class ShootingView extends GravityView{
 	 */
 	public void spawnBulletsAutomatically(double bulletSpawningFrequency){
 		shootingUp=false;
-		autoSpawnBullets=true;
 		bulletFreq=bulletSpawningFrequency;
+		autoSpawnBullets=true;
 	}
 	
 	/**
 	 * Create a bullet and add it to the screen
 	 */
-	public void spawnCenteredBullet(){
-		ProjectileView bullet = new ProjectileView(ctx,0,bulletSpeed,bulletSpeed,1,bulletDamage,0.1);
-		
-		//add bullet to layout
-		bullet.setBackgroundResource(bulletImgId);
-		int width=(int)ctx.getResources().getDimension(R.dimen.bullet_width);
-		int height=(int)ctx.getResources().getDimension(R.dimen.bullet_height);
-		bullet.setLayoutParams(new LayoutParams(width,height));
+	public void spawnLevelOneCenteredBullet(){
+		ProjectileView bullet = createBullet(ctx,BULLET_ONE_SPEED,BULLET_ONE_DMG);
 		
 		//initially position the Bullet View to avg of shooter's left & right, and at top if shooting up (or at bottom if shooting down)
 		float xAvg = (ShootingView.this.getX()+ShootingView.this.getX()+ShootingView.this.getWidth())/2;
-		bullet.setX(xAvg);
+		android.view.ViewGroup.LayoutParams params = bullet.getLayoutParams();//bullet.getWidth() returns 0 as it is not yet drawn. The params are set though, and thus this method works to find the width
+		bullet.setX(xAvg-params.width/2);
+		
 		if(shootingUp){
+			bullet.setBackgroundResource(R.drawable.laser1_hero);
 			bullet.setY(ShootingView.this.getY());//middle and top of ShootingView
 			bullet.highestPositionThreshold=-bullet.getHeight();
 		}else{
+			bullet.setBackgroundResource(R.drawable.laser1_enemy);
 			bullet.setY(ShootingView.this.getY()+ShootingView.this.getHeight());//middle and bottom of ShootingView
 			bullet.lowestPositionThreshold=heightPixels;
 		}
@@ -135,6 +130,32 @@ public class ShootingView extends GravityView{
 		((RelativeLayout)this.getParent()).addView(bullet,1);
 
 		myBullets.add(bullet);
+	}
+	
+	private ProjectileView createBullet(Context context,double bulletsSpeed,double bulletsDamage) {
+		ProjectileView bullet = new ProjectileView(context,0,bulletsSpeed*bulletSpeedRatio,bulletsSpeed*bulletSpeedRatio,1,bulletsDamage*this.bulletDamageRatio,0.1);
+
+		//give bullet a width and height
+		int width=(int)ctx.getResources().getDimension(R.dimen.bullet_width);
+		int height=(int)ctx.getResources().getDimension(R.dimen.bullet_height);
+		bullet.setLayoutParams(new LayoutParams(width,height));
+		
+		return bullet;
+	}
+	
+	/**
+	 * The damage of every new bullet spawned will be multiplied by the passed parameter
+	 * @param ratio The amount multiplied by default bullet damage values
+	 */
+	public void changeNewBulletDamage(double ratio){
+		bulletDamageRatio=ratio;
+	}
+	/**
+	 * The speed of every new bullet spawned will be multiplied by the passed parameter
+	 * @param ratio The amount multiplied by default bullet speed values
+	 */
+	public void changeNewBulletSpeed(double ratio){
+		bulletSpeedRatio=ratio;
 	}
 	
 }

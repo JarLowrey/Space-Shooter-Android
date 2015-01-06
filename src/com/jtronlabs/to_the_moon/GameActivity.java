@@ -7,9 +7,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
@@ -23,21 +23,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jtronlabs.to_the_moon.views.GameObject;
+import com.jtronlabs.to_the_moon.views.MovingShooterArrayView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 import com.jtronlabs.to_the_moon.views.RocketView;
 import com.jtronlabs.to_the_moon.views.ShootingView;
-import com.jtronlabs.to_the_moon.views.SimpleEnemyShooterArray;
 
-public class GameActivity extends Activity implements OnClickListener{
+public class GameActivity extends Activity implements OnTouchListener{
 
 	//VIEWS
 	private Button btnLeft, btnRight,btnMiddle;
 	private TextView btn_taps_text,gameWindowOverlay;
 	private RocketView rocket;
-	private ImageView rocket_exhaust;
+//	private ImageView rocket_exhaust;
 	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
 	private ProgressBar healthBar;
+	private int numMoveButtonsCurrentlyPressed=0;
 	
 	public static ArrayList<GameObject> enemies=new ArrayList<GameObject>();
 	
@@ -132,12 +133,12 @@ public class GameActivity extends Activity implements OnClickListener{
 		
 		//set up Views and OnClickListeners and layouts
 		btnLeft= (Button)findViewById(R.id.btnLeft); 
-		btnLeft.setOnClickListener(this);
+		btnLeft.setOnTouchListener(this);
 		btnRight= (Button)findViewById(R.id.btnRight);
-		btnRight.setOnClickListener(this);
+		btnRight.setOnTouchListener(this);
 		btnMiddle = (Button)findViewById(R.id.btnMiddle);
-		btnMiddle.setOnClickListener(this);
-		rocket_exhaust = (ImageView)findViewById(R.id.rocket_exhaust); 
+		btnMiddle.setOnTouchListener(this);
+//		rocket_exhaust = (ImageView)findViewById(R.id.rocket_exhaust); 
 		gameScreen=(RelativeLayout)findViewById(R.id.gameScreen);
 		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
 		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
@@ -155,8 +156,7 @@ public class GameActivity extends Activity implements OnClickListener{
 		    public void onGlobalLayout() { 
 		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 		        //have a little portion of the rocket poking out above the bottom
-				rocket.lowestPositionThreshold=btnBackground.getY()
-						-rocket.getHeight()/4;
+				rocket.lowestPositionThreshold=btnBackground.getY();
 		    } 
 		});
 		
@@ -165,59 +165,59 @@ public class GameActivity extends Activity implements OnClickListener{
 		enemyFactory = new EnemyFactory(this,gameScreen);
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-			case R.id.btnLeft:
-				if(levelInfo.rightBtnWasTappedPreviously){
-					//update variables
-					levelInfo.rightBtnWasTappedPreviously=false;
-					levelInfo.incrementNumBtnTaps();
-					
-					//update screen
-					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
-					if(levelInfo.numBtnTaps()%20==0){			
-						rocket.runRocketExhaust(rocket_exhaust);
-					}
-					
-					//pause gravity and move the rocket
-					rocket.stopGravity();
-					rocket.move(ProjectileView.UP);
-					rocket.startGravity();
-				}else{
-					rocket.move(ProjectileView.LEFT);
-				}
-				break; 
-			case R.id.btnRight:
-				if(!levelInfo.rightBtnWasTappedPreviously){
-					//update variables
-					levelInfo.rightBtnWasTappedPreviously=true;
-					levelInfo.incrementNumBtnTaps();
-					
-					//update Screen
-					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
-					if(levelInfo.numBtnTaps()%20==0){			
-						rocket.runRocketExhaust(rocket_exhaust);
-					}  
-					
-					//pause gravity and move the rocket
-					rocket.stopGravity();
-					rocket.move(ProjectileView.UP);
-					rocket.startGravity();
-				}else{
-					rocket.move(ProjectileView.RIGHT);
-				}
-				break;
-			case R.id.btnMiddle:
-				rocket.spawnCenteredBullet();
-				break;
-		}
-		
-		int id = levelInfo.incrementLevel();
-		if(id>0){
-			changeGameBackgroundImage(id);
-		}
-	}
+//	@Override
+//	public void onClick(View v) {
+//		switch(v.getId()){
+//			case R.id.btnLeft:
+//				if(levelInfo.rightBtnWasTappedPreviously){
+//					//update variables
+//					levelInfo.rightBtnWasTappedPreviously=false;
+//					levelInfo.incrementNumBtnTaps();
+//					
+//					//update screen
+//					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
+//					if(levelInfo.numBtnTaps()%20==0){			
+//						rocket.runRocketExhaust(rocket_exhaust);
+//					}
+//					
+//					//pause gravity and move the rocket
+//					rocket.stopGravity();
+//					rocket.move(ProjectileView.UP);
+//					rocket.startGravity();
+//				}else{
+//					rocket.move(ProjectileView.LEFT);
+//				}
+//				break; 
+//			case R.id.btnRight:
+//				if(!levelInfo.rightBtnWasTappedPreviously){
+//					//update variables
+//					levelInfo.rightBtnWasTappedPreviously=true;
+//					levelInfo.incrementNumBtnTaps();
+//					
+//					//update Screen
+//					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
+//					if(levelInfo.numBtnTaps()%20==0){			
+//						rocket.runRocketExhaust(rocket_exhaust);
+//					}  
+//					
+//					//pause gravity and move the rocket
+//					rocket.stopGravity();
+//					rocket.move(ProjectileView.UP);
+//					rocket.startGravity();
+//				}else{
+//					rocket.move(ProjectileView.RIGHT);
+//				}
+//				break;
+//			case R.id.btnMiddle:
+//				rocket.spawnLevelOneCenteredBullet();
+//				break;
+//		}
+//		
+//		int id = levelInfo.incrementLevel();
+//		if(id>0){
+//			changeGameBackgroundImage(id);
+//		}
+//	}
 	
 	@Override
     public void onPause() {
@@ -274,9 +274,10 @@ public class GameActivity extends Activity implements OnClickListener{
 		healthBar.setProgress(0);
 		
 		//remove OnClickListeners
-		btnLeft.setOnClickListener(null);
-		btnRight.setOnClickListener(null);
-		btnMiddle.setOnClickListener(null);
+		rocket.stopMoving();
+		btnLeft.setOnTouchListener(null);
+		btnRight.setOnTouchListener(null);
+		btnMiddle.setOnTouchListener(null);
 		
 		//clean up all threads
 		gameHandler.removeCallbacks(mainGameLoopRunnable);
@@ -287,8 +288,40 @@ public class GameActivity extends Activity implements OnClickListener{
 		
 		//clean up static variables
 		enemies=new ArrayList<GameObject>();
-		SimpleEnemyShooterArray.resetSimpleShooterArray();
+		MovingShooterArrayView.resetSimpleShooterArray();
+		MovingShooterArrayView.beginMovingAllShootersInASquare();
 		
-		
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if(event.getAction()==MotionEvent.ACTION_DOWN){
+			switch(v.getId()){
+				case R.id.btnLeft:
+					rocket.stopMoving();
+					rocket.beginMoving(ProjectileView.LEFT);
+					break; 
+				case R.id.btnRight:
+					rocket.stopMoving();
+					rocket.beginMoving(ProjectileView.RIGHT);
+					break;
+				case R.id.btnMiddle:
+					rocket.startShooting();	
+					break;
+			}
+		}else if(event.getAction()==MotionEvent.ACTION_UP){
+			switch(v.getId()){
+				case R.id.btnLeft:
+						rocket.stopMoving();
+					break; 
+				case R.id.btnRight:
+						rocket.stopMoving();
+					break;
+				case R.id.btnMiddle:
+					rocket.stopShooting();	
+					break;
+			}
+		}
+		return false;
 	}
 }

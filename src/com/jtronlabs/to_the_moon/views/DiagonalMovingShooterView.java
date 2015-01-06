@@ -9,7 +9,7 @@ public class DiagonalMovingShooterView extends ShootingView implements GameObjec
 	
 	private final static int DEFAULT_SCORE=10;
 	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=.5,DEFAULT_SPEEDX=15,
-			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,DEFAULT_BULLET_SPEED=7,DEFAULT_BULLET_DAMAGE=5;
+			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10;
 	private boolean travelingRight;
 	
 	Runnable moveDiagonalRunnable = new Runnable(){
@@ -45,7 +45,7 @@ public class DiagonalMovingShooterView extends ShootingView implements GameObjec
 	
 	public DiagonalMovingShooterView(Context context) {
 		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH,DEFAULT_BULLET_SPEED,DEFAULT_BULLET_DAMAGE,R.drawable.laser2);
+				DEFAULT_HEALTH);
 		
 		final double bulletFreq = (2000+Math.random()*4000);
 		spawnBulletsAutomatically(bulletFreq);

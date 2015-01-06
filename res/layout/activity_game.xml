@@ -14,13 +14,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/level1"/>
-    
+    <!-- 
     <ImageView
         android:id="@+id/rocket_exhaust"
         android:layout_width="@dimen/rocket_exhaust_width"
         android:layout_height="@dimen/rocket_exhaust_height"
         android:visibility="gone"
         android:src="@drawable/rockets_fire" />
+        -->
     
     <com.jtronlabs.to_the_moon.views.RocketView
         android:id="@+id/rocket_game"

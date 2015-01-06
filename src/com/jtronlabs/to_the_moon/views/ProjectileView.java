@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -30,7 +29,9 @@ public class ProjectileView extends ImageView implements GameObject{
 		}
     };
 	
-	public ProjectileView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX,double projectileDamage,double projectileHealth) {
+	public ProjectileView(Context context,int scoreValue,double projectileSpeedYUp,
+			double projectileSpeedYDown,double projectileSpeedX,double projectileDamage,
+			double projectileHealth) {
 		super(context);	
 		
 		ctx = context;
@@ -95,7 +96,6 @@ public class ProjectileView extends ImageView implements GameObject{
 		boolean atThreshold=false;
 		switch(direction){
 		case UP:
-			Log.d("lowrey","thresh="+highestPositionThreshold);
 			y-=speedYUp;
 			if(highestPositionThreshold>=-this.getHeight()){
 				if(y>=highestPositionThreshold){this.setY(y);}

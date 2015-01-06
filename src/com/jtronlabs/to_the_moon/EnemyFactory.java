@@ -1,7 +1,5 @@
 package com.jtronlabs.to_the_moon;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.os.Handler;
 import android.widget.RelativeLayout;
@@ -10,7 +8,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.jtronlabs.to_the_moon.views.DiagonalMovingShooterView;
 import com.jtronlabs.to_the_moon.views.MeteorView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
-import com.jtronlabs.to_the_moon.views.SimpleEnemyShooterArray;
+import com.jtronlabs.to_the_moon.views.MovingShooterArrayView;
 
 public class EnemyFactory{
 	
@@ -38,23 +36,24 @@ public class EnemyFactory{
 	Runnable spawnSimpleShooterRunnable = new Runnable(){
     	@Override
         public void run() {
-    		final int numShootersAlive = SimpleEnemyShooterArray.allSimpleShooters.size();
-    		final int maxNumShooters = SimpleEnemyShooterArray.getMaxNumShips();
+    		final int numShootersAlive = MovingShooterArrayView.allSimpleShooters.size();
+    		final int maxNumShooters = MovingShooterArrayView.getMaxNumShips();
     		final int numShootersAliveCutoff = 4;
     		
-    		if(levelInfo.levelDifficulty()>1 && numShootersAlive<maxNumShooters){
-    			//if num shooters< .33 of the max, there is a 33% chance to respawn all shooters
-    			if(numShootersAlive<(maxNumShooters/numShootersAliveCutoff) && Math.random()<0.33 ){
-    				spawnAllSimpleShooters();
-    			}
-    			//otherwise, respawn just 1 simple shooter
-    			else{
-	    			SimpleEnemyShooterArray shooter = new SimpleEnemyShooterArray(ctx);
-	    			gameLayout.addView(shooter,1);
-	        		GameActivity.enemies.add(shooter);
-    			}
+    		if(levelInfo.levelDifficulty()>0 && numShootersAlive<maxNumShooters){
+    			spawnAllSimpleShooters();
+//    			//if num shooters< .33 of the max, there is a 33% chance to respawn all shooters
+//    			if(numShootersAlive<(maxNumShooters/numShootersAliveCutoff) && Math.random()<0.33 ){
+//    				spawnAllSimpleShooters();
+//    			}
+//    			//otherwise, respawn just 1 simple shooter
+//    			else{
+//	    			SimpleEnemyShooterArray shooter = new SimpleEnemyShooterArray(ctx);
+//	    			gameLayout.addView(shooter,1);
+//	        		GameActivity.enemies.add(shooter);
+//    			}
 			}
-    		
+    		 
     		enemySpawnHandler.postDelayed(this, calculateMovingSideToSideShooterSpawnInterval());
     	}
 	};
@@ -74,7 +73,9 @@ public class EnemyFactory{
 		ctx=context;
 		gameLayout=gameScreen;
 		
-		SimpleEnemyShooterArray.resetSimpleShooterArray();
+		MovingShooterArrayView.resetSimpleShooterArray();
+		MovingShooterArrayView.beginMovingAllShootersInASquare();
+		MovingShooterArrayView.toggleStaggered();
 	} 
 	
 	public void cleanUpThreads(){
@@ -83,9 +84,9 @@ public class EnemyFactory{
 	    enemySpawnHandler.removeCallbacks(spawnDiagonalShooterRunnable);
 	}
 	public void restartThreads(){
-		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
+//		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnSimpleShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	}
 	
 	private long calculateMeteorSpawnInterval(){
@@ -98,10 +99,10 @@ public class EnemyFactory{
 		return (long) (diagonalShooterInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*4000);
 	}
 	public void spawnAllSimpleShooters(){
-		int temp=SimpleEnemyShooterArray.allSimpleShooters.size();//needed due to the intricacies of a for loop
+		int temp=MovingShooterArrayView.allSimpleShooters.size();
 		
-		for(int i=temp;i<SimpleEnemyShooterArray.getMaxNumShips();i++){
-			SimpleEnemyShooterArray shooter = new SimpleEnemyShooterArray(ctx);
+		for(int i=temp;i<MovingShooterArrayView.getMaxNumShips();i++){
+			MovingShooterArrayView shooter = new MovingShooterArrayView(ctx);
 			shooter.changeSpeedYDown(1.2);
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
