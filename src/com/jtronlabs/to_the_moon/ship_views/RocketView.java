@@ -14,15 +14,19 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 	
 	private final int HOW_OFTEN_TO_MOVE=50;
 	private int directionMoving=ProjectileView.LEFT;
-	private double bulletSpawnFreqInMilliseconds=200;
+	private double bulletSpawnFreqInMilliseconds=300;
 	
 	public RocketView(Context context, AttributeSet at) {
 		super(context, at,true,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
-		
+
+		this.setDualShot(2.5);
 		this.highestPositionThreshold=(int)(heightPixels/3);
 		this.setMyBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
 				DEFAULT_BULLET_DAMAGE);
+
+		this.setTriShot(2.5);
+		
 		this.stopGravity();
 	}
 
@@ -33,6 +37,9 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		this.highestPositionThreshold=(int)(heightPixels/3);
 		this.setMyBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
 				DEFAULT_BULLET_DAMAGE);
+
+		this.setTriShot(2.5);
+		
 		this.stopGravity();
 	}
 	

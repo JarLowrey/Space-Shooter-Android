@@ -13,7 +13,7 @@ import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 public class Gravity_ShootingView extends GravityView{
 	
 	public static final int LASER_ONE=0;
-	boolean triShot=false;
+	boolean triShot=false,dualShot=false;
 	double bulletSpeedY=10,
 			bulletSpeedX=-10,
 			bulletDamage=5;
@@ -27,10 +27,15 @@ public class Gravity_ShootingView extends GravityView{
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		spawnMyBullet(BulletView.BULLET_MIDDLE);
     		if(triShot){
     			spawnMyBullet(BulletView.BULLET_LEFT);
     			spawnMyBullet(BulletView.BULLET_RIGHT);
+        		spawnMyBullet(BulletView.BULLET_MIDDLE);
+    		}else if (dualShot){
+    			spawnMyBullet(BulletView.BULLET_LEFT);
+    			spawnMyBullet(BulletView.BULLET_RIGHT);    			
+    		}else{
+        		spawnMyBullet(BulletView.BULLET_MIDDLE);    			
     		}
     		Gravity_ShootingView.this.postDelayed(this, (long) bulletFreq);
     	}
@@ -74,6 +79,33 @@ public class Gravity_ShootingView extends GravityView{
 		super.restartThreads();
 		startShooting(bulletFreq);
 	}
+	/**
+	 * shoot 3 bullets, one in middle of ship, one on the left, and one on the right. 
+	 * The left and right bullets will travel in the X direction based upon their speedX, the center bullet will only go straight
+	 * @param set a 
+	 */
+	public void setTriShot(double newBulletSpeedX){
+		dualShot=false;
+		triShot=true;
+		bulletSpeedX= newBulletSpeedX;
+	}
+	/**
+	 * shoot 2 bullets, one on the left of the ship and one on the right. 
+	 * The left and right bullets will travel in the X direction based upon their speedX, the center bullet will only go straight
+	 */
+	public void setDualShot(double newBulletSpeedX){
+		dualShot=true;
+		triShot=false;
+		bulletSpeedX=newBulletSpeedX;
+	}
+	/**
+	 * shoot 1 bullet in center of ship
+	 */
+	public void setSingleShot(){
+		dualShot=false;
+		triShot=false;
+		bulletSpeedX=10;
+	}
 	
 	public void startShooting(double bulletSpawningFrequency){
 		bulletFreq=bulletSpawningFrequency;
@@ -90,9 +122,9 @@ public class Gravity_ShootingView extends GravityView{
 			throw new IllegalArgumentException("Unknown bullet type");
 		}else{
 			myBulletType=whichBullet;
-			bulletSpeedY=10;
-			bulletSpeedX=-10;
-			bulletDamage=5;
+			bulletSpeedY=bulletSpeedVertical;
+			bulletSpeedX=bulletSpeedHorizontal;
+			bulletDamage=bulletDamage;
 		}
 		
 	}

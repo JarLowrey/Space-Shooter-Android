@@ -14,6 +14,8 @@ public class BulletView extends ProjectileView{
 	
 	public static final double DEFAULT_HEALTH=0.1;
 	public static final int DEFAULT_SCORE=0;
+	
+	private int whichSideOfShipBulletIsOn=BULLET_MIDDLE;
 	private Gravity_ShootingView theOneWhoShotMe;
 	
 	private boolean shootingUp,shootingRight;
@@ -35,9 +37,9 @@ public class BulletView extends ProjectileView{
     		}else{
     			//move left and right
     			if(BulletView.this.getSpeedX()>0){
-            		if(shootingRight){
+            		if(whichSideOfShipBulletIsOn!=BULLET_MIDDLE && shootingRight){
             			atThreshold=BulletView.this.move(ProjectileView.RIGHT);
-            		}else{
+            		}else if(whichSideOfShipBulletIsOn!=BULLET_MIDDLE){
             			atThreshold=BulletView.this.move(ProjectileView.LEFT);
             		}
         		}
@@ -66,7 +68,10 @@ public class BulletView extends ProjectileView{
 	}
 	private void initBullet(Gravity_ShootingView shooter,boolean shootBulletUp,
 			float bulletHeight,float bulletWidth,int whichSideIsBulletOn){
+		
+		//set instance vars
 		theOneWhoShotMe=shooter;
+		whichSideOfShipBulletIsOn=whichSideIsBulletOn;
 		
 		//set thresholds to off screen
 		this.highestPositionThreshold=(int) -bulletHeight;
@@ -82,27 +87,27 @@ public class BulletView extends ProjectileView{
 		
 		//set X position
 		final float left=shooter.getX(),right=left+shooter.getWidth();
-		float x;
-		switch(whichSideIsBulletOn){
+		final float x =(left+right)/2-bulletWidth/2;
+		this.setX(x);
+		
+		//set rotation values and direction of movement as a function of bullet being a LEFT,RIGHT,or MIDDLE bullet
+		switch(whichSideOfShipBulletIsOn){
 		case BULLET_LEFT:
 			shootingRight=false;
-			x= left;
-			final float rotationValueLeft = (float) (-this.getSpeedY()/this.getSpeedX()*360);
-			this.setRotation(rotationValueLeft);
+			final double arcTanLeft = Math.atan(-this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
+			final float rotValLeft = (float) Math.toDegrees(arcTanLeft);
+			this.setRotation(rotValLeft);
 			break;
 		case BULLET_RIGHT:
 			shootingRight=true;
-			final float rotationValueRight = (float) (this.getSpeedY()/this.getSpeedX()*360);
-			this.setRotation(rotationValueRight);
-			x= right;			
+			final double arcTanRight = Math.atan(this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
+			final float rotValRight = (float) Math.toDegrees(arcTanRight);
+			this.setRotation(rotValRight);	
 			break;
 		default:
 			shootingRight=true;//not needed, but set just in case
-			x= (left+right)/2;
 			break;
 		}
-		x-=bulletWidth/2;
-		this.setX(x);
 				
 		//post the movement runnable
 		this.post(moveBulletRunnable);
