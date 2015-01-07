@@ -47,7 +47,7 @@ public class EnemyFactory{
     		final int maxNumShooters = Shooting_MovingArrayView.getMaxNumShips();
     		final int numShootersAliveCutoff = 4;
     		
-    		if(levelInfo.levelDifficulty()>0 && numShootersAlive<maxNumShooters){
+    		if(levelInfo.getDifficulty()>0 && numShootersAlive<maxNumShooters){
     			spawnAllSimpleShooters();
 //    			//if num shooters< .33 of the max, there is a 33% chance to respawn all shooters
 //    			if(numShootersAlive<(maxNumShooters/numShootersAliveCutoff) && Math.random()<0.33 ){
@@ -68,7 +68,18 @@ public class EnemyFactory{
 	Runnable spawnDiagonalShooterRunnable = new Runnable(){
 		@Override
 		public void run() {
-			Shooting_DiagonalMovingView shooter = new Shooting_DiagonalMovingView(ctx);
+			final int diff = levelInfo.getDifficulty();
+			
+			final int score=5, background =R.drawable.ufo;
+			final double speedY=1.8, speedX=10, 
+					collisionDamage=10*diff,health=10*diff,
+					bulletFreq=2000/Math.sqrt(diff)+Math.random()*3000/Math.sqrt(diff);
+			final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
+					width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+			
+			Shooting_DiagonalMovingView shooter = new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
+					collisionDamage,health,bulletFreq,background,height,width);
+			
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
@@ -97,15 +108,15 @@ public class EnemyFactory{
 	
 	private long calculateMeteorSpawnInterval(){
 		final int meteorInterval = 3000;
-		return (long) (meteorInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*3000);
+		return (long) (meteorInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*3000);
 	}
 	private long calculateMovingSideToSideShooterSpawnInterval(){
 		final int simpleArrayShooterInterval = 6000;
-		return (long) (simpleArrayShooterInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*3000);
+		return (long) (simpleArrayShooterInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*3000);
 	}
 	private long calculatDiagonalShooterSpawnInterval(){
 		final int diagonalShooterInterval=2000; 
-		return (long) (diagonalShooterInterval/(Math.sqrt(levelInfo.levelDifficulty()))+Math.random()*4000);
+		return (long) (diagonalShooterInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*4000);
 	}
 	public void spawnAllSimpleShooters(){
 		int temp=Shooting_MovingArrayView.allSimpleShooters.size();
@@ -118,13 +129,19 @@ public class EnemyFactory{
 		}
 	}
 	private Shooting_MovingArrayView spawnOneShooting_MovingArrayView(){
-		final int diff = levelInfo.levelDifficulty();
-		final double bulletFreq = (5000/Math.sqrt(diff))+Math.random()*(3000/Math.sqrt(diff));
-		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height);
-		final float width = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		final int diff = levelInfo.getDifficulty();
+
+		final int score=10*diff, background =R.drawable.ufo;
+		final double speedY=3, speedX=3, 
+				collisionDamage=20*diff,
+				health=10*diff;
 		
-		Shooting_MovingArrayView shooter = new Shooting_MovingArrayView(ctx,10*diff,3*diff,3*diff,10*diff,10*diff,bulletFreq,
-				R.drawable.ufo,Gravity_ShootingView.BULLET_ENEMY_ONE,height,width);
+		final double bulletFreq = (5000/Math.sqrt(diff))+Math.random()*(4000/Math.sqrt(diff));
+		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
+				width = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		
+		Shooting_MovingArrayView shooter = new Shooting_MovingArrayView(ctx,score,speedY,speedX,collisionDamage,health,bulletFreq,
+				background,height,width);
 		
 		return shooter;
 	}

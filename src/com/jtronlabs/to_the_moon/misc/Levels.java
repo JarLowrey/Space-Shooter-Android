@@ -20,10 +20,10 @@ public class Levels {
 	 */
 	public int incrementLevel(){
 		int retVal=-1;
-		int prevDifficulty=levelDifficulty();
+		int prevDifficulty=getDifficulty();
 		
 		if(score>getLevelGoal(level)){level++;} 
-		if(prevDifficulty!=levelDifficulty()){retVal = getLevelBackground();}
+		if(prevDifficulty!=getDifficulty()){retVal = getLevelBackground();}
 		
 		return retVal;
 	}
@@ -31,7 +31,7 @@ public class Levels {
 		return level;
 	}
 	public int getLevelBackground(){
-		return levelBackgrounds[levelDifficulty()-1];
+		return levelBackgrounds[getDifficulty()-1];
 	}
 	/**
 	 * 
@@ -41,11 +41,11 @@ public class Levels {
 	 */
 	public int getLevelGoal(int whichLevel){
 		if(whichLevel==0){
-			return 20;
+			return 50;
 		}else if(level>MAX_LEVEL){
 			return Integer.MAX_VALUE;
 		}else{
-			final int levelDifference = levelDifficulty()*20;
+			final int levelDifference = getDifficulty()*50;
 			return getLevelGoal(whichLevel-1)+levelDifference;
 		}
 	}
@@ -55,7 +55,7 @@ public class Levels {
 	public int getScore(){
 		return score;
 	}
-	public int levelDifficulty(){
+	public int getDifficulty(){
 		return level/INCREASE_LEVEL_GOAL_INCREMENT+1;
 	}
 	public boolean isLastLevelInDifficulty(){

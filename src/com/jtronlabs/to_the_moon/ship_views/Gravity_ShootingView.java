@@ -27,7 +27,6 @@ public class Gravity_ShootingView extends GravityView{
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		Log.d("lowrey","shooting");
     		spawnMyBullet(BulletView.BULLET_MIDDLE);
     		if(triShot){
     			spawnMyBullet(BulletView.BULLET_LEFT);
@@ -76,13 +75,14 @@ public class Gravity_ShootingView extends GravityView{
 		startShooting(bulletFreq);
 	}
 	
-	public void changeBulletFrequency(double newBulletFreq){
-		bulletFreq=newBulletFreq;
-	}
-	
 	public void startShooting(double bulletSpawningFrequency){
 		bulletFreq=bulletSpawningFrequency;
-		this.post(spawnBulletRunnable);		
+		this.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
+	}
+	
+	public void startShootingImmediately(double bulletSpawningFrequency){
+		bulletFreq=bulletSpawningFrequency;
+		this.post(spawnBulletRunnable);
 	}
 	public void setMyBulletProperties(int whichBullet,double bulletSpeedVertical,
 			double bulletSpeedHorizontal,double bulletDamage) throws IllegalArgumentException{
@@ -90,8 +90,8 @@ public class Gravity_ShootingView extends GravityView{
 			throw new IllegalArgumentException("Unknown bullet type");
 		}else{
 			myBulletType=whichBullet;
-			bulletSpeedY=10,
-			bulletSpeedX=-10,
+			bulletSpeedY=10;
+			bulletSpeedX=-10;
 			bulletDamage=5;
 		}
 		

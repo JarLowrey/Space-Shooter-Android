@@ -3,16 +3,13 @@ package com.jtronlabs.to_the_moon;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -26,9 +23,9 @@ import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.Levels;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
-import com.jtronlabs.to_the_moon.ship_views.Shooting_MovingArrayView;
-import com.jtronlabs.to_the_moon.ship_views.RocketView;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.ship_views.RocketView;
+import com.jtronlabs.to_the_moon.ship_views.Shooting_MovingArrayView;
 
 public class GameActivity extends Activity implements OnTouchListener{
 
@@ -304,7 +301,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 					rocket.beginMoving(ProjectileView.RIGHT);
 					break;
 				case R.id.btnMiddle:
-					rocket.startShooting();	
+					rocket.startShootingImmediately();	
 					break;
 			}
 		}else if(event.getAction()==MotionEvent.ACTION_UP){

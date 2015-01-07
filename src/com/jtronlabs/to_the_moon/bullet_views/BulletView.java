@@ -2,6 +2,7 @@ package com.jtronlabs.to_the_moon.bullet_views;
   
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
@@ -21,22 +22,25 @@ public class BulletView extends ProjectileView{
     	@Override
         public void run() {
     		boolean atThreshold=false;
+    		//move up and down
     		if(shootingUp){
     			atThreshold=BulletView.this.move(ProjectileView.UP);
     		}else{
     			atThreshold=BulletView.this.move(ProjectileView.DOWN);
     		}
-    		if(BulletView.this.getSpeedX()>0){
-        		if(shootingRight){
-        			atThreshold=BulletView.this.move(ProjectileView.RIGHT);
-        		}else{
-        			atThreshold=BulletView.this.move(ProjectileView.LEFT);
-        		}
-    		}
-    		if(atThreshold || BulletView.this.getHealth()<=0){
+    		
+    		if(atThreshold || BulletView.this.getHealth()<=0){//off screen
     			BulletView.this.removeView(false);
     			BulletView.this.removeCallbacks(this);
     		}else{
+    			//move left and right
+    			if(BulletView.this.getSpeedX()>0){
+            		if(shootingRight){
+            			atThreshold=BulletView.this.move(ProjectileView.RIGHT);
+            		}else{
+            			atThreshold=BulletView.this.move(ProjectileView.LEFT);
+            		}
+        		}
     			BulletView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
     		}
     	}
@@ -77,11 +81,12 @@ public class BulletView extends ProjectileView{
 		}
 		
 		//set X position
+		final float left=shooter.getX(),right=left+shooter.getWidth();
 		float x;
 		switch(whichSideIsBulletOn){
 		case BULLET_LEFT:
 			shootingRight=false;
-			x= shooter.getX();
+			x= left;
 			final float rotationValueLeft = (float) (-this.getSpeedY()/this.getSpeedX()*360);
 			this.setRotation(rotationValueLeft);
 			break;
@@ -89,11 +94,11 @@ public class BulletView extends ProjectileView{
 			shootingRight=true;
 			final float rotationValueRight = (float) (this.getSpeedY()/this.getSpeedX()*360);
 			this.setRotation(rotationValueRight);
-			x= shooter.getWidth();			
+			x= right;			
 			break;
 		default:
 			shootingRight=true;//not needed, but set just in case
-			x= (shooter.getX()+shooter.getWidth())/2;
+			x= (left+right)/2;
 			break;
 		}
 		x-=bulletWidth/2;

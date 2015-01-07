@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
@@ -16,6 +15,7 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 	public static final int DEFAULT_NUM_COLS=5,DEFAULT_NUM_ROWS=5;
 	public static final boolean DEFAULT_STAGGERED=true;
 	private static final float LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
+	private static final double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_SPEED_X=-10,DEFAULT_BULLET_DAMAGE=10;
 	
 	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
 	public static ArrayList<Shooting_MovingArrayView> allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
@@ -60,12 +60,13 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		}
 	};
 
-	public Shooting_MovingArrayView(Context context, int score,double speedY, double speedX,double collisionDamage, double health, double bulletFreq,
-			int backgroundId,int whichBullet,float heightView,float widthView) {
-		super(context, score, speedY, speedY,
+	public Shooting_MovingArrayView(Context context, int score,double speedY, double speedX,double collisionDamage, 
+			double health, double bulletFreq,
+			int backgroundId,float heightView,float widthView) {
+		super(context, false,score, speedY, speedY,
 				speedX, collisionDamage, health);
 
-		this.setMyBulletProperties(whichBullet);
+		this.setMyBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,DEFAULT_BULLET_DAMAGE);
 		startShooting(bulletFreq);
 
 		final int randPos = (int) (freePositions.size() * Math.random());

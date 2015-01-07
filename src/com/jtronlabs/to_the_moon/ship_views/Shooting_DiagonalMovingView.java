@@ -9,9 +9,11 @@ import com.jtronlabs.to_the_moon.misc.ProjectileView;
 
 public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements GameObjectInterface{
 	
-	private final static int DEFAULT_SCORE=10;
-	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=.5,DEFAULT_SPEEDX=15,
-			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10;
+//	private final static int DEFAULT_SCORE=10;
+//	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=.5,DEFAULT_SPEEDX=15,
+//			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10;
+	private final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_SPEED_X=-10,DEFAULT_BULLET_DAMAGE=10;
+	
 	private boolean travelingRight;
 	
 	Runnable moveDiagonalRunnable = new Runnable(){
@@ -45,11 +47,13 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		
 	};
 	
-	public Shooting_DiagonalMovingView(Context context) {
-		super(context,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH);
+	public Shooting_DiagonalMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
+			double health, double bulletFreq,
+			int backgroundId,float heightView,float widthView) {
+		super(context,false,score,speedY,speedY,speedX,collisionDamage,
+				health);
 		
-		final double bulletFreq = (2000+Math.random()*4000);
+		this.setMyBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,DEFAULT_BULLET_DAMAGE);
 		startShooting(bulletFreq);
 		
 		this.lowestPositionThreshold=(int) heightPixels;
