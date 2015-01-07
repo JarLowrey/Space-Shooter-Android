@@ -17,7 +17,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="Game_Text">
+    <style name="Intro_Text">
 	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:textSize">30sp</item>
 	    <item name="android:textStyle">bold</item>
@@ -27,5 +27,12 @@
 	    <item name="android:shadowDx">1</item>
 	    <item name="android:shadowDy">2</item>
 	    <item name="android:shadowRadius">3</item>
+	</style>
+	
+	<style name="score_and_ammo_text">
+	    <item name="android:textColor">@android:color/white</item>
+	    <item name="android:textSize">16sp</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:gravity">center</item>	    
 	</style>
 </resources>

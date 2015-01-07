@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public class Bullet_LaserOne extends BulletView{
 		

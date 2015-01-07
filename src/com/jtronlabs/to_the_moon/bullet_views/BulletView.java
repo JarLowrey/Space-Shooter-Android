@@ -4,8 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.misc.ProjectileView;
-import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.views.ProjectileView;
 
 public class BulletView extends ProjectileView{
 
@@ -51,7 +51,7 @@ public class BulletView extends ProjectileView{
 			float bulletWidth,int whichSideIsBulletOn,
 			double projectileSpeedVertical,double projectileSpeedX, double projectileDamage) {
 		super(context,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
-				projectileSpeedX,projectileDamage,DEFAULT_HEALTH);
+				projectileSpeedX,projectileDamage,DEFAULT_HEALTH,0);
 		
 
 		initBullet(shooter,shootBulletUp,bulletHeight,bulletWidth,whichSideIsBulletOn);
@@ -61,7 +61,7 @@ public class BulletView extends ProjectileView{
 			float bulletHeight,float bulletWidth,int whichSideIsBulletOn,double projectileSpeedVertical,double projectileSpeedX, 
 			double projectileDamage) {
 		super(context,at,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
-				projectileSpeedX,projectileDamage,DEFAULT_HEALTH);
+				projectileSpeedX,projectileDamage,DEFAULT_HEALTH,0);
 
 		initBullet(shooter,shootBulletUp,bulletHeight,bulletWidth,whichSideIsBulletOn);
 	}

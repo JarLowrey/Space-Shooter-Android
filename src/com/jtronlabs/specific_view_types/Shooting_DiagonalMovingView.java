@@ -1,17 +1,19 @@
-package com.jtronlabs.to_the_moon.ship_views;
+package com.jtronlabs.specific_view_types;
 
 import android.content.Context;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.misc.ProjectileView;
+import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.views.ProjectileView;
 
 public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements GameObjectInterface{
 	
-//	private final static int DEFAULT_SCORE=10;
-//	public final static double DEFAULT_SPEED_UP=5,DEFAULT_SPEED_DOWN=.5,DEFAULT_SPEEDX=15,
-//			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10;
+	public final static int DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo;
+	public final static double DEFAULT_SPEED_Y=1.8,DEFAULT_SPEED_X=10,
+			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
 	private final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_SPEED_X=-10,DEFAULT_BULLET_DAMAGE=10;
 	
 	private boolean travelingRight;
@@ -49,9 +51,9 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 	
 	public Shooting_DiagonalMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
-			int backgroundId,float heightView,float widthView) {
+			float heightView,float widthView,double probSpawnBeneficialObjectOnDeath) {
 		super(context,false,score,speedY,speedY,speedX,collisionDamage,
-				health);
+				health,probSpawnBeneficialObjectOnDeath);
 		
 		this.setBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,DEFAULT_BULLET_DAMAGE);
 		startShooting(bulletFreq);
@@ -59,7 +61,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		this.lowestPositionThreshold=(int) heightPixels;
 		
 		//set image background, width, and height
-		this.setImageResource(R.drawable.ufo);
+		this.setImageResource(DEFAULT_BACKGROUND);
 		final int height_int=(int)context.getResources().getDimension(R.dimen.diagonal_shooter_height);
 		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));

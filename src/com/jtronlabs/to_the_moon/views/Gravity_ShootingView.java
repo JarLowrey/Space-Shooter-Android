@@ -1,11 +1,13 @@
-package com.jtronlabs.to_the_moon.ship_views;
+package com.jtronlabs.to_the_moon.views;
   
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 import com.jtronlabs.to_the_moon.bullet_views.Bullet_LaserOne;
 
@@ -53,9 +55,9 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 	
 	public Gravity_ShootingView(Context context,boolean shootingUpwards,int scoreValue,double projectileSpeedUp,
 			double projectileSpeedDown,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth) {
+			double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectOnDeath) {
 		super(context,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
-				projectileDamage,projectileHealth);
+				projectileDamage,projectileHealth,probSpawnBeneficialObjectOnDeath);
 		
 		shootingUp= shootingUpwards;
 		myBullets= new ArrayList<BulletView>();
@@ -63,9 +65,9 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 	
 	public Gravity_ShootingView(Context context,AttributeSet at,boolean shootingUpwards,int scoreValue,double projectileSpeedUp,
 			double projectileSpeedDown,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth) {
+			double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectOnDeath) {
 		super(context,at,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
-				projectileDamage,projectileHealth);
+				projectileDamage,projectileHealth,probSpawnBeneficialObjectOnDeath);
 
 		shootingUp= shootingUpwards;
 		myBullets = new ArrayList<BulletView>();
@@ -193,6 +195,10 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 //			oldBulletSpeedY=bulletSpeedY;
 //			oldBulletSpeedX=bulletSpeedX;
 //			oldBulletDamage=bulletDamage;
+			if(this == GameActivity.rocket){
+				GameActivity.ammoText.setVisibility(View.VISIBLE);
+				GameActivity.ammoText.setText(ammo+"");
+			}
 			return true;
 		}
 		return false;
@@ -206,10 +212,11 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 		boolean outOfAmmo=false;
 		ammo--;
 		if(ammo<=0){
+			if(this == GameActivity.rocket){GameActivity.ammoText.setVisibility(View.GONE);}
 			outOfAmmo=true;
 			this.setSingleShot();
 //			this.setBulletProperties(myBulletType,oldBulletSpeedY,oldBulletSpeedX,oldBulletDamage);
-		}
+		}else if(this == GameActivity.rocket){GameActivity.ammoText.setText(ammo+"");}
 		return outOfAmmo;
 		
 	}

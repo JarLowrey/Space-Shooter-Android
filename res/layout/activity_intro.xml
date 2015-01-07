@@ -12,13 +12,13 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text=""
-        android:textAppearance="@style/Game_Text" />
+        android:textAppearance="@style/Intro_Text" />
 
     <Button
         android:id="@+id/intro_btn_next"
         android:layout_width="@dimen/btn_large_len"
         android:layout_height="@dimen/btn_large_len"
-        android:textAppearance="@style/Game_Text" 
+        android:textAppearance="@style/Intro_Text" 
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="44dp"

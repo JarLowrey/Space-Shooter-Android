@@ -19,21 +19,22 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jtronlabs.specific_view_types.Projectile_BeneficialView;
+import com.jtronlabs.specific_view_types.RocketView;
+import com.jtronlabs.specific_view_types.Shooting_MovingArrayView;
 import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.Levels;
-import com.jtronlabs.to_the_moon.misc.ProjectileView;
-import com.jtronlabs.to_the_moon.misc.Projectile_BeneficialView;
-import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
-import com.jtronlabs.to_the_moon.ship_views.RocketView;
-import com.jtronlabs.to_the_moon.ship_views.Shooting_MovingArrayView;
+import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.views.ProjectileView;
 
 public class GameActivity extends Activity implements OnTouchListener{
 
 	//VIEWS
 	private Button btnLeft, btnRight,btnMiddle;
 	private TextView text_score,gameWindowOverlay;
+	public static TextView ammoText;
 	public static RocketView rocket;
 //	private ImageView rocket_exhaust;
 	private RelativeLayout btnBackground;
@@ -166,6 +167,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
 		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
 		text_score=(TextView)findViewById(R.id.score_textview);
+		ammoText = (TextView)findViewById(R.id.ammo);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) RocketView.DEFAULT_HEALTH);
 		healthBar.setProgress(healthBar.getMax());
@@ -286,10 +288,11 @@ public class GameActivity extends Activity implements OnTouchListener{
 			
 		});
 		gameWindowOverlay.startAnimation(fade_out);
-	}
+	} 
 	
 	private void gameOver(){
 		healthBar.setProgress(0);
+		ammoText.setVisibility(View.GONE);
 		
 		//remove OnClickListeners
 		btnLeft.setOnTouchListener(null);

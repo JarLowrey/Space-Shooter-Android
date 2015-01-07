@@ -1,4 +1,4 @@
-package com.jtronlabs.to_the_moon.ship_views;
+package todo;
   
 
 public class Shooting_AtProtagonistView /*extends Gravity_ShootingView*/{

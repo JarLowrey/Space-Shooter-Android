@@ -76,6 +76,7 @@
 	        android:layout_height="wrap_content"
 			android:layout_alignBottom="@+id/btns_wrap"
 	        android:layout_centerHorizontal="true"
+        	android:textAppearance="@style/score_and_ammo_text"
 	        android:text="0" />
 	    
 	    
@@ -84,12 +85,13 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 			android:layout_centerInParent="true"
+        	android:textAppearance="@style/score_and_ammo_text"
 			android:visibility="gone"
         	android:text="0" />
 
 	</RelativeLayout>
 
-    <com.jtronlabs.to_the_moon.ship_views.RocketView
+    <com.jtronlabs.specific_view_types.RocketView
         android:id="@+id/rocket_game"
         android:layout_width="@dimen/rocket_game_width"
         android:layout_height="@dimen/rocket_game_height"

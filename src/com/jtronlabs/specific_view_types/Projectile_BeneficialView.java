@@ -1,20 +1,23 @@
-package com.jtronlabs.to_the_moon.misc;
+package com.jtronlabs.specific_view_types;
 
 import android.content.Context;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
+import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.views.ProjectileView;
+import com.jtronlabs.to_the_moon.views.Projectile_GravityView;
 
-public class Projectile_BeneficialView extends ProjectileView implements GameObjectInterface{
+public class Projectile_BeneficialView extends Projectile_GravityView implements GameObjectInterface{
 
 	public final static int SET_TRI_SHOT=0,SET_DUAL_SHOT=1,HEAL=2,UPGRADE_GUN=3;
-	private final static float SPEED_Y=2;
+	public final static float DEFAULT_SPEED_Y=3;
 	private int whichBenefitDoIHave;
 	
 	public Projectile_BeneficialView(Context context,int whichBenefit,float positionX,float positionY) {
-		super(context,0,SPEED_Y,SPEED_Y,0,0,1);	
+		super(context,0,DEFAULT_SPEED_Y,DEFAULT_SPEED_Y,0,0,1,0);	
 		
 		whichBenefitDoIHave=whichBenefit;
 		
@@ -22,7 +25,7 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 	}
 	//no benefit passed, must choose one
 	public Projectile_BeneficialView(Context context,float positionX,float positionY) {
-		super(context,0,SPEED_Y,SPEED_Y,0,0,1);	
+		super(context,0,DEFAULT_SPEED_Y,DEFAULT_SPEED_Y,0,0,1,0);	
 		
 		// create a random benefit
 		final double rand = Math.random();
@@ -61,7 +64,7 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 			setDualShot(theBenefitter);
 			break;
 		case HEAL:
-			theBenefitter.heal(theBenefitter.getMaxHealth()/4);
+			heal(theBenefitter);
 			break;
 		case UPGRADE_GUN:
 			theBenefitter.upgradeGun();
@@ -69,8 +72,11 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 	}
 	public void applyBenefit(ProjectileView theBenefitter){
 		switch(whichBenefitDoIHave){
+		case HEAL:
+			heal(theBenefitter);
+			break;
 		default:
-			theBenefitter.heal(theBenefitter.getMaxHealth()/4);
+			heal(theBenefitter);
 		}
 	}
 	private void setImage(int whichBenefit){
@@ -91,7 +97,7 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 	
 	private void setTriShot(Gravity_ShootingView theBenefitter){
 		//tri shot is at 30 degrees. Thus, find needed X Speed
-		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(30));
+		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(5));
 		if(theBenefitter.isTriShot()){
 			theBenefitter.setAmmo(theBenefitter.getAmmo()+15);
 		}else{
@@ -101,12 +107,25 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 	}
 	private void setDualShot(Gravity_ShootingView theBenefitter){
 		//dual shot is at 30 degrees. Thus, find needed X Speed
-		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(30));
+		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(5));
 		if(theBenefitter.isDualShot()){
-			theBenefitter.setAmmo(theBenefitter.getAmmo()+20);
+			theBenefitter.setAmmo(theBenefitter.getAmmo()+10);
 		}else{
 			theBenefitter.setAmmo(40);
 			theBenefitter.setDualShot(bulletXSpeed);			
+		}
+	}
+	
+	/**
+	 * Do not heal past max health
+	 * @param theBenefitter ProjectileView to heal
+	 */
+	private void heal(ProjectileView theBenefitter){
+		final double amtToHeal = theBenefitter.getMaxHealth()/5;
+		if(theBenefitter.getHealth()+amtToHeal<theBenefitter.getMaxHealth()){
+			theBenefitter.heal(amtToHeal);
+		}else{
+			theBenefitter.heal(theBenefitter.getMaxHealth()-theBenefitter.getHealth());
 		}
 	}
 	

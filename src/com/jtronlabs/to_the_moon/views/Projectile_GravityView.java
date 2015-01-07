@@ -1,10 +1,9 @@
-package com.jtronlabs.to_the_moon.ship_views;
+package com.jtronlabs.to_the_moon.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.misc.ProjectileView;
 /**
  * A ProjectileView with a constant downwards force that is a different speed than ProjectileView's SpeedY
  * @author JAMES LOWREY
@@ -12,14 +11,20 @@ import com.jtronlabs.to_the_moon.misc.ProjectileView;
  */
 public class Projectile_GravityView extends ProjectileView implements GameObjectInterface{
 	
-	public Projectile_GravityView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
-		super(context,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
+	public Projectile_GravityView(Context context,int scoreValue,double projectileSpeedYUp,
+			double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,
+			double projectileHealth,double probSpawnBeneficialObjectOnDeath) {
+		super(context,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,
+				projectileDamage,projectileHealth, probSpawnBeneficialObjectOnDeath);
 
 		this.post(gravityRunnable);
 	}
 	
-	public Projectile_GravityView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
-		super(context,at,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
+	public Projectile_GravityView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,
+			double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth,
+			double probSpawnBeneficialObjectOnDeath) {
+		super(context,at,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,
+				projectileHealth, probSpawnBeneficialObjectOnDeath);
 
 		this.post(gravityRunnable);
 	}

@@ -1,4 +1,4 @@
-package com.jtronlabs.to_the_moon.misc;
+package com.jtronlabs.to_the_moon.views;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.jtronlabs.specific_view_types.Projectile_BeneficialView;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 
 public class ProjectileView extends ImageView implements GameObjectInterface{
 
@@ -19,7 +20,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	public static final int NO_THRESHOLD=Integer.MAX_VALUE;
 	
 	int score;
-	double speedYUp,speedYDown,speedX, damage, health,maxHealth;
+	double speedYUp,speedYDown,speedX, damage, health,maxHealth,probSpawnBeneficialObject;
 	public int lowestPositionThreshold=NO_THRESHOLD,highestPositionThreshold=NO_THRESHOLD;
 	public static float screenDens,widthPixels,heightPixels;
 	protected Context ctx;
@@ -33,31 +34,22 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	
 	public ProjectileView(Context context,int scoreValue,double projectileSpeedYUp,
 			double projectileSpeedYDown,double projectileSpeedX,double projectileDamage,
-			double projectileHealth) {
+			double projectileHealth,double probSpawnBeneficialObjectOnDeath) {
 		super(context);	
-		
-		ctx = context;
-		
-		//find screen density and width/height of screen in pixels
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-	    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-	    screenDens = displayMetrics.density;
-	    widthPixels = displayMetrics.widthPixels;
-	    heightPixels = displayMetrics.heightPixels;
-		
-	    score=scoreValue;
-		speedYUp=projectileSpeedYUp*screenDens;
-		speedYDown=projectileSpeedYDown*screenDens;
-		speedX=projectileSpeedX*screenDens;
-		damage=projectileDamage;
-		health=projectileHealth;
-		maxHealth=health;
+
+		init( context, scoreValue, projectileSpeedYUp, projectileSpeedYDown,
+				 projectileSpeedX,  projectileDamage, projectileHealth, probSpawnBeneficialObjectOnDeath);
 	}
 	
-	public ProjectileView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+	public ProjectileView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,
+			double projectileSpeedX, double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectOnDeath) {
 		super(context,at);	
 		
+		init( context, scoreValue, projectileSpeedYUp, projectileSpeedYDown,
+				 projectileSpeedX,  projectileDamage, projectileHealth, probSpawnBeneficialObjectOnDeath);
+	}
+	private void init(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,
+			double projectileSpeedX, double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectOnDeath){
 		ctx = context;
 		
 		//find screen density and width/height of screen in pixels
@@ -68,6 +60,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
 		
+	    probSpawnBeneficialObject=probSpawnBeneficialObjectOnDeath;
 	    score=scoreValue;
 		speedYUp=projectileSpeedYUp*screenDens;
 		speedYDown=projectileSpeedYDown*screenDens;
@@ -75,6 +68,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		damage=projectileDamage;
 		health=projectileHealth;
 		maxHealth=health;
+		
 	}
 	
 	/**
@@ -159,14 +153,21 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			if(casted.myBullets.size()==0){
 				if(GameActivity.enemies.contains(this)){GameActivity.enemies.remove(this);}//remove from list of enemies				
 			}
-		}else if(GameActivity.enemies.contains(this)){
-			GameActivity.enemies.remove(this);
 			//try to spawn a random beneficial object
-			if(Math.random()<.9){
+			if(Math.random()<probSpawnBeneficialObject){
 				final float xAvg = (this.getX()+this.getX()+this.getWidth())/2;
 				Projectile_BeneficialView bene = new Projectile_BeneficialView(ctx,xAvg,this.getY());
 				if(parent!=null){parent.addView(bene,1);}
 			}
+		}else if(GameActivity.enemies.contains(this)){
+			//try to spawn a random beneficial object
+			if(Math.random()<probSpawnBeneficialObject){
+				final float xAvg = (this.getX()+this.getX()+this.getWidth())/2;
+				Projectile_BeneficialView bene = new Projectile_BeneficialView(ctx,xAvg,this.getY());
+				if(parent!=null){parent.addView(bene,1);}
+			}
+			
+			GameActivity.enemies.remove(this);
 		}else if(GameActivity.friendlies.contains(this)){
 			GameActivity.friendlies.remove(this);
 		}
@@ -202,6 +203,9 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	 */
 	public void changeSpeedX(double ratio){
 		speedX*=ratio;
+	}
+	public void setProbSpawnBeneficialObjectOnDeath(double prob){
+		probSpawnBeneficialObject=prob;
 	}
 	
 	public double getSpeedY(){
