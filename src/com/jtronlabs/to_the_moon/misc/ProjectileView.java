@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
 public class ProjectileView extends ImageView implements GameObjectInterface{
@@ -150,6 +149,10 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	public int removeView(boolean showExplosion){
 		if(showExplosion){createExplosion();}//show explosion
 		
+		//remove from layout
+		ViewGroup parent = (ViewGroup)this.getParent();
+		if(parent!=null){parent.removeView(this);}
+		
 		//do not remove from the list of enemies if this is a ShootingView and this still has bullets remaining
 		if(this instanceof Gravity_ShootingView){
 			Gravity_ShootingView casted = (Gravity_ShootingView)this;
@@ -158,15 +161,16 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			}
 		}else if(GameActivity.enemies.contains(this)){
 			GameActivity.enemies.remove(this);
+			//try to spawn a random beneficial object
+			if(Math.random()<.9){
+				final float xAvg = (this.getX()+this.getX()+this.getWidth())/2;
+				Projectile_BeneficialView bene = new Projectile_BeneficialView(ctx,xAvg,this.getY());
+				if(parent!=null){parent.addView(bene,1);}
+			}
 		}else if(GameActivity.friendlies.contains(this)){
 			GameActivity.friendlies.remove(this);
 		}
 		cleanUpThreads();//destroy all threads
-		
-		ViewGroup parent = (ViewGroup)this.getParent();
-		if(parent!=null){
-			parent.removeView(this);
-		}
 		
 		return score;
 	}

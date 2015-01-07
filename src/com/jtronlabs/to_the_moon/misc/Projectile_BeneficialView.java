@@ -11,35 +11,20 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 
 	public final static int SET_TRI_SHOT=0,SET_DUAL_SHOT=1,HEAL=2,UPGRADE_GUN=3;
 	private final static float SPEED_Y=2;
-	private Gravity_ShootingView theBenefitter;
 	private int whichBenefitDoIHave;
 	
-	public Projectile_BeneficialView(Context context,Gravity_ShootingView theOneImHelping,int whichBenefit) {
+	public Projectile_BeneficialView(Context context,int whichBenefit,float positionX,float positionY) {
 		super(context,0,SPEED_Y,SPEED_Y,0,0,1);	
-
-		//set width and height
-		final int len=(int)context.getResources().getDimension(R.dimen.benefical_object_len);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(len,len));
 		
-		//set the one who is helped, the benefit, the image and the background
-		theBenefitter = theOneImHelping;
 		whichBenefitDoIHave=whichBenefit;
-		setImage(whichBenefit);
-		this.setBackgroundResource(R.drawable.white_center_red_outline);
 		
-		//add to collision detector
-		GameActivity.beneficials.add(this);
+		this.init(context, positionX, positionY);
 	}
 	//no benefit passed, must choose one
-	public Projectile_BeneficialView(Context context,Gravity_ShootingView theOneImHelping) {
+	public Projectile_BeneficialView(Context context,float positionX,float positionY) {
 		super(context,0,SPEED_Y,SPEED_Y,0,0,1);	
 		
-		//set width and height
-		final int len=(int)context.getResources().getDimension(R.dimen.benefical_object_len);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(len,len));
-		
-		//set one who is helped and create a random benefit
-		theBenefitter = theOneImHelping;
+		// create a random benefit
 		final double rand = Math.random();
 		if(rand<.6){
 			whichBenefitDoIHave=HEAL;			
@@ -48,6 +33,15 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 		}else{
 			whichBenefitDoIHave=SET_TRI_SHOT;
 		}
+
+		this.init(context, positionX, positionY);
+	}
+	private void init(Context context,float positionX,float positionY){
+		//set width and height, x and y
+		final int len=(int)context.getResources().getDimension(R.dimen.benefical_object_len);
+		this.setLayoutParams(new RelativeLayout.LayoutParams(len,len));
+		this.setX(positionX);
+		this.setY(positionY);
 		
 		//set image and background
 		this.setBackgroundResource(R.drawable.white_center_red_outline);
@@ -55,21 +49,28 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 
 		//add to collision detector
 		GameActivity.beneficials.add(this);
+		
 	}
 	
-	public void applyBenefit(){
+	public void applyBenefit(Gravity_ShootingView theBenefitter){
 		switch(whichBenefitDoIHave){
 		case SET_TRI_SHOT:
-			setTriShot();
+			setTriShot(theBenefitter);
 			break;
 		case SET_DUAL_SHOT:
-			setDualShot();
+			setDualShot(theBenefitter);
 			break;
 		case HEAL:
 			theBenefitter.heal(theBenefitter.getMaxHealth()/4);
 			break;
 		case UPGRADE_GUN:
 			theBenefitter.upgradeGun();
+		}
+	}
+	public void applyBenefit(ProjectileView theBenefitter){
+		switch(whichBenefitDoIHave){
+		default:
+			theBenefitter.heal(theBenefitter.getMaxHealth()/4);
 		}
 	}
 	private void setImage(int whichBenefit){
@@ -88,7 +89,7 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 		}
 	}
 	
-	private void setTriShot(){
+	private void setTriShot(Gravity_ShootingView theBenefitter){
 		//tri shot is at 30 degrees. Thus, find needed X Speed
 		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(30));
 		if(theBenefitter.isTriShot()){
@@ -98,7 +99,7 @@ public class Projectile_BeneficialView extends ProjectileView implements GameObj
 			theBenefitter.setTriShot(bulletXSpeed);			
 		}
 	}
-	private void setDualShot(){
+	private void setDualShot(Gravity_ShootingView theBenefitter){
 		//dual shot is at 30 degrees. Thus, find needed X Speed
 		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(30));
 		if(theBenefitter.isDualShot()){

@@ -57,7 +57,8 @@ public class GameActivity extends Activity implements OnTouchListener{
         	for(int k=friendlies.size()-1;k>=0;k--){
         		ProjectileView projectileCastedFriendly = (ProjectileView)friendlies.get(k);
         		boolean isProtagonist = friendlies.get(k) == rocket;
-        		Log.d("lowrey","isProtag "+isProtagonist);
+        		boolean isAShooter = friendlies.get(k) instanceof Gravity_ShootingView;
+        		
 	        	for(int i=enemies.size()-1;i>=0;i--){
 	        		/*			COLLISION DETECTION			*/
 	        		boolean enemyDies=false,friendlyDies=false;	        		
@@ -97,7 +98,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		}
 	        		
 	        		//check if friendly's bullets have hit the enemy
-	        		if(projectileCastedEnemy.getHealth()>0 && friendlies.get(k) instanceof Gravity_ShootingView){
+	        		if(projectileCastedEnemy.getHealth()>0 && isAShooter){
 		    			ArrayList<BulletView> friendlysBullets = ((Gravity_ShootingView)friendlies.get(k)).myBullets;
 		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
 		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
@@ -130,8 +131,16 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        	for(int i=beneficials.size()-1;i>=0;i--){
 	        		Projectile_BeneficialView beneficialCastedView = (Projectile_BeneficialView)beneficials.get(i);
 	        		if(projectileCastedFriendly.collisionDetection(beneficialCastedView)){
-	        			beneficialCastedView.applyBenefit();
-	        			beneficialCastedView.removeView(false);
+	        			if(isProtagonist){
+		        			beneficialCastedView.applyBenefit((RocketView)friendlies.get(k));
+		        			beneficialCastedView.removeView(false);
+	        			}else if(isAShooter){
+		        			beneficialCastedView.applyBenefit((Gravity_ShootingView)friendlies.get(k));
+		        			beneficialCastedView.removeView(false);
+		        		}else{
+		        			beneficialCastedView.applyBenefit(projectileCastedFriendly);
+		        			beneficialCastedView.removeView(false);
+	        			}
 	        		}
 	        	}
         	}
