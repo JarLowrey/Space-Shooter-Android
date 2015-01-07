@@ -46,7 +46,9 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 		}else{
 			nextGun = this.myGun.getMostRecentUpgradeableGun().downgradeGun();			
 		}
-		this.myGun=nextGun;
+		if( ! this.myGun.getClass().equals(nextGun.getClass())){
+			this.myGun=nextGun;
+		}
 	}
 	
 	public void restartThreads(){
