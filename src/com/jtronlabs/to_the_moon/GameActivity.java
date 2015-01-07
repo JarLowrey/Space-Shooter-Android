@@ -54,7 +54,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 
         @Override
         public void run() {
-        	for(int k=friendlies.size();k>=0;k--){
+        	for(int k=friendlies.size()-1;k>=0;k--){
         		ProjectileView projectileCastedFriendly = (ProjectileView)friendlies.get(k);
         		boolean isProtagonist = friendlies.get(k) == rocket;
         		Log.d("lowrey","isProtag "+isProtagonist);
@@ -238,30 +238,24 @@ public class GameActivity extends Activity implements OnTouchListener{
     public void onPause() {
         super.onPause();
         
-        //clean up handlers
-//        dangerousSpaceJunkHandler.removeCallbacks(createDangerousSpaceJunkRunnable);
         for(int i=0;i<enemies.size();i++){
         	enemies.get(i).cleanUpThreads();
         }
         rocket.cleanUpThreads();
         enemyFactory.cleanUpThreads();
         gameHandler.removeCallbacks(mainGameLoopRunnable);
-//        timerHandler.removeCallbacks(timerRunnable);
     }
 	
 	@Override
 	public void onResume(){
 		super.onResume();
 		
-		//restart handlers. NOTE:: Since onResume() is called with onCreate, this also is responsible for starting the handlers at the beginning of the game
-//		dangerousSpaceJunkHandler.postDelayed(createDangerousSpaceJunkRunnable,newSpaceJunkInterval-levelInfo.getLevel()*50);
         for(int i=0;i<enemies.size();i++){
         	enemies.get(i).restartThreads();
         }
         rocket.restartThreads();
         enemyFactory.restartThreads();
         gameHandler.post(mainGameLoopRunnable);
-//	    timerHandler.post(timerRunnable);
 	}
 	
 	private void changeGameBackgroundImage(final int idToChangeTo){
