@@ -120,6 +120,9 @@ public abstract class Gun {
 	public void setShootingUp(boolean gunIsShootingUpwards){
 		shootingUp=gunIsShootingUpwards;
 	}
+	public void setPreviousUpgradeableGun(Gun_Upgradeable gun){
+		this.previousUpgradeableGun=gun;
+	}
 	
 
 	public Gun_Upgradeable getMostRecentUpgradeableGun(){

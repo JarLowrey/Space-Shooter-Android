@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.jtronlabs.to_the_moon.guns.Gun;
+import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
 
 public class Gravity_ShootingView extends Projectile_GravityView{
@@ -46,7 +47,10 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 		}else{
 			nextGun = this.myGun.getMostRecentUpgradeableGun().downgradeGun();			
 		}
-		if( ! this.myGun.getClass().equals(nextGun.getClass())){
+		if(this.myGun instanceof Gun_Special){
+			this.myGun.setPreviousUpgradeableGun(nextGun);
+			
+		}else if( ! this.myGun.getClass().equals(nextGun.getClass())){
 			this.myGun=nextGun;
 		}
 	}

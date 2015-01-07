@@ -74,10 +74,10 @@ public class EnemyFactory{
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
-//			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnColumnBoundDiagonalAttacker();
-//			
-//			gameLayout.addView(shooter2,1);
-//    		GameActivity.enemies.add(shooter2);
+			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnColumnBoundDiagonalAttacker();
+			
+			gameLayout.addView(shooter2,1);
+    		GameActivity.enemies.add(shooter2);
    
 			enemySpawnHandler.postDelayed(this, calculatDiagonalShooterSpawnInterval());
 		}
