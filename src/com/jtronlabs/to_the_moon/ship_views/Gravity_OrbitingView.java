@@ -9,7 +9,7 @@ import android.util.AttributeSet;
  * @author JAMES LOWREY
  *
  */
-public class Gravity_OrbitingView extends GravityView implements GameObjectInterface{
+public class Gravity_OrbitingView extends Projectile_GravityView implements GameObjectInterface{
 	
 	private float orbitX,orbitY;
 	private int orbitDist;

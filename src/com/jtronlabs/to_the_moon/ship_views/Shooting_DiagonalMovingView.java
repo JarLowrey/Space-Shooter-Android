@@ -53,7 +53,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		super(context,false,score,speedY,speedY,speedX,collisionDamage,
 				health);
 		
-		this.setMyBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,DEFAULT_BULLET_DAMAGE);
+		this.setBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,DEFAULT_BULLET_DAMAGE);
 		startShooting(bulletFreq);
 		
 		this.lowestPositionThreshold=(int) heightPixels;

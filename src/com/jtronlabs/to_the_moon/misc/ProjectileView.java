@@ -10,8 +10,8 @@ import android.widget.ImageView;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.to_the_moon.bullet_views.BulletView;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
-import com.jtronlabs.to_the_moon.ship_views.RocketView;
 
 public class ProjectileView extends ImageView implements GameObjectInterface{
 
@@ -20,7 +20,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	public static final int NO_THRESHOLD=Integer.MAX_VALUE;
 	
 	int score;
-	double speedYUp,speedYDown,speedX, damage, health;
+	double speedYUp,speedYDown,speedX, damage, health,maxHealth;
 	public int lowestPositionThreshold=NO_THRESHOLD,highestPositionThreshold=NO_THRESHOLD;
 	public static float screenDens,widthPixels,heightPixels;
 	protected Context ctx;
@@ -53,6 +53,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		speedX=projectileSpeedX*screenDens;
 		damage=projectileDamage;
 		health=projectileHealth;
+		maxHealth=health;
 	}
 	
 	public ProjectileView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
@@ -74,6 +75,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		speedX=projectileSpeedX*screenDens;
 		damage=projectileDamage;
 		health=projectileHealth;
+		maxHealth=health;
 	}
 	
 	/**
@@ -156,6 +158,8 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			}
 		}else if(GameActivity.enemies.contains(this)){
 			GameActivity.enemies.remove(this);
+		}else if(GameActivity.friendlies.contains(this)){
+			GameActivity.friendlies.remove(this);
 		}
 		cleanUpThreads();//destroy all threads
 		
@@ -210,6 +214,9 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	
 	public double getHealth(){
 		return health;
+	}
+	public double getMaxHealth(){
+		return maxHealth;
 	}
 	
 	public double getDamage(){

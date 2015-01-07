@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -23,6 +24,7 @@ import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.Levels;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;
+import com.jtronlabs.to_the_moon.misc.Projectile_BeneficialView;
 import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.ship_views.RocketView;
 import com.jtronlabs.to_the_moon.ship_views.Shooting_MovingArrayView;
@@ -32,13 +34,15 @@ public class GameActivity extends Activity implements OnTouchListener{
 	//VIEWS
 	private Button btnLeft, btnRight,btnMiddle;
 	private TextView text_score,gameWindowOverlay;
-	private RocketView rocket;
+	public static RocketView rocket;
 //	private ImageView rocket_exhaust;
 	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
 	private ProgressBar healthBar;
-	
+
+	public static ArrayList<GameObjectInterface> friendlies=new ArrayList<GameObjectInterface>();
 	public static ArrayList<GameObjectInterface> enemies=new ArrayList<GameObjectInterface>();
+	public static ArrayList<GameObjectInterface> beneficials=new ArrayList<GameObjectInterface>();
 	
 	//MODEL
 	private Levels levelInfo;
@@ -50,72 +54,87 @@ public class GameActivity extends Activity implements OnTouchListener{
 
         @Override
         public void run() {
-        	for(int i=enemies.size()-1;i>=0;i--){
-        		/*			COLLISION DETECTION			*/
-        		boolean enemyDies=false,protagonistDies=false;
-        		ProjectileView projectileCastedEnemy = (ProjectileView)enemies.get(i);
-        		
-        		//if enemy has shoot, check if its bullets have hit the protagonist
-        		if(enemies.get(i) instanceof Gravity_ShootingView){
-        			ArrayList<BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myBullets;
-        			
-        			for(int j=enemyBullets.size()-1;j>=0;j--){
-        				BulletView bullet = enemyBullets.get(j);
-        				if(rocket.collisionDetection(bullet)){//bullet collided with rocket
-        					//rocket is damaged
-                			protagonistDies = rocket.takeDamage(bullet.getDamage());
-                			if(protagonistDies){gameOver();return;}
-                			else{healthBar.setProgress((int) rocket.getHealth());}
-                			
-                			
-                			bullet.removeView(true);
-                		}
-        			}
-        		}
-        		
-    			//check if the enemy itself has collided with the  protagonist
-        		if(projectileCastedEnemy.getHealth()>0 && rocket.collisionDetection(projectileCastedEnemy)){
-        			protagonistDies = rocket.takeDamage(projectileCastedEnemy.getDamage());
-        			if(protagonistDies){gameOver();return;}
-        			else{healthBar.setProgress((int) rocket.getHealth());}
-        			
-        			enemyDies=projectileCastedEnemy.takeDamage(rocket.getDamage());
-        			if(enemyDies){
-        				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
-        				text_score.setText(""+levelInfo.getScore());
-        			}
-        		}
-        		
-        		//check if protagonist's bullets have hit the enemy
-        		if(projectileCastedEnemy.getHealth()>0){
-	    			ArrayList<BulletView> protagonistBullets = rocket.myBullets;
-	    			for(int j=protagonistBullets.size()-1;j>=0;j--){
-	    				boolean stopCheckingIfProtagonistBulletsHitEnemy=false;
-	    				BulletView bullet = protagonistBullets.get(j);
-	    				
-	    				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
-	    					//enemy is damaged
-	            			enemyDies = projectileCastedEnemy.takeDamage(bullet.getDamage());
-	            			if(enemyDies){
-	            				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
-	            				text_score.setText(""+levelInfo.getScore());
-	            			}
-	            			
-	            			bullet.removeView(true);
-	            			/*
-	            			 * only one bullet can hit a specific enemy at once. 
-	            			 * If that enemy were to die, then checking to see if the other bullets hit 
-	            			 * him wastes resources and may cause issues.
-	            			 */
-	            			stopCheckingIfProtagonistBulletsHitEnemy=true;
-	            		}
-	    				if(stopCheckingIfProtagonistBulletsHitEnemy){
-	            			break;
-	    				}
-	    			}
-        		}
+        	for(int k=friendlies.size();k>=0;k--){
+        		ProjectileView projectileCastedFriendly = (ProjectileView)friendlies.get(k);
+        		boolean isProtagonist = friendlies.get(k) == rocket;
+        		Log.d("lowrey","isProtag "+isProtagonist);
+	        	for(int i=enemies.size()-1;i>=0;i--){
+	        		/*			COLLISION DETECTION			*/
+	        		boolean enemyDies=false,friendlyDies=false;	        		
+	        		ProjectileView projectileCastedEnemy = (ProjectileView)enemies.get(i);
+	        		
+	        		//if enemy has shoot, check if its bullets have hit the friendly
+	        		if(enemies.get(i) instanceof Gravity_ShootingView){
+	        			ArrayList<BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myBullets;
+	        			
+	        			for(int j=enemyBullets.size()-1;j>=0;j--){
+	        				BulletView bullet = enemyBullets.get(j);
+	        				if(projectileCastedFriendly.collisionDetection(bullet)){//bullet collided with rocket
+	        					//rocket is damaged
+	                			friendlyDies = projectileCastedFriendly.takeDamage(bullet.getDamage());
+	                			if(friendlyDies && isProtagonist){gameOver();return;}
+	                			else if(friendlyDies){projectileCastedFriendly.removeView(true);}
+	                			else{healthBar.setProgress((int) projectileCastedFriendly.getHealth());}
+	                			
+	                			
+	                			bullet.removeView(true);
+	                		}
+	        			}
+	        		}
+	        		
+	    			//check if the enemy itself has collided with the  friendly
+	        		if(projectileCastedEnemy.getHealth()>0 && projectileCastedFriendly.collisionDetection(projectileCastedEnemy)){
+	        			friendlyDies = projectileCastedFriendly.takeDamage(projectileCastedEnemy.getDamage());
+	        			if(friendlyDies && isProtagonist){gameOver();return;}
+            			else if(friendlyDies){projectileCastedFriendly.removeView(true);}
+	        			else{healthBar.setProgress((int) projectileCastedFriendly.getHealth());}
+	        			
+	        			enemyDies=projectileCastedEnemy.takeDamage(projectileCastedFriendly.getDamage());
+	        			if(enemyDies){
+	        				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
+	        				text_score.setText(""+levelInfo.getScore());
+	        			}
+	        		}
+	        		
+	        		//check if friendly's bullets have hit the enemy
+	        		if(projectileCastedEnemy.getHealth()>0 && friendlies.get(k) instanceof Gravity_ShootingView){
+		    			ArrayList<BulletView> friendlysBullets = ((Gravity_ShootingView)friendlies.get(k)).myBullets;
+		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
+		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
+		    				BulletView bullet = friendlysBullets.get(j);
+		    				
+		    				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
+		    					//enemy is damaged
+		            			enemyDies = projectileCastedEnemy.takeDamage(bullet.getDamage());
+		            			if(enemyDies){
+		            				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
+		            				text_score.setText(""+levelInfo.getScore());
+		            			}
+		            			
+		            			bullet.removeView(true);
+		            			/*
+		            			 * only one bullet can hit a specific enemy at once. 
+		            			 * If that enemy were to die, then checking to see if the other bullets hit 
+		            			 * him wastes resources and may cause issues.
+		            			 */
+		            			stopCheckingIfFriendlysBulletsHitEnemy=true;
+		            		}
+		    				if(stopCheckingIfFriendlysBulletsHitEnemy){
+		            			break;
+		    				}
+		    			}
+	        		}
+	        	}
+	
+	
+	        	for(int i=beneficials.size()-1;i>=0;i--){
+	        		Projectile_BeneficialView beneficialCastedView = (Projectile_BeneficialView)beneficials.get(i);
+	        		if(projectileCastedFriendly.collisionDetection(beneficialCastedView)){
+	        			beneficialCastedView.applyBenefit();
+	        			beneficialCastedView.removeView(false);
+	        		}
+	        	}
         	}
-
 			/*			DO OTHER STUFF 		*/
             gameHandler.postDelayed(this, 50);
         }
@@ -144,6 +163,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		
 		//set up rocket
 		rocket = (RocketView)findViewById(R.id.rocket_game);
+		friendlies.add(rocket);
 //		rocket.threshold=heightPixels/8;
 		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
@@ -269,7 +289,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		healthBar.setProgress(0);
 		
 		//remove OnClickListeners
-		rocket.stopMoving();
 		btnLeft.setOnTouchListener(null);
 		btnRight.setOnTouchListener(null);
 		btnMiddle.setOnTouchListener(null);

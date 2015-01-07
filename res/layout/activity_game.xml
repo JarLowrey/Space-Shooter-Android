@@ -23,21 +23,14 @@
         android:src="@drawable/rockets_fire" />
         -->
     
-    <RelativeLayout
+  	<RelativeLayout
         android:id="@+id/btn_background"
         android:layout_width="match_parent"
         android:layout_height="@dimen/control_panel_height"
         android:background="@drawable/control_panel"
 	    android:layout_alignParentBottom="true"
         android:src="@drawable/rocket" >
-        
-	    <TextView
-	        android:id="@+id/score_textview"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-			android:layout_alignBottom="@+id/btns_wrap"
-	        android:layout_centerHorizontal="true"
-	        android:text="0" />
+       
 	    
 	    <RelativeLayout
 	        android:id="@+id/btns_wrap"
@@ -75,6 +68,24 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentTop="true" />
+	    
+	    
+	    <TextView
+	        android:id="@+id/score_textview"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/btns_wrap"
+	        android:layout_centerHorizontal="true"
+	        android:text="0" />
+	    
+	    
+		<TextView
+		    android:id="@+id/ammo"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:visibility="gone"
+        	android:text="0" />
 
 	</RelativeLayout>
 

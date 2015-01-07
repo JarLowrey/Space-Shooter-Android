@@ -2,7 +2,6 @@ package com.jtronlabs.to_the_moon.bullet_views;
   
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.misc.ProjectileView;

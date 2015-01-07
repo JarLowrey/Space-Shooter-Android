@@ -10,14 +10,7 @@ import com.jtronlabs.to_the_moon.ship_views.Gravity_ShootingView;
 
 public class Bullet_LaserOne extends BulletView{
 		
-	private static final int ENEMY_BACKGROUND=R.drawable.laser1_enemy;
-//	private static final double ENEMY_DAMAGE=5,ENEMY_SPEED_Y=8;
-	
-
-	private static final int FRIENDLY_BACKGROUND=R.drawable.laser1_hero;
-//	private static final double FRIENDLY_DAMAGE=10,FRIENDLY_SPEED_Y=10;
-//	
-//	private static final double SPEED_X=-10;
+	private static final int ENEMY_BACKGROUND=R.drawable.laser1_enemy,FRIENDLY_BACKGROUND=R.drawable.laser1_hero;
 	
 	public Bullet_LaserOne(Context context,Gravity_ShootingView shooter, boolean shootBulletUp,int whichSideIsBulletOn,double projectileSpeedVertical,double projectileSpeedX, 
 			double projectileDamage){

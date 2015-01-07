@@ -20,13 +20,10 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		super(context, at,true,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 
-		this.setDualShot(2.5);
 		this.highestPositionThreshold=(int)(heightPixels/3);
-		this.setMyBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
+		this.setBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
 				DEFAULT_BULLET_DAMAGE);
 
-		this.setTriShot(2.5);
-		
 		this.stopGravity();
 	}
 
@@ -35,10 +32,8 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 				DEFAULT_HEALTH);
 		
 		this.highestPositionThreshold=(int)(heightPixels/3);
-		this.setMyBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
+		this.setBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
 				DEFAULT_BULLET_DAMAGE);
-
-		this.setTriShot(2.5);
 		
 		this.stopGravity();
 	}

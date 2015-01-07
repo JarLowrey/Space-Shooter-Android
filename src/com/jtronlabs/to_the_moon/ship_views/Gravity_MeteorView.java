@@ -6,7 +6,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 
-public class Gravity_MeteorView extends GravityView implements GameObjectInterface{
+public class Gravity_MeteorView extends Projectile_GravityView implements GameObjectInterface{
 	
 	public final static int DEFAULT_SCORE=5;
 	public final static double DEFAULT_SPEED_UP=1,DEFAULT_SPEED_DOWN=6.4,DEFAULT_SPEEDX=1,DEFAULT_COLLISION_DAMAGE=12, 

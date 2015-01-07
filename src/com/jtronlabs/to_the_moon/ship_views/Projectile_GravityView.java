@@ -10,15 +10,15 @@ import com.jtronlabs.to_the_moon.misc.ProjectileView;
  * @author JAMES LOWREY
  *
  */
-public class GravityView extends ProjectileView implements GameObjectInterface{
+public class Projectile_GravityView extends ProjectileView implements GameObjectInterface{
 	
-	public GravityView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+	public Projectile_GravityView(Context context,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
 		super(context,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 
 		this.post(gravityRunnable);
 	}
 	
-	public GravityView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
+	public Projectile_GravityView(Context context,AttributeSet at,int scoreValue,double projectileSpeedYUp,double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,double projectileHealth) {
 		super(context,at,scoreValue,projectileSpeedYUp,projectileSpeedYDown,projectileSpeedX,projectileDamage,projectileHealth);
 
 		this.post(gravityRunnable);
@@ -28,11 +28,11 @@ public class GravityView extends ProjectileView implements GameObjectInterface{
     Runnable gravityRunnable = new Runnable(){
     	@Override
         public void run() {
-			float y=GravityView.this.getY();
+			float y=Projectile_GravityView.this.getY();
     		//if object is off the screen, stop wasting resources on it and mark it for removal. 
 			//Otherwise, shift it downwards and repost gravityHandler
     		if(y>heightPixels){
-    			GravityView.this.removeCallbacks(this);
+    			Projectile_GravityView.this.removeCallbacks(this);
     			removeView(false);
     		}else{
         		boolean atThreshold=move(ProjectileView.DOWN);//move the View downwards
@@ -40,7 +40,7 @@ public class GravityView extends ProjectileView implements GameObjectInterface{
         		if(atThreshold){//if View is at threshold stop reposting runnable
         				stopGravity();
         		}else{
-        			GravityView.this.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE/2);
+        			Projectile_GravityView.this.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE/2);
         		}
     		} 
     	}
