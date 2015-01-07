@@ -5,6 +5,10 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.to_the_moon.guns.Gun_Special;
+import com.jtronlabs.to_the_moon.guns.Gun_Special_AngledDualShot;
+import com.jtronlabs.to_the_moon.guns.Gun_Special_AngledTriShot;
+import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
@@ -30,7 +34,8 @@ public class Projectile_BeneficialView extends Projectile_GravityView implements
 		// create a random benefit
 		final double rand = Math.random();
 		if(rand<.6){
-			whichBenefitDoIHave=HEAL;			
+			whichBenefitDoIHave=HEAL;
+			whichBenefitDoIHave=UPGRADE_GUN;
 		}else if(rand<.9){
 			whichBenefitDoIHave=SET_DUAL_SHOT;			
 		}else{
@@ -67,7 +72,7 @@ public class Projectile_BeneficialView extends Projectile_GravityView implements
 			heal(theBenefitter);
 			break;
 		case UPGRADE_GUN:
-			theBenefitter.upgradeGun();
+			theBenefitter.upgradeOrDowngradeGun(true);
 		}
 	}
 	public void applyBenefit(ProjectileView theBenefitter){
@@ -96,23 +101,28 @@ public class Projectile_BeneficialView extends Projectile_GravityView implements
 	}
 	
 	private void setTriShot(Gravity_ShootingView theBenefitter){
-		//tri shot is at 30 degrees. Thus, find needed X Speed
-		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(5));
-		if(theBenefitter.isTriShot()){
-			theBenefitter.setAmmo(theBenefitter.getAmmo()+15);
+		if(theBenefitter.myGun instanceof Gun_Special_AngledTriShot){
+			Gun_Special benefittersSpecialGun = (Gun_Special) theBenefitter.myGun;
+			benefittersSpecialGun.setAmmo(benefittersSpecialGun.getAmmo()+7);
 		}else{
-			theBenefitter.setAmmo(30);
-			theBenefitter.setTriShot(bulletXSpeed);			
+			Gun_Upgradeable gun = theBenefitter.myGun.getMostRecentUpgradeableGun();
+			Gun_Special newGun = new Gun_Special_AngledTriShot(ctx,gun,theBenefitter);
+			theBenefitter.myGun.transferGunProperties(newGun);
+			theBenefitter.myGun=newGun;
+			newGun.setAmmo(30);
 		}
 	}
+	
 	private void setDualShot(Gravity_ShootingView theBenefitter){
-		//dual shot is at 30 degrees. Thus, find needed X Speed
-		final double bulletXSpeed = theBenefitter.getSpeedY() * Math.tan(Math.toRadians(5));
-		if(theBenefitter.isDualShot()){
-			theBenefitter.setAmmo(theBenefitter.getAmmo()+10);
+		if(theBenefitter.myGun instanceof Gun_Special_AngledDualShot){
+			Gun_Special benefittersSpecialGun = (Gun_Special) theBenefitter.myGun;
+			benefittersSpecialGun.setAmmo(benefittersSpecialGun.getAmmo()+12);
 		}else{
-			theBenefitter.setAmmo(40);
-			theBenefitter.setDualShot(bulletXSpeed);			
+			Gun_Upgradeable gun = theBenefitter.myGun.getMostRecentUpgradeableGun();
+			Gun_Special newGun = new Gun_Special_AngledDualShot(ctx,gun,theBenefitter);
+			theBenefitter.myGun.transferGunProperties(newGun);
+			theBenefitter.myGun=newGun;
+			newGun.setAmmo(30);
 		}
 	}
 	

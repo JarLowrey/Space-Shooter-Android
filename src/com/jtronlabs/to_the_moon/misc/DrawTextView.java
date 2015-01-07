@@ -81,7 +81,7 @@ public class DrawTextView extends SurfaceView implements SurfaceHolder.Callback
 			strokePaint.setStyle(Paint.Style.STROKE);
 			strokePaint.setStrokeWidth(outlineSize);
 			
-			textPaint.setColor(Color.WHITE);
+			textPaint.setColor(wordColor);
 			textPaint.setTextAlign(Paint.Align.CENTER);
 			textPaint.setTextSize(wordSize);
 			

@@ -11,6 +11,8 @@ import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
  */
 public class Projectile_GravityView extends ProjectileView implements GameObjectInterface{
 	
+	public double offLowerScreen =Double.MAX_VALUE/2, offUpperScreen = -Double.MAX_VALUE/2;
+	
 	public Projectile_GravityView(Context context,int scoreValue,double projectileSpeedYUp,
 			double projectileSpeedYDown,double projectileSpeedX, double projectileDamage,
 			double projectileHealth,double probSpawnBeneficialObjectOnDeath) {
@@ -37,7 +39,6 @@ public class Projectile_GravityView extends ProjectileView implements GameObject
     		//if object is off the screen, stop wasting resources on it and mark it for removal. 
 			//Otherwise, shift it downwards and repost gravityHandler
     		if(y>heightPixels){
-    			Projectile_GravityView.this.removeCallbacks(this);
     			removeView(false);
     		}else{
         		boolean atThreshold=move(ProjectileView.DOWN);//move the View downwards

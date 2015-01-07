@@ -13,7 +13,7 @@ public class Gravity_MeteorView extends Projectile_GravityView implements GameOb
 	public final static double DEFAULT_SPEED_Y=6.4,DEFAULT_SPEED_X=1,
 			DEFAULT_COLLISION_DAMAGE=12, 
 			DEFAULT_HEALTH=5,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.01;
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.02;
 	
 	public Gravity_MeteorView(Context context,int score,double speedY,double speedX,
 			double collisionDamage,double health,double probSpawnBeneficialObjectOnDeath) {

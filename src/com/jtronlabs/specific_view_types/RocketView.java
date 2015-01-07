@@ -3,6 +3,7 @@ package com.jtronlabs.specific_view_types;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
@@ -11,20 +12,22 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 	
 	private final static int DEFAULT_SCORE=0;
 	public final static double DEFAULT_SPEED_UP=12.5, DEFAULT_SPEED_DOWN=2.7,DEFAULT_SPEEDX=14,DEFAULT_COLLISION_DAMAGE=20, 
-			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_SPEED_X=-10,DEFAULT_BULLET_DAMAGE=10,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=0;;
+			DEFAULT_HEALTH=100,DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=0;;
+	public final double DEFAULT_BULLET_FREQ=350;
 	
 	private final int HOW_OFTEN_TO_MOVE=50;
 	private int directionMoving=ProjectileView.LEFT;
-	private double bulletSpawnFreqInMilliseconds=300;
 	
 	public RocketView(Context context, AttributeSet at) {
 		super(context, at,true,DEFAULT_SCORE,DEFAULT_SPEED_UP,DEFAULT_SPEED_DOWN,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH);
 
 		this.highestPositionThreshold=(int)(heightPixels/3);
-		this.setBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
-				DEFAULT_BULLET_DAMAGE);
-
+		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, true, 
+				DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE, DEFAULT_BULLET_FREQ);
+		this.myGun.stopShooting();
+		
+		this.myGun.setBulletFreq(DEFAULT_BULLET_FREQ);
 		this.stopGravity();
 	}
 
@@ -33,9 +36,11 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH);
 		
 		this.highestPositionThreshold=(int)(heightPixels/3);
-		this.setBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,
-				DEFAULT_BULLET_DAMAGE);
-		
+		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, true, 
+				DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE, DEFAULT_BULLET_FREQ);
+		this.myGun.stopShooting();
+
+		this.myGun.setBulletFreq(DEFAULT_BULLET_FREQ);
 		this.stopGravity();
 	}
 	
@@ -126,20 +131,16 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 	public void stopMoving(){
 		this.removeCallbacks(moveRunnable);
 	}
-	
-	public void startShootingImmediately(){
-		super.startShootingImmediately(bulletSpawnFreqInMilliseconds);
-	}
 	@Override
 	public void cleanUpThreads(){
-		super.cleanUpThreads();
 		this.removeCallbacks(moveRunnable);
+		super.cleanUpThreads();
 //		this.post(removeExhaustRunnable); 
 	}
 	@Override
 	public void restartThreads(){
 		super.restartThreads();
-		stopShooting();
+		myGun.stopShooting();
 	}
 	
 	public void removeView(){

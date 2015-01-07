@@ -22,7 +22,8 @@ import android.widget.TextView;
 import com.jtronlabs.specific_view_types.Projectile_BeneficialView;
 import com.jtronlabs.specific_view_types.RocketView;
 import com.jtronlabs.specific_view_types.Shooting_MovingArrayView;
-import com.jtronlabs.to_the_moon.bullet_views.BulletView;
+import com.jtronlabs.to_the_moon.guns.BulletView;
+import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.Levels;
@@ -34,12 +35,11 @@ public class GameActivity extends Activity implements OnTouchListener{
 	//VIEWS
 	private Button btnLeft, btnRight,btnMiddle;
 	private TextView text_score,gameWindowOverlay;
-	public static TextView ammoText;
+	private static TextView ammoText;
+	private static ProgressBar healthBar;
 	public static RocketView rocket;
-//	private ImageView rocket_exhaust;
 	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
-	private ProgressBar healthBar;
 
 	public static ArrayList<GameObjectInterface> friendlies=new ArrayList<GameObjectInterface>();
 	public static ArrayList<GameObjectInterface> enemies=new ArrayList<GameObjectInterface>();
@@ -67,7 +67,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		
 	        		//if enemy has shoot, check if its bullets have hit the friendly
 	        		if(enemies.get(i) instanceof Gravity_ShootingView){
-	        			ArrayList<BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myBullets;
+	        			ArrayList<BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myGun.myBullets;
 	        			
 	        			for(int j=enemyBullets.size()-1;j>=0;j--){
 	        				BulletView bullet = enemyBullets.get(j);
@@ -100,7 +100,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		
 	        		//check if friendly's bullets have hit the enemy
 	        		if(projectileCastedEnemy.getHealth()>0 && isAShooter){
-		    			ArrayList<BulletView> friendlysBullets = ((Gravity_ShootingView)friendlies.get(k)).myBullets;
+		    			ArrayList<BulletView> friendlysBullets = ((Gravity_ShootingView)friendlies.get(k)).myGun.myBullets;
 		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
 		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
 		    				BulletView bullet = friendlysBullets.get(j);
@@ -326,7 +326,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 					rocket.beginMoving(ProjectileView.RIGHT);
 					break;
 				case R.id.btnMiddle:
-					rocket.startShootingImmediately();	
+					rocket.myGun.startShootingImmediately(rocket.myGun.getBulletFreq());	
 					break;
 			}
 		}else if(event.getAction()==MotionEvent.ACTION_UP){
@@ -338,10 +338,24 @@ public class GameActivity extends Activity implements OnTouchListener{
 						rocket.stopMoving();
 					break;
 				case R.id.btnMiddle:
-					rocket.stopShooting();	
+					rocket.myGun.stopShooting();	
 					break;
 			}
-		}
+		} 
 		return false;
+	}
+	
+	public static void setHealthBar(){
+		healthBar.setProgress((int) rocket.getHealth());
+	}
+	public static void setAmmoText(int ammo){
+		if(ammo<=0){
+			ammoText.setVisibility(View.GONE);
+		}
+		ammoText.setText(ammo+"");
+	}
+	public static void showAmmoText(int ammo){
+		ammoText.setVisibility(View.VISIBLE);
+		setAmmoText(ammo);
 	}
 }

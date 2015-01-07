@@ -84,7 +84,7 @@ public final class R {
         public static final int ic_action_play=0x7f02000a;
         public static final int ic_launcher=0x7f02000b;
         public static final int laser1_enemy=0x7f02000c;
-        public static final int laser1_hero=0x7f02000d;
+        public static final int laser1_friendly=0x7f02000d;
         public static final int level1=0x7f02000e;
         public static final int level2=0x7f02000f;
         public static final int level3=0x7f020010;

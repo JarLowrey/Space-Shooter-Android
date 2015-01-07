@@ -142,6 +142,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	
 	public int removeView(boolean showExplosion){
 		if(showExplosion){createExplosion();}//show explosion
+		cleanUpThreads();//destroy all threads
 		
 		//remove from layout
 		ViewGroup parent = (ViewGroup)this.getParent();
@@ -150,7 +151,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		//do not remove from the list of enemies if this is a ShootingView and this still has bullets remaining
 		if(this instanceof Gravity_ShootingView){
 			Gravity_ShootingView casted = (Gravity_ShootingView)this;
-			if(casted.myBullets.size()==0){
+			if(casted.myGun.myBullets.size()==0){
 				if(GameActivity.enemies.contains(this)){GameActivity.enemies.remove(this);}//remove from list of enemies				
 			}
 			//try to spawn a random beneficial object
@@ -171,13 +172,15 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		}else if(GameActivity.friendlies.contains(this)){
 			GameActivity.friendlies.remove(this);
 		}
-		cleanUpThreads();//destroy all threads
 		
 		return score;
 	}
 	
 	public void heal(double howMuchHealed){
 		health+=howMuchHealed;
+		if(this ==GameActivity.rocket){
+			GameActivity.setHealthBar();
+		}
 	}
 	
 	/**

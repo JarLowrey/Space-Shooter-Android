@@ -68,10 +68,17 @@ public class EnemyFactory{
 	Runnable spawnDiagonalShooterRunnable = new Runnable(){
 		@Override
 		public void run() {
-			Shooting_DiagonalMovingView shooter = EnemyFactory.this.spawnDiagonalAttacker();
+			
+			Shooting_DiagonalMovingView shooter = EnemyFactory.this.spawnFullScreenDiagonalAttacker();
+			
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
+//			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnColumnBoundDiagonalAttacker();
+//			
+//			gameLayout.addView(shooter2,1);
+//    		GameActivity.enemies.add(shooter2);
+   
 			enemySpawnHandler.postDelayed(this, calculatDiagonalShooterSpawnInterval());
 		}
 	};
@@ -117,7 +124,7 @@ public class EnemyFactory{
     		GameActivity.enemies.add(shooter);
 		}
 	}
-	private Shooting_DiagonalMovingView spawnDiagonalAttacker(){
+	private Shooting_DiagonalMovingView spawnFullScreenDiagonalAttacker(){
 		final int diff = levelInfo.getDifficulty();
 		
 		final int score=Shooting_DiagonalMovingView.DEFAULT_SCORE*diff;
@@ -126,13 +133,41 @@ public class EnemyFactory{
 				collisionDamage=Shooting_DiagonalMovingView.DEFAULT_COLLISION_DAMAGE*diff,
 				health=Shooting_DiagonalMovingView.DEFAULT_HEALTH*diff,
 				spawnBeneficialObject= Shooting_DiagonalMovingView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff,
-				bulletFreq=2000/Math.sqrt(diff)+Math.random()*3000/Math.sqrt(diff);
+				bulletDmg=Shooting_DiagonalMovingView.DEFAULT_BULLET_DAMAGE*diff,
+				bulletSpdY=Shooting_DiagonalMovingView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
+				bulletFreq=Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
+				(Math.random() * 1.5 * Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+		
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
 		return new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
-				collisionDamage,health,bulletFreq,height,width,spawnBeneficialObject);
+				collisionDamage,health,bulletFreq,height,width,spawnBeneficialObject,bulletSpdY,bulletDmg);
 		
+	}
+
+	private Shooting_DiagonalMovingView spawnColumnBoundDiagonalAttacker(){
+		final int diff = levelInfo.getDifficulty();
+		
+		final int score=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SCORE*diff;
+		final double speedY=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SPEED_Y,
+				speedX=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SPEED_X, 
+				collisionDamage=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE*diff,
+				health=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_HEALTH*diff,
+				spawnBeneficialObject= Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff,
+				bulletDmg=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_DAMAGE*diff,
+				bulletSpdY=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y*Math.sqrt(diff),
+				bulletFreq=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
+				(Math.random() * 1.5 * Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+		
+		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
+				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		
+		Shooting_DiagonalMovingView diveBomber =  new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
+				collisionDamage,health,bulletFreq,height,width,spawnBeneficialObject,bulletSpdY,bulletDmg);
+		diveBomber.setDiveBomber();
+		
+		return diveBomber;
 	}
 	private Shooting_MovingArrayView spawnOneShooting_MovingArrayView(){
 		final int diff = levelInfo.getDifficulty();
@@ -142,14 +177,17 @@ public class EnemyFactory{
 				speedX=Shooting_MovingArrayView.DEFAULT_SPEEDX, 
 				collisionDamage=Shooting_MovingArrayView.DEFAULT_COLLISION_DAMAGE*diff,
 				health=Shooting_MovingArrayView.DEFAULT_HEALTH*diff,
+				bulletDmg=Shooting_MovingArrayView.DEFAULT_BULLET_DAMAGE*diff,
+				bulletSpdY=Shooting_MovingArrayView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
+				bulletFreq=Shooting_MovingArrayView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
+				(Math.random() * 1.5* Shooting_MovingArrayView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff),
 				spawnBeneficialFreq=Shooting_MovingArrayView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff;
 		
-		final double bulletFreq = (5000/Math.sqrt(diff))+Math.random()*(4000/Math.sqrt(diff));
 		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
 		return new Shooting_MovingArrayView(ctx,score,speedY,speedX,collisionDamage,health,bulletFreq,
-				height,width,spawnBeneficialFreq);
+				height,width,spawnBeneficialFreq,bulletDmg,bulletSpdY);
 		
 	}
 	private Gravity_MeteorView spawnMeteorView(){

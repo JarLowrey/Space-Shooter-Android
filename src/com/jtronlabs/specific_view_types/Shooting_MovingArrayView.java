@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
@@ -18,8 +19,8 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 	private static final float LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
 
 	public final static double DEFAULT_SPEED_Y=3,DEFAULT_SPEEDX=3,
-			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
-	private final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_SPEED_X=-10,DEFAULT_BULLET_DAMAGE=10;
+			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
+	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10,DEFAULT_BULLET_FREQ_INTERVAL=4000;
 	
 	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
 	public static ArrayList<Shooting_MovingArrayView> allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
@@ -66,12 +67,11 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 
 	public Shooting_MovingArrayView(Context context, int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
-			float heightView,float widthView,double probSpawnBeneficialObjectOnDeath) {
+			float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,double bulletDamage,double bulletVerticalSpeed) {
 		super(context, false,score, speedY, speedY,
 				speedX, collisionDamage, health,probSpawnBeneficialObjectOnDeath);
 
-		this.setBulletProperties(Gravity_ShootingView.LASER_ONE,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_SPEED_X,DEFAULT_BULLET_DAMAGE);
-		startShooting(bulletFreq);
+		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
 
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);
@@ -81,12 +81,12 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		this.setLayoutParams(new RelativeLayout.LayoutParams((int)widthView,
 				(int)heightView));
 
-		//set Y destination
+		//set row destination
 		final float lowestPointOnScreen = heightPixels*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
 		final float myRowNum = (myPosition / numCols) * heightView;//, multiply that by heightOfView to get top of row
 		this.lowestPositionThreshold = (int) (lowestPointOnScreen - myRowNum);
 
-		// set initial position
+		// set col position
 		final float marginOnSides = context.getResources().getDimension(R.dimen.activity_margin_med);
 		final float shipXInterval = (widthPixels - marginOnSides)/ numCols;//divide the screen into number of columns
 		final float myColPos = myPosition % numCols;//find this ships column
@@ -185,8 +185,8 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 			//remove all simple shooters and their bullets from the arraylist containing them
 			for(int i=allSimpleShooters.size()-1;i>=0;i--){
 				Shooting_MovingArrayView temp = allSimpleShooters.get(i);
-				for(int j=temp.myBullets.size();j>=0;j--){
-					temp.myBullets.get(i).removeView(false);
+				for(int j=temp.myGun.myBullets.size();j>=0;j--){
+					temp.myGun.myBullets.get(i).removeView(false);
 				}
 				allSimpleShooters.get(i).removeView(false);
 			}
