@@ -40,24 +40,28 @@ public final class R {
         public static final int activity_margin_small=0x7f060000;
         public static final int activity_margin_xlarge=0x7f060003;
         public static final int activity_margin_xxlarge=0x7f060004;
-        public static final int ad_banner_margin=0x7f06001d;
+        public static final int ad_banner_margin=0x7f060021;
         public static final int benefical_object_len=0x7f06000a;
         public static final int btn_large_len=0x7f060006;
         public static final int btn_small_height=0x7f060008;
         public static final int btn_small_width=0x7f060007;
-        public static final int bullet_height=0x7f060015;
-        public static final int bullet_width=0x7f060014;
         public static final int control_panel_height=0x7f060009;
         public static final int diagonal_shooter_height=0x7f06000e;
         public static final int diagonal_shooter_width=0x7f06000f;
         public static final int giant_meteor_height=0x7f060010;
         public static final int giant_meteor_width=0x7f060011;
-        public static final int ic_large=0x7f060018;
-        public static final int ic_med=0x7f060017;
-        public static final int ic_small=0x7f060016;
+        public static final int ic_large=0x7f06001c;
+        public static final int ic_med=0x7f06001b;
+        public static final int ic_small=0x7f06001a;
         public static final int intro_text_view_width=0x7f060005;
+        public static final int laser_one_height=0x7f060015;
+        public static final int laser_one_width=0x7f060014;
+        public static final int laser_two_height=0x7f060017;
+        public static final int laser_two_width=0x7f060016;
         public static final int meteor_length=0x7f06000b;
-        public static final int moon_length=0x7f06001c;
+        public static final int missile_one_height=0x7f060019;
+        public static final int missile_one_width=0x7f060018;
+        public static final int moon_length=0x7f060020;
         /**  
     <dimen name="rocket_exhaust_height">40dp</dimen>
     <dimen name="rocket_exhaust_width">25dp</dimen>
@@ -66,9 +70,9 @@ public final class R {
         public static final int rocket_game_width=0x7f060013;
         public static final int simple_enemy_shooter_height=0x7f06000c;
         public static final int simple_enemy_shooter_width=0x7f06000d;
-        public static final int title_canvas_height=0x7f060019;
-        public static final int title_outline_size=0x7f06001b;
-        public static final int title_size=0x7f06001a;
+        public static final int title_canvas_height=0x7f06001d;
+        public static final int title_outline_size=0x7f06001f;
+        public static final int title_size=0x7f06001e;
     }
     public static final class drawable {
         public static final int bird=0x7f020000;
@@ -93,14 +97,15 @@ public final class R {
         public static final int level3=0x7f020013;
         public static final int level4=0x7f020014;
         public static final int meteor=0x7f020015;
-        public static final int moon=0x7f020016;
-        public static final int rocket=0x7f020017;
-        public static final int rockets_fire=0x7f020018;
-        public static final int satellite=0x7f020019;
-        public static final int tri_bullet=0x7f02001a;
-        public static final int ufo=0x7f02001b;
-        public static final int upgrade_gun=0x7f02001c;
-        public static final int white_center_red_outline=0x7f02001d;
+        public static final int missile=0x7f020016;
+        public static final int moon=0x7f020017;
+        public static final int rocket=0x7f020018;
+        public static final int rockets_fire=0x7f020019;
+        public static final int satellite=0x7f02001a;
+        public static final int tri_bullet=0x7f02001b;
+        public static final int ufo=0x7f02001c;
+        public static final int upgrade_gun=0x7f02001d;
+        public static final int white_center_red_outline=0x7f02001e;
     }
     public static final class id {
         public static final int activity_main=0x7f0a000d;

@@ -133,19 +133,12 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		this.removeCallbacks(moveRunnable);
 	}
 	@Override
-	public void cleanUpThreads(){
-		this.removeCallbacks(moveRunnable);
-		super.cleanUpThreads();
-//		this.post(removeExhaustRunnable); 
-	}
-	@Override
 	public void restartThreads(){
-		super.restartThreads();
 		myGun.stopShooting();
+		super.restartThreads();
 	}
 	
 	public void removeView(){
 		super.removeView(true);
-		cleanUpThreads();
 	}
 }

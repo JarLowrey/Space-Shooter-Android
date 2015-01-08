@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.jtronlabs.bonuses.BonusView;
 import com.jtronlabs.specific_view_types.RocketView;
 import com.jtronlabs.specific_view_types.Shooting_ArrayMovingView;
-import com.jtronlabs.to_the_moon.bullets.BulletView;
+import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.Levels;
@@ -65,10 +65,10 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		
 	        		//if enemy has shoot, check if its bullets have hit the friendly
 	        		if(enemies.get(i) instanceof Gravity_ShootingView){
-	        			ArrayList<BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myGun.myBullets;
+	        			ArrayList<Projectile_BulletView> enemyBullets = ((Gravity_ShootingView) enemies.get(i)).myGun.myBullets;
 	        			
 	        			for(int j=enemyBullets.size()-1;j>=0;j--){
-	        				BulletView bullet = enemyBullets.get(j);
+	        				Projectile_BulletView bullet = enemyBullets.get(j);
 	        				if(shooterCastedFriendly.collisionDetection(bullet)){//bullet collided with rocket
 	        					//rocket is damaged
 	                			friendlyDies = shooterCastedFriendly.takeDamage(bullet.getDamage());
@@ -98,10 +98,10 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		
 	        		//check if friendly's bullets have hit the enemy
 	        		if(projectileCastedEnemy.getHealth()>0 && isAShooter){
-		    			ArrayList<BulletView> friendlysBullets = shooterCastedFriendly.myGun.myBullets;
+		    			ArrayList<Projectile_BulletView> friendlysBullets = shooterCastedFriendly.myGun.myBullets;
 		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
 		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
-		    				BulletView bullet = friendlysBullets.get(j);
+		    				Projectile_BulletView bullet = friendlysBullets.get(j);
 		    				
 		    				if(bullet.collisionDetection(projectileCastedEnemy)){//bullet collided with rocket
 		    					//enemy is damaged
@@ -248,9 +248,9 @@ public class GameActivity extends Activity implements OnTouchListener{
         super.onPause();
         
         for(int i=0;i<enemies.size();i++){
-        	enemies.get(i).cleanUpThreads();
+        	((ProjectileView)enemies.get(i)).removeCallbacks(null);
         }
-        rocket.cleanUpThreads();
+        ((ProjectileView)rocket).removeCallbacks(null);
         enemyFactory.stopSpawning();
         gameHandler.removeCallbacks(mainGameLoopRunnable);
     }

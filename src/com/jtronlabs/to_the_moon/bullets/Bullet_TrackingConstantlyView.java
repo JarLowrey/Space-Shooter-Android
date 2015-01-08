@@ -1,65 +1,47 @@
 package com.jtronlabs.to_the_moon.bullets;
-  
-import android.content.Context;
-import android.util.AttributeSet;
-import android.widget.RelativeLayout.LayoutParams;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
+  
 
-public class Bullet_TrackingConstantlyView extends BulletView{
+public abstract class Bullet_TrackingConstantlyView extends Bullet{
 
-	private float trackingSpeed;
+	public static double DEFAULT_TRACKING_SPEED=2;
+	
+	private float widthPix;
+	private double trackingSpeed;
 	private ProjectileView objectTracking;
+	private Projectile_BulletView bulletTracking;
 	
 	Runnable trackingRunnable = new Runnable(){
     	@Override
         public void run() {
-    		final float objectMidPoint = (objectTracking.getX()+objectTracking.getX()+objectTracking.getWidth())/2;
-    		final float myXPos = Bullet_TrackingConstantlyView.this.getX(); 
-			final float diff = myXPos - objectMidPoint;
-    		
+    		final float objectTrackingMidPoint = (objectTracking.getX()+objectTracking.getX()+objectTracking.getWidth())/2;
+    		final float myXPos = bulletTracking.getX(); 
+			final float diff = myXPos - objectTrackingMidPoint;
+			final double weight = trackingSpeed*(diff/widthPix);//farther away from object tracking means an increase in trackingSpeed
+			
+			bulletTracking.setSpeedX(bulletTracking.getSpeedX()+weight);
+			bulletTracking.setBulletRotation();
+			
     		if(diff>0){
-        		Bullet_TrackingConstantlyView.this.setX(myXPos-trackingSpeed);    			
+    			bulletTracking.move(ProjectileView.LEFT);   			
     		}else{
-        		Bullet_TrackingConstantlyView.this.setX(myXPos+trackingSpeed);    			
+    			bulletTracking.move(ProjectileView.RIGHT);    			
     		}
     		
-    		Bullet_TrackingConstantlyView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+    		bulletTracking.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
     	}
 	};
 	
-	public Bullet_TrackingConstantlyView(Context context,ProjectileView objectToTrack,float trackSpeed,
-			Gravity_ShootingView shooter,boolean shootBulletUp,int whichSideIsBulletOn,
-			double projectileSpeedVertical,double projectileSpeedX, double projectileDamage) {
-		
-		super(context,shooter, shootBulletUp, whichSideIsBulletOn,
-				 projectileSpeedVertical, projectileSpeedX, projectileDamage);
+	public Bullet_TrackingConstantlyView(double trackSpeed, ProjectileView viewToTrack,
+			Projectile_BulletView bulletDoingTheTracking, double screenDens,float widthPixels) {
 		
 		trackingSpeed=trackSpeed*screenDens;
-		objectTracking=objectToTrack;
-		this.post(trackingRunnable);
+		objectTracking=viewToTrack;
+		bulletTracking = bulletDoingTheTracking;
+		bulletTracking.post(trackingRunnable);
+		widthPix=widthPixels;
+		
+		bulletDoingTheTracking.post(trackingRunnable);
 	}
-	
-	public void cleanUpThreads(){
-		this.removeCallbacks(trackingRunnable);
-		super.cleanUpThreads();
-	}
-	public void restartThreads(){
-		this.post(trackingRunnable);
-		super.restartThreads();
-	}
-	public void setTrackingSpeed(float newSpeed){
-		trackingSpeed=newSpeed;
-	}
-//	
-//	public Bullet_TrackingView(Context context,AttributeSet at,Gravity_ShootingView shooter,boolean shootBulletUp,
-//			int whichSideIsBulletOn,double projectileSpeedVertical,double projectileSpeedX, 
-//			double projectileDamage) {
-//		super(context,at,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
-//				projectileSpeedX,projectileDamage,DEFAULT_HEALTH,0);
-//
-//	}
 }

@@ -3,7 +3,8 @@ package com.jtronlabs.to_the_moon.guns;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.bullets.BulletView;
+import com.jtronlabs.to_the_moon.bullets.Bullet;
+import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public class Gun_Upgradeable_StraightDualShot extends Gun_Upgradeable {
@@ -18,11 +19,11 @@ public class Gun_Upgradeable_StraightDualShot extends Gun_Upgradeable {
 			Gravity_ShootingView theShooter) {
 		super(context,theShooter);
 	}
-	public boolean spawnMyBullet(){
-		BulletView bulletLeft= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_LEFT,
-				bulletSpeedY, STRAIGHT_BULLET, bulletDamage);
-		BulletView bulletRight= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_RIGHT,
-				bulletSpeedY, STRAIGHT_BULLET, bulletDamage);
+	public boolean shoot(){
+		Projectile_BulletView bulletLeft = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
+				STRAIGHT_BULLET,bulletDamage, Bullet.BULLET_LEFT);
+		Projectile_BulletView bulletRight = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
+				STRAIGHT_BULLET,bulletDamage, Bullet.BULLET_RIGHT);
 
 		//add bullets to layout
 		((RelativeLayout)shooter.getParent()).addView(bulletLeft,1);

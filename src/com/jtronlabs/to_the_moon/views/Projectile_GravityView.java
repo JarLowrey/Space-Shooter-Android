@@ -54,20 +54,7 @@ public class Projectile_GravityView extends ProjectileView implements GameObject
     		} 
     	}
     };
-
-	public int removeView(boolean showExplosion){
-		cleanUpThreads();
-		return super.removeView(showExplosion);
-	}
-	
-	public void cleanUpThreads(){
-		super.cleanUpThreads();
-		stopGravity();
-	}
-	public void restartThreads(){
-		super.restartThreads();
-		startGravity();
-	}
+    
 	public void stopGravity(){
 		this.removeCallbacks(gravityRunnable);		
 	}

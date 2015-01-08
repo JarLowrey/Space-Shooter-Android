@@ -4,7 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.bullets.BulletView;
+import com.jtronlabs.to_the_moon.bullets.Bullet;
+import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 
@@ -25,7 +26,7 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 		
 		shootTowardsMe = shootingAtMe;
 	}
-	public boolean spawnMyBullet(){
+	public boolean shoot(){
 		//create left and right bullets that travel at same angles, such that left bullet will hit View that is being shot at (if it were stationary)
 		double diffYAbs = (shootingUp) ? Math.abs(shooter.getY() - ( shootTowardsMe.getY()+shootTowardsMe.getHeight() ) ) ://top of shooter - bottom of ShotAt
 			Math.abs( ( shooter.getY()+shooter.getHeight() ) - shootTowardsMe.getY() );//bottom of shooter - top of ShotAt
@@ -37,10 +38,10 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 		
 		bulletSpeedX = (diffX>0) ? -bulletSpeedX : bulletSpeedX;
 		
-		BulletView bulletLeft= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_LEFT,
-				bulletSpeedY, bulletSpeedX, bulletDamage);
-		BulletView bulletRight= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_RIGHT,
-				bulletSpeedY, bulletSpeedX, bulletDamage);
+		Projectile_BulletView bulletLeft = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
+				bulletSpeedX,bulletDamage, Bullet.BULLET_LEFT);
+		Projectile_BulletView bulletRight = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
+				bulletSpeedX,bulletDamage, Bullet.BULLET_RIGHT);
 		
 		//add bullets to layout
 		((RelativeLayout)shooter.getParent()).addView(bulletLeft,1);

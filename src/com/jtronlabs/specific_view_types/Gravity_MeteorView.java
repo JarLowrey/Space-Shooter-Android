@@ -33,8 +33,8 @@ public class Gravity_MeteorView extends Projectile_GravityView implements GameOb
 		float xRand = (float) ((widthPixels-len)*Math.random());
 		this.setX(xRand);
 		this.setY(0);
-		
-		cleanUpThreads();
+
+		this.removeCallbacks(null);
 		restartThreads();
 	}
 }

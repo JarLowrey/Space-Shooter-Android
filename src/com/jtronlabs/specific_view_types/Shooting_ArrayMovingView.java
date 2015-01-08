@@ -6,9 +6,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.guns.Gun_Special_ShootTowardsProjectileDualShot;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
@@ -105,27 +103,16 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 //		Gun_Special_ShootTowardsProjectileDualShot newGun = new
 //				Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket, this);
 //		this.giveSpecialGun(newGun, 1000);
-		
-		cleanUpThreads();
+
+		this.removeCallbacks(null);
 		restartThreads();
 	}
 	
 	public int removeView(boolean showExplosion) {
 		allSimpleShooters.remove(this);
 		freePositions.add(myPosition);
-		cleanUpThreads();
 
 		return super.removeView(showExplosion);
-	}
-	
-	public void cleanUpThreads(){
-		super.cleanUpThreads();
-	}
-	/**
-	 * The moveDiagonalRunnable will be posted when this reaches its destined spot from gravity. The GravityView super class checks for this specifically in its thread.
-	 */
-	public void restartThreads(){
-		super.restartThreads();
 	}
 
 	public static void stopMovingAllShooters() {

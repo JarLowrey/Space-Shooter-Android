@@ -143,7 +143,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	
 	public int removeView(boolean showExplosion){
 		if(showExplosion){createExplosion();}//show explosion
-		cleanUpThreads();//destroy all threads
+		this.removeCallbacks(null);//destroy all threads
 		
 		//remove from layout
 		ViewGroup parent = (ViewGroup)this.getParent();
@@ -230,13 +230,6 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	public int getScoreForKilling(){
 		return score;
 	}
-	
-	public void cleanUpThreads(){
-		this.removeCallbacks(setBackgroundTransparentRunnable);
-	}
-	public void restartThreads(){
-
-	}
 
 	public boolean collisionDetection(ProjectileView two){
 		float left1,right1,top1,bottom1;
@@ -256,5 +249,11 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		//Simple collision detection - determine if the two rectangular areas intersect
 		//http://devmag.org.za/2009/04/13/basic-collision-detection-in-2d-part-1/
 		return !((bottom1 < top2) ||(top1 > bottom2) || (left1>right2) || (right1<left2));
+	}
+
+	@Override
+	public void restartThreads() {
+		// TODO Auto-generated method stub
+		
 	}
 }

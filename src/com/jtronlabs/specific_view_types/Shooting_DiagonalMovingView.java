@@ -77,20 +77,11 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		
 		leftThreshold=this.getSpeedX();//far left of screen
 		rightThreshold=widthPixels-this.getWidth()-this.getSpeedX();//far right of screen
-		
-		cleanUpThreads();
+
+		this.removeCallbacks(null);
 		restartThreads();
 	}
 	
-	public int removeView(boolean showExplosion){
-		cleanUpThreads();
-		return super.removeView(showExplosion);
-	}
-	
-	public void cleanUpThreads(){
-		super.cleanUpThreads();
-		this.removeCallbacks(moveDiagonalRunnable);
-	}
 	public void restartThreads(){
 		super.restartThreads();
 		this.postDelayed(moveDiagonalRunnable, ProjectileView.HOW_OFTEN_TO_MOVE);

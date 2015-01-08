@@ -6,11 +6,11 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
-import com.jtronlabs.to_the_moon.bullets.BulletView;
+import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public abstract class Gun {
-	
+		
 	protected double bulletSpeedY=12,bulletFreq,bulletDamage=5;
 	protected Gun_Upgradeable previousUpgradeableGun;
 	protected boolean shootingUp=false;
@@ -18,13 +18,13 @@ public abstract class Gun {
 	Gravity_ShootingView shooter;
 	Context ctx;
 	
-	public ArrayList<BulletView> myBullets;
+	public ArrayList<Projectile_BulletView> myBullets;
 	
 	Handler myShootingHandler = new Handler();
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		boolean outOfAmmoGun = spawnMyBullet();
+    		boolean outOfAmmoGun = shoot();
     		if(outOfAmmoGun==true){
     			Gun.this.stopShooting();//stop spawning bullets with this gun
     			shooter.myGun=shooter.myGun.previousUpgradeableGun;//set shooter's gun to previous gun
@@ -40,7 +40,7 @@ public abstract class Gun {
 	 * 
 	 * @return true if gun is a special and is out of ammo. False otherwise
 	 */
-	public abstract boolean spawnMyBullet();	
+	public abstract boolean shoot();	
 	
 	 	
 	public Gun(Context context,Gravity_ShootingView theShooter,boolean shootingUpwards,double bulletSpeedVertical,
@@ -55,7 +55,7 @@ public abstract class Gun {
 		previousUpgradeableGun=getMostRecentUpgradeableGun();
 		
 		//set myBullets to empty arraylist
-		myBullets=new ArrayList<BulletView>();
+		myBullets=new ArrayList<Projectile_BulletView>();
 		if(previousUpgradeableGun==null){Log.d("lowrey","this should not be null111111111");}
 	}
 	
