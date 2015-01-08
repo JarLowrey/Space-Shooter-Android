@@ -11,6 +11,7 @@ import com.jtronlabs.to_the_moon.views.ProjectileView;
 
 public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 	
+	public static double MAX_X_SPEED=5.5;
 	private ProjectileView shootTowardsMe;
 	
 	public Gun_Special_ShootTowardsProjectileDualShot(Context context,ProjectileView shootingAtMe,
@@ -37,8 +38,9 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 		double bulletSpeedX = shooter.myGun.getBulletSpeedY() * Math.tan(angleRadians);
 		
 		bulletSpeedX = (diffX>0) ? -bulletSpeedX : bulletSpeedX;//adjust for shooter to being on one side or other of target
-		//limit the x speed ( and thus the angle) by the y speed. Otherwise at the bottom of the screen, bullets are ridiculously quick in X direction
-		bulletSpeedX = (bulletSpeedX>bulletSpeedY) ? bulletSpeedY * (bulletSpeedX/bulletSpeedX) : bulletSpeedX;
+		//limit the x speed
+		//Otherwise at the bottom of the screen, bullets are ridiculously quick in X direction.adjust new speed for left/right direction 
+		bulletSpeedX = ( bulletSpeedX>MAX_X_SPEED ) ? ( MAX_X_SPEED * (bulletSpeedX/bulletSpeedX) ) : bulletSpeedX;
 		
 		Projectile_BulletView bulletLeft = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
 				bulletSpeedX,bulletDamage, Bullet.BULLET_LEFT);

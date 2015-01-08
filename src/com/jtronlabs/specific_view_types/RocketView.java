@@ -104,6 +104,11 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		
 	};
 	
+	public void restartThreads(){
+		super.restartThreads();
+		this.myGun.stopShooting();//super will start the gun shooting. For the protagonist, gun must not be shooting on restart
+	}
+	
 	/**
 	 * Do not allow the rocket to move off the sides of the screen
 	 */
