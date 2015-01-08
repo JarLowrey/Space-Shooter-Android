@@ -183,31 +183,16 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			GameActivity.setHealthBar();
 		}
 	}
-	
-	/**
-	 * modify the vertical speed by a given ratio amount
-	 * @param ratio-speed will change by amount equal to @param/ratio. So, to double the speed, ratio should be 2
-	 */
-	public void changeSpeedYUp(double ratio){
-		speedYUp*=ratio;
+	public void setSpeedYUp(double newSpeed){
+		this.speedYUp=newSpeed;
+	}
+	public void setSpeedYDown(double newSpeed){
+		this.speedYDown=newSpeed;
+	}
+	public void setSpeedX(double newSpeed){
+		this.speedX=newSpeed;
 	}
 	
-
-	/**
-	 * modify the speed by a given ratio amount
-	 * @param ratio-speed will change by amount equal to @param/ratio. So, to double the speed, ratio should be 2
-	 */
-	public void changeSpeedYDown(double ratio){
-		speedYDown*=ratio;
-	}
-	
-	/**
-	 * modify the horizontal speed by a given ratio amount
-	 * @param ratio-speed will change by amount equal to @param/ratio. So, to double the speed, ratio should be 2
-	 */
-	public void changeSpeedX(double ratio){
-		speedX*=ratio;
-	}
 	public void setProbSpawnBeneficialObjectOnDeath(double prob){
 		probSpawnBeneficialObject=prob;
 	}

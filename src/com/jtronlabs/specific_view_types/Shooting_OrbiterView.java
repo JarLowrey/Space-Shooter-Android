@@ -1,7 +1,6 @@
 package com.jtronlabs.specific_view_types;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
@@ -21,7 +20,7 @@ public class Shooting_OrbiterView extends Gravity_ShootingView implements GameOb
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10;
 	
-	public static final int SQUARE=0,CIRCLE=1,TRIANGLE=2;
+	public static final int ORBIT_SQUARE=0,ORBIT_CIRCLE=1,ORBIT_TRIANGLE=2;
 	
 	
 	float orbitY;
@@ -196,6 +195,13 @@ public class Shooting_OrbiterView extends Gravity_ShootingView implements GameOb
 	public int getAngularVelocity(){
 		return angularVelocity;
 	}
+	/**
+	 * set orbit type
+	 * @param type Needs to be a default value, thisclass.ORBIT_
+	 */
+	public void setOrbiterType(int type){
+		this.orbitType = type;
+	}
 	
 	public int removeView(boolean showExplosion) {
 		cleanUpThreads();
@@ -204,13 +210,13 @@ public class Shooting_OrbiterView extends Gravity_ShootingView implements GameOb
 	}
 	public void beginOrbit(){
 		switch(orbitType){
-		case SQUARE:
+		case ORBIT_SQUARE:
 			this.post(moveInASquareRunnable);
 			break;
-		case CIRCLE:
+		case ORBIT_CIRCLE:
 			this.post(moveInACircleRunnable);
 			break;
-		case TRIANGLE:
+		case ORBIT_TRIANGLE:
 			this.post(moveInATriangleRunnable);
 			break;
 		}

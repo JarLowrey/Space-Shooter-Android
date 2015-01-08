@@ -33,9 +33,7 @@ public class EnemyFactory{
     private Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
-//    		Gravity_MeteorView meteor = spawnMeteorView();
-    		Shooting_OrbiterView meteor = spawnOrbitingView();
-    		
+    		Gravity_MeteorView meteor = spawnMeteorView();
     		
     		gameLayout.addView(meteor,1);
     		GameActivity.enemies.add(meteor);
@@ -174,11 +172,11 @@ public class EnemyFactory{
 		return diveBomber;
 	}
 	
-	private Shooting_OrbiterView spawnOrbitingView(){
+	private Shooting_OrbiterView spawnCirclingOrbitingView(){
 		final int diff = levelInfo.getDifficulty();
 
-		final int orbitingType=Shooting_OrbiterView.TRIANGLE,
-				orbitDist=Shooting_OrbiterView.DEFAULT_ORBIT_DIST_NON_CIRCLE;
+		final int orbitingType=Shooting_OrbiterView.ORBIT_CIRCLE,
+				orbitDist=Shooting_OrbiterView.DEFAULT_ORBIT_DIST_CIRCLE;
 
 		final int score=Shooting_OrbiterView.DEFAULT_SCORE*diff;
 		final double speedY=Shooting_OrbiterView.DEFAULT_SPEED_Y,
@@ -199,6 +197,23 @@ public class EnemyFactory{
 		
 		return orbiter;
 	}
+	private Shooting_OrbiterView spawnTriangularOrbitingView(int angle){
+		Shooting_OrbiterView orbiter =  spawnCirclingOrbitingView();
+		orbiter.setOrbiterType(Shooting_OrbiterView.ORBIT_TRIANGLE);
+		final double speedX = Math.tan(Math.toRadians(angle))*orbiter.getSpeedY();
+		orbiter.setSpeedX(speedX);
+		
+		
+		return orbiter;
+	}
+	private Shooting_OrbiterView spawnSquareOrbitingView(){
+		
+		Shooting_OrbiterView orbiter =  spawnCirclingOrbitingView();
+		orbiter.setOrbiterType(Shooting_OrbiterView.ORBIT_SQUARE);
+		
+		return orbiter;
+	}
+	
 	private Shooting_ArrayMovingView spawnOneShooting_MovingArrayView(){
 		final int diff = levelInfo.getDifficulty();
 
@@ -247,7 +262,7 @@ public class EnemyFactory{
 		giant.setDamage(150);
 		giant.heal(150-Gravity_MeteorView.DEFAULT_HEALTH);
 		giant.setScoreValue(20);
-		giant.changeSpeedYDown(.45);
+		giant.setSpeedYDown(.45*giant.getSpeedYDown());
 		
 		//add to layout
 		gameLayout.addView(giant,1);
