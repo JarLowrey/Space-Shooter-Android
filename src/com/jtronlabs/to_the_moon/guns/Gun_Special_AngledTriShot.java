@@ -3,11 +3,12 @@ package com.jtronlabs.to_the_moon.guns;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public  class Gun_Special_AngledTriShot extends Gun_Special {
 	
-	private static final double DEFAULT_ANGLE=3.8;
+	private static final double DEFAULT_ANGLE=8;
 	
 	public Gun_Special_AngledTriShot(Context context,Gravity_ShootingView theShooter,boolean shootingUpwards,double bulletSpeedVertical,
 			double bulletDamage,double bulletFrequency) {
@@ -18,13 +19,13 @@ public  class Gun_Special_AngledTriShot extends Gun_Special {
 	}
 	public boolean spawnMyBullet(){
 		//create 3 bullets at center of shooter, with left and right bullets traveling X at speed speedY*tan(DEFAULT_ANGLE)
-		final double bulletSpeedX = shooter.getSpeedY() * Math.tan(Math.toRadians(DEFAULT_ANGLE));
+		double bulletSpeedX = shooter.myGun.getBulletSpeedY() * Math.tan(Math.toRadians(DEFAULT_ANGLE));
 		
-		BulletView bulletLeft= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_LEFT,
-				bulletSpeedY, bulletSpeedX, bulletDamage);
+		BulletView bulletLeft= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_MIDDLE,
+				bulletSpeedY, -1*bulletSpeedX, bulletDamage);
 		BulletView bulletMid= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_MIDDLE,
-				bulletSpeedY, bulletSpeedX, bulletDamage);
-		BulletView bulletRight= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_RIGHT,
+				bulletSpeedY, 0, bulletDamage);
+		BulletView bulletRight= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_MIDDLE,
 				bulletSpeedY, bulletSpeedX, bulletDamage);
 		
 		//add bullets to layout

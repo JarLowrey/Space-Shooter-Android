@@ -1,7 +1,7 @@
-package com.jtronlabs.to_the_moon.guns;
+package com.jtronlabs.to_the_moon.bullets;
   
 import android.content.Context;
-import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.GameActivity;
@@ -19,7 +19,7 @@ public class BulletView extends ProjectileView{
 	private int whichSideOfShipBulletIsOn=BULLET_MIDDLE;
 	private Gravity_ShootingView theOneWhoShotMe;
 	
-	private boolean shootingUp,shootingRight;
+	private boolean shootingUp;
 	
 	Runnable moveBulletRunnable = new Runnable(){
     	@Override
@@ -36,11 +36,11 @@ public class BulletView extends ProjectileView{
     			BulletView.this.removeView(false);
     			BulletView.this.removeCallbacks(this);
     		}else{
-    			//move left and right
-    			if(BulletView.this.getSpeedX()>0){
-            		if(whichSideOfShipBulletIsOn!=BULLET_MIDDLE && shootingRight){
+    			//move left and right is xSpeed != 0
+    			if( (Math.abs(BulletView.this.getSpeedX())>0.0001)){
+            		if(BulletView.this.getSpeedX()>0){
             			atThreshold=BulletView.this.move(ProjectileView.RIGHT);
-            		}else if(whichSideOfShipBulletIsOn!=BULLET_MIDDLE){
+            		}else{
             			atThreshold=BulletView.this.move(ProjectileView.LEFT);
             		}
         		}
@@ -58,16 +58,20 @@ public class BulletView extends ProjectileView{
 		initBullet(shooter,shootBulletUp,whichSideIsBulletOn);
 	}
 	
-	public BulletView(Context context,AttributeSet at,Gravity_ShootingView shooter,boolean shootBulletUp,
-			int whichSideIsBulletOn,double projectileSpeedVertical,double projectileSpeedX, 
-			double projectileDamage) {
-		super(context,at,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
-				projectileSpeedX,projectileDamage,DEFAULT_HEALTH,0);
-
-		initBullet(shooter,shootBulletUp,whichSideIsBulletOn);
-	}
+//	public BulletView(Context context,AttributeSet at,Gravity_ShootingView shooter,boolean shootBulletUp,
+//			int whichSideIsBulletOn,double projectileSpeedVertical,double projectileSpeedX, 
+//			double projectileDamage) {
+//		super(context,at,DEFAULT_SCORE,projectileSpeedVertical,projectileSpeedVertical,
+//				projectileSpeedX,projectileDamage,DEFAULT_HEALTH,0);
+//
+//		initBullet(shooter,shootBulletUp,whichSideIsBulletOn);
+//	}
 	private void initBullet(Gravity_ShootingView shooter,boolean shootBulletUp,
 			int whichSideIsBulletOn){
+
+		//set thresholds to off screen
+		this.highestPositionThreshold=(int) -(screenDens * 50);
+		this.lowestPositionThreshold=(int) (heightPixels);
 		
 		//set instance vars
 		theOneWhoShotMe=shooter;
@@ -87,44 +91,28 @@ public class BulletView extends ProjectileView{
 		this.post(moveBulletRunnable);
 	}
 	
-	private void setBulletXPositionAndThresholds(int bulletWidth,int bulletHeight){
-		//set thresholds to off screen
-		this.highestPositionThreshold=-bulletHeight;
-		this.lowestPositionThreshold=(int) (heightPixels+bulletHeight);
+	private void setInitialBulletXPositionAndRotation(int bulletWidth,int bulletHeight){
 		
+		//set position bullet spawns relative to shooter
 		final float leftOfShooter=theOneWhoShotMe.getX(),rightOfShooter=leftOfShooter+theOneWhoShotMe.getWidth();
 		final float middleofShooter =(leftOfShooter+rightOfShooter)/2-bulletWidth/2;
-		
-		//set rotation values and direction of movement as a function of bullet being a LEFT,RIGHT,or MIDDLE bullet
 		switch(whichSideOfShipBulletIsOn){
 		case BULLET_LEFT:
-			if(this.getSpeedX()>0){//bullets are angled
-				this.setX(middleofShooter);
-				
-				shootingRight=false;
-				final double arcTanLeft = Math.atan(-this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
-				final float rotValLeft = (float) Math.toDegrees(arcTanLeft);
-				this.setRotation(rotValLeft);
-			}else{
-				this.setX(leftOfShooter-bulletWidth/2);
-			}
+			this.setX(leftOfShooter-bulletWidth/2);
 			break;
 		case BULLET_RIGHT:
-			if(this.getSpeedX()>0){//bullets are angled
-				this.setX(middleofShooter);
-				
-				shootingRight=true;
-				final double arcTanRight = Math.atan(this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
-				final float rotValRight = (float) Math.toDegrees(arcTanRight);
-				this.setRotation(rotValRight);
-			}else{
-				this.setX(rightOfShooter-bulletWidth/2);				
-			}
+			this.setX(rightOfShooter-bulletWidth/2);
 			break;
 		default:
 			this.setX(middleofShooter);
-			shootingRight=true;//not needed, but set just in case
 			break;
+		}
+		
+		//set bullet rotation
+		if( ! (Math.abs(this.getSpeedX())<0.00001)){
+			final double arcTan = Math.atan(this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
+			final float rotVal = (float) Math.toDegrees(arcTan);
+			this.setRotation(rotVal);
 		}
 	}
 	/**
@@ -152,7 +140,7 @@ public class BulletView extends ProjectileView{
 		//give bullet a width and height, set 
 		final int width=(int) ctx.getResources().getDimension(R.dimen.bullet_width);
 		final int height=(int) ctx.getResources().getDimension(R.dimen.bullet_height);		
-		setBulletXPositionAndThresholds(width,height);
+		setInitialBulletXPositionAndRotation(width,height);
 		this.setLayoutParams(new LayoutParams(width,height));
 		
 		int backgroundId=R.drawable.laser1_enemy;

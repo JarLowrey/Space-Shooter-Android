@@ -3,6 +3,7 @@ package com.jtronlabs.to_the_moon.guns;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public class Gun_Upgradeable_Missile extends Gun_Upgradeable {

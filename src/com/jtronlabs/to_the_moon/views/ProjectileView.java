@@ -92,23 +92,24 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		float y =this.getY();
 		
 		boolean atThreshold=false;
+		//check if speeds are negative and adjust accordingly. set atThreshold variables
 		switch(direction){
 		case UP:
-			y-=speedYUp;
+			y=(float) ((speedYUp>0) ? y-speedYUp : y+speedYUp);
 			atThreshold=highestPositionThreshold!=NO_THRESHOLD && y<highestPositionThreshold;
 			this.setY(y);
 			break;
 		case RIGHT:
-			x+=speedX;
+			x=(float) ((speedX>0) ? x+speedX : x-speedX); 
 			this.setX(x);
 			break;
 		case DOWN:
-			y+=speedYDown;
+			y=(float) ((speedYDown>0) ? y+speedYDown : y-speedYDown);
 			atThreshold=lowestPositionThreshold!=NO_THRESHOLD && (y+getHeight())>lowestPositionThreshold;
 			this.setY(y);
 			break;
 		case LEFT:
-			x-=speedX;
+			x=(float) ((speedX>0) ? x-speedX : x+speedX); 
 			this.setX(x);
 			break;
 		}

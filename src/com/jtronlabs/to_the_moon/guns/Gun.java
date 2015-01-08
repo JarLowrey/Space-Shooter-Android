@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
+import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public abstract class Gun {
