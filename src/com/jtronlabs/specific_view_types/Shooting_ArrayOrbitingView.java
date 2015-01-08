@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.to_the_moon.guns.Gun_Special_ShootTowardsProjectileDualShot;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
@@ -100,6 +101,10 @@ public class Shooting_ArrayOrbitingView extends Gravity_ShootingView implements 
 
 		allSimpleShooters.add(this);
 		
+//		Gun_Special_ShootTowardsProjectileDualShot newGun = new
+//				Gun_Special_ShootTowardsProjectileDualShot(context, null, null, 
+//						false, 1, bulletVerticalSpeed, bulletVerticalSpeed);
+//		this.giveSpecialGun(newGun, 1000);
 		
 		cleanUpThreads();
 		restartThreads();

@@ -15,8 +15,8 @@ public abstract  class Gun_Special extends Gun {
 		
 		ammo=-1;
 	}
-	public Gun_Special(Context context,Gun_Upgradeable previousGunObject,Gravity_ShootingView theShooter) {
-		super(context,theShooter,previousGunObject);
+	public Gun_Special(Context context,Gravity_ShootingView theShooter) {
+		super(context,theShooter);
 		
 		ammo=-1;
 	}

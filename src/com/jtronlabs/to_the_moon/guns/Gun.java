@@ -52,32 +52,40 @@ public abstract class Gun {
 		bulletSpeedY=bulletSpeedVertical;
 		bulletDamage=bulletDamageAmt;
 		bulletFreq=bulletFrequency;
-		previousUpgradeableGun=(Gun_Upgradeable) this;
+		previousUpgradeableGun=getMostRecentUpgradeableGun();
 		
 		//set myBullets to empty arraylist
 		myBullets=new ArrayList<BulletView>();
 		if(previousUpgradeableGun==null){Log.d("lowrey","this should not be null111111111");}
 	}
 	
-	public Gun(Context context,Gravity_ShootingView theShooter,Gun_Upgradeable previousGunUpgrade) {
+	public Gun(Context context,Gravity_ShootingView theShooter) {
 		ctx=context;
 		
 		shooter=theShooter;
-		previousUpgradeableGun = previousGunUpgrade;
-
 		transferGunProperties(this);
 	} 
 	
 	public void transferGunProperties(Gun newGun){
 		this.stopShooting();
+
+		newGun.setPreviousUpgradeableGun(getMostRecentUpgradeableGun());
 		
-		newGun.setBulletDamage(previousUpgradeableGun.bulletDamage);
-		newGun.setBulletFreq(previousUpgradeableGun.bulletFreq);
-		newGun.setBulletSpeedY(previousUpgradeableGun.bulletSpeedY);
-		newGun.setShootingUp(previousUpgradeableGun.shootingUp);
-		
-		newGun.myBullets=previousUpgradeableGun.myBullets;
+		//no previous upgrade means this gun is the base
+		if(previousUpgradeableGun==null){
+			newGun.setBulletDamage(bulletDamage);
+			newGun.setBulletFreq(bulletFreq);
+			newGun.setBulletSpeedY(bulletSpeedY);
+			newGun.myBullets=myBullets;
+		}else{
+			newGun.setBulletDamage(previousUpgradeableGun.bulletDamage);
+			newGun.setBulletFreq(previousUpgradeableGun.bulletFreq);
+			newGun.setBulletSpeedY(previousUpgradeableGun.bulletSpeedY);
+			newGun.setShootingUp(previousUpgradeableGun.shootingUp);
+			newGun.myBullets=previousUpgradeableGun.myBullets;
+		}
 	}
+	
 	
 	public void startShooting(double bulletSpawningFrequency){
 		setBulletFreq(bulletSpawningFrequency);

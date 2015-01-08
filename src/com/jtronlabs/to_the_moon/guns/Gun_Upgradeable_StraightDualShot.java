@@ -14,9 +14,9 @@ public class Gun_Upgradeable_StraightDualShot extends Gun_Upgradeable {
 			double bulletSpeedVertical,double bulletDamage,double bulletFrequency) {
 		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
 	}
-	public Gun_Upgradeable_StraightDualShot(Context context,Gun_Upgradeable previousGunObject,
+	public Gun_Upgradeable_StraightDualShot(Context context,
 			Gravity_ShootingView theShooter) {
-		super(context,theShooter,previousGunObject);
+		super(context,theShooter);
 	}
 	public boolean spawnMyBullet(){
 		BulletView bulletLeft= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_LEFT,
@@ -41,8 +41,11 @@ public class Gun_Upgradeable_StraightDualShot extends Gun_Upgradeable {
 	
 	@Override
 	public Gun_Upgradeable downgradeGun() {
-		myShootingHandler.removeCallbacks(spawnBulletRunnable);
-		return new Gun_Upgradeable_StraightSingleShot(ctx,shooter,this);
+
+		this.stopShooting();
+		Gun_Upgradeable_StraightSingleShot newGun = new Gun_Upgradeable_StraightSingleShot(ctx,shooter);
+		this.transferGunProperties(newGun);
+		return newGun;
 	}
 	
 }

@@ -41,15 +41,16 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 	 * @param upgrade True to upgrade gun, False to downgrade
 	 */
 	public void upgradeOrDowngradeGun(boolean upgrade){
+		//create new upgra
 		Gun_Upgradeable nextGun;
 		if(upgrade){
 			nextGun = this.myGun.getMostRecentUpgradeableGun().upgradeGun();
 		}else{
 			nextGun = this.myGun.getMostRecentUpgradeableGun().downgradeGun();			
 		}
+		
 		if(this.myGun instanceof Gun_Special){
-			this.myGun.setPreviousUpgradeableGun(nextGun);
-			
+			this.myGun.setPreviousUpgradeableGun(nextGun);//set it up so once special disappears, new gun will take over
 		}else if( ! this.myGun.getClass().equals(nextGun.getClass())){
 			this.myGun=nextGun;
 		}

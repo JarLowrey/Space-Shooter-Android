@@ -3,9 +3,7 @@ package com.jtronlabs.to_the_moon.guns;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
-import com.jtronlabs.to_the_moon.bullets.Bullet_TrackingView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public class Gun_Upgradeable_StraightSingleShot extends Gun_Upgradeable {
@@ -16,8 +14,8 @@ public class Gun_Upgradeable_StraightSingleShot extends Gun_Upgradeable {
 			double bulletDamage,double bulletFrequency) {
 		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
 	}
-	public Gun_Upgradeable_StraightSingleShot(Context context,Gravity_ShootingView theShooter,Gun_Upgradeable previousGunObject) {
-		super(context,theShooter,previousGunObject);
+	public Gun_Upgradeable_StraightSingleShot(Context context,Gravity_ShootingView theShooter) {
+		super(context,theShooter);
 	}
 	public boolean spawnMyBullet(){
 		BulletView bulletMid= new BulletView(ctx,shooter, shootingUp,BulletView.BULLET_MIDDLE,
@@ -37,7 +35,9 @@ public class Gun_Upgradeable_StraightSingleShot extends Gun_Upgradeable {
 	@Override
 	public Gun_Upgradeable upgradeGun() {
 		this.stopShooting();
-		return new Gun_Upgradeable_StraightDualShot(ctx,this,shooter);
+		Gun_Upgradeable_StraightDualShot newGun = new Gun_Upgradeable_StraightDualShot(ctx,shooter);
+		this.transferGunProperties(newGun);
+		return newGun;
 	}
 	@Override
 	public Gun_Upgradeable downgradeGun() {

@@ -14,8 +14,9 @@ public  class Gun_Special_AngledTriShot extends Gun_Special {
 			double bulletDamage,double bulletFrequency) {
 		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
 	}
-	public Gun_Special_AngledTriShot(Context context,Gun_Upgradeable previousGunObject,Gravity_ShootingView theShooter) {
-		super(context,previousGunObject,theShooter);
+	public Gun_Special_AngledTriShot(Context context,
+			Gravity_ShootingView theShooter) {
+		super(context,theShooter);
 	}
 	public boolean spawnMyBullet(){
 		//create 3 bullets at center of shooter, with left and right bullets traveling X at speed speedY*tan(DEFAULT_ANGLE)

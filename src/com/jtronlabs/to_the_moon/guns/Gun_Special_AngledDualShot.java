@@ -14,9 +14,9 @@ public  class Gun_Special_AngledDualShot extends Gun_Special {
 			double bulletDamage,double bulletFrequency) {
 		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
 	}
-	public Gun_Special_AngledDualShot(Context context,Gun_Upgradeable previousGunObject,
+	public Gun_Special_AngledDualShot(Context context,
 			Gravity_ShootingView theShooter) {
-		super(context,previousGunObject,theShooter);
+		super(context,theShooter);
 	}
 	public boolean spawnMyBullet(){
 		//create left and right bullets at center of shooter, traveling X at speed speedY*tan(DEFAULT_ANGLE)

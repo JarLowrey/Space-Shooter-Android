@@ -19,9 +19,8 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 		 shootTowardsMe = shootingAtMe;
 	}
 	public Gun_Special_ShootTowardsProjectileDualShot(Context context,ProjectileView shootingAtMe,
-			Gun_Upgradeable previousGunObject,
 			Gravity_ShootingView theShooter) {
-		super(context,previousGunObject,theShooter);
+		super(context,theShooter);
 		
 		shootTowardsMe = shootingAtMe;
 	}

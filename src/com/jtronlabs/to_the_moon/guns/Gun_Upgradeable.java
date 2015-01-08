@@ -10,10 +10,11 @@ public abstract class Gun_Upgradeable extends Gun {
 			double bulletDamage,double bulletFrequency) {
 		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
 	}
-	public Gun_Upgradeable(Context context,Gravity_ShootingView theShooter,Gun_Upgradeable previousGunObject) {
-		super(context,theShooter,previousGunObject);
+	public Gun_Upgradeable(Context context,Gravity_ShootingView theShooter) {
+		super(context,theShooter);
 	}
 	
 	public abstract Gun_Upgradeable upgradeGun();
 	public abstract Gun_Upgradeable downgradeGun();
+	
 }
