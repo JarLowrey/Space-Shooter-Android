@@ -177,8 +177,8 @@ public class EnemyFactory{
 	private Shooting_OrbiterView spawnOrbitingView(){
 		final int diff = levelInfo.getDifficulty();
 
-		final int orbitingType=Shooting_OrbiterView.CIRCLE,
-				orbitDist=Shooting_OrbiterView.DEFAULT_ORBIT_DIST;
+		final int orbitingType=Shooting_OrbiterView.TRIANGLE,
+				orbitDist=Shooting_OrbiterView.DEFAULT_ORBIT_DIST_NON_CIRCLE;
 
 		final int score=Shooting_OrbiterView.DEFAULT_SCORE*diff;
 		final double speedY=Shooting_OrbiterView.DEFAULT_SPEED_Y,

@@ -13,9 +13,10 @@ import com.jtronlabs.to_the_moon.views.ProjectileView;
 public class Shooting_OrbiterView extends Gravity_ShootingView implements GameObjectInterface {
 
 	public final static int DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo,DEFAULT_BULLET_FREQ_INTERVAL=3000,
-			DEFAULT_ORBIT_DIST=100,
+			DEFAULT_ORBIT_DIST_CIRCLE=100,
+			DEFAULT_ORBIT_DIST_NON_CIRCLE=10,
 			DEFAULT_ANGULAR_VELOCITY=5;
-	public final static double DEFAULT_SPEED_Y=4.5,DEFAULT_SPEED_X=2,
+	public final static double DEFAULT_SPEED_Y=5,DEFAULT_SPEED_X=5,
 			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10;
@@ -126,6 +127,7 @@ public class Shooting_OrbiterView extends Gravity_ShootingView implements GameOb
 			//triangle is equilateral
 				switch (currentPos) {
 				case TOP:
+					Shooting_OrbiterView.this.move(ProjectileView.LEFT);
 					Shooting_OrbiterView.this.move(ProjectileView.LEFT);
 					break;
 				case LEFT:
