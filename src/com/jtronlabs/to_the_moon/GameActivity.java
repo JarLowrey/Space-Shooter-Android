@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -19,11 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jtronlabs.specific_view_types.Projectile_BeneficialView;
+import com.jtronlabs.bonuses.BonusView;
 import com.jtronlabs.specific_view_types.RocketView;
 import com.jtronlabs.specific_view_types.Shooting_ArrayMovingView;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
-import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.misc.Levels;
@@ -43,7 +41,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 
 	public static ArrayList<GameObjectInterface> friendlies=new ArrayList<GameObjectInterface>();
 	public static ArrayList<GameObjectInterface> enemies=new ArrayList<GameObjectInterface>();
-	public static ArrayList<GameObjectInterface> beneficials=new ArrayList<GameObjectInterface>();
+	public static ArrayList<GameObjectInterface> bonuses=new ArrayList<GameObjectInterface>();
 	
 	//MODEL
 	private Levels levelInfo;
@@ -56,7 +54,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         @Override
         public void run() {
         	for(int k=friendlies.size()-1;k>=0;k--){
-        		ProjectileView projectileCastedFriendly = (ProjectileView)friendlies.get(k);
+        		Gravity_ShootingView shooterCastedFriendly = (Gravity_ShootingView)friendlies.get(k);
         		boolean isProtagonist = friendlies.get(k) == rocket;
         		boolean isAShooter = friendlies.get(k) instanceof Gravity_ShootingView;
         		
@@ -71,12 +69,12 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        			
 	        			for(int j=enemyBullets.size()-1;j>=0;j--){
 	        				BulletView bullet = enemyBullets.get(j);
-	        				if(projectileCastedFriendly.collisionDetection(bullet)){//bullet collided with rocket
+	        				if(shooterCastedFriendly.collisionDetection(bullet)){//bullet collided with rocket
 	        					//rocket is damaged
-	                			friendlyDies = projectileCastedFriendly.takeDamage(bullet.getDamage());
+	                			friendlyDies = shooterCastedFriendly.takeDamage(bullet.getDamage());
 	                			if(friendlyDies && isProtagonist){gameOver();return;}
-	                			else if(friendlyDies){projectileCastedFriendly.removeView(true);}
-	                			else{healthBar.setProgress((int) projectileCastedFriendly.getHealth());}
+	                			else if(friendlyDies){shooterCastedFriendly.removeView(true);}
+	                			else{healthBar.setProgress((int) shooterCastedFriendly.getHealth());}
 	                			
 	                			
 	                			bullet.removeView(true);
@@ -85,13 +83,13 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		}
 	        		
 	    			//check if the enemy itself has collided with the  friendly
-	        		if(projectileCastedEnemy.getHealth()>0 && projectileCastedFriendly.collisionDetection(projectileCastedEnemy)){
-	        			friendlyDies = projectileCastedFriendly.takeDamage(projectileCastedEnemy.getDamage());
+	        		if(projectileCastedEnemy.getHealth()>0 && shooterCastedFriendly.collisionDetection(projectileCastedEnemy)){
+	        			friendlyDies = shooterCastedFriendly.takeDamage(projectileCastedEnemy.getDamage());
 	        			if(friendlyDies && isProtagonist){gameOver();return;}
-            			else if(friendlyDies){projectileCastedFriendly.removeView(true);}
-	        			else{healthBar.setProgress((int) projectileCastedFriendly.getHealth());}
+            			else if(friendlyDies){shooterCastedFriendly.removeView(true);}
+	        			else{healthBar.setProgress((int) shooterCastedFriendly.getHealth());}
 	        			
-	        			enemyDies=projectileCastedEnemy.takeDamage(projectileCastedFriendly.getDamage());
+	        			enemyDies=projectileCastedEnemy.takeDamage(shooterCastedFriendly.getDamage());
 	        			if(enemyDies){
 	        				levelInfo.incrementScore(projectileCastedEnemy.getScoreForKilling());
 	        				text_score.setText(""+levelInfo.getScore());
@@ -100,7 +98,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		
 	        		//check if friendly's bullets have hit the enemy
 	        		if(projectileCastedEnemy.getHealth()>0 && isAShooter){
-		    			ArrayList<BulletView> friendlysBullets = ((Gravity_ShootingView)friendlies.get(k)).myGun.myBullets;
+		    			ArrayList<BulletView> friendlysBullets = shooterCastedFriendly.myGun.myBullets;
 		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
 		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
 		    				BulletView bullet = friendlysBullets.get(j);
@@ -129,9 +127,9 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        	}
 	
 	
-	        	for(int i=beneficials.size()-1;i>=0;i--){
-	        		Projectile_BeneficialView beneficialCastedView = (Projectile_BeneficialView)beneficials.get(i);
-	        		if(projectileCastedFriendly.collisionDetection(beneficialCastedView)){
+	        	for(int i=bonuses.size()-1;i>=0;i--){
+	        		BonusView beneficialCastedView = (BonusView)bonuses.get(i);
+	        		if(shooterCastedFriendly.collisionDetection(beneficialCastedView)){
 	        			if(isProtagonist){
 		        			beneficialCastedView.applyBenefit((RocketView)friendlies.get(k));
 		        			beneficialCastedView.removeView(false);
@@ -139,7 +137,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		        			beneficialCastedView.applyBenefit((Gravity_ShootingView)friendlies.get(k));
 		        			beneficialCastedView.removeView(false);
 		        		}else{
-		        			beneficialCastedView.applyBenefit(projectileCastedFriendly);
+		        			beneficialCastedView.applyBenefit(shooterCastedFriendly);
 		        			beneficialCastedView.removeView(false);
 	        			}
 	        		}

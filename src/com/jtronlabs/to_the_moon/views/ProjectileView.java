@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.jtronlabs.specific_view_types.Projectile_BeneficialView;
+import com.jtronlabs.bonuses.BonusView;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
@@ -158,14 +158,14 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			//try to spawn a random beneficial object
 			if(Math.random()<probSpawnBeneficialObject){
 				final float xAvg = (this.getX()+this.getX()+this.getWidth())/2;
-				Projectile_BeneficialView bene = new Projectile_BeneficialView(ctx,xAvg,this.getY());
+				BonusView bene = BonusView.getRandomBonusView(ctx,xAvg,this.getY());
 				if(parent!=null){parent.addView(bene,1);}
 			}
 		}else if(GameActivity.enemies.contains(this)){
 			//try to spawn a random beneficial object
 			if(Math.random()<probSpawnBeneficialObject){
 				final float xAvg = (this.getX()+this.getX()+this.getWidth())/2;
-				Projectile_BeneficialView bene = new Projectile_BeneficialView(ctx,xAvg,this.getY());
+				BonusView bene = BonusView.getRandomBonusView(ctx,xAvg,this.getY());
 				if(parent!=null){parent.addView(bene,1);}
 			}
 			

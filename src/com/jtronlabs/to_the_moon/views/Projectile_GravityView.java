@@ -43,8 +43,11 @@ public class Projectile_GravityView extends ProjectileView implements GameObject
     		}else{
         		boolean atThreshold=move(ProjectileView.DOWN);//move the View downwards
         		
-        		if(atThreshold){//if View is at threshold stop reposting runnable
+        		//if View is at threshold or off screen stop reposting runnable
+        		if(atThreshold){
         				stopGravity();
+        		}else if(Projectile_GravityView.this.getY()>heightPixels){
+        			Projectile_GravityView.this.removeView(false);
         		}else{
         			Projectile_GravityView.this.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE/2);
         		}
