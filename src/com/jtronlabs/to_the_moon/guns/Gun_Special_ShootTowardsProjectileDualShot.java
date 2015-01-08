@@ -1,6 +1,7 @@
 package com.jtronlabs.to_the_moon.guns;
   
 import android.content.Context;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.bullets.BulletView;
@@ -26,11 +27,15 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 	}
 	public boolean spawnMyBullet(){
 		//create left and right bullets that travel at same angles, such that left bullet will hit View that is being shot at (if it were stationary)
-		final double diffYAbs = Math.abs(shooter.getY() - shootTowardsMe.getY());
-		final double diffX = shooter.getX() - shootTowardsMe.getX();
-		final double angle = Math.atan(Math.abs(diffX)/diffYAbs);
+		double diffYAbs = (shootingUp) ? Math.abs(shooter.getY() - ( shootTowardsMe.getY()+shootTowardsMe.getHeight() ) ) ://top of shooter - bottom of ShotAt
+			Math.abs( ( shooter.getY()+shooter.getHeight() ) - shootTowardsMe.getY() );//bottom of shooter - top of ShotAt
+			
+		final double diffX = shooter.getX() - ( shootTowardsMe.getX()*2 +shootTowardsMe.getWidth() )/2;//from left side of shooter to middle of ShotAt
+		final double angleRadians = Math.atan(Math.abs(diffX)/diffYAbs);
+		Log.d("lowrey",""+angleRadians);
+		double bulletSpeedX = shooter.myGun.getBulletSpeedY() * Math.tan(angleRadians);
 		
-		double bulletSpeedX = shooter.myGun.getBulletSpeedY() * Math.tan(Math.toRadians(angle));
+		bulletSpeedX = (diffX>0) ? -bulletSpeedX : bulletSpeedX;
 		
 		BulletView bulletLeft= new BulletView(ctx, shooter, shootingUp,BulletView.BULLET_LEFT,
 				bulletSpeedY, bulletSpeedX, bulletDamage);
