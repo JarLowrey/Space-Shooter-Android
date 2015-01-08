@@ -46,24 +46,24 @@ public abstract class BonusView extends Projectile_GravityView implements GameOb
 	
 	public static BonusView getRandomBonusView(Context context,float positionX,float positionY){
 		BonusView bonus;
-//		double rand = Math.random();
-//		
-//		if(rand<.3){
-//			bonus = new Bonus_HealView(context,positionX,positionY);
-//		}else if (rand<.4){
-//			bonus = new Bonus_IncBulletDamageView(context,positionX,positionY);			
-//		}else if (rand<.7){
-//			bonus = new Bonus_IncBulletFreqView(context,positionX,positionY);			
-//		}else if (rand<.8){
-//			bonus = new Bonus_IncBulletSpeedView(context,positionX,positionY);			
-//		}else if(rand<.95){
-//			bonus = new Bonus_AngledDualShotView(context,positionX,positionY);
-//		}else{
-//			bonus = new Bonus_AngledTriShotView(context,positionX,positionY);
-//		}
+		double rand = Math.random();
 		
-
-		bonus = new Bonus_IncBulletFreqView(context,positionX,positionY);	
+		if(rand<.3){
+			bonus = new Bonus_HealView(context,positionX,positionY);
+		}else if (rand<.4){
+			bonus = new Bonus_IncBulletDamageView(context,positionX,positionY);			
+		}else if (rand<.7){
+			bonus = new Bonus_IncBulletFreqView(context,positionX,positionY);			
+		}else if (rand<.8){
+			bonus = new Bonus_IncBulletSpeedView(context,positionX,positionY);			
+		}else if(rand<.95){
+			bonus = new Bonus_AngledDualShotView(context,positionX,positionY);
+		}else{
+			bonus = new Bonus_AngledTriShotView(context,positionX,positionY);
+		}
+		
+//testing
+//		bonus = new Bonus_IncBulletFreqView(context,positionX,positionY);	
 		
 		return bonus;
 	}

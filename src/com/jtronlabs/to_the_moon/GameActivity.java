@@ -251,7 +251,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         	enemies.get(i).cleanUpThreads();
         }
         rocket.cleanUpThreads();
-        enemyFactory.cleanUpThreads();
+        enemyFactory.stopSpawning();
         gameHandler.removeCallbacks(mainGameLoopRunnable);
     }
 	
@@ -263,7 +263,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         	enemies.get(i).restartThreads();
         }
         rocket.restartThreads();
-        enemyFactory.restartThreads();
+        enemyFactory.beginSpawning();
         gameHandler.post(mainGameLoopRunnable);
 	}
 	
@@ -299,7 +299,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		
 		//clean up all threads
 		gameHandler.removeCallbacks(mainGameLoopRunnable);
-		enemyFactory.cleanUpThreads();
+		enemyFactory.stopSpawning();
 		for(int i=enemies.size()-1;i>=0;i--){
 			enemies.get(i).removeView(false);//this cleans up the threads and removes the Views from the Activity
 		}
