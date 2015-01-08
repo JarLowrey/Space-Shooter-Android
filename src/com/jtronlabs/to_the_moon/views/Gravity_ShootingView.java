@@ -3,8 +3,8 @@ package com.jtronlabs.to_the_moon.views;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.jtronlabs.to_the_moon.bullets.Bullet;
-import com.jtronlabs.to_the_moon.bullets.Bullet_Laser;
+import com.jtronlabs.to_the_moon.bullets.Bullet_Interface;
+import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
 import com.jtronlabs.to_the_moon.guns.Gun;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
@@ -13,7 +13,7 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 
 	//myGun needs to be set in a specific View's class
 	public Gun myGun;
-	public Bullet myBulletType;
+	public Bullet_Interface myBulletType;
 	
 	
 	public Gravity_ShootingView(Context context,boolean shootingUpwards,int scoreValue,double projectileSpeedUp,
@@ -22,7 +22,7 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 		super(context,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
 				projectileDamage,projectileHealth,probSpawnBeneficialObjectOnDeath);
 		
-		myBulletType = new Bullet_Laser();
+		myBulletType = new Bullet_LaserDefault();
 	}
 	
 	public Gravity_ShootingView(Context context,AttributeSet at,boolean shootingUpwards,int scoreValue,double projectileSpeedUp,
@@ -30,8 +30,8 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 			double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectOnDeath) {
 		super(context,at,scoreValue,projectileSpeedUp,projectileSpeedDown,projectileSpeedX,
 				projectileDamage,projectileHealth,probSpawnBeneficialObjectOnDeath);	
-		
-		myBulletType = new Bullet_Laser();
+
+		myBulletType = new Bullet_LaserDefault();
 	}
 
 	@Override

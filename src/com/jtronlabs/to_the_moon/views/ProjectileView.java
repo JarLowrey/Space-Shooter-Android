@@ -19,6 +19,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	public static final int UP=0,RIGHT=1,DOWN=2,LEFT=3;
 	public static final int NO_THRESHOLD=Integer.MAX_VALUE;
 	
+	boolean isRemoved=false;
 	int score;
 	double speedYUp,speedYDown,speedX, damage, health,maxHealth,probSpawnBeneficialObject;
 	public int lowestPositionThreshold=NO_THRESHOLD,highestPositionThreshold=NO_THRESHOLD;
@@ -68,6 +69,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 		damage=projectileDamage;
 		health=projectileHealth;
 		maxHealth=health;
+		isRemoved=false;
 		
 	}
 	
@@ -142,6 +144,8 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	}
 	
 	public int removeView(boolean showExplosion){
+		isRemoved=true;
+		
 		if(showExplosion){createExplosion();}//show explosion
 		this.removeCallbacks(null);//destroy all threads
 		
@@ -214,6 +218,9 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	}
 	public double getMaxHealth(){
 		return maxHealth;
+	}
+	public boolean isRemoved(){
+		return isRemoved;
 	}
 	
 	public double getDamage(){

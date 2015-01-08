@@ -3,7 +3,7 @@ package com.jtronlabs.to_the_moon.guns;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.bullets.Bullet;
+import com.jtronlabs.to_the_moon.bullets.Bullet_Interface;
 import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
@@ -19,7 +19,7 @@ public class Gun_Upgradeable_StraightSingleShot extends Gun_Upgradeable {
 	public boolean shoot(){
 
 		Projectile_BulletView bulletMid = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
-				Bullet.BULLET_TRAVELS_STRAIGHT,bulletDamage, Bullet.BULLET_MIDDLE);
+				Bullet_Interface.BULLET_TRAVELS_STRAIGHT,bulletDamage, Bullet_Interface.BULLET_MIDDLE);
 		
 		//add bullets to layout
 		((RelativeLayout)shooter.getParent()).addView(bulletMid,1);

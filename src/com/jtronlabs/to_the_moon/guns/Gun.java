@@ -23,7 +23,6 @@ public abstract class Gun {
     	@Override
         public void run() {
     		boolean outOfAmmoGun = shoot();
-    		Log.d("lowrey","shooting");
     		if(outOfAmmoGun==true){
     			Gun.this.stopShooting();//stop spawning bullets with this gun
     			shooter.myGun=shooter.myGun.previousUpgradeableGun;//set shooter's gun to previous gun

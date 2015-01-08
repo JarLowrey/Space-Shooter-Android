@@ -6,7 +6,7 @@ import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
   
 
-public class Bullet_Missile extends Bullet{
+public class Bullet_Missile implements Bullet_Interface{
 	
 	public Projectile_BulletView getBullet(Context context,	Gravity_ShootingView shooter,boolean shootBulletUp,
 	double bulletSpeedVertical,double bulletSpeedX, double bulletDamage,

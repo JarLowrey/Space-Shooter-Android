@@ -54,10 +54,10 @@ public final class R {
         public static final int ic_med=0x7f06001b;
         public static final int ic_small=0x7f06001a;
         public static final int intro_text_view_width=0x7f060005;
-        public static final int laser_one_height=0x7f060015;
-        public static final int laser_one_width=0x7f060014;
-        public static final int laser_two_height=0x7f060017;
-        public static final int laser_two_width=0x7f060016;
+        public static final int laser_default_height=0x7f060015;
+        public static final int laser_default_width=0x7f060014;
+        public static final int laser_long_height=0x7f060017;
+        public static final int laser_long_width=0x7f060016;
         public static final int meteor_length=0x7f06000b;
         public static final int missile_one_height=0x7f060019;
         public static final int missile_one_width=0x7f060018;

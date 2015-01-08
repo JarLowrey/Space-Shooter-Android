@@ -10,8 +10,8 @@ public interface GameObjectInterface {
 	
 	/**
 	 * Cover the special circumstances when removing a view
-	 * @param showExplosion
-	 * @return
+	 * @param showExplosion True to flash an explosion upon death
+	 * @return Score for killing this view. 
 	 */
 	public int removeView(boolean showExplosion);
 }

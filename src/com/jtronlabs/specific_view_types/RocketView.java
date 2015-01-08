@@ -3,6 +3,8 @@ package com.jtronlabs.specific_view_types;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.jtronlabs.to_the_moon.bullets.Bullet_TrackingConstantlyView;
+import com.jtronlabs.to_the_moon.bullets.Bullet_Tracking_LaserDefault;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
@@ -31,6 +33,8 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		this.myGun.setBulletFreq(DEFAULT_BULLET_FREQ);
 //		this.giveSpecialGun(newGun, ammo);
 		this.stopGravity();
+		
+		this.myBulletType = new Bullet_Tracking_LaserDefault(Bullet_TrackingConstantlyView.DEFAULT_TRACKING_SPEED, this);
 	}
 
 	public RocketView(Context context) {
@@ -44,6 +48,8 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 
 		this.myGun.setBulletFreq(DEFAULT_BULLET_FREQ);
 		this.stopGravity();
+		
+		this.myBulletType = new Bullet_Tracking_LaserDefault(Bullet_TrackingConstantlyView.DEFAULT_TRACKING_SPEED, this);
 	}
 	
 //	private ImageView rocket_exhaust;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.bullets.Bullet;
+import com.jtronlabs.to_the_moon.bullets.Bullet_Interface;
 import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
@@ -43,9 +43,9 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 		bulletSpeedX = ( bulletSpeedX>MAX_X_SPEED ) ? ( MAX_X_SPEED * (bulletSpeedX/bulletSpeedX) ) : bulletSpeedX;
 		
 		Projectile_BulletView bulletLeft = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
-				bulletSpeedX,bulletDamage, Bullet.BULLET_LEFT);
+				bulletSpeedX,bulletDamage, Bullet_Interface.BULLET_LEFT);
 		Projectile_BulletView bulletRight = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
-				bulletSpeedX,bulletDamage, Bullet.BULLET_RIGHT);
+				bulletSpeedX,bulletDamage, Bullet_Interface.BULLET_RIGHT);
 		
 		//add bullets to layout
 		((RelativeLayout)shooter.getParent()).addView(bulletLeft,1);

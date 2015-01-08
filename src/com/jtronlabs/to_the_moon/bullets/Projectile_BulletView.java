@@ -85,7 +85,7 @@ public class Projectile_BulletView extends ProjectileView{
 				arcTan = Math.atan(this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
 			}else{
 				arcTan = Math.atan(-1*this.getSpeedX()/this.getSpeedY());//Multiply xSpeed by negative if shooting down
-//				arcTan = Math.PI - arcTan; 
+				arcTan = Math.PI + arcTan; 
 			}
 			final float rotVal = (float) Math.toDegrees(arcTan);
 			this.setRotation(rotVal);
