@@ -6,8 +6,9 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.specific_view_types.Gravity_MeteorView;
+import com.jtronlabs.specific_view_types.Shooting_ArrayMovingView;
 import com.jtronlabs.specific_view_types.Shooting_DiagonalMovingView;
-import com.jtronlabs.specific_view_types.Shooting_ArrayOrbitingView;
+import com.jtronlabs.specific_view_types.Shooting_OrbiterView;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
@@ -32,7 +33,10 @@ public class EnemyFactory{
     private Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
-    		Gravity_MeteorView meteor = spawnMeteorView();
+//    		Gravity_MeteorView meteor = spawnMeteorView();
+    		Shooting_OrbiterView meteor = spawnOrbitingView();
+    		
+    		
     		gameLayout.addView(meteor,1);
     		GameActivity.enemies.add(meteor);
     		//for level 1, meteors spawn between meteorInterval and meteorInteval+1 seconds. Each level increase, decreases the time by 1000/sqrt(lvl)
@@ -43,8 +47,8 @@ public class EnemyFactory{
 	Runnable spawnSimpleShooterRunnable = new Runnable(){
     	@Override
         public void run() {
-    		final int numShootersAlive = Shooting_ArrayOrbitingView.allSimpleShooters.size();
-    		final int maxNumShooters = Shooting_ArrayOrbitingView.getMaxNumShips();
+    		final int numShootersAlive = Shooting_ArrayMovingView.allSimpleShooters.size();
+    		final int maxNumShooters = Shooting_ArrayMovingView.getMaxNumShips();
 //    		final int numShootersAliveCutoff = 4;
     		
     		if(levelInfo.getDifficulty()>0 && numShootersAlive<maxNumShooters){
@@ -74,7 +78,7 @@ public class EnemyFactory{
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
-			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnColumnBoundDiagonalAttacker();
+			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnDiveBomber();
 			
 			gameLayout.addView(shooter2,1);
     		GameActivity.enemies.add(shooter2);
@@ -87,8 +91,8 @@ public class EnemyFactory{
 		ctx=context;
 		gameLayout=gameScreen;
 		
-		Shooting_ArrayOrbitingView.resetSimpleShooterArray();
-		Shooting_ArrayOrbitingView.startMovingAllShooters();
+		Shooting_ArrayMovingView.resetSimpleShooterArray();
+		Shooting_ArrayMovingView.startMovingAllShooters();
 	} 
 	
 	public void cleanUpThreads(){
@@ -97,8 +101,8 @@ public class EnemyFactory{
 	    enemySpawnHandler.removeCallbacks(spawnDiagonalShooterRunnable);
 	}
 	public void restartThreads(){
-//		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnSimpleShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnSimpleShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 //	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	}  
 	
@@ -115,10 +119,10 @@ public class EnemyFactory{
 		return (long) (diagonalShooterInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*4000);
 	}
 	public void spawnAllSimpleShooters(){
-		int temp=Shooting_ArrayOrbitingView.allSimpleShooters.size();
+		int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
 		
-		for(int i=temp;i<Shooting_ArrayOrbitingView.getMaxNumShips();i++){
-			Shooting_ArrayOrbitingView shooter = spawnOneShooting_MovingArrayView();
+		for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
+			Shooting_ArrayMovingView shooter = spawnOneShooting_MovingArrayView();
 			
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
@@ -146,7 +150,7 @@ public class EnemyFactory{
 		
 	}
 
-	private Shooting_DiagonalMovingView spawnColumnBoundDiagonalAttacker(){
+	private Shooting_DiagonalMovingView spawnDiveBomber(){
 		final int diff = levelInfo.getDifficulty();
 		
 		final int score=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SCORE*diff;
@@ -169,24 +173,50 @@ public class EnemyFactory{
 		
 		return diveBomber;
 	}
-	private Shooting_ArrayOrbitingView spawnOneShooting_MovingArrayView(){
+	
+	private Shooting_OrbiterView spawnOrbitingView(){
 		final int diff = levelInfo.getDifficulty();
 
-		final int score=Shooting_ArrayOrbitingView.DEFAULT_SCORE*diff;
-		final double speedY=Shooting_ArrayOrbitingView.DEFAULT_SPEED_Y,
-				speedX=Shooting_ArrayOrbitingView.DEFAULT_SPEEDX, 
-				collisionDamage=Shooting_ArrayOrbitingView.DEFAULT_COLLISION_DAMAGE*diff,
-				health=Shooting_ArrayOrbitingView.DEFAULT_HEALTH*diff,
-				bulletDmg=Shooting_ArrayOrbitingView.DEFAULT_BULLET_DAMAGE*diff,
-				bulletSpdY=Shooting_ArrayOrbitingView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
-				bulletFreq=Shooting_ArrayOrbitingView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5* Shooting_ArrayOrbitingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff),
-				spawnBeneficialFreq=Shooting_ArrayOrbitingView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff;
+		final int orbitingType=Shooting_OrbiterView.CIRCLE,
+				orbitDist=Shooting_OrbiterView.DEFAULT_ORBIT_DIST;
+
+		final int score=Shooting_OrbiterView.DEFAULT_SCORE*diff;
+		final double speedY=Shooting_OrbiterView.DEFAULT_SPEED_Y,
+				speedX=Shooting_OrbiterView.DEFAULT_SPEED_X, 
+				collisionDamage=Shooting_OrbiterView.DEFAULT_COLLISION_DAMAGE*diff,
+				health=Shooting_OrbiterView.DEFAULT_HEALTH*diff,
+				spawnBeneficialObject= Shooting_OrbiterView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff,
+				bulletDmg=Shooting_OrbiterView.DEFAULT_BULLET_DAMAGE*diff,
+				bulletSpdY=Shooting_OrbiterView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
+				bulletFreq=Shooting_OrbiterView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
+				(Math.random() * 1.5 * Shooting_OrbiterView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
+				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		
+		Shooting_OrbiterView orbiter =  new Shooting_OrbiterView(ctx,score,speedY,speedX,
+				collisionDamage,health,bulletFreq,height,width,
+				spawnBeneficialObject,bulletSpdY,bulletDmg,orbitingType,orbitDist);
+		
+		return orbiter;
+	}
+	private Shooting_ArrayMovingView spawnOneShooting_MovingArrayView(){
+		final int diff = levelInfo.getDifficulty();
+
+		final int score=Shooting_ArrayMovingView.DEFAULT_SCORE*diff;
+		final double speedY=Shooting_ArrayMovingView.DEFAULT_SPEED_Y,
+				speedX=Shooting_ArrayMovingView.DEFAULT_SPEEDX, 
+				collisionDamage=Shooting_ArrayMovingView.DEFAULT_COLLISION_DAMAGE*diff,
+				health=Shooting_ArrayMovingView.DEFAULT_HEALTH*diff,
+				bulletDmg=Shooting_ArrayMovingView.DEFAULT_BULLET_DAMAGE*diff,
+				bulletSpdY=Shooting_ArrayMovingView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
+				bulletFreq=Shooting_ArrayMovingView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
+				(Math.random() * 1.5* Shooting_ArrayMovingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff),
+				spawnBeneficialFreq=Shooting_ArrayMovingView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff;
 		
 		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
-		return new Shooting_ArrayOrbitingView(ctx,score,speedY,speedX,collisionDamage,health,bulletFreq,
+		return new Shooting_ArrayMovingView(ctx,score,speedY,speedX,collisionDamage,health,bulletFreq,
 				height,width,spawnBeneficialFreq,bulletDmg,bulletSpdY);
 		
 	}

@@ -14,7 +14,7 @@ import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 
-public class Shooting_ArrayOrbitingView extends Gravity_ShootingView implements GameObjectInterface {
+public class Shooting_ArrayMovingView extends Gravity_ShootingView implements GameObjectInterface {
 
 	public static final int DEFAULT_NUM_COLS=5,DEFAULT_NUM_ROWS=5, DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo;
 	public static final boolean DEFAULT_STAGGERED=true;
@@ -25,7 +25,7 @@ public class Shooting_ArrayOrbitingView extends Gravity_ShootingView implements 
 	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10,DEFAULT_BULLET_FREQ_INTERVAL=4000;
 	
 	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
-	public static ArrayList<Shooting_ArrayOrbitingView> allSimpleShooters = new ArrayList<Shooting_ArrayOrbitingView>();
+	public static ArrayList<Shooting_ArrayMovingView> allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();
 	
 	private static boolean staggered = false;
 	private static int numRows=4,numCols=7;
@@ -68,7 +68,7 @@ public class Shooting_ArrayOrbitingView extends Gravity_ShootingView implements 
 		}
 	};
 
-	public Shooting_ArrayOrbitingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
+	public Shooting_ArrayMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
 			float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,double bulletDamage,double bulletVerticalSpeed) {
 		super(context, false,score, speedY, speedY,
@@ -102,9 +102,9 @@ public class Shooting_ArrayOrbitingView extends Gravity_ShootingView implements 
 
 		allSimpleShooters.add(this);
 		
-		Gun_Special_ShootTowardsProjectileDualShot newGun = new
-				Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket, this);
-		this.giveSpecialGun(newGun, 1000);
+//		Gun_Special_ShootTowardsProjectileDualShot newGun = new
+//				Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket, this);
+//		this.giveSpecialGun(newGun, 1000);
 		
 		cleanUpThreads();
 		restartThreads();
@@ -166,13 +166,13 @@ public class Shooting_ArrayOrbitingView extends Gravity_ShootingView implements 
 			
 			//remove all simple shooters and their bullets from the arraylist containing them
 			for(int i=allSimpleShooters.size()-1;i>=0;i--){
-				Shooting_ArrayOrbitingView temp = allSimpleShooters.get(i);
+				Shooting_ArrayMovingView temp = allSimpleShooters.get(i);
 				for(int j=temp.myGun.myBullets.size();j>=0;j--){
 					temp.myGun.myBullets.get(i).removeView(false);
 				}
 				allSimpleShooters.get(i).removeView(false);
 			}
-			allSimpleShooters = new ArrayList<Shooting_ArrayOrbitingView>();
+			allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();
 			return true;
 		}
 	}
