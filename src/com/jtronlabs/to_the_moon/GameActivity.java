@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.jtronlabs.specific_view_types.Projectile_BeneficialView;
 import com.jtronlabs.specific_view_types.RocketView;
-import com.jtronlabs.specific_view_types.Shooting_MovingArrayView;
+import com.jtronlabs.specific_view_types.Shooting_ArrayOrbitingView;
 import com.jtronlabs.to_the_moon.guns.BulletView;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
@@ -308,8 +308,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 		
 		//clean up static variables
 		enemies=new ArrayList<GameObjectInterface>();
-		Shooting_MovingArrayView.resetSimpleShooterArray();
-		Shooting_MovingArrayView.stopMovingAllShooters();
+		Shooting_ArrayOrbitingView.resetSimpleShooterArray();
+		Shooting_ArrayOrbitingView.stopMovingAllShooters();
 		
 	}
 

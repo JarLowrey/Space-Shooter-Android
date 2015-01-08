@@ -12,18 +12,18 @@ import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 
-public class Shooting_MovingArrayView extends Gravity_ShootingView implements GameObjectInterface {
+public class Shooting_ArrayOrbitingView extends Gravity_ShootingView implements GameObjectInterface {
 
 	public static final int DEFAULT_NUM_COLS=5,DEFAULT_NUM_ROWS=5, DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo;
 	public static final boolean DEFAULT_STAGGERED=true;
 	private static final float LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
 
-	public final static double DEFAULT_SPEED_Y=3,DEFAULT_SPEEDX=3,
+	public final static double DEFAULT_SPEED_Y=3,DEFAULT_SPEEDX=2,
 			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10,DEFAULT_BULLET_FREQ_INTERVAL=4000;
 	
 	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
-	public static ArrayList<Shooting_MovingArrayView> allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
+	public static ArrayList<Shooting_ArrayOrbitingView> allSimpleShooters = new ArrayList<Shooting_ArrayOrbitingView>();
 	
 	private static boolean staggered = false;
 	private static int numRows=4,numCols=7;
@@ -58,6 +58,7 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 			howManyTimesMoved++;
 			if (howManyTimesMoved % 6 == 0) {
 				currentPos = (currentPos + 1) % 4;
+				howManyTimesMoved=0;
 			}
 			
 			simpleShooterHandler.postDelayed(this,
@@ -65,7 +66,7 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		}
 	};
 
-	public Shooting_MovingArrayView(Context context, int score,double speedY, double speedX,double collisionDamage, 
+	public Shooting_ArrayOrbitingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
 			float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,double bulletDamage,double bulletVerticalSpeed) {
 		super(context, false,score, speedY, speedY,
@@ -102,30 +103,6 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 		
 		cleanUpThreads();
 		restartThreads();
-	}
-
-
-	/**
-	 * Do not allow this to move past lower threshold
-	 */
-	@Override
-	public boolean move(int direction){
-		float y =this.getY();
-		
-		switch(direction){
-		case ProjectileView.DOWN:
-			y+=this.getSpeedYDown();
-
-			if(lowestPositionThreshold!=ProjectileView.NO_THRESHOLD){
-				if((y+getHeight())<=lowestPositionThreshold){
-					this.setY(y);
-					return false;
-				}
-				else{return true;}
-			}
-		default:
-			return super.move(direction);			
-		}
 	}
 	
 	public int removeView(boolean showExplosion) {
@@ -184,13 +161,13 @@ public class Shooting_MovingArrayView extends Gravity_ShootingView implements Ga
 			
 			//remove all simple shooters and their bullets from the arraylist containing them
 			for(int i=allSimpleShooters.size()-1;i>=0;i--){
-				Shooting_MovingArrayView temp = allSimpleShooters.get(i);
+				Shooting_ArrayOrbitingView temp = allSimpleShooters.get(i);
 				for(int j=temp.myGun.myBullets.size();j>=0;j--){
 					temp.myGun.myBullets.get(i).removeView(false);
 				}
 				allSimpleShooters.get(i).removeView(false);
 			}
-			allSimpleShooters = new ArrayList<Shooting_MovingArrayView>();
+			allSimpleShooters = new ArrayList<Shooting_ArrayOrbitingView>();
 			return true;
 		}
 	}
