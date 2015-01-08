@@ -55,6 +55,12 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 		}
 	}
 	
+	public void giveSpecialGun(Gun_Special newGun, int ammo){
+		this.myGun.transferGunProperties(newGun);
+		this.myGun=newGun;
+		newGun.setAmmo(ammo);
+	}
+	
 	public void restartThreads(){
 		super.restartThreads();
 		myGun.startShooting();

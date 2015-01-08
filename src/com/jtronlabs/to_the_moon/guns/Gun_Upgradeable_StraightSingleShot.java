@@ -20,7 +20,7 @@ public class Gun_Upgradeable_StraightSingleShot extends Gun_Upgradeable {
 		super(context,theShooter,previousGunObject);
 	}
 	public boolean spawnMyBullet(){
-		BulletView bulletMid= new Bullet_TrackingView(ctx, GameActivity.rocket,5,shooter, shootingUp,BulletView.BULLET_MIDDLE,
+		BulletView bulletMid= new BulletView(ctx,shooter, shootingUp,BulletView.BULLET_MIDDLE,
 				bulletSpeedY, STRAIGHT_BULLET, bulletDamage);
 		
 		//add bullets to layout

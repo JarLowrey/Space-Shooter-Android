@@ -105,11 +105,10 @@ public class Projectile_BeneficialView extends Projectile_GravityView implements
 			Gun_Special benefittersSpecialGun = (Gun_Special) theBenefitter.myGun;
 			benefittersSpecialGun.setAmmo(benefittersSpecialGun.getAmmo()+7);
 		}else{
-			Gun_Upgradeable gun = theBenefitter.myGun.getMostRecentUpgradeableGun();
-			Gun_Special newGun = new Gun_Special_AngledTriShot(ctx,gun,theBenefitter);
-			theBenefitter.myGun.transferGunProperties(newGun);
-			theBenefitter.myGun=newGun;
-			newGun.setAmmo(30);
+			Gun_Special newGun = new Gun_Special_AngledTriShot(ctx,theBenefitter.myGun.getMostRecentUpgradeableGun(),
+					theBenefitter);
+
+			theBenefitter.giveSpecialGun(newGun, 25);
 		}
 	}
 	
@@ -118,11 +117,10 @@ public class Projectile_BeneficialView extends Projectile_GravityView implements
 			Gun_Special benefittersSpecialGun = (Gun_Special) theBenefitter.myGun;
 			benefittersSpecialGun.setAmmo(benefittersSpecialGun.getAmmo()+12);
 		}else{
-			Gun_Upgradeable gun = theBenefitter.myGun.getMostRecentUpgradeableGun();
-			Gun_Special newGun = new Gun_Special_AngledDualShot(ctx,gun,theBenefitter);
-			theBenefitter.myGun.transferGunProperties(newGun);
-			theBenefitter.myGun=newGun;
-			newGun.setAmmo(30);
+			Gun_Special newGun = new Gun_Special_AngledDualShot(ctx,theBenefitter.myGun.getMostRecentUpgradeableGun(),
+					theBenefitter);
+			
+			theBenefitter.giveSpecialGun(newGun, 30);
 		}
 	}
 	
