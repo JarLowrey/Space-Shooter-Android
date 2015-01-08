@@ -17,10 +17,9 @@ public class Bullet_TrackingView extends BulletView{
 	Runnable trackingRunnable = new Runnable(){
     	@Override
         public void run() {
-    		final float myXPos=Bullet_TrackingView.this.getX();
-    		float diff = myXPos-objectTracking.getX();
-    		
-    		//RECALCULATE BULLET ROTATION
+    		final float objectMidPoint = (objectTracking.getX()+objectTracking.getX()+objectTracking.getWidth())/2;
+    		final float myXPos = Bullet_TrackingView.this.getX(); 
+			final float diff = myXPos - objectMidPoint;
     		
     		if(diff>0){
         		Bullet_TrackingView.this.setX(myXPos-trackingSpeed);    			
@@ -39,10 +38,19 @@ public class Bullet_TrackingView extends BulletView{
 		super(context,shooter, shootBulletUp, whichSideIsBulletOn,
 				 projectileSpeedVertical, projectileSpeedX, projectileDamage);
 		
-		trackingSpeed=trackSpeed;
+		trackingSpeed=trackSpeed*screenDens;
 		objectTracking=objectToTrack;
+		this.post(trackingRunnable);
 	}
 	
+	public void cleanUpThreads(){
+		this.removeCallbacks(trackingRunnable);
+		super.cleanUpThreads();
+	}
+	public void restartThreads(){
+		this.post(trackingRunnable);
+		super.restartThreads();
+	}
 	public void setTrackingSpeed(float newSpeed){
 		trackingSpeed=newSpeed;
 	}
