@@ -3,7 +3,6 @@ package com.jtronlabs.to_the_moon.guns;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
 import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
@@ -20,18 +19,18 @@ public abstract class Gun {
 	
 	public ArrayList<Projectile_BulletView> myBullets;
 	
-	Handler myShootingHandler = new Handler();
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
     		boolean outOfAmmoGun = shoot();
+    		Log.d("lowrey","shooting");
     		if(outOfAmmoGun==true){
     			Gun.this.stopShooting();//stop spawning bullets with this gun
     			shooter.myGun=shooter.myGun.previousUpgradeableGun;//set shooter's gun to previous gun
 //    			if(shooter.myGun==null){Log.d("lowrey","this should not be null");}
     			shooter.myGun.myBullets=Gun.this.myBullets;
     		}else{
-    			myShootingHandler.postDelayed(this, (long) bulletFreq);
+    			shooter.postDelayed(this, (long) bulletFreq);
     		}
     	}
 	};
@@ -56,7 +55,7 @@ public abstract class Gun {
 		
 		//set myBullets to empty arraylist
 		myBullets=new ArrayList<Projectile_BulletView>();
-		if(previousUpgradeableGun==null){Log.d("lowrey","this should not be null111111111");}
+		startShooting(bulletFrequency);
 	}
 	
 	public Gun(Context context,Gravity_ShootingView theShooter) {
@@ -89,20 +88,20 @@ public abstract class Gun {
 	
 	public void startShooting(double bulletSpawningFrequency){
 		setBulletFreq(bulletSpawningFrequency);
-		myShootingHandler.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
+		shooter.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
 	}
 	public void startShootingImmediately(double bulletSpawningFrequency){
 		setBulletFreq(bulletSpawningFrequency);
-		myShootingHandler.post(spawnBulletRunnable);
+		shooter.post(spawnBulletRunnable);
 	}
 	public void startShooting(){
-		myShootingHandler.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
+		shooter.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
 	}
 	public void startShootingImmediately(){
-		myShootingHandler.post(spawnBulletRunnable);
+		shooter.post(spawnBulletRunnable);
 	}
 	public void stopShooting(){
-		myShootingHandler.removeCallbacks(spawnBulletRunnable);		
+		shooter.removeCallbacks(spawnBulletRunnable);		
 	}	
 	
 	public double getBulletSpeedY(){

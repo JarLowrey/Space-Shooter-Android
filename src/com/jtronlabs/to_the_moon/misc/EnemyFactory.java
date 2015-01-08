@@ -74,6 +74,15 @@ public class EnemyFactory{
 			
 			gameLayout.addView(shooter2,1);
     		GameActivity.enemies.add(shooter2);
+    		
+			Shooting_DiagonalMovingView shooter3 = EnemyFactory.this.spawnDiveBomber();
+			
+			gameLayout.addView(shooter3,1);
+    		GameActivity.enemies.add(shooter3);
+			Shooting_DiagonalMovingView shooter4 = EnemyFactory.this.spawnDiveBomber();
+			
+			gameLayout.addView(shooter4,1);
+    		GameActivity.enemies.add(shooter4);
    
 			enemySpawnHandler.postDelayed(this, calculatDiagonalShooterSpawnInterval());
 		}
@@ -95,7 +104,7 @@ public class EnemyFactory{
 	
 	public void beginSpawning(){
 		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	}  
 	

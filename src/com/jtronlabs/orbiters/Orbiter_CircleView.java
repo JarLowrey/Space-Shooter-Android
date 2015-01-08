@@ -91,9 +91,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 		
 		this.setY(0);
 		this.setX(widthPixels/2);
-		
-		cleanUpThreads();
-		restartThreads();
+
 	}
 	public void setAngularVelocity(int newVelocity){
 		this.angularVelocity=newVelocity;

@@ -40,6 +40,11 @@ public class Gravity_ShootingView extends Projectile_GravityView{
 		return super.removeView(showExplosion);
 	}
 	
+	public void restartThreads(){
+		this.myGun.startShooting();
+		super.restartThreads();
+	}
+	
 	/**
 	 * 
 	 * @param upgrade True to upgrade gun, False to downgrade

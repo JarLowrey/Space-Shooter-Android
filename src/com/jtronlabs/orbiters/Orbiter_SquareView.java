@@ -59,9 +59,7 @@ public class Orbiter_SquareView extends Shooting_OrbiterView implements GameObje
 		
 		this.setY(0);
 		this.setX(widthPixels/2);
-		
-		cleanUpThreads();
-		restartThreads();
+
 	}
 	
 	public void beginOrbit(){

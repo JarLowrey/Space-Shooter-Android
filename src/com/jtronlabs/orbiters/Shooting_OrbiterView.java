@@ -50,17 +50,15 @@ public abstract class Shooting_OrbiterView extends Gravity_ShootingView implemen
 		this.setY(0);
 		this.setX(widthPixels/2);
 		
-		cleanUpThreads();
-		restartThreads();
 	}
 	
-	
+	public void restartThreads(){
+		if(hasBegunOrbiting){
+			beginOrbit();
+		}
+		super.restartThreads();
+	}
 	public abstract void beginOrbit();
 	public abstract void endOrbit();
-	
-	public void cleanUpThreads(){
-		this.endOrbit();
-		super.cleanUpThreads();
-	}
 
 }

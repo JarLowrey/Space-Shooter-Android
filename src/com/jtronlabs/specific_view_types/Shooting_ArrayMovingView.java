@@ -168,6 +168,7 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 	 * Reset all static variables for this class. Set these variables to their default values
 	 * @return-true if successful there are no instances of this class alive, and thus the static portions can be reset. false otherwise
 	 */
+	
 	public static boolean resetSimpleShooterArray(){
 		return resetSimpleShooterArray(DEFAULT_NUM_COLS,DEFAULT_NUM_ROWS,DEFAULT_STAGGERED); 
 	} 

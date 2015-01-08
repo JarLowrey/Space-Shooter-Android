@@ -62,8 +62,6 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 		this.setY(0);
 		this.setX(widthPixels/2);
 		
-		cleanUpThreads();
-		restartThreads();
 	}
 	
 	public void beginOrbit(){

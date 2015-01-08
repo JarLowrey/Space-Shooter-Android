@@ -78,8 +78,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		leftThreshold=this.getSpeedX();//far left of screen
 		rightThreshold=widthPixels-this.getWidth()-this.getSpeedX();//far right of screen
 
-		this.removeCallbacks(null);
-		restartThreads();
+		this.post(moveDiagonalRunnable);
 	}
 	
 	public void restartThreads(){
@@ -88,7 +87,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 	}
 	
 	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=1500;
-	public final static double DEFAULT_DIVE_BOMBER_SPEED_Y=2.1,DEFAULT_DIVE_BOMBER_SPEED_X=3.2,
+	public final static double DEFAULT_DIVE_BOMBER_SPEED_Y=1.9,DEFAULT_DIVE_BOMBER_SPEED_X=3,
 			DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE=20, DEFAULT_DIVE_BOMBER_HEALTH=20,
 			DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
 	public final static double DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y=10,

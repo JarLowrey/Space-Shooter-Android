@@ -29,6 +29,7 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		this.myGun.stopShooting();
 		
 		this.myGun.setBulletFreq(DEFAULT_BULLET_FREQ);
+//		this.giveSpecialGun(newGun, ammo);
 		this.stopGravity();
 	}
 
@@ -131,14 +132,5 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 	}
 	public void stopMoving(){
 		this.removeCallbacks(moveRunnable);
-	}
-	@Override
-	public void restartThreads(){
-		myGun.stopShooting();
-		super.restartThreads();
-	}
-	
-	public void removeView(){
-		super.removeView(true);
 	}
 }

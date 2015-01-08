@@ -15,6 +15,7 @@ public class Bullet_Laser extends Bullet{
 		final int width=(int) context.getResources().getDimension(R.dimen.laser_one_width);
 		final int height=(int) context.getResources().getDimension(R.dimen.laser_one_height);
 		
+		
 		Projectile_BulletView bullet = new Projectile_BulletView(context,shooter, shootBulletUp,
 				bulletSpeedVertical, bulletSpeedX, bulletDamage,width,height,positionOnShooterAsAPercentage);
 

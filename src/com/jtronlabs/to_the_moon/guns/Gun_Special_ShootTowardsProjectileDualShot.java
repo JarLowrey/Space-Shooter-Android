@@ -28,15 +28,17 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 	}
 	public boolean shoot(){
 		//create left and right bullets that travel at same angles, such that left bullet will hit View that is being shot at (if it were stationary)
-		double diffYAbs = (shootingUp) ? Math.abs(shooter.getY() - ( shootTowardsMe.getY()+shootTowardsMe.getHeight() ) ) ://top of shooter - bottom of ShotAt
+		double diffYAbs = (shootingUp) ? 
+			Math.abs(shooter.getY() - ( shootTowardsMe.getY()+shootTowardsMe.getHeight() ) ) ://top of shooter - bottom of ShotAt
 			Math.abs( ( shooter.getY()+shooter.getHeight() ) - shootTowardsMe.getY() );//bottom of shooter - top of ShotAt
 			
 		final double diffX = shooter.getX() - ( shootTowardsMe.getX()*2 +shootTowardsMe.getWidth() )/2;//from left side of shooter to middle of ShotAt
 		final double angleRadians = Math.atan(Math.abs(diffX)/diffYAbs);
-		Log.d("lowrey",""+angleRadians);
 		double bulletSpeedX = shooter.myGun.getBulletSpeedY() * Math.tan(angleRadians);
 		
-		bulletSpeedX = (diffX>0) ? -bulletSpeedX : bulletSpeedX;
+		bulletSpeedX = (diffX>0) ? -bulletSpeedX : bulletSpeedX;//adjust for shooter to being on one side or other of target
+		//limit the x speed ( and thus the angle) by the y speed. Otherwise at the bottom of the screen, bullets are ridiculously quick in X direction
+		bulletSpeedX = (bulletSpeedX>bulletSpeedY) ? bulletSpeedY * (bulletSpeedX/bulletSpeedX) : bulletSpeedX;
 		
 		Projectile_BulletView bulletLeft = shooter.myBulletType.getBullet(ctx, shooter, shootingUp, bulletSpeedY, 
 				bulletSpeedX,bulletDamage, Bullet.BULLET_LEFT);
