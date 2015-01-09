@@ -52,6 +52,7 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		myBulletType = new Bullet_LaserDefault();
 		myBullets = new ArrayList<BulletView>();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
+		startShooting();
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	public final static int DEFAULT_SCORE=10,
 			DEFAULT_BACKGROUND=R.drawable.ufo,
-			DEFAULT_BULLET_FREQ_INTERVAL=1000;
+			DEFAULT_BULLET_FREQ_INTERVAL=2000;
 	public final static double DEFAULT_SPEED_Y=1.8,
 			DEFAULT_SPEED_X=10,
 			DEFAULT_COLLISION_DAMAGE=20, 
@@ -93,8 +93,9 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		super.restartThreads();
 	}
 	
-	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=1500;
-	public final static double DEFAULT_DIVE_BOMBER_SPEED_Y=1.9,DEFAULT_DIVE_BOMBER_SPEED_X=3,
+	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,
+			DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=2500;
+	public final static double DEFAULT_DIVE_BOMBER_SPEED_Y=1.8,DEFAULT_DIVE_BOMBER_SPEED_X=3,
 			DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE=20, DEFAULT_DIVE_BOMBER_HEALTH=20,
 			DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
 	public final static double DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y=10,

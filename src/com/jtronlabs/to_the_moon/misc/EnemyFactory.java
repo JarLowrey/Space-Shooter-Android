@@ -23,6 +23,8 @@ import com.jtronlabs.to_the_moon.R;
  */
 public class EnemyFactory{
 	
+	public static final int LONG_INTERVAL=10,SHORT_INTERVAL=5;
+	
 //	private int numMeteor,numShooterArray,numdiveBomber,numFullScreenDiag,
 //	numCircleOrbit,numRectangleOrbit,numTriangleOrbit,numGiantMeteor;
 	
@@ -141,7 +143,7 @@ public class EnemyFactory{
 		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
 	}  
 	
 	//GET INTERVAL SPAWN MONSTERS
@@ -191,7 +193,7 @@ public class EnemyFactory{
 				bulletDmg=Shooting_DiagonalMovingView.DEFAULT_BULLET_DAMAGE*diff,
 				bulletSpdY=Shooting_DiagonalMovingView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
 				bulletFreq=Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5 * Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+				(Math.random() * SHORT_INTERVAL * Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
@@ -214,7 +216,7 @@ public class EnemyFactory{
 				bulletDmg=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_DAMAGE*diff,
 				bulletSpdY=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y*Math.sqrt(diff),
 				bulletFreq=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5 * Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+				(Math.random() * SHORT_INTERVAL * Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
@@ -242,7 +244,7 @@ public class EnemyFactory{
 				bulletDmg=Orbiter_CircleView.DEFAULT_BULLET_DAMAGE*diff,
 				bulletSpdY=Orbiter_CircleView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
 				bulletFreq=Orbiter_CircleView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5 * Orbiter_CircleView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+				(Math.random() * SHORT_INTERVAL * Orbiter_CircleView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
@@ -271,7 +273,7 @@ public class EnemyFactory{
 				bulletDmg=Orbiter_TriangleView.DEFAULT_BULLET_DAMAGE*diff,
 				bulletSpdY=Orbiter_TriangleView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
 				bulletFreq=Orbiter_TriangleView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5 * Orbiter_TriangleView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+				(Math.random() * SHORT_INTERVAL * Orbiter_TriangleView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
@@ -300,7 +302,7 @@ public class EnemyFactory{
 				bulletDmg=Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE*diff,
 				bulletSpdY=Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
 				bulletFreq=Orbiter_RectangleView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5 * Orbiter_RectangleView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+				(Math.random() * SHORT_INTERVAL * Orbiter_RectangleView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
@@ -322,7 +324,7 @@ public class EnemyFactory{
 				bulletDmg=Shooting_ArrayMovingView.DEFAULT_BULLET_DAMAGE*diff,
 				bulletSpdY=Shooting_ArrayMovingView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
 				bulletFreq=Shooting_ArrayMovingView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5* Shooting_ArrayMovingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff),
+				(Math.random() * LONG_INTERVAL * Shooting_ArrayMovingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff),
 				spawnBeneficialFreq=Shooting_ArrayMovingView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff;
 		
 		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),

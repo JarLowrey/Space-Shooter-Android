@@ -28,7 +28,6 @@ public abstract class Gun {
 
 		this.setPreviousUpgradeableGun(getMostRecentUpgradeableGun());
 		shooter=theShooter;
-		shooter.startShooting();
 	} 
 
 	public Gun_Upgradeable getMostRecentUpgradeableGun(){
