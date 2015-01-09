@@ -14,9 +14,7 @@ public class Bullet_LaserDefault extends Bullet{
 		final int width=(int) context.getResources().getDimension(R.dimen.laser_default_width);
 		final int height=(int) context.getResources().getDimension(R.dimen.laser_default_height);
 		 
-		
-		BulletView bullet = new BulletView(context,shooter, shooter.isFriendly(),
-				shooter.getBulletSpeedY(), bulletSpeedX, shooter.getBulletDamage(),width,height,positionOnShooterAsAPercentage);
+		BulletView bullet = new BulletView(context,shooter,bulletSpeedX, width,height,positionOnShooterAsAPercentage);
 
 		int backgroundId=R.drawable.laser1_enemy;
 		if(shooter.isFriendly()){backgroundId = R.drawable.laser1_friendly;}

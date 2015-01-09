@@ -15,8 +15,7 @@ public class Bullet_Missile extends Bullet{
 		final int width=(int) context.getResources().getDimension(R.dimen.missile_one_width);
 		final int height=(int) context.getResources().getDimension(R.dimen.missile_one_width);
 		
-		BulletView bullet = new BulletView(context,shooter, shooter.isFriendly(),
-				shooter.getBulletSpeedY(), bulletSpeedX, shooter.getBulletDamage(),
+		BulletView bullet = new BulletView(context,shooter,bulletSpeedX,
 				width,height,positionOnShooterAsAPercentage);
 
 		int backgroundId=R.drawable.missile;

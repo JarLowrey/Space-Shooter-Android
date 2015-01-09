@@ -84,30 +84,29 @@ public class MovingView extends ImageView implements GameObjectInterface{
 			throw new IllegalArgumentException("direction argument must be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT");
 		}
 
-		if(direction!=DOWN){
-			//Move by setting this instances X or Y position to its current position plus its respective speed.
-			float x =this.getX();
-			float y =this.getY();
-			switch(direction){
-			case UP:
-				y-=speedY;
-				this.setY(y);
-				break;
-			case DOWN:
-				y+=speedY;
-				this.setY(y);
-				break;
-			//check if speeds are negative and adjust accordingly.
-			case RIGHT:
-				x=(float) ((speedX>0) ? x+speedX : x-speedX); 
-				this.setX(x);
-				break;
-			case LEFT:
-				x=(float) ((speedX>0) ? x-speedX : x+speedX); 
-				this.setX(x);
-				break;
-			}
+		//Move by setting this instances X or Y position to its current position plus its respective speed.
+		float x =this.getX();
+		float y =this.getY();
+		switch(direction){
+		case UP:
+			y-=speedY;
+			this.setY(y);
+			break;
+		case DOWN:
+			y+=speedY;
+			this.setY(y);
+			break;
+		//check if speeds are negative and adjust accordingly.
+		case RIGHT:
+			x=(float) ((speedX>0) ? x+speedX : x-speedX); 
+			this.setX(x);
+			break;
+		case LEFT:
+			x=(float) ((speedX>0) ? x-speedX : x+speedX); 
+			this.setX(x);
+			break;
 		}
+			
 		return false;
 	}
 

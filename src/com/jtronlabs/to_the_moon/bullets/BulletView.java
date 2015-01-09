@@ -1,9 +1,11 @@
 package com.jtronlabs.to_the_moon.bullets;
   
 import android.content.Context;
+import android.util.Log;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.parents.MovingView;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
@@ -12,19 +14,17 @@ public class BulletView extends Moving_ProjectileView{
 	
 	private Shooter theOneWhoShotMe;
 	
-	protected boolean shootingUp;
-	
 	Runnable moveBulletRunnable = new Runnable(){
     	@Override
         public void run() {
     		//ensure view is not removed before running
     		if( ! BulletView.this.isRemoved()){
-    			
+    			Log.d("lowrey","bullet-speedy="+theOneWhoShotMe.getBulletSpeedY());
 	    		//move up and down
-	    		if(shootingUp){
-	    			BulletView.this.moveDirection(Moving_ProjectileView.UP);
+	    		if(theOneWhoShotMe.isFriendly()){
+	    			BulletView.this.moveDirection(MovingView.UP);
 	    		}else{
-	    			BulletView.this.moveDirection(Moving_ProjectileView.DOWN);
+	    			BulletView.this.moveDirection(MovingView.DOWN);
 	    		}
 	    		
 	    		//move sideways only if horizontal speed is not 0. This is not needed (since 0 horizontal speed results in 0 movement),
@@ -32,9 +32,9 @@ public class BulletView extends Moving_ProjectileView{
     			if( (Math.abs(BulletView.this.getSpeedX())>0.0001)){
     				//move sideways
             		if(BulletView.this.getSpeedX()>0){
-            			BulletView.this.moveDirection(Moving_ProjectileView.RIGHT);
+            			BulletView.this.moveDirection(MovingView.RIGHT);
             		}else{
-            			BulletView.this.moveDirection(Moving_ProjectileView.LEFT);
+            			BulletView.this.moveDirection(MovingView.LEFT);
             		}
         		}
 	    		
@@ -43,16 +43,13 @@ public class BulletView extends Moving_ProjectileView{
     	}
 	};
 	
-	public BulletView(Context context,Shooter shooter,boolean shootBulletUp,
-			double projectileSpeedVertical,double projectileSpeedX, double projectileDamage,
+	public BulletView(Context context,Shooter shooter,double projectileSpeedX,
 			int bulletWidth, int bulletHeight, double positionOnShooterAsAPercentage) {
-		super(context,projectileSpeedVertical,
-				projectileSpeedX,projectileDamage,1);
+		super(context,shooter.getBulletSpeedY(),
+				projectileSpeedX,shooter.getBulletDamage(),1);
 	
 		//set instance variables
 		theOneWhoShotMe=shooter;
-		shootingUp=shootBulletUp;
-		shooter.getMyBullets().add(this);
 		
 		this.setLayoutParams(new LayoutParams(bulletWidth,bulletHeight));
 
@@ -61,12 +58,14 @@ public class BulletView extends Moving_ProjectileView{
 		final float middleOfBulletOnShootingPos = (float) (posRelativeToShooter+theOneWhoShotMe.getX()-bulletWidth/2.0);
 		this.setX(middleOfBulletOnShootingPos);
 		
-		if(shootBulletUp){
-			this.setY(theOneWhoShotMe.getY()+theOneWhoShotMe.getHeight());//bottom			
+		if(shooter.isFriendly()){
+			this.setY(theOneWhoShotMe.getY());//top			
 		}else{
-			this.setY(theOneWhoShotMe.getY());//top
+			this.setY(theOneWhoShotMe.getY()+theOneWhoShotMe.getHeight());//bottom
 		}
 
+
+		shooter.getMyBullets().add(this);
 		//set bullet rotation and post the move runnable
 		this.setBulletRotation();
 		this.post(moveBulletRunnable);
@@ -76,7 +75,7 @@ public class BulletView extends Moving_ProjectileView{
 		//set bullet rotation
 		if( ! (Math.abs(this.getSpeedX())<0.00001)){  //save some resources by not rotating if xSpeed is 0
 			double arcTan;
-			if(shootingUp){
+			if(theOneWhoShotMe.isFriendly()){
 				arcTan = Math.atan(this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
 			}else{
 				arcTan = Math.atan(-1*this.getSpeedX()/this.getSpeedY());//Multiply xSpeed by negative if shooting down
@@ -97,5 +96,12 @@ public class BulletView extends Moving_ProjectileView{
 		}
 		
 		super.removeGameObject();
+	}
+	
+
+	@Override
+	public void restartThreads() {
+		this.post(moveBulletRunnable);
+		super.restartThreads();
 	}
 }

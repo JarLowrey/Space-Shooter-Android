@@ -9,6 +9,8 @@ import com.jtronlabs.to_the_moon.parents.Projectile_GravityView;
 
 public class EnemyView extends Projectile_GravityView{
 	
+	//TODO Enemies that dodge (move away) from nearby friendly's bullets
+	
 	private int score;
 	private double probSpawnBeneficialObject;
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.ViewGroup;
 
+import com.jtronlabs.friendly_types.Friendly_ShooterView;
 import com.jtronlabs.to_the_moon.bullets.Bullet;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
@@ -49,17 +50,11 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		bulletFreq=bulletFrequency;
 		bulletDmg=bulletDamage;
 		bulletSpeedY=bulletVerticalSpeed;
-		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
 		myBullets = new ArrayList<BulletView>();
+		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 	}
-	
-	@Override
-	public void removeGameObject(){
-		stopShooting();
-		super.removeGameObject();
-	}
-	
+
 	@Override
 	public void restartThreads(){
 		startShooting();

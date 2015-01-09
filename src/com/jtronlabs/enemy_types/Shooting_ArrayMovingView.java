@@ -23,7 +23,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=10,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
-	public final static double DEFAULT_BULLET_SPEED_Y=1,
+	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10,
 			DEFAULT_BULLET_FREQ_INTERVAL=4000;
 	

@@ -14,8 +14,7 @@ public class Bullet_LaserLong extends Bullet{
 		final int width=(int) context.getResources().getDimension(R.dimen.laser_long_width);
 		final int height=(int) context.getResources().getDimension(R.dimen.laser_long_height);
 
-		BulletView bullet = new BulletView(context,shooter, shooter.isFriendly(),
-				shooter.getBulletSpeedY(), bulletSpeedX, shooter.getBulletDamage(),
+		BulletView bullet = new BulletView(context,shooter,  bulletSpeedX, 
 				width,height,positionOnShooterAsAPercentage);
 		
 		int backgroundId=R.drawable.laser1_enemy;

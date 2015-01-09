@@ -13,11 +13,16 @@ import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
-	public final static int DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo,DEFAULT_BULLET_FREQ_INTERVAL=1000;
-	public final static double DEFAULT_SPEED_Y=1.8,DEFAULT_SPEED_X=10,
-			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,
+	public final static int DEFAULT_SCORE=10,
+			DEFAULT_BACKGROUND=R.drawable.ufo,
+			DEFAULT_BULLET_FREQ_INTERVAL=1000;
+	public final static double DEFAULT_SPEED_Y=1.8,
+			DEFAULT_SPEED_X=10,
+			DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_HEALTH=10,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
-	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10;
+	public final static double DEFAULT_BULLET_SPEED_Y=10,
+			DEFAULT_BULLET_DAMAGE=10;
 	
 	private boolean travelingRight;
 	private double leftThreshold,rightThreshold;
@@ -84,8 +89,8 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	}
 	
 	public void restartThreads(){
-		super.restartThreads();
 		this.postDelayed(moveDiagonalRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
+		super.restartThreads();
 	}
 	
 	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=1500;

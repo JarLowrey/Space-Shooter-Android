@@ -49,11 +49,11 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 				projectileDamage,projectileHealth);
 
 		bulletFreq=bulletFrequency;
-		bulletDmg=bulletDamage;
+		bulletDamage=bulletDmg;
 		bulletSpeedY=bulletVerticalSpeed;
 		myBullets = new ArrayList<BulletView>();
-		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
+		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 	}
 
 	public Friendly_ShooterView(Context context,AttributeSet at, double projectileSpeedY,double projectileSpeedX, 
@@ -66,8 +66,8 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		bulletDmg=bulletDamage;
 		bulletSpeedY=bulletVerticalSpeed;
 		myBullets = new ArrayList<BulletView>();
-		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
+		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 	}
 	
 	@Override

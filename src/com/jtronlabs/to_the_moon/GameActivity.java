@@ -108,7 +108,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		        		Shooter friendlyShooter= (Shooter)friendlies.get(k);
 		    			ArrayList<BulletView> friendlysBullets = friendlyShooter.getMyBullets();
 		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
-		    				Log.d("lowrey","i have bullets");
 		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
 		    				BulletView bullet = friendlysBullets.get(j);
 		    				
