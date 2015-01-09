@@ -39,21 +39,22 @@ public class EnemyFactory{
     private Runnable spawnOrbitersRunnable = new Runnable(){
 		@Override
 		public void run() {
-//			Shooting_OrbiterView circle = EnemyFactory.this.spawnCirclingOrbitingView();
-//			Shooting_OrbiterView triangle = EnemyFactory.this.spawnTriangularOrbitingView();
+			Shooting_OrbiterView circle = EnemyFactory.this.spawnCirclingOrbitingView();
+			Shooting_OrbiterView triangle = EnemyFactory.this.spawnTriangularOrbitingView();
 			Shooting_OrbiterView rectangle = EnemyFactory.this.spawnRectangleOrbitingView();
 			
-//    		gameLayout.addView(circle,1);
-//    		gameLayout.addView(triangle,1);
+    		gameLayout.addView(circle,1);
+    		gameLayout.addView(triangle,1);
     		gameLayout.addView(rectangle,1);
     		
-//    		GameActivity.enemies.add(circle);
-//    		GameActivity.enemies.add(triangle);
+    		GameActivity.enemies.add(circle);
+    		GameActivity.enemies.add(triangle);
     		GameActivity.enemies.add(rectangle);
 			
 			enemySpawnHandler.postDelayed(this, calculateOrbiterSpawnInterval());
 		}
     };
+    
     private Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
@@ -131,9 +132,9 @@ public class EnemyFactory{
 	}
 	
 	public void beginSpawning(){
-//		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
-//	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
-//	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
 	}  
 	

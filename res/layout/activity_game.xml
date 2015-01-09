@@ -28,8 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/control_panel_height"
         android:background="@drawable/control_panel_background"
-	    android:layout_alignParentBottom="true"
-        android:src="@drawable/rocket" >
+	    android:layout_alignParentBottom="true" >
        
 	    
 	    <RelativeLayout
@@ -97,7 +96,6 @@
         android:layout_height="@dimen/rocket_game_height"
         android:layout_above="@+id/btn_background"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_margin_small"
         android:src="@drawable/rocket" />
 
 </RelativeLayout>

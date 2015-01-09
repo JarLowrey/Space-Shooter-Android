@@ -34,8 +34,8 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		this.stopGravity();
 
 		
-		Gun_Special_ShootTowardsProjectileDualShot newGun = new	Gun_Special_ShootTowardsProjectileDualShot(ctx, this);
-		this.giveSpecialGun(newGun, 2000);
+//		Gun_Special_ShootTowardsProjectileDualShot newGun = new	Gun_Special_ShootTowardsProjectileDualShot(ctx, this);
+//		this.giveSpecialGun(newGun, 2000);
 	}
 
 	public RocketView(Context context) {
@@ -51,8 +51,8 @@ public class RocketView extends Gravity_ShootingView implements GameObjectInterf
 		this.stopGravity();
 		
 
-		Gun_Special_ShootTowardsProjectileDualShot newGun = new	Gun_Special_ShootTowardsProjectileDualShot(ctx, this);
-		this.giveSpecialGun(newGun, 2000);
+//		Gun_Special_ShootTowardsProjectileDualShot newGun = new	Gun_Special_ShootTowardsProjectileDualShot(ctx, this);
+//		this.giveSpecialGun(newGun, 2000);
 	}
 	
 //	private ImageView rocket_exhaust;

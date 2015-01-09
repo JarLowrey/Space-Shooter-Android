@@ -11,11 +11,16 @@ import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
 public abstract class Shooting_OrbiterView extends Gravity_ShootingView implements GameObjectInterface {
 
-	public final static int DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo,DEFAULT_BULLET_FREQ_INTERVAL=3000;
-	public final static double DEFAULT_SPEED_Y=5,DEFAULT_SPEED_X=5,
-			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,
+	public final static int DEFAULT_SCORE=10,
+			DEFAULT_BACKGROUND=R.drawable.ufo,
+			DEFAULT_BULLET_FREQ_INTERVAL=1500;
+	public final static double DEFAULT_SPEED_Y=5,
+			DEFAULT_SPEED_X=5,
+			DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_HEALTH=50,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
-	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10;
+	public final static double DEFAULT_BULLET_SPEED_Y=10,
+			DEFAULT_BULLET_DAMAGE=10;
 	
 	private boolean hasBegunOrbiting=false;
 	protected int howManyTimesMoved;

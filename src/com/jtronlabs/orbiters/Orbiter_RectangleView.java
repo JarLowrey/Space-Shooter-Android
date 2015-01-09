@@ -9,7 +9,7 @@ import com.jtronlabs.to_the_moon.views.ProjectileView;
 
 public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameObjectInterface {
 
-	public final static int DEFAULT_ORBIT_LENGTH=10;
+	public final static int DEFAULT_ORBIT_LENGTH=15;
 	
 	private int currentSideOfRectangle =0;
 	private int orbitDist;
