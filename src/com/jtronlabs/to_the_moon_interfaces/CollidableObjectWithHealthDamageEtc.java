@@ -18,8 +18,8 @@ public interface CollidableObjectWithHealthDamageEtc{
 	
 	
 	//default, built in, final, Android interface methods
-	public int getLeft();	
-	public int getRight();	
-	public int getTop();	
-	public int getBottom();
+	public float getX();	
+	public int getWidth();	
+	public float getY();	
+	public int getHeight();
 }

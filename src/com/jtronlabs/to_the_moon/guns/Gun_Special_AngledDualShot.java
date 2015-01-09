@@ -1,7 +1,6 @@
 package com.jtronlabs.to_the_moon.guns;
   
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.bullets.Bullet;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
@@ -11,10 +10,6 @@ public  class Gun_Special_AngledDualShot extends Gun_Special {
 	
 	private static final double DEFAULT_ANGLE=8;
 	
-	public Gun_Special_AngledDualShot(Context context,Shooter theShooter,boolean shootingUpwards,double bulletSpeedVertical,
-			double bulletDamage,double bulletFrequency) {
-		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
-	}
 	public Gun_Special_AngledDualShot(Context context,
 			Shooter theShooter) {
 		super(context,theShooter);
@@ -28,8 +23,8 @@ public  class Gun_Special_AngledDualShot extends Gun_Special {
 		BulletView bulletRight = shooter.getBulletType().getBullet(ctx, shooter,bulletSpeedX, Bullet.BULLET_MIDDLE);
 		
 		//add bullets to layout
-		((RelativeLayout)shooter.getMyScreen()).addView(bulletLeft,1);
-		((RelativeLayout)shooter.getMyScreen()).addView(bulletRight,1);
+		shooter.getMyScreen().addView(bulletLeft,1);
+		shooter.getMyScreen().addView(bulletRight,1);
 
 		//add bullets to shooter's list of bullets
 		myBullets.add(bulletLeft);

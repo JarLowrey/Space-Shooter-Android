@@ -3,6 +3,7 @@ package com.jtronlabs.to_the_moon.parents;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -49,6 +50,7 @@ public class Moving_ProjectileView extends MovingView implements CollidableObjec
 		health-=amountOfDamage;
 		
 		if(health<=0){
+			Log.d("lowrey","die");
 //			createExplosion();
 			removeGameObject();
 			dies = true;

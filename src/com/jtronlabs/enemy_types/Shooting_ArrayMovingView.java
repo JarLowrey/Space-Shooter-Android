@@ -23,7 +23,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=10,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
-	public final static double DEFAULT_BULLET_SPEED_Y=10,
+	public final static double DEFAULT_BULLET_SPEED_Y=1,
 			DEFAULT_BULLET_DAMAGE=10,
 			DEFAULT_BULLET_FREQ_INTERVAL=4000;
 	
@@ -77,11 +77,11 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	};
 
 	public Shooting_ArrayMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health, double bulletFreq,
-			float heightView,float widthView,double probSpawnBeneficialObject,double bulletDamage,double bulletVerticalSpeed) {
-		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject);
+			double health,
+			float heightView,float widthView,double probSpawnBeneficialObject,double bulletFreq,double bulletDamage,double bulletVerticalSpeed) {
+		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject, bulletFreq, bulletDamage,bulletVerticalSpeed);
 
-		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
+		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this);
 
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);

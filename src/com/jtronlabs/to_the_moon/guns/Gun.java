@@ -27,22 +27,11 @@ public abstract class Gun {
 	 */
 	public abstract boolean shoot();	
 	
-	 	
-	public Gun(Context context,Shooter theShooter,boolean shootingUpwards,double bulletSpeedVertical,
-			double bulletDamageAmt,double bulletFrequency) {
-		ctx=context;
-		shooter=theShooter;
-		
-		previousUpgradeableGun=getMostRecentUpgradeableGun();
-		
-		//set myBullets to empty arraylist
-		myBullets=new ArrayList<BulletView>();
-//		startShooting(bulletFrequency);
-	}
 	
 	public Gun(Context context,Shooter theShooter) {
 		ctx=context;
 		
+		myBullets = new ArrayList<BulletView>();
 		shooter=theShooter;
 		transferGunProperties(this);
 	} 

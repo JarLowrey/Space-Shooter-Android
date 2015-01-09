@@ -1,7 +1,6 @@
 package com.jtronlabs.to_the_moon.guns;
   
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -16,13 +15,6 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 	
 	private Moving_ProjectileView shootTowardsMe;
 	
-	public Gun_Special_ShootTowardsProjectileDualShot(Context context,Moving_ProjectileView shootingAtMe,
-			Shooter theShooter,boolean shootingUpwards,double bulletSpeedVertical,
-			double bulletDamage,double bulletFrequency) {
-		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
-		
-		shootTowardsMe = shootingAtMe;
-	}
 	public Gun_Special_ShootTowardsProjectileDualShot(Context context,Moving_ProjectileView shootingAtMe,
 			Shooter theShooter) {
 		super(context,theShooter);
@@ -61,14 +53,14 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 			//find the absolute value of vertical distance between the shooter and shot at
 			double diffYAbs;
 			if(shooter.isFriendly()){
-				diffYAbs = Math.abs(shooter.getTop() - ( shootTowardsMe.getY()+shootTowardsMe.getHeight() ) );
+				diffYAbs = Math.abs(shooter.getY() - ( shootTowardsMe.getY()+shootTowardsMe.getHeight() ) );
 			}else{
-				diffYAbs = Math.abs( shooter.getBottom()- shootTowardsMe.getY() );//bottom of shooter - top of ShotAt
+				diffYAbs = Math.abs( shooter.getY()+shooter.getHeight()- shootTowardsMe.getY() );//bottom of shooter - top of ShotAt
 			}
 			
 			//find horizontal distance between left side of shooter to middle of ShotAt. 
 			//All spawned bullets will travel at same horizontal speed
-			final double diffX = ( shootTowardsMe.getX()*2 +shootTowardsMe.getWidth() )/2 - shooter.getLeft();
+			final double diffX = ( shootTowardsMe.getX()*2 +shootTowardsMe.getWidth() )/2 - shooter.getX();
 			
 			//set bulletSpeedX to bulletSpeedY scaled by the ratio of the differences of X/Y. 
 			//You are forming a similar triangle to the one formed by the differences
@@ -86,8 +78,8 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 		BulletView bulletRight = shooter.getBulletType().getBullet(ctx, shooter,bulletSpeedX,Bullet.BULLET_RIGHT);
 		
 		//add bullets to layout
-		((RelativeLayout)shooter.getMyScreen()).addView(bulletLeft,1);
-		((RelativeLayout)shooter.getMyScreen()).addView(bulletRight,1);
+		shooter.getMyScreen().addView(bulletLeft,1);
+		shooter.getMyScreen().addView(bulletRight,1);
 
 		//add bullets to shooter's list of bullets
 		myBullets.add(bulletLeft);

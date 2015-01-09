@@ -197,7 +197,8 @@ public class EnemyFactory{
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
 		return new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
-				collisionDamage,health,bulletFreq,height,width,spawnBeneficialObject,bulletSpdY,bulletDmg);
+				collisionDamage,health,height,width,spawnBeneficialObject,
+				bulletFreq,bulletSpdY,bulletDmg);
 		
 	}
 
@@ -219,7 +220,8 @@ public class EnemyFactory{
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
 		Shooting_DiagonalMovingView diveBomber =  new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
-				collisionDamage,health,bulletFreq,height,width,spawnBeneficialObject,bulletSpdY,bulletDmg);
+				collisionDamage,health,height,width,spawnBeneficialObject,bulletFreq,
+				bulletSpdY,bulletDmg);
 		diveBomber.setDiveBomber();
 		
 		return diveBomber;
@@ -326,8 +328,8 @@ public class EnemyFactory{
 		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
-		return new Shooting_ArrayMovingView(ctx,score,speedY,speedX,collisionDamage,health,bulletFreq,
-				height,width,spawnBeneficialFreq,bulletDmg,bulletSpdY);
+		return new Shooting_ArrayMovingView(ctx,score,speedY,speedX,collisionDamage,health,
+				height,width,spawnBeneficialFreq,bulletFreq,bulletDmg,bulletSpdY);
 		
 	}
 	

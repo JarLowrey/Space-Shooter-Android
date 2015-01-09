@@ -11,6 +11,7 @@ import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
 import com.jtronlabs.to_the_moon.guns.Gun;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
+import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Enemy_ShooterView extends EnemyView implements Shooter{
@@ -28,22 +29,27 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
   		//ensure shooter is not removed before running
   		if( ! isRemoved()){
   			boolean outOfAmmoGun = myGun.shoot();
-	    		if(outOfAmmoGun==true){
-	    			Enemy_ShooterView.this.stopShooting();//stop spawning bullets with this gun
-	    			myGun=myGun.getMostRecentUpgradeableGun();//set shooter's gun to previous gun
-	    			myGun.myBullets=Enemy_ShooterView.this.myGun.myBullets;//transfer bullets to previous gun so they will continue to be hit detected
-	    		}else{
-	    			Enemy_ShooterView.this.postDelayed(this, (long) Enemy_ShooterView.this.getBulletFreq());
-	    		}
+    		if(outOfAmmoGun==true){
+    			Enemy_ShooterView.this.stopShooting();//stop spawning bullets with this gun
+    			myGun=myGun.getMostRecentUpgradeableGun();//set shooter's gun to previous gun
+    			myGun.myBullets=Enemy_ShooterView.this.myGun.myBullets;//transfer bullets to previous gun so they will continue to be hit detected
+    		}else{
+    			Enemy_ShooterView.this.postDelayed(this, (long) Enemy_ShooterView.this.getBulletFreq());
+    		}
   		}
   	}
 	};
 	
 	public Enemy_ShooterView(Context context,int scoreForKilling, double projectileSpeedY,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth,double probSpawnBonusOnDeath) {
+			double projectileDamage,double projectileHealth,double probSpawnBonusOnDeath,
+			double bulletFrequency,double bulletDmg,double bulletVerticalSpeed) {
 		super(context, scoreForKilling,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth,probSpawnBonusOnDeath);
-		
+
+		bulletFreq=bulletFrequency;
+		bulletDmg=bulletDamage;
+		bulletSpeedY=bulletVerticalSpeed;
+		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
 	}
 	

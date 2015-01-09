@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.guns.Gun_Special;
-import com.jtronlabs.to_the_moon.guns.Gun_Special_ShootTowardsProjectileDualShot;
-import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
 public class RocketView extends Friendly_ShooterView{
@@ -15,38 +12,26 @@ public class RocketView extends Friendly_ShooterView{
 			DEFAULT_SPEEDX=14,
 			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=1000,
-			DEFAULT_BULLET_SPEED_Y=10,
-			DEFAULT_BULLET_DAMAGE=10;
-	public final double DEFAULT_BULLET_FREQ=350;
+			DEFAULT_BULLET_SPEED_Y=15,
+			DEFAULT_BULLET_DAMAGE=10, 
+			DEFAULT_BULLET_FREQ=350;
 	
 	private final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 	private int directionMoving=Moving_ProjectileView.LEFT;
 	
 	public RocketView(Context context, AttributeSet at) {
 		super(context, at,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH);
+				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
-		initRocket(context);
+		this.stopShooting();
 	}
 
 	public RocketView(Context context) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH);
-		
-		initRocket(context);
-		
-	}
-	
-	private void initRocket(Context context){
-		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, true, 
-				DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE, DEFAULT_BULLET_FREQ);
-		Gun_Special newGun =  new Gun_Special_ShootTowardsProjectileDualShot(context, this);
-		this.giveSpecialGun(newGun, 1000);
+				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
-		this.setBulletFreq(DEFAULT_BULLET_FREQ);		
-		
-		//halt default threads
 		this.stopShooting();
+		
 	}
 	
 //	private ImageView rocket_exhaust;

@@ -42,9 +42,9 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			double health, double bulletFreq,
 			float heightView,float widthView,double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath) {
 		super(context, scoreForKilling, speedY,
-				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath);
+				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
 
-		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
+		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this);
 				
 		//set image background, width, and height
 		this.setImageResource(DEFAULT_BACKGROUND);

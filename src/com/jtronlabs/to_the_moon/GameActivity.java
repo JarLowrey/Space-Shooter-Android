@@ -104,7 +104,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		}
 	        		
 	        		//check if friendly's bullets have hit the enemy
-	        		if(enemy.getHealth()>0 && friendlyIsAShooter){
+	        		if(enemy.getHealth()>0 && enemyIsAShooter){
 		    			ArrayList<BulletView> friendlysBullets = friendly.myGun.myBullets;
 		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
 		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
@@ -184,15 +184,15 @@ public class GameActivity extends Activity implements OnTouchListener{
 		rocket = (RocketView)findViewById(R.id.rocket_game);
 		friendlies.add(rocket);
 //		rocket.threshold=heightPixels/8;
-		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
-		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
-		    @Override 
-		    public void onGlobalLayout() { 
-		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-		        //have a little portion of the rocket poking out above the bottom
-				rocket.setThreshold((int) (btnBackground.getY()-GameActivity.this.getResources().getDimension(R.dimen.activity_margin_small)));
-		    } 
-		});
+//		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
+//		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
+//		    @Override 
+//		    public void onGlobalLayout() { 
+//		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//		        //have a little portion of the rocket poking out above the bottom
+//				rocket.setThreshold((int) (btnBackground.getY()-GameActivity.this.getResources().getDimension(R.dimen.activity_margin_small)));
+//		    } 
+//		});
 		
 		//set up the game
 		levelInfo = new Levels();
@@ -334,7 +334,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 					rocket.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
 				case R.id.btnMiddle:
-					rocket.myGun.startShooting();	
+					rocket.startShooting();	
 					break;
 			}
 		}else if(event.getAction()==MotionEvent.ACTION_UP){
@@ -346,7 +346,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 						rocket.stopMoving();
 					break;
 				case R.id.btnMiddle:
-					rocket.myGun.stopShooting();	
+					rocket.stopShooting();	
 					break;
 			}
 		} 

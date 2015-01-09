@@ -14,12 +14,6 @@ public abstract  class Gun_Special extends Gun {
 	
 	private int ammo;
 	
-	public Gun_Special(Context context,Shooter theShooter,boolean shootingUpwards,double bulletSpeedVertical,
-			double bulletDamage,double bulletFrequency) {
-		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
-		
-		ammo=-1;
-	}
 	public Gun_Special(Context context,Shooter theShooter) {
 		super(context,theShooter);
 		

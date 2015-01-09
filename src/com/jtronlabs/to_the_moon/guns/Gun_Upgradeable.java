@@ -11,10 +11,6 @@ import com.jtronlabs.to_the_moon_interfaces.Shooter;
  */
 public abstract class Gun_Upgradeable extends Gun {
 	
-	public Gun_Upgradeable(Context context,Shooter theShooter,boolean shootingUpwards,double bulletSpeedVertical,
-			double bulletDamage,double bulletFrequency) {
-		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
-	}
 	public Gun_Upgradeable(Context context,Shooter theShooter) {
 		super(context,theShooter);
 	}

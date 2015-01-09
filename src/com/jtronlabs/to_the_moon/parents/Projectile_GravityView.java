@@ -79,10 +79,6 @@ public class Projectile_GravityView extends Moving_ProjectileView implements Gra
 			startGravity();
 		}
 	}
-	@Override
-	public void removeGameObject() {
-		stopGravity();
-	}
 
 	@Override
 	public int getThreshold() {

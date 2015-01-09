@@ -55,14 +55,14 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	};
 	
 	public Shooting_DiagonalMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health, double bulletFreq,float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,
-			double bulletVerticalSpeed,double bulletDamage) {
+			double health, float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,
+			double bulletFreq,double bulletVerticalSpeed,double bulletDamage) {
 		super(context,score,speedY,speedX,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath);
+				health,probSpawnBeneficialObjectOnDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
 		
-		this.myGun=new Gun_Upgradeable_StraightDualShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
+		this.myGun=new Gun_Upgradeable_StraightDualShot(context, this);
 //		this.upgradeOrDowngradeGun(true);
-		Gun_Special newGun = new Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket,this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
+		Gun_Special newGun = new Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket,this);
 		this.giveSpecialGun(newGun, Integer.MAX_VALUE);
 		
 		this.setThreshold((int) MainActivity.getHeightPixels());

@@ -3,7 +3,6 @@ package com.jtronlabs.enemy_types_orbiters;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
 
@@ -55,8 +54,6 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;
-		
-		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
 		
 		//default to begin orbit at this point
 		this.setThreshold((int) (MainActivity.getHeightPixels()/3));

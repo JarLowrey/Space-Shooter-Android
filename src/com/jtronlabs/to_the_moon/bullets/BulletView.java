@@ -52,19 +52,19 @@ public class BulletView extends Moving_ProjectileView{
 		//set instance variables
 		theOneWhoShotMe=shooter;
 		shootingUp=shootBulletUp;
-
+		shooter.getMyBullets().add(this);
+		
 		this.setLayoutParams(new LayoutParams(bulletWidth,bulletHeight));
 
 		//set initial positions. Width and Height need to be already initialized for this to work
-		final double posOnShooter= (theOneWhoShotMe.getRight()-theOneWhoShotMe.getLeft()) * 
-				positionOnShooterAsAPercentage/100.0;
-		final float middleOfBulletOnShootingPos = (float) (posOnShooter-bulletWidth/2.0);
+		final double posRelativeToShooter= theOneWhoShotMe.getWidth() * 	positionOnShooterAsAPercentage/100.0;
+		final float middleOfBulletOnShootingPos = (float) (posRelativeToShooter+theOneWhoShotMe.getX()-bulletWidth/2.0);
 		this.setX(middleOfBulletOnShootingPos);
 		
 		if(shootBulletUp){
-			this.setY(theOneWhoShotMe.getBottom());			
+			this.setY(theOneWhoShotMe.getY()+theOneWhoShotMe.getHeight());//bottom			
 		}else{
-			this.setY(theOneWhoShotMe.getTop());			
+			this.setY(theOneWhoShotMe.getY());//top
 		}
 
 		//set bullet rotation and post the move runnable

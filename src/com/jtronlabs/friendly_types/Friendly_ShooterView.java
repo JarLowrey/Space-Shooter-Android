@@ -12,6 +12,7 @@ import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
 import com.jtronlabs.to_the_moon.guns.Gun;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
+import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Friendly_ShooterView extends FriendlyView implements Shooter{
@@ -27,7 +28,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
   	@Override
       public void run() {
   		//ensure shooter is not removed before running
-  		if( ! isRemoved()){
+  		if( ! isRemoved() ){
   			boolean outOfAmmoGun = myGun.shoot();
 	    		if(outOfAmmoGun==true){
 	    			Friendly_ShooterView.this.stopShooting();//stop spawning bullets with this gun
@@ -39,20 +40,30 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
   		}
   	}
 	};
-	
+
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth) {
+			double projectileDamage,double projectileHealth,
+			double bulletFrequency,double bulletDmg,double bulletVerticalSpeed) {
 		super(context,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
-		
+
+		bulletFreq=bulletFrequency;
+		bulletDmg=bulletDamage;
+		bulletSpeedY=bulletVerticalSpeed;
+		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
 	}
 
 	public Friendly_ShooterView(Context context,AttributeSet at, double projectileSpeedY,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth) {
-		super(context,at,projectileSpeedY,projectileSpeedX,
+			double projectileDamage,double projectileHealth,
+			double bulletFrequency,double bulletDmg,double bulletVerticalSpeed) {
+		super(context, at,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
-		
+
+		bulletFreq=bulletFrequency;
+		bulletDmg=bulletDamage;
+		bulletSpeedY=bulletVerticalSpeed;
+		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
 	}
 	
@@ -141,7 +152,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 
 	@Override
 	public boolean isFriendly() {
-		return false;
+		return true;
 	}
 
 	@Override
