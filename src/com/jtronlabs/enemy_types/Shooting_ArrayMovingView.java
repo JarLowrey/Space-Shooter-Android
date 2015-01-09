@@ -163,8 +163,8 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			//remove all simple shooters and their bullets from the arraylist containing them
 			for(int i=allSimpleShooters.size()-1;i>=0;i--){
 				Shooting_ArrayMovingView temp = allSimpleShooters.get(i);
-				for(int j=temp.myGun.myBullets.size();j>=0;j--){
-					temp.myGun.myBullets.get(i).removeGameObject();
+				for(int j=temp.getMyBullets().size();j>=0;j--){
+					temp.getMyBullets().get(i).removeGameObject();
 				}
 				allSimpleShooters.get(i).removeGameObject();
 			}

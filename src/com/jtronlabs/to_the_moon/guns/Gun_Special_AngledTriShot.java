@@ -28,11 +28,6 @@ public  class Gun_Special_AngledTriShot extends Gun_Special {
 		shooter.getMyScreen().addView(bulletMid,1);
 		shooter.getMyScreen().addView(bulletRight,1);
 
-		//add bullets to shooter's list of bullets
-		myBullets.add(bulletLeft);
-		myBullets.add(bulletMid);
-		myBullets.add(bulletRight);
-		
 		return decrementAmmo();
 	}
 }

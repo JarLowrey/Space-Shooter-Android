@@ -24,12 +24,4 @@ public class FriendlyView extends Projectile_ShootingView{
 		
 		GameActivity.friendlies.add(this);
 	}
-	
-	@Override
-	public void removeGameObject(){
-		if(this.myGun.myBullets.size()==0){
-			GameActivity.friendlies.remove(this);			
-		}
-		super.removeGameObject();
-	}
 }

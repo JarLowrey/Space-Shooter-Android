@@ -26,10 +26,6 @@ public  class Gun_Special_AngledDualShot extends Gun_Special {
 		shooter.getMyScreen().addView(bulletLeft,1);
 		shooter.getMyScreen().addView(bulletRight,1);
 
-		//add bullets to shooter's list of bullets
-		myBullets.add(bulletLeft);
-		myBullets.add(bulletRight);
-		
 		//decrement special ammo and return result
 		return decrementAmmo();
 	}

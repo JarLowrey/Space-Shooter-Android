@@ -17,8 +17,8 @@ public abstract class Gun {
 
 	Shooter shooter;
 	Context ctx;
-	
-	public ArrayList<BulletView> myBullets;
+//	
+//	protected ArrayList<BulletView> myBullets;
 
 	/**
 	 * Create bullets of the shooter's type at the shooter's position. Properties such as number of bullets, 
@@ -31,7 +31,7 @@ public abstract class Gun {
 	public Gun(Context context,Shooter theShooter) {
 		ctx=context;
 		
-		myBullets = new ArrayList<BulletView>();
+//		myBullets = new ArrayList<BulletView>();
 		shooter=theShooter;
 		transferGunProperties(this);
 	} 
@@ -45,12 +45,12 @@ public abstract class Gun {
 //		this.stopShooting();
 		newGun.setPreviousUpgradeableGun(getMostRecentUpgradeableGun());
 		
-		//no previous upgrade means this current gun is the base. So, this Gun's properties must be passed to the next gun
-		if(previousUpgradeableGun==null){
-			newGun.myBullets=myBullets;
-		}else{
-			newGun.myBullets=previousUpgradeableGun.myBullets;
-		}
+//		//no previous upgrade means this current gun is the base. So, this Gun's properties must be passed to the next gun
+//		if(previousUpgradeableGun==null){
+//			newGun.myBullets=myBullets;
+//		}else{
+//			newGun.myBullets=previousUpgradeableGun.myBullets;
+//		}
 	}
 	
 
@@ -68,21 +68,7 @@ public abstract class Gun {
 		this.previousUpgradeableGun=gun;
 	}
 	
-//	public void startShooting(double bulletSpawningFrequency){
-//		setBulletFreq(bulletSpawningFrequency);
-//		shooter.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
+//	public ArrayList<BulletView> getBullets(){
+//		return myBullets;
 //	}
-//	public void startShootingImmediately(double bulletSpawningFrequency){
-//		setBulletFreq(bulletSpawningFrequency);
-//		shooter.post(spawnBulletRunnable);
-//	}
-//	public void startShooting(){
-//		shooter.postDelayed(spawnBulletRunnable,(long) bulletFreq);		
-//	}
-//	public void startShootingImmediately(){
-//		shooter.post(spawnBulletRunnable);
-//	}
-//	public void stopShooting(){
-//		shooter.removeCallbacks(spawnBulletRunnable);		
-//	}	
 }

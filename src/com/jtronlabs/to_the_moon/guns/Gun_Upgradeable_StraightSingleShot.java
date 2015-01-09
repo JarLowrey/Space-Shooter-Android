@@ -17,9 +17,6 @@ public class Gun_Upgradeable_StraightSingleShot extends Gun_Upgradeable {
 		
 		//add bullets to layout
 		shooter.getMyScreen().addView(bulletMid,1);
-
-		//add bullets to shooter's list of bullets
-		myBullets.add(bulletMid);
 		
 		return false;
 	}

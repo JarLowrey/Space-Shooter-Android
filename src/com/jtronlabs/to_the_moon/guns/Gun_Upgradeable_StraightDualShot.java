@@ -23,10 +23,6 @@ public class Gun_Upgradeable_StraightDualShot extends Gun_Upgradeable {
 		shooter.getMyScreen().addView(bulletLeft,1);
 		shooter.getMyScreen().addView(bulletRight,1);
 
-		//add bullets to shooter's list of bullets
-		myBullets.add(bulletLeft);
-		myBullets.add(bulletRight);
-
 		return false;
 	}
 	@Override

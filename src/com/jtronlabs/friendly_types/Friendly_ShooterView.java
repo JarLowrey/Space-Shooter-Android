@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
+import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.bullets.Bullet;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
@@ -20,6 +21,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	//myGun needs to be set in a specific View's class
 	public Gun myGun;
 	public Bullet myBulletType;
+	private ArrayList<BulletView> myBullets;
 	
 	private double bulletFreq,bulletSpeedY,bulletDamage;
 	
@@ -33,7 +35,6 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	    		if(outOfAmmoGun==true){
 	    			Friendly_ShooterView.this.stopShooting();//stop spawning bullets with this gun
 	    			myGun=myGun.getMostRecentUpgradeableGun();//set shooter's gun to previous gun
-	    			myGun.myBullets=Friendly_ShooterView.this.myGun.myBullets;//transfer bullets to previous gun so they will continue to be hit detected
 	    		}else{
 	    			Friendly_ShooterView.this.postDelayed(this, (long) Friendly_ShooterView.this.getBulletFreq());
 	    		}
@@ -50,6 +51,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		bulletFreq=bulletFrequency;
 		bulletDmg=bulletDamage;
 		bulletSpeedY=bulletVerticalSpeed;
+		myBullets = new ArrayList<BulletView>();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
 	}
@@ -63,6 +65,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		bulletFreq=bulletFrequency;
 		bulletDmg=bulletDamage;
 		bulletSpeedY=bulletVerticalSpeed;
+		myBullets = new ArrayList<BulletView>();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
 	}
@@ -70,6 +73,9 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	@Override
 	public void removeGameObject(){
 		stopShooting();
+		if(this.getMyBullets().size()==0){
+			GameActivity.friendlies.remove(this);			
+		}
 		super.removeGameObject();
 	}
 	
@@ -122,12 +128,12 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 
 	@Override
 	public void setMyBullets(ArrayList<BulletView> bullets) {
-		myGun.myBullets=bullets;
+		myBullets=bullets;
 	}
 
 	@Override
 	public ArrayList<BulletView> getMyBullets() {
-		return myGun.myBullets;
+		return myBullets;
 	}
 
 	@Override

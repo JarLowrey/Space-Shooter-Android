@@ -80,10 +80,6 @@ public  class Gun_Special_ShootTowardsProjectileDualShot extends Gun_Special {
 		//add bullets to layout
 		shooter.getMyScreen().addView(bulletLeft,1);
 		shooter.getMyScreen().addView(bulletRight,1);
-
-		//add bullets to shooter's list of bullets
-		myBullets.add(bulletLeft);
-		myBullets.add(bulletRight);
 		
 		return decrementAmmo();
 	}

@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -27,7 +26,6 @@ import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.Levels;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
-import com.jtronlabs.to_the_moon.parents.Projectile_ShootingView;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class GameActivity extends Activity implements OnTouchListener{
@@ -38,7 +36,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	private static TextView ammoText;
 	private static ProgressBar healthBar;
 	public static RocketView rocket;
-	private RelativeLayout btnBackground;
+//	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
 
 	public static ArrayList<FriendlyView> friendlies=new ArrayList<FriendlyView>();
@@ -73,7 +71,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		if(enemyIsAShooter){
 		        		Shooter enemyShooter = (Shooter)enemies.get(k);
 	        			if(enemyShooter.getGun() != null){
-		        			ArrayList<BulletView> enemyBullets = enemyShooter.getGun().myBullets;
+	        				Log.d("lowrey","enemyGunNotNull");
+		        			ArrayList<BulletView> enemyBullets = enemyShooter.getMyBullets();
 		        			
 		        			for(int j=enemyBullets.size()-1;j>=0;j--){
 		        				BulletView bullet = enemyBullets.get(j);
@@ -102,11 +101,14 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        				text_score.setText(""+levelInfo.getScore());
 	        			}
 	        		}
-	        		
+
+//    				Log.d("lowrey","enemy);
 	        		//check if friendly's bullets have hit the enemy
-	        		if(enemy.getHealth()>0 && enemyIsAShooter){
-		    			ArrayList<BulletView> friendlysBullets = friendly.myGun.myBullets;
+	        		if(enemy.getHealth()>0 && friendlyIsAShooter){
+		        		Shooter friendlyShooter= (Shooter)friendlies.get(k);
+		    			ArrayList<BulletView> friendlysBullets = friendlyShooter.getMyBullets();
 		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
+		    				Log.d("lowrey","i have bullets");
 		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
 		    				BulletView bullet = friendlysBullets.get(j);
 		    				
@@ -132,6 +134,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		    			}
 	        		}
 	        	}
+	        	//enemies loop is over
 	
 	
 	        	if(friendlyIsAShooter){
@@ -173,7 +176,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 //		rocket_exhaust = (ImageView)findViewById(R.id.rocket_exhaust); 
 		gameScreen=(RelativeLayout)findViewById(R.id.gameScreen);
 		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
-		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
+//		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
 		text_score=(TextView)findViewById(R.id.score_textview);
 		ammoText = (TextView)findViewById(R.id.ammo);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);

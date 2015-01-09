@@ -19,6 +19,7 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 	//myGun needs to be set in a specific View's class
 	public Gun myGun;
 	public Bullet myBulletType;
+	private ArrayList<BulletView> myBullets;
 	
 	private double bulletFreq,bulletSpeedY,bulletDamage;
 	
@@ -32,7 +33,6 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
     		if(outOfAmmoGun==true){
     			Enemy_ShooterView.this.stopShooting();//stop spawning bullets with this gun
     			myGun=myGun.getMostRecentUpgradeableGun();//set shooter's gun to previous gun
-    			myGun.myBullets=Enemy_ShooterView.this.myGun.myBullets;//transfer bullets to previous gun so they will continue to be hit detected
     		}else{
     			Enemy_ShooterView.this.postDelayed(this, (long) Enemy_ShooterView.this.getBulletFreq());
     		}
@@ -51,6 +51,7 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		bulletSpeedY=bulletVerticalSpeed;
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		myBulletType = new Bullet_LaserDefault();
+		myBullets = new ArrayList<BulletView>();
 	}
 	
 	@Override
@@ -108,12 +109,12 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 
 	@Override
 	public void setMyBullets(ArrayList<BulletView> bullets) {
-		myGun.myBullets=bullets;
+		myBullets=bullets;
 	}
 
 	@Override
 	public ArrayList<BulletView> getMyBullets() {
-		return myGun.myBullets;
+		return myBullets;
 	}
 
 	@Override
