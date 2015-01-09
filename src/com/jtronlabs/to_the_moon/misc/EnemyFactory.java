@@ -5,26 +5,55 @@ import android.os.Handler;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.jtronlabs.enemy_types.Gravity_MeteorView;
+import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
+import com.jtronlabs.enemy_types.Shooting_DiagonalMovingView;
 import com.jtronlabs.orbiters.Orbiter_CircleView;
 import com.jtronlabs.orbiters.Orbiter_SquareView;
 import com.jtronlabs.orbiters.Orbiter_TriangleView;
 import com.jtronlabs.orbiters.Shooting_OrbiterView;
-import com.jtronlabs.specific_view_types.Gravity_MeteorView;
-import com.jtronlabs.specific_view_types.Shooting_ArrayMovingView;
-import com.jtronlabs.specific_view_types.Shooting_DiagonalMovingView;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.views.ProjectileView;
 
 public class EnemyFactory{
-			
+	
+//	private int numMeteor,numShooterArray,numdiveBomber,numFullScreenDiag,
+//	numCircleOrbit,numSquareOrbit,numTriangleOrbit,numGiantMeteor;
+	
 	private Context ctx;
 	private Levels levelInfo = new Levels();
 	private RelativeLayout gameLayout;
     
     private Handler enemySpawnHandler = new Handler();
     
+//    private Runnable spawnAllEnemiesRunnable = new Runnable(){
+//		@Override
+//		public void run() {
+//			// TODO Auto-generated method stub
+//			
+//			enemySpawnHandler.postDelayed(this, 500);
+//		}
+//    };
+    
+    private Runnable spawnOrbitersRunnable = new Runnable(){
+		@Override
+		public void run() {
+			Shooting_OrbiterView circle = EnemyFactory.this.spawnCirclingOrbitingView();
+			Shooting_OrbiterView triangle = EnemyFactory.this.spawnTriangularOrbitingView();
+			Shooting_OrbiterView square = EnemyFactory.this.spawnSquareOrbitingView();
+			
+    		gameLayout.addView(circle,1);
+    		gameLayout.addView(triangle,1);
+    		gameLayout.addView(square,1);
+    		
+    		GameActivity.enemies.add(circle);
+    		GameActivity.enemies.add(triangle);
+    		GameActivity.enemies.add(square);
+			
+			enemySpawnHandler.postDelayed(this, calculateOrbiterSpawnInterval());
+		}
+    };
     private Runnable meteorSpawningRunnable = new Runnable(){
     	@Override
         public void run() {
@@ -71,20 +100,11 @@ public class EnemyFactory{
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
-//			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnDiveBomber();
-//			
-//			gameLayout.addView(shooter2,1);
-//    		GameActivity.enemies.add(shooter2);
-//    		
-//			Shooting_DiagonalMovingView shooter3 = EnemyFactory.this.spawnDiveBomber();
-//			
-//			gameLayout.addView(shooter3,1);
-//    		GameActivity.enemies.add(shooter3);
-//			Shooting_DiagonalMovingView shooter4 = EnemyFactory.this.spawnDiveBomber();
-//			
-//			gameLayout.addView(shooter4,1);
-//    		GameActivity.enemies.add(shooter4);
-   
+			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnDiveBomber();
+			
+			gameLayout.addView(shooter2,1);
+    		GameActivity.enemies.add(shooter2);
+    		
 			enemySpawnHandler.postDelayed(this, calculatDiagonalShooterSpawnInterval());
 		}
 	};
@@ -93,20 +113,28 @@ public class EnemyFactory{
 		ctx=context;
 		gameLayout=gameScreen;
 		
+//		numMeteor=0;
+//		numShooterArray=0;
+//		numdiveBomber=0;
+//		numFullScreenDiag=0;
+//		numCircleOrbit=0;
+//		numSquareOrbit=0;
+//		numTriangleOrbit=0;
+//		numGiantMeteor=0;
+		
 		Shooting_ArrayMovingView.resetSimpleShooterArray();
 		Shooting_ArrayMovingView.startMovingAllShooters();
 	} 
 	
 	public void stopSpawning(){
-		enemySpawnHandler.removeCallbacks(meteorSpawningRunnable);
-	    enemySpawnHandler.removeCallbacks(spawnShooterArrayRunnable);
-	    enemySpawnHandler.removeCallbacks(spawnDiagonalShooterRunnable);
+		enemySpawnHandler.removeCallbacks(null);
 	}
 	
 	public void beginSpawning(){
 		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
-//	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
 	}  
 	
 	//GET INTERVAL SPAWN MONSTERS
@@ -116,8 +144,13 @@ public class EnemyFactory{
 		return (long) (meteorInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*3000);
 	}
 	
+	private long calculateOrbiterSpawnInterval(){
+		final int meteorInterval = 5000;
+		return (long) (meteorInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*3000);
+	}
+	
 	private long calculateMovingSideToSideShooterSpawnInterval(){
-		final int simpleArrayShooterInterval = 6000;
+		final int simpleArrayShooterInterval = 15000;
 		return (long) (simpleArrayShooterInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*3000);
 	}
 	

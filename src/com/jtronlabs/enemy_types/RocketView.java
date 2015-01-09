@@ -1,16 +1,14 @@
-package com.jtronlabs.specific_view_types;
+package com.jtronlabs.enemy_types;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.guns.Gun_Special_ShootTowardsProjectileDualShot;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
-import com.jtronlabs.to_the_moon.views.Projectile_GravityView;
 
 public class RocketView extends Gravity_ShootingView implements GameObjectInterface{
 	

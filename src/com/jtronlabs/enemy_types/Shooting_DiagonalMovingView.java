@@ -1,4 +1,4 @@
-package com.jtronlabs.specific_view_types;
+package com.jtronlabs.enemy_types;
 
 import android.content.Context;
 import android.widget.RelativeLayout;
@@ -12,7 +12,6 @@ import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightDualShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
-import com.jtronlabs.to_the_moon.views.Projectile_GravityView;
 
 public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements GameObjectInterface{
 	

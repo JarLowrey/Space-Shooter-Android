@@ -14,6 +14,7 @@ public final class R {
         public static final int rocket_launch_title_screen=0x7f040002;
         public static final int spin_earth=0x7f040003;
         public static final int spin_moon=0x7f040004;
+        public static final int stars_repeat=0x7f040005;
     }
     public static final class attr {
     }
@@ -87,31 +88,31 @@ public final class R {
         public static final int bullet_damage=0x7f020005;
         public static final int bullet_freq=0x7f020006;
         public static final int bullet_speed=0x7f020007;
-        public static final int control_panel=0x7f020008;
-        public static final int danger=0x7f020009;
-        public static final int dual_bullet=0x7f02000a;
-        public static final int explosion1=0x7f02000b;
-        public static final int heal=0x7f02000c;
-        public static final int ic_action_play=0x7f02000d;
-        public static final int ic_launcher=0x7f02000e;
-        public static final int laser1_enemy=0x7f02000f;
-        public static final int laser1_friendly=0x7f020010;
-        public static final int laser_default_img=0x7f020011;
-        public static final int laser_long_img=0x7f020012;
-        public static final int level1=0x7f020013;
-        public static final int level2=0x7f020014;
-        public static final int level3=0x7f020015;
-        public static final int level4=0x7f020016;
-        public static final int meteor=0x7f020017;
-        public static final int missile=0x7f020018;
-        public static final int missile_bonus=0x7f020019;
-        public static final int moon=0x7f02001a;
-        public static final int rocket=0x7f02001b;
-        public static final int rockets_fire=0x7f02001c;
-        public static final int satellite=0x7f02001d;
-        public static final int tri_bullet=0x7f02001e;
-        public static final int ufo=0x7f02001f;
-        public static final int upgrade_gun=0x7f020020;
+        public static final int control_panel_background=0x7f020008;
+        public static final int dual_bullet=0x7f020009;
+        public static final int explosion1=0x7f02000a;
+        public static final int heal=0x7f02000b;
+        public static final int ic_action_play=0x7f02000c;
+        public static final int ic_launcher=0x7f02000d;
+        public static final int laser1_enemy=0x7f02000e;
+        public static final int laser1_friendly=0x7f02000f;
+        public static final int laser_default_img=0x7f020010;
+        public static final int laser_long_img=0x7f020011;
+        public static final int level1=0x7f020012;
+        public static final int level2=0x7f020013;
+        public static final int level3=0x7f020014;
+        public static final int level4=0x7f020015;
+        public static final int meteor=0x7f020016;
+        public static final int missile=0x7f020017;
+        public static final int missile_bonus=0x7f020018;
+        public static final int moon=0x7f020019;
+        public static final int rocket=0x7f02001a;
+        public static final int rockets_fire=0x7f02001b;
+        public static final int satellite=0x7f02001c;
+        public static final int tri_bullet=0x7f02001d;
+        public static final int ufo=0x7f02001e;
+        public static final int upgrade_gun=0x7f02001f;
+        public static final int view_damaged=0x7f020020;
         public static final int white_center_red_outline=0x7f020021;
     }
     public static final class id {

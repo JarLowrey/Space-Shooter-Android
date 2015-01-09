@@ -19,8 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jtronlabs.bonuses.BonusView;
-import com.jtronlabs.specific_view_types.RocketView;
-import com.jtronlabs.specific_view_types.Shooting_ArrayMovingView;
+import com.jtronlabs.enemy_types.RocketView;
+import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
 import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.misc.EnemyFactory;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;

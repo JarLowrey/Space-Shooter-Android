@@ -8,8 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.misc.DrawTextView;
 
-
+ 
 public class MainActivity extends Activity implements OnClickListener{
 
 	private static float screenDens,widthPixels,heightPixels;

@@ -106,6 +106,11 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			break;
 		}
 		
+		//if off bottom of screen, remove
+		if( highestPositionThreshold==NO_THRESHOLD && y > MainActivity.getHeightPixels() ){
+			this.removeView(false);
+		}
+		
 		return atThreshold;
 	}
 
@@ -123,7 +128,7 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			viewDies= true;
 		}else{
 			//set the background behind this view, and then remove it after howLongBackgroundIsApplied milliseconds
-			this.setBackgroundResource(R.drawable.danger);
+			this.setBackgroundResource(R.drawable.view_damaged);
 			final int howLongBackgroundIsApplied=100;
 			this.postDelayed(setBackgroundTransparentRunnable, howLongBackgroundIsApplied);
 			

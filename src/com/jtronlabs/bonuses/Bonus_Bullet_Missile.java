@@ -3,7 +3,6 @@ package com.jtronlabs.bonuses;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.bullets.Bullet_LaserLong;
 import com.jtronlabs.to_the_moon.bullets.Bullet_Missile;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;

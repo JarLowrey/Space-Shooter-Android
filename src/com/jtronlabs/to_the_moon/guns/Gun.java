@@ -3,7 +3,6 @@ package com.jtronlabs.to_the_moon.guns;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.jtronlabs.to_the_moon.bullets.Projectile_BulletView;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;

@@ -27,7 +27,7 @@
         android:id="@+id/btn_background"
         android:layout_width="match_parent"
         android:layout_height="@dimen/control_panel_height"
-        android:background="@drawable/control_panel"
+        android:background="@drawable/control_panel_background"
 	    android:layout_alignParentBottom="true"
         android:src="@drawable/rocket" >
        
@@ -91,7 +91,7 @@
 
 	</RelativeLayout>
 
-    <com.jtronlabs.specific_view_types.RocketView
+    <com.jtronlabs.enemy_types.RocketView
         android:id="@+id/rocket_game"
         android:layout_width="@dimen/rocket_game_width"
         android:layout_height="@dimen/rocket_game_height"

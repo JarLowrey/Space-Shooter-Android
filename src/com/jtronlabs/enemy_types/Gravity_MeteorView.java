@@ -1,4 +1,4 @@
-package com.jtronlabs.specific_view_types;
+package com.jtronlabs.enemy_types;
 
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
@@ -21,8 +21,6 @@ public class Gravity_MeteorView extends Projectile_GravityView implements GameOb
 		super(context,score,speedY,speedY,speedX,collisionDamage,
 				health,probSpawnBeneficialObjectOnDeath);
 
-		this.lowestPositionThreshold=(int) MainActivity.getHeightPixels();
-		
 		//set image background
 		this.setImageResource(R.drawable.meteor);
 		
