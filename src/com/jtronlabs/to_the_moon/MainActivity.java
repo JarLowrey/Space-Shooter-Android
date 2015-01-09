@@ -3,8 +3,9 @@ package com.jtronlabs.to_the_moon;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -24,11 +25,12 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	private static float screenDens,widthPixels,heightPixels;
 	
+	AnimationDrawable animation;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 
 		//find screen density and width/height of screen in pixels
@@ -40,12 +42,12 @@ public class MainActivity extends Activity implements OnClickListener{
 	    heightPixels = displayMetrics.heightPixels;
 	    
 	    
-		//HACK to make stars appear as tiles in X direction only
-		BitmapDrawable TileMe = (BitmapDrawable)getResources().getDrawable(R.drawable.level4);
-		TileMe.setTileModeX(Shader.TileMode.REPEAT);
-		ImageView stars = (ImageView)findViewById(R.id.stars);
-		stars.setBackgroundDrawable(TileMe); 
-		
+//		//HACK to make stars appear as tiles in X direction only
+//		BitmapDrawable TileMe = (BitmapDrawable)getResources().getDrawable(R.drawable.level4);
+//		TileMe.setTileModeX(Shader.TileMode.REPEAT);
+//		ImageView stars = (ImageView)findViewById(R.id.stars);
+//		stars.setBackgroundDrawable(TileMe);
+	    
 		// moon spinning animation
 		Animation moonSpin=AnimationUtils.loadAnimation(this,R.anim.spin_moon);
 		ImageView moon= (ImageView)findViewById(R.id.moon);
@@ -67,6 +69,15 @@ public class MainActivity extends Activity implements OnClickListener{
 		ImageView rocket= (ImageView)findViewById(R.id.rocket_main);
 	    Animation rocketLaunch=AnimationUtils.loadAnimation(this,R.anim.rocket_launch_title_screen);
 		rocket.startAnimation(rocketLaunch);
+
+		//create background animation
+		ImageView imgView = (ImageView) findViewById(R.id.animating_image_view_main_menu);
+	    animation = (AnimationDrawable) imgView.getBackground();
+	    imgView.post(new Runnable(){//must be called on ImageView's thread so that the UI will be set up (completes after onCreate is finished)
+	        @Override
+	        public void run() {
+	            animation.start();
+	        }});
 	}
 
 	@Override

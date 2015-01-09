@@ -10,7 +10,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	
 	public static final int DEFAULT_ANGULAR_VELOCITY=5, 
 			MAX_ANGULAR_VELOCITY = 30;
-	public static final int DEFAULT_CIRCLE_RADIUS=100;
+	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels()/3);
 	
 	
 	private int angularVelocity;

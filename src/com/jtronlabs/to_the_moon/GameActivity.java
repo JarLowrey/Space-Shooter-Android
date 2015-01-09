@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -184,7 +183,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		//set up rocket
 		rocket = (RocketView)findViewById(R.id.rocket_game);
 		friendlies.add(rocket);
-//		rocket.threshold=heightPixels/8;
 //		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
 //		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
 //		    @Override 

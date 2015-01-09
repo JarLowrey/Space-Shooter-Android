@@ -7,11 +7,10 @@
     tools:context="${relativePackage}.${activityClass}" >
 
     <ImageView
-        android:id="@+id/stars"
+        android:id="@+id/animating_image_view_main_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/level4" 
-        />
+        android:background="@drawable/animating_main_menu"/>
         
     <ImageView
         android:id="@+id/moon"
