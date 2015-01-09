@@ -42,8 +42,8 @@
     <dimen name="bonus_laser_long_width">9.6dp</dimen>
     <dimen name="bonus_laser_long_height">75dp</dimen>
     
-    <dimen name="missile_one_width">25dp</dimen>
-    <dimen name="missile_one_height">40.375dp</dimen>
+    <dimen name="missile_one_width">20dp</dimen>
+    <dimen name="missile_one_height">32.3dp</dimen>
     
     <dimen name="ic_small">30dp</dimen>
     <dimen name="ic_med">40dp</dimen>
