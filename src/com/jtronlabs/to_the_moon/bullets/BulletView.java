@@ -69,19 +69,20 @@ public class BulletView extends Moving_ProjectileView{
 		this.post(moveBulletRunnable);
 	}
 	
-	public void setBulletRotation(){		
-		//set bullet rotation
-		if( ! (Math.abs(this.getSpeedX())<0.00001)){  //save some resources by not rotating if xSpeed is 0
-			double arcTan;
-			if(theOneWhoShotMe.isFriendly()){
-				arcTan = Math.atan(this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
-			}else{
-				arcTan = Math.atan(-1*this.getSpeedX()/this.getSpeedY());//Multiply xSpeed by negative if shooting down
-				arcTan = Math.PI + arcTan; 
-			}
-			final float rotVal = (float) Math.toDegrees(arcTan);
-			this.setRotation(rotVal);
+	public void setBulletRotation(){	
+		float rotVal=0;
+		
+		
+		double arcTan;
+		if(theOneWhoShotMe.isFriendly()){
+			arcTan = Math.atan(this.getSpeedX()/this.getSpeedY());//Use trig to find rotation values of bullets
+		}else{
+			arcTan = Math.atan(this.getSpeedX()/this.getSpeedY());//Multiply xSpeed by negative if shooting down
+			arcTan = Math.PI + arcTan; 
 		}
+		rotVal = (float) Math.toDegrees(arcTan);
+			
+		this.setRotation(rotVal);
 	}
 	
 	/**

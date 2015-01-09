@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.bullets.Bullet;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
-import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
+import com.jtronlabs.to_the_moon.bullets.Bullet_LaserShort;
 import com.jtronlabs.to_the_moon.guns.Gun;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
@@ -52,7 +52,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		bulletDamage=bulletDmg;
 		bulletSpeedY=bulletVerticalSpeed;
 		myBullets = new ArrayList<BulletView>();
-		myBulletType = new Bullet_LaserDefault();
+		myBulletType = new Bullet_LaserShort();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		this.removeCallbacks(null);
 		startShooting();//protagonist spawns through Attirbute set constructor, so this is safe
@@ -68,7 +68,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		bulletDamage=bulletDmg;
 		bulletSpeedY=bulletVerticalSpeed;
 		myBullets = new ArrayList<BulletView>();
-		myBulletType = new Bullet_LaserDefault();
+		myBulletType = new Bullet_LaserShort();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		this.removeCallbacks(null);
 	}

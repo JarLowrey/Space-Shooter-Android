@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.jtronlabs.to_the_moon.bullets.Bullet;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
-import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
+import com.jtronlabs.to_the_moon.bullets.Bullet_LaserShort;
 import com.jtronlabs.to_the_moon.guns.Gun;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
@@ -49,7 +49,7 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		bulletFreq=bulletFrequency;
 		bulletDmg=bulletDamage;
 		bulletSpeedY=bulletVerticalSpeed;
-		myBulletType = new Bullet_LaserDefault();
+		myBulletType = new Bullet_LaserShort();
 		myBullets = new ArrayList<BulletView>();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
 		startShooting();

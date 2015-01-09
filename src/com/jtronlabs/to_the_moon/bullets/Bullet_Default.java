@@ -5,14 +5,11 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
   
 
-public abstract class Bullet{
+public abstract class Bullet_Default extends Bullet{
 	
-	public final static int BULLET_LEFT=0,
-			BULLET_MIDDLE=50,
-			BULLET_RIGHT=100;
-	public static final double BULLET_TRAVELS_STRAIGHT=0;
+	//no threads needed for a default bullet
+	public void stopBulletThreads(){}
 	
-	public abstract void stopBulletThreads();
 	public abstract BulletView getBullet(Context context,Shooter shooter,double bulletSpeedX,double positionOnShooterAsAPercentage);
 	
 }

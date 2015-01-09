@@ -2,7 +2,6 @@ package com.jtronlabs.enemy_types_orbiters;
 
 import android.content.Context;
 
-import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
 
@@ -56,7 +55,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 		currentSideOfTriangle=0;
 		orbitDist=orbitLength;
 
-		//default to begin orbit at top of triangle, 1/3 of way through (thus top middle, moving right)
+		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold((int) (orbitY+(orbitDist*this.getSpeedY() ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist /3.0);
 		

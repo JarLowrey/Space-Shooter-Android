@@ -1,4 +1,4 @@
-package com.jtronlabs.to_the_moon.misc;
+package com.jtronlabs.to_the_moon.game_state;
 
 import com.jtronlabs.to_the_moon.R;
  

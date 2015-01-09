@@ -23,8 +23,8 @@ import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
 import com.jtronlabs.friendly_types.FriendlyView;
 import com.jtronlabs.friendly_types.RocketView;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
-import com.jtronlabs.to_the_moon.misc.EnemyFactory;
-import com.jtronlabs.to_the_moon.misc.Levels;
+import com.jtronlabs.to_the_moon.game_state.EnemyFactory;
+import com.jtronlabs.to_the_moon.game_state.Levels;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 

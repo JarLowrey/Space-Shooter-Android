@@ -6,7 +6,7 @@ import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
   
 
-public class Bullet_Missile extends Bullet{
+public class Bullet_Missile extends Bullet_Default{
 	
 	public BulletView getBullet(Context context,Shooter shooter,double bulletSpeedX,
 	double positionOnShooterAsAPercentage){

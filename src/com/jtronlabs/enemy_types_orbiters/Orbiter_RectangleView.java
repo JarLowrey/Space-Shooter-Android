@@ -2,7 +2,6 @@ package com.jtronlabs.enemy_types_orbiters;
 
 import android.content.Context;
 
-import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
 

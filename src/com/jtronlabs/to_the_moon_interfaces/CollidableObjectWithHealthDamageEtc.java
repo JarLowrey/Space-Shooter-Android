@@ -22,4 +22,7 @@ public interface CollidableObjectWithHealthDamageEtc{
 	public int getWidth();	
 	public float getY();	
 	public int getHeight();
+	public boolean post(Runnable run);
+	public boolean postDelayed(Runnable run,long millisecondDelay);
+	public boolean removeCallbacks(Runnable run);
 }

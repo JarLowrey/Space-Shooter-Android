@@ -90,13 +90,13 @@ public class MovingView extends ImageView implements GameObjectInterface{
     		}
 			this.setY(y);
 			break;
-		//check if speeds are negative and adjust accordingly.
+		//Since x speed can be negative, if the caller asks to move in a specific direction, ensure they move that way
 		case RIGHT:
-			x=(float) ((speedX>0) ? x+speedX : x-speedX); 
+			x=(float) ((speedX>0) ? x+speedX : x-speedX); //x+abs(speedX)?
 			this.setX(x);
 			break;
 		case LEFT:
-			x=(float) ((speedX>0) ? x-speedX : x+speedX); 
+			x=(float) ((speedX>0) ? x-speedX : x+speedX); //x-abs
 			this.setX(x);
 			break;
 		}

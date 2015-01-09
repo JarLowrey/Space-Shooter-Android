@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.bullets.Bullet_Tracking_LaserShort;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
 public class RocketView extends Friendly_ShooterView{
@@ -24,6 +25,7 @@ public class RocketView extends Friendly_ShooterView{
 				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
 		this.stopShooting();
+		this.setBulletType(new Bullet_Tracking_LaserShort(this,this));
 	}
 
 	public RocketView(Context context) {

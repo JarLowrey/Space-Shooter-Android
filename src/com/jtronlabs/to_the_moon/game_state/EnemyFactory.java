@@ -1,4 +1,4 @@
-package com.jtronlabs.to_the_moon.misc;
+package com.jtronlabs.to_the_moon.game_state;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,6 +8,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.jtronlabs.enemy_types.Gravity_MeteorView;
 import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
 import com.jtronlabs.enemy_types.Shooting_DiagonalMovingView;
+import com.jtronlabs.enemy_types.Shooting_Diagonal_DiveBomberView;
 import com.jtronlabs.enemy_types_orbiters.Orbiter_CircleView;
 import com.jtronlabs.enemy_types_orbiters.Orbiter_RectangleView;
 import com.jtronlabs.enemy_types_orbiters.Orbiter_TriangleView;
@@ -28,7 +29,7 @@ public class EnemyFactory{
 //	private int numMeteor,numShooterArray,numdiveBomber,numFullScreenDiag,
 //	numCircleOrbit,numRectangleOrbit,numTriangleOrbit,numGiantMeteor;
 	
-	private boolean spawning=false;
+//	private boolean spawning=false;
 	private Context ctx;
 	private Levels levelInfo = new Levels();
 	private RelativeLayout gameLayout;
@@ -38,8 +39,7 @@ public class EnemyFactory{
 //    private Runnable spawnAllEnemiesRunnable = new Runnable(){
 //		@Override
 //		public void run() {
-//			// TODO Auto-generated method stub
-//			
+//    
 //			enemySpawnHandler.postDelayed(this, 500);
 //		}
 //    };
@@ -204,27 +204,26 @@ public class EnemyFactory{
 		
 	}
 
-	private Shooting_DiagonalMovingView spawnDiveBomber(){
+	private Shooting_Diagonal_DiveBomberView spawnDiveBomber(){
 		final int diff = levelInfo.getDifficulty();
 		
-		final int score=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SCORE*diff;
-		final double speedY=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SPEED_Y,
-				speedX=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SPEED_X, 
-				collisionDamage=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE*diff,
-				health=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_HEALTH*diff,
-				spawnBeneficialObject= Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff,
-				bulletDmg=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_DAMAGE*diff,
-				bulletSpdY=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y*Math.sqrt(diff),
-				bulletFreq=Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * SHORT_INTERVAL * Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+		final int score=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SCORE*diff;
+		final double speedY=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SPEED_Y,
+				speedX=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SPEED_X, 
+				collisionDamage=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE*diff,
+				health=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_HEALTH*diff,
+				spawnBeneficialObject= Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff,
+				bulletDmg=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_DAMAGE*diff,
+				bulletSpdY=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y*Math.sqrt(diff),
+				bulletFreq=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
+				(Math.random() * SHORT_INTERVAL * Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
-		Shooting_DiagonalMovingView diveBomber =  new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
+		Shooting_Diagonal_DiveBomberView diveBomber =  new Shooting_Diagonal_DiveBomberView(ctx,score,speedY,speedX,
 				collisionDamage,health,height,width,spawnBeneficialObject,bulletFreq,
 				bulletSpdY,bulletDmg);
-		diveBomber.setDiveBomber();
 		
 		return diveBomber;
 	}
