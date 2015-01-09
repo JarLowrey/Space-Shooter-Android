@@ -139,7 +139,7 @@ public class EnemyFactory{
 	
 	public void beginSpawning(){
 		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
-//	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
 	}  
@@ -147,8 +147,8 @@ public class EnemyFactory{
 	//GET INTERVAL SPAWN MONSTERS
 	
 	private long calculateMeteorSpawnInterval(){
-		final int meteorInterval = 3000;
-		return (long) (meteorInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*3000);
+		final int meteorInterval = 2000;
+		return (long) (meteorInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*4000);
 	}
 	
 	private long calculateOrbiterSpawnInterval(){

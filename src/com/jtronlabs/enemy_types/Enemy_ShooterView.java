@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.jtronlabs.friendly_types.Friendly_ShooterView;
 import com.jtronlabs.to_the_moon.bullets.Bullet;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.bullets.Bullet_LaserDefault;
@@ -87,7 +86,7 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 	 * @param ammo Amount of ammo new special gun will have
 	 */
 	public void giveSpecialGun(Gun_Special newGun, int ammo){
-		this.myGun.transferGunProperties(newGun);
+		newGun.setPreviousUpgradeableGun(this.myGun.getMostRecentUpgradeableGun());
 		this.myGun=newGun;
 		newGun.setAmmo(ammo);
 	}

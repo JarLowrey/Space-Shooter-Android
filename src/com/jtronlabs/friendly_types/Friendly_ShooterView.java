@@ -111,7 +111,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	 * @param ammo Amount of ammo new special gun will have
 	 */
 	public void giveSpecialGun(Gun_Special newGun, int ammo){
-		this.myGun.transferGunProperties(newGun);
+		newGun.setPreviousUpgradeableGun(this.myGun.getMostRecentUpgradeableGun());
 		this.myGun=newGun;
 		newGun.setAmmo(ammo);
 	}

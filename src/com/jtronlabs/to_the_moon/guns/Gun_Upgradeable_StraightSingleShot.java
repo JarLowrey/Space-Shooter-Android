@@ -28,7 +28,7 @@ public class Gun_Upgradeable_StraightSingleShot extends Gun_Upgradeable {
 		//return the Dual StraightShot
 		shooter.stopShooting();
 		Gun_Upgradeable_StraightDualShot newGun = new Gun_Upgradeable_StraightDualShot(ctx,shooter);
-		this.transferGunProperties(newGun);
+		newGun.setPreviousUpgradeableGun(this);
 		return newGun;
 	}
 	@Override

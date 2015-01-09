@@ -17,7 +17,9 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.misc.DrawTextView;
 
- 
+ //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
+
+
 public class MainActivity extends Activity implements OnClickListener{
 
 	private static float screenDens,widthPixels,heightPixels;
