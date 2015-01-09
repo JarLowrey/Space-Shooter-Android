@@ -18,8 +18,8 @@ import com.jtronlabs.to_the_moon_interfaces.Shooter;
 public class Enemy_ShooterView extends EnemyView implements Shooter{
 	
 	//myGun needs to be set in a specific View's class
-	public Gun myGun;
-	public Bullet myBulletType;
+	private Gun myGun;
+	private Bullet myBulletType;
 	private ArrayList<BulletView> myBullets;
 	
 	private double bulletFreq,bulletSpeedY,bulletDamage;
@@ -105,6 +105,11 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 	@Override
 	public void setMyBullets(ArrayList<BulletView> bullets) {
 		myBullets=bullets;
+	}
+	
+	@Override
+	public void setGun(Gun newGun){
+		myGun=newGun;
 	}
 
 	@Override

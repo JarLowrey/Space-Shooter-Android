@@ -34,6 +34,7 @@ public abstract class Gun {
 //		myBullets = new ArrayList<BulletView>();
 		shooter=theShooter;
 		transferGunProperties(this);
+		shooter.startShooting();
 	} 
 	
 	/**

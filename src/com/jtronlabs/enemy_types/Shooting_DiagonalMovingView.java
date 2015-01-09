@@ -65,7 +65,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		super(context,score,speedY,speedX,collisionDamage,
 				health,probSpawnBeneficialObjectOnDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
 		
-		this.myGun=new Gun_Upgradeable_StraightDualShot(context, this);
+		this.setGun(new Gun_Upgradeable_StraightDualShot(context, this));
 //		this.upgradeOrDowngradeGun(true);
 		Gun_Special newGun = new Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket,this);
 		this.giveSpecialGun(newGun, Integer.MAX_VALUE);

@@ -19,8 +19,8 @@ import com.jtronlabs.to_the_moon_interfaces.Shooter;
 public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
 	//myGun needs to be set in a specific View's class
-	public Gun myGun;
-	public Bullet myBulletType;
+	private Gun myGun;
+	private Bullet myBulletType;
 	private ArrayList<BulletView> myBullets;
 	
 	private double bulletFreq,bulletSpeedY,bulletDamage;
@@ -194,5 +194,10 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	@Override
 	public void setBulletType(Bullet newBulletType) {
 		this.myBulletType=newBulletType;
+	}
+
+	@Override
+	public void setGun(Gun newGun) {
+		myGun = newGun;
 	}
 }

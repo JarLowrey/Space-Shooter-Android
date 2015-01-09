@@ -60,16 +60,15 @@ public class GameActivity extends Activity implements OnTouchListener{
         		boolean friendlyIsAShooter = friendlies.get(k) instanceof Shooter;
         		
 	        	for(int i=enemies.size()-1;i>=0;i--){
-
-	        		boolean enemyIsAShooter = enemies.get(k) instanceof Shooter;
-	        		
 	        		/*			COLLISION DETECTION			*/
 	        		boolean enemyDies=false,friendlyDies=false;	        		
 	        		EnemyView enemy = enemies.get(i);
-	        		
+	        		boolean enemyIsAShooter = enemy instanceof Shooter;
+
 	        		//check enemy's bullets
 	        		if(enemyIsAShooter){
-		        		Shooter enemyShooter = (Shooter)enemies.get(k);
+		        		Shooter enemyShooter = (Shooter)enemy;
+        				Log.d("lowrey","enemyShooter");
 	        			if(enemyShooter.getGun() != null){
 	        				Log.d("lowrey","enemyGunNotNull");
 		        			ArrayList<BulletView> enemyBullets = enemyShooter.getMyBullets();

@@ -36,6 +36,6 @@ public interface Shooter extends CollidableObjectWithHealthDamageEtc{
 	public void setBulletSpeedY(double newSpeed);
 	public void setBulletDamage(double newDamage);
 	public void setBulletType(Bullet newBulletType);
-//	public void setGun();
+	public void setGun(Gun newGun);
 	public void setMyBullets(ArrayList<BulletView> bullets);
 }

@@ -1,7 +1,6 @@
 package com.jtronlabs.to_the_moon.bullets;
   
 import android.content.Context;
-import android.util.Log;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.GameActivity;
@@ -19,7 +18,6 @@ public class BulletView extends Moving_ProjectileView{
         public void run() {
     		//ensure view is not removed before running
     		if( ! BulletView.this.isRemoved()){
-    			Log.d("lowrey","bullet-speedy="+theOneWhoShotMe.getBulletSpeedY());
 	    		//move up and down
 	    		if(theOneWhoShotMe.isFriendly()){
 	    			BulletView.this.moveDirection(MovingView.UP);

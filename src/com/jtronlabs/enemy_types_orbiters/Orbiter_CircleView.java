@@ -8,7 +8,7 @@ import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObjectInterface {
 	
-	public static final int DEFAULT_ANGULAR_VELOCITY=5;
+	public static final int DEFAULT_ANGULAR_VELOCITY=5, MAX_ANGULAR_VELOCITY = 30;
 	public static final double DEFAULT_CIRCLE_RADIUS=100*MainActivity.getScreenDens();
 	
 	
@@ -62,6 +62,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 //			}
 	
 				//dear christ. Why am i so stupid.
+				if(angularVelocity>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
 				final int currentDegree = ( angularVelocity*howManyTimesMoved )%360;
 				float y = (float) (radius* Math.sin(Math.toRadians(currentDegree)));
 				float x = (float) (radius* Math.cos(Math.toRadians(currentDegree)));

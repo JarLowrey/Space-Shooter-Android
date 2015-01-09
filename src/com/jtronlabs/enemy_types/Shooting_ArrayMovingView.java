@@ -81,7 +81,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			float heightView,float widthView,double probSpawnBeneficialObject,double bulletFreq,double bulletDamage,double bulletVerticalSpeed) {
 		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject, bulletFreq, bulletDamage,bulletVerticalSpeed);
 
-		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this);
+		this.setGun(new Gun_Upgradeable_StraightSingleShot(context, this));
 
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);
@@ -106,15 +106,14 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		}
 		this.setX(xPos);
 		this.setY(0);
-
+ 
 		allSimpleShooters.add(this);
 		
 //		Gun_Special_ShootTowardsProjectileDualShot newGun = new
 //				Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket, this);
 //		this.giveSpecialGun(newGun, 1000);
 
-		this.removeCallbacks(null);
-		restartThreads();
+		
 	}
 	
 	public void removeGameObject() {

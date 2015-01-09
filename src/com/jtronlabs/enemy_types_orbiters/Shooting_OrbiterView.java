@@ -44,7 +44,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		super(context, scoreForKilling, speedY,
 				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
 
-		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this);
+		this.setGun(new Gun_Upgradeable_StraightSingleShot(context, this));
 				
 		//set image background, width, and height
 		this.setImageResource(DEFAULT_BACKGROUND);
