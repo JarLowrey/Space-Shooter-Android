@@ -3,6 +3,7 @@ package com.jtronlabs.to_the_moon.parents;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon_interfaces.Gravity;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 

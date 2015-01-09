@@ -21,20 +21,6 @@ public class MovingView extends ImageView implements GameObjectInterface{
 			UP=0,RIGHT=1,DOWN=2,LEFT=3,
 			NOT_DEAD=-1;
 
-	Runnable checkOffScreenRunnable = new Runnable(){
-		@Override
-		public void run() {
-			float y = MovingView.this.getY();
-			
-    		//if offscreen clean up by destroying threads and removing view
-    		if(y>MainActivity.getHeightPixels() || y< -MovingView.this.getHeight()){
-    			MovingView.this.removeGameObject();
-    		}else{
-				MovingView.this.postDelayed(this,HOW_OFTEN_TO_MOVE);
-    		}
-		}
-	};
-	
 	boolean isRemoved;
 	double speedY,speedX;
 	
@@ -90,10 +76,18 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		switch(direction){
 		case UP:
 			y-=speedY;
+			if(y< -getHeight()){
+    			removeGameObject();
+    			return true;
+    		}
 			this.setY(y);
 			break;
 		case DOWN:
 			y+=speedY;
+			if(y>MainActivity.getHeightPixels()){
+    			removeGameObject();
+    			return true;
+    		}
 			this.setY(y);
 			break;
 		//check if speeds are negative and adjust accordingly.
@@ -129,7 +123,7 @@ public class MovingView extends ImageView implements GameObjectInterface{
 	}
 	@Override
 	public void restartThreads() {
-		this.post(checkOffScreenRunnable);
+		//do nothing yet
 	}
 
 	/**

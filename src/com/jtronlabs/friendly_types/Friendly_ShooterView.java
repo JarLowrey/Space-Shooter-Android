@@ -54,6 +54,8 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		myBullets = new ArrayList<BulletView>();
 		myBulletType = new Bullet_LaserDefault();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
+		this.removeCallbacks(null);
+		startShooting();//protagonist spawns through Attirbute set constructor, so this is safe
 	}
 
 	public Friendly_ShooterView(Context context,AttributeSet at, double projectileSpeedY,double projectileSpeedX, 
@@ -68,6 +70,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		myBullets = new ArrayList<BulletView>();
 		myBulletType = new Bullet_LaserDefault();
 		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
+		this.removeCallbacks(null);
 	}
 	
 	@Override
