@@ -73,11 +73,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//create background animation
 		ImageView imgView = (ImageView) findViewById(R.id.animating_image_view_main_menu);
 	    animation = (AnimationDrawable) imgView.getBackground();
-	    imgView.post(new Runnable(){//must be called on ImageView's thread so that the UI will be set up (completes after onCreate is finished)
-	        @Override
-	        public void run() {
-	            animation.start();
-	        }});
+	    animation.start();
 	}
 
 	@Override

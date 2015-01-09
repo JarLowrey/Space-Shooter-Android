@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	private static TextView ammoText;
 	private static ProgressBar healthBar;
 	public static RocketView rocket;
+	public static ImageView rocketExhaust;
 //	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
 
@@ -181,6 +183,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		healthBar.setProgress(healthBar.getMax());
 		
 		//set up rocket
+		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
 		rocket = (RocketView)findViewById(R.id.rocket_game);
 		friendlies.add(rocket);
 //		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
