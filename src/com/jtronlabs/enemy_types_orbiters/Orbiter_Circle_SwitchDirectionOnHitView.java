@@ -10,7 +10,7 @@ public class Orbiter_Circle_SwitchDirectionOnHitView extends Orbiter_CircleView 
 	public Orbiter_Circle_SwitchDirectionOnHitView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
 			float heightView,float widthView,double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath,
-			double circleRadius,int angularVelocityInDegrees) {
+			int circleRadius,int angularVelocityInDegrees) {
 		super( context, score, speedY,  speedX, collisionDamage, 
 				 health,  bulletFreq,
 				 heightView, widthView, bulletDamage, bulletVerticalSpeed, probSpawnBeneficialObjecyUponDeath,

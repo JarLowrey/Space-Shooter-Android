@@ -47,15 +47,15 @@ public class EnemyFactory{
     private Runnable spawnOrbitersRunnable = new Runnable(){
 		@Override
 		public void run() {
-			Shooting_OrbiterView circle = EnemyFactory.this.spawnCirclingOrbitingView();
+//			Shooting_OrbiterView circle = EnemyFactory.this.spawnCirclingOrbitingView();
 			Shooting_OrbiterView triangle = EnemyFactory.this.spawnTriangularOrbitingView();
 			Shooting_OrbiterView rectangle = EnemyFactory.this.spawnRectangleOrbitingView();
 			
-    		gameLayout.addView(circle,1);
+//    		gameLayout.addView(circle,1);
     		gameLayout.addView(triangle,1);
     		gameLayout.addView(rectangle,1);
     		
-    		GameActivity.enemies.add(circle);
+//    		GameActivity.enemies.add(circle);
     		GameActivity.enemies.add(triangle);
     		GameActivity.enemies.add(rectangle);
 			
@@ -140,10 +140,10 @@ public class EnemyFactory{
 	}
 	
 	public void beginSpawning(){
-		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
-//	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
+//		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
 	}  
 	
 	//GET INTERVAL SPAWN MONSTERS
@@ -229,10 +229,10 @@ public class EnemyFactory{
 		return diveBomber;
 	}
 	
-	private Shooting_OrbiterView spawnCirclingOrbitingView(double radius,int angularVelocity){
+	private Shooting_OrbiterView spawnCirclingOrbitingView(int radius,int angularVelocity){
 		final int diff = levelInfo.getDifficulty();
 
-		final double orbitRadius=radius;
+		final int orbitRadius=radius;
 
 		final int score=Orbiter_CircleView.DEFAULT_SCORE*diff,
 				angVel=angularVelocity;

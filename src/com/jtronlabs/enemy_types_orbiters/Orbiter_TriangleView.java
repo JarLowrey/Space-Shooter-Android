@@ -55,12 +55,10 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 
 		currentSideOfTriangle=0;
 		orbitDist=orbitLength;
-		
-		//default to begin orbit at this point
-		this.setThreshold((int) (MainActivity.getHeightPixels()/3));
-		howManyTimesMoved=0;
-		
-		this.setY(0);
+
+		//default to begin orbit at top of triangle, 1/3 of way through (thus top middle, moving right)
+		this.setThreshold((int) (orbitY+(orbitDist*this.getSpeedY() ) / 2 ));
+		howManyTimesMoved=(int) (orbitDist /3.0);
 		
 	}
 	

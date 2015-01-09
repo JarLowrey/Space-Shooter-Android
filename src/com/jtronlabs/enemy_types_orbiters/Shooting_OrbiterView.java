@@ -10,6 +10,10 @@ import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
+
+	public static final float DEFAULT_ORBIT_Y=MainActivity.getHeightPixels()/3,
+			DEFAULT_ORBIT_X=MainActivity.getWidthPixels()/2;
+	
 	public final static int DEFAULT_SCORE=10,
 			DEFAULT_BACKGROUND=R.drawable.ufo,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
@@ -23,6 +27,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
 	private boolean hasBegunOrbiting=false;
 	protected int howManyTimesMoved;
+	protected float orbitY,orbitX;
 	
 	@Override
 	public boolean moveDirection(int direction){
@@ -40,9 +45,11 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
 	public Shooting_OrbiterView(Context context,int scoreForKilling,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
-			float heightView,float widthView,double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath) {
+			float heightView,float widthView,double bulletDamage,double bulletVerticalSpeed,
+			double probSpawnBeneficialObjecyUponDeath) {
 		super(context, scoreForKilling, speedY,
-				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
+				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, 
+				bulletFreq, bulletDamage, bulletVerticalSpeed);
 
 		this.setGun(new Gun_Upgradeable_StraightSingleShot(context, this));
 				
@@ -51,10 +58,11 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		final int height_int=(int)context.getResources().getDimension(R.dimen.diagonal_shooter_height);
 		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		
+
+		orbitX=DEFAULT_ORBIT_X;
+		orbitY=DEFAULT_ORBIT_Y;
 		this.setY(0);
-		this.setX(MainActivity.getWidthPixels()/2);
-		
+		this.setX(orbitX-this.getWidth()/2);
 	}
 	
 	public void restartThreads(){
@@ -62,6 +70,11 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			beginOrbit();
 		}
 		super.restartThreads();
+	}
+
+	public void setOrbitLocation(float pixelX,float pixelY){
+		orbitX=pixelX;
+		orbitY=pixelY;
 	}
 	public abstract void beginOrbit();
 	public abstract void endOrbit();

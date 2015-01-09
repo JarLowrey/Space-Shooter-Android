@@ -22,13 +22,13 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
 					break;
 				case 1:
-					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.UP);
+					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.DOWN);
 					break;
 				case 2:
 					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.LEFT);
 					break;
 				case 3:
-					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.DOWN);
+					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.UP);
 					break;
 				}
 				
@@ -54,10 +54,10 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;
-		
-		//default to begin orbit at this point
-		this.setThreshold((int) (MainActivity.getHeightPixels()/3));
-		howManyTimesMoved=0;
+	
+		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
+		this.setThreshold((int) (orbitY+(orbitDist*this.getSpeedY() ) / 2 ));
+		howManyTimesMoved=(int) (orbitDist *3.0/4);
 		
 		this.setY(0);
 

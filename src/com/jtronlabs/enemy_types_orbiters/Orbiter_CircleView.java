@@ -8,8 +8,9 @@ import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObjectInterface {
 	
-	public static final int DEFAULT_ANGULAR_VELOCITY=5, MAX_ANGULAR_VELOCITY = 30;
-	public static final double DEFAULT_CIRCLE_RADIUS=100*MainActivity.getScreenDens();
+	public static final int DEFAULT_ANGULAR_VELOCITY=5, 
+			MAX_ANGULAR_VELOCITY = 30;
+	public static final int DEFAULT_CIRCLE_RADIUS=100;
 	
 	
 	private int angularVelocity;
@@ -67,9 +68,11 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 				float y = (float) (radius* Math.sin(Math.toRadians(currentDegree)));
 				float x = (float) (radius* Math.cos(Math.toRadians(currentDegree)));
 				
-				Orbiter_CircleView.this.setX(MainActivity.getWidthPixels()/2+x);
-				Orbiter_CircleView.this.setY(Orbiter_CircleView.this.getThreshold()+y);
-				
+				final float midShipX = orbitX+x;
+				final float midShipY = orbitY+y;
+				Orbiter_CircleView.this.setX(midShipX);
+				Orbiter_CircleView.this.setY(midShipY);
+			
 				howManyTimesMoved++;
 				
 				Orbiter_CircleView.this.postDelayed(this,
@@ -82,18 +85,16 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	public Orbiter_CircleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
 			float heightView,float widthView,double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath,
-			double circleRadius,int angularVelocityInDegrees) {
+			int circleRadius,int angularVelocityInDegrees) {
 		super(context,score, speedY, speedX,
 				collisionDamage, health,bulletFreq,heightView,widthView,
 				bulletDamage,bulletVerticalSpeed, probSpawnBeneficialObjecyUponDeath);
 
-		//default to begin orbit at this point
-		this.setThreshold((int) (MainActivity.getHeightPixels()/3));
-		radius=circleRadius;
+		radius=circleRadius*MainActivity.getScreenDens();
 		angularVelocity=angularVelocityInDegrees;
-		howManyTimesMoved=0;
+		howManyTimesMoved=270/angularVelocity;//start orbit at 3/4 way through circle. This is degree 270. 
 		
-		this.setY(0);
+		this.setThreshold((int) (orbitY - radius));//begin orbit at top of circle
 
 	}
 	public void setAngularVelocity(int newVelocity){
