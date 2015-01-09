@@ -68,9 +68,9 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		//check enemy's bullets
 	        		if(enemyIsAShooter){
 		        		Shooter enemyShooter = (Shooter)enemy;
-        				Log.d("lowrey","enemyShooter");
+//        				Log.d("lowrey","enemyShooter");
 	        			if(enemyShooter.getGun() != null){
-	        				Log.d("lowrey","enemyGunNotNull");
+//	        				Log.d("lowrey","enemyGunNotNull");
 		        			ArrayList<BulletView> enemyBullets = enemyShooter.getMyBullets();
 		        			
 		        			for(int j=enemyBullets.size()-1;j>=0;j--){

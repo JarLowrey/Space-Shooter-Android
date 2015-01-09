@@ -63,7 +63,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 				projectileDamage,projectileHealth);
 
 		bulletFreq=bulletFrequency;
-		bulletDmg=bulletDamage;
+		bulletDamage=bulletDmg;
 		bulletSpeedY=bulletVerticalSpeed;
 		myBullets = new ArrayList<BulletView>();
 		myBulletType = new Bullet_LaserDefault();
