@@ -9,7 +9,7 @@ import com.jtronlabs.enemy_types.Gravity_MeteorView;
 import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
 import com.jtronlabs.enemy_types.Shooting_DiagonalMovingView;
 import com.jtronlabs.orbiters.Orbiter_CircleView;
-import com.jtronlabs.orbiters.Orbiter_SquareView;
+import com.jtronlabs.orbiters.Orbiter_RectangleView;
 import com.jtronlabs.orbiters.Orbiter_TriangleView;
 import com.jtronlabs.orbiters.Shooting_OrbiterView;
 import com.jtronlabs.to_the_moon.GameActivity;
@@ -19,7 +19,7 @@ import com.jtronlabs.to_the_moon.R;
 public class EnemyFactory{
 	
 //	private int numMeteor,numShooterArray,numdiveBomber,numFullScreenDiag,
-//	numCircleOrbit,numSquareOrbit,numTriangleOrbit,numGiantMeteor;
+//	numCircleOrbit,numRectangleOrbit,numTriangleOrbit,numGiantMeteor;
 	
 	private Context ctx;
 	private Levels levelInfo = new Levels();
@@ -39,17 +39,17 @@ public class EnemyFactory{
     private Runnable spawnOrbitersRunnable = new Runnable(){
 		@Override
 		public void run() {
-			Shooting_OrbiterView circle = EnemyFactory.this.spawnCirclingOrbitingView();
-			Shooting_OrbiterView triangle = EnemyFactory.this.spawnTriangularOrbitingView();
-			Shooting_OrbiterView square = EnemyFactory.this.spawnSquareOrbitingView();
+//			Shooting_OrbiterView circle = EnemyFactory.this.spawnCirclingOrbitingView();
+//			Shooting_OrbiterView triangle = EnemyFactory.this.spawnTriangularOrbitingView();
+			Shooting_OrbiterView rectangle = EnemyFactory.this.spawnRectangleOrbitingView();
 			
-    		gameLayout.addView(circle,1);
-    		gameLayout.addView(triangle,1);
-    		gameLayout.addView(square,1);
+//    		gameLayout.addView(circle,1);
+//    		gameLayout.addView(triangle,1);
+    		gameLayout.addView(rectangle,1);
     		
-    		GameActivity.enemies.add(circle);
-    		GameActivity.enemies.add(triangle);
-    		GameActivity.enemies.add(square);
+//    		GameActivity.enemies.add(circle);
+//    		GameActivity.enemies.add(triangle);
+    		GameActivity.enemies.add(rectangle);
 			
 			enemySpawnHandler.postDelayed(this, calculateOrbiterSpawnInterval());
 		}
@@ -118,7 +118,7 @@ public class EnemyFactory{
 //		numdiveBomber=0;
 //		numFullScreenDiag=0;
 //		numCircleOrbit=0;
-//		numSquareOrbit=0;
+//		numRectangleOrbit=0;
 //		numTriangleOrbit=0;
 //		numGiantMeteor=0;
 		
@@ -131,9 +131,9 @@ public class EnemyFactory{
 	}
 	
 	public void beginSpawning(){
-		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
+//		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
+//	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
 	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
 	}  
 	
@@ -145,7 +145,7 @@ public class EnemyFactory{
 	}
 	
 	private long calculateOrbiterSpawnInterval(){
-		final int meteorInterval = 5000;
+		final int meteorInterval = 9000;
 		return (long) (meteorInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*3000);
 	}
 	
@@ -155,7 +155,7 @@ public class EnemyFactory{
 	}
 	
 	private long calculatDiagonalShooterSpawnInterval(){
-		final int diagonalShooterInterval=2000; 
+		final int diagonalShooterInterval=3000; 
 		return (long) (diagonalShooterInterval/(Math.sqrt(levelInfo.getDifficulty()))+Math.random()*4000);
 	}
 	
@@ -277,25 +277,25 @@ public class EnemyFactory{
 		return spawnTriangularOrbitingView(Orbiter_TriangleView.DEFAULT_ANGLE);
 	}
 
-	private Shooting_OrbiterView spawnSquareOrbitingView(){
+	private Shooting_OrbiterView spawnRectangleOrbitingView(){
 		final int diff = levelInfo.getDifficulty();
 
-		final int orbitLength=Orbiter_SquareView.DEFAULT_ORBIT_LENGTH;
+		final int orbitLength=Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH;
 	
-		final int score=Orbiter_SquareView.DEFAULT_SCORE*diff;
-		final double speedY=Orbiter_SquareView.DEFAULT_SPEED_Y,
-				speedX= Orbiter_SquareView.DEFAULT_SPEED_X, 
-				collisionDamage=Orbiter_SquareView.DEFAULT_COLLISION_DAMAGE*diff,
-				health=Orbiter_SquareView.DEFAULT_HEALTH*diff,
-				spawnBeneficialObject= Orbiter_SquareView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff,
-				bulletDmg=Orbiter_SquareView.DEFAULT_BULLET_DAMAGE*diff,
-				bulletSpdY=Orbiter_SquareView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
-				bulletFreq=Orbiter_SquareView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
-				(Math.random() * 1.5 * Orbiter_SquareView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
+		final int score=Orbiter_RectangleView.DEFAULT_SCORE*diff;
+		final double speedY=Orbiter_RectangleView.DEFAULT_SPEED_Y,
+				speedX= Orbiter_RectangleView.DEFAULT_SPEED_X, 
+				collisionDamage=Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE*diff,
+				health=Orbiter_RectangleView.DEFAULT_HEALTH*diff,
+				spawnBeneficialObject= Orbiter_RectangleView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH*diff,
+				bulletDmg=Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE*diff,
+				bulletSpdY=Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y*Math.sqrt(diff),
+				bulletFreq=Orbiter_RectangleView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
+				(Math.random() * 1.5 * Orbiter_RectangleView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
 				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
-		Shooting_OrbiterView orbiter =  new Orbiter_SquareView(ctx,score,speedY,speedX,
+		Shooting_OrbiterView orbiter =  new Orbiter_RectangleView(ctx,score,speedY,speedX,
 				collisionDamage,health,bulletFreq,height,width,
 				spawnBeneficialObject,bulletSpdY,bulletDmg,orbitLength);
 		

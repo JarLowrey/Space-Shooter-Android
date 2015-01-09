@@ -32,11 +32,9 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 	private int myPosition;
 
 	// Constantly move all instances of this class in a square shape
-	private final static int TOP_LEFT = 0, BOTTOM_LEFT = 1, BOTTOM_RIGHT = 2,
-			TOP_RIGHT = 3;
-	private static int currentPos = TOP_LEFT, howManyTimesMoved = 0;
+	private static int currentPos = 0, howManyTimesMoved = 0;
 	private static Handler simpleShooterHandler = new Handler();
-	private static Runnable moveInASquareRunnable = new Runnable() {
+	private static Runnable moveInARectangleRunnable = new Runnable() {
 		@Override
 		public void run() {
 			// loop through all living instances of this class
@@ -44,17 +42,17 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 	    		//ensure view is not removed before moving
 	    		if( ! allSimpleShooters.get(i).isRemoved()){
 					switch (currentPos) {
-					case TOP_LEFT:
-						 allSimpleShooters.get(i).move(ProjectileView.DOWN);
-						break;
-					case BOTTOM_RIGHT:
-						allSimpleShooters.get(i).move(ProjectileView.UP);
-						break;
-					case BOTTOM_LEFT:
+					case 0:
 						allSimpleShooters.get(i).move(ProjectileView.RIGHT);
 						break;
-					case TOP_RIGHT:
+					case 1:
+						allSimpleShooters.get(i).move(ProjectileView.UP);
+						break;
+					case 2:
 						allSimpleShooters.get(i).move(ProjectileView.LEFT);
+						break;
+					case 3:
+						allSimpleShooters.get(i).move(ProjectileView.DOWN);
 						break;
 					}
 	    		}
@@ -120,11 +118,11 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 	}
 
 	public static void stopMovingAllShooters() {
-		simpleShooterHandler.removeCallbacks(moveInASquareRunnable);
+		simpleShooterHandler.removeCallbacks(moveInARectangleRunnable);
 	}
 
 	public static void startMovingAllShooters(){
-		simpleShooterHandler.postDelayed(moveInASquareRunnable, ProjectileView.HOW_OFTEN_TO_MOVE);
+		simpleShooterHandler.postDelayed(moveInARectangleRunnable, ProjectileView.HOW_OFTEN_TO_MOVE);
 	}
 	public static int getMaxNumShips() {
 		return numCols*numRows;
@@ -146,8 +144,8 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 			numCols=numberCols;
 			staggered=staggerShips;
 			howManyTimesMoved=0;
-			currentPos = TOP_LEFT;
-			simpleShooterHandler.removeCallbacks(moveInASquareRunnable);
+			currentPos = 0;
+			simpleShooterHandler.removeCallbacks(moveInARectangleRunnable);
 			
 			//reset the arraylist of free positions
 			freePositions = new ArrayList<Integer>();
