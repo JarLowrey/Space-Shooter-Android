@@ -22,14 +22,17 @@ public abstract class Gun {
     Runnable spawnBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		boolean outOfAmmoGun = shoot();
-    		if(outOfAmmoGun==true){
-    			Gun.this.stopShooting();//stop spawning bullets with this gun
-    			shooter.myGun=shooter.myGun.previousUpgradeableGun;//set shooter's gun to previous gun
-//    			if(shooter.myGun==null){Log.d("lowrey","this should not be null");}
-    			shooter.myGun.myBullets=Gun.this.myBullets;
-    		}else{
-    			shooter.postDelayed(this, (long) bulletFreq);
+    		//ensure shooter is not removed before running
+    		if(! shooter.isRemoved()){
+    			boolean outOfAmmoGun = shoot();
+	    		if(outOfAmmoGun==true){
+	    			Gun.this.stopShooting();//stop spawning bullets with this gun
+	    			shooter.myGun=shooter.myGun.previousUpgradeableGun;//set shooter's gun to previous gun
+	//    			if(shooter.myGun==null){Log.d("lowrey","this should not be null");}
+	    			shooter.myGun.myBullets=Gun.this.myBullets;
+	    		}else{
+	    			shooter.postDelayed(this, (long) bulletFreq);
+	    		}
     		}
     	}
 	};

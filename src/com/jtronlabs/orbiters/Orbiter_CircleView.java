@@ -2,13 +2,14 @@ package com.jtronlabs.orbiters;
 
 import android.content.Context;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObjectInterface {
 	public static final int DEFAULT_ANGULAR_VELOCITY=5;
-	public static final double DEFAULT_CIRCLE_RADIUS=100*screenDens;
+	public static final double DEFAULT_CIRCLE_RADIUS=100*MainActivity.getScreenDens();
 	
 	
 	private int angularVelocity;
@@ -17,6 +18,9 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	private Runnable moveInACircleRunnable = new Runnable(){
 		@Override
 		public void run() {
+
+    		//ensure view is not removed before running
+			if( ! Orbiter_CircleView.this.isRemoved()){
 //				imagine a circle around this triangle. the right point is the next position 
 //					|\-----top triangle
 //					| \----third side
@@ -56,19 +60,20 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 //				
 //				break;
 //			}
-//			
-			//dear christ. Why am i so stupid.
-			final int currentDegree = ( angularVelocity*howManyTimesMoved )%360;
-			float y = (float) (radius* Math.sin(Math.toRadians(currentDegree)));
-			float x = (float) (radius* Math.cos(Math.toRadians(currentDegree)));
-			
-			Orbiter_CircleView.this.setX(widthPixels/2+x);
-			Orbiter_CircleView.this.setY(Orbiter_CircleView.this.lowestPositionThreshold+y);
-			
-			howManyTimesMoved++;
-			
-			Orbiter_CircleView.this.postDelayed(this,
-					ProjectileView.HOW_OFTEN_TO_MOVE);
+	
+				//dear christ. Why am i so stupid.
+				final int currentDegree = ( angularVelocity*howManyTimesMoved )%360;
+				float y = (float) (radius* Math.sin(Math.toRadians(currentDegree)));
+				float x = (float) (radius* Math.cos(Math.toRadians(currentDegree)));
+				
+				Orbiter_CircleView.this.setX(MainActivity.getWidthPixels()/2+x);
+				Orbiter_CircleView.this.setY(Orbiter_CircleView.this.lowestPositionThreshold+y);
+				
+				howManyTimesMoved++;
+				
+				Orbiter_CircleView.this.postDelayed(this,
+						ProjectileView.HOW_OFTEN_TO_MOVE);
+			}
 		}
 	};
 	
@@ -84,13 +89,12 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
 		
 		//default to begin orbit at this point
-		this.lowestPositionThreshold=(int) (heightPixels/3);
+		this.lowestPositionThreshold=(int) (MainActivity.getHeightPixels()/3);
 		radius=circleRadius;
 		angularVelocity=angularVelocityInDegrees;
 		howManyTimesMoved=0;
 		
 		this.setY(0);
-		this.setX(widthPixels/2);
 
 	}
 	public void setAngularVelocity(int newVelocity){

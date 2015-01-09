@@ -6,11 +6,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
+import com.jtronlabs.to_the_moon.views.Projectile_GravityView;
 
 public class Shooting_ArrayMovingView extends Gravity_ShootingView implements GameObjectInterface {
 
@@ -40,20 +42,23 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 		public void run() {
 			// loop through all living instances of this class
 			for (int i = 0; i < allSimpleShooters.size(); i++) {
-				switch (currentPos) {
-				case TOP_LEFT:
-					 allSimpleShooters.get(i).move(ProjectileView.DOWN);
-					break;
-				case BOTTOM_RIGHT:
-					allSimpleShooters.get(i).move(ProjectileView.UP);
-					break;
-				case BOTTOM_LEFT:
-					allSimpleShooters.get(i).move(ProjectileView.RIGHT);
-					break;
-				case TOP_RIGHT:
-					allSimpleShooters.get(i).move(ProjectileView.LEFT);
-					break;
-				}
+	    		//ensure view is not removed before moving
+	    		if( ! allSimpleShooters.get(i).isRemoved()){
+					switch (currentPos) {
+					case TOP_LEFT:
+						 allSimpleShooters.get(i).move(ProjectileView.DOWN);
+						break;
+					case BOTTOM_RIGHT:
+						allSimpleShooters.get(i).move(ProjectileView.UP);
+						break;
+					case BOTTOM_LEFT:
+						allSimpleShooters.get(i).move(ProjectileView.RIGHT);
+						break;
+					case TOP_RIGHT:
+						allSimpleShooters.get(i).move(ProjectileView.LEFT);
+						break;
+					}
+	    		}
 			}
 			howManyTimesMoved++;
 			if (howManyTimesMoved % 6 == 0) {
@@ -83,13 +88,13 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 				(int)heightView));
 
 		//set row destination
-		final float lowestPointOnScreen = heightPixels*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
+		final float lowestPointOnScreen = MainActivity.getHeightPixels()*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
 		final float myRowNum = (myPosition / numCols) * heightView;//, multiply that by heightOfView to get top of row
 		this.lowestPositionThreshold = (int) (lowestPointOnScreen - myRowNum);
 
 		// set col position
 		final float marginOnSides = context.getResources().getDimension(R.dimen.activity_margin_med);
-		final float shipXInterval = (widthPixels - marginOnSides)/ numCols;//divide the screen into number of columns
+		final float shipXInterval = (MainActivity.getWidthPixels() - marginOnSides)/ numCols;//divide the screen into number of columns
 		final float myColPos = myPosition % numCols;//find this ships column
 		float xPos = shipXInterval * myColPos + marginOnSides / 2;//x position is columInterval * this ships column. Here some left margin is also added
 		if (staggered && myRowNum % 2 == 1) {//stagger

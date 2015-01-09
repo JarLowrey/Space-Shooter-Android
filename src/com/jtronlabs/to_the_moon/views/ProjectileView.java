@@ -3,13 +3,12 @@ package com.jtronlabs.to_the_moon.views;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.jtronlabs.bonuses.BonusView;
 import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 
@@ -23,7 +22,6 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	int score;
 	double speedYUp,speedYDown,speedX, damage, health,maxHealth,probSpawnBeneficialObject;
 	public int lowestPositionThreshold=NO_THRESHOLD,highestPositionThreshold=NO_THRESHOLD;
-	public static float screenDens,widthPixels,heightPixels;
 	protected Context ctx;
 	
     private Runnable setBackgroundTransparentRunnable = new Runnable(){
@@ -53,19 +51,11 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 			double projectileSpeedX, double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectOnDeath){
 		ctx = context;
 		
-		//find screen density and width/height of screen in pixels
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-	    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-	    screenDens = displayMetrics.density;
-	    widthPixels = displayMetrics.widthPixels;
-	    heightPixels = displayMetrics.heightPixels;
-		
 	    probSpawnBeneficialObject=probSpawnBeneficialObjectOnDeath;
 	    score=scoreValue;
-		speedYUp=projectileSpeedYUp*screenDens;
-		speedYDown=projectileSpeedYDown*screenDens;
-		speedX=projectileSpeedX*screenDens;
+		speedYUp=projectileSpeedYUp*MainActivity.getScreenDens();
+		speedYDown=projectileSpeedYDown*MainActivity.getScreenDens();
+		speedX=projectileSpeedX*MainActivity.getScreenDens();
 		damage=projectileDamage;
 		health=projectileHealth;
 		maxHealth=health;
@@ -145,9 +135,9 @@ public class ProjectileView extends ImageView implements GameObjectInterface{
 	
 	public int removeView(boolean showExplosion){
 		isRemoved=true;
+		this.removeCallbacks(null);//destroy all threads
 		
 		if(showExplosion){createExplosion();}//show explosion
-		this.removeCallbacks(null);//destroy all threads
 		
 		//remove from layout
 		ViewGroup parent = (ViewGroup)this.getParent();

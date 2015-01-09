@@ -3,6 +3,7 @@ package com.jtronlabs.to_the_moon.views;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 /**
  * A ProjectileView with a constant downwards force that is a different speed than ProjectileView's SpeedY
@@ -35,23 +36,26 @@ public class Projectile_GravityView extends ProjectileView implements GameObject
     Runnable gravityRunnable = new Runnable(){
     	@Override
         public void run() {
-			float y=Projectile_GravityView.this.getY();
-    		//if object is off the screen, stop wasting resources on it and mark it for removal. 
-			//Otherwise, shift it downwards and repost gravityHandler
-    		if(y>heightPixels){
-    			removeView(false);
-    		}else{
-        		boolean atThreshold=move(ProjectileView.DOWN);//move the View downwards
-        		
-        		//if View is at threshold or off screen stop reposting runnable
-        		if(atThreshold){
-        				stopGravity();
-        		}else if(Projectile_GravityView.this.getY()>heightPixels){
-        			Projectile_GravityView.this.removeView(false);
-        		}else{
-        			Projectile_GravityView.this.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE/2);
-        		}
-    		} 
+    		//ensure view is not removed before running
+    		if( ! Projectile_GravityView.this.isRemoved()){
+				float y=Projectile_GravityView.this.getY();
+	    		//if object is off the screen, stop wasting resources on it and mark it for removal. 
+				//Otherwise, shift it downwards and repost gravityHandler
+	    		if(y>MainActivity.getHeightPixels()){
+	    			removeView(false);
+	    		}else{
+	        		boolean atThreshold=move(ProjectileView.DOWN);//move the View downwards
+	        		
+	        		//if View is at threshold or off screen stop reposting runnable
+	        		if(atThreshold){
+	        				stopGravity();
+	        		}else if(Projectile_GravityView.this.getY()>MainActivity.getHeightPixels()){
+	        			Projectile_GravityView.this.removeView(false);
+	        		}else{
+	        			Projectile_GravityView.this.postDelayed(this, ProjectileView.HOW_OFTEN_TO_MOVE/2);
+	        		}
+	    		} 
+    		}
     	}
     };
     

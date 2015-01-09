@@ -8,9 +8,9 @@ import com.jtronlabs.to_the_moon.guns.Gun_Special_AngledTriShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
-public class Bonus_AngledTriShotView extends BonusView implements GameObjectInterface{
+public class Bonus_SpecialGun_AngledTriShotView extends BonusView implements GameObjectInterface{
 	
-	public Bonus_AngledTriShotView(Context context,float positionX,float positionY) {
+	public Bonus_SpecialGun_AngledTriShotView(Context context,float positionX,float positionY) {
 		super(context,positionX,positionY);	
 		
 		this.setImageResource(R.drawable.tri_bullet);

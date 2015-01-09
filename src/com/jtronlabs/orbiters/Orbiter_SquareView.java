@@ -2,6 +2,7 @@ package com.jtronlabs.orbiters;
 
 import android.content.Context;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
@@ -16,29 +17,32 @@ public class Orbiter_SquareView extends Shooting_OrbiterView implements GameObje
 	private Runnable moveInASquareRunnable = new Runnable() {
 		@Override
 		public void run() {
-			switch (currentSideOfSquare) {
-			case 0:
-				Orbiter_SquareView.this.move(ProjectileView.DOWN);
-				break;
-			case 1:
-				Orbiter_SquareView.this.move(ProjectileView.UP);
-				break;
-			case 2:
-				Orbiter_SquareView.this.move(ProjectileView.RIGHT);
-				break;
-			case 3:
-				Orbiter_SquareView.this.move(ProjectileView.LEFT);
-				break;
+    		//ensure view is not removed before running
+			if( ! Orbiter_SquareView.this.isRemoved()){
+				switch (currentSideOfSquare) {
+				case 0:
+					Orbiter_SquareView.this.move(ProjectileView.DOWN);
+					break;
+				case 1:
+					Orbiter_SquareView.this.move(ProjectileView.UP);
+					break;
+				case 2:
+					Orbiter_SquareView.this.move(ProjectileView.RIGHT);
+					break;
+				case 3:
+					Orbiter_SquareView.this.move(ProjectileView.LEFT);
+					break;
+				}
+				
+				//change side
+				if (howManyTimesMoved % orbitDist == 0) {
+					currentSideOfSquare = (currentSideOfSquare + 1) % 4;
+				}
+				howManyTimesMoved++;
+				
+				Orbiter_SquareView.this.postDelayed(this,
+						ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
-			
-			//change side
-			if (howManyTimesMoved % orbitDist == 0) {
-				currentSideOfSquare = (currentSideOfSquare + 1) % 4;
-			}
-			howManyTimesMoved++;
-			
-			Orbiter_SquareView.this.postDelayed(this,
-					ProjectileView.HOW_OFTEN_TO_MOVE);
 		}
 	};
 	
@@ -54,11 +58,10 @@ public class Orbiter_SquareView extends Shooting_OrbiterView implements GameObje
 		orbitDist=orbitLength;
 		
 		//default to begin orbit at this point
-		this.lowestPositionThreshold=(int) (heightPixels/3);
+		this.lowestPositionThreshold=(int) (MainActivity.getHeightPixels()/3);
 		howManyTimesMoved=0;
 		
 		this.setY(0);
-		this.setX(widthPixels/2);
 
 	}
 	

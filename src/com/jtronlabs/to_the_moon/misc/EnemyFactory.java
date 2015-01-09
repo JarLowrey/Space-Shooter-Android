@@ -13,6 +13,7 @@ import com.jtronlabs.specific_view_types.Gravity_MeteorView;
 import com.jtronlabs.specific_view_types.Shooting_ArrayMovingView;
 import com.jtronlabs.specific_view_types.Shooting_DiagonalMovingView;
 import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 
@@ -70,19 +71,19 @@ public class EnemyFactory{
 			gameLayout.addView(shooter,1);
     		GameActivity.enemies.add(shooter);
 			
-			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnDiveBomber();
-			
-			gameLayout.addView(shooter2,1);
-    		GameActivity.enemies.add(shooter2);
-    		
-			Shooting_DiagonalMovingView shooter3 = EnemyFactory.this.spawnDiveBomber();
-			
-			gameLayout.addView(shooter3,1);
-    		GameActivity.enemies.add(shooter3);
-			Shooting_DiagonalMovingView shooter4 = EnemyFactory.this.spawnDiveBomber();
-			
-			gameLayout.addView(shooter4,1);
-    		GameActivity.enemies.add(shooter4);
+//			Shooting_DiagonalMovingView shooter2 = EnemyFactory.this.spawnDiveBomber();
+//			
+//			gameLayout.addView(shooter2,1);
+//    		GameActivity.enemies.add(shooter2);
+//    		
+//			Shooting_DiagonalMovingView shooter3 = EnemyFactory.this.spawnDiveBomber();
+//			
+//			gameLayout.addView(shooter3,1);
+//    		GameActivity.enemies.add(shooter3);
+//			Shooting_DiagonalMovingView shooter4 = EnemyFactory.this.spawnDiveBomber();
+//			
+//			gameLayout.addView(shooter4,1);
+//    		GameActivity.enemies.add(shooter4);
    
 			enemySpawnHandler.postDelayed(this, calculatDiagonalShooterSpawnInterval());
 		}
@@ -312,7 +313,7 @@ public class EnemyFactory{
 		final int height= (int)ctx.getResources().getDimension(R.dimen.giant_meteor_height);
 		giant.setLayoutParams(new LayoutParams(width,height));
 		giant.setY(-height);
-		giant.setX((float) ((ProjectileView.widthPixels-width)*Math.random()));
+		giant.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));
 		
 		//set damage and health to 200, score to 20
 		giant.setDamage(150);

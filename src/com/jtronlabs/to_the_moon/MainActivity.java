@@ -1,11 +1,14 @@
 package com.jtronlabs.to_the_moon;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,12 +20,24 @@ import com.jtronlabs.to_the_moon.misc.DrawTextView;
 
 public class MainActivity extends Activity implements OnClickListener{
 
+	private static float screenDens,widthPixels,heightPixels;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		//  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		
+
+		//find screen density and width/height of screen in pixels
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+	    WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+	    windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+	    screenDens = displayMetrics.density;
+	    widthPixels = displayMetrics.widthPixels;
+	    heightPixels = displayMetrics.heightPixels;
+	    
+	    
 		//HACK to make stars appear as tiles in X direction only
 		BitmapDrawable TileMe = (BitmapDrawable)getResources().getDrawable(R.drawable.level4);
 		TileMe.setTileModeX(Shader.TileMode.REPEAT);
@@ -63,4 +78,13 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 	}
 
+	public static float getScreenDens(){
+		return screenDens;
+	}
+	public static float getWidthPixels(){
+		return widthPixels;
+	}
+	public static float getHeightPixels(){
+		return heightPixels;
+	}
 }

@@ -8,9 +8,9 @@ import com.jtronlabs.to_the_moon.guns.Gun_Special_AngledDualShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 
-public class Bonus_AngledDualShotView extends BonusView implements GameObjectInterface{
+public class Bonus_SpecialGun_AngledDualShotView extends BonusView implements GameObjectInterface{
 	
-	public Bonus_AngledDualShotView(Context context,float positionX,float positionY) {
+	public Bonus_SpecialGun_AngledDualShotView(Context context,float positionX,float positionY) {
 		super(context,positionX,positionY);	
 
 		this.setImageResource(R.drawable.dual_bullet);

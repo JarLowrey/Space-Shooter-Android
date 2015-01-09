@@ -324,7 +324,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 					rocket.beginMoving(ProjectileView.RIGHT);
 					break;
 				case R.id.btnMiddle:
-					rocket.myGun.startShootingImmediately();	
+					rocket.myGun.startShooting();	
 					break;
 			}
 		}else if(event.getAction()==MotionEvent.ACTION_UP){

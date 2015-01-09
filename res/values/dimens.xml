@@ -34,8 +34,14 @@
     
     <dimen name="laser_default_width">5dp</dimen>
     <dimen name="laser_default_height">12dp</dimen>
+    <dimen name="bonus_laser_default_width">30dp</dimen>
+    <dimen name="bonus_laser_default_height">72dp</dimen>
+    
     <dimen name="laser_long_width">3.2dp</dimen>
     <dimen name="laser_long_height">25dp</dimen>
+    <dimen name="bonus_laser_long_width">9.6dp</dimen>
+    <dimen name="bonus_laser_long_height">75dp</dimen>
+    
     <dimen name="missile_one_width">25dp</dimen>
     <dimen name="missile_one_height">40.375dp</dimen>
     

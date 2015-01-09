@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Special_ShootTowardsProjectileDualShot;
@@ -11,10 +12,11 @@ import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightDualShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
+import com.jtronlabs.to_the_moon.views.Projectile_GravityView;
 
 public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements GameObjectInterface{
 	
-	public final static int DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo,DEFAULT_BULLET_FREQ_INTERVAL=3000;
+	public final static int DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo,DEFAULT_BULLET_FREQ_INTERVAL=1000;
 	public final static double DEFAULT_SPEED_Y=1.8,DEFAULT_SPEED_X=10,
 			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
@@ -27,27 +29,30 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 
 		@Override
 		public void run() {
-			boolean offScreen = Shooting_DiagonalMovingView.this.move(ProjectileView.DOWN);
-			if(offScreen){
-				Shooting_DiagonalMovingView.this.removeView(false);
-				Shooting_DiagonalMovingView.this.removeCallbacks(this);
-				return;
-			}
-			if(travelingRight){
-				Shooting_DiagonalMovingView.this.move(ProjectileView.RIGHT);
-				final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
-				if(rightSideOfShip>=rightThreshold){//ship is on far right portion of screen
-					travelingRight=false;
-				}				
-			}else{
-				Shooting_DiagonalMovingView.this.move(ProjectileView.LEFT);
-				final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
-				if(leftSideOfShip <= leftThreshold){//ship is on far left portion of screen
-					travelingRight=true;
-				}		
-			}
-			
-			Shooting_DiagonalMovingView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+    		//ensure view is not removed before running
+    		if( ! Shooting_DiagonalMovingView.this.isRemoved()){
+				boolean offScreen = Shooting_DiagonalMovingView.this.move(ProjectileView.DOWN);
+				if(offScreen){
+					Shooting_DiagonalMovingView.this.removeView(false);
+					Shooting_DiagonalMovingView.this.removeCallbacks(this);
+					return;
+				}
+				if(travelingRight){
+					Shooting_DiagonalMovingView.this.move(ProjectileView.RIGHT);
+					final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
+					if(rightSideOfShip>=rightThreshold){//ship is on far right portion of screen
+						travelingRight=false;
+					}				
+				}else{
+					Shooting_DiagonalMovingView.this.move(ProjectileView.LEFT);
+					final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
+					if(leftSideOfShip <= leftThreshold){//ship is on far left portion of screen
+						travelingRight=true;
+					}		
+				}
+				
+				Shooting_DiagonalMovingView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+    		}
 		}
 		
 	};
@@ -63,7 +68,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		Gun_Special newGun = new Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket,this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
 		this.giveSpecialGun(newGun, Integer.MAX_VALUE);
 		
-		this.lowestPositionThreshold=(int) heightPixels;
+		this.lowestPositionThreshold=(int) MainActivity.getHeightPixels();
 		
 		//set image background, width, and height
 		this.setImageResource(DEFAULT_BACKGROUND);
@@ -72,11 +77,11 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
 		travelingRight = (Math.random()<.5);//50% chance of moving right or left
-		this.setX((float) (widthPixels*Math.random()));
+		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
 		this.setY(0);
 		
 		leftThreshold=this.getSpeedX();//far left of screen
-		rightThreshold=widthPixels-this.getWidth()-this.getSpeedX();//far right of screen
+		rightThreshold=MainActivity.getWidthPixels()-this.getWidth()-this.getSpeedX();//far right of screen
 
 		this.post(moveDiagonalRunnable);
 	}
@@ -97,7 +102,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 	
 	public void setDiveBomber(){
 		// set col position
-		final float shipXInterval = (widthPixels )/ NUM_DIVE_BOMBER_COLUMNS;//divide the screen into number of columns
+		final float shipXInterval = (MainActivity.getWidthPixels() )/ NUM_DIVE_BOMBER_COLUMNS;//divide the screen into number of columns
 		final float myColPos = (int) (Math.random()*NUM_DIVE_BOMBER_COLUMNS);//find this ships column
 		float xPos = shipXInterval * myColPos;//x position is columInterval * this ships column. Here some left margin is also added
 		this.setX(xPos);

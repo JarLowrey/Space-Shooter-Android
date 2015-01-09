@@ -3,6 +3,7 @@ package com.jtronlabs.orbiters;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
@@ -48,7 +49,7 @@ public abstract class Shooting_OrbiterView extends Gravity_ShootingView implemen
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
 		this.setY(0);
-		this.setX(widthPixels/2);
+		this.setX(MainActivity.getWidthPixels()/2);
 		
 	}
 	

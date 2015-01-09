@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
 
@@ -19,27 +20,30 @@ public class Projectile_BulletView extends ProjectileView{
 	Runnable moveBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		boolean atThreshold=false;
-    		//move up and down
-    		if(shootingUp){
-    			atThreshold=Projectile_BulletView.this.move(ProjectileView.UP);
-    		}else{
-    			atThreshold=Projectile_BulletView.this.move(ProjectileView.DOWN);
-    		}
-    		
-    		if(atThreshold || Projectile_BulletView.this.getHealth()<=0){//off screen
-    			Projectile_BulletView.this.removeView(false);
-    			Projectile_BulletView.this.removeCallbacks(null);
-    		}else{
-    			//move left and right is xSpeed != 0
-    			if( (Math.abs(Projectile_BulletView.this.getSpeedX())>0.0001)){
-            		if(Projectile_BulletView.this.getSpeedX()>0){
-            			atThreshold=Projectile_BulletView.this.move(ProjectileView.RIGHT);
-            		}else{
-            			atThreshold=Projectile_BulletView.this.move(ProjectileView.LEFT);
-            		}
-        		}
-    			Projectile_BulletView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+    		//ensure view is not removed before running
+    		if( ! Projectile_BulletView.this.isRemoved()){
+	    		boolean atThreshold=false;
+	    		//move up and down
+	    		if(shootingUp){
+	    			atThreshold=Projectile_BulletView.this.move(ProjectileView.UP);
+	    		}else{
+	    			atThreshold=Projectile_BulletView.this.move(ProjectileView.DOWN);
+	    		}
+	    		
+	    		if(atThreshold || Projectile_BulletView.this.getHealth()<=0){//off screen
+	    			Projectile_BulletView.this.removeView(false);
+	    			Projectile_BulletView.this.removeCallbacks(null);
+	    		}else{
+	    			//move left and right is xSpeed != 0
+	    			if( (Math.abs(Projectile_BulletView.this.getSpeedX())>0.0001)){
+	            		if(Projectile_BulletView.this.getSpeedX()>0){
+	            			atThreshold=Projectile_BulletView.this.move(ProjectileView.RIGHT);
+	            		}else{
+	            			atThreshold=Projectile_BulletView.this.move(ProjectileView.LEFT);
+	            		}
+	        		}
+	    			Projectile_BulletView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+	    		}
     		}
     	}
 	};
@@ -51,8 +55,8 @@ public class Projectile_BulletView extends ProjectileView{
 				projectileSpeedX,projectileDamage,DEFAULT_HEALTH,0);
 		
 		//set thresholds to off screen
-		this.highestPositionThreshold=(int) -(screenDens * 50);
-		this.lowestPositionThreshold=(int) (heightPixels);
+		this.highestPositionThreshold=(int) -(MainActivity.getScreenDens() * 50);
+		this.lowestPositionThreshold=(int) (MainActivity.getHeightPixels());
 	
 		//set instance variables
 		theOneWhoShotMe=shooter;

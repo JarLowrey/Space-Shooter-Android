@@ -3,6 +3,7 @@ package com.jtronlabs.specific_view_types;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.Projectile_GravityView;
@@ -20,7 +21,7 @@ public class Gravity_MeteorView extends Projectile_GravityView implements GameOb
 		super(context,score,speedY,speedY,speedX,collisionDamage,
 				health,probSpawnBeneficialObjectOnDeath);
 
-		this.lowestPositionThreshold=(int) heightPixels;
+		this.lowestPositionThreshold=(int) MainActivity.getHeightPixels();
 		
 		//set image background
 		this.setImageResource(R.drawable.meteor);
@@ -30,7 +31,7 @@ public class Gravity_MeteorView extends Projectile_GravityView implements GameOb
 		this.setLayoutParams(new LayoutParams(len,len));
 		
 		//set initial position of View
-		float xRand = (float) ((widthPixels-len)*Math.random());
+		float xRand = (float) ((MainActivity.getWidthPixels()-len)*Math.random());
 		this.setX(xRand);
 		this.setY(0);
 		

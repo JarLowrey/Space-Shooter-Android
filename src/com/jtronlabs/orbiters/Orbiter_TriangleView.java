@@ -2,6 +2,7 @@ package com.jtronlabs.orbiters;
 
 import android.content.Context;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
 import com.jtronlabs.to_the_moon.views.ProjectileView;
@@ -18,29 +19,32 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 	private Runnable moveInATriangleRunnable = new Runnable(){
 		@Override
 		public void run() {
-			//triangle is equilateral
-				switch (currentSideOfTriangle) {
-				case 0:
-					Orbiter_TriangleView.this.move(ProjectileView.LEFT);
-					Orbiter_TriangleView.this.move(ProjectileView.LEFT);
-					break;
-				case 1:
-					Orbiter_TriangleView.this.move(ProjectileView.RIGHT);
-					Orbiter_TriangleView.this.move(ProjectileView.DOWN);
-					break;
-				case 2:
-					Orbiter_TriangleView.this.move(ProjectileView.RIGHT);
-					Orbiter_TriangleView.this.move(ProjectileView.UP);
-					break;
-				}
-				//change side
-				if (howManyTimesMoved % orbitDist == 0) {
-					currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
-				}
-				howManyTimesMoved++;
-				
-				Orbiter_TriangleView.this.postDelayed(this,
-						ProjectileView.HOW_OFTEN_TO_MOVE);
+    		//ensure view is not removed before running
+			if( ! Orbiter_TriangleView.this.isRemoved()){
+				//triangle is equilateral
+					switch (currentSideOfTriangle) {
+					case 0:
+						Orbiter_TriangleView.this.move(ProjectileView.LEFT);
+						Orbiter_TriangleView.this.move(ProjectileView.LEFT);
+						break;
+					case 1:
+						Orbiter_TriangleView.this.move(ProjectileView.RIGHT);
+						Orbiter_TriangleView.this.move(ProjectileView.DOWN);
+						break;
+					case 2:
+						Orbiter_TriangleView.this.move(ProjectileView.RIGHT);
+						Orbiter_TriangleView.this.move(ProjectileView.UP);
+						break;
+					}
+					//change side
+					if (howManyTimesMoved % orbitDist == 0) {
+						currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
+					}
+					howManyTimesMoved++;
+					
+					Orbiter_TriangleView.this.postDelayed(this,
+							ProjectileView.HOW_OFTEN_TO_MOVE);
+			}
 		}
 	};
 	
@@ -56,11 +60,10 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 		orbitDist=orbitLength;
 		
 		//default to begin orbit at this point
-		this.lowestPositionThreshold=(int) (heightPixels/3);
+		this.lowestPositionThreshold=(int) (MainActivity.getHeightPixels()/3);
 		howManyTimesMoved=0;
 		
 		this.setY(0);
-		this.setX(widthPixels/2);
 		
 	}
 	
