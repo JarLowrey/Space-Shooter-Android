@@ -3,8 +3,8 @@ package com.jtronlabs.bonuses;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
+import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Bonus_Gun_IncBulletFreqView extends BonusView implements GameObjectInterface{
 	
@@ -16,7 +16,7 @@ public class Bonus_Gun_IncBulletFreqView extends BonusView implements GameObject
 		this.setImageResource(R.drawable.bullet_freq);
 	}
 	
-	public void applyBenefit(Gravity_ShootingView theBenefitter){
-		theBenefitter.myGun.setBulletFreq(theBenefitter.myGun.getBulletFreq() / FREQ_DECREASE_RATIO );
+	public void applyBenefit(Shooter theBenefitter){
+		theBenefitter.setBulletFreq(theBenefitter.getBulletFreq() / FREQ_DECREASE_RATIO );
 	}
 }

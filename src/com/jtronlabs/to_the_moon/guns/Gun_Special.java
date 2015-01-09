@@ -3,19 +3,24 @@ package com.jtronlabs.to_the_moon.guns;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
+/**
+ * All instances of this class have an ammo count and are thus temporary
+ * @author JAMES_LOWREY
+ *
+ */
 public abstract  class Gun_Special extends Gun {
 	
 	private int ammo;
 	
-	public Gun_Special(Context context,Gravity_ShootingView theShooter,boolean shootingUpwards,double bulletSpeedVertical,
+	public Gun_Special(Context context,Shooter theShooter,boolean shootingUpwards,double bulletSpeedVertical,
 			double bulletDamage,double bulletFrequency) {
 		super(context,theShooter,shootingUpwards,bulletSpeedVertical,bulletDamage,bulletFrequency);
 		
 		ammo=-1;
 	}
-	public Gun_Special(Context context,Gravity_ShootingView theShooter) {
+	public Gun_Special(Context context,Shooter theShooter) {
 		super(context,theShooter);
 		
 		ammo=-1;

@@ -8,19 +8,25 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.jtronlabs.enemy_types.Gravity_MeteorView;
 import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
 import com.jtronlabs.enemy_types.Shooting_DiagonalMovingView;
-import com.jtronlabs.orbiters.Orbiter_CircleView;
-import com.jtronlabs.orbiters.Orbiter_RectangleView;
-import com.jtronlabs.orbiters.Orbiter_TriangleView;
-import com.jtronlabs.orbiters.Shooting_OrbiterView;
+import com.jtronlabs.enemy_types_orbiters.Orbiter_CircleView;
+import com.jtronlabs.enemy_types_orbiters.Orbiter_RectangleView;
+import com.jtronlabs.enemy_types_orbiters.Orbiter_TriangleView;
+import com.jtronlabs.enemy_types_orbiters.Shooting_OrbiterView;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+/**
+ * Factory in charge of spawning enemies with default values, and changing those values as game progresses
+ * @author JAMES LOWREY
+ *
+ */
 public class EnemyFactory{
 	
 //	private int numMeteor,numShooterArray,numdiveBomber,numFullScreenDiag,
 //	numCircleOrbit,numRectangleOrbit,numTriangleOrbit,numGiantMeteor;
 	
+	private boolean spawning=false;
 	private Context ctx;
 	private Levels levelInfo = new Levels();
 	private RelativeLayout gameLayout;
@@ -353,7 +359,6 @@ public class EnemyFactory{
 		giant.setDamage(150);
 		giant.heal(150-Gravity_MeteorView.DEFAULT_HEALTH);
 		giant.setScoreValue(20);
-		giant.setSpeedYDown(.45*giant.getSpeedYDown());
 		
 		//add to layout
 		gameLayout.addView(giant,1);

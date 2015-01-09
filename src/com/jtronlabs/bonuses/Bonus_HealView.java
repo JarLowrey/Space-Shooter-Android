@@ -3,8 +3,8 @@ package com.jtronlabs.bonuses;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
+import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Bonus_HealView extends BonusView implements GameObjectInterface{
 	
@@ -14,7 +14,7 @@ public class Bonus_HealView extends BonusView implements GameObjectInterface{
 		this.setImageResource(R.drawable.heal);
 	}
 	
-	public void applyBenefit(Gravity_ShootingView theBenefitter){
+	public void applyBenefit(Shooter theBenefitter){
 		final double amtToHeal = theBenefitter.getMaxHealth()/5;
 		if(theBenefitter.getHealth()+amtToHeal<theBenefitter.getMaxHealth()){
 			theBenefitter.heal(amtToHeal);

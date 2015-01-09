@@ -5,17 +5,15 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
-import com.jtronlabs.to_the_moon.views.Projectile_GravityView;
+import com.jtronlabs.to_the_moon.parents.Moving_GravityView;
+import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
-public abstract class BonusView extends Projectile_GravityView implements GameObjectInterface{
+public abstract class BonusView extends Moving_GravityView {
 
-	public final static int SET_TRI_SHOT=0,SET_DUAL_SHOT=1,HEAL=2,UPGRADE_GUN=3;
 	public final static float DEFAULT_SPEED_Y=3;
 	
 	public BonusView(Context context,float positionX,float positionY) {
-		super(context,0,DEFAULT_SPEED_Y,DEFAULT_SPEED_Y,0,0,1,0);	
+		super(context,DEFAULT_SPEED_Y,0);	
 		
 		
 		this.init(context, positionX, positionY);
@@ -35,13 +33,13 @@ public abstract class BonusView extends Projectile_GravityView implements GameOb
 		
 	}
 	
-	public abstract void applyBenefit(Gravity_ShootingView theBenefitter);
+	public abstract void applyBenefit(Shooter theBenefitter);
 	
-	public int removeView(boolean showExplosion){
-		if(GameActivity.bonuses.contains(this)){
+	public void removeView(boolean showExplosion){
+//		if(GameActivity.bonuses.contains(this)){
 			GameActivity.bonuses.remove(this);			
-		}
-		return super.removeView(false);
+//		}
+		super.removeGameObject();
 	}
 	
 	public static BonusView getRandomBonusView(Context context,float positionX,float positionY){

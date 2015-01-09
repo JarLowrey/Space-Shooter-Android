@@ -9,11 +9,9 @@ import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Special_ShootTowardsProjectileDualShot;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightDualShot;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
-import com.jtronlabs.to_the_moon.views.ProjectileView;
+import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
-public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements GameObjectInterface{
+public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	public final static int DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo,DEFAULT_BULLET_FREQ_INTERVAL=1000;
 	public final static double DEFAULT_SPEED_Y=1.8,DEFAULT_SPEED_X=10,
@@ -30,27 +28,27 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		public void run() {
     		//ensure view is not removed before running
     		if( ! Shooting_DiagonalMovingView.this.isRemoved()){
-				boolean offScreen = Shooting_DiagonalMovingView.this.move(ProjectileView.DOWN);
+				boolean offScreen = Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.DOWN);
 				if(offScreen){
-					Shooting_DiagonalMovingView.this.removeView(false);
+					Shooting_DiagonalMovingView.this.removeGameObject();
 					Shooting_DiagonalMovingView.this.removeCallbacks(this);
 					return;
 				}
 				if(travelingRight){
-					Shooting_DiagonalMovingView.this.move(ProjectileView.RIGHT);
+					Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.RIGHT);
 					final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
 					if(rightSideOfShip>=rightThreshold){//ship is on far right portion of screen
 						travelingRight=false;
 					}				
 				}else{
-					Shooting_DiagonalMovingView.this.move(ProjectileView.LEFT);
+					Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.LEFT);
 					final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
 					if(leftSideOfShip <= leftThreshold){//ship is on far left portion of screen
 						travelingRight=true;
 					}		
 				}
 				
-				Shooting_DiagonalMovingView.this.postDelayed(this,ProjectileView.HOW_OFTEN_TO_MOVE);
+				Shooting_DiagonalMovingView.this.postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
     		}
 		}
 		
@@ -59,7 +57,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 	public Shooting_DiagonalMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,
 			double bulletVerticalSpeed,double bulletDamage) {
-		super(context,false,score,speedY,speedY,speedX,collisionDamage,
+		super(context,score,speedY,speedX,collisionDamage,
 				health,probSpawnBeneficialObjectOnDeath);
 		
 		this.myGun=new Gun_Upgradeable_StraightDualShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
@@ -67,7 +65,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 		Gun_Special newGun = new Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket,this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
 		this.giveSpecialGun(newGun, Integer.MAX_VALUE);
 		
-		this.lowestPositionThreshold=(int) MainActivity.getHeightPixels();
+		this.setThreshold((int) MainActivity.getHeightPixels());
 		
 		//set image background, width, and height
 		this.setImageResource(DEFAULT_BACKGROUND);
@@ -87,7 +85,7 @@ public class Shooting_DiagonalMovingView extends Gravity_ShootingView implements
 	
 	public void restartThreads(){
 		super.restartThreads();
-		this.postDelayed(moveDiagonalRunnable, ProjectileView.HOW_OFTEN_TO_MOVE);
+		this.postDelayed(moveDiagonalRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 	}
 	
 	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=1500;

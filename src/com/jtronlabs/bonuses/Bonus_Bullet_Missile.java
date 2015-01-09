@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.bullets.Bullet_Missile;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
+import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Bonus_Bullet_Missile extends BonusView implements GameObjectInterface{
 	
@@ -17,7 +17,7 @@ public class Bonus_Bullet_Missile extends BonusView implements GameObjectInterfa
 		this.setImageResource(R.drawable.missile_bonus);
 	}
 	
-	public void applyBenefit(Gravity_ShootingView theBenefitter){
-		theBenefitter.myBulletType = new Bullet_Missile();
+	public void applyBenefit(Shooter theBenefitter){
+		theBenefitter.setBulletType( new Bullet_Missile() );
 	}
 }

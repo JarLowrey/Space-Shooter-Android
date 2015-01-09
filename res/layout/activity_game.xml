@@ -90,7 +90,7 @@
 
 	</RelativeLayout>
 
-    <com.jtronlabs.enemy_types.RocketView
+    <com.jtronlabs.friendly_types.RocketView
         android:id="@+id/rocket_game"
         android:layout_width="@dimen/rocket_game_width"
         android:layout_height="@dimen/rocket_game_height"

@@ -21,6 +21,11 @@ import android.view.SurfaceView;
 
 import com.jtronlabs.to_the_moon.R;
 
+/**
+ * Canvas to draw fancy lettering
+ * @author JAMES LOWREY
+ *
+ */
 public class DrawTextView extends SurfaceView implements SurfaceHolder.Callback
 {
 	Paint strokePaint = new Paint();

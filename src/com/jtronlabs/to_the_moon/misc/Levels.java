@@ -2,18 +2,20 @@ package com.jtronlabs.to_the_moon.misc;
 
 import com.jtronlabs.to_the_moon.R;
  
-
- 
+/**
+ * 
+ * @author JAMES LOWREY
+ *
+ */
 public class Levels {
-	//GAME STATUS DATA
-	private final int[] levelBackgrounds={R.drawable.btn_gray,R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
-	public final int MAX_LEVEL=25, INCREASE_LEVEL_GOAL_INCREMENT=5,BTN_TAP_SCORE_WEIGHT=1;
-	private static int score,level;
+	private final int[] levelBackgrounds={R.drawable.btn_gray,
+			R.drawable.level2,R.drawable.level3,R.drawable.level4,R.drawable.moon};
+	public final int MAX_LEVEL=25, 
+			INCREASE_LEVEL_GOAL_INCREMENT=5;
 	
-	public Levels(){
-		score=0;
-		level=0;
-	}
+	
+	private static int score=0,level=0;
+	
 	/**
 	 * Checks if the level needs to be increased, does so if necessary, and returns the new gameScreen background's resource Id
 	 * @return-resourceId of new background if levelDifficulty was incremented. Return -1 if levelDifficulty was not incremented
@@ -27,6 +29,8 @@ public class Levels {
 		
 		return retVal;
 	}
+	
+	//GET METHODS
 	public int getLevel(){
 		return level;
 	}
@@ -35,9 +39,9 @@ public class Levels {
 	}
 	/**
 	 * 
-	 * get number of taps needed to beat level
+	 * get score needed to beat level
 	 * @param whichLevel-the level whose goal you wish to know
-	 * @return-the number of taps needed to beat given level
+	 * @return-the score needed to beat given level
 	 */
 	public int getLevelGoal(int whichLevel){
 		if(whichLevel==0){
@@ -49,9 +53,6 @@ public class Levels {
 			return getLevelGoal(whichLevel-1)+levelDifference;
 		}
 	}
-	public void incrementScore(int howMuch){
-		score+=howMuch;
-	}
 	public int getScore(){
 		return score;
 	}
@@ -61,7 +62,13 @@ public class Levels {
 	public boolean isLastLevelInDifficulty(){
 		return level%INCREASE_LEVEL_GOAL_INCREMENT==(INCREASE_LEVEL_GOAL_INCREMENT-1);
 	}
+	
+	//SET METHODS
+	public void incrementScore(int howMuch){
+		score+=howMuch;
+	}
 	public void reset(){
-		level=1; 
+		level=0;
+		score=0;
 	}
 }

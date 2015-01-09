@@ -5,8 +5,8 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.guns.Gun_Special;
 import com.jtronlabs.to_the_moon.guns.Gun_Special_AngledTriShot;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
+import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Bonus_SpecialGun_AngledTriShotView extends BonusView implements GameObjectInterface{
 	
@@ -16,12 +16,12 @@ public class Bonus_SpecialGun_AngledTriShotView extends BonusView implements Gam
 		this.setImageResource(R.drawable.tri_bullet);
 	}
 	
-	public void applyBenefit(Gravity_ShootingView theBenefitter){
-		if(theBenefitter.myGun instanceof Gun_Special_AngledTriShot){
-			Gun_Special benefittersSpecialGun = (Gun_Special) theBenefitter.myGun;
+	public void applyBenefit(Shooter theBenefitter){
+		if(theBenefitter.getGun() instanceof Gun_Special_AngledTriShot){
+			Gun_Special benefittersSpecialGun = (Gun_Special) theBenefitter.getGun();
 			benefittersSpecialGun.setAmmo(benefittersSpecialGun.getAmmo()+7);
 		}else{
-			Gun_Special newGun = new Gun_Special_AngledTriShot(ctx,theBenefitter);
+			Gun_Special newGun = new Gun_Special_AngledTriShot(this.getContext(),theBenefitter);
 
 			theBenefitter.giveSpecialGun(newGun, 25);
 		}

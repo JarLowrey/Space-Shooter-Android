@@ -3,8 +3,8 @@ package com.jtronlabs.bonuses;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
+import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
+import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Bonus_Gun_IncBulletSpeedView extends BonusView implements GameObjectInterface{
 	
@@ -16,7 +16,7 @@ public class Bonus_Gun_IncBulletSpeedView extends BonusView implements GameObjec
 		this.setImageResource(R.drawable.bullet_speed);
 	}
 	
-	public void applyBenefit(Gravity_ShootingView theBenefitter){
-		theBenefitter.myGun.setBulletSpeedY(theBenefitter.myGun.getBulletSpeedY() * SPEED_INCREASE_RATIO );
+	public void applyBenefit(Shooter theBenefitter){
+		theBenefitter.setBulletSpeedY(theBenefitter.getBulletSpeedY() * SPEED_INCREASE_RATIO );
 	}
 }

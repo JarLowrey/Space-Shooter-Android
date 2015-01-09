@@ -9,22 +9,30 @@ import android.widget.RelativeLayout;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
-import com.jtronlabs.to_the_moon.misc.GameObjectInterface;
-import com.jtronlabs.to_the_moon.views.Gravity_ShootingView;
-import com.jtronlabs.to_the_moon.views.ProjectileView;
+import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
-public class Shooting_ArrayMovingView extends Gravity_ShootingView implements GameObjectInterface {
+public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
-	public static final int DEFAULT_NUM_COLS=5,DEFAULT_NUM_ROWS=5, DEFAULT_SCORE=10,DEFAULT_BACKGROUND=R.drawable.ufo;
+	public static final int DEFAULT_NUM_COLS=5,
+			DEFAULT_NUM_ROWS=5, 
+			DEFAULT_SCORE=10,
+			DEFAULT_BACKGROUND=R.drawable.ufo;
 	public static final boolean DEFAULT_STAGGERED=true;
-	private static final float LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
-
-	public final static double DEFAULT_SPEED_Y=3,DEFAULT_SPEEDX=2,
-			DEFAULT_COLLISION_DAMAGE=20, DEFAULT_HEALTH=10,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
-	public final static double DEFAULT_BULLET_SPEED_Y=10,DEFAULT_BULLET_DAMAGE=10,DEFAULT_BULLET_FREQ_INTERVAL=4000;
+	public final static double DEFAULT_SPEED_Y=3,
+			DEFAULT_SPEEDX=2,
+			DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_HEALTH=10,
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
+	public final static double DEFAULT_BULLET_SPEED_Y=10,
+			DEFAULT_BULLET_DAMAGE=10,
+			DEFAULT_BULLET_FREQ_INTERVAL=4000;
 	
-	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
+
 	public static ArrayList<Shooting_ArrayMovingView> allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();
+	
+
+	private static final float LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
+	private static ArrayList<Integer> freePositions = new ArrayList<Integer>();
 	
 	private static boolean staggered = false;
 	private static int numRows=4,numCols=7;
@@ -43,16 +51,16 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 	    		if( ! allSimpleShooters.get(i).isRemoved()){
 					switch (currentPos) {
 					case 0:
-						allSimpleShooters.get(i).move(ProjectileView.RIGHT);
+						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.RIGHT);
 						break;
 					case 1:
-						allSimpleShooters.get(i).move(ProjectileView.UP);
+						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.UP);
 						break;
 					case 2:
-						allSimpleShooters.get(i).move(ProjectileView.LEFT);
+						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.LEFT);
 						break;
 					case 3:
-						allSimpleShooters.get(i).move(ProjectileView.DOWN);
+						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.DOWN);
 						break;
 					}
 	    		}
@@ -64,15 +72,14 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 			}
 			
 			simpleShooterHandler.postDelayed(this,
-					ProjectileView.HOW_OFTEN_TO_MOVE);
+					Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 		}
 	};
 
 	public Shooting_ArrayMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
-			float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,double bulletDamage,double bulletVerticalSpeed) {
-		super(context, false,score, speedY, speedY,
-				speedX, collisionDamage, health,probSpawnBeneficialObjectOnDeath);
+			float heightView,float widthView,double probSpawnBeneficialObject,double bulletDamage,double bulletVerticalSpeed) {
+		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject);
 
 		this.myGun=new Gun_Upgradeable_StraightSingleShot(context, this, false, bulletVerticalSpeed, bulletDamage, bulletFreq);
 
@@ -87,7 +94,7 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 		//set row destination
 		final float lowestPointOnScreen = MainActivity.getHeightPixels()*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
 		final float myRowNum = (myPosition / numCols) * heightView;//, multiply that by heightOfView to get top of row
-		this.lowestPositionThreshold = (int) (lowestPointOnScreen - myRowNum);
+		this.setThreshold((int) (lowestPointOnScreen - myRowNum));
 
 		// set col position
 		final float marginOnSides = context.getResources().getDimension(R.dimen.activity_margin_med);
@@ -110,11 +117,11 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 		restartThreads();
 	}
 	
-	public int removeView(boolean showExplosion) {
+	public void removeGameObject() {
 		allSimpleShooters.remove(this);
 		freePositions.add(myPosition);
 
-		return super.removeView(showExplosion);
+		super.removeGameObject();
 	}
 
 	public static void stopMovingAllShooters() {
@@ -122,7 +129,7 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 	}
 
 	public static void startMovingAllShooters(){
-		simpleShooterHandler.postDelayed(moveInARectangleRunnable, ProjectileView.HOW_OFTEN_TO_MOVE);
+		simpleShooterHandler.postDelayed(moveInARectangleRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 	}
 	public static int getMaxNumShips() {
 		return numCols*numRows;
@@ -157,9 +164,9 @@ public class Shooting_ArrayMovingView extends Gravity_ShootingView implements Ga
 			for(int i=allSimpleShooters.size()-1;i>=0;i--){
 				Shooting_ArrayMovingView temp = allSimpleShooters.get(i);
 				for(int j=temp.myGun.myBullets.size();j>=0;j--){
-					temp.myGun.myBullets.get(i).removeView(false);
+					temp.myGun.myBullets.get(i).removeGameObject();
 				}
-				allSimpleShooters.get(i).removeView(false);
+				allSimpleShooters.get(i).removeGameObject();
 			}
 			allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();
 			return true;
