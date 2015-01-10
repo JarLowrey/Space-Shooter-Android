@@ -31,21 +31,19 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		@Override
 		public void run() {
     		//ensure view is not removed before running
-    		if( ! Shooting_DiagonalMovingView.this.isRemoved()){
-				boolean offScreen = Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.DOWN);
-				if(offScreen){
-					Shooting_DiagonalMovingView.this.removeGameObject();
-					Shooting_DiagonalMovingView.this.removeCallbacks(this);
-					return;
-				}					
+    		if( ! Shooting_DiagonalMovingView.this.isRemoved()){			
 				final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
 				final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
 				double mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();
 				
-				boolean pastRightSide  = mySpeedX>0 && rightSideOfShip>=rightThreshold;
-				boolean pastLeftSide = mySpeedX<0 && leftSideOfShip<=leftThreshold;
-				if(pastRightSide || pastLeftSide){
-					mySpeedX *= -1;
+				final boolean pastRightSide  = rightSideOfShip>=rightThreshold;
+				final boolean pastLeftSide = leftSideOfShip<=leftThreshold;
+				if(pastRightSide){
+					mySpeedX = Math.abs(mySpeedX) * -1;
+					Shooting_DiagonalMovingView.this.setSpeedX(mySpeedX);
+				}else if(pastLeftSide){
+					mySpeedX = Math.abs(mySpeedX);
+					Shooting_DiagonalMovingView.this.setSpeedX(mySpeedX);
 				}
 				Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.SIDEWAYS);
 				
@@ -77,8 +75,8 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
 		this.setY(0);
 		
-		leftThreshold=this.getSpeedX();//far left of screen
-		rightThreshold=MainActivity.getWidthPixels()-this.getWidth()-this.getSpeedX();//far right of screen
+		leftThreshold=0;//far left of screen
+		rightThreshold=MainActivity.getWidthPixels()-this.getWidth();//far right of screen
 
 		this.post(moveDiagonalRunnable);
 	}
