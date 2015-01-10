@@ -1,4 +1,4 @@
-package friendly_types;
+package friendlies;
 
 import guns.Gun;
 import guns.Gun_StraightSingleShot;

@@ -12,9 +12,15 @@ public class LevelFactory extends ScriptedWavesFactory{
 	}
 	
 	public void startLevelOne(){
-		spawnMeteorWaves(5,300,false);
-		spawnMeteorWaves(5,300,true);
+		spawnMeteorWaves(20,600,false);
+		spawnHandler.postDelayed(new Runnable(){
+			@Override
+			public void run() {spawnMeteorWaves(5,500,true);}}
+		, 20000);
 		
 	}
 
+	public void stopLevel(){
+		spawnHandler.removeCallbacks(null);
+	}
 }

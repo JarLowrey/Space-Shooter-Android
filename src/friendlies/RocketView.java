@@ -1,12 +1,12 @@
-package friendly_types;
+package friendlies;
 
-import parents.Moving_ProjectileView;
 import guns.Gun;
-import guns.Gun_StraightDualShot;
+import guns.Gun_AngledDualShot;
+import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import bullets.Bullet_Tracking_LaserShort;
+import bullets.Bullet_LaserShort;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -28,7 +28,7 @@ public class RocketView extends Friendly_ShooterView{
 		super(context, at,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
-		Gun gun = new Gun_StraightDualShot(context, this, new Bullet_Tracking_LaserShort(this,this));
+		Gun gun = new Gun_AngledDualShot(context, this, new Bullet_LaserShort());
 		this.giveNewGun(gun);
 		this.stopShooting();
 		

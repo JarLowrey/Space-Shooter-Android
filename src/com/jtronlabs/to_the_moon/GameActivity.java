@@ -31,8 +31,8 @@ import bullets.BulletView;
 
 import enemy_types.EnemyView;
 import enemy_types.Shooting_ArrayMovingView;
-import friendly_types.FriendlyView;
-import friendly_types.RocketView;
+import friendlies.FriendlyView;
+import friendlies.RocketView;
 
 public class GameActivity extends Activity implements OnTouchListener{
 

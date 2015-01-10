@@ -1,4 +1,4 @@
-package friendly_types;
+package friendlies;
 
 import parents.Moving_ProjectileView;
 import android.content.Context;

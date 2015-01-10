@@ -89,7 +89,7 @@
 
 	</RelativeLayout>
 
-    <friendly_types.RocketView
+    <friendlies.RocketView
         android:id="@+id/rocket_game"
         android:layout_width="@dimen/rocket_game_width"
         android:layout_height="@dimen/rocket_game_height"

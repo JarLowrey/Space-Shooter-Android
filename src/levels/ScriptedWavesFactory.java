@@ -16,7 +16,7 @@ public class ScriptedWavesFactory {
 	Activity myActivity;
 	
 	RelativeLayout gameLayout;
-    private Handler spawnHandler;
+    Handler spawnHandler;
     
     
     
@@ -30,42 +30,42 @@ public class ScriptedWavesFactory {
 	}
 
 	public void spawnMeteorWaves(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean firstMeteorShowerRunsLeftToRight) {
-		
 		spawnHandler.post(new Runnable(){
-		
-		private int numMeteorsSpawned=0;
-		private boolean meteorsFallLeftToRight = firstMeteorShowerRunsLeftToRight;
-		
-		@Override
-		public void run() {
-			//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
-			Gravity_MeteorView  met= enemyProducer.spawnMeteor();
-			final int width = +met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
-			final int numMeteorsPossibleOnScreenAtOnce= (int) (MainActivity.getWidthPixels()/width);
-			final int currentMeteor = numMeteorsSpawned % numMeteorsPossibleOnScreenAtOnce;
 			
+			private int numMeteorsSpawned=0;
+			private boolean meteorsFallLeftToRight = firstMeteorShowerRunsLeftToRight;
 			
-			int myXPosition;
-			//reverse direction if full meteor shower has occurred
-			if(numMeteorsSpawned >= numMeteorsPossibleOnScreenAtOnce && numMeteorsSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
-				meteorsFallLeftToRight = !meteorsFallLeftToRight;					
+			@Override
+			public void run() {
+				//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
+				Gravity_MeteorView  met= enemyProducer.spawnMeteor();
+				final int width = +met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
+				final int numMeteorsPossibleOnScreenAtOnce= (int) (MainActivity.getWidthPixels()/width);
+				final int currentMeteor = numMeteorsSpawned % numMeteorsPossibleOnScreenAtOnce;
+				
+				
+				int myXPosition;
+				//reverse direction if full meteor shower has occurred
+				if(numMeteorsSpawned >= numMeteorsPossibleOnScreenAtOnce && numMeteorsSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
+					meteorsFallLeftToRight = !meteorsFallLeftToRight;					
+				}
+				
+				if(meteorsFallLeftToRight){
+					myXPosition = width * currentMeteor;
+				}else{
+					myXPosition = (int) (MainActivity.getWidthPixels()- (width * (currentMeteor+1) ) );
+				}
+				met.setX(myXPosition);
+				
+				numMeteorsSpawned++;
+				GameActivity.enemies.add(met);
+				gameLayout.addView(met,1);
+				if(numMeteorsSpawned<numMeteors){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
+				}
+				}
 			}
-			
-			if(meteorsFallLeftToRight){
-				myXPosition = width * currentMeteor;
-			}else{
-				myXPosition = (int) (MainActivity.getWidthPixels()- (width * (currentMeteor+1) ) );
-			}
-			met.setX(myXPosition);
-			
-			numMeteorsSpawned++;
-			GameActivity.enemies.add(met);
-			gameLayout.addView(met,1);
-			if(numMeteorsSpawned<numMeteors){
-				spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
-			}
-			}
-		});
+		);
 		
 		
 	}

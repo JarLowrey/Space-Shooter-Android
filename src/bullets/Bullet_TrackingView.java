@@ -15,7 +15,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
 public abstract class Bullet_TrackingView extends Bullet{
 
 	public static final double MAX_TRACKING_SPEED=5*MainActivity.getScreenDens();
-	public static final double DEFAULT_TRACKING_SPEED=3*MainActivity.getScreenDens();
+	public static final double DEFAULT_TRACKING_SPEED=4*MainActivity.getScreenDens();
 	
 	private double trackingSpeed;
 	private MovingView viewTracking;

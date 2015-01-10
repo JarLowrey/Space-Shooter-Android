@@ -13,19 +13,20 @@ public class Gravity_MeteorView extends EnemyView{
 	
 	public final static int DEFAULT_SCORE=5,
 			DEFAULT_BACKGROUND=R.drawable.meteor,
-			DEFAULT_ROTATION_SPEED=8;
+			DEFAULT_ROTATION_SPEED=10;
 	public final static double DEFAULT_SPEED_Y=7,DEFAULT_SPEED_X=0,
 			DEFAULT_COLLISION_DAMAGE=12, 
 			DEFAULT_HEALTH=5,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.01;
 	
+	private int direction = 1;
 	private int currentRotation;
 	Runnable rotateRunnable = new Runnable(){
 		@Override
 		public void run() {
-			currentRotation+=DEFAULT_ROTATION_SPEED;
+			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
 			Gravity_MeteorView.this.setRotation(currentRotation);
-			Gravity_MeteorView.this.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE * 3);
+			Gravity_MeteorView.this.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE * 4);
 		}
 	};
 	
@@ -34,6 +35,7 @@ public class Gravity_MeteorView extends EnemyView{
 		super(context,score,speedY,speedX,collisionDamage,
 				health,probSpawnBeneficialObjectOnDeath);
 				
+		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
 		this.post(rotateRunnable); 
 		

@@ -37,7 +37,8 @@ public class BulletView extends Moving_ProjectileView{
     				//move sideways
         			BulletView.this.moveDirection(MovingView.SIDEWAYS);
         		}
-	    		
+
+    			BulletView.this.setBulletRotation();
     			BulletView.this.postDelayed(this,HOW_OFTEN_TO_MOVE);
     		}
     	}
@@ -62,8 +63,6 @@ public class BulletView extends Moving_ProjectileView{
 		setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
 		
 		shooter.getMyBullets().add(this);
-		//set bullet rotation and post the move runnable
-		this.setBulletRotation();
 		this.post(moveBulletRunnable);
 	}
 	
@@ -90,8 +89,9 @@ public class BulletView extends Moving_ProjectileView{
 		if(positionOnShooterAsAPercentageOfWidthFromTheLeftSide < 0 || positionOnShooterAsAPercentageOfWidthFromTheLeftSide > 100){
 			throw new IllegalArgumentException("Not a valid percentage");
 		}
+		final int bulletWidth = this.getLayoutParams().width;
 		final double posRelativeToShooter= theOneWhoShotMe.getWidth() * positionOnShooterAsAPercentageOfWidthFromTheLeftSide/100.0;
-		final float middleOfBulletOnShootingPos = (float) (posRelativeToShooter+theOneWhoShotMe.getX()-this.getWidth()/2.0);
+		final float middleOfBulletOnShootingPos = (float) (posRelativeToShooter+theOneWhoShotMe.getX()-bulletWidth/2.0);
 		this.setX(middleOfBulletOnShootingPos);
 	}
 	
