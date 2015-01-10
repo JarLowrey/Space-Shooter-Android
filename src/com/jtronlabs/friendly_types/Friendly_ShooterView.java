@@ -7,20 +7,17 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 
 import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.bullets.Bullet;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
 import com.jtronlabs.to_the_moon.bullets.Bullet_LaserShort;
 import com.jtronlabs.to_the_moon.guns.Gun;
-import com.jtronlabs.to_the_moon.guns.Gun_Special;
-import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable;
-import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
+import com.jtronlabs.to_the_moon.guns.Gun_StraightSingleShot;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
 public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
+
 	//myGun needs to be set in a specific View's class
-	private Gun myGun;
-	private Bullet myBulletType;
+	private ArrayList<Gun> myGuns;
 	private ArrayList<BulletView> myBullets;
 	
 	private double bulletFreq,bulletSpeedY,bulletDamage;
@@ -29,17 +26,15 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
   Runnable shootingRunnable = new Runnable(){
   	@Override
       public void run() {
-  		//ensure shooter is not removed before running
-  		if( ! isRemoved() ){
-  			boolean outOfAmmoGun = myGun.shoot();
-	    		if(outOfAmmoGun==true){
-	    			Friendly_ShooterView.this.stopShooting();//stop spawning bullets with this gun
-	    			myGun=myGun.getMostRecentUpgradeableGun();//set shooter's gun to previous gun
-	    		}else{
-	    			Friendly_ShooterView.this.postDelayed(this, (long) Friendly_ShooterView.this.getBulletFreq());
-	    		}
+  			//ensure shooter is not removed before running
+	  		if( ! isRemoved() ){
+	  			for(Gun currentGun : myGuns){
+	  				currentGun.shoot();
+	  			}
+	  			
+	  			Friendly_ShooterView.this.postDelayed(this, (long) bulletFreq);
+	  		}
   		}
-  	}
 	};
 
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
@@ -48,13 +43,16 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		super(context,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
 
+		myGuns= new ArrayList<Gun>();
 		bulletFreq=bulletFrequency;
 		bulletDamage=bulletDmg;
 		bulletSpeedY=bulletVerticalSpeed;
 		myBullets = new ArrayList<BulletView>();
-		myBulletType = new Bullet_LaserShort();
-		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
-		this.removeCallbacks(null);
+
+
+		Gun defaultGun = new Gun_StraightSingleShot(context,this,new Bullet_LaserShort());
+		myGuns.add(defaultGun);
+		
 		startShooting();//protagonist spawns through Attirbute set constructor, so this is safe
 	}
 
@@ -64,12 +62,15 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		super(context, at,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
 
+		myGuns= new ArrayList<Gun>();
 		bulletFreq=bulletFrequency;
 		bulletDamage=bulletDmg;
 		bulletSpeedY=bulletVerticalSpeed;
 		myBullets = new ArrayList<BulletView>();
-		myBulletType = new Bullet_LaserShort();
-		myGun = new Gun_Upgradeable_StraightSingleShot(context,this);
+		
+		Gun defaultGun = new Gun_StraightSingleShot(context,this,new Bullet_LaserShort());
+		myGuns.add(defaultGun);
+		
 		this.removeCallbacks(null);
 	}
 	
@@ -87,48 +88,6 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		startShooting();
 		super.restartThreads();
 	}
-	
-	/**
-	 * Takes care of upgrading or downgrading this instance's Gun_Upgradeable
-	 * @param upgrade True to upgrade gun, False to downgrade
-	 */
-	public void upgradeOrDowngradeGun(boolean upgrade){
-		//create new upgrade
-		Gun_Upgradeable nextGun;
-		if(upgrade){
-			nextGun = this.myGun.getMostRecentUpgradeableGun().getUpgradeGun();
-		}else{
-			nextGun = this.myGun.getMostRecentUpgradeableGun().getDowngradedGun();			
-		}
-		
-		if(this.myGun instanceof Gun_Special){
-			this.myGun.setPreviousUpgradeableGun(nextGun);//set it up so once special disappears, new gun will take over
-		}else if( ! this.myGun.getClass().equals(nextGun.getClass())){
-			this.myGun=nextGun;
-		}
-	}
-	
-	/**
-	 * Takes care of changing this instance's gun to a given Special Gun with a set amount of amunition
-	 * @param newGun Special Gun to switch to
-	 * @param ammo Amount of ammo new special gun will have
-	 */
-	public void giveSpecialGun(Gun_Special newGun, int ammo){
-		newGun.setPreviousUpgradeableGun(this.myGun.getMostRecentUpgradeableGun());
-		this.myGun=newGun;
-		newGun.setAmmo(ammo);
-	}
-
-	@Override
-	public Gun getGun() {
-		return myGun;
-	}
-
-	@Override
-	public Bullet getBulletType() {
-		return myBulletType;
-	}
-
 	@Override
 	public void setMyBullets(ArrayList<BulletView> bullets) {
 		myBullets=bullets;
@@ -193,14 +152,26 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	public void setBulletDamage(double newDamage) {
 		bulletDamage = newDamage;
 	}
-	
+
 	@Override
-	public void setBulletType(Bullet newBulletType) {
-		this.myBulletType=newBulletType;
+	public void addGun(Gun newGun) {
+		myGuns.add(newGun);
 	}
 
 	@Override
-	public void setGun(Gun newGun) {
-		myGun = newGun;
+	public ArrayList<Gun> getAllGuns() {
+		return myGuns;
 	}
+
+	@Override
+	public void giveNewGun(Gun newGun) {
+		for(int i=myGuns.size()-1; i>=0;i--){
+			myGuns.remove(i);
+		}
+		myGuns.add(newGun);
+	}
+	
+	
+	
+	
 }

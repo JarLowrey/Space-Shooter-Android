@@ -2,12 +2,13 @@ package com.jtronlabs.friendly_types;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.bullets.Bullet_Tracking_LaserShort;
+import com.jtronlabs.to_the_moon.guns.Gun;
+import com.jtronlabs.to_the_moon.guns.Gun_StraightDualShot;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
 public class RocketView extends Friendly_ShooterView{
@@ -27,9 +28,12 @@ public class RocketView extends Friendly_ShooterView{
 		super(context, at,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
-		//if created via Attribute set, it is safe to set up rocket exhaust runnable
+		Gun gun = new Gun_StraightDualShot(context, this, new Bullet_Tracking_LaserShort(this,this));
+		this.giveNewGun(gun);
 		this.stopShooting();
-		this.setBulletType(new Bullet_Tracking_LaserShort(this,this));
+		
+
+		//if created via Attribute set, it is safe to set up rocket exhaust runnable
 		this.post(exhaustRunnable);
 	}
 

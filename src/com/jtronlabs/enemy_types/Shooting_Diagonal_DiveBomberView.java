@@ -36,7 +36,5 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 		//set column boundaries
 		leftThreshold=this.getSpeedX()+myColPos*shipXInterval;//farthest ship can move left is up to the boundary of the column it is in
 		rightThreshold=(myColPos+1)*shipXInterval-this.getWidth()-this.getSpeedX();//farthest ship can move right is up to irs right side being at the right side of the column it is in
-
-		this.upgradeOrDowngradeGun(true);
 	}
 }

@@ -3,12 +3,8 @@ package com.jtronlabs.enemy_types;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.guns.Gun_Special;
-import com.jtronlabs.to_the_moon.guns.Gun_Special_ShootTowardsProjectileDualShot;
-import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightDualShot;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
@@ -58,11 +54,6 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			double bulletFreq,double bulletVerticalSpeed,double bulletDamage) {
 		super(context,score,speedY,speedX,collisionDamage,
 				health,probSpawnBeneficialObjectOnDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
-		
-		this.setGun(new Gun_Upgradeable_StraightDualShot(context, this));
-//		this.upgradeOrDowngradeGun(true);
-		Gun_Special newGun = new Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket,this);
-		this.giveSpecialGun(newGun, Integer.MAX_VALUE);
 		
 		this.setThreshold((int) MainActivity.getHeightPixels());
 		

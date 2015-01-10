@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 import com.jtronlabs.enemy_types.Enemy_ShooterView;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
+import com.jtronlabs.to_the_moon.guns.Gun_StraightSingleShot;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
@@ -51,8 +51,6 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, 
 				bulletFreq, bulletDamage, bulletVerticalSpeed);
 
-		this.setGun(new Gun_Upgradeable_StraightSingleShot(context, this));
-				
 		//set image background, width, and height
 		this.setImageResource(DEFAULT_BACKGROUND);
 		final int height_int=(int)context.getResources().getDimension(R.dimen.diagonal_shooter_height);

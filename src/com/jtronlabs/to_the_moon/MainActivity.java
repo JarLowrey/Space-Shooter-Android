@@ -81,8 +81,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		Intent i;
 		switch(v.getId()){
 			case R.id.playBtn: 
-				i= new Intent(this, IntroActivity.class);
+				i= new Intent(this, GameActivity.class);
 				startActivity(i);
+//				i= new Intent(this, IntroActivity.class);
+//				startActivity(i);
 				break;
 		}
 	}

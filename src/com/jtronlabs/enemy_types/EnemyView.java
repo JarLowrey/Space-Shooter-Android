@@ -16,12 +16,12 @@ public class EnemyView extends Projectile_GravityView{
 	
 	public EnemyView(Context context,int scoreForKilling,double projectileSpeedY,
 			double projectileSpeedX, 
-			double projectileDamage,double projectileHealth,double probSpawnBeneficialObjecyUponDeath) {
+			double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectUponDeath) {
 		super( context, projectileSpeedY, projectileSpeedX, 
 				 projectileDamage, projectileHealth);
 		
 		score=scoreForKilling;
-		probSpawnBeneficialObject= probSpawnBeneficialObjecyUponDeath;
+		probSpawnBeneficialObject= probSpawnBeneficialObjectUponDeath;
 		GameActivity.enemies.add(this);
 	}
 	

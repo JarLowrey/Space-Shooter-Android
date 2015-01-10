@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -60,10 +61,11 @@ public class IntroActivity extends Activity implements OnClickListener{
 		switch(arg0.getId()){
 		case R.id.intro_btn_next: 
 			if(allCharsDisplayed){
-				if(posInArray==(introText.length-1)){//start game					 
+				if(posInArray==(introText.length-1)){//start game
+					Log.d("lowrey","wtf");
+					finish();
 					Intent i= new Intent(this, GameActivity.class);
 					startActivity(i);
-					finish();
 				}else{//increment position in array and post displayNewChars runnable
 					posInArray++;
 					allCharsDisplayed=false;

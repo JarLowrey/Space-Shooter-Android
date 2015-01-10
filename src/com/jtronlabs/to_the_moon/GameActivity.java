@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -23,8 +25,8 @@ import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
 import com.jtronlabs.friendly_types.FriendlyView;
 import com.jtronlabs.friendly_types.RocketView;
 import com.jtronlabs.to_the_moon.bullets.BulletView;
-import com.jtronlabs.to_the_moon.game_state.EnemyFactory;
-import com.jtronlabs.to_the_moon.game_state.Levels;
+import com.jtronlabs.to_the_moon.levels.LevelFactory;
+import com.jtronlabs.to_the_moon.levels.Levels;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
@@ -46,11 +48,11 @@ public class GameActivity extends Activity implements OnTouchListener{
 	
 	//MODEL
 	private Levels levelInfo;
-	private EnemyFactory enemyFactory;
+	private LevelFactory levelFactory;
 	
 	//MainGameLoop
     Handler gameHandler = new Handler();
-    Runnable mainGameLoopRunnable = new Runnable() {
+    Runnable collisionDetectionRunnable = new Runnable() {
 
         @Override
         public void run() {
@@ -69,8 +71,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        		//check enemy's bullets
 	        		if(enemyIsAShooter){
 		        		Shooter enemyShooter = (Shooter)enemy;
-//        				Log.d("lowrey","enemyShooter");
-	        			if(enemyShooter.getGun() != null){
+		        		
 //	        				Log.d("lowrey","enemyGunNotNull");
 		        			ArrayList<BulletView> enemyBullets = enemyShooter.getMyBullets();
 		        			
@@ -86,7 +87,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		                			bullet.removeGameObject();
 		                		}
 		        			}
-	        			}
+		        			
 	        		}
 	        		
 	    			//check if the enemy itself has collided with the  friendly
@@ -186,74 +187,77 @@ public class GameActivity extends Activity implements OnTouchListener{
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
 		rocket = (RocketView)findViewById(R.id.rocket_game);
 		friendlies.add(rocket);
-//		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
-//		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
-//		    @Override 
-//		    public void onGlobalLayout() { 
-//		        gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//		        //have a little portion of the rocket poking out above the bottom
-//				rocket.setThreshold((int) (btnBackground.getY()-GameActivity.this.getResources().getDimension(R.dimen.activity_margin_small)));
-//		    } 
-//		});
 		
 		//set up the game
 		levelInfo = new Levels();
-		enemyFactory = new EnemyFactory(this,gameScreen);
+		levelFactory = new LevelFactory(this,gameScreen);
+		
+		//start the game
+		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
+		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
+		    @Override 
+		    public void onGlobalLayout() {
+		    	gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+		    	levelFactory.startLevelOne();
+		    } 
+		});
+		
 	}
-
-//	@Override
-//	public void onClick(View v) {
-//		switch(v.getId()){
-//			case R.id.btnLeft:
-//				if(levelInfo.rightBtnWasTappedPreviously){
-//					//update variables
-//					levelInfo.rightBtnWasTappedPreviously=false;
-//					levelInfo.incrementNumBtnTaps();
-//					
-//					//update screen
-//					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
-//					if(levelInfo.numBtnTaps()%20==0){			
-//						rocket.runRocketExhaust(rocket_exhaust);
-//					}
-//					
-//					//pause gravity and move the rocket
-//					rocket.stopGravity();
-//					rocket.move(ProjectileView.UP);
-//					rocket.startGravity();
-//				}else{
-//					rocket.move(ProjectileView.LEFT);
-//				}
-//				break; 
-//			case R.id.btnRight:
-//				if(!levelInfo.rightBtnWasTappedPreviously){
-//					//update variables
-//					levelInfo.rightBtnWasTappedPreviously=true;
-//					levelInfo.incrementNumBtnTaps();
-//					
-//					//update Screen
-//					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
-//					if(levelInfo.numBtnTaps()%20==0){			
-//						rocket.runRocketExhaust(rocket_exhaust);
-//					}  
-//					
-//					//pause gravity and move the rocket
-//					rocket.stopGravity();
-//					rocket.move(ProjectileView.UP);
-//					rocket.startGravity();
-//				}else{
-//					rocket.move(ProjectileView.RIGHT);
-//				}
-//				break;
-//			case R.id.btnMiddle:
-//				rocket.spawnLevelOneCenteredBullet();
-//				break;
-//		}
-//		
-//		int id = levelInfo.incrementLevel();
-//		if(id>0){
-//			changeGameBackgroundImage(id);
-//		}
-//	}
+/*	previous onclick method
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+			case R.id.btnLeft:
+				if(levelInfo.rightBtnWasTappedPreviously){
+					//update variables
+					levelInfo.rightBtnWasTappedPreviously=false;
+					levelInfo.incrementNumBtnTaps();
+					
+					//update screen
+					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
+					if(levelInfo.numBtnTaps()%20==0){			
+						rocket.runRocketExhaust(rocket_exhaust);
+					}
+					
+					//pause gravity and move the rocket
+					rocket.stopGravity();
+					rocket.move(ProjectileView.UP);
+					rocket.startGravity();
+				}else{
+					rocket.move(ProjectileView.LEFT);
+				}
+				break; 
+			case R.id.btnRight:
+				if(!levelInfo.rightBtnWasTappedPreviously){
+					//update variables
+					levelInfo.rightBtnWasTappedPreviously=true;
+					levelInfo.incrementNumBtnTaps();
+					
+					//update Screen
+					btn_taps_text.setText(""+levelInfo.numBtnTaps());//flash fire behind the rocket
+					if(levelInfo.numBtnTaps()%20==0){			
+						rocket.runRocketExhaust(rocket_exhaust);
+					}  
+					
+					//pause gravity and move the rocket
+					rocket.stopGravity();
+					rocket.move(ProjectileView.UP);
+					rocket.startGravity();
+				}else{
+					rocket.move(ProjectileView.RIGHT);
+				}
+				break;
+			case R.id.btnMiddle:
+				rocket.spawnLevelOneCenteredBullet();
+				break;
+		}
+		
+		int id = levelInfo.incrementLevel();
+		if(id>0){
+			changeGameBackgroundImage(id);
+		}
+	}
+	*/
 	
 	@Override
     public void onPause() {
@@ -263,8 +267,8 @@ public class GameActivity extends Activity implements OnTouchListener{
         	((Moving_ProjectileView)enemies.get(i)).removeCallbacks(null);
         }
         ((Moving_ProjectileView)rocket).removeCallbacks(null);
-        enemyFactory.stopSpawning();
-        gameHandler.removeCallbacks(mainGameLoopRunnable);
+//        levelFactory.stopSpawning();
+        gameHandler.removeCallbacks(collisionDetectionRunnable);
     }
 	
 	@Override
@@ -275,8 +279,8 @@ public class GameActivity extends Activity implements OnTouchListener{
         	enemies.get(i).restartThreads();
         }
         rocket.restartThreads();
-        enemyFactory.beginSpawning();
-        gameHandler.post(mainGameLoopRunnable);
+//        levelFactory.beginSpawning();
+        gameHandler.post(collisionDetectionRunnable);
 	}
 	
 	private void changeGameBackgroundImage(final int idToChangeTo){
@@ -310,8 +314,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 		btnMiddle.setOnTouchListener(null);
 		
 		//clean up all threads
-		gameHandler.removeCallbacks(mainGameLoopRunnable);
-		enemyFactory.stopSpawning();
+		gameHandler.removeCallbacks(collisionDetectionRunnable);
+//		levelFactory.stopSpawning();
 		for(int i=enemies.size()-1;i>=0;i--){
 			enemies.get(i).removeGameObject();//this cleans up the threads and removes the Views from the Activity
 		}

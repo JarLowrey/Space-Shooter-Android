@@ -18,13 +18,12 @@ public class Bullet_Tracking_LaserShort extends Bullet_TrackingView{
 		super(viewToTrack,shooterWithTrackingBullets);
 	}
 	
-	public BulletView getBullet(Context context,	Shooter shooter,double bulletSpeedX, 
-	double positionOnShooterAsAPercentage){
+	public BulletView getBullet(Context context,	Shooter shooter){
 
 		final int width=(int) context.getResources().getDimension(R.dimen.laser_default_width);
 		final int height=(int) context.getResources().getDimension(R.dimen.laser_default_height);
 		 
-		BulletView bullet = new BulletView(context,shooter,bulletSpeedX, width,height,positionOnShooterAsAPercentage);
+		BulletView bullet = new BulletView(context,shooter, width, height);
 
 		int backgroundId=R.drawable.laser1_enemy;
 		if(shooter.isFriendly()){backgroundId = R.drawable.laser1_friendly;}

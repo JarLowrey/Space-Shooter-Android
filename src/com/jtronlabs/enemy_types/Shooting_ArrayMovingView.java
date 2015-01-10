@@ -8,7 +8,6 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.guns.Gun_Upgradeable_StraightSingleShot;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 
 public class Shooting_ArrayMovingView extends Enemy_ShooterView {
@@ -80,8 +79,6 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			double health,
 			float heightView,float widthView,double probSpawnBeneficialObject,double bulletFreq,double bulletDamage,double bulletVerticalSpeed) {
 		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject, bulletFreq, bulletDamage,bulletVerticalSpeed);
-
-		this.setGun(new Gun_Upgradeable_StraightSingleShot(context, this));
 
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);

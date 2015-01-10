@@ -8,9 +8,15 @@ import com.jtronlabs.to_the_moon.parents.MovingView;
 import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
+/**
+ * By default, a bullet moves straight and spawns in the middle of its shooter
+ * @author lowre_000
+ *
+ */
 public class BulletView extends Moving_ProjectileView{
 
-	
+	public static final int DEFAULT_HORIZONTAL_SPEED=0,
+			DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE=50;
 	private Shooter theOneWhoShotMe;
 	
 	Runnable moveBulletRunnable = new Runnable(){
@@ -37,28 +43,24 @@ public class BulletView extends Moving_ProjectileView{
     	}
 	};
 	
-	public BulletView(Context context,Shooter shooter,double projectileSpeedX,
-			int bulletWidth, int bulletHeight, double positionOnShooterAsAPercentage) {
+	public BulletView(Context context,Shooter shooter,
+			int bulletWidth, int bulletHeight) {
 		super(context,shooter.getBulletSpeedY(),
-				projectileSpeedX,shooter.getBulletDamage(),1);
+				DEFAULT_HORIZONTAL_SPEED ,shooter.getBulletDamage(),1);
 	
 		//set instance variables
 		theOneWhoShotMe=shooter;
 		
+		//very important to set these layout params of height and width before setting position
 		this.setLayoutParams(new LayoutParams(bulletWidth,bulletHeight));
-
-		//set initial positions. Width and Height need to be already initialized for this to work
-		final double posRelativeToShooter= theOneWhoShotMe.getWidth() * 	positionOnShooterAsAPercentage/100.0;
-		final float middleOfBulletOnShootingPos = (float) (posRelativeToShooter+theOneWhoShotMe.getX()-bulletWidth/2.0);
-		this.setX(middleOfBulletOnShootingPos);
 		
 		if(shooter.isFriendly()){
 			this.setY(theOneWhoShotMe.getY());//top			
 		}else{
 			this.setY(theOneWhoShotMe.getY()+theOneWhoShotMe.getHeight());//bottom
 		}
-
-
+		setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
+		
 		shooter.getMyBullets().add(this);
 		//set bullet rotation and post the move runnable
 		this.setBulletRotation();
@@ -78,6 +80,19 @@ public class BulletView extends Moving_ProjectileView{
 		rotVal = (float) Math.toDegrees(arcTan);
 			
 		this.setRotation(rotVal);
+	}
+	
+	/**
+	 * 
+	 * @param positionOnShooterAsAPercentageOfWidthFromTheLeftSide 100 indicates right side of shoot, 0 is left side, and 50 is middle
+	 */
+	public void setPositionOnShooterAsAPercentage(int positionOnShooterAsAPercentageOfWidthFromTheLeftSide) throws IllegalArgumentException{
+		if(positionOnShooterAsAPercentageOfWidthFromTheLeftSide < 0 || positionOnShooterAsAPercentageOfWidthFromTheLeftSide > 100){
+			throw new IllegalArgumentException("Not a valid percentage");
+		}
+		final double posRelativeToShooter= theOneWhoShotMe.getWidth() * positionOnShooterAsAPercentageOfWidthFromTheLeftSide/100.0;
+		final float middleOfBulletOnShootingPos = (float) (posRelativeToShooter+theOneWhoShotMe.getX()-this.getWidth()/2.0);
+		this.setX(middleOfBulletOnShootingPos);
 	}
 	
 	/**

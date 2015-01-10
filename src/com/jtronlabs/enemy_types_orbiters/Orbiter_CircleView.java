@@ -12,7 +12,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 			MAX_ANGULAR_VELOCITY = 30;
 	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels()/3);
 	
-	
+	private int currentDegree;
 	private int angularVelocity;
 	private double radius;
 	
@@ -64,7 +64,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	
 				//dear christ. Why am i so stupid.
 				if(angularVelocity>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
-				final int currentDegree = ( angularVelocity*howManyTimesMoved )%360;
+				currentDegree = ( angularVelocity+currentDegree )%360;
 				float y = (float) (radius* Math.sin(Math.toRadians(currentDegree)));
 				float x = (float) (radius* Math.cos(Math.toRadians(currentDegree)));
 				
@@ -90,9 +90,10 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 				collisionDamage, health,bulletFreq,heightView,widthView,
 				bulletDamage,bulletVerticalSpeed, probSpawnBeneficialObjecyUponDeath);
 
+		currentDegree=270;
 		radius=circleRadius*MainActivity.getScreenDens();
 		angularVelocity=angularVelocityInDegrees;
-		howManyTimesMoved=270/angularVelocity;//start orbit at 3/4 way through circle. This is degree 270. 
+		howManyTimesMoved=0;
 		
 		this.setThreshold((int) (orbitY - radius));//begin orbit at top of circle
 

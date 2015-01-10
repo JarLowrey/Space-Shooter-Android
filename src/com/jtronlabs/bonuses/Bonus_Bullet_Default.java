@@ -3,7 +3,6 @@ package com.jtronlabs.bonuses;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
-import com.jtronlabs.to_the_moon.bullets.Bullet_LaserShort;
 import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
 import com.jtronlabs.to_the_moon_interfaces.Shooter;
 
@@ -19,6 +18,6 @@ public class Bonus_Bullet_Default extends BonusView implements GameObjectInterfa
 	}
 	
 	public void applyBenefit(Shooter theBenefitter){
-		theBenefitter.setBulletType(new Bullet_LaserShort());
+//		theBenefitter.setBulletType(new Bullet_LaserShort());
 	}
 }
