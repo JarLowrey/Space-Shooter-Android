@@ -18,7 +18,7 @@ import com.jtronlabs.to_the_moon_interfaces.GameObjectInterface;
 public class MovingView extends ImageView implements GameObjectInterface{
 
 	public static final int HOW_OFTEN_TO_MOVE=100,
-			UP=0,RIGHT=1,DOWN=2,LEFT=3,
+			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
 			NOT_DEAD=-1;
 
 	boolean isRemoved;
@@ -28,7 +28,7 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		super(context);
 
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
-		speedX=Math.abs(movingSpeedX)*MainActivity.getScreenDens();
+		speedX=movingSpeedX*MainActivity.getScreenDens();
 		isRemoved=false;
 	}
 	
@@ -36,7 +36,7 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		super(context,at);
 
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
-		speedX=Math.abs(movingSpeedX)*MainActivity.getScreenDens();
+		speedX=movingSpeedX*MainActivity.getScreenDens();
 		isRemoved=false;
 	}
 	
@@ -66,7 +66,7 @@ public class MovingView extends ImageView implements GameObjectInterface{
 	 * @return Always returns false, overwrite for different behavior
 	 */
 	public boolean moveDirection(int direction) throws IllegalArgumentException{
-		if(direction!=UP && direction!=RIGHT && direction!=DOWN && direction!=LEFT){
+		if(direction!=UP && direction!=SIDEWAYS && direction!=DOWN && direction!=LEFT && direction != RIGHT){
 			throw new IllegalArgumentException("direction argument must be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT");
 		}
 
@@ -75,7 +75,7 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		float y =this.getY();
 		switch(direction){
 		case UP:
-			y-=speedY;
+			y-=Math.abs(speedY);
 			if(y< -getHeight()){
     			removeGameObject();
     			return true;
@@ -83,20 +83,25 @@ public class MovingView extends ImageView implements GameObjectInterface{
 			this.setY(y);
 			break;
 		case DOWN:
-			y+=speedY;
+			y+=Math.abs(speedY);
 			if(y>MainActivity.getHeightPixels()){
     			removeGameObject();
     			return true;
     		}
 			this.setY(y);
 			break;
-		//Since x speed can be negative, if the caller asks to move in a specific direction, ensure they move that way
-		case RIGHT:
-			x=(float) ((speedX>0) ? x+speedX : x-speedX); //x+abs(speedX)?
+		//move in X direction at speed X, move right if speed X positive and left otherwise
+		case SIDEWAYS:
+			x+=speedX;
 			this.setX(x);
 			break;
+		//move Left or right on screen, use abs(speedX)
 		case LEFT:
-			x=(float) ((speedX>0) ? x-speedX : x+speedX); //x-abs
+			x-=Math.abs(speedX);
+			this.setX(x);
+			break;
+		case RIGHT:
+			x+=Math.abs(speedX);
 			this.setX(x);
 			break;
 		}

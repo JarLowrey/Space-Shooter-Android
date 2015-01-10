@@ -29,11 +29,7 @@ public class BulletView extends Moving_ProjectileView{
 	    		//but I'd like to think it saves some resources
     			if( (Math.abs(BulletView.this.getSpeedX())>0.0001)){
     				//move sideways
-            		if(BulletView.this.getSpeedX()>0){
-            			BulletView.this.moveDirection(MovingView.RIGHT);
-            		}else{
-            			BulletView.this.moveDirection(MovingView.LEFT);
-            		}
+        			BulletView.this.moveDirection(MovingView.SIDEWAYS);
         		}
 	    		
     			BulletView.this.postDelayed(this,HOW_OFTEN_TO_MOVE);
@@ -82,7 +78,7 @@ public class BulletView extends Moving_ProjectileView{
 		}
 		rotVal = (float) Math.toDegrees(arcTan);
 			
-		this.setRotation(rotVal);
+//		this.setRotation(rotVal);
 	}
 	
 	/**

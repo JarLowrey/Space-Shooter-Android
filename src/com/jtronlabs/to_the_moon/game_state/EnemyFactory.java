@@ -142,8 +142,8 @@ public class EnemyFactory{
 	public void beginSpawning(){
 //		enemySpawnHandler.postDelayed(meteorSpawningRunnable,calculateMeteorSpawnInterval());
 //	    enemySpawnHandler.postDelayed(spawnShooterArrayRunnable,calculateMovingSideToSideShooterSpawnInterval());
-//	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,calculateMovingSideToSideShooterSpawnInterval());
-	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
+	    enemySpawnHandler.postDelayed(spawnDiagonalShooterRunnable,0);
+//	    enemySpawnHandler.postDelayed(spawnOrbitersRunnable,calculateOrbiterSpawnInterval());
 	}  
 	
 	//GET INTERVAL SPAWN MONSTERS
@@ -218,8 +218,8 @@ public class EnemyFactory{
 				bulletFreq=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
 				(Math.random() * SHORT_INTERVAL * Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		
-		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
-				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		final float height=ctx.getResources().getDimension(R.dimen.dive_bomber1_height),
+				width=ctx.getResources().getDimension(R.dimen.dive_bomber1_width);
 		
 		Shooting_Diagonal_DiveBomberView diveBomber =  new Shooting_Diagonal_DiveBomberView(ctx,score,speedY,speedX,
 				collisionDamage,health,height,width,spawnBeneficialObject,bulletFreq,

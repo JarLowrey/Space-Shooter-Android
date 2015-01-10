@@ -19,19 +19,22 @@
     <dimen name="benefical_object_len">30dp</dimen>
     
     <dimen name="meteor_length">30dp</dimen>
-    <dimen name="simple_enemy_shooter_height">35dp</dimen>
-    <dimen name="simple_enemy_shooter_width">40dp</dimen>
+    <dimen name="simple_enemy_shooter_height">48dp</dimen>
+    <dimen name="simple_enemy_shooter_width">34.66dp</dimen>
     
     <dimen name="diagonal_shooter_height">35dp</dimen>
     <dimen name="diagonal_shooter_width">40dp</dimen>
+    
+    <dimen name="dive_bomber1_height">26dp</dimen>
+    <dimen name="dive_bomber1_width">22.666dp</dimen>
     
     <dimen name="giant_meteor_height">160dp</dimen>
     <dimen name="giant_meteor_width">100dp</dimen>
     
     <dimen name="rocket_exhaust_height">40dp</dimen>
     <dimen name="rocket_exhaust_width">25dp</dimen>
-    <dimen name="rocket_game_height">30dp</dimen>
-    <dimen name="rocket_game_width">48dp</dimen>
+    <dimen name="rocket_game_height">40dp</dimen>
+    <dimen name="rocket_game_width">40dp</dimen>
     
     <dimen name="laser_default_width">5dp</dimen>
     <dimen name="laser_default_height">12dp</dimen>

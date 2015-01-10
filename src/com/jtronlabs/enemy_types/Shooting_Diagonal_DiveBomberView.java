@@ -3,12 +3,14 @@ package com.jtronlabs.enemy_types;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingView{
 	
 
 	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,
-			DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=2500;
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_dive_bomber,
+			DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=500;
 	public final static double DEFAULT_DIVE_BOMBER_SPEED_Y=1.8,DEFAULT_DIVE_BOMBER_SPEED_X=3,
 			DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE=20, DEFAULT_DIVE_BOMBER_HEALTH=20,
 			DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
@@ -24,6 +26,7 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 		super(context,score,speedY,speedX,collisionDamage,
 				health,heightView,widthView,probSpawnBeneficialObjectOnDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
 
+		this.setImageResource(DEFAULT_BACKGROUND);
 		// set col position
 		final float shipXInterval = (MainActivity.getWidthPixels() )/ NUM_DIVE_BOMBER_COLUMNS;//divide the screen into number of columns
 		final float myColPos = (int) (Math.random()*NUM_DIVE_BOMBER_COLUMNS);//find this ships column

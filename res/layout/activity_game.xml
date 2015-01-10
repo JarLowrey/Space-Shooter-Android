@@ -20,7 +20,7 @@
         android:layout_width="@dimen/rocket_exhaust_width"
         android:layout_height="@dimen/rocket_exhaust_height"
         android:visibility="gone"
-        android:src="@drawable/rockets_exhaust" />
+        android:src="@drawable/ship_protgonist_exhaust" />
     
   	<RelativeLayout
         android:id="@+id/btn_background"
@@ -96,6 +96,6 @@
         android:layout_above="@+id/btn_background"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_margin_small"
-        android:src="@drawable/rocket" />
+        android:src="@drawable/ship_protagonist_rocket" />
 
 </RelativeLayout>

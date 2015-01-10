@@ -24,7 +24,6 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10;
 	
-	private boolean travelingRight;
 	protected double leftThreshold,rightThreshold;
 	
 	Runnable moveDiagonalRunnable = new Runnable(){
@@ -38,20 +37,17 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 					Shooting_DiagonalMovingView.this.removeGameObject();
 					Shooting_DiagonalMovingView.this.removeCallbacks(this);
 					return;
+				}					
+				final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
+				final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
+				double mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();
+				
+				boolean pastRightSide  = mySpeedX>0 && rightSideOfShip>=rightThreshold;
+				boolean pastLeftSide = mySpeedX<0 && leftSideOfShip<=leftThreshold;
+				if(pastRightSide || pastLeftSide){
+					mySpeedX *= -1;
 				}
-				if(travelingRight){
-					Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.RIGHT);
-					final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
-					if(rightSideOfShip>=rightThreshold){//ship is on far right portion of screen
-						travelingRight=false;
-					}				
-				}else{
-					Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.LEFT);
-					final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
-					if(leftSideOfShip <= leftThreshold){//ship is on far left portion of screen
-						travelingRight=true;
-					}		
-				}
+				Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.SIDEWAYS);
 				
 				Shooting_DiagonalMovingView.this.postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
     		}
@@ -78,7 +74,6 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
-		travelingRight = (Math.random()<.5);//50% chance of moving right or left
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
 		this.setY(0);
 		

@@ -12,8 +12,8 @@ import com.jtronlabs.to_the_moon_interfaces.Shooter;
 // 					NOT WORKING			
 public abstract class Bullet_TrackingView extends Bullet{
 
-	public static final double MAX_TRACKING_SPEED=20*MainActivity.getScreenDens();
-	public static final double DEFAULT_TRACKING_SPEED=10;
+	public static final double MAX_TRACKING_SPEED=5*MainActivity.getScreenDens();
+	public static final double DEFAULT_TRACKING_SPEED=3*MainActivity.getScreenDens();
 	
 	private double trackingSpeed;
 	private MovingView viewTracking;
@@ -45,25 +45,23 @@ public abstract class Bullet_TrackingView extends Bullet{
 	    		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
 	    		
 				ArrayList<BulletView> bullets = shooter.getMyBullets();
-				int i=0;
+				
 				for(BulletView bullet : bullets){
 		    		final float bulletXMidPos = (2 * bullet.getX()+bullet.getWidth() ) / 2; 
 					final float diff = bulletXMidPos - objectTrackingMidPoint;
         			
 					Log.d("lowrey","diff"+diff);
 					//if bullet is approximately at tracking destination, don't move it and set rotation to 0
-		    		if( Math.abs(diff) < trackingSpeed*3){
+		    		if( Math.abs(diff) < shooter.getWidth() ){
 		    			bullet.setSpeedX(Bullet.BULLET_TRAVELS_STRAIGHT);
 		    		}else{
-		    			if(diff>0){
-		        			bullet.setSpeedX(-trackingSpeed);
-		        			bullet.moveDirection(MovingView.LEFT);   			
-		        		}else{
-		        			bullet.setSpeedX(trackingSpeed);
-		        			bullet.moveDirection(MovingView.RIGHT);    			
-		        		}
+		    			trackingSpeed = -diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
+		    			 
+		    			//set speed and move sideways
+	        			bullet.setSpeedX(trackingSpeed);
+	        			bullet.moveDirection(MovingView.SIDEWAYS);    
 		    		}
-		    		i++;
+		    		
 	    			bullet.setBulletRotation();
 				}
 				shooter.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE*3);

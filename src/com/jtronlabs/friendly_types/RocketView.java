@@ -43,7 +43,7 @@ public class RocketView extends Friendly_ShooterView{
 	
 	private static final long EXHAUST_VISIBLE_TIME=500,EXHAUST_MOVE_FREQ=20;
 	private static final double EXHAUST_FREQ=15000;
-	
+	 
 	private int count = 0;
     
     Runnable exhaustRunnable = new Runnable(){
