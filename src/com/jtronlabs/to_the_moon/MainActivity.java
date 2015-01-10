@@ -16,7 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.custom_support_views.DrawTextView;
+import custom_support_views.DrawTextView;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
 

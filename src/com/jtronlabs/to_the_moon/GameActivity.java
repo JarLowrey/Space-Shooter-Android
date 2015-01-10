@@ -1,6 +1,13 @@
 package com.jtronlabs.to_the_moon;
 
+import interfaces.Shooter;
+
 import java.util.ArrayList;
+
+import parents.Moving_ProjectileView;
+
+import levels.LevelFactory;
+import levels.Levels;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,17 +25,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import bonuses.BonusView;
+import bullets.BulletView;
 
-import com.jtronlabs.bonuses.BonusView;
-import com.jtronlabs.enemy_types.EnemyView;
-import com.jtronlabs.enemy_types.Shooting_ArrayMovingView;
-import com.jtronlabs.friendly_types.FriendlyView;
-import com.jtronlabs.friendly_types.RocketView;
-import com.jtronlabs.to_the_moon.bullets.BulletView;
-import com.jtronlabs.to_the_moon.levels.LevelFactory;
-import com.jtronlabs.to_the_moon.levels.Levels;
-import com.jtronlabs.to_the_moon.parents.Moving_ProjectileView;
-import com.jtronlabs.to_the_moon_interfaces.Shooter;
+
+import enemy_types.EnemyView;
+import enemy_types.Shooting_ArrayMovingView;
+import friendly_types.FriendlyView;
+import friendly_types.RocketView;
 
 public class GameActivity extends Activity implements OnTouchListener{
 
