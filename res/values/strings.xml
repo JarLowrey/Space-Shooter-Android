@@ -5,7 +5,8 @@
     <string name="hello_world">Hello world!</string>
 
     <color name="dark_yellow">#736D22</color>
-    <color name="light_yellow">#E1F505</color>
+    <color name="yellow">#B6BD00</color>
+    <color name="light_yellow">#DEF200</color>
     <color name="very_light_green">#00FF00</color>
     <color name="light_green">#008500</color>
     <color name="dark_green">#00FF00</color>

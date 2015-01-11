@@ -86,29 +86,43 @@ public class ScriptedWavesFactory extends EnemyFactory{
 			}
 		});
 	}
-	
-	public void spawnDiveBombers(final int numDiveBombers){
-		for(int i=0;i<numDiveBombers;i++){
-			spawnDiveBomber();
-		}
-	}
-	
-	public void spawnDiveBomberWaves(final int totalNumDiveBomber, final int millisecondsBetweenEachSpawn, final int numDiveBombersPerSpawn){
+		
+	public void spawnDiveBomberWaves(final int totalNumShips, final int millisecondsBetweenEachSpawn, final int numShipsPerSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numDiveBombersSpawned=0;
 			
 			@Override
 			public void run() {
-				spawnDiveBombers(numDiveBombersPerSpawn);
-				numDiveBombersSpawned+=numDiveBombersPerSpawn;
+				for(int i=0;i<numShipsPerSpawn;i++){
+					spawnDiveBomber();
+				}
+				numDiveBombersSpawned+=numShipsPerSpawn;
 				
-				if(numDiveBombersSpawned<totalNumDiveBomber){
+				if(numDiveBombersSpawned<totalNumShips){
 					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
+	public void spawnFullScreenDiagonalAttackersWave(final int totalNumShips, final int millisecondsBetweenEachSpawn, final int numShipsPerSpawn){
+		spawnHandler.post(new Runnable(){
+			private int numDiveBombersSpawned=0;
+			
+			@Override
+			public void run() {
+				for(int i=0;i<numShipsPerSpawn;i++){
+					spawnFullScreenDiagonalAttacker();
+				}
+				numDiveBombersSpawned+=numShipsPerSpawn;
+				
+				if(numDiveBombersSpawned<totalNumShips){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
+				}
+			}
+		});
+	}
+
 	public void spawnMovingArrayShooters(final int numShooters){
 //		enemyProducer
 	}

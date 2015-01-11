@@ -169,11 +169,8 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 				bulletFreq=Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
 				(Math.random() * SHORT_INTERVAL * Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		
-		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
-				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
-		
 		Shooting_DiagonalMovingView shooter = new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
-				collisionDamage,health,height,width,spawnBeneficialObject,
+				collisionDamage,health,spawnBeneficialObject,
 				bulletFreq,bulletSpdY,bulletDmg);
 
 		gameLayout.addView(shooter,1);
@@ -196,11 +193,8 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 				bulletFreq=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL/Math.sqrt(diff)+
 				(Math.random() * SHORT_INTERVAL * Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL)/Math.sqrt(diff);
 		
-		final float height=ctx.getResources().getDimension(R.dimen.dive_bomber1_height),
-				width=ctx.getResources().getDimension(R.dimen.dive_bomber1_width);
-		
 		Shooting_Diagonal_DiveBomberView diveBomber =  new Shooting_Diagonal_DiveBomberView(ctx,score,speedY,speedX,
-				collisionDamage,health,height,width,spawnBeneficialObject,bulletFreq,
+				collisionDamage,health,spawnBeneficialObject,bulletFreq,
 				bulletSpdY,bulletDmg);
 
 		gameLayout.addView(diveBomber,1);

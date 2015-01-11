@@ -6,15 +6,15 @@
 
     <item
         android:drawable="@drawable/stars_frame1"
-        android:duration="200" />
+        android:duration="500" />
     <item
         android:drawable="@drawable/stars_frame2"
-        android:duration="200" />
+        android:duration="500" />
     <item
         android:drawable="@drawable/stars_frame3"
-        android:duration="200" />
+        android:duration="500" />
     <item
         android:drawable="@drawable/stars_frame4"
-        android:duration="200" />
+        android:duration="500" />
     
 </animation-list>

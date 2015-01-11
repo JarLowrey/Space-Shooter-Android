@@ -10,12 +10,12 @@ import com.jtronlabs.to_the_moon.R;
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	public final static int DEFAULT_SCORE=10,
-			DEFAULT_BACKGROUND=R.drawable.ufo,
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,
 			DEFAULT_BULLET_FREQ_INTERVAL=2000;
 	public final static double DEFAULT_SPEED_Y=1.8,
 			DEFAULT_SPEED_X=10,
 			DEFAULT_COLLISION_DAMAGE=20, 
-			DEFAULT_HEALTH=10,
+			DEFAULT_HEALTH=40,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10;
@@ -50,17 +50,19 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	};
 	
 	public Shooting_DiagonalMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health, float heightView,float widthView,double probSpawnBeneficialObjectOnDeath,
+			double health, double probSpawnBeneficialObjectOnDeath,
 			double bulletFreq,double bulletVerticalSpeed,double bulletDamage) {
 		super(context,score,speedY,speedX,collisionDamage,
 				health,probSpawnBeneficialObjectOnDeath, bulletFreq, bulletDamage, bulletVerticalSpeed);
 		
 		this.setThreshold((int) MainActivity.getHeightPixels());
+		if(Math.random()<0.5){this.setSpeedX(this.getSpeedX() * -1);}
+		
 		
 		//set image background, width, and height
 		this.setImageResource(DEFAULT_BACKGROUND);
 		final int height_int=(int)context.getResources().getDimension(R.dimen.diagonal_shooter_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		int width_int = (int)context.getResources().getDimension(R.dimen.diagonal_shooter_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));

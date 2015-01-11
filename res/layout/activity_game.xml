@@ -3,8 +3,9 @@
     android:id="@+id/gameScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context="${relativePackage}.${activityClass}" >
-
+<!-- 
     <TextView
         android:id="@+id/game_background"
         android:layout_width="wrap_content"
@@ -14,11 +15,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/btn_gray"/>
-    
+    -->
     <ImageView
         android:id="@+id/rocket_exhaust"
-        android:layout_width="@dimen/rocket_exhaust_width"
-        android:layout_height="@dimen/rocket_exhaust_height"
+        android:layout_width="@dimen/exhaust_width"
+        android:layout_height="@dimen/exhaust_height"
         android:visibility="gone"
         android:src="@drawable/ship_protgonist_exhaust" />
     
@@ -91,8 +92,8 @@
 
     <friendlies.ProtagonistView
         android:id="@+id/rocket_game"
-        android:layout_width="@dimen/rocket_game_width"
-        android:layout_height="@dimen/rocket_game_height"
+        android:layout_width="@dimen/protagonist_game_width"
+        android:layout_height="@dimen/protagonist_game_height"
         android:layout_above="@+id/btn_background"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_margin_small"

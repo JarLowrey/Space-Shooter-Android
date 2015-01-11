@@ -38,7 +38,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 
 	//VIEWS
 	private Button btnLeft, btnRight,btnMiddle;
-	private TextView text_score,gameWindowOverlay;
+	private TextView text_score;
+//	private TextView gameWindowOverlay;
 	private static TextView ammoText;
 	private static ProgressBar healthBar;
 	public static ProtagonistView rocket;
@@ -179,7 +180,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		btnMiddle.setOnTouchListener(this);
 //		rocket_exhaust = (ImageView)findViewById(R.id.rocket_exhaust); 
 		gameScreen=(RelativeLayout)findViewById(R.id.gameScreen);
-		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
+//		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
 //		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
 		text_score=(TextView)findViewById(R.id.score_textview);
 		ammoText = (TextView)findViewById(R.id.ammo);
@@ -287,6 +288,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         gameHandler.post(collisionDetectionRunnable);
 	}
 	
+	/*
 	private void changeGameBackgroundImage(final int idToChangeTo){
 		Animation fade_out=AnimationUtils.loadAnimation(this,R.anim.fade_out);
 		final Animation fade_in = AnimationUtils.loadAnimation(this,R.anim.fade_in);
@@ -307,6 +309,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		});
 		gameWindowOverlay.startAnimation(fade_out);
 	} 
+	*/
 	
 	private void gameOver(){
 		healthBar.setProgress(0);

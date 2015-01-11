@@ -57,7 +57,7 @@ public class Moving_ProjectileView extends MovingView implements CollidableObjec
 		}else{
 			//set the background behind this view, and then remove it after howLongBackgroundIsApplied milliseconds
 			this.setBackgroundResource(R.drawable.view_damaged);
-			final int howLongBackgroundIsApplied=100;
+			final int howLongBackgroundIsApplied=80;
 			Runnable removeDmg = new Runnable(){
 				@Override
 				public void run() {Moving_ProjectileView.this.setBackgroundColor(Color.TRANSPARENT);}

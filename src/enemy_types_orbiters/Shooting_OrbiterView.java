@@ -15,7 +15,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			DEFAULT_ORBIT_X=MainActivity.getWidthPixels()/2;
 	
 	public final static int DEFAULT_SCORE=10,
-			DEFAULT_BACKGROUND=R.drawable.ufo,
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_1,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	public final static double DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,

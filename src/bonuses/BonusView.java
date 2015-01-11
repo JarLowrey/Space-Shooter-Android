@@ -61,8 +61,6 @@ public abstract class BonusView extends Moving_GravityView {
 			bonus = new Bonus_Gun_IncBulletSpeedView(context,positionX,positionY);			
 		}else if(rand<.55){
 			bonus = new Bonus_GiveGun_AngledDualShotView(context,positionX,positionY);
-		}else if(rand<.70){
-			bonus = new Bonus_GiveGun_AngledTriShotView(context,positionX,positionY);
 		}else if(rand<.8){
 			bonus = new Bonus_Bullet_Default(context,positionX,positionY);
 		}else if(rand<.9){
@@ -70,9 +68,6 @@ public abstract class BonusView extends Moving_GravityView {
 		}else{
 			bonus = new Bonus_Bullet_Default(context,positionX,positionY);			
 		}
-		
-//testing
-//		bonus = new Bonus_Bullet_Missile(context,positionX,positionY);	
 		
 		return bonus;
 	}

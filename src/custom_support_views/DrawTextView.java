@@ -43,11 +43,12 @@ public class DrawTextView extends SurfaceView implements SurfaceHolder.Callback
 	public DrawTextView(Context context,AttributeSet attr) {
 		super(context,attr);
 		
+//		wordColor = attr.getAttributeIntValue("http://schemas.android.com/apk/res/android", "textColor", R.color.dark_yellow);
 		myFont= getFontFromRes(context,R.raw.roboto_condensed_bold);
 		wordSize=context.getResources().getDimension(R.dimen.title_size);
 		outlineSize=context.getResources().getDimension(R.dimen.title_outline_size);
 		wordColor=context.getResources().getColor(R.color.light_blue);
-		outlineColor=context.getResources().getColor(R.color.dark_yellow);
+		outlineColor=context.getResources().getColor(R.color.dark_blue);
 	    
 		setZOrderOnTop(true);
 		getHolder().addCallback(this);

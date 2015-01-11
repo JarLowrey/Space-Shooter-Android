@@ -3,15 +3,15 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@drawable/space1_0"
     tools:context="${relativePackage}.${activityClass}" >
-
+<!-- 
     <ImageView
         android:id="@+id/animating_image_view_main_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@anim/animating_main_menu"/>
-        
+     -->   
     <ImageView
         android:id="@+id/moon"
         android:layout_width="@dimen/moon_length"
@@ -22,8 +22,8 @@
     
     <ImageView
         android:id="@+id/rocket_main"
-        android:layout_width="@dimen/rocket_game_width"
-        android:layout_height="@dimen/rocket_game_height"
+        android:layout_width="@dimen/protagonist_game_width"
+        android:layout_height="@dimen/protagonist_game_height"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"

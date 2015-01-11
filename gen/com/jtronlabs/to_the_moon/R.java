@@ -20,19 +20,20 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int blue=0x7f080009;
-        public static final int dark_blue=0x7f08000a;
-        public static final int dark_gray=0x7f08000c;
-        public static final int dark_green=0x7f080004;
-        public static final int dark_red=0x7f080005;
+        public static final int blue=0x7f08000a;
+        public static final int dark_blue=0x7f08000b;
+        public static final int dark_gray=0x7f08000d;
+        public static final int dark_green=0x7f080005;
+        public static final int dark_red=0x7f080006;
         public static final int dark_yellow=0x7f080000;
-        public static final int gray=0x7f08000b;
-        public static final int light_blue=0x7f080008;
-        public static final int light_green=0x7f080003;
-        public static final int light_red=0x7f080007;
-        public static final int light_yellow=0x7f080001;
-        public static final int red=0x7f080006;
-        public static final int very_light_green=0x7f080002;
+        public static final int gray=0x7f08000c;
+        public static final int light_blue=0x7f080009;
+        public static final int light_green=0x7f080004;
+        public static final int light_red=0x7f080008;
+        public static final int light_yellow=0x7f080002;
+        public static final int red=0x7f080007;
+        public static final int very_light_green=0x7f080003;
+        public static final int yellow=0x7f080001;
     }
     public static final class dimen {
         public static final int activity_margin_large=0x7f060003;
@@ -55,8 +56,10 @@ public final class R {
         public static final int control_panel_height=0x7f06000a;
         public static final int diagonal_shooter_height=0x7f06000f;
         public static final int diagonal_shooter_width=0x7f060010;
-        public static final int dive_bomber1_height=0x7f060011;
-        public static final int dive_bomber1_width=0x7f060012;
+        public static final int dive_bomber_height=0x7f060011;
+        public static final int dive_bomber_width=0x7f060012;
+        public static final int exhaust_height=0x7f060015;
+        public static final int exhaust_width=0x7f060016;
         public static final int giant_meteor_height=0x7f060013;
         public static final int giant_meteor_width=0x7f060014;
         public static final int ic_large=0x7f060025;
@@ -71,10 +74,8 @@ public final class R {
         public static final int missile_one_height=0x7f060022;
         public static final int missile_one_width=0x7f060021;
         public static final int moon_length=0x7f060029;
-        public static final int rocket_exhaust_height=0x7f060015;
-        public static final int rocket_exhaust_width=0x7f060016;
-        public static final int rocket_game_height=0x7f060017;
-        public static final int rocket_game_width=0x7f060018;
+        public static final int protagonist_game_height=0x7f060017;
+        public static final int protagonist_game_width=0x7f060018;
         public static final int simple_enemy_shooter_height=0x7f06000d;
         public static final int simple_enemy_shooter_width=0x7f06000e;
         public static final int title_canvas_height=0x7f060026;
@@ -110,42 +111,41 @@ public final class R {
         public static final int moon=0x7f020019;
         public static final int satellite=0x7f02001a;
         public static final int ship_enemy_array_shooter=0x7f02001b;
-        public static final int ship_enemy_dive_bomber=0x7f02001c;
-        public static final int ship_protagonist_rocket=0x7f02001d;
-        public static final int ship_protgonist_exhaust=0x7f02001e;
-        public static final int stars_frame1=0x7f02001f;
-        public static final int stars_frame2=0x7f020020;
-        public static final int stars_frame3=0x7f020021;
-        public static final int stars_frame4=0x7f020022;
-        public static final int tri_bullet=0x7f020023;
-        public static final int ufo=0x7f020024;
-        public static final int upgrade_gun=0x7f020025;
-        public static final int view_damaged=0x7f020026;
-        public static final int white_center_red_outline=0x7f020027;
+        public static final int ship_enemy_diagonal_full_screen=0x7f02001c;
+        public static final int ship_enemy_dive_bomber=0x7f02001d;
+        public static final int ship_enemy_orbiter_1=0x7f02001e;
+        public static final int ship_protagonist_rocket=0x7f02001f;
+        public static final int ship_protgonist_exhaust=0x7f020020;
+        public static final int space1_0=0x7f020021;
+        public static final int stars_frame1=0x7f020022;
+        public static final int stars_frame2=0x7f020023;
+        public static final int stars_frame3=0x7f020024;
+        public static final int stars_frame4=0x7f020025;
+        public static final int upgrade_gun=0x7f020026;
+        public static final int view_damaged=0x7f020027;
+        public static final int white_center_red_outline=0x7f020028;
     }
     public static final class id {
-        public static final int activity_main=0x7f0a000e;
-        public static final int ammo=0x7f0a000a;
-        public static final int animating_image_view_main_menu=0x7f0a000f;
-        public static final int animating_main_menu_list=0x7f0a0015;
-        public static final int btnLeft=0x7f0a0005;
-        public static final int btnMiddle=0x7f0a0006;
-        public static final int btnRight=0x7f0a0007;
-        public static final int btn_background=0x7f0a0003;
-        public static final int btns_wrap=0x7f0a0004;
-        public static final int earth=0x7f0a0012;
+        public static final int activity_main=0x7f0a000d;
+        public static final int ammo=0x7f0a0009;
+        public static final int animating_main_menu_list=0x7f0a0013;
+        public static final int btnLeft=0x7f0a0004;
+        public static final int btnMiddle=0x7f0a0005;
+        public static final int btnRight=0x7f0a0006;
+        public static final int btn_background=0x7f0a0002;
+        public static final int btns_wrap=0x7f0a0003;
+        public static final int earth=0x7f0a0010;
         public static final int gameScreen=0x7f0a0000;
-        public static final int game_background=0x7f0a0001;
-        public static final int health_bar=0x7f0a0008;
-        public static final int intro_btn_next=0x7f0a000d;
-        public static final int intro_text=0x7f0a000c;
-        public static final int moon=0x7f0a0010;
-        public static final int playBtn=0x7f0a0013;
-        public static final int rocket_exhaust=0x7f0a0002;
-        public static final int rocket_game=0x7f0a000b;
-        public static final int rocket_main=0x7f0a0011;
-        public static final int score_textview=0x7f0a0009;
-        public static final int title=0x7f0a0014;
+        public static final int health_bar=0x7f0a0007;
+        public static final int intro_btn_next=0x7f0a000c;
+        public static final int intro_text=0x7f0a000b;
+        public static final int moon=0x7f0a000e;
+        public static final int playBtn=0x7f0a0011;
+        public static final int rocket_exhaust=0x7f0a0001;
+        public static final int rocket_game=0x7f0a000a;
+        public static final int rocket_main=0x7f0a000f;
+        public static final int score_textview=0x7f0a0008;
+        public static final int title=0x7f0a0012;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;
