@@ -22,7 +22,7 @@ public class ScriptedWavesFactory extends EnemyFactory{
 	public void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 		spawnHandler.post(new Runnable(){
 			
-			private int numMeteorsSpawned=0;
+			private int numSpawned=0;
 			private boolean meteorsFallLeftToRight = beginOnLeft;
 			
 			@Override
@@ -31,12 +31,12 @@ public class ScriptedWavesFactory extends EnemyFactory{
 				Gravity_MeteorView  met= spawnMeteor();
 				final int width = +met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
 				final int numMeteorsPossibleOnScreenAtOnce= (int) (MainActivity.getWidthPixels()/width);
-				final int currentMeteor = numMeteorsSpawned % numMeteorsPossibleOnScreenAtOnce;
+				final int currentMeteor = numSpawned % numMeteorsPossibleOnScreenAtOnce;
 				
 				
 				int myXPosition;
 				//reverse direction if full meteor shower has occurred
-				if(numMeteorsSpawned >= numMeteorsPossibleOnScreenAtOnce && numMeteorsSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
+				if(numSpawned >= numMeteorsPossibleOnScreenAtOnce && numSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
 					meteorsFallLeftToRight = !meteorsFallLeftToRight;					
 				}
 				
@@ -47,8 +47,8 @@ public class ScriptedWavesFactory extends EnemyFactory{
 				}
 				met.setX(myXPosition);
 				
-				numMeteorsSpawned++;
-				if(numMeteorsSpawned<numMeteors){
+				numSpawned++;
+				if(numSpawned<numMeteors){
 					spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
 				}
 			}
@@ -57,14 +57,14 @@ public class ScriptedWavesFactory extends EnemyFactory{
 
 	public void spawnMeteorsAtRandomXPositions(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		spawnHandler.post(new Runnable(){
-			private int numMeteorsSpawned=0;
+			private int numSpawned=0;
 			
 			@Override
 			public void run() {
 				spawnMeteor();
 				
-				numMeteorsSpawned++;
-				if(numMeteorsSpawned<numMeteors){
+				numSpawned++;
+				if(numSpawned<numMeteors){
 					spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
 				}
 			}
@@ -73,14 +73,14 @@ public class ScriptedWavesFactory extends EnemyFactory{
 
 	public void spawnSidewaysMeteors(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		spawnHandler.post(new Runnable(){
-			private int numMeteorsSpawned=0;
+			private int numSpawned=0;
 			
 			@Override
 			public void run() {
 				spawnSidewaysMeteor();
 				
-				numMeteorsSpawned++;
-				if(numMeteorsSpawned<numMeteors){
+				numSpawned++;
+				if(numSpawned<numMeteors){
 					spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
 				}
 			}
@@ -89,34 +89,32 @@ public class ScriptedWavesFactory extends EnemyFactory{
 		
 	public void spawnDiveBomberWaves(final int totalNumShips, final int millisecondsBetweenEachSpawn, final int numShipsPerSpawn){
 		spawnHandler.post(new Runnable(){
-			private int numDiveBombersSpawned=0;
+			private int numSpawned=0;
 			
 			@Override
 			public void run() {
 				for(int i=0;i<numShipsPerSpawn;i++){
 					spawnDiveBomber();
 				}
-				numDiveBombersSpawned+=numShipsPerSpawn;
+				numSpawned+=numShipsPerSpawn;
 				
-				if(numDiveBombersSpawned<totalNumShips){
+				if(numSpawned<totalNumShips){
 					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
-	public void spawnFullScreenDiagonalAttackersWave(final int totalNumShips, final int millisecondsBetweenEachSpawn, final int numShipsPerSpawn){
+	public void spawnFullScreenDiagonalAttackersWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
-			private int numDiveBombersSpawned=0;
+			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				for(int i=0;i<numShipsPerSpawn;i++){
-					spawnFullScreenDiagonalAttacker();
-				}
-				numDiveBombersSpawned+=numShipsPerSpawn;
+				spawnFullScreenDiagonalAttacker();
+				numSpawned++;
 				
-				if(numDiveBombersSpawned<totalNumShips){
+				if(numSpawned<totalNumShips){
 					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 				}
 			}
@@ -135,7 +133,21 @@ public class ScriptedWavesFactory extends EnemyFactory{
 		}
 	}
 	
-	
+	public void spawnCircleOrbiter(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+		spawnHandler.post(new Runnable(){
+			private int numSpawned=0;
+			
+			@Override
+			public void run() {
+				spawnCirclingOrbitingView();
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
+				}
+			}
+		});
+	}
 	
 	
 	

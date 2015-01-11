@@ -11,7 +11,7 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 
 	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_dive_bomber,
-			DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=500;
+			DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=1250;
 	
 	public final static double DEFAULT_DIVE_BOMBER_SPEED_Y=1.8,
 			DEFAULT_DIVE_BOMBER_SPEED_X=3,

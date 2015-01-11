@@ -11,11 +11,10 @@ import enemy_types.Enemy_ShooterView;
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
 
-	public static final float DEFAULT_ORBIT_Y=MainActivity.getHeightPixels()/3,
-			DEFAULT_ORBIT_X=MainActivity.getWidthPixels()/2;
+	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
+			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2);
 	
 	public final static int DEFAULT_SCORE=10,
-			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_1,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	public final static double DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,
@@ -27,7 +26,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
 	private boolean hasBegunOrbiting=false;
 	protected int howManyTimesMoved;
-	protected float orbitY,orbitX;
+	protected int orbitY,orbitX;
 	
 	@Override
 	public boolean moveDirection(int direction){
@@ -52,7 +51,6 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 				bulletFreq, bulletDamage, bulletVerticalSpeed);
 
 		//set image background, width, and height
-		this.setImageResource(DEFAULT_BACKGROUND);
 		final int height_int=(int)context.getResources().getDimension(R.dimen.diagonal_shooter_height);
 		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
@@ -70,7 +68,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		super.restartThreads();
 	}
 
-	public void setOrbitLocation(float pixelX,float pixelY){
+	public void setOrbitLocation(int pixelX,int pixelY){
 		orbitX=pixelX;
 		orbitY=pixelY;
 	}

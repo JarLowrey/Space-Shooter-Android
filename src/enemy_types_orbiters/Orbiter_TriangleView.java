@@ -1,5 +1,7 @@
 package enemy_types_orbiters;
 
+import com.jtronlabs.to_the_moon.R;
+
 import parents.Moving_ProjectileView;
 import interfaces.GameObjectInterface;
 import android.content.Context;
@@ -8,7 +10,8 @@ import android.content.Context;
 public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameObjectInterface {
 
 	public final static int DEFAULT_ORBIT_LENGTH=15,
-			DEFAULT_ANGLE = 30;
+			DEFAULT_ANGLE = 30,
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_1;
 	
 	private int currentSideOfTriangle, orbitDist;
 

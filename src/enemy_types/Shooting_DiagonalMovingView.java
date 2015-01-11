@@ -11,7 +11,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	public final static int DEFAULT_SCORE=10,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,
-			DEFAULT_BULLET_FREQ_INTERVAL=2000;
+			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	public final static double DEFAULT_SPEED_Y=1.8,
 			DEFAULT_SPEED_X=10,
 			DEFAULT_COLLISION_DAMAGE=20, 
