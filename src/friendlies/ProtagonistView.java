@@ -17,7 +17,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 			DEFAULT_HEALTH=1000,
 			DEFAULT_BULLET_SPEED_Y=30,
 			DEFAULT_BULLET_DAMAGE=10, 
-			DEFAULT_BULLET_FREQ=350;
+			DEFAULT_BULLET_FREQ=500;
 	
 	private final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 	private int directionMoving=Moving_ProjectileView.LEFT;

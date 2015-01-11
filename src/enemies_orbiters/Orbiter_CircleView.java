@@ -10,7 +10,7 @@ import com.jtronlabs.to_the_moon.R;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObjectInterface {
 	
-	public static final int DEFAULT_ANGULAR_VELOCITY=5, 
+	public static final int DEFAULT_ANGULAR_VELOCITY=2, 
 			MAX_ANGULAR_VELOCITY = 30,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
 	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels());

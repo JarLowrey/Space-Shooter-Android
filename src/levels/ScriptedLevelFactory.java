@@ -16,7 +16,8 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 	public void startLevelOne(){
 		levelOver=false;
 		currentProgressInLevel=0;
-		
+
+		spawnMovingArrayShooters();
 		spawnMeteorShower(10,600,false);
 		spawnSidewaysMeteors(20,500);
 		spawnSidewaysMeteors(20,3000);

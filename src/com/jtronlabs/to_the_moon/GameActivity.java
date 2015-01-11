@@ -305,6 +305,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	*/
 	
 	private void gameOver(){
+		levelFactory.stopLevel();
 		healthBar.setProgress(0);
 		ammoText.setVisibility(View.GONE);
 		

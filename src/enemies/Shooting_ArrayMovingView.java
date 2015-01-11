@@ -13,8 +13,8 @@ import com.jtronlabs.to_the_moon.R;
 
 public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
-	public static final int DEFAULT_NUM_COLS=5,
-			DEFAULT_NUM_ROWS=4, 
+	public static final int DEFAULT_NUM_ROWS=1,
+			DEFAULT_NUM_COLS=10, 
 			DEFAULT_SCORE=10,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter;
 	public static final boolean DEFAULT_STAGGERED=true;
@@ -25,7 +25,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10,
-			DEFAULT_BULLET_FREQ_INTERVAL=4500;
+			DEFAULT_BULLET_FREQ_INTERVAL=3000;
 	
 
 	public static ArrayList<Shooting_ArrayMovingView> allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();
@@ -81,6 +81,12 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			float heightView,float widthView,double probSpawnBeneficialObject) {
 		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject);
 
+		//if this is first instance of this class created, post movement thread and intitalize static vars
+		if(allSimpleShooters.size()==0){
+			resetSimpleShooterArray();
+			staticArrayMovementHandler.postDelayed(moveInARectangleRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
+		}
+		
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);
 
@@ -95,21 +101,16 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		this.setThreshold((int) (lowestPointOnScreen - myRowNum));
 
 		// set col position
-		final float marginOnSides = context.getResources().getDimension(R.dimen.activity_margin_med);
-		final float shipXInterval = (MainActivity.getWidthPixels() - marginOnSides)/ numCols;//divide the screen into number of columns
+		final float staggeredMargin = context.getResources().getDimension(R.dimen.activity_margin_med);
+		final float shipXInterval = (MainActivity.getWidthPixels() -(int)widthView/2)/ numCols;//divide the screen into number of columns
 		final float myColPos = myPosition % numCols;//find this ships column
-		float xPos = shipXInterval * myColPos + marginOnSides / 2;//x position is columInterval * this ships column. Here some left margin is also added
+		float xPos = shipXInterval * myColPos ;//x position is columInterval * this ships column. Here some left margin is also added
 		if (staggered && myRowNum % 2 == 1) {//stagger
-			xPos += marginOnSides / 2;
+			xPos += staggeredMargin / 2;
 		}
 		this.setX(xPos);
 		this.setY(0);
 
-		//if this is first one created, post movement thread and reset static vars
-		if(allSimpleShooters.size()==0){
-			resetSimpleShooterArray();
-			staticArrayMovementHandler.postDelayed(moveInARectangleRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-		}
 		allSimpleShooters.add(this);
 	}
 	
@@ -146,6 +147,9 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			currentPos = 0;
 			staticArrayMovementHandler.removeCallbacks(moveInARectangleRunnable);
 			
+			
+			
+			//PROBABLY DONT NEED TO DO THIS, AS ONLY RESET WHEN BOTH FREEPOS AND OTHER ARRAY ARE EMPTY
 			//reset the arraylist of free positions
 			freePositions = new ArrayList<Integer>();
 			for (int i = 0; i < getMaxNumShips(); i++) {
@@ -170,7 +174,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	 */
 	
 	public static void resetSimpleShooterArray(){
-		resetSimpleShooterArray(DEFAULT_NUM_COLS,DEFAULT_NUM_ROWS,DEFAULT_STAGGERED); 
+		resetSimpleShooterArray(DEFAULT_NUM_COLS,DEFAULT_NUM_COLS,DEFAULT_STAGGERED); 
 	} 
 
 }
