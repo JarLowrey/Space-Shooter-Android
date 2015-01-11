@@ -41,7 +41,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
 	// Constantly move all instances of this class in a square shape
 	private static int currentPos = 0, howManyTimesMoved = 0;
-	private static Handler simpleShooterHandler = new Handler();
+	private static Handler staticArrayMovementHandler = new Handler();
 	private static Runnable moveInARectangleRunnable = new Runnable() {
 		@Override
 		public void run() {
@@ -71,7 +71,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 				howManyTimesMoved=0;
 			}
 			
-			simpleShooterHandler.postDelayed(this,
+			staticArrayMovementHandler.postDelayed(this,
 					Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 		}
 	};
@@ -104,30 +104,26 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		}
 		this.setX(xPos);
 		this.setY(0);
- 
-		allSimpleShooters.add(this);
-		
-//		Gun_Special_ShootTowardsProjectileDualShot newGun = new
-//				Gun_Special_ShootTowardsProjectileDualShot(context, GameActivity.rocket, this);
-//		this.giveSpecialGun(newGun, 1000);
 
-		
+		//if this is first one created, post movement thread and reset static vars
+		if(allSimpleShooters.size()==0){
+			resetSimpleShooterArray();
+			staticArrayMovementHandler.postDelayed(moveInARectangleRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
+		}
+		allSimpleShooters.add(this);
 	}
 	
 	public void removeGameObject() {
 		allSimpleShooters.remove(this);
 		freePositions.add(myPosition);
+		
+		if(allSimpleShooters.size()==0){
+			staticArrayMovementHandler.removeCallbacks(moveInARectangleRunnable);
+		}
 
 		super.removeGameObject();
 	}
 
-	public static void stopMovingAllShooters() {
-		simpleShooterHandler.removeCallbacks(moveInARectangleRunnable);
-	}
-
-	public static void startMovingAllShooters(){
-		simpleShooterHandler.postDelayed(moveInARectangleRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-	}
 	public static int getMaxNumShips() {
 		return numCols*numRows;
 	}
@@ -137,19 +133,18 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	 * @param numberRows-the array of shooter will have this many rows
 	 * @param numberCols-the array of shooter will have this many columns
 	 * @param staggerShips-true for each row to be slightly offset from the next
-	 * @return-true if successful there are no instances of this class alive, and thus the static portions can be reset. false otherwise
 	 */
-	public static boolean resetSimpleShooterArray(int numberRows,int numberCols,boolean staggerShips){
-		if(!(freePositions.size()==0 || allSimpleShooters.size()==0)){
-			return false;
-		}else{
+	public static void resetSimpleShooterArray(int numberRows,int numberCols,boolean staggerShips){
+//		if( freePositions.size()!=0 && allSimpleShooters.size()!=0){
+//			return false;
+//		}else{
 			//reset static variables
 			numRows=numberRows;
 			numCols=numberCols;
 			staggered=staggerShips;
 			howManyTimesMoved=0;
 			currentPos = 0;
-			simpleShooterHandler.removeCallbacks(moveInARectangleRunnable);
+			staticArrayMovementHandler.removeCallbacks(moveInARectangleRunnable);
 			
 			//reset the arraylist of free positions
 			freePositions = new ArrayList<Integer>();
@@ -157,7 +152,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 				freePositions.add(i);
 			}
 			
-			//remove all simple shooters and their bullets from the arraylist containing them
+			//remove all simple shooters and their bullets from game
 			for(int i=allSimpleShooters.size()-1;i>=0;i--){
 				Shooting_ArrayMovingView temp = allSimpleShooters.get(i);
 				for(int j=temp.getMyBullets().size();j>=0;j--){
@@ -166,8 +161,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 				allSimpleShooters.get(i).removeGameObject();
 			}
 			allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();
-			return true;
-		}
+//		}
 	}
 	
 	/**
@@ -175,8 +169,8 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	 * @return-true if successful there are no instances of this class alive, and thus the static portions can be reset. false otherwise
 	 */
 	
-	public static boolean resetSimpleShooterArray(){
-		return resetSimpleShooterArray(DEFAULT_NUM_COLS,DEFAULT_NUM_ROWS,DEFAULT_STAGGERED); 
+	public static void resetSimpleShooterArray(){
+		resetSimpleShooterArray(DEFAULT_NUM_COLS,DEFAULT_NUM_ROWS,DEFAULT_STAGGERED); 
 	} 
 
 }

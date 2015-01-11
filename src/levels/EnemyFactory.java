@@ -38,9 +38,6 @@ public class EnemyFactory{
 		ctx=context;
 		
 		gameLayout= gameScreen;
-		
-		Shooting_ArrayMovingView.resetSimpleShooterArray();
-		Shooting_ArrayMovingView.startMovingAllShooters();
 	} 
 	
 	//DIAGONAL ORBITERS

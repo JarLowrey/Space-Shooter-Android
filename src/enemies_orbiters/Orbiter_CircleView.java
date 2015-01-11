@@ -76,7 +76,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 				howManyTimesMoved++;
 				
 				Orbiter_CircleView.this.postDelayed(this,
-						Moving_ProjectileView.HOW_OFTEN_TO_MOVE*5);
+						Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
 		}
 	};

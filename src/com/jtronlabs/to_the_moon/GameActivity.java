@@ -323,7 +323,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		//clean up static variables
 		enemies=new ArrayList<EnemyView>();
 		Shooting_ArrayMovingView.resetSimpleShooterArray();
-		Shooting_ArrayMovingView.stopMovingAllShooters();
 		
 	}
 

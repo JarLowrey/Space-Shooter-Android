@@ -16,7 +16,7 @@ public class Gravity_MeteorView extends EnemyView{
 			DEFAULT_ROTATION_SPEED=7;
 	public final static double DEFAULT_SPEED_Y=7,DEFAULT_SPEED_X=0,
 			DEFAULT_COLLISION_DAMAGE=12, 
-			DEFAULT_HEALTH=20,
+			DEFAULT_HEALTH=40,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.01;
 	
 	public final static double DEFAULT_SPEED_X_MOVING_SIDEWAYS=4;

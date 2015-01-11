@@ -1,13 +1,8 @@
 package parents;
 
 import interfaces.Gravity;
-import levels.GameLevels;
 import android.content.Context;
 import android.util.AttributeSet;
-
-import com.jtronlabs.to_the_moon.MainActivity;
-
-import enemies.EnemyView;
 
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
