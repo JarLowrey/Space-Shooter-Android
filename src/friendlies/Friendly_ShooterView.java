@@ -55,11 +55,12 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
 	@Override
 	public void removeGameObject(){
+		super.removeGameObject();
+		
 		stopShooting();
 		if(this.getMyBullets().size()==0){
 			GameActivity.friendlies.remove(this);			
 		}
-		super.removeGameObject();
 	}
 	
 	@Override

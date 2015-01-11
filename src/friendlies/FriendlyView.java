@@ -1,5 +1,6 @@
 package friendlies;
 
+import interfaces.Shooter;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -23,5 +24,13 @@ public class FriendlyView extends Moving_ProjectileView{
 				 projectileDamage, projectileHealth);
 		
 		GameActivity.friendlies.add(this);
+	}
+	
+	@Override 
+	public void removeGameObject(){
+		if( ! (this instanceof Shooter)){
+			GameActivity.friendlies.remove(this);
+		}
+		super.removeGameObject();
 	}
 }

@@ -5,7 +5,7 @@ import android.widget.RelativeLayout;
 
 public class Factory_ScriptedLevels extends Factory_Waves{
   
-	protected static boolean levelCompleted;
+	protected static boolean levelCompleted,levelStarted;
 	protected int currentProgressInLevel;
 	
 	public Factory_ScriptedLevels(Context context,RelativeLayout gameScreen){
@@ -14,71 +14,76 @@ public class Factory_ScriptedLevels extends Factory_Waves{
 		levelStopped=false;
 	}
 
-	
-	protected void startLevelOne(){
+	private void initLevelVarsAtBeginningOfEveryLevel(){
 		levelCompleted=false;
+		levelStarted=true;
 		levelStopped=false;
 		currentProgressInLevel=1;
+		
+	}
+	
+	protected void startLevelOne(){
+		initLevelVarsAtBeginningOfEveryLevel();
 		spawnSidewaysMeteors(20,1000);
 		spawnSidewaysMeteors(10,2000);
 		spawnStraightFallingMeteorsAtRandomXPositions(200,1000);
 		final long wave1Duration = 20*1000;
 
 		if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-			@Override
-			public void run() {
-				spawnMeteorShower(4,500,true);
-				spawnMeteorShower(4,500,false);
-				final long wave2Duration = 4*500;
+//			@Override
+//			public void run() {
+//				spawnMeteorShower(4,500,true);
+//				spawnMeteorShower(4,500,false);
+//				final long wave2Duration = 4*500;
+//
+//
+//				if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
+//					@Override
+//					public void run() {
+//						spawnMeteorShower(20,1000,true);
+//						spawnSidewaysMeteors(20,1000);
+//						final long wave3Duration = 20*1000;
+//						currentProgressInLevel++;
+//
+//						if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
+//							@Override
+//							public void run() {
+//								spawnMeteorShower(4,500,true);
+//								spawnMeteorShower(4,500,false);
+//								final long wave4Duration = 4*500;
+//								currentProgressInLevel++;
+//
+//								if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
+//									@Override
+//									public void run() {
+//										spawnGiantSidewaysMeteors(20, 2000);
+//										spawnSidewaysMeteors(40,1000);
+//										final long wave5Duration = 20*2000;
+//										currentProgressInLevel++;
+//
+//										if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
+//											@Override
+//											public void run() {
+//												spawnMeteorShower(20,1000,true);
+//												spawnGiantSidewaysMeteors(20, 2000);
+//												spawnGiantSidewaysMeteors(20, 2000);
+//												final long wave6Duration = 20*2000;
+//												currentProgressInLevel++;
 
 
-				if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-					@Override
-					public void run() {
-						spawnMeteorShower(20,1000,true);
-						spawnSidewaysMeteors(20,1000);
-						final long wave3Duration = 20*1000;
-						currentProgressInLevel++;
-
-						if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-							@Override
-							public void run() {
-								spawnMeteorShower(4,500,true);
-								spawnMeteorShower(4,500,false);
-								final long wave4Duration = 4*500;
-								currentProgressInLevel++;
-
-								if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-									@Override
-									public void run() {
-										spawnGiantSidewaysMeteors(20, 2000);
-										spawnSidewaysMeteors(40,1000);
-										final long wave5Duration = 20*2000;
-										currentProgressInLevel++;
-
-										if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-											@Override
-											public void run() {
-												spawnMeteorShower(20,1000,true);
-												spawnGiantSidewaysMeteors(20, 2000);
-												spawnGiantSidewaysMeteors(20, 2000);
-												final long wave6Duration = 20*2000;
-												currentProgressInLevel++;
-
-
-												if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
+//												if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
 													@Override
 													public void run() { levelOver(); }
-												},wave6Duration);}
-											}
-										}, wave5Duration);}
-									}
-								}, wave4Duration);}
-							}
-						}, wave3Duration);}
-					}
-				}, wave2Duration);}
-			}
+//												},wave6Duration);}
+//											}
+//										}, wave5Duration);}
+//									}
+//								}, wave4Duration);}
+//							}
+//						}, wave3Duration);}
+//					}
+//				}, wave2Duration);}
+//			}
 		}, wave1Duration);}
 		
 	}
@@ -88,8 +93,7 @@ public class Factory_ScriptedLevels extends Factory_Waves{
 	}
 	
 	protected void startLevelThree(){
-		levelCompleted=false;
-		currentProgressInLevel=1;
+		initLevelVarsAtBeginningOfEveryLevel();
 //		spawnMovingArrayShooters();
 //		spawnMeteorShower(10,600,false);
 //		spawnSidewaysMeteors(20,500);
@@ -169,6 +173,10 @@ public class Factory_ScriptedLevels extends Factory_Waves{
 	
 	public static boolean isLevelCompleted(){
 		return levelCompleted;
+	}
+	
+	public static boolean isLevelStarted(){
+		return levelStarted;
 	}
 	
 	private void levelOver(){

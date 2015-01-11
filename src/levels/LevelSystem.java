@@ -29,6 +29,7 @@ public class LevelSystem extends Factory_ScriptedLevels{
 			startLevelThree();
 			break;
 		}
+		CollisionDetector.startDetecting();
 		return false;
 	}
 	

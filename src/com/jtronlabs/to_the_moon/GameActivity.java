@@ -96,7 +96,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		    public void onGlobalLayout() {
 		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 		    	levelFactory.nextLevel();
-		    	CollisionDetector.startDetecting();
 		    } 
 		});
 		
@@ -109,8 +108,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         	((Moving_ProjectileView)enemies.get(i)).removeCallbacks(null);
         }
         protagonist.removeCallbacks(null);
-//        levelFactory.stopSpawning();
-    	CollisionDetector.stopDetecting();
+    	if(LevelSystem.isLevelStarted()){CollisionDetector.stopDetecting();}
     }
 	
 	@Override
@@ -119,9 +117,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		
         for(int i=0;i<enemies.size();i++){
         	enemies.get(i).restartThreads();
-//        	enemies.get(i).refreshDrawableState();
         }
-    	CollisionDetector.startDetecting();
         protagonist.restartThreads();
 	}
 	
@@ -170,8 +166,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 	}
 	
 	public static void openStore(){
-		storeLayout.setVisibility(View.GONE);
-		gameLayout.setVisibility(View.VISIBLE);
+		storeLayout.setVisibility(View.VISIBLE);
+		gameLayout.setVisibility(View.GONE);
 	}
 	
 	private static void closeStore(){

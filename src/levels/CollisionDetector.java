@@ -5,8 +5,8 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import parents.MovingView;
-
 import android.os.Handler;
+import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 
@@ -23,7 +23,8 @@ public class CollisionDetector {
 
         @Override
         public void run() {
-        	if( ! Factory_ScriptedLevels.isLevelCompleted() && GameActivity.enemies.size() !=0){
+        	if( ! LevelSystem.isLevelCompleted() || GameActivity.enemies.size() !=0){
+        		if(LevelSystem.isLevelCompleted()){Log.d("lowrey","numEnemies="+GameActivity.enemies.size());}
 	        	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
 	        		FriendlyView friendly = GameActivity.friendlies.get(k);
 	        		boolean isProtagonist = GameActivity.friendlies.get(k) == GameActivity.protagonist;

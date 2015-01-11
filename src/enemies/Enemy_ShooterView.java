@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import bonuses.BonusView;
 import bullets.BulletView;
 
 import com.jtronlabs.to_the_moon.GameActivity;
@@ -27,11 +28,14 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 			myBullets = new ArrayList<BulletView>();
 		}
 
+		/**
+		 * if a game object still has bullets on screen, it cannot be removed from the GameActivity list, as bullets would stop collision detection
+		 */
 		@Override
 		public void removeGameObject(){
 			stopShooting();
 			if(this.getMyBullets().size()==0){
-				GameActivity.enemies.remove(this);			
+				GameActivity.enemies.remove(this);
 			}
 			super.removeGameObject();
 		}

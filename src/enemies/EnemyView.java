@@ -1,5 +1,8 @@
 package enemies;
 
+import interfaces.GameObjectInterface;
+import interfaces.Shooter;
+import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.content.Context;
 import android.view.ViewGroup;
@@ -29,24 +32,23 @@ public class EnemyView extends Projectile_GravityView{
 	
 	@Override
 	public void removeGameObject(){
-		if(!this.isRemoved()){
-			if(Math.random()<probSpawnBeneficialObject){
-				final float xAvg = (2 * this.getX()+this.getWidth())/2;
-				final float yAvg = (2 * this.getY()+this.getHeight())/2;
-				BonusView bene = BonusView.getRandomBonusView(this.getContext(),xAvg,yAvg);
-				ViewGroup parent = (ViewGroup)this.getParent();
-				if(parent!=null){parent.addView(bene,1);}
-			}
+
+		//spawn a random bonus
+		if(Math.random()<probSpawnBeneficialObject){
+			final float xAvg = (2 * this.getX()+this.getWidth())/2;
+			final float yAvg = (2 * this.getY()+this.getHeight())/2;
+			BonusView bene = BonusView.getRandomBonusView(this.getContext(),xAvg,yAvg);
+			ViewGroup parent = (ViewGroup)this.getParent();
+			if(parent!=null){parent.addView(bene,1);}
 		}
-//		if(this.myGun!=null && this.myGun.myBullets.size()==0){
-//			GameActivity.enemies.remove(this);			
-//		}else if(this.myGun==null){
-//			GameActivity.enemies.remove(this);			
-//		}
+		
+		if( ! (this instanceof Shooter)){
+			GameActivity.enemies.remove(this);
+			if(this.getHealth()>0){LevelSystem.incrementScore(this.getScoreForKilling()/3);}
+		}
+
 		super.removeGameObject();
 	}
-	
-
 	public void setProbSpawnBeneficialObjectOnDeath(double prob){
 		probSpawnBeneficialObject=prob;
 	}
