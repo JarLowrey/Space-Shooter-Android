@@ -265,6 +265,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 			}
 			break;
 		} 
+		resourceCount.setText(""+ LevelSystem.getScore());
 		return false;
 	}
 	
