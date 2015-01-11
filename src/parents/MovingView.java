@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+
+import enemy_types.EnemyView;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
  * The downward force may be different from the upward speed.
@@ -73,21 +75,16 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
 		float x =this.getX();
 		float y =this.getY();
+		boolean outOfScreen=false;
 		switch(direction){
 		case UP:
 			y-=Math.abs(speedY);
-			if(y< -getHeight()){
-    			removeGameObject();
-    			return true;
-    		}
+			outOfScreen=y< -getHeight();
 			this.setY(y);
 			break;
 		case DOWN:
 			y+=Math.abs(speedY);
-			if(y>MainActivity.getHeightPixels()){
-    			removeGameObject();
-    			return true;
-    		}
+			outOfScreen=y>MainActivity.getHeightPixels();
 			this.setY(y);
 			break;
 		//move in X direction at speed X, move right if speed X positive and left otherwise
@@ -105,7 +102,15 @@ public class MovingView extends ImageView implements GameObjectInterface{
 			this.setX(x);
 			break;
 		}
-			
+		
+		if(outOfScreen){
+			if(this instanceof EnemyView){
+//				INCREASE SCORE VALUE            ((EnemyView)this).getScoreForKilling()/3 );
+			}//give some points for dodging
+			removeGameObject();
+			return true;
+		}
+		
 		return false;
 	}
 

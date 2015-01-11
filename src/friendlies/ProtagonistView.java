@@ -5,7 +5,7 @@ import guns.Gun_AngledDualShot;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.util.AttributeSet;
-import bullets.Bullet_LaserShort;
+import bullets.Bullet_Tracking_LaserShort;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
@@ -26,7 +26,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		super(context, at,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
-		Gun gun = new Gun_AngledDualShot(context, this, new Bullet_LaserShort());
+		Gun gun = new Gun_AngledDualShot(context, this, new Bullet_Tracking_LaserShort(5,this,this));
 		this.giveNewGun(gun);
 		this.stopShooting();
 		

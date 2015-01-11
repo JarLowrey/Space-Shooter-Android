@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import parents.MovingView;
 
-import android.util.Log;
-
 import com.jtronlabs.to_the_moon.MainActivity;
   
 
@@ -25,8 +23,9 @@ public abstract class Bullet_TrackingView extends Bullet{
 	public Bullet_TrackingView(double trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
 		
 		shooter = shooterWithTrackingBullets;
-		trackingSpeed = (trackingSpeed>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED * 
-				MainActivity.getScreenDens() : trackSpeed*MainActivity.getScreenDens();
+		final double trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
+		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED * 
+				MainActivity.getScreenDens() : trackSpeedDPI;
 		viewTracking=viewToTrack;
 		shooter.post(trackingRunnable);
 	}
@@ -52,7 +51,6 @@ public abstract class Bullet_TrackingView extends Bullet{
 		    		final float bulletXMidPos = (2 * bullet.getX()+bullet.getWidth() ) / 2; 
 					final float diff = bulletXMidPos - objectTrackingMidPoint;
         			
-					Log.d("lowrey","diff"+diff);
 					//if bullet is approximately at tracking destination, don't move it and set rotation to 0
 		    		if( Math.abs(diff) < shooter.getWidth() ){
 		    			bullet.setSpeedX(Bullet.BULLET_TRAVELS_STRAIGHT);

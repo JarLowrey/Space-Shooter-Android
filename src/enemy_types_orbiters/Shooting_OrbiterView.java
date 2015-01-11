@@ -1,21 +1,12 @@
 package enemy_types_orbiters;
 
 import android.content.Context;
-import android.widget.RelativeLayout;
-
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
-
 import enemy_types.Enemy_ShooterView;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
-
-
-	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
-			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2);
 	
 	public final static int DEFAULT_SCORE=10,
-			DEFAULT_BULLET_FREQ_INTERVAL=1500;
+			DEFAULT_BULLET_FREQ_INTERVAL=1000;
 	public final static double DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,
 			DEFAULT_COLLISION_DAMAGE=20, 
@@ -50,15 +41,6 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, 
 				bulletFreq, bulletDamage, bulletVerticalSpeed);
 
-		//set image background, width, and height
-		final int height_int=(int)context.getResources().getDimension(R.dimen.diagonal_shooter_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-
-		orbitX=DEFAULT_ORBIT_X;
-		orbitY=DEFAULT_ORBIT_Y;
-		this.setY(0);
-		this.setX(orbitX-this.getWidth()/2);
 	}
 	
 	public void restartThreads(){
@@ -67,11 +49,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		}
 		super.restartThreads();
 	}
-
-	public void setOrbitLocation(int pixelX,int pixelY){
-		orbitX=pixelX;
-		orbitY=pixelY;
-	}
+	
 	public abstract void beginOrbit();
 	public abstract void endOrbit();
 

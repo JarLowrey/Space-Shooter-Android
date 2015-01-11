@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import parents.Moving_ProjectileView;
 
-import levels.LevelFactory;
+import levels.ScriptedLevelFactory;
 import levels.Levels;
 
 import android.app.Activity;
@@ -53,7 +53,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	
 	//MODEL
 	private Levels levelInfo;
-	private LevelFactory levelFactory;
+	private ScriptedLevelFactory levelFactory;
 	
 	//MainGameLoop
     Handler gameHandler = new Handler();
@@ -195,7 +195,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		
 		//set up the game
 		levelInfo = new Levels();
-		levelFactory = new LevelFactory(this,gameScreen);
+		levelFactory = new ScriptedLevelFactory(this,gameScreen);
 		
 		//start the game
 		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
@@ -271,7 +271,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         for(int i=0;i<enemies.size();i++){
         	((Moving_ProjectileView)enemies.get(i)).removeCallbacks(null);
         }
-        ((Moving_ProjectileView)rocket).removeCallbacks(null);
+        rocket.removeCallbacks(null);
 //        levelFactory.stopSpawning();
         gameHandler.removeCallbacks(collisionDetectionRunnable);
     }
@@ -282,6 +282,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		
         for(int i=0;i<enemies.size();i++){
         	enemies.get(i).restartThreads();
+//        	enemies.get(i).refreshDrawableState();
         }
         rocket.restartThreads();
 //        levelFactory.beginSpawning();

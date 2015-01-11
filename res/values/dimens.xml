@@ -18,7 +18,6 @@
     
     <dimen name="benefical_object_len">30dp</dimen>
     
-    <dimen name="meteor_length">30dp</dimen>
     <dimen name="simple_enemy_shooter_height">48dp</dimen>
     <dimen name="simple_enemy_shooter_width">34.66dp</dimen>
     
@@ -28,6 +27,15 @@
     <dimen name="dive_bomber_height">30.513dp</dimen>
     <dimen name="dive_bomber_width">35dp</dimen>
     
+    
+    <dimen name="orbit_rectangular_width">40dp</dimen>
+    <dimen name="orbit_rectangular_height">34dp</dimen>
+    <dimen name="orbit_circular_width">45dp</dimen>
+    <dimen name="orbit_circular_height">40dp</dimen>
+    <dimen name="orbit_triangular_width">31dp</dimen>
+    <dimen name="orbit_triangular_height">45dp</dimen>
+    
+    <dimen name="meteor_length">30dp</dimen>
     <dimen name="giant_meteor_height">160dp</dimen>
     <dimen name="giant_meteor_width">100dp</dimen>
     

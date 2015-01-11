@@ -1,16 +1,19 @@
 package enemy_types_orbiters;
 
-import parents.Moving_ProjectileView;
 import interfaces.GameObjectInterface;
+import parents.Moving_ProjectileView;
 import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObjectInterface {
 	
 	public static final int DEFAULT_ANGULAR_VELOCITY=5, 
-			MAX_ANGULAR_VELOCITY = 30;
-	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels()/3);
+			MAX_ANGULAR_VELOCITY = 30,
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
+	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels());
 	
 	private int currentDegree;
 	private int angularVelocity;
@@ -62,16 +65,13 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 //				break;
 //			}
 	
-				//dear christ. Why am i so stupid.
-				if(angularVelocity>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
+				//dear christ. Why am i so stupid. Figured it out eventually!
 				currentDegree = ( angularVelocity+currentDegree )%360;
-				float y = (float) (radius* Math.sin(Math.toRadians(currentDegree)));
-				float x = (float) (radius* Math.cos(Math.toRadians(currentDegree)));
+				float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
+				float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));
 				
-				final float midShipX = orbitX+x;
-				final float midShipY = orbitY+y;
-				Orbiter_CircleView.this.setX(midShipX);
-				Orbiter_CircleView.this.setY(midShipY);
+				Orbiter_CircleView.this.setX( orbitX+x -Orbiter_CircleView.this.getWidth()/2);
+				Orbiter_CircleView.this.setY( orbitY+y -Orbiter_CircleView.this.getHeight()/2);
 			
 				howManyTimesMoved++;
 				
@@ -90,14 +90,66 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 				collisionDamage, health,bulletFreq,heightView,widthView,
 				bulletDamage,bulletVerticalSpeed, probSpawnBeneficialObjecyUponDeath);
 
+		//set image background, width, and height, and orbit location
+		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_circular_height);
+		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_circular_width);
+		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
+		
+		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		
+		orbitX=(int) (MainActivity.getWidthPixels()/2);
+		orbitY=(int) (MainActivity.getHeightPixels()/3-height_int/2);
+		
 		currentDegree=270;
 		radius=circleRadius*MainActivity.getScreenDens();
 		angularVelocity=angularVelocityInDegrees;
+		//ensure radius and angular velocity are within bounds
+		if(Math.abs(angularVelocity)>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
+		final int maxRadiusX = (int) (MainActivity.getWidthPixels()/2 - width_int/2 );
+		final int maxRadiusY = (int) (MainActivity.getHeightPixels()/2 - height_int/2 );
+		final int maxRadius = (maxRadiusX>maxRadiusY) ? maxRadiusY : maxRadiusX;//choose the smaller of the x and y
+		if(Math.abs(radius)>maxRadius){radius = maxRadius;}
 		howManyTimesMoved=0;
 		
 		this.setThreshold((int) (orbitY - radius));//begin orbit at top of circle
-
+		this.setX(orbitX-width_int/2);
 	}
+	
+	
+
+	public Orbiter_CircleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
+			double health, double bulletFreq,
+			float heightView,float widthView,double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath,
+			int circleRadius,int angularVelocityInDegrees, int orbitPixelX,int orbitPixelY) {
+		super(context,score, speedY, speedX,
+				collisionDamage, health,bulletFreq,heightView,widthView,
+				bulletDamage,bulletVerticalSpeed, probSpawnBeneficialObjecyUponDeath);
+
+		//set image background, width, and height, and orbit location
+		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_circular_height);
+		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_circular_width);
+		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
+		
+		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		
+		orbitX=orbitPixelX;
+		orbitY=orbitPixelY;
+		
+		currentDegree=270;
+		radius=circleRadius*MainActivity.getScreenDens();
+		angularVelocity=angularVelocityInDegrees;
+		//ensure radius and angular velocity are within bounds
+		if(Math.abs(angularVelocity)>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
+		final int maxRadiusX = (int) (MainActivity.getWidthPixels()/2 - width_int/2 );
+		final int maxRadiusY = (int) (MainActivity.getHeightPixels()/2 - height_int/2 );
+		final int maxRadius = (maxRadiusX>maxRadiusY) ? maxRadiusY : maxRadiusX;//choose the smaller of the x and y
+		if(Math.abs(radius)>maxRadius){radius = maxRadius;}
+		howManyTimesMoved=0;
+		
+		this.setThreshold((int) (orbitY - radius));//begin orbit at top of circle
+		this.setX(orbitX-width_int/2);
+	}
+	
 	public void setAngularVelocity(int newVelocity){
 		this.angularVelocity=newVelocity;
 	}
@@ -109,6 +161,10 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	}
 	public void endOrbit(){
 		this.removeCallbacks(moveInACircleRunnable);
+	}
+	
+	public void setWidthAndHeight(int width, int height){
+		
 	}
 
 }

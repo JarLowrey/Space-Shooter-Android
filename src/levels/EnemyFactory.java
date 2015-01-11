@@ -201,17 +201,14 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 		return diveBomber;
 	}
 
-	
 	//CIRCLE ORBITERS
 	/**
-	 * pass in all custom parameters
-	 * @param radius
-	 * @param angularVelocity
+	 * use default radius, angular velocity. Pass in pixel x,y desired to orbit
 	 * @param orbitPixelX
 	 * @param orbitPixelY
 	 * @return
 	 */
-	protected Shooting_OrbiterView spawnCirclingOrbitingView(int radius,int angularVelocity,int orbitPixelX,int orbitPixelY){
+	protected Shooting_OrbiterView spawnCircularOrbitingView(int radius,int angularVelocity){
 		final int diff = levelInfo.getDifficulty();
 
 		final int orbitRadius=radius;
@@ -234,41 +231,28 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 				collisionDamage,health,bulletFreq,height,width,
 				spawnBeneficialObject,bulletSpdY,bulletDmg,orbitRadius,angVel);
 
-		orbiter.setOrbitLocation(orbitPixelX, orbitPixelY);
-		
 		gameLayout.addView(orbiter,1);
 		
 		return orbiter;
 	}
 	
 	/**
-	 * use default radius, angular velocity. Pass in pixel x,y desired to orbit
-	 * @param orbitPixelX
-	 * @param orbitPixelY
-	 * @return
-	 */
-	protected Shooting_OrbiterView spawnCirclingOrbitingView(int orbitPixelX,int orbitPixelY){
-		return spawnCirclingOrbitingView(Orbiter_CircleView.DEFAULT_CIRCLE_RADIUS,Orbiter_CircleView.DEFAULT_ANGULAR_VELOCITY, orbitPixelX, orbitPixelY);
-	}
-	
-	/**
 	 * use default radius, angular velocity, and orbit location
 	 * @return
 	 */
-	protected Shooting_OrbiterView spawnCirclingOrbitingView(){
-		return spawnCirclingOrbitingView(Orbiter_CircleView.DEFAULT_CIRCLE_RADIUS,Orbiter_CircleView.DEFAULT_ANGULAR_VELOCITY, 
-				Orbiter_CircleView.DEFAULT_ORBIT_X, Orbiter_CircleView.DEFAULT_ORBIT_Y);
+	protected Shooting_OrbiterView spawnCircularOrbitingView(){
+		return spawnCircularOrbitingView(Orbiter_CircleView.DEFAULT_CIRCLE_RADIUS,Orbiter_CircleView.DEFAULT_ANGULAR_VELOCITY);
 	}
 	
 	//TRIANGLE ORBITERS
+
 	/**
-	 * pass in all custom parameters
-	 * @param angle
+	 * use default triangle angle
 	 * @param orbitPixelX
 	 * @param orbitPixelY
 	 * @return
 	 */
-	protected Shooting_OrbiterView spawnTriangularOrbitingView(int angle,int orbitPixelX,int orbitPixelY){
+	protected Shooting_OrbiterView spawnTriangularOrbitingView(int angle){
 		final int diff = levelInfo.getDifficulty();
 
 		final int orbitLength=Orbiter_TriangleView.DEFAULT_ORBIT_LENGTH;
@@ -290,21 +274,9 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 				collisionDamage,health,bulletFreq,height,width,
 				spawnBeneficialObject,bulletSpdY,bulletDmg,orbitLength);
 
-		orbiter.setOrbitLocation(orbitPixelX, orbitPixelY);
-		
 		gameLayout.addView(orbiter,1);
 		
 		return orbiter;
-	}
-
-	/**
-	 * use default triangle angle
-	 * @param orbitPixelX
-	 * @param orbitPixelY
-	 * @return
-	 */
-	protected Shooting_OrbiterView spawnTriangularOrbitingView(int orbitPixelX,int orbitPixelY){
-		return spawnTriangularOrbitingView(Orbiter_TriangleView.DEFAULT_ANGLE, orbitPixelX, orbitPixelY);
 	}
 	
 	/**
@@ -312,17 +284,11 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 	 * @return
 	 */
 	protected Shooting_OrbiterView spawnTriangularOrbitingView(){
-		return spawnTriangularOrbitingView(Orbiter_TriangleView.DEFAULT_ANGLE, Orbiter_TriangleView.DEFAULT_ORBIT_X, Orbiter_TriangleView.DEFAULT_ORBIT_Y);
+		return spawnTriangularOrbitingView(Orbiter_TriangleView.DEFAULT_ANGLE);
 	}
 
 	//RECTANGLE ORBITERS
-	/**
-	 * custom orbit location
-	 * @param orbitPixelX
-	 * @param orbitPixelY
-	 * @return
-	 */
-	protected Shooting_OrbiterView spawnRectangleOrbitingView(int orbitPixelX,int orbitPixelY){
+	protected Shooting_OrbiterView spawnRectanglularOrbitingView(){
 		final int diff = levelInfo.getDifficulty();
 
 		final int orbitLength=Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH;
@@ -344,15 +310,9 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 				collisionDamage,health,bulletFreq,height,width,
 				spawnBeneficialObject,bulletSpdY,bulletDmg,orbitLength);
 
-		orbiter.setOrbitLocation(orbitPixelX, orbitPixelY);
-		
 		gameLayout.addView(orbiter,1);
 		
 		return orbiter;
-	}
-
-	protected Shooting_OrbiterView spawnRectangleOrbitingView(){
-		return spawnTriangularOrbitingView(Shooting_OrbiterView.DEFAULT_ORBIT_X,Shooting_OrbiterView.DEFAULT_ORBIT_Y);
 	}
 	
 	//Shooter ARRAY

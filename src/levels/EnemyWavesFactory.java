@@ -9,11 +9,11 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import enemy_types.Shooting_ArrayMovingView;
 import enemy_types_non_shooters.Gravity_MeteorView;
 
-public class ScriptedWavesFactory extends EnemyFactory{
+public class EnemyWavesFactory extends BossFactory{
 
     Handler spawnHandler;
     
-	public ScriptedWavesFactory(Context context,RelativeLayout gameScreen) {
+	public EnemyWavesFactory(Context context,RelativeLayout gameScreen) {
 		super(context,gameScreen);
 		
 		spawnHandler = new Handler();
@@ -133,13 +133,13 @@ public class ScriptedWavesFactory extends EnemyFactory{
 		}
 	}
 	
-	public void spawnCircleOrbiter(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public void spawnCircularOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				spawnCirclingOrbitingView();
+				spawnCircularOrbitingView();
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -149,6 +149,37 @@ public class ScriptedWavesFactory extends EnemyFactory{
 		});
 	}
 	
+	public void spawnRectangularOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+		spawnHandler.post(new Runnable(){
+			private int numSpawned=0;
+			
+			@Override
+			public void run() {
+				spawnCircularOrbitingView();
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
+				}
+			}
+		});
+	}
+	
+	public void spawnTriangularOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+		spawnHandler.post(new Runnable(){
+			private int numSpawned=0;
+			
+			@Override
+			public void run() {
+				spawnCircularOrbitingView();
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
+				}
+			}
+		});
+	}
 	
 	
 	
