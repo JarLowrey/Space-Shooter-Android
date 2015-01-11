@@ -48,25 +48,11 @@ public abstract class BonusView extends Moving_GravityView {
 	}
 	
 	public static BonusView getRandomBonusView(Context context,float positionX,float positionY){
-		BonusView bonus;
+		BonusView bonus = new Bonus_HealView(context,positionX,positionY);
 		double rand = Math.random();
 		
-		if(rand<.2){
-			bonus = new Bonus_HealView(context,positionX,positionY);
-		}else if (rand<.25){
-			bonus = new Bonus_Gun_IncBulletDamageView(context,positionX,positionY);			
-		}else if (rand<.30){
-			bonus = new Bonus_Gun_IncBulletFreqView(context,positionX,positionY);			
-		}else if (rand<.35){
-			bonus = new Bonus_Gun_IncBulletSpeedView(context,positionX,positionY);			
-		}else if(rand<.55){
-			bonus = new Bonus_GiveGun_AngledDualShotView(context,positionX,positionY);
-		}else if(rand<.8){
-			bonus = new Bonus_Bullet_Default(context,positionX,positionY);
-		}else if(rand<.9){
-			bonus = new Bonus_Bullet_Default(context,positionX,positionY);			
-		}else{
-			bonus = new Bonus_Bullet_Default(context,positionX,positionY);			
+		if(rand<.5){
+			//give a different bonus
 		}
 		
 		return bonus;

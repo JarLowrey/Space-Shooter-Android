@@ -1,8 +1,8 @@
 package bullets;
   
+import interfaces.Shooter;
 import parents.MovingView;
 import parents.Moving_ProjectileView;
-import interfaces.Shooter;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -45,9 +45,9 @@ public class BulletView extends Moving_ProjectileView{
 	};
 	
 	public BulletView(Context context,Shooter shooter,
-			int bulletWidth, int bulletHeight) {
-		super(context,shooter.getBulletSpeedY(),
-				DEFAULT_HORIZONTAL_SPEED ,shooter.getBulletDamage(),1);
+			int bulletWidth, int bulletHeight,double bulletSpeedY,double bulletDamage) {
+		super(context,bulletSpeedY,
+				DEFAULT_HORIZONTAL_SPEED ,bulletDamage,1);
 	
 		//set instance variables
 		theOneWhoShotMe=shooter;

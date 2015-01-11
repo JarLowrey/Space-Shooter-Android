@@ -5,7 +5,7 @@ import guns.Gun_AngledDualShot;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.util.AttributeSet;
-import bullets.Bullet_Tracking_LaserShort;
+import bullets.Bullet_Basic_LaserShort;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
@@ -24,12 +24,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	public ProtagonistView(Context context, AttributeSet at) {
 		super(context, at,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
+				DEFAULT_HEALTH);
 
-		Gun gun = new Gun_AngledDualShot(context, this, new Bullet_Tracking_LaserShort(5,this,this));
+		Gun gun = new Gun_AngledDualShot(context, this, new Bullet_Basic_LaserShort(),
+				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 		this.giveNewGun(gun);
-		this.stopShooting();
-		
 
 		//if created via Attribute set, it is safe to set up rocket exhaust runnable. CURRENTLY NOT WORKING AS ID LIKE
 //		this.post(exhaustRunnable);
@@ -37,9 +36,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 
 	public ProtagonistView(Context context) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
-
-		this.stopShooting();
+				DEFAULT_HEALTH);
 	}
 	
 	

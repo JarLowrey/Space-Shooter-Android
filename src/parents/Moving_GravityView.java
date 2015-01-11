@@ -1,8 +1,13 @@
 package parents;
 
 import interfaces.Gravity;
+import levels.GameLevels;
 import android.content.Context;
 import android.util.AttributeSet;
+
+import com.jtronlabs.to_the_moon.MainActivity;
+
+import enemies.EnemyView;
 
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
@@ -49,14 +54,13 @@ public class Moving_GravityView extends MovingView implements Gravity{
     };
     
     public boolean moveDirection(int direction){
+    	boolean offScreen =  super.moveDirection(direction);
+    	boolean atThreshold=false;
     	if(direction==DOWN){
     		float y=this.getY();
-			y+=speedY;
-			this.setY(y);
-			return gravityThreshold!=NO_THRESHOLD && (y+getHeight())>gravityThreshold;
-    	}else{
-    		return super.moveDirection(direction);
+    		atThreshold = gravityThreshold!=NO_THRESHOLD && (y+getHeight())>gravityThreshold;
     	}
+    	return offScreen || atThreshold;
     }
     
     

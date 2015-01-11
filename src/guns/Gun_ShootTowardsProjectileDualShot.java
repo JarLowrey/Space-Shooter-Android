@@ -16,15 +16,15 @@ public  class Gun_ShootTowardsProjectileDualShot extends Gun {
 	private Moving_ProjectileView shootTowardsMe;
 	
 	public Gun_ShootTowardsProjectileDualShot(Context context,Moving_ProjectileView shootingAtMe,
-			Shooter theShooter,Bullet bulletType) {
-		super(context,theShooter,bulletType);
+			Shooter theShooter,Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg) {
+		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg);
 		
 		shootTowardsMe = shootingAtMe;
 	}
 
 	public Gun_ShootTowardsProjectileDualShot(Context context,
-			Shooter theShooter,Bullet bulletType) {
-		super(context,theShooter,bulletType);
+			Shooter theShooter,Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg) {
+		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg);
 		
 		shootTowardsMe=null;
 	}
@@ -64,7 +64,7 @@ public  class Gun_ShootTowardsProjectileDualShot extends Gun {
 			
 			//set bulletSpeedX to bulletSpeedY scaled by the ratio of the differences of X/Y. 
 			//You are forming a similar triangle to the one formed by the differences
-			bulletSpeedX = shooter.getBulletSpeedY() *diffX/diffYAbs;
+			bulletSpeedX = bulletSpeedY *diffX/diffYAbs;
 			
 			//limit the x speed
 			//Otherwise at the bottom of the screen, bullets are ridiculously quick in X direction 
@@ -74,8 +74,8 @@ public  class Gun_ShootTowardsProjectileDualShot extends Gun {
 		}
 
 		//create 2 bullets
-		BulletView bulletLeft = myBulletType.getBullet(ctx, shooter);
-		BulletView bulletRight = myBulletType.getBullet(ctx, shooter);
+		BulletView bulletLeft = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
+		BulletView bulletRight = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
 		
 		//position bullets on edges of shooter
 		bulletLeft.setPositionOnShooterAsAPercentage(0);

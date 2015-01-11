@@ -1,9 +1,10 @@
 package parents;
 
 import interfaces.Gravity;
-
+import levels.GameLevels;
 import android.content.Context;
 import android.util.AttributeSet;
+import enemies.EnemyView;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
  * The downward force may be different from the upward speed.
@@ -52,14 +53,17 @@ public class Projectile_GravityView extends Moving_ProjectileView implements Gra
     
     @Override
     public boolean moveDirection(int direction){
+    	boolean offScreen =  super.moveDirection(direction);
+    	if(offScreen && this instanceof EnemyView){//give some score for dodging
+    		GameLevels.incrementScore(((EnemyView)this).getScoreForKilling() / 3);
+    	}
+    	
+    	boolean atThreshold=false;
     	if(direction==DOWN){
     		float y=this.getY();
-			y+=speedY;
-			this.setY(y);
-			return gravityThreshold!=NO_THRESHOLD && (y+getHeight())>gravityThreshold;
-    	}else{
-    		return super.moveDirection(direction);
+    		atThreshold = gravityThreshold!=NO_THRESHOLD && (y+getHeight())>gravityThreshold;
     	}
+    	return offScreen || atThreshold;
     }
     
 	public void stopGravity(){

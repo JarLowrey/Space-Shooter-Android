@@ -50,7 +50,7 @@ public class Moving_ProjectileView extends MovingView implements CollidableObjec
 		health-=amountOfDamage;
 		
 		if(health<=0){
-			Log.d("lowrey","die");
+			Log.d("lowrey","ranOutOfHealth");
 //			createExplosion();
 			removeGameObject();
 			dies = true;

@@ -13,6 +13,7 @@ public interface CollidableObjectWithHealthDamageEtc{
 
 	public void setDamage(double newDamage);
 	public double getDamage();
+	public boolean isRemoved();
 	
 
 	

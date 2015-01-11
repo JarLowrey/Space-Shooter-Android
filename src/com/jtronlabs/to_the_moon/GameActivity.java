@@ -4,11 +4,10 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
-import parents.Moving_ProjectileView;
-
+import levels.GameLevels;
 import levels.ScriptedLevelFactory;
-import levels.Levels;
-
+import parents.MovingView;
+import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +16,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -27,10 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import bonuses.BonusView;
 import bullets.BulletView;
-
-
-import enemy_types.EnemyView;
-import enemy_types.Shooting_ArrayMovingView;
+import enemies.EnemyView;
+import enemies.Shooting_ArrayMovingView;
 import friendlies.FriendlyView;
 import friendlies.ProtagonistView;
 
@@ -52,7 +46,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static ArrayList<BonusView> bonuses=new ArrayList<BonusView>();
 	
 	//MODEL
-	private Levels levelInfo;
 	private ScriptedLevelFactory levelFactory;
 	
 	//MainGameLoop
@@ -103,8 +96,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        			
 	        			enemyDies=enemy.takeDamage(friendly.getDamage());
 	        			if(enemyDies){
-	        				levelInfo.incrementScore(enemy.getScoreForKilling());
-	        				text_score.setText(""+levelInfo.getScore());
+	        				GameLevels.incrementScore(enemy.getScoreForKilling());
+	        				text_score.setText(""+GameLevels.getScore());
 	        			}
 	        		}
 
@@ -121,8 +114,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 		    					//enemy is damaged
 		            			enemyDies = enemy.takeDamage(bullet.getDamage());
 		            			if(enemyDies){
-		            				levelInfo.incrementScore(enemy.getScoreForKilling());
-		            				text_score.setText(""+levelInfo.getScore());
+		            				GameLevels.incrementScore(enemy.getScoreForKilling());
+		            				text_score.setText(""+GameLevels.getScore());
 		            			}
 		            			
 		            			bullet.removeGameObject();
@@ -162,7 +155,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	        	}
         	}
 			/*			DO OTHER STUFF 		*/
-            gameHandler.postDelayed(this, 50);
+            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
         }
     };
     
@@ -194,7 +187,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		friendlies.add(rocket);
 		
 		//set up the game
-		levelInfo = new Levels();
 		levelFactory = new ScriptedLevelFactory(this,gameScreen);
 		
 		//start the game

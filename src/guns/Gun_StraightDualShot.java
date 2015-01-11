@@ -9,13 +9,13 @@ import bullets.BulletView;
 public class Gun_StraightDualShot extends Gun {
 	
 	public Gun_StraightDualShot(Context context,
-			Shooter theShooter,Bullet bulletType) {
-		super(context,theShooter,bulletType);
+			Shooter theShooter,Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg) {
+		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg);
 	}
 	public boolean shoot(){
 		//create 2 bullets
-		BulletView bulletLeft = myBulletType.getBullet(ctx, shooter);
-		BulletView bulletRight = myBulletType.getBullet(ctx, shooter);
+		BulletView bulletLeft = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
+		BulletView bulletRight = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
 		
 		//position bullets on edges of shooter
 		bulletLeft.setPositionOnShooterAsAPercentage(0);

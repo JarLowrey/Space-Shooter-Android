@@ -13,6 +13,7 @@ public abstract class Bullet{
 	public static final double BULLET_TRAVELS_STRAIGHT=0;
 	
 	public abstract void stopBulletThreads();
-	public abstract BulletView getBullet(Context context,Shooter shooter);
+	
+	public abstract BulletView getBullet(Context context,Shooter shooter,double bulletSpeedY,double bulletDamage);
 	
 }

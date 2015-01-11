@@ -3,13 +3,12 @@ package parents;
 import interfaces.GameObjectInterface;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jtronlabs.to_the_moon.MainActivity;
-
-import enemy_types.EnemyView;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
  * The downward force may be different from the upward speed.
@@ -104,14 +103,11 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		}
 		
 		if(outOfScreen){
-			if(this instanceof EnemyView){
-//				INCREASE SCORE VALUE            ((EnemyView)this).getScoreForKilling()/3 );
-			}//give some points for dodging
+//			Log.d("lowrey","outOfScreen");
 			removeGameObject();
-			return true;
 		}
 		
-		return false;
+		return outOfScreen;
 	}
 
 	

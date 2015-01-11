@@ -6,8 +6,8 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
-import enemy_types.Shooting_ArrayMovingView;
-import enemy_types_non_shooters.Gravity_MeteorView;
+import enemies.Shooting_ArrayMovingView;
+import enemies_non_shooters.Gravity_MeteorView;
 
 public class EnemyWavesFactory extends BossFactory{
 

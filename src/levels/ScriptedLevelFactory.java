@@ -1,6 +1,6 @@
 package levels;
 
-import android.app.Activity;
+import android.content.Context;
 import android.widget.RelativeLayout;
 
 public class ScriptedLevelFactory extends EnemyWavesFactory{
@@ -8,7 +8,7 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 	boolean levelOver = false;
 	int currentProgressInLevel;
 	
-	public ScriptedLevelFactory(Activity context,RelativeLayout gameScreen){
+	public ScriptedLevelFactory(Context context,RelativeLayout gameScreen){
 		super( context, gameScreen);
 	}
 	
