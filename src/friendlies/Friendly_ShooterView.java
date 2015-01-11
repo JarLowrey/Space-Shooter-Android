@@ -18,12 +18,20 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	//myGun needs to be set in a specific View's class
 	private ArrayList<Gun> myGuns;
 	private ArrayList<BulletView> myBullets;
+	
+	private int bulletFreqWeight, 
+	bulletDamageWeight,
+	bullletVerticalSpeedWeight;
 
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
 		super(context,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
 
+		bulletFreqWeight=0; 
+		bulletDamageWeight=0;
+		bullletVerticalSpeedWeight=0;
+		
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
  
@@ -35,6 +43,10 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		super(context, at,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
 
+		bulletFreqWeight=0; 
+		bulletDamageWeight=0;
+		bullletVerticalSpeedWeight=0;
+		
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
 		

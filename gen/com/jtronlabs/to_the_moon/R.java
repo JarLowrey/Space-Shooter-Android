@@ -44,14 +44,14 @@ public final class R {
          */
         public static final int activity_margin_xsmall=0x7f060019;
         public static final int activity_margin_xxlarge=0x7f06001e;
-        public static final int ad_banner_margin=0x7f06002e;
+        public static final int ad_banner_margin=0x7f06002f;
         /**  MovingView-Bonus, enemies, friendlies 
          */
         public static final int benefical_object_len=0x7f060000;
-        public static final int btn_large_len=0x7f060024;
-        public static final int btn_small_height=0x7f060026;
-        public static final int btn_small_width=0x7f060025;
-        public static final int control_panel_height=0x7f060027;
+        public static final int btn_large_len=0x7f060025;
+        public static final int btn_small_height=0x7f060027;
+        public static final int btn_small_width=0x7f060026;
+        public static final int control_panel_height=0x7f060028;
         public static final int diagonal_shooter_height=0x7f060003;
         public static final int diagonal_shooter_width=0x7f060004;
         public static final int dive_bomber_height=0x7f060005;
@@ -59,12 +59,12 @@ public final class R {
         public static final int exhaust_height=0x7f06000f;
         public static final int exhaust_width=0x7f060010;
         public static final int giant_meteor_length=0x7f06000e;
-        public static final int ic_large=0x7f06002a;
-        public static final int ic_med=0x7f060029;
-        public static final int ic_small=0x7f060028;
+        public static final int ic_large=0x7f06002b;
+        public static final int ic_med=0x7f06002a;
+        public static final int ic_small=0x7f060029;
         /**  ETC 
          */
-        public static final int intro_text_view_width=0x7f060023;
+        public static final int intro_text_view_width=0x7f060024;
         public static final int laser_long_height=0x7f060016;
         public static final int laser_long_width=0x7f060015;
         public static final int laser_short_height=0x7f060014;
@@ -85,16 +85,17 @@ public final class R {
         public static final int orbit_triangular_width=0x7f06000b;
         public static final int protagonist_game_height=0x7f060011;
         public static final int protagonist_game_width=0x7f060012;
-        public static final int resource_img_half_height=0x7f060022;
-        public static final int resource_img_height=0x7f060021;
         /**  Store Layout 
          */
-        public static final int resource_img_width=0x7f060020;
+        public static final int resource_img_len=0x7f060020;
         public static final int simple_enemy_shooter_height=0x7f060001;
         public static final int simple_enemy_shooter_width=0x7f060002;
-        public static final int title_canvas_height=0x7f06002b;
-        public static final int title_outline_size=0x7f06002d;
-        public static final int title_size=0x7f06002c;
+        public static final int store_btn_margin_vertical=0x7f060023;
+        public static final int store_btn_next_level_len=0x7f060022;
+        public static final int store_item_len=0x7f060021;
+        public static final int title_canvas_height=0x7f06002c;
+        public static final int title_outline_size=0x7f06002e;
+        public static final int title_size=0x7f06002d;
     }
     public static final class drawable {
         public static final int bird=0x7f020000;
@@ -143,37 +144,40 @@ public final class R {
         public static final int white_center_red_outline=0x7f02002b;
     }
     public static final class id {
-        public static final int activity_main=0x7f0a0018;
-        public static final int ammo=0x7f0a000a;
-        public static final int animating_main_menu_list=0x7f0a001e;
+        public static final int activity_main=0x7f0a001b;
+        public static final int ammo=0x7f0a0009;
+        public static final int animating_main_menu_list=0x7f0a0021;
         public static final int btnLeft=0x7f0a0005;
         public static final int btnMiddle=0x7f0a0006;
         public static final int btnRight=0x7f0a0007;
         public static final int btn_background=0x7f0a0003;
+        public static final int btn_heal=0x7f0a0013;
+        public static final int btn_inc_bullet_dmg=0x7f0a0011;
+        public static final int btn_inc_bullet_freq=0x7f0a0015;
+        public static final int btn_inc_bullet_speed=0x7f0a0014;
+        public static final int btn_inc_score_weight=0x7f0a0016;
+        public static final int btn_new_gun=0x7f0a000d;
+        public static final int btn_purchase_friend=0x7f0a0017;
         public static final int btns_wrap=0x7f0a0004;
-        public static final int button1=0x7f0a000e;
-        public static final int button2=0x7f0a000d;
-        public static final int button3=0x7f0a000f;
-        public static final int button4=0x7f0a0010;
-        public static final int earth=0x7f0a001b;
-        public static final int explanation=0x7f0a0015;
+        public static final int button3=0x7f0a0012;
+        public static final int earth=0x7f0a001e;
+        public static final int explanation=0x7f0a000c;
         public static final int gameScreen=0x7f0a0000;
         public static final int game_play_layout=0x7f0a0001;
         public static final int health_bar=0x7f0a0008;
-        public static final int intro_btn_next=0x7f0a0017;
-        public static final int intro_text=0x7f0a0016;
-        public static final int moon=0x7f0a0019;
-        public static final int playBtn=0x7f0a001c;
-        public static final int resource_count=0x7f0a0013;
-        public static final int resource_layout=0x7f0a0012;
-        public static final int resources_img=0x7f0a0014;
+        public static final int intro_btn_next=0x7f0a001a;
+        public static final int intro_text=0x7f0a0019;
+        public static final int moon=0x7f0a001c;
+        public static final int playBtn=0x7f0a001f;
+        public static final int resource_count=0x7f0a000f;
+        public static final int resource_layout=0x7f0a000e;
+        public static final int resources_img=0x7f0a0010;
         public static final int rocket_exhaust=0x7f0a0002;
-        public static final int rocket_game=0x7f0a000b;
-        public static final int rocket_main=0x7f0a001a;
-        public static final int score_textview=0x7f0a0009;
-        public static final int start_next_level=0x7f0a0011;
-        public static final int store_layout=0x7f0a000c;
-        public static final int title=0x7f0a001d;
+        public static final int rocket_game=0x7f0a000a;
+        public static final int rocket_main=0x7f0a001d;
+        public static final int start_next_level=0x7f0a0018;
+        public static final int store_layout=0x7f0a000b;
+        public static final int title=0x7f0a0020;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;

@@ -1,5 +1,5 @@
 package interfaces;
-
+ 
 
 public interface CollidableObjectWithHealthDamageEtc{
 

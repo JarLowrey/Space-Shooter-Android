@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.RelativeLayout;
 
 public class ScriptedLevelFactory extends EnemyWavesFactory{
-
+  
 	private static boolean levelCompleted;
 	int currentProgressInLevel;
 	

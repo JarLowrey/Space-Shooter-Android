@@ -50,9 +50,10 @@
     
     <!-- Store Layout -->
 
-    <dimen name="resource_img_width">40dp</dimen>
-    <dimen name="resource_img_height">40dp</dimen>
-    <dimen name="resource_img_half_height">20dp</dimen>
+    <dimen name="resource_img_len">40dp</dimen>
+    <dimen name="store_item_len">80dp</dimen>
+    <dimen name="store_btn_next_level_len">100dp</dimen>
+    <dimen name="store_btn_margin_vertical">40dp</dimen>
     
     <!-- ETC -->
     <dimen name="intro_text_view_width">300dp</dimen>

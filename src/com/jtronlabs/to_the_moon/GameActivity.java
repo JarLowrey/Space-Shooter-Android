@@ -32,7 +32,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 
 	//VIEWS
 	private Button btnLeft, btnRight,btnMiddle;
-	private TextView text_score;
 //	private TextView gameWindowOverlay;
 	private static TextView ammoText;
 	private static ProgressBar healthBar;
@@ -50,7 +49,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 	
 	//MainGameLoop
     Handler gameHandler = new Handler();
-    Runnable collisionDetectionRunnable = new Runnable() {
+   
+    Runnable collisionDetectionRunnable = new Runnable() { 
 
         @Override
         public void run() {
@@ -97,7 +97,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		        			enemyDies=enemy.takeDamage(friendly.getDamage());
 		        			if(enemyDies){
 		        				GameLevels.incrementScore(enemy.getScoreForKilling());
-		        				text_score.setText(""+GameLevels.getScore());
 		        			}
 		        		}
 	
@@ -115,7 +114,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 			            			enemyDies = enemy.takeDamage(bullet.getDamage());
 			            			if(enemyDies){
 			            				GameLevels.incrementScore(enemy.getScoreForKilling());
-			            				text_score.setText(""+GameLevels.getScore());
 			            			}
 			            			
 			            			bullet.removeGameObject();
@@ -178,7 +176,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		gameScreen=(RelativeLayout)findViewById(R.id.gameScreen);
 //		gameWindowOverlay=(TextView)findViewById(R.id.game_background);
 //		btnBackground=(RelativeLayout)findViewById(R.id.btn_background);
-		text_score=(TextView)findViewById(R.id.score_textview);
 		ammoText = (TextView)findViewById(R.id.ammo);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
@@ -365,6 +362,13 @@ public class GameActivity extends Activity implements OnTouchListener{
 				case R.id.btnMiddle:
 					rocket.stopShooting();	
 					break;
+				case R.id.btn_heal:
+				case R.id.btn_inc_bullet_dmg:
+				case R.id.btn_inc_bullet_freq:
+				case R.id.btn_inc_bullet_speed:
+				case R.id.btn_inc_score_weight:
+				case R.id.btn_new_gun:
+				case R.id.btn_purchase_friend:
 			}
 		} 
 		return false;

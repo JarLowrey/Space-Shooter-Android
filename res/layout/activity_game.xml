@@ -6,6 +6,7 @@
     android:background="@color/gray"
     tools:context="${relativePackage}.${activityClass}" >
     
+    <!-- GAME PLAY LAYOUT -->
     <RelativeLayout
         android:id="@+id/game_play_layout"
         android:visibility="gone"
@@ -75,16 +76,6 @@
 		        android:layout_alignParentTop="true" />
 		    
 		    
-		    <TextView
-		        android:id="@+id/score_textview"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-				android:layout_alignBottom="@+id/btns_wrap"
-		        android:layout_centerHorizontal="true"
-	        	android:textAppearance="@style/score_and_ammo_text"
-		        android:text="0" />
-		    
-		    
 			<TextView
 			    android:id="@+id/ammo"
 			    android:layout_width="wrap_content"
@@ -108,72 +99,30 @@
     </RelativeLayout>
     
     
-    
+    <!-- STORE LAYOUT -->
     <RelativeLayout
         android:id="@+id/store_layout"
         android:layout_width="match_parent"
+        android:background="@color/blue"
         android:layout_height="match_parent"
         android:visibility="visible">
-
-        <Button
-            android:id="@+id/button2"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/button1"
-            android:layout_below="@+id/button1"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/button3"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/button2"
-            android:layout_below="@+id/button2"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/button4"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/button3"
-            android:layout_below="@+id/button3"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/start_next_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="71dp"
-            android:text="Button" />
         
         <TextView
             android:id="@+id/explanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/resource_layout"
-            android:layout_marginTop="@dimen/activity_margin_small"
-            android:gravity="center"
-            android:text="We've found found refuge for the night. Time to make repairs." />
-
-        <Button
-            android:id="@+id/button1"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/explanation"
-            android:text="Button" />
+            android:layout_alignParentRight="true"
+            android:layout_above="@+id/btn_new_gun"
+            android:layout_marginBottom="@dimen/activity_margin_large"
+            android:gravity="center"
+            android:text="We&apos;ve found found refuge for the night. Time to make repairs." />
         
 		<RelativeLayout
 		    android:id="@+id/resource_layout"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
+            android:layout_above="@+id/explanation"
 		    android:layout_centerHorizontal="true"
 		    >
 	        <TextView
@@ -187,12 +136,105 @@
 	
 	        <ImageView
 	            android:id="@+id/resources_img"
-	            android:layout_width="@dimen/resource_img_width"
-	            android:layout_height="@dimen/resource_img_height"
+	            android:layout_width="@dimen/resource_img_len"
+	            android:layout_height="@dimen/resource_img_len"
 				android:layout_centerVertical="true"
 				android:layout_alignParentLeft="true"
 	            android:src="@drawable/resources" />
 		</RelativeLayout>
+
+		<Button
+		    android:id="@+id/btn_inc_bullet_dmg"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/resource_img_len"
+		    android:layout_height="@dimen/resource_img_len"
+		    android:layout_centerInParent="true"
+		    android:layout_toLeftOf="@+id/button3"
+		    android:background="@drawable/white_center_red_outline"
+		    android:contentDescription="bulletDmg"
+		    android:text="bulletDmg" />
+
+		<Button
+		    android:id="@+id/btn_new_gun"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/resource_img_len"
+		    android:layout_height="@dimen/resource_img_len"
+		    android:layout_above="@+id/btn_inc_bullet_dmg"
+		    android:layout_marginBottom="@dimen/store_btn_margin_vertical"
+		    android:layout_toRightOf="@+id/btn_inc_bullet_dmg"
+		    android:background="@drawable/white_center_red_outline"
+		    android:contentDescription="new gun"
+		    android:text="gun" />
+
+		<Button
+		    android:id="@+id/btn_heal"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/resource_img_len"
+		    android:layout_height="@dimen/resource_img_len"
+		    android:layout_alignBaseline="@+id/btn_new_gun"
+		    android:layout_alignBottom="@+id/btn_new_gun"
+		    android:background="@drawable/white_center_red_outline"
+		    android:layout_toLeftOf="@+id/btn_inc_bullet_dmg"
+		    android:contentDescription="heal"
+		    android:text="heal" />
+
+		<Button
+		    android:id="@+id/btn_inc_bullet_speed"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/resource_img_len"
+		    android:layout_height="@dimen/resource_img_len"
+		    android:background="@drawable/white_center_red_outline"
+		    android:layout_alignBaseline="@+id/btn_inc_bullet_dmg"
+		    android:layout_alignBottom="@+id/btn_inc_bullet_dmg"
+		    android:layout_toLeftOf="@+id/btn_heal"
+		    android:contentDescription="bulletspeed"
+		    android:text="bulletspeed" />
+
+		<Button
+		    android:id="@+id/btn_inc_bullet_freq"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/resource_img_len"
+		    android:layout_height="@dimen/resource_img_len"
+		    android:background="@drawable/white_center_red_outline"
+		    android:layout_alignBaseline="@+id/btn_inc_bullet_dmg"
+		    android:layout_alignBottom="@+id/btn_inc_bullet_dmg"
+		    android:layout_toRightOf="@+id/btn_new_gun"
+		    android:contentDescription="bulletfreq"
+		    android:text="bulletfreq" />
+
+		<Button
+		    android:id="@+id/btn_inc_score_weight"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/resource_img_len"
+		    android:layout_height="@dimen/resource_img_len"
+		    android:background="@drawable/white_center_red_outline"
+		    android:layout_alignBaseline="@+id/btn_purchase_friend"
+		    android:layout_alignBottom="@+id/btn_purchase_friend"
+		    android:layout_toRightOf="@+id/btn_inc_bullet_dmg"
+		    android:contentDescription="score increase"
+		    android:text="score" />
+
+		<Button
+		    android:id="@+id/btn_purchase_friend"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/resource_img_len"
+		    android:layout_height="@dimen/resource_img_len"
+		    android:layout_below="@+id/btn_inc_bullet_dmg"
+		    android:layout_marginTop="@dimen/store_btn_margin_vertical"
+		    android:background="@drawable/white_center_red_outline"
+		    android:layout_toLeftOf="@+id/btn_inc_bullet_dmg"
+		    android:contentDescription="friend"
+		    android:text="friend" />
+
+		<Button
+		    android:id="@+id/start_next_level"
+		    android:layout_width="@dimen/store_btn_next_level_len"
+		    android:layout_height="@dimen/store_btn_next_level_len"
+		    android:layout_centerHorizontal="true"
+        	android:background="@drawable/btn_gray"
+        	android:layout_alignParentBottom="true"
+		    android:layout_marginBottom="@dimen/activity_margin_med"
+		    android:text="Next Level" />
 	    
 	    </RelativeLayout>
 
