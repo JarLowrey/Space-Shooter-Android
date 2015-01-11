@@ -32,7 +32,7 @@ import bullets.BulletView;
 import enemy_types.EnemyView;
 import enemy_types.Shooting_ArrayMovingView;
 import friendlies.FriendlyView;
-import friendlies.RocketView;
+import friendlies.ProtagonistView;
 
 public class GameActivity extends Activity implements OnTouchListener{
 
@@ -41,7 +41,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	private TextView text_score,gameWindowOverlay;
 	private static TextView ammoText;
 	private static ProgressBar healthBar;
-	public static RocketView rocket;
+	public static ProtagonistView rocket;
 	public static ImageView rocketExhaust;
 //	private RelativeLayout btnBackground;
 	private RelativeLayout gameScreen;
@@ -184,12 +184,12 @@ public class GameActivity extends Activity implements OnTouchListener{
 		text_score=(TextView)findViewById(R.id.score_textview);
 		ammoText = (TextView)findViewById(R.id.ammo);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
-		healthBar.setMax((int) RocketView.DEFAULT_HEALTH);
+		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
 		healthBar.setProgress(healthBar.getMax());
 		
 		//set up rocket
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
-		rocket = (RocketView)findViewById(R.id.rocket_game);
+		rocket = (ProtagonistView)findViewById(R.id.rocket_game);
 		friendlies.add(rocket);
 		
 		//set up the game

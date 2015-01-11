@@ -19,11 +19,11 @@ public class ScriptedWavesFactory extends EnemyFactory{
 		spawnHandler = new Handler();
 	}
 
-	public void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean firstMeteorShowerRunsLeftToRight) {
+	public void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 		spawnHandler.post(new Runnable(){
 			
 			private int numMeteorsSpawned=0;
-			private boolean meteorsFallLeftToRight = firstMeteorShowerRunsLeftToRight;
+			private boolean meteorsFallLeftToRight = beginOnLeft;
 			
 			@Override
 			public void run() {
@@ -93,7 +93,7 @@ public class ScriptedWavesFactory extends EnemyFactory{
 		}
 	}
 	
-	public void spawnDiveBombers(final int totalNumDiveBomber, final int millisecondsBetweenEachSpawn, final int numDiveBombersPerSpawn){
+	public void spawnDiveBomberWaves(final int totalNumDiveBomber, final int millisecondsBetweenEachSpawn, final int numDiveBombersPerSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numDiveBombersSpawned=0;
 			
@@ -113,7 +113,7 @@ public class ScriptedWavesFactory extends EnemyFactory{
 //		enemyProducer
 	}
 	
-	public void spawnAllSimpleShooters(){
+	public void spawnMovingArrayShooters(){
 		int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
 		
 		for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){

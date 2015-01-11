@@ -348,8 +348,6 @@ private Runnable spawnOrbitersRunnable = new Runnable(){
 		double 	speedX=Gravity_MeteorView.DEFAULT_SPEED_X_MOVING_SIDEWAYS;
 		if(Math.random()<0.5){speedX*=-1;}
 		met.setSpeedX(speedX);
-
-		gameLayout.addView(met,1);
 		
 		return met;
 	}

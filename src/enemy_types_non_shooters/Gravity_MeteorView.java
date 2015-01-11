@@ -13,7 +13,7 @@ public class Gravity_MeteorView extends EnemyView{
 	
 	public final static int DEFAULT_SCORE=5,
 			DEFAULT_BACKGROUND=R.drawable.meteor,
-			DEFAULT_ROTATION_SPEED=10;
+			DEFAULT_ROTATION_SPEED=7;
 	public final static double DEFAULT_SPEED_Y=7,DEFAULT_SPEED_X=0,
 			DEFAULT_COLLISION_DAMAGE=12, 
 			DEFAULT_HEALTH=5,
@@ -28,7 +28,7 @@ public class Gravity_MeteorView extends EnemyView{
 		public void run() {
 			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
 			Gravity_MeteorView.this.setRotation(currentRotation);
-			Gravity_MeteorView.this.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE * 4);
+			Gravity_MeteorView.this.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE * 2);
 		}
 	};
 	

@@ -11,7 +11,7 @@ import bullets.Bullet_LaserShort;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 
-public class RocketView extends Friendly_ShooterView{
+public class ProtagonistView extends Friendly_ShooterView{
 	
 	public final static double DEFAULT_SPEED_Y=12.5,
 			DEFAULT_SPEEDX=14,
@@ -24,7 +24,7 @@ public class RocketView extends Friendly_ShooterView{
 	private final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 	private int directionMoving=Moving_ProjectileView.LEFT;
 	
-	public RocketView(Context context, AttributeSet at) {
+	public ProtagonistView(Context context, AttributeSet at) {
 		super(context, at,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
@@ -37,7 +37,7 @@ public class RocketView extends Friendly_ShooterView{
 		this.post(exhaustRunnable);
 	}
 
-	public RocketView(Context context) {
+	public ProtagonistView(Context context) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 
@@ -54,23 +54,23 @@ public class RocketView extends Friendly_ShooterView{
     	 @Override
          public void run() {
 			//ensure view is not removed before running
-			if( ! RocketView.this.isRemoved() && GameActivity.rocketExhaust!=null){
+			if( ! ProtagonistView.this.isRemoved() && GameActivity.rocketExhaust!=null){
 				if(count*EXHAUST_MOVE_FREQ<EXHAUST_VISIBLE_TIME){
 					GameActivity.rocketExhaust.setVisibility(View.VISIBLE);					
 		    		 //position the exhaust
-					final float y=RocketView.this.getY()+RocketView.this.getHeight(); //set the fire's Y pos to behind rocket
-					final float averageRocketsX= (2 * RocketView.this.getX()+RocketView.this.getWidth() )/2;//find average of rocket's left and right x pos
+					final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
+					final float averageRocketsX= (2 * ProtagonistView.this.getX()+ProtagonistView.this.getWidth() )/2;//find average of rocket's left and right x pos
 					final float x = averageRocketsX-GameActivity.rocketExhaust.getWidth()/2;//fire's new X pos should set the middle of fire to middle of rocket
 					GameActivity.rocketExhaust.setY(y);
 					GameActivity.rocketExhaust.setX(x);
 					count++;
 
-					RocketView.this.postDelayed(this,EXHAUST_MOVE_FREQ);//repost this runnable so the exhaust will reposition quickly
+					ProtagonistView.this.postDelayed(this,EXHAUST_MOVE_FREQ);//repost this runnable so the exhaust will reposition quickly
 				
 				}else{
 					count=0;
 					GameActivity.rocketExhaust.setVisibility(View.INVISIBLE);					
-					RocketView.this.postDelayed(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()));//repost this runnable so the exhaust will reposition quickly
+					ProtagonistView.this.postDelayed(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()));//repost this runnable so the exhaust will reposition quickly
 				}
 			}
          }
@@ -79,8 +79,8 @@ public class RocketView extends Friendly_ShooterView{
 	private Runnable moveRunnable = new Runnable(){
 		@Override
 		public void run() {
-			RocketView.this.moveDirection(directionMoving);
-			RocketView.this.postDelayed(moveRunnable,HOW_OFTEN_TO_MOVE_ROCKET);
+			ProtagonistView.this.moveDirection(directionMoving);
+			ProtagonistView.this.postDelayed(moveRunnable,HOW_OFTEN_TO_MOVE_ROCKET);
 		}
 		
 	};
