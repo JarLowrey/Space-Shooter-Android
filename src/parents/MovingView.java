@@ -102,7 +102,6 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		}
 		
 		if(outOfScreen){
-//			Log.d("lowrey","outOfScreen");
 			removeGameObject();
 		}
 		

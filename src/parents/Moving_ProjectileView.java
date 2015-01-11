@@ -74,7 +74,7 @@ public class Moving_ProjectileView extends MovingView implements CollidableObjec
 	
 	public void heal(double howMuchHealed){
 		health+=howMuchHealed;
-		if(this == GameActivity.rocket){
+		if(this == GameActivity.protagonist){
 			GameActivity.setHealthBar();
 		}
 	}

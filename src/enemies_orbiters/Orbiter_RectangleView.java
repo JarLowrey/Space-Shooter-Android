@@ -3,7 +3,6 @@ package enemies_orbiters;
 import interfaces.GameObjectInterface;
 import parents.Moving_ProjectileView;
 import android.content.Context;
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;

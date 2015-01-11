@@ -65,7 +65,7 @@ public class Factory_Enemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 		
-		gameLayout.addView(enemy,1);
+		gameLayout.addView(enemy,0);
 		
 		return enemy;
 		
@@ -83,17 +83,17 @@ public class Factory_Enemies{
 				bulletFreq=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL+
 				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL);
 		
-		Shooting_Diagonal_DiveBomberView diveBomber =  new Shooting_Diagonal_DiveBomberView(ctx,score,speedY,speedX,
+		Shooting_Diagonal_DiveBomberView enemy =  new Shooting_Diagonal_DiveBomberView(ctx,score,speedY,speedX,
 				collisionDamage,health,spawnBeneficialObject);
 
 
-		Gun defaultGun = new Gun_StraightSingleShot(ctx, diveBomber, new Bullet_Basic_LaserShort(),
+		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
-		diveBomber.addGun(defaultGun);
+		enemy.addGun(defaultGun);
 		
-		gameLayout.addView(diveBomber,1);
+		gameLayout.addView(enemy,0);
 		
-		return diveBomber;
+		return enemy;
 	}
 
 	//CIRCLE ORBITERS
@@ -131,7 +131,7 @@ public class Factory_Enemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 		
-		gameLayout.addView(enemy,1);
+		gameLayout.addView(enemy,0);
 		
 		return enemy;
 	}
@@ -178,7 +178,7 @@ public class Factory_Enemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 		
-		gameLayout.addView(enemy,1);
+		gameLayout.addView(enemy,0);
 		
 		return enemy;
 	}
@@ -217,7 +217,7 @@ public class Factory_Enemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 		
-		gameLayout.addView(enemy,1);
+		gameLayout.addView(enemy,0);
 		
 		return enemy;
 	}
@@ -246,7 +246,7 @@ public class Factory_Enemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 		
-		gameLayout.addView(enemy,1);
+		gameLayout.addView(enemy,0);
 		
 		return enemy;
 		
@@ -262,11 +262,11 @@ public class Factory_Enemies{
 				health=Gravity_MeteorView.DEFAULT_HEALTH,
 				spawnBeneficialObject= Gravity_MeteorView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH;
 		
-		Gravity_MeteorView met = new Gravity_MeteorView(ctx,score,speedY,collisionDamage,health,spawnBeneficialObject);
+		Gravity_MeteorView enemy = new Gravity_MeteorView(ctx,score,speedY,collisionDamage,health,spawnBeneficialObject);
 
-		gameLayout.addView(met,1);
+		gameLayout.addView(enemy,0);
 		
-		return met;
+		return enemy;
 	}
 	
 	protected Meteor_SidewaysView spawnSidewaysMeteor(){
@@ -278,10 +278,10 @@ public class Factory_Enemies{
 				spawnBeneficialObject= Meteor_SidewaysView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
 				speedX=Meteor_SidewaysView.DEFAULT_SPEED_X;
 		
-		Meteor_SidewaysView met = new Meteor_SidewaysView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject);
+		Meteor_SidewaysView enemy = new Meteor_SidewaysView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject);
 
-		gameLayout.addView(met,1);
-		return met;
+		gameLayout.addView(enemy,0);
+		return enemy;
 	}
 	
 	protected Gravity_MeteorView spawnGiantMeteor(){

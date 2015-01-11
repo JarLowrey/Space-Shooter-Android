@@ -56,6 +56,7 @@ public class Projectile_GravityView extends Moving_ProjectileView implements Gra
     	boolean offScreen =  super.moveDirection(direction);
     	if(offScreen && this instanceof EnemyView){//give some score for dodging
     		LevelSystem.incrementScore(((EnemyView)this).getScoreForKilling() / 3);
+//    		Log.d("lowrey",""+LevelSystem.getScore());
     	}
     	
     	boolean atThreshold=false;

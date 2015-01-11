@@ -12,7 +12,6 @@ public class Factory_ScriptedLevels extends Factory_Waves{
 		super( context, gameScreen);
 		levelCompleted = false;
 		levelStopped=false;
-		
 	}
 
 	

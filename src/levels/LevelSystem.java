@@ -10,7 +10,7 @@ public class LevelSystem extends Factory_ScriptedLevels{
 	
 	public LevelSystem(Context context, RelativeLayout gameScreen) {
 		super(context, gameScreen);
-		myScore=0;
+		myScore=0; 
 	}
 
 	public boolean nextLevel(){

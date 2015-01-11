@@ -1,12 +1,11 @@
 package enemies_orbiters;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
-
-import parents.Moving_ProjectileView;
 import interfaces.GameObjectInterface;
+import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout;
+
+import com.jtronlabs.to_the_moon.R;
 
 
 public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameObjectInterface {
