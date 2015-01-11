@@ -4,13 +4,14 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
-import levels.GameLevels;
-import levels.ScriptedLevelFactory;
+import levels.Factory_ScriptedLevels;
+import levels.LevelSystem;
 import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -45,7 +46,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static ArrayList<BonusView> bonuses=new ArrayList<BonusView>();
 	
 	//MODEL
-	private ScriptedLevelFactory levelFactory;
+	private LevelSystem levelFactory;
 	
 	//MainGameLoop
     Handler gameHandler = new Handler();
@@ -54,7 +55,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 
         @Override
         public void run() {
-        	if( ! ScriptedLevelFactory.isLevelCompleted() && enemies.size() !=0){
+        	if( ! Factory_ScriptedLevels.isLevelCompleted() && enemies.size() !=0){
 	        	for(int k=friendlies.size()-1;k>=0;k--){
 	        		FriendlyView friendly = friendlies.get(k);
 	        		boolean isProtagonist = friendlies.get(k) == rocket;
@@ -96,7 +97,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		        			
 		        			enemyDies=enemy.takeDamage(friendly.getDamage());
 		        			if(enemyDies){
-		        				GameLevels.incrementScore(enemy.getScoreForKilling());
+		        				LevelSystem.incrementScore(enemy.getScoreForKilling());
 		        			}
 		        		}
 	
@@ -113,7 +114,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 			    					//enemy is damaged
 			            			enemyDies = enemy.takeDamage(bullet.getDamage());
 			            			if(enemyDies){
-			            				GameLevels.incrementScore(enemy.getScoreForKilling());
+			            				LevelSystem.incrementScore(enemy.getScoreForKilling());
 			            			}
 			            			
 			            			bullet.removeGameObject();
@@ -187,7 +188,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		friendlies.add(rocket);
 		
 		//set up the game
-		levelFactory = new ScriptedLevelFactory(this,gameScreen);
+		levelFactory = new LevelSystem(this,gameScreen);
 		
 		//start the game
 		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
@@ -195,7 +196,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		    @Override 
 		    public void onGlobalLayout() {
 		    	gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-		    	levelFactory.startLevelOne();
+		    	levelFactory.nextLevel();
 		    } 
 		});
 		
@@ -363,12 +364,20 @@ public class GameActivity extends Activity implements OnTouchListener{
 					rocket.stopShooting();	
 					break;
 				case R.id.btn_heal:
+					Log.d("lowrey","healed");
+					break;
 				case R.id.btn_inc_bullet_dmg:
+					break;
 				case R.id.btn_inc_bullet_freq:
+					break;
 				case R.id.btn_inc_bullet_speed:
+					break;
 				case R.id.btn_inc_score_weight:
+					break;
 				case R.id.btn_new_gun:
+					break;
 				case R.id.btn_purchase_friend:
+					break;
 			}
 		} 
 		return false;

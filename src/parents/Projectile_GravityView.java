@@ -1,7 +1,7 @@
 package parents;
 
 import interfaces.Gravity;
-import levels.GameLevels;
+import levels.LevelSystem;
 import android.content.Context;
 import android.util.AttributeSet;
 import enemies.EnemyView;
@@ -55,7 +55,7 @@ public class Projectile_GravityView extends Moving_ProjectileView implements Gra
     public boolean moveDirection(int direction){
     	boolean offScreen =  super.moveDirection(direction);
     	if(offScreen && this instanceof EnemyView){//give some score for dodging
-    		GameLevels.incrementScore(((EnemyView)this).getScoreForKilling() / 3);
+    		LevelSystem.incrementScore(((EnemyView)this).getScoreForKilling() / 3);
     	}
     	
     	boolean atThreshold=false;

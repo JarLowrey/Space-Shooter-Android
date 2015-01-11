@@ -3,9 +3,9 @@ package levels;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-public class BossFactory extends EnemyFactory{
+public class Factory_Bosses extends Factory_Enemies{
 	
-	public BossFactory(Context context,RelativeLayout gameScreen){
+	public Factory_Bosses(Context context,RelativeLayout gameScreen){
 		super(context,gameScreen);
 	} 
 	

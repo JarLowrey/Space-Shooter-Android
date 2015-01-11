@@ -9,12 +9,12 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import enemies.Shooting_ArrayMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 
-public class EnemyWavesFactory extends BossFactory{
+public class Factory_Waves extends Factory_Bosses{
 
-    Handler spawnHandler;
-    boolean levelStopped;
+    protected Handler spawnHandler;
+    protected boolean levelStopped;
     
-	public EnemyWavesFactory(Context context,RelativeLayout gameScreen) {
+	public Factory_Waves(Context context,RelativeLayout gameScreen) {
 		super(context,gameScreen);
 		
 		spawnHandler = new Handler();

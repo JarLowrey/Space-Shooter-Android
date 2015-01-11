@@ -3,12 +3,12 @@ package levels;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-public class ScriptedLevelFactory extends EnemyWavesFactory{
+public class Factory_ScriptedLevels extends Factory_Waves{
   
-	private static boolean levelCompleted;
-	int currentProgressInLevel;
+	protected static boolean levelCompleted;
+	protected int currentProgressInLevel;
 	
-	public ScriptedLevelFactory(Context context,RelativeLayout gameScreen){
+	public Factory_ScriptedLevels(Context context,RelativeLayout gameScreen){
 		super( context, gameScreen);
 		levelCompleted = false;
 		levelStopped=false;
@@ -16,7 +16,7 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 	}
 
 	
-	public void startLevelOne(){
+	protected void startLevelOne(){
 		final long wave1Duration = 20*1000;
 		levelCompleted=false;
 		levelStopped=false;
@@ -84,7 +84,7 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 		
 	}
 	
-	public void startLevelTwo(){
+	protected void startLevelTwo(){
 		levelCompleted=false;
 		currentProgressInLevel=1;
 //		spawnMovingArrayShooters();
@@ -159,6 +159,10 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 		
 	}
 	
+	protected void startLevelThree(){
+		
+	}
+	
 	public void stopLevelSpawning(){
 		levelStopped=true;
 		spawnHandler.removeCallbacks(null);
@@ -174,8 +178,4 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 		stopLevelSpawning();
 	}
 	
-	//to be called in GameActivity's collision detection when all enemies have been killed
-	public void nextLevel(){
-		
-	}
 }
