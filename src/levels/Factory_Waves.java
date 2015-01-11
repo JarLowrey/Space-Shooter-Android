@@ -59,7 +59,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 
-	public void spawnMeteorsAtRandomXPositions(final int numMeteors, final int millisecondsBetweenEachMeteor){
+	public void spawnStraightFallingMeteorsAtRandomXPositions(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			

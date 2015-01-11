@@ -2,8 +2,8 @@ package com.jtronlabs.to_the_moon;
 
 import java.util.ArrayList;
 
+import levels.CollisionDetector;
 import levels.LevelSystem;
-import parents.CollisionDetector;
 import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,14 +27,15 @@ import friendlies.ProtagonistView;
 public class GameActivity extends Activity implements OnTouchListener{
 
 	//VIEWS
-	private static Button btnMoveLeft,btnMoveRight,btnShoot;
+	private static Button btnMoveLeft,btnMoveRight,btnShoot,
+		btnIncBulletDmg,btnIncBulletVerticalSpeed,btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
 //	private TextView gameWindowOverlay;
 	private static TextView ammoText;
 	private static ProgressBar healthBar;
 	public static ProtagonistView protagonist;
 	public static ImageView rocketExhaust;
 //	private RelativeLayout btnBackground;
-	private static RelativeLayout gameScreen;
+	private static RelativeLayout gameLayout,storeLayout;
 
 	public static ArrayList<FriendlyView> friendlies=new ArrayList<FriendlyView>();
 	public static ArrayList<EnemyView> enemies=new ArrayList<EnemyView>();
@@ -49,34 +50,51 @@ public class GameActivity extends Activity implements OnTouchListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
-		//set up Views and OnClickListeners and layouts
+		//set up Gameplay Views and listeners and layouts
 		btnMoveLeft= (Button)findViewById(R.id.btn_move_left); 
-		btnMoveLeft.setOnTouchListener(this);
 		btnMoveRight= (Button)findViewById(R.id.btn_move_right);
-		btnMoveRight.setOnTouchListener(this); 
 		btnShoot = (Button)findViewById(R.id.btn_shoot);
+		btnMoveLeft.setOnTouchListener(this);
+		btnMoveRight.setOnTouchListener(this); 
 		btnShoot.setOnTouchListener(this);
 //		rocket_exhaust = (ImageView)findViewById(R.id.rocket_exhaust); 
-		gameScreen=(RelativeLayout)findViewById(R.id.gameplay_layout);
+		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		ammoText = (TextView)findViewById(R.id.ammo);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
 		healthBar.setProgress(healthBar.getMax());
-		
-		//set up rocket
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
 		protagonist = (ProtagonistView)findViewById(R.id.rocket_game);
 		friendlies.add(protagonist);
 		
+		//set up Store View and listeners
+		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
+		btnIncBulletDmg= (Button)findViewById(R.id.btn_inc_bullet_dmg); 
+		btnIncBulletVerticalSpeed= (Button)findViewById(R.id.btn_inc_bullet_speed); 
+		btnIncBulletFreq= (Button)findViewById(R.id.btn_inc_bullet_freq); 
+		btnIncScoreWeight= (Button)findViewById(R.id.btn_inc_score_weight); 
+		btnNewGun= (Button)findViewById(R.id.btn_new_gun); 
+		btnHeal= (Button)findViewById(R.id.btn_heal); 
+		btnPurchaseFriend= (Button)findViewById(R.id.btn_purchase_friend); 
+		btnNextLevel= (Button)findViewById(R.id.start_next_level); 
+		
+		btnIncBulletDmg.setOnTouchListener(this); 
+		btnIncBulletVerticalSpeed.setOnTouchListener(this); 
+		btnIncBulletFreq.setOnTouchListener(this); 
+		btnIncScoreWeight.setOnTouchListener(this); 
+		btnHeal.setOnTouchListener(this); 
+		btnPurchaseFriend.setOnTouchListener(this); 
+		btnNextLevel.setOnTouchListener(this); 
+		
 		//set up the game
-		levelFactory = new LevelSystem(this,gameScreen);
+		levelFactory = new LevelSystem(this,gameLayout);
 		
 		//start the game
-		ViewTreeObserver vto = gameScreen.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
+		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
 		    @Override 
 		    public void onGlobalLayout() {
-		    	gameScreen.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 		    	levelFactory.nextLevel();
 		    	CollisionDetector.startDetecting();
 		    } 
@@ -152,11 +170,14 @@ public class GameActivity extends Activity implements OnTouchListener{
 	}
 	
 	public static void openStore(){
-		
+		storeLayout.setVisibility(View.GONE);
+		gameLayout.setVisibility(View.VISIBLE);
 	}
 	
 	private static void closeStore(){
-		
+		storeLayout.setVisibility(View.GONE);
+		gameLayout.setVisibility(View.VISIBLE);
+		levelFactory.nextLevel();
 	}
 
 	@Override

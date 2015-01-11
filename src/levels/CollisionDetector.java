@@ -1,11 +1,11 @@
-package parents;
+package levels;
 
 import interfaces.Shooter;
 
 import java.util.ArrayList;
 
-import levels.Factory_ScriptedLevels;
-import levels.LevelSystem;
+import parents.MovingView;
+
 import android.os.Handler;
 import bonuses.BonusView;
 import bullets.BulletView;

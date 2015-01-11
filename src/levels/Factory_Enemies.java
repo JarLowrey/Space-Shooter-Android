@@ -33,7 +33,7 @@ public class Factory_Enemies{
 	public static final int BULLET_FREQ_LONG_INTERVAL=10,BULLET_FREQ_SHORT_INTERVAL=5;
 	
 	protected static int myLevel;
-	private Context ctx;
+	protected Context ctx;
 	private RelativeLayout gameLayout;
 	
 	public Factory_Enemies(Context context,RelativeLayout gameScreen){
@@ -283,24 +283,5 @@ public class Factory_Enemies{
 		gameLayout.addView(enemy,0);
 		return enemy;
 	}
-	
-	protected Gravity_MeteorView spawnGiantMeteor(){
-		Gravity_MeteorView giant = spawnSidewaysMeteor();
-		
-		//change width and height. set X and Y positions
-		final int width = (int)ctx.getResources().getDimension(R.dimen.giant_meteor_length);
-		final int height= (int)ctx.getResources().getDimension(R.dimen.giant_meteor_length);
-		
-		giant.setLayoutParams(new LayoutParams(width,height));
-		giant.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));
-		
-		//set damage and health to 200, score to 20
-		giant.setDamage(150);
-		giant.heal(130-Gravity_MeteorView.DEFAULT_HEALTH);
-		giant.setScoreValue(80);
-		
-		return giant;
-	}
-
 
 }

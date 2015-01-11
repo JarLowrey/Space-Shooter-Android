@@ -13,7 +13,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	public final static double DEFAULT_SPEED_Y=12.5,
 			DEFAULT_SPEEDX=14,
-			DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_COLLISION_DAMAGE=100, 
 			DEFAULT_HEALTH=1000,
 			DEFAULT_BULLET_SPEED_Y=30,
 			DEFAULT_BULLET_DAMAGE=10, 
