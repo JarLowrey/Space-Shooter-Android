@@ -42,4 +42,7 @@ public class LevelSystem extends Factory_ScriptedLevels{
 	public static int getScore(){
 		return myScore;
 	}
+	public static int getLevel(){
+		return myLevel;
+	}
 }

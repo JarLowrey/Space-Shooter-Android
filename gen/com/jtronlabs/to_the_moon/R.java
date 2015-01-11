@@ -20,20 +20,20 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int blue=0x7f08000a;
-        public static final int dark_blue=0x7f08000b;
-        public static final int dark_gray=0x7f08000d;
-        public static final int dark_green=0x7f080005;
-        public static final int dark_red=0x7f080006;
-        public static final int dark_yellow=0x7f080000;
-        public static final int gray=0x7f08000c;
-        public static final int light_blue=0x7f080009;
-        public static final int light_green=0x7f080004;
-        public static final int light_red=0x7f080008;
-        public static final int light_yellow=0x7f080002;
-        public static final int red=0x7f080007;
-        public static final int very_light_green=0x7f080003;
-        public static final int yellow=0x7f080001;
+        public static final int blue=0x7f09000a;
+        public static final int dark_blue=0x7f09000b;
+        public static final int dark_gray=0x7f09000d;
+        public static final int dark_green=0x7f090005;
+        public static final int dark_red=0x7f090006;
+        public static final int dark_yellow=0x7f090000;
+        public static final int gray=0x7f09000c;
+        public static final int light_blue=0x7f090009;
+        public static final int light_green=0x7f090004;
+        public static final int light_red=0x7f090008;
+        public static final int light_yellow=0x7f090002;
+        public static final int red=0x7f090007;
+        public static final int very_light_green=0x7f090003;
+        public static final int yellow=0x7f090001;
     }
     public static final class dimen {
         public static final int activity_margin_large=0x7f06001c;
@@ -144,39 +144,49 @@ public final class R {
         public static final int white_center_red_outline=0x7f02002b;
     }
     public static final class id {
-        public static final int activity_main=0x7f0a001a;
-        public static final int ammo=0x7f0a0008;
-        public static final int animating_main_menu_list=0x7f0a0020;
-        public static final int btn_background=0x7f0a0002;
-        public static final int btn_heal=0x7f0a0012;
-        public static final int btn_inc_bullet_dmg=0x7f0a0010;
-        public static final int btn_inc_bullet_freq=0x7f0a0014;
-        public static final int btn_inc_bullet_speed=0x7f0a0013;
-        public static final int btn_inc_score_weight=0x7f0a0015;
-        public static final int btn_move_left=0x7f0a0004;
-        public static final int btn_move_right=0x7f0a0006;
-        public static final int btn_new_gun=0x7f0a000c;
-        public static final int btn_purchase_friend=0x7f0a0016;
-        public static final int btn_shoot=0x7f0a0005;
-        public static final int btns_wrap=0x7f0a0003;
-        public static final int button3=0x7f0a0011;
-        public static final int earth=0x7f0a001d;
-        public static final int explanation=0x7f0a000b;
-        public static final int gameplay_layout=0x7f0a0000;
-        public static final int health_bar=0x7f0a0007;
-        public static final int intro_btn_next=0x7f0a0019;
-        public static final int intro_text=0x7f0a0018;
-        public static final int moon=0x7f0a001b;
-        public static final int playBtn=0x7f0a001e;
-        public static final int resource_count=0x7f0a000e;
-        public static final int resource_layout=0x7f0a000d;
-        public static final int resources_img=0x7f0a000f;
-        public static final int rocket_exhaust=0x7f0a0001;
-        public static final int rocket_game=0x7f0a0009;
-        public static final int rocket_main=0x7f0a001c;
-        public static final int start_next_level=0x7f0a0017;
-        public static final int store_layout=0x7f0a000a;
-        public static final int title=0x7f0a001f;
+        public static final int activity_main=0x7f0b0019;
+        public static final int animating_main_menu_list=0x7f0b001f;
+        public static final int btn_background=0x7f0b0002;
+        public static final int btn_heal=0x7f0b0011;
+        public static final int btn_inc_bullet_dmg=0x7f0b000f;
+        public static final int btn_inc_bullet_freq=0x7f0b0013;
+        public static final int btn_inc_bullet_speed=0x7f0b0012;
+        public static final int btn_inc_score_weight=0x7f0b0014;
+        public static final int btn_move_left=0x7f0b0004;
+        public static final int btn_move_right=0x7f0b0006;
+        public static final int btn_new_gun=0x7f0b000b;
+        public static final int btn_purchase_friend=0x7f0b0015;
+        public static final int btn_shoot=0x7f0b0005;
+        public static final int btns_wrap=0x7f0b0003;
+        public static final int button3=0x7f0b0010;
+        public static final int earth=0x7f0b001c;
+        public static final int explanation=0x7f0b000a;
+        public static final int gameplay_layout=0x7f0b0000;
+        public static final int health_bar=0x7f0b0007;
+        public static final int intro_btn_next=0x7f0b0018;
+        public static final int intro_text=0x7f0b0017;
+        public static final int moon=0x7f0b001a;
+        public static final int playBtn=0x7f0b001d;
+        public static final int resource_count=0x7f0b000d;
+        public static final int resource_layout=0x7f0b000c;
+        public static final int resources_img=0x7f0b000e;
+        public static final int rocket_exhaust=0x7f0b0001;
+        public static final int rocket_game=0x7f0b0008;
+        public static final int rocket_main=0x7f0b001b;
+        public static final int start_next_level=0x7f0b0016;
+        public static final int store_layout=0x7f0b0009;
+        public static final int title=0x7f0b001e;
+    }
+    public static final class integer {
+        public static final int friend_base_cost=0x7f070004;
+        public static final int gun_1_cost=0x7f070005;
+        public static final int gun_2_cost=0x7f070006;
+        public static final int gun_3_cost=0x7f070007;
+        public static final int gun_4_cost=0x7f070008;
+        public static final int heal_base_cost=0x7f070000;
+        public static final int inc_bullet_damage_base_cost=0x7f070002;
+        public static final int inc_bullet_frequency_base_cost=0x7f070003;
+        public static final int inc_bullet_speed_base_cost=0x7f070001;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;
@@ -187,11 +197,11 @@ public final class R {
         public static final int roboto_condensed_bold=0x7f050000;
     }
     public static final class string {
-        public static final int app_name=0x7f070000;
-        public static final int hello_world=0x7f070001;
-        public static final int title_activity_asdasdamain=0x7f070003;
-        public static final int title_activity_game=0x7f070002;
-        public static final int title_activity_intro=0x7f070004;
+        public static final int app_name=0x7f080000;
+        public static final int hello_world=0x7f080001;
+        public static final int title_activity_asdasdamain=0x7f080003;
+        public static final int title_activity_game=0x7f080002;
+        public static final int title_activity_intro=0x7f080004;
     }
     public static final class style {
         /** 
@@ -215,12 +225,12 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int AppBaseTheme=0x7f0a0000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090001;
-        public static final int Intro_Text=0x7f090002;
-        public static final int score_and_ammo_text=0x7f090003;
+        public static final int AppTheme=0x7f0a0001;
+        public static final int Intro_Text=0x7f0a0002;
+        public static final int score_and_ammo_text=0x7f0a0003;
     }
 }

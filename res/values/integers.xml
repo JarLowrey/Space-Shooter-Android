@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="heal_base_cost">500</integer>
+    <integer name="inc_bullet_speed_base_cost">500</integer>
+    <integer name="inc_bullet_damage_base_cost">500</integer>
+    <integer name="inc_bullet_frequency_base_cost">500</integer>
+    <integer name="friend_base_cost">500</integer>
+    
+    <integer name="gun_1_cost">100</integer>
+    <integer name="gun_2_cost">3000</integer>
+    <integer name="gun_3_cost">7000</integer>
+    <integer name="gun_4_cost">15000</integer>
+</resources>

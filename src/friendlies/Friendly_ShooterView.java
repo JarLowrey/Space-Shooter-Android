@@ -14,14 +14,15 @@ import com.jtronlabs.to_the_moon.GameActivity;
 
 public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
-
+	
 	//myGun needs to be set in a specific View's class
 	private ArrayList<Gun> myGuns;
 	private ArrayList<BulletView> myBullets;
 	
 	private int bulletFreqWeight, 
-	bulletDamageWeight,
-	bullletVerticalSpeedWeight;
+		bulletDamageWeight,
+		bullletVerticalSpeedWeight,
+		currentGunConfiguration;
 
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
@@ -53,6 +54,36 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		this.removeCallbacks(null);
 	}
 	
+	public void incrementBulletDamageWeight(){
+		bulletDamageWeight++;
+	}
+	
+	public void upgradeGun(){
+		currentGunConfiguration++;
+		switch(currentGunConfiguration){
+		case 1:
+			break;
+		}
+	}
+
+	public int getGunLevel(){
+		return this.currentGunConfiguration;
+	}
+	public void incrementBulletSpeedYWeight(){
+		bullletVerticalSpeedWeight++;
+	}
+	public void incrementBulletFreqWeight(){
+		bulletFreqWeight++;
+	}
+	public int getBulletDamageWeight(){
+		return bulletDamageWeight;
+	}
+	public int getBulletBulletSpeedYWeight(){
+		return bullletVerticalSpeedWeight;
+	}
+	public int getBulletBulletFreqWeight(){
+		return bulletFreqWeight;
+	}
 	@Override
 	public void removeGameObject(){
 		super.removeGameObject();

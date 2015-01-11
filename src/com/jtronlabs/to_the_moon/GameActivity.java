@@ -14,10 +14,12 @@ import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import bonuses.BonusView;
 import enemies.EnemyView;
 import enemies.Shooting_ArrayMovingView;
@@ -27,10 +29,11 @@ import friendlies.ProtagonistView;
 public class GameActivity extends Activity implements OnTouchListener{
 
 	//VIEWS
-	private static Button btnMoveLeft,btnMoveRight,btnShoot,
-		btnIncBulletDmg,btnIncBulletVerticalSpeed,btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
+	private static Button btnMoveLeft,btnMoveRight,btnShoot;
+	private static ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
+	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
 //	private TextView gameWindowOverlay;
-	private static TextView ammoText;
+	private static TextView resourceCount;
 	private static ProgressBar healthBar;
 	public static ProtagonistView protagonist;
 	public static ImageView rocketExhaust;
@@ -59,7 +62,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		btnShoot.setOnTouchListener(this);
 //		rocket_exhaust = (ImageView)findViewById(R.id.rocket_exhaust); 
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
-		ammoText = (TextView)findViewById(R.id.ammo);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
 		healthBar.setProgress(healthBar.getMax());
@@ -68,15 +70,16 @@ public class GameActivity extends Activity implements OnTouchListener{
 		friendlies.add(protagonist);
 		
 		//set up Store View and listeners
+		resourceCount = (TextView)findViewById(R.id.resource_count);
 		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
-		btnIncBulletDmg= (Button)findViewById(R.id.btn_inc_bullet_dmg); 
-		btnIncBulletVerticalSpeed= (Button)findViewById(R.id.btn_inc_bullet_speed); 
-		btnIncBulletFreq= (Button)findViewById(R.id.btn_inc_bullet_freq); 
-		btnIncScoreWeight= (Button)findViewById(R.id.btn_inc_score_weight); 
-		btnNewGun= (Button)findViewById(R.id.btn_new_gun); 
-		btnHeal= (Button)findViewById(R.id.btn_heal); 
-		btnPurchaseFriend= (Button)findViewById(R.id.btn_purchase_friend); 
-		btnNextLevel= (Button)findViewById(R.id.start_next_level); 
+		btnIncBulletDmg= (ImageButton)findViewById(R.id.btn_inc_bullet_dmg); 
+		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_bullet_speed); 
+		btnIncBulletFreq= (ImageButton)findViewById(R.id.btn_inc_bullet_freq); 
+		btnIncScoreWeight= (ImageButton)findViewById(R.id.btn_inc_score_weight); 
+		btnNewGun= (ImageButton)findViewById(R.id.btn_new_gun); 
+		btnHeal= (ImageButton)findViewById(R.id.btn_heal); 
+		btnPurchaseFriend= (ImageButton)findViewById(R.id.btn_purchase_friend); 
+		btnNextLevel= (ImageButton)findViewById(R.id.start_next_level); 
 		
 		btnIncBulletDmg.setOnTouchListener(this); 
 		btnIncBulletVerticalSpeed.setOnTouchListener(this); 
@@ -85,6 +88,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		btnHeal.setOnTouchListener(this); 
 		btnPurchaseFriend.setOnTouchListener(this); 
 		btnNextLevel.setOnTouchListener(this); 
+		btnNewGun.setOnTouchListener(this);
 		
 		//set up the game
 		levelFactory = new LevelSystem(this,gameLayout);
@@ -147,7 +151,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static void gameOver(){
 		levelFactory.stopLevelSpawning();
 		healthBar.setProgress(0);
-		ammoText.setVisibility(View.GONE);
 		
 		//remove OnClickListeners
 		btnMoveLeft.setOnTouchListener(null);
@@ -168,6 +171,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static void openStore(){
 		storeLayout.setVisibility(View.VISIBLE);
 		gameLayout.setVisibility(View.GONE);
+		resourceCount.setText(LevelSystem.getScore()+"");
 	}
 	
 	private static void closeStore(){
@@ -178,7 +182,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		if(event.getAction()==MotionEvent.ACTION_DOWN){
+		switch(event.getAction()){
+		case MotionEvent.ACTION_DOWN:
 			switch(v.getId()){
 				case R.id.btn_move_left:
 					protagonist.stopMoving();
@@ -192,7 +197,9 @@ public class GameActivity extends Activity implements OnTouchListener{
 					protagonist.startShooting();	
 					break;
 			}
-		}else if(event.getAction()==MotionEvent.ACTION_UP){
+			break;
+		case MotionEvent.ACTION_UP:
+			v.performClick();
 			switch(v.getId()){
 				case R.id.btn_move_left:
 						protagonist.stopMoving();
@@ -204,13 +211,40 @@ public class GameActivity extends Activity implements OnTouchListener{
 					protagonist.stopShooting();	
 					break;
 				case R.id.btn_heal:
-					Log.d("lowrey","healed");
+					final int healthCost = 	this.getResources().getInteger(R.integer.heal_base_cost) * LevelSystem.getLevel() ;
+					if(LevelSystem.getScore() < healthCost){
+						notEnoughMinerals();
+					}else{
+						LevelSystem.decrementScore(healthCost);
+						protagonist.heal(protagonist.getMaxHealth() - protagonist.getHealth());//heal to full health
+					}
 					break;
 				case R.id.btn_inc_bullet_dmg:
+					final int bulletDmgCost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
+					if(LevelSystem.getScore() < bulletDmgCost){
+						notEnoughMinerals();
+					}else{
+						LevelSystem.decrementScore(bulletDmgCost);
+						protagonist.incrementBulletFreqWeight();
+					}
 					break;
 				case R.id.btn_inc_bullet_freq:
+					final int bulletFreqCost = 	this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * LevelSystem.getLevel() ;
+					if(LevelSystem.getScore() < bulletFreqCost){
+						notEnoughMinerals();
+					}else{
+						LevelSystem.decrementScore(bulletFreqCost);
+						protagonist.incrementBulletDamageWeight();
+					}
 					break;
 				case R.id.btn_inc_bullet_speed:
+					final int bulletSpeedCost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
+					if(LevelSystem.getScore() < bulletSpeedCost){
+						notEnoughMinerals();
+					}else{
+						LevelSystem.decrementScore(bulletSpeedCost);
+						protagonist.incrementBulletSpeedYWeight();
+					}
 					break;
 				case R.id.btn_inc_score_weight:
 					break;
@@ -219,23 +253,19 @@ public class GameActivity extends Activity implements OnTouchListener{
 				case R.id.btn_purchase_friend:
 					break;
 			}
+			break;
 		} 
 		return false;
 	}
 	
+	/**
+	 * inform user they do not have enough resources to purchase the requested item
+	 */
+	private void notEnoughMinerals(){
+		Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
+	}
+	
 	public static void setHealthBar(){
 		healthBar.setProgress((int) protagonist.getHealth());
-	}
-	
-	public static void setAmmoText(int ammo){
-		if(ammo<=0){
-			ammoText.setVisibility(View.GONE);
-		}
-		ammoText.setText(ammo+"");
-	}
-	
-	public static void showAmmoText(int ammo){
-		ammoText.setVisibility(View.VISIBLE);
-		setAmmoText(ammo);
 	}
 }

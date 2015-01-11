@@ -63,7 +63,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:layout_alignParentTop="true" />
 		    
-		    
+		    <!-- 
 			<TextView
 			    android:id="@+id/ammo"
 			    android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
 	        	android:textAppearance="@style/score_and_ammo_text"
 				android:visibility="gone"
 	        	android:text="0" />
-	
+	-->
 		</RelativeLayout>
 	
 	    <friendlies.ProtagonistView
@@ -104,7 +104,7 @@
             android:layout_above="@+id/btn_new_gun"
             android:layout_marginBottom="@dimen/activity_margin_large"
             android:gravity="center"
-            android:text="We&apos;ve found found refuge for the night. Time to make repairs." />
+            android:text="We&apos;ve found found refuge for the night. Scrap salvaged throughout the day can be used for repairs and upgrades." />
         
 		<RelativeLayout
 		    android:id="@+id/resource_layout"
@@ -131,7 +131,7 @@
 	            android:src="@drawable/resources" />
 		</RelativeLayout>
 
-		<Button
+		<ImageButton
 		    android:id="@+id/btn_inc_bullet_dmg"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
@@ -142,7 +142,7 @@
 		    android:contentDescription="bulletDmg"
 		    android:text="bulletDmg" />
 
-		<Button
+		<ImageButton
 		    android:id="@+id/btn_new_gun"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
@@ -154,8 +154,9 @@
 		    android:contentDescription="new gun"
 		    android:text="gun" />
 
-		<Button
+		<ImageButton
 		    android:id="@+id/btn_heal"
+		    android:src="@drawable/heal"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
 		    android:layout_height="@dimen/resource_img_len"
@@ -164,9 +165,9 @@
 		    android:background="@drawable/white_center_red_outline"
 		    android:layout_toLeftOf="@+id/btn_inc_bullet_dmg"
 		    android:contentDescription="heal"
-		    android:text="heal" />
+		    android:text="" />
 
-		<Button
+		<ImageButton
 		    android:id="@+id/btn_inc_bullet_speed"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
@@ -178,7 +179,7 @@
 		    android:contentDescription="bulletspeed"
 		    android:text="bulletspeed" />
 
-		<Button
+		<ImageButton
 		    android:id="@+id/btn_inc_bullet_freq"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
@@ -190,7 +191,7 @@
 		    android:contentDescription="bulletfreq"
 		    android:text="bulletfreq" />
 
-		<Button
+		<ImageButton
 		    android:id="@+id/btn_inc_score_weight"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
@@ -202,7 +203,7 @@
 		    android:contentDescription="score increase"
 		    android:text="score" />
 
-		<Button
+		<ImageButton
 		    android:id="@+id/btn_purchase_friend"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
@@ -214,7 +215,7 @@
 		    android:contentDescription="friend"
 		    android:text="friend" />
 
-		<Button
+		<ImageButton
 		    android:id="@+id/start_next_level"
 		    android:layout_width="@dimen/store_btn_next_level_len"
 		    android:layout_height="@dimen/store_btn_next_level_len"
