@@ -1,5 +1,7 @@
 package enemies_orbiters;
 
+import com.jtronlabs.to_the_moon.MainActivity;
+
 import android.content.Context;
 import enemies.Enemy_ShooterView;
 
@@ -40,8 +42,27 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		super(context, scoreForKilling, speedY,
 				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath);
 
+		//defeault orbit location
+		orbitX=(int) (MainActivity.getWidthPixels()/2-widthView/2);
+		orbitY=(int) (MainActivity.getHeightPixels()/3);
+		
+		this.setX(orbitX);
+		
 	}
-	
+	public Shooting_OrbiterView(Context context,int scoreForKilling,double speedY, double speedX,double collisionDamage, 
+			double health, 
+			float heightView,float widthView,
+			double probSpawnBeneficialObjecyUponDeath,int orbitPixelX,int orbitPixelY) {
+		super(context, scoreForKilling, speedY,
+				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath);
+
+		//defeault orbit location
+		orbitX=orbitPixelX;
+		orbitY=orbitPixelY;
+		
+		this.setX(orbitX);
+		
+	}
 	public void restartThreads(){
 		if(hasBegunOrbiting){
 			beginOrbit();

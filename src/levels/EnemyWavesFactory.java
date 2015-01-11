@@ -155,7 +155,7 @@ public class EnemyWavesFactory extends BossFactory{
 			
 			@Override
 			public void run() {
-				spawnCircularOrbitingView();
+				spawnRectanglularOrbitingView();
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -171,7 +171,7 @@ public class EnemyWavesFactory extends BossFactory{
 			
 			@Override
 			public void run() {
-				spawnCircularOrbitingView();
+				spawnTriangularOrbitingView();
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){

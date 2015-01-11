@@ -15,14 +15,15 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 	//each new postdelayed is another wave in the level
 	public void startLevelOne(){
 		levelOver=false;
-		currentProgressInLevel=0;
-
-		spawnMovingArrayShooters();
-		spawnMeteorShower(10,600,false);
-		spawnSidewaysMeteors(20,500);
-		spawnSidewaysMeteors(20,3000);
-		currentProgressInLevel++;
-		
+//		spawnMovingArrayShooters();
+//		spawnMeteorShower(10,600,false);
+//		spawnSidewaysMeteors(20,500);
+//		spawnSidewaysMeteors(20,3000);
+		currentProgressInLevel=1;
+//		spawnCircularOrbiters(5,4000);
+//		spawnRectangularOrbiters(5,4000);
+		spawnTriangularOrbiters(5,4000);
+		/*
 		spawnHandler.postDelayed(new Runnable(){
 				@Override
 				public void run() {
@@ -80,7 +81,7 @@ public class ScriptedLevelFactory extends EnemyWavesFactory{
 					, 10000);
 				}
 			}
-		, 20000);
+		, 20000);*/
 		
 	}
 	

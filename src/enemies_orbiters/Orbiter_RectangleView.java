@@ -1,12 +1,13 @@
 package enemies_orbiters;
 
+import interfaces.GameObjectInterface;
+import parents.Moving_ProjectileView;
+import android.content.Context;
+import android.util.Log;
+import android.widget.RelativeLayout;
+
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
-
-import parents.Moving_ProjectileView;
-import interfaces.GameObjectInterface;
-import android.content.Context;
-import android.widget.RelativeLayout;
 
 
 public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameObjectInterface {
@@ -14,7 +15,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
 			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2);
 	
-	public final static int DEFAULT_ORBIT_LENGTH=15,
+	public final static int DEFAULT_ORBIT_LENGTH=25,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_rectangle;
 	
 	private int currentSideOfRectangle,orbitDist;
@@ -66,17 +67,12 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 		
 		this.setBackgroundResource(DEFAULT_BACKGROUND);
 
-		orbitX=(int) (MainActivity.getWidthPixels()/2-width_int/2);
-		orbitY=(int) (MainActivity.getHeightPixels()/2-height_int/2);
-		
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;
 	
 		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
-		this.setThreshold((int) (orbitY+(orbitDist*this.getSpeedY() ) / 2 ));
+		this.setThreshold((int) (orbitY-(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist *3.0/4);
-
-		this.setX(orbitX-width_int/2);
 	}
 	
 
@@ -86,7 +82,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 			int orbitLength,int orbitPixelX,int orbitPixelY) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health,heightView,widthView,
-				 probSpawnBeneficialObjecyUponDeath);
+				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY);
 		
 
 		//set image background, width, and height and orbit location
@@ -96,17 +92,12 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 		
 		this.setBackgroundResource(DEFAULT_BACKGROUND);
 
-		orbitX=orbitPixelX;
-		orbitY=orbitPixelY;
-		
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;
 	
 		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
-		this.setThreshold((int) (orbitY+(orbitDist*this.getSpeedY() ) / 2 ));
+		this.setThreshold((int) (orbitY+(orbitDist*this.getMagnitudeOfSpeedY() ) ));
 		howManyTimesMoved=(int) (orbitDist *3.0/4);
-
-		this.setX(orbitX-width_int/2);
 	}
 	
 	public void beginOrbit(){

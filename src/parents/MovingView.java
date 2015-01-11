@@ -120,7 +120,7 @@ public class MovingView extends ImageView implements GameObjectInterface{
 	public boolean isRemoved(){
 		return isRemoved;
 	}
-	public double getSpeedY(){
+	public double getMagnitudeOfSpeedY(){
 		return speedY;
 	}
 	public void setSpeedY(double newSpeed){

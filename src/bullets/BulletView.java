@@ -71,9 +71,9 @@ public class BulletView extends Moving_ProjectileView{
 		
 		
 		double 
-		arcTan = Math.atan(this.getSpeedX()/this.getSpeedY());
+		arcTan = Math.atan(this.getSpeedX()/this.getMagnitudeOfSpeedY());
 		if( ! theOneWhoShotMe.isFriendly()){
-			arcTan = Math.atan(-this.getSpeedX()/this.getSpeedY());
+			arcTan = Math.atan(-this.getSpeedX()/this.getMagnitudeOfSpeedY());
 			arcTan+=Math.PI;//flip bullet image around so it is pointing downwards
 		}
 		rotVal = (float) Math.toDegrees(arcTan);

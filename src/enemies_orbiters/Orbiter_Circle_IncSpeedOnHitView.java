@@ -18,9 +18,12 @@ public class Orbiter_Circle_IncSpeedOnHitView extends Orbiter_CircleView impleme
 				 circleRadius, angularVelocityInDegrees);
 	}
 	
+	/**
+	 * increase absolute value of angular velocity by 1
+	 */
 	@Override
 	public boolean takeDamage(double amountOfDamage){
-		this.setAngularVelocity(this.getAngularVelocity() * -1);
+		this.setAngularVelocity(this.getAngularVelocity() + this.getAngularVelocity()/(Math.abs(this.getAngularVelocity())));
 		return super.takeDamage(amountOfDamage);
 	}
 }

@@ -70,8 +70,8 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 				float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
 				float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));
 				
-				Orbiter_CircleView.this.setX( orbitX+x -Orbiter_CircleView.this.getWidth()/2);
-				Orbiter_CircleView.this.setY( orbitY+y -Orbiter_CircleView.this.getHeight()/2);
+				Orbiter_CircleView.this.setX( orbitX+x );
+				Orbiter_CircleView.this.setY( orbitY+y );
 			
 				howManyTimesMoved++;
 				
@@ -97,9 +97,6 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 		
 		this.setBackgroundResource(DEFAULT_BACKGROUND);
 		
-		orbitX=(int) (MainActivity.getWidthPixels()/2);
-		orbitY=(int) (MainActivity.getHeightPixels()/3-height_int/2);
-		
 		currentDegree=270;
 		radius=circleRadius*MainActivity.getScreenDens();
 		angularVelocity=angularVelocityInDegrees;
@@ -123,7 +120,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 			int circleRadius,int angularVelocityInDegrees, int orbitPixelX,int orbitPixelY) {
 		super(context,score, speedY, speedX,
 				collisionDamage, health,heightView,widthView,
-			 probSpawnBeneficialObjecyUponDeath);
+			 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY);
 
 		//set image background, width, and height, and orbit location
 		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_circular_height);
@@ -131,9 +128,6 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
 		this.setBackgroundResource(DEFAULT_BACKGROUND);
-		
-		orbitX=orbitPixelX;
-		orbitY=orbitPixelY;
 		
 		currentDegree=270;
 		radius=circleRadius*MainActivity.getScreenDens();

@@ -9,6 +9,8 @@ import android.util.Log;
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import enemies_orbiters.Shooting_OrbiterView;
+
 /**
  * ImageView object to be placed on screen with gameplay properties such as health, score, speeds, and more
  * @author JAMES LOWREY
@@ -50,7 +52,7 @@ public class Moving_ProjectileView extends MovingView implements CollidableObjec
 		health-=amountOfDamage;
 		
 		if(health<=0){
-			Log.d("lowrey","ranOutOfHealth");
+			Log.d("lowrey","ranOutOfHealth"+(this instanceof Shooting_OrbiterView));
 //			createExplosion();
 			removeGameObject();
 			dies = true;
