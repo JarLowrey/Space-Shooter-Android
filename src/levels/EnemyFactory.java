@@ -12,6 +12,7 @@ import enemies.Shooting_ArrayMovingView;
 import enemies.Shooting_DiagonalMovingView;
 import enemies.Shooting_Diagonal_DiveBomberView;
 import enemies_non_shooters.Gravity_MeteorView;
+import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
@@ -255,30 +256,34 @@ public class EnemyFactory{
 		final int score=Gravity_MeteorView.DEFAULT_SCORE;
 				
 		final double speedY=Gravity_MeteorView.DEFAULT_SPEED_Y,
-				speedX=Gravity_MeteorView.DEFAULT_SPEED_X, 
 				collisionDamage=Gravity_MeteorView.DEFAULT_COLLISION_DAMAGE,
 				health=Gravity_MeteorView.DEFAULT_HEALTH,
 				spawnBeneficialObject= Gravity_MeteorView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH;
 		
-		Gravity_MeteorView met = new Gravity_MeteorView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject);
+		Gravity_MeteorView met = new Gravity_MeteorView(ctx,score,speedY,collisionDamage,health,spawnBeneficialObject);
 
 		gameLayout.addView(met,1);
 		
 		return met;
 	}
 	
-	protected Gravity_MeteorView spawnSidewaysMeteor(){
-		Gravity_MeteorView met = spawnMeteor();
+	protected Meteor_SidewaysView spawnSidewaysMeteor(){
+		final int score=Meteor_SidewaysView.DEFAULT_SCORE;
+				
+		final double speedY=Meteor_SidewaysView.DEFAULT_SPEED_Y,
+				collisionDamage=Meteor_SidewaysView.DEFAULT_COLLISION_DAMAGE,
+				health=Meteor_SidewaysView.DEFAULT_HEALTH,
+				spawnBeneficialObject= Meteor_SidewaysView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+				speedX=Meteor_SidewaysView.DEFAULT_SPEED_X;
 		
-		double 	speedX=Gravity_MeteorView.DEFAULT_SPEED_X_MOVING_SIDEWAYS;
-		if(Math.random()<0.5){speedX*=-1;}
-		met.setSpeedX(speedX);
-		
+		Meteor_SidewaysView met = new Meteor_SidewaysView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject);
+
+		gameLayout.addView(met,1);
 		return met;
 	}
 	
 	protected Gravity_MeteorView spawnGiantMeteor(){
-		Gravity_MeteorView giant = spawnMeteor();
+		Gravity_MeteorView giant = spawnSidewaysMeteor();
 		
 		//change width and height. set X and Y positions
 		final int width = (int)ctx.getResources().getDimension(R.dimen.giant_meteor_length);
@@ -289,8 +294,8 @@ public class EnemyFactory{
 		
 		//set damage and health to 200, score to 20
 		giant.setDamage(150);
-		giant.heal(100-Gravity_MeteorView.DEFAULT_HEALTH);
-		giant.setScoreValue(20);
+		giant.heal(130-Gravity_MeteorView.DEFAULT_HEALTH);
+		giant.setScoreValue(80);
 		
 		return giant;
 	}

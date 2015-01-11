@@ -44,6 +44,16 @@
     <dimen name="activity_margin_xlarge">75dp</dimen>    
     <dimen name="activity_margin_xxlarge">100dp</dimen>
 
+    <!-- Game Layout  -->
+    
+    <dimen name="moon_length">80dp</dimen>
+    
+    <!-- Store Layout -->
+
+    <dimen name="resource_img_width">40dp</dimen>
+    <dimen name="resource_img_height">40dp</dimen>
+    <dimen name="resource_img_half_height">20dp</dimen>
+    
     <!-- ETC -->
     <dimen name="intro_text_view_width">300dp</dimen>
     
@@ -59,9 +69,6 @@
     <dimen name="title_canvas_height">75dp</dimen>
     <dimen name="title_size">60dp</dimen>
     <dimen name="title_outline_size">3dp</dimen>
-    
-    
-    <dimen name="moon_length">80dp</dimen>
     
     <dimen name="ad_banner_margin">130dp</dimen>
 </resources>

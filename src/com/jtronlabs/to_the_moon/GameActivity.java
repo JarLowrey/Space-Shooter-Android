@@ -54,108 +54,111 @@ public class GameActivity extends Activity implements OnTouchListener{
 
         @Override
         public void run() {
-        	for(int k=friendlies.size()-1;k>=0;k--){
-        		FriendlyView friendly = friendlies.get(k);
-        		boolean isProtagonist = friendlies.get(k) == rocket;
-        		
-        		boolean friendlyIsAShooter = friendlies.get(k) instanceof Shooter;
-        		
-	        	for(int i=enemies.size()-1;i>=0;i--){
-	        		/*			COLLISION DETECTION			*/
-	        		boolean enemyDies=false,friendlyDies=false;	        		
-	        		EnemyView enemy = enemies.get(i);
-	        		boolean enemyIsAShooter = enemy instanceof Shooter;
-
-	        		//check enemy's bullets
-	        		if(enemyIsAShooter){
-		        		Shooter enemyShooter = (Shooter)enemy;
-		        		
-//	        				Log.d("lowrey","enemyGunNotNull");
-		        			ArrayList<BulletView> enemyBullets = enemyShooter.getMyBullets();
-		        			
-		        			for(int j=enemyBullets.size()-1;j>=0;j--){
-		        				BulletView bullet = enemyBullets.get(j);
-		        				if(friendly.collisionDetection(bullet)){//bullet collided with rocket
-		        					//rocket is damaged
-		                			friendlyDies = friendly.takeDamage(bullet.getDamage());
-		                			if(friendlyDies && isProtagonist){gameOver();return;}
-		                			else if(isProtagonist){healthBar.setProgress((int) friendly.getHealth());}
-		                			
-		                			
-		                			bullet.removeGameObject();
-		                		}
-		        			}
-		        			
-	        		}
+        	if( ! ScriptedLevelFactory.isLevelCompleted() && enemies.size() !=0){
+	        	for(int k=friendlies.size()-1;k>=0;k--){
+	        		FriendlyView friendly = friendlies.get(k);
+	        		boolean isProtagonist = friendlies.get(k) == rocket;
 	        		
-	    			//check if the enemy itself has collided with the  friendly
-	        		if(enemy.getHealth()>0 && friendly.collisionDetection(enemy)){
-	        			friendlyDies = friendly.takeDamage(enemy.getDamage());
-	        			if(friendlyDies && isProtagonist){gameOver();return;}
-	        			else if(isProtagonist){healthBar.setProgress((int) friendly.getHealth());}
-	        			
-	        			enemyDies=enemy.takeDamage(friendly.getDamage());
-	        			if(enemyDies){
-	        				GameLevels.incrementScore(enemy.getScoreForKilling());
-	        				text_score.setText(""+GameLevels.getScore());
-	        			}
-	        		}
-
-//    				Log.d("lowrey","enemy);
-	        		//check if friendly's bullets have hit the enemy
-	        		if(enemy.getHealth()>0 && friendlyIsAShooter){
-		        		Shooter friendlyShooter= (Shooter)friendlies.get(k);
-		    			ArrayList<BulletView> friendlysBullets = friendlyShooter.getMyBullets();
-		    			for(int j=friendlysBullets.size()-1;j>=0;j--){
-		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
-		    				BulletView bullet = friendlysBullets.get(j);
-		    				
-		    				if(bullet.collisionDetection(enemy)){//bullet collided with rocket
-		    					//enemy is damaged
-		            			enemyDies = enemy.takeDamage(bullet.getDamage());
-		            			if(enemyDies){
-		            				GameLevels.incrementScore(enemy.getScoreForKilling());
-		            				text_score.setText(""+GameLevels.getScore());
-		            			}
-		            			
-		            			bullet.removeGameObject();
-		            			/*
-		            			 * only one bullet can hit a specific enemy at once. 
-		            			 * If that enemy were to die, then checking to see if the other bullets hit 
-		            			 * him wastes resources and may cause issues.
-		            			 */
-		            			stopCheckingIfFriendlysBulletsHitEnemy=true;
-		            		}
-		    				if(stopCheckingIfFriendlysBulletsHitEnemy){
-		            			break;
-		    				}
-		    			}
-	        		}
-	        	}
-	        	//enemies loop is over
+	        		boolean friendlyIsAShooter = friendlies.get(k) instanceof Shooter;
+	        		
+		        	for(int i=enemies.size()-1;i>=0;i--){
+		        		/*			COLLISION DETECTION			*/
+		        		boolean enemyDies=false,friendlyDies=false;	        		
+		        		EnemyView enemy = enemies.get(i);
+		        		boolean enemyIsAShooter = enemy instanceof Shooter;
 	
-	
-	        	if(friendlyIsAShooter){
-	        		Shooter friendlyShooter= (Shooter)friendlies.get(k);
-		        	for(int i=bonuses.size()-1;i>=0;i--){
-		        		BonusView beneficialCastedView = (BonusView)bonuses.get(i);
-		        		if(friendly.collisionDetection(beneficialCastedView)){
-		        			if(isProtagonist){
-			        			beneficialCastedView.applyBenefit(friendlyShooter);
-			        			beneficialCastedView.removeView(false);
-		        			}else if(friendlyIsAShooter){
-			        			beneficialCastedView.applyBenefit(friendlyShooter);
-			        			beneficialCastedView.removeView(false);
-			        		}else{
-			        			beneficialCastedView.applyBenefit(friendlyShooter);
-			        			beneficialCastedView.removeView(false);
+		        		//check enemy's bullets
+		        		if(enemyIsAShooter){
+			        		Shooter enemyShooter = (Shooter)enemy;
+			        		
+			        			ArrayList<BulletView> enemyBullets = enemyShooter.getMyBullets();
+			        			
+			        			for(int j=enemyBullets.size()-1;j>=0;j--){
+			        				BulletView bullet = enemyBullets.get(j);
+			        				if(friendly.collisionDetection(bullet)){//bullet collided with rocket
+			        					//rocket is damaged
+			                			friendlyDies = friendly.takeDamage(bullet.getDamage());
+			                			if(friendlyDies && isProtagonist){gameOver();return;}
+			                			else if(isProtagonist){healthBar.setProgress((int) friendly.getHealth());}
+			                			
+			                			
+			                			bullet.removeGameObject();
+			                		}
+			        			}
+			        			
+		        		}
+		        		
+		    			//check if the enemy itself has collided with the  friendly
+		        		if(enemy.getHealth()>0 && friendly.collisionDetection(enemy)){
+		        			friendlyDies = friendly.takeDamage(enemy.getDamage());
+		        			if(friendlyDies && isProtagonist){gameOver();return;}
+		        			else if(isProtagonist){healthBar.setProgress((int) friendly.getHealth());}
+		        			
+		        			enemyDies=enemy.takeDamage(friendly.getDamage());
+		        			if(enemyDies){
+		        				GameLevels.incrementScore(enemy.getScoreForKilling());
+		        				text_score.setText(""+GameLevels.getScore());
 		        			}
 		        		}
+	
+	//    				Log.d("lowrey","enemy);
+		        		//check if friendly's bullets have hit the enemy
+		        		if(enemy.getHealth()>0 && friendlyIsAShooter){
+			        		Shooter friendlyShooter= (Shooter)friendlies.get(k);
+			    			ArrayList<BulletView> friendlysBullets = friendlyShooter.getMyBullets();
+			    			for(int j=friendlysBullets.size()-1;j>=0;j--){
+			    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
+			    				BulletView bullet = friendlysBullets.get(j);
+			    				
+			    				if(bullet.collisionDetection(enemy)){//bullet collided with rocket
+			    					//enemy is damaged
+			            			enemyDies = enemy.takeDamage(bullet.getDamage());
+			            			if(enemyDies){
+			            				GameLevels.incrementScore(enemy.getScoreForKilling());
+			            				text_score.setText(""+GameLevels.getScore());
+			            			}
+			            			
+			            			bullet.removeGameObject();
+			            			/*
+			            			 * only one bullet can hit a specific enemy at once. 
+			            			 * If that enemy were to die, then checking to see if the other bullets hit 
+			            			 * him wastes resources and may cause issues.
+			            			 */
+			            			stopCheckingIfFriendlysBulletsHitEnemy=true;
+			            		}
+			    				if(stopCheckingIfFriendlysBulletsHitEnemy){
+			            			break;
+			    				}
+			    			}
+		        		}
+		        	}
+		        	//enemies loop is over
+		
+		
+		        	if(friendlyIsAShooter){
+		        		Shooter friendlyShooter= (Shooter)friendlies.get(k);
+			        	for(int i=bonuses.size()-1;i>=0;i--){
+			        		BonusView beneficialCastedView = (BonusView)bonuses.get(i);
+			        		if(friendly.collisionDetection(beneficialCastedView)){
+			        			if(isProtagonist){
+				        			beneficialCastedView.applyBenefit(friendlyShooter);
+				        			beneficialCastedView.removeView(false);
+			        			}else if(friendlyIsAShooter){
+				        			beneficialCastedView.applyBenefit(friendlyShooter);
+				        			beneficialCastedView.removeView(false);
+				        		}else{
+				        			beneficialCastedView.applyBenefit(friendlyShooter);
+				        			beneficialCastedView.removeView(false);
+			        			}
+			        		}
+			        	}
 		        	}
 	        	}
+				/*			DO OTHER STUFF 		*/
+	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
+        	}else{
+        		openStore();
         	}
-			/*			DO OTHER STUFF 		*/
-            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
         }
     };
     
@@ -305,7 +308,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	*/
 	
 	private void gameOver(){
-		levelFactory.stopLevel();
+		levelFactory.stopLevelSpawning();
 		healthBar.setProgress(0);
 		ammoText.setVisibility(View.GONE);
 		
@@ -324,6 +327,14 @@ public class GameActivity extends Activity implements OnTouchListener{
 		//clean up static variables
 		enemies=new ArrayList<EnemyView>();
 		Shooting_ArrayMovingView.resetSimpleShooterArray();
+		
+	}
+	
+	private void openStore(){
+		
+	}
+	
+	private void closeStore(){
 		
 	}
 
@@ -362,12 +373,14 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static void setHealthBar(){
 		healthBar.setProgress((int) rocket.getHealth());
 	}
+	
 	public static void setAmmoText(int ammo){
 		if(ammo<=0){
 			ammoText.setVisibility(View.GONE);
 		}
 		ammoText.setText(ammo+"");
 	}
+	
 	public static void showAmmoText(int ammo){
 		ammoText.setVisibility(View.VISIBLE);
 		setAmmoText(ammo);

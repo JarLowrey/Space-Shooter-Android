@@ -3,100 +3,197 @@
     android:id="@+id/gameScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@color/gray"
     tools:context="${relativePackage}.${activityClass}" >
-<!-- 
-    <TextView
-        android:id="@+id/game_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/btn_gray"/>
-    -->
-    <ImageView
-        android:id="@+id/rocket_exhaust"
-        android:layout_width="@dimen/exhaust_width"
-        android:layout_height="@dimen/exhaust_height"
-        android:visibility="gone"
-        android:src="@drawable/ship_protgonist_exhaust" />
     
-  	<RelativeLayout
-        android:id="@+id/btn_background"
+    <RelativeLayout
+        android:id="@+id/game_play_layout"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/control_panel_height"
-        android:background="@drawable/control_panel_background"
-	    android:layout_alignParentBottom="true" >
-       
-	    
-	    <RelativeLayout
-	        android:id="@+id/btns_wrap"
-		    android:layout_width="300dp"
-		    android:layout_height="wrap_content"
-		    android:layout_centerInParent="true"
-		    android:layout_marginBottom="@dimen/activity_margin_small"
-	        >
-			<Button
-			    android:id="@+id/btnLeft"
-			    android:layout_width="@dimen/btn_large_len"
-			    android:layout_height="@dimen/btn_large_len"
-			    android:layout_alignParentLeft="true"
-			    android:background="@drawable/btn_red" />
-			
-			<Button
-			    android:id="@+id/btnMiddle"
-			    android:layout_width="@dimen/btn_small_width"
-			    android:layout_height="@dimen/btn_small_height"
-				android:layout_centerInParent="true"
-			    android:background="@drawable/btn_green" />
-		
-			<Button
-			    android:id="@+id/btnRight"
-			    android:layout_width="@dimen/btn_large_len"
-			    android:layout_height="@dimen/btn_large_len"
-			    android:layout_alignParentRight="true"
-			    android:background="@drawable/btn_red" />
-		</RelativeLayout>
-
-	    <ProgressBar
-	        android:id="@+id/health_bar"
-	        style="?android:attr/progressBarStyleHorizontal"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true" />
-	    
-	    
+        android:layout_height="match_parent">
+	<!-- 
 	    <TextView
-	        android:id="@+id/score_textview"
+	        android:id="@+id/game_background"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-			android:layout_alignBottom="@+id/btns_wrap"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:background="@drawable/btn_gray"/>
+	    -->
+	    <ImageView
+	        android:id="@+id/rocket_exhaust"
+	        android:layout_width="@dimen/exhaust_width"
+	        android:layout_height="@dimen/exhaust_height"
+	        android:visibility="gone"
+	        android:src="@drawable/ship_protgonist_exhaust" />
+	    
+	  	<RelativeLayout
+	        android:id="@+id/btn_background"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/control_panel_height"
+	        android:background="@drawable/control_panel_background"
+		    android:layout_alignParentBottom="true" >
+	       
+		    
+		    <RelativeLayout
+		        android:id="@+id/btns_wrap"
+			    android:layout_width="300dp"
+			    android:layout_height="wrap_content"
+			    android:layout_centerInParent="true"
+			    android:layout_marginBottom="@dimen/activity_margin_small"
+		        >
+				<Button
+				    android:id="@+id/btnLeft"
+				    android:layout_width="@dimen/btn_large_len"
+				    android:layout_height="@dimen/btn_large_len"
+				    android:layout_alignParentLeft="true"
+				    android:background="@drawable/btn_red" />
+				
+				<Button
+				    android:id="@+id/btnMiddle"
+				    android:layout_width="@dimen/btn_small_width"
+				    android:layout_height="@dimen/btn_small_height"
+					android:layout_centerInParent="true"
+				    android:background="@drawable/btn_green" />
+			
+				<Button
+				    android:id="@+id/btnRight"
+				    android:layout_width="@dimen/btn_large_len"
+				    android:layout_height="@dimen/btn_large_len"
+				    android:layout_alignParentRight="true"
+				    android:background="@drawable/btn_red" />
+			</RelativeLayout>
+	
+		    <ProgressBar
+		        android:id="@+id/health_bar"
+		        style="?android:attr/progressBarStyleHorizontal"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentLeft="true"
+		        android:layout_alignParentTop="true" />
+		    
+		    
+		    <TextView
+		        android:id="@+id/score_textview"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:layout_alignBottom="@+id/btns_wrap"
+		        android:layout_centerHorizontal="true"
+	        	android:textAppearance="@style/score_and_ammo_text"
+		        android:text="0" />
+		    
+		    
+			<TextView
+			    android:id="@+id/ammo"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+	        	android:textAppearance="@style/score_and_ammo_text"
+				android:visibility="gone"
+	        	android:text="0" />
+	
+		</RelativeLayout>
+	
+	    <friendlies.ProtagonistView
+	        android:id="@+id/rocket_game"
+	        android:layout_width="@dimen/protagonist_game_width"
+	        android:layout_height="@dimen/protagonist_game_height"
+	        android:layout_above="@+id/btn_background"
 	        android:layout_centerHorizontal="true"
-        	android:textAppearance="@style/score_and_ammo_text"
-	        android:text="0" />
+	        android:layout_marginBottom="@dimen/activity_margin_small"
+	        android:src="@drawable/ship_protagonist_rocket" />
 	    
-	    
-		<TextView
-		    android:id="@+id/ammo"
+    </RelativeLayout>
+    
+    
+    
+    <RelativeLayout
+        android:id="@+id/store_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button1"
+            android:layout_below="@+id/button1"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/button3"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button2"
+            android:layout_below="@+id/button2"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/button4"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button3"
+            android:layout_below="@+id/button3"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/start_next_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="71dp"
+            android:text="Button" />
+        
+        <TextView
+            android:id="@+id/explanation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/resource_layout"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:gravity="center"
+            android:text="We've found found refuge for the night. Time to make repairs." />
+
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/explanation"
+            android:text="Button" />
+        
+		<RelativeLayout
+		    android:id="@+id/resource_layout"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-			android:layout_centerInParent="true"
-        	android:textAppearance="@style/score_and_ammo_text"
-			android:visibility="gone"
-        	android:text="0" />
-
-	</RelativeLayout>
-
-    <friendlies.ProtagonistView
-        android:id="@+id/rocket_game"
-        android:layout_width="@dimen/protagonist_game_width"
-        android:layout_height="@dimen/protagonist_game_height"
-        android:layout_above="@+id/btn_background"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_margin_small"
-        android:src="@drawable/ship_protagonist_rocket" />
+		    android:layout_centerHorizontal="true"
+		    >
+	        <TextView
+	            android:id="@+id/resource_count"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_toRightOf="@+id/resources_img"
+	            android:text="0"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <ImageView
+	            android:id="@+id/resources_img"
+	            android:layout_width="@dimen/resource_img_width"
+	            android:layout_height="@dimen/resource_img_height"
+				android:layout_centerVertical="true"
+				android:layout_alignParentLeft="true"
+	            android:src="@drawable/resources" />
+		</RelativeLayout>
+	    
+	    </RelativeLayout>
 
 </RelativeLayout>
