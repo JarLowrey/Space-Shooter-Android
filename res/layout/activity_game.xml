@@ -82,7 +82,7 @@
 	        android:layout_above="@+id/btn_background"
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginBottom="@dimen/activity_margin_small"
-	        android:src="@drawable/ship_protagonist_rocket" />
+	        android:src="@drawable/ship_protagonist" />
 	    
     </RelativeLayout>
     
@@ -137,7 +137,7 @@
 		    android:layout_width="@dimen/resource_img_len"
 		    android:layout_height="@dimen/resource_img_len"
 		    android:layout_centerInParent="true"
-		    android:layout_toLeftOf="@+id/button3"
+		    android:src="@drawable/bullet_damage"
 		    android:background="@drawable/white_center_red_outline"
 		    android:contentDescription="bulletDmg"
 		    android:text="bulletDmg" />
@@ -145,6 +145,7 @@
 		<ImageButton
 		    android:id="@+id/btn_new_gun"
 		    style="?android:attr/buttonStyleSmall"
+		    android:src="@drawable/missile"
 		    android:layout_width="@dimen/resource_img_len"
 		    android:layout_height="@dimen/resource_img_len"
 		    android:layout_above="@+id/btn_inc_bullet_dmg"
@@ -169,6 +170,7 @@
 
 		<ImageButton
 		    android:id="@+id/btn_inc_bullet_speed"
+		    android:src="@drawable/bullet_speed"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
 		    android:layout_height="@dimen/resource_img_len"
@@ -181,6 +183,7 @@
 
 		<ImageButton
 		    android:id="@+id/btn_inc_bullet_freq"
+		    android:src="@drawable/bullet_freq"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
 		    android:layout_height="@dimen/resource_img_len"
@@ -193,6 +196,7 @@
 
 		<ImageButton
 		    android:id="@+id/btn_inc_score_weight"
+		    android:src="@drawable/resources"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
 		    android:layout_height="@dimen/resource_img_len"
@@ -205,6 +209,7 @@
 
 		<ImageButton
 		    android:id="@+id/btn_purchase_friend"
+		    android:src="@drawable/ship_protagonist"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/resource_img_len"
 		    android:layout_height="@dimen/resource_img_len"

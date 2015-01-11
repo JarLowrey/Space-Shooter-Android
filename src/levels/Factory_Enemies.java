@@ -2,10 +2,8 @@ package levels;
 
 import android.content.Context;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
 
-import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_ArrayMovingView;

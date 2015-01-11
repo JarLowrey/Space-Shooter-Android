@@ -174,7 +174,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		resourceCount.setText(LevelSystem.getScore()+"");
 	}
 	
-	private static void closeStore(){
+	private static void closeStoreAndStartNextLevel(){
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 		levelFactory.nextLevel();
@@ -249,8 +249,18 @@ public class GameActivity extends Activity implements OnTouchListener{
 				case R.id.btn_inc_score_weight:
 					break;
 				case R.id.btn_new_gun:
+					final int gunCost = protagonist.costToUpgradeGun();
+					if(LevelSystem.getScore() < gunCost){
+						notEnoughMinerals();
+					}else{
+						LevelSystem.decrementScore(gunCost);
+						protagonist.upgradeGun();
+					}
 					break;
 				case R.id.btn_purchase_friend:
+					break;
+				case R.id.start_next_level:
+					closeStoreAndStartNextLevel();
 					break;
 			}
 			break;

@@ -58,6 +58,20 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		bulletDamageWeight++;
 	}
 	
+	public int costToUpgradeGun(){
+		switch(currentGunConfiguration){
+		case 0:
+			return 100;
+		case 1:
+			return 3000;
+		case 2: 
+			return 7000;
+		case 3:
+			return 15000;
+		default:
+			return 25000;
+		}
+	}
 	public void upgradeGun(){
 		currentGunConfiguration++;
 		switch(currentGunConfiguration){
@@ -84,6 +98,8 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	public int getBulletBulletFreqWeight(){
 		return bulletFreqWeight;
 	}
+	
+	
 	@Override
 	public void removeGameObject(){
 		super.removeGameObject();
