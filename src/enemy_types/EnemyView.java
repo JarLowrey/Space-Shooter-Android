@@ -20,6 +20,8 @@ public class EnemyView extends Projectile_GravityView{
 		super( context, projectileSpeedY, projectileSpeedX, 
 				 projectileDamage, projectileHealth);
 		
+		this.setY(- ( 3 * this.getHeight() ) /4);//start all enemies 3/4 way offscreen
+		
 		score=scoreForKilling;
 		probSpawnBeneficialObject= probSpawnBeneficialObjectUponDeath;
 		GameActivity.enemies.add(this);

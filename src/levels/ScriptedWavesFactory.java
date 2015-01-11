@@ -1,35 +1,25 @@
 package levels;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 
+import enemy_types.Shooting_ArrayMovingView;
 import enemy_types_non_shooters.Gravity_MeteorView;
 
-public class ScriptedWavesFactory {
+public class ScriptedWavesFactory extends EnemyFactory{
 
-	EnemyFactory enemyProducer;
-	Activity myActivity;
-	
-	RelativeLayout gameLayout;
     Handler spawnHandler;
     
-    
-    
-    
-	public ScriptedWavesFactory(Activity a,RelativeLayout gameScreen) {
-		enemyProducer = new EnemyFactory((Context)a);
-		gameLayout = gameScreen;
-//
-//		Looper.getMainLooper();
+	public ScriptedWavesFactory(Context context,RelativeLayout gameScreen) {
+		super(context,gameScreen);
+		
 		spawnHandler = new Handler();
 	}
 
-	public void spawnMeteorWaves(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean firstMeteorShowerRunsLeftToRight) {
+	public void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean firstMeteorShowerRunsLeftToRight) {
 		spawnHandler.post(new Runnable(){
 			
 			private int numMeteorsSpawned=0;
@@ -38,7 +28,7 @@ public class ScriptedWavesFactory {
 			@Override
 			public void run() {
 				//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
-				Gravity_MeteorView  met= enemyProducer.spawnMeteor();
+				Gravity_MeteorView  met= spawnMeteor();
 				final int width = +met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
 				final int numMeteorsPossibleOnScreenAtOnce= (int) (MainActivity.getWidthPixels()/width);
 				final int currentMeteor = numMeteorsSpawned % numMeteorsPossibleOnScreenAtOnce;
@@ -58,24 +48,78 @@ public class ScriptedWavesFactory {
 				met.setX(myXPosition);
 				
 				numMeteorsSpawned++;
-				GameActivity.enemies.add(met);
-				gameLayout.addView(met,1);
 				if(numMeteorsSpawned<numMeteors){
 					spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
 				}
-				}
 			}
-		);
-		
-		
+		});
 	}
 
+	public void spawnMeteorsAtRandomXPositions(final int numMeteors, final int millisecondsBetweenEachMeteor){
+		spawnHandler.post(new Runnable(){
+			private int numMeteorsSpawned=0;
+			
+			@Override
+			public void run() {
+				spawnMeteor();
+				
+				numMeteorsSpawned++;
+				if(numMeteorsSpawned<numMeteors){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
+				}
+			}
+		});
+	}
+
+	public void spawnSidewaysMeteors(final int numMeteors, final int millisecondsBetweenEachMeteor){
+		spawnHandler.post(new Runnable(){
+			private int numMeteorsSpawned=0;
+			
+			@Override
+			public void run() {
+				spawnSidewaysMeteor();
+				
+				numMeteorsSpawned++;
+				if(numMeteorsSpawned<numMeteors){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachMeteor);
+				}
+			}
+		});
+	}
 	
+	public void spawnDiveBombers(final int numDiveBombers){
+		for(int i=0;i<numDiveBombers;i++){
+			spawnDiveBomber();
+		}
+	}
 	
+	public void spawnDiveBombers(final int totalNumDiveBomber, final int millisecondsBetweenEachSpawn, final int numDiveBombersPerSpawn){
+		spawnHandler.post(new Runnable(){
+			private int numDiveBombersSpawned=0;
+			
+			@Override
+			public void run() {
+				spawnDiveBombers(numDiveBombersPerSpawn);
+				numDiveBombersSpawned+=numDiveBombersPerSpawn;
+				
+				if(numDiveBombersSpawned<totalNumDiveBomber){
+					spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
+				}
+			}
+		});
+	}
 	
+	public void spawnMovingArrayShooters(final int numShooters){
+//		enemyProducer
+	}
 	
-	
-	
+	public void spawnAllSimpleShooters(){
+		int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
+		
+		for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
+			spawnOneShooting_MovingArrayView();
+		}
+	}
 	
 	
 	

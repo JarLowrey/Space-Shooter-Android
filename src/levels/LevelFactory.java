@@ -5,17 +5,17 @@ import android.widget.RelativeLayout;
 
 public class LevelFactory extends ScriptedWavesFactory{
 
-//	Handler 
+	boolean levelOver = false;
 	
 	public LevelFactory(Activity context,RelativeLayout gameScreen){
 		super( context, gameScreen);
 	}
 	
 	public void startLevelOne(){
-		spawnMeteorWaves(20,600,false);
+		spawnMeteorShower(20,600,false);
 		spawnHandler.postDelayed(new Runnable(){
 			@Override
-			public void run() {spawnMeteorWaves(5,500,true);}}
+			public void run() {spawnMeteorShower(5,500,true);}}
 		, 20000);
 		
 	}

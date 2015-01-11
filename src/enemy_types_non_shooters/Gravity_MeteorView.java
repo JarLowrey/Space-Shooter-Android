@@ -19,6 +19,8 @@ public class Gravity_MeteorView extends EnemyView{
 			DEFAULT_HEALTH=5,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.01;
 	
+	public final static double DEFAULT_SPEED_X_MOVING_SIDEWAYS=4;
+	
 	private int direction = 1;
 	private int currentRotation;
 	Runnable rotateRunnable = new Runnable(){
