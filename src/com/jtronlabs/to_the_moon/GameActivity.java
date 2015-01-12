@@ -229,7 +229,11 @@ public class GameActivity extends Activity implements OnTouchListener{
 					confirmUpgradeDialog(UPGRADE_FRIEND);
 					break;
 				case R.id.start_next_level:
-					closeStoreAndStartNextLevel();
+					if(LevelSystem.getLevel()==1 && protagonist.getGunLevel()==0){
+						Toast.makeText(getApplicationContext(),"Repair main blasters first!", Toast.LENGTH_SHORT).show();
+					}else{
+						closeStoreAndStartNextLevel();
+					}
 					break;
 			}
 			break;
