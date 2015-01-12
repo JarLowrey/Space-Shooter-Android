@@ -19,34 +19,26 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	private ArrayList<Gun> myGuns;
 	private ArrayList<BulletView> myBullets;
 	
-	private int bulletFreqWeight, 
-		bulletDamageWeight,
-		bullletVerticalSpeedWeight,
-		currentGunConfiguration;
+	private int bulletFreqWeight=1, 
+		bulletDamageWeight=1,
+		bullletVerticalSpeedWeight=1,
+		currentGunConfiguration=1;
 
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
 		super(context,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
-
-		bulletFreqWeight=0; 
-		bulletDamageWeight=0;
-		bullletVerticalSpeedWeight=0;
 		
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
  
-		startShooting();//protagonist spawns through Attirbute set constructor, so this is safe
+		startShooting();//protagonist spawns through Attirbute set constructor, so it is safe to start shooting here 
 	}
 
 	public Friendly_ShooterView(Context context,AttributeSet at, double projectileSpeedY,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
 		super(context, at,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
-
-		bulletFreqWeight=0; 
-		bulletDamageWeight=0;
-		bullletVerticalSpeedWeight=0;
 		
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
@@ -57,27 +49,12 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	public void incrementBulletDamageWeight(){
 		bulletDamageWeight++;
 	}
-	
-	public int costToUpgradeGun(){
-		switch(currentGunConfiguration){
-		case 0:
-			return 100;
-		case 1:
-			return 3000;
-		case 2: 
-			return 7000;
-		case 3:
-			return 15000;
-		default:
-			return 25000;
-		}
-	}
 	public void upgradeGun(){
-		currentGunConfiguration++;
 		switch(currentGunConfiguration){
 		case 1:
 			break;
 		}
+		currentGunConfiguration++;
 	}
 
 	public int getGunLevel(){

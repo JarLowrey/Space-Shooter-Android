@@ -39,20 +39,15 @@
         android:src="@drawable/level3" />
     
     
-    <RelativeLayout
+    <ImageButton
         android:id="@+id/playBtn"
         android:layout_width="@dimen/btn_large_len"
         android:layout_height="@dimen/btn_large_len"
         android:layout_alignTop="@+id/earth"
         android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_action_play"
         android:background="@drawable/btn_gray" >
-
-        <ImageView
-            android:layout_width="@dimen/ic_med"
-            android:layout_height="@dimen/ic_med"
-            android:layout_centerInParent="true"
-            android:background="@drawable/ic_action_play"/>
-    </RelativeLayout>
+    </ImageButton>
 
     <custom_support_views.DrawTextView
         android:id="@+id/title"

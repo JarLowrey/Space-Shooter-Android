@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -13,9 +12,8 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-
 import custom_support_views.DrawTextView;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
@@ -58,7 +56,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		earth.startAnimation(earthSpin);
 		
 		//set up buttons
-		RelativeLayout playBtn = (RelativeLayout)findViewById(R.id.playBtn);
+		ImageButton playBtn = (ImageButton)findViewById(R.id.playBtn);
 		playBtn.setOnClickListener(this);
 
 		//draw title words

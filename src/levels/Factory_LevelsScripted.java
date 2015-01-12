@@ -28,7 +28,7 @@ public class Factory_LevelsScripted extends Factory_Waves{
 		currentProgressInLevel=1;
 		
 	}
-	
+	/*
 	protected void startLevelOne(){
 		initLevelVarsAtBeginningOfEveryLevel();
 		spawnSidewaysMeteors(20,1000);
@@ -94,8 +94,11 @@ public class Factory_LevelsScripted extends Factory_Waves{
 		}, wave1Duration);}
 		
 	}
-	public void startLevel(){
-		final int numWaves=5;
+	*/
+	protected void startLevelOne(){
+		
+		final int numWaves=9;
+		
 		Runnable wave1 = new Runnable(){
 			@Override
 			public void run() {
@@ -110,35 +113,63 @@ public class Factory_LevelsScripted extends Factory_Waves{
 		Runnable wave2 = new Runnable(){
 			@Override
 			public void run() {
-				spawnMeteorShower(5,DEFAULT_WAVE_DURATION/5,true);//spawn for entire wave
+				spawnMeteorShower(10,DEFAULT_WAVE_DURATION/10,true);//spawn for entire wave
 				spawnMeteorShower(5,DEFAULT_WAVE_DURATION/5,false);//spawn for entire wave
 			}
 		};
 		Runnable wave3 = new Runnable(){
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				
+				spawnMeteorShower(4,600,true);//spawn at beginning of wave
+				spawnMeteorShower(4,600,false);//spawn at beginning of wave
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave				
 			}
 		};
 		Runnable wave4 = new Runnable(){
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
 			}
 		};
 		Runnable wave5 = new Runnable(){
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
 			}
 		};
-		final Runnable[] waves = {wave1,wave2,wave3,wave4,wave5,levelOverRunnable};
+
+		Runnable wave6 = new Runnable(){
+			@Override
+			public void run() {
+				spawnMeteorShower(DEFAULT_WAVE_DURATION/500,500,true);//spawn for entire wave
+			}
+		};
+		Runnable wave7 = new Runnable(){
+			@Override
+			public void run() {
+				spawnGiantSidewaysMeteors(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
+				spawnSidewaysMeteors(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
+			}
+		};
+		Runnable wave8 = new Runnable(){
+			@Override
+			public void run() {
+				spawnGiantSidewaysMeteors(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
+				spawnMeteorShower(4,600,true);//spawn at beginning of wave
+				spawnMeteorShower(4,600,false);//spawn at beginning of wave
+			}
+		};
+
+		Runnable wave9 = new Runnable(){
+			@Override
+			public void run() {
+				spawnGiantSidewaysMeteors(4,DEFAULT_WAVE_DURATION/4);//spawn for entire wave
+			}
+		};
+		final Runnable[] waves = {wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,levelOverRunnable};
 		
 		for(int i=0;i<waves.length;i++){
-			spawnHandler.postDelayed(waves[i],i * DEFAULT_WAVE_DURATION);
+			spawnHandler.postDelayed(waves[i], i * DEFAULT_WAVE_DURATION);
 		}
 	}
 	

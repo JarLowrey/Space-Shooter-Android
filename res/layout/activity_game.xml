@@ -222,6 +222,7 @@
 
 		<ImageButton
 		    android:id="@+id/start_next_level"
+		    android:src="@drawable/ic_action_play"
 		    android:layout_width="@dimen/store_btn_next_level_len"
 		    android:layout_height="@dimen/store_btn_next_level_len"
 		    android:layout_centerHorizontal="true"
