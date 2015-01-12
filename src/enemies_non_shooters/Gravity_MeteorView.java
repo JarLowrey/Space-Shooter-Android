@@ -11,7 +11,7 @@ import enemies.EnemyView;
 
 public class Gravity_MeteorView extends EnemyView{
 	
-	public final static int DEFAULT_SCORE=5,
+	public final static int DEFAULT_SCORE=20,
 			DEFAULT_BACKGROUND=R.drawable.meteor,
 			DEFAULT_ROTATION_SPEED=7;
 	public final static double DEFAULT_SPEED_Y=7,

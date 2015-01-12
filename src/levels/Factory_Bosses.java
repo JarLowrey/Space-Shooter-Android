@@ -32,7 +32,7 @@ public class Factory_Bosses extends Factory_Enemies{
 		//set damage and health to 200, score to 20
 		giant.setDamage(150);
 		giant.heal(100);
-		giant.setScoreValue(80);
+		giant.setScoreValue(100);
 		
 		return giant;
 	}

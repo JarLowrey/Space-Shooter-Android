@@ -3,12 +3,17 @@ package levels;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
+/**
+ * 
+ * @author JAMES LOWREY
+ *
+ */
 public class Factory_LevelsScripted extends Factory_Waves{
-  
-	public static int DEFAULT_WAVE_DURATION=5000;
+
+	public static int DEFAULT_WAVE_DURATION=5000, NEW_LEVEL=-1;
 	
 	protected static boolean levelCompleted,levelStarted;
-	protected int currentProgressInLevel;
+	protected static int currentProgressInLevel;
 	
 	private final Runnable levelOverRunnable = new Runnable(){
 		@Override
@@ -18,15 +23,14 @@ public class Factory_LevelsScripted extends Factory_Waves{
 	public Factory_LevelsScripted(Context context,RelativeLayout gameScreen){
 		super( context, gameScreen);
 		levelCompleted = false;
-		levelStopped=false;
+		levelPaused=false;
 	}
 
 	private void initLevelVarsAtBeginningOfEveryLevel(){
 		levelCompleted=false;
 		levelStarted=true;
-		levelStopped=false;
-		currentProgressInLevel=1;
-		
+		levelPaused=false;
+		currentProgressInLevel=0;
 	}
 	/*
 	protected void startLevelOne(){
@@ -95,29 +99,30 @@ public class Factory_LevelsScripted extends Factory_Waves{
 		
 	}
 	*/
-	protected void startLevelOne(){
-		
-		final int numWaves=9;
-		
-		Runnable wave1 = new Runnable(){
+	
+	
+	protected void startLevelOne(boolean levelJustNowBeginning){
+		if(levelJustNowBeginning){initLevelVarsAtBeginningOfEveryLevel();}//this will reset current progress in level
+
+		final int levelOneNumWaves=9;
+
+		Runnable levelOneWaveOne = new Runnable(){
 			@Override
 			public void run() {
-				if(!levelStopped){
-					spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
-					spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
-					spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * numWaves )/800 ,800);//spawn for entire level
-					spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * numWaves )/1500 ,1500);//spawn for entire level
-				}
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+				spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * levelOneNumWaves )/800 ,800);//spawn for entire level
+				spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * levelOneNumWaves )/1500 ,1500);//spawn for entire level
 			}
 		};
-		Runnable wave2 = new Runnable(){
+		Runnable levelOneWave2 = new Runnable(){
 			@Override
 			public void run() {
 				spawnMeteorShower(10,DEFAULT_WAVE_DURATION/10,true);//spawn for entire wave
 				spawnMeteorShower(5,DEFAULT_WAVE_DURATION/5,false);//spawn for entire wave
 			}
 		};
-		Runnable wave3 = new Runnable(){
+		Runnable levelOneWave3 = new Runnable(){
 			@Override
 			public void run() {
 				spawnMeteorShower(4,600,true);//spawn at beginning of wave
@@ -125,33 +130,33 @@ public class Factory_LevelsScripted extends Factory_Waves{
 				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave				
 			}
 		};
-		Runnable wave4 = new Runnable(){
+		Runnable levelOneWave4 = new Runnable(){
 			@Override
 			public void run() {
 				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
 			}
 		};
-		Runnable wave5 = new Runnable(){
+		Runnable levelOneWave5 = new Runnable(){
 			@Override
 			public void run() {
 				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
 			}
 		};
 
-		Runnable wave6 = new Runnable(){
+		Runnable levelOneWave6 = new Runnable(){
 			@Override
 			public void run() {
 				spawnMeteorShower(DEFAULT_WAVE_DURATION/500,500,true);//spawn for entire wave
 			}
 		};
-		Runnable wave7 = new Runnable(){
+		Runnable levelOneWave7 = new Runnable(){
 			@Override
 			public void run() {
 				spawnGiantSidewaysMeteors(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
 				spawnSidewaysMeteors(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
 			}
 		};
-		Runnable wave8 = new Runnable(){
+		Runnable levelOneWave8 = new Runnable(){
 			@Override
 			public void run() {
 				spawnGiantSidewaysMeteors(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
@@ -160,99 +165,121 @@ public class Factory_LevelsScripted extends Factory_Waves{
 			}
 		};
 
-		Runnable wave9 = new Runnable(){
+		Runnable levelOneWave9 = new Runnable(){
 			@Override
 			public void run() {
 				spawnGiantSidewaysMeteors(4,DEFAULT_WAVE_DURATION/4);//spawn for entire wave
 			}
 		};
-		final Runnable[] waves = {wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,levelOverRunnable};
+		final Runnable[] waves = {levelOneWaveOne,levelOneWave2,levelOneWave3,levelOneWave4,levelOneWave5,levelOneWave6,levelOneWave7,levelOneWave8,levelOneWave9,levelOverRunnable};
+
+
+
+		/*
+		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
+		 * If handler has runnables canceled before level finishes, then current progress will not change.
+		 * thus, when restarting a level simply find which runnable to call by using that current progress integer
+		 */
 		
-		for(int i=0;i<waves.length;i++){
+		
+		for(int i=currentProgressInLevel;i<waves.length;i++){
 			spawnHandler.postDelayed(waves[i], i * DEFAULT_WAVE_DURATION);
 		}
 	}
 	
-	protected void startLevelTwo(){
-		startLevelOne();//allow user to buy a gun, and then run the same level
+	protected void startLevelTwo(boolean levelJustNowBeginning){
+		startLevelOne( levelJustNowBeginning);//allow user to buy a gun, and then run the same level
 	}
 	
-	protected void startLevelThree(){
-		initLevelVarsAtBeginningOfEveryLevel();
-//		spawnMovingArrayShooters();
-//		spawnMeteorShower(10,600,false);
-//		spawnSidewaysMeteors(20,500);
-//		spawnSidewaysMeteors(20,3000);
-//		
-//		if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-//				@Override
-//				public void run() {
-//					spawnMeteorShower(5,500,true);
-//					spawnSidewaysMeteors(20,500);
-//					currentProgressInLevel++;
-//
-//					if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-//						@Override
-//						public void run() {
-//							spawnDiveBomberWaves(10,5000,2);
-//							spawnFullScreenDiagonalAttackersWave(6,5000);
-//							currentProgressInLevel++;
-//							
-//
-//							if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-//								@Override
-//								public void run() {
-//									spawnMeteorShower(10,600,false);
-//									spawnMovingArrayShooters();
-//									currentProgressInLevel++;
-//
-//									if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-//										@Override
-//										public void run() {
-//											spawnCircularOrbiters(5,4000);
-//											currentProgressInLevel++;
-//											
-//
-//											if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-//												@Override
-//												public void run() {
-//													spawnRectangularOrbiters(5,4000);
-//													currentProgressInLevel++;
-//
-//													if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
-//														@Override
-//														public void run() {
-//															spawnTriangularOrbiters(5,4000);
-//															currentProgressInLevel++;
-//															
-//															levelOver();
-//															}
-//														}
-//													, 10000);
-//													}
-//											, 5000);
-//											}
-//											}
-//										}
-//									, 7000);
-//									}
-//									}
-//								}
-//							, 20000);
-//							}
-//						}
-//						}
-//					, 10000);
-//				}
-//			}
-//		}
-//		, 20000);
-//		}
+	protected void startLevelThree(boolean levelJustNowBeginning){
+		if(levelJustNowBeginning){initLevelVarsAtBeginningOfEveryLevel();}//this will reset current progress in level
+		
+
+		final int levelThreeNumWaves=9;
+
+		Runnable levelOneWaveOne = new Runnable(){
+			@Override
+			public void run() {
+				spawnSidewaysMeteors(( DEFAULT_WAVE_DURATION * levelThreeNumWaves )/1500 ,2000);//spawn for entire level
+				spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * levelThreeNumWaves )/800 ,800);//spawn for entire level
+				spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * levelThreeNumWaves )/1500 ,1500);//spawn for entire level
+			}
+		};
+		Runnable levelThreeWave2 = new Runnable(){
+			@Override
+			public void run() {
+				spawnMeteorShower(10,DEFAULT_WAVE_DURATION/10,true);//spawn for entire wave
+				spawnMeteorShower(5,DEFAULT_WAVE_DURATION/5,false);//spawn for entire wave
+			}
+		};
+		Runnable levelThreeWave3 = new Runnable(){
+			@Override
+			public void run() {
+				spawnMeteorShower(4,600,true);//spawn at beginning of wave
+				spawnMeteorShower(4,600,false);//spawn at beginning of wave
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave				
+			}
+		};
+		Runnable levelThreeWave4 = new Runnable(){
+			@Override
+			public void run() {
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+			}
+		};
+		Runnable levelThreeWave5 = new Runnable(){
+			@Override
+			public void run() {
+				spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+			}
+		};
+
+		Runnable levelThreeWave6 = new Runnable(){
+			@Override
+			public void run() {
+				spawnMeteorShower(DEFAULT_WAVE_DURATION/500,500,true);//spawn for entire wave
+			}
+		};
+		Runnable levelThreeWave7 = new Runnable(){
+			@Override
+			public void run() {
+				spawnGiantSidewaysMeteors(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
+				spawnSidewaysMeteors(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
+			}
+		};
+		Runnable levelThreeWave8 = new Runnable(){
+			@Override
+			public void run() {
+				spawnGiantSidewaysMeteors(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
+				spawnMeteorShower(4,600,true);//spawn at beginning of wave
+				spawnMeteorShower(4,600,false);//spawn at beginning of wave
+			}
+		};
+
+		Runnable levelThreeWave9 = new Runnable(){
+			@Override
+			public void run() {
+				spawnGiantSidewaysMeteors(4,DEFAULT_WAVE_DURATION/4);//spawn for entire wave
+			}
+		};
+		final Runnable[] waves = {levelOneWaveOne,levelThreeWave2,levelThreeWave3,levelThreeWave4,levelThreeWave5,levelThreeWave6,levelThreeWave7,levelThreeWave8,levelThreeWave9,levelOverRunnable};
+
+
+
+		/*
+		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
+		 * If handler has runnables canceled before level finishes, then current progress will not change.
+		 * thus, when restarting a level simply find which runnable to call by using that current progress integer
+		 */
+		
+		
+		for(int i=currentProgressInLevel;i<waves.length;i++){
+			spawnHandler.postDelayed(waves[i], i * DEFAULT_WAVE_DURATION);
+		}
 		
 	}
 	
-	public void stopLevelSpawning(){
-		levelStopped=true;
+	public void pauseLevel(){
+		levelPaused=true;
 		spawnHandler.removeCallbacks(null);
 	}
 	
@@ -260,14 +287,36 @@ public class Factory_LevelsScripted extends Factory_Waves{
 		return levelCompleted;
 	}
 	
-	public static boolean isLevelStarted(){
+	public static boolean hasLevelStarted(){
 		return levelStarted;
 	}
 	
 	private void levelOver(){
 		levelCompleted=true;
-		levelStopped=true;
-		stopLevelSpawning();
+		levelStarted=false;
+		levelPaused=true;
+		pauseLevel();
 	}
-	
+/*
+	private void changeGameBackgroundImage(final int idToChangeTo){
+		Animation fade_out=AnimationUtils.loadAnimation(this,R.anim.fade_out);
+		final Animation fade_in = AnimationUtils.loadAnimation(this,R.anim.fade_in);
+		fade_out.setAnimationListener(new AnimationListener(){
+
+			@Override
+			public void onAnimationEnd(Animation arg0) {
+				gameWindowOverlay.setBackgroundResource(idToChangeTo);
+				gameWindowOverlay.startAnimation(fade_in);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation arg0) {}
+
+			@Override
+			public void onAnimationStart(Animation arg0) {}
+			
+		});
+		gameWindowOverlay.startAnimation(fade_out);
+	} 
+	*/
 }

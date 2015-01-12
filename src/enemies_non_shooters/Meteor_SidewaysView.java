@@ -7,7 +7,7 @@ import com.jtronlabs.to_the_moon.R;
 
 public class Meteor_SidewaysView extends Gravity_MeteorView{
 	
-	public final static int DEFAULT_SCORE=10,
+	public final static int DEFAULT_SCORE=30,
 			DEFAULT_BACKGROUND=R.drawable.meteor,
 			DEFAULT_ROTATION_SPEED=7;
 	public final static double DEFAULT_SPEED_Y=6,

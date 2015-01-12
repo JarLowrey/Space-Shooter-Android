@@ -15,24 +15,44 @@ public class LevelSystem extends Factory_LevelsScripted{
 		myScore=0; 
 	}
 
-	public boolean nextLevel(){
+	public void newGame(){
+		myScore=0;
+		myLevel=0;
+		startNextLevel();
+	}
+	
+	public boolean startNextLevel(){
 		myLevel++;
 		if(myLevel==MAX_NUMBER_LEVELS){
 			return true;
 		}
 		switch(myLevel){
 		case 1:
-			startLevelOne();
+			startLevelOne(true);
 			break;
 		case 2:
-			startLevelTwo();
+			startLevelTwo(true);
 			break;
 		case 3:
-			startLevelThree();
+			startLevelThree(true);
 			break;
 		}
 		CollisionDetector.startDetecting();
 		return false;
+	}
+	public void resumeLevel(){
+		super.levelPaused=false;
+		switch(myLevel){
+		case 1:
+			startLevelOne(false);
+			break;
+		case 2:
+			startLevelTwo(false);
+			break;
+		case 3:
+			startLevelThree(false);
+			break;
+		}
 	}
 	
 	public static void incrementScore(int score){

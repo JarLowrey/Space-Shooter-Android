@@ -12,7 +12,7 @@ public interface Shooter extends CollidableObjectWithHealthDamageEtc{
 
 //	public void upgradeOrDowngradeGun(boolean upgrade);
 	
-	public void giveNewGun(Gun newGun);
+	public void removeAllGuns();
 	public void addGun(Gun newGun);
 	public ArrayList<Gun> getAllGuns();
 	

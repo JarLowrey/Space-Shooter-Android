@@ -49,7 +49,7 @@
         android:background="@drawable/btn_gray" >
     </ImageButton>
 
-    <custom_support_views.DrawTextView
+    <custom_support_classes.DrawTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_canvas_height"

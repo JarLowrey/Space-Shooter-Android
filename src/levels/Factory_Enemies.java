@@ -30,14 +30,13 @@ public class Factory_Enemies{
 	
 	public static final int BULLET_FREQ_LONG_INTERVAL=10,BULLET_FREQ_SHORT_INTERVAL=5;
 	
-	protected static int myLevel;
+	protected static int myLevel=0;
 	protected Context ctx;
 	private RelativeLayout gameLayout;
 	
 	public Factory_Enemies(Context context,RelativeLayout gameScreen){
 		ctx=context;
 		
-		myLevel=0;
 		gameLayout= gameScreen;
 	} 
 	

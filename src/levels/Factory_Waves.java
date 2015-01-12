@@ -12,13 +12,13 @@ import enemies_non_shooters.Gravity_MeteorView;
 public class Factory_Waves extends Factory_Bosses{
 
     protected Handler spawnHandler;
-    protected boolean levelStopped;
+    protected boolean levelPaused;
     
 	public Factory_Waves(Context context,RelativeLayout gameScreen) {
 		super(context,gameScreen);
 		
 		spawnHandler = new Handler();
-		levelStopped=false;
+		levelPaused=false;
 	}
 
 	public void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
@@ -29,7 +29,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
 					Gravity_MeteorView  met= spawnMeteor();
 					final int width = +met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
@@ -65,7 +65,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					spawnMeteor();
 					
 					numSpawned++;
@@ -83,7 +83,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					spawnSidewaysMeteor();
 					
 					numSpawned++;
@@ -101,7 +101,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					spawnGiantMeteor();
 					
 					numSpawned++;
@@ -119,7 +119,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					for(int i=0;i<numShipsPerSpawn;i++){
 						spawnDiveBomber();
 					}
@@ -139,7 +139,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					spawnFullScreenDiagonalAttacker();
 					numSpawned++;
 					
@@ -152,7 +152,7 @@ public class Factory_Waves extends Factory_Bosses{
 	}
 
 	public void spawnAllMovingArrayShooters(){
-		if(!levelStopped){
+		if(!levelPaused){
 			int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
 			
 			for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
@@ -167,11 +167,11 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					spawnCircularOrbitingView();
 					numSpawned++;
 					
-					if(numSpawned<totalNumShips && !levelStopped){
+					if(numSpawned<totalNumShips && !levelPaused){
 						spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 					}
 				}
@@ -185,11 +185,11 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					spawnRectanglularOrbitingView();
 					numSpawned++;
 					
-					if(numSpawned<totalNumShips && !levelStopped){
+					if(numSpawned<totalNumShips && !levelPaused){
 						spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 					}
 				}
@@ -203,11 +203,11 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelStopped){
+				if(!levelPaused){
 					spawnTriangularOrbitingView();
 					numSpawned++;
 					
-					if(numSpawned<totalNumShips && !levelStopped){
+					if(numSpawned<totalNumShips && !levelPaused){
 						spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 					}
 				}

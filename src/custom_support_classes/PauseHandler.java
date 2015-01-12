@@ -1,4 +1,4 @@
-package custom_support_views;
+package custom_support_classes;
 import java.util.Vector;
 
 import android.os.Handler;
@@ -10,8 +10,9 @@ import android.os.Message;
  * Message Handler class that supports buffering up of messages when the
  * activity is paused i.e. in the background.
  */
-public abstract class PauseHandler extends Handler {
+public class PauseHandler extends Handler {
 
+	public static final String MESSAGE_NAME_DELAY="delay_time_in_milliseconds";
     /**
      * Message Queue Buffer
      */
@@ -51,17 +52,17 @@ public abstract class PauseHandler extends Handler {
      *            the message which optional can be handled
      * @return true if the message is to be stored
      */
-    protected abstract boolean storeMessage(Message message);
-
-    /**
-     * Notification message to be processed. This will either be directly from
-     * handleMessage or played back from a saved message when the activity was
-     * paused.
-     * 
-     * @param message
-     *            the message to be handled
-     */
-    protected abstract void processMessage(Message message);
+    protected boolean storeMessage(Message message){return true;}//default return true
+//
+//    /**
+//     * Notification message to be processed. This will either be directly from
+//     * handleMessage or played back from a saved message when the activity was
+//     * paused.
+//     * 
+//     * @param message
+//     *            the message to be handled
+//     */
+//    protected abstract void processMessage(Message message);
 
     /** {@inheritDoc} */
     @Override
@@ -73,7 +74,10 @@ public abstract class PauseHandler extends Handler {
                 messageQueueBuffer.add(msgCopy);
             }
         } else {
-            processMessage(msg);
+        	int delay = msg.getData().getInt(MESSAGE_NAME_DELAY);
+        	
+        	
+        	
         }
     }
 }

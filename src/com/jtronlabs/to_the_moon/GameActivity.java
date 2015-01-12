@@ -98,63 +98,53 @@ public class GameActivity extends Activity implements OnTouchListener{
 		//set up the game
 		levelFactory = new LevelSystem(this,gameLayout);
 		
-		//start the game
-		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
-		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
-		    @Override 
-		    public void onGlobalLayout() {
-		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-		    	levelFactory.nextLevel();
-		    } 
-		});
+//		//start the game
+//		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
+//		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
+//		    @Override 
+//		    public void onGlobalLayout() {
+//		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//		    	levelFactory.newGame();
+//		    } 
+//		});
 		
 	}
 	@Override
     public void onPause() {
         super.onPause();
-        
-        for(int i=0;i<enemies.size();i++){
-        	((Moving_ProjectileView)enemies.get(i)).removeCallbacks(null);
+
+        for(EnemyView enemy : enemies){
+        	enemy.removeCallbacks(null);
         }
-        protagonist.removeCallbacks(null);
-    	if(LevelSystem.isLevelStarted()){CollisionDetector.stopDetecting();}
+        for(FriendlyView friendly : friendlies){
+        	friendly.removeCallbacks(null);
+        }
+        for(BonusView bonus : bonuses){
+        	bonus.removeCallbacks(null);
+        }
+    	if(LevelSystem.hasLevelStarted()){CollisionDetector.stopDetecting();}
+    	levelFactory.pauseLevel();
     }
 	
 	@Override
 	public void onResume(){
 		super.onResume();
 		
-        for(int i=0;i<enemies.size();i++){
-        	enemies.get(i).restartThreads();
+        for(EnemyView enemy : enemies){
+        	enemy.restartThreads();
         }
-        protagonist.restartThreads();
+        for(FriendlyView friendly : friendlies){
+        	friendly.restartThreads();
+        }
+        for(BonusView bonus : bonuses){
+        	bonus.restartThreads();
+        }
+        if( LevelSystem.hasLevelStarted()==false && LevelSystem.getLevel()==0){levelFactory.newGame();}
+        else {levelFactory.resumeLevel();}
 	}
 	
-	/*
-	private void changeGameBackgroundImage(final int idToChangeTo){
-		Animation fade_out=AnimationUtils.loadAnimation(this,R.anim.fade_out);
-		final Animation fade_in = AnimationUtils.loadAnimation(this,R.anim.fade_in);
-		fade_out.setAnimationListener(new AnimationListener(){
-
-			@Override
-			public void onAnimationEnd(Animation arg0) {
-				gameWindowOverlay.setBackgroundResource(idToChangeTo);
-				gameWindowOverlay.startAnimation(fade_in);
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation arg0) {}
-
-			@Override
-			public void onAnimationStart(Animation arg0) {}
-			
-		});
-		gameWindowOverlay.startAnimation(fade_out);
-	} 
-	*/
-	
 	public static void gameOver(){
-		levelFactory.stopLevelSpawning();
+		levelFactory.pauseLevel();
 		healthBar.setProgress(0);
 		
 		//remove OnClickListeners
@@ -182,7 +172,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	private static void closeStoreAndStartNextLevel(){
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
-		levelFactory.nextLevel();
+		levelFactory.startNextLevel();
 	}
 
 	@Override
@@ -257,20 +247,20 @@ public class GameActivity extends Activity implements OnTouchListener{
 		try{
 			switch(whichUpgrade){
 			case UPGRADE_BULLET_DAMAGE:
-				cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * protagonist.getBulletDamageWeight() ;
+				cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletBulletFreqWeight()+1) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
 				break;
 			case UPGRADE_BULLET_SPEED:
-				cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * protagonist.getBulletBulletSpeedYWeight() ;
+				cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletBulletFreqWeight()+1) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
 				break;
 			case UPGRADE_BULLET_FREQ:
-				cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * protagonist.getBulletBulletFreqWeight() ;
+				cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * (protagonist.getBulletBulletFreqWeight()+1) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
 				break;
 			case UPGRADE_GUN:
 				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()] ;
-				msg=this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()];
+				msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()];
 				break;
 			case UPGRADE_FRIEND:
 				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
@@ -327,13 +317,13 @@ public class GameActivity extends Activity implements OnTouchListener{
 			if(upgraded){protagonist.incrementBulletFreqWeight();}
 			break;
 		case UPGRADE_GUN:
-//			if(upgraded){protagonist.incrementBulletFreqWeight();}			NEED TO DEFINE GUN UPGRADE
+			if(upgraded){protagonist.upgradeGun();}			//NEED TO DEFINE GUN UPGRADE
 			break;
 		case UPGRADE_FRIEND:
-//			if(upgraded){protagonist.incrementBulletFreqWeight();}		NO FRIEND CAPABILITY YET
+//			if(upgraded){protagonist.incrementBulletFreqWeight();}		//NO FRIEND CAPABILITY YET
 			break;
 		case UPGRADE_SCORE_MULTIPLIER:
-//			if(upgraded){protagonist.incrementBulletFreqWeight();}		NO SCORE MULT YET
+//			if(upgraded){protagonist.incrementBulletFreqWeight();}		//NO SCORE MULT YET
 			break;
 		case UPGRADE_HEAL:
 			if(upgraded){ protagonist.heal(protagonist.getMaxHealth() - protagonist.getHealth()); }

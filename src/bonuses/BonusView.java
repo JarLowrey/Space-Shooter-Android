@@ -1,7 +1,7 @@
 package bonuses;
 
-import parents.Moving_GravityView;
 import interfaces.Shooter;
+import parents.Moving_GravityView;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
@@ -52,7 +52,7 @@ public abstract class BonusView extends Moving_GravityView {
 		double rand = Math.random();
 		
 		if(rand<.5){
-			//give a different bonus
+			bonus = new Bonus_ScoreView(context,positionX,positionY);
 		}
 		
 		return bonus;

@@ -14,7 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import custom_support_views.DrawTextView;
+import custom_support_classes.DrawTextView;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
 
@@ -72,8 +72,9 @@ public class MainActivity extends Activity implements OnClickListener{
 //		ImageView imgView = (ImageView) findViewById(R.id.animating_image_view_main_menu);
 //	    animation = (AnimationDrawable) imgView.getBackground();
 //	    animation.start();
+		
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		Intent i;

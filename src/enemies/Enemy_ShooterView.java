@@ -92,13 +92,12 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		public ArrayList<Gun> getAllGuns() {
 			return myGuns;
 		}
-
+		
 		@Override
-		public void giveNewGun(Gun newGun) {
+		public void removeAllGuns() {
 			for(int i=myGuns.size()-1; i>=0;i--){
 				myGuns.remove(i);
 			}
-			myGuns.add(newGun);
 		}
 
 }
