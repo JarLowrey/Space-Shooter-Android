@@ -122,7 +122,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	public int getBulletDamageLevel(){
 		return bulletDamageLevel;
 	}
-	public int getBulletBulletSpeedYLevel(){
+	public int getBulletSpeedYLevel(){
 		return bullletVerticalSpeedLevel;
 	}
 	public int getBulletBulletFreqLevel(){

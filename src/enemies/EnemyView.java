@@ -28,20 +28,29 @@ public class EnemyView extends Projectile_GravityView{
 		GameActivity.enemies.add(this);
 	}
 	
+	
+	/**
+	 * Two cases when an enemy will be removed, fallen off side of screen or hase been killed
+	 * If has been killed, check to spawn a random BonusView and increment level score by this.score value
+	 * If has fallen off screen, increment level score by this.score/3. I did this to help at lower levels and to give a benefit for dodging
+	 */
 	@Override
 	public void removeGameObject(){
-
-		//spawn a random bonus
-		if(Math.random()<probSpawnBeneficialObject){
-			final float xAvg = (2 * this.getX()+this.getWidth())/2;
-			final float yAvg = (2 * this.getY()+this.getHeight())/2;
-			BonusView bene = BonusView.getRandomBonusView(this.getContext(),xAvg,yAvg);
-			ViewGroup parent = (ViewGroup)this.getParent();
-			if(parent!=null){parent.addView(bene,1);}
+		if(this.getHealth()<=0){//died
+			LevelSystem.incrementScore(this.getScoreForKilling());
+			
+			if(Math.random()<probSpawnBeneficialObject){//check for random bonus
+				final float xAvg = (2 * this.getX()+this.getWidth())/2;
+				final float yAvg = (2 * this.getY()+this.getHeight())/2;
+				BonusView bene = BonusView.getRandomBonusView(this.getContext(),xAvg,yAvg);
+				ViewGroup parent = (ViewGroup)this.getParent();
+				if(parent!=null){parent.addView(bene,1);}
+			}
+		}else {//fallen offscreen
+			LevelSystem.incrementScore(this.getScoreForKilling()/3);
 		}
 		
 		GameActivity.enemies.remove(this);
-		LevelSystem.incrementScore(this.getScoreForKilling()/3);
 
 		super.removeGameObject();
 	}

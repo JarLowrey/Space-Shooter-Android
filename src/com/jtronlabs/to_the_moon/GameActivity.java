@@ -230,9 +230,22 @@ public class GameActivity extends Activity implements OnTouchListener{
 					break;
 				case R.id.start_next_level:
 					if(LevelSystem.getLevel()==1 && protagonist.getGunLevel()==0){
-						Toast.makeText(getApplicationContext(),"Repair main blasters first!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
-						closeStoreAndStartNextLevel();
+							new AlertDialog.Builder(this)
+					    .setTitle("Continue")
+					    .setMessage("Venture out into the void")
+					    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) {
+					        	dialog.cancel();
+					        	closeStoreAndStartNextLevel();
+					        }
+					     })
+					    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
+					     })
+//					    .setIcon(android.R.drawable.ic_dialog_alert)
+					     .show();
 					}
 					break;
 			}
@@ -253,15 +266,15 @@ public class GameActivity extends Activity implements OnTouchListener{
 		try{
 			switch(whichUpgrade){
 			case UPGRADE_BULLET_DAMAGE:
-				cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletDamageLevel()+1) ;
+				cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
 				break;
 			case UPGRADE_BULLET_SPEED:
-				cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletBulletSpeedYLevel()+1) ;
+				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * Math.pow((protagonist.getBulletSpeedYLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
 				break;
 			case UPGRADE_BULLET_FREQ:
-				cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * (protagonist.getBulletBulletFreqLevel()+1) ;
+				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * Math.pow((protagonist.getBulletBulletFreqLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
 				break;
 			case UPGRADE_GUN:

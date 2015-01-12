@@ -16,6 +16,6 @@ public class Bonus_ScoreView extends BonusView implements GameObjectInterface{
 	}
 	
 	public void applyBenefit(Shooter theBenefitter){
-		LevelSystem.incrementScore(200);
+		LevelSystem.incrementScore(500);
 	}
 }
