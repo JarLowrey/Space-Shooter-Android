@@ -25,7 +25,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10,
-			DEFAULT_BULLET_FREQ_INTERVAL=3000;
+			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	
 
 	public static ArrayList<Shooting_ArrayMovingView> allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();

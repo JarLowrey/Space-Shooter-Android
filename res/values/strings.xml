@@ -23,7 +23,7 @@
     <string name="upgrade_bullet_damage">Increase collision damage of ammunition</string>
     <string name="upgrade_bullet_frequency">Increase gun\'s firing frequency</string>
     <string name="upgrade_heal">Fully repair craft</string>
-    <string name="upgrade_score_multiplier_create">Create drones to help gather space debris</string>
+    <string name="upgrade_score_multiplier_create">Create drones to help gather space debris. Increase rate of scrap retrieval.</string>
     <string name="upgrade_score_multiplier_improve">Improve drone\'s gathering capabilities</string>
     <string name="upgrade_buy_friend">Other ships were also sent on this mission. Unfortunately our homing beacon was destoyed on launch. Repair beacon and try to signal a ship.</string>
     

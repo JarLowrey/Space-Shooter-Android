@@ -333,7 +333,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		if(upgraded){
 			if(whichUpgrade==UPGRADE_GUN){btnShoot.setVisibility(View.VISIBLE);}//on first upgraded gun, set shoot to visible
 			LevelSystem.decrementScore(cost);
-			resourceCount.setText(""+LevelSystem.getScore());
+			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(LevelSystem.getScore()));
 		}else{
 			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 		}

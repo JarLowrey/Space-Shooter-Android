@@ -136,7 +136,6 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 			public void run() {
 				spawnSidewaysMeteors(( DEFAULT_WAVE_DURATION * levelThreeNumWaves )/1500 ,2000);//spawn for entire level
 				spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * levelThreeNumWaves )/800 ,800);//spawn for entire level
-				spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * levelThreeNumWaves )/1500 ,1500);//spawn for entire level
 			}
 		};
 		Runnable wave2 = new Runnable(){
@@ -166,13 +165,7 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 				spawnDiveBomberWaves(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
 			}
 		};
-		Runnable finalWaveOfLevel = new Runnable(){
-			@Override
-			public void run() {
-				spawnHorizontalOrbiters(3,1000);//spawn more than wave's length
-			}
-		};
-		final Runnable[] waves = {wave1,wave2,wave2,wave2,wave3,nothing,wave3,wave5,wave6,finalWaveOfLevel,levelOverRunnable};
+		final Runnable[] waves = {wave1,wave2,wave2,wave2,wave3,nothing,wave3,wave5,wave6,levelOverRunnable};
 
 
 

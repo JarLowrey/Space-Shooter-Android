@@ -25,7 +25,6 @@ public class CollisionDetector {
         @Override
         public void run() {
         	if( ! LevelSystem.isLevelCompleted() || GameActivity.enemies.size() !=0){
-        		if(LevelSystem.isLevelCompleted()){Log.d("lowrey","numEnemies="+GameActivity.enemies.size());}
 	        	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
 	        		FriendlyView friendly = GameActivity.friendlies.get(k);
 	        		boolean isProtagonist = GameActivity.friendlies.get(k) == GameActivity.protagonist;
@@ -37,13 +36,21 @@ public class CollisionDetector {
 		        		boolean enemyDies=false,friendlyDies=false;	        		
 		        		EnemyView enemy = GameActivity.enemies.get(i);
 		        		boolean enemyIsAShooter = enemy instanceof Shooter;
-	
+		        		
+		        		
 		        		//check enemy's bullets
 		        		if(enemyIsAShooter){
 			        		Shooter enemyShooter = (Shooter)enemy;
 			        		
 			        			ArrayList<BulletView> enemyBullets = enemyShooter.getMyBullets();
 			        			
+			        			if(enemyBullets.size()==0 && enemy.getHealth()<=0){enemy.removeGameObject();}//check if enemy is dead and all bullets are gone
+
+			        			
+			            		if(LevelSystem.isLevelCompleted()){Log.d("lowrey","numEnemies="+GameActivity.enemies.size()+
+			            				"bullets="+enemyBullets.size());}
+			            		
+			            		
 			        			for(int j=enemyBullets.size()-1;j>=0;j--){
 			        				BulletView bullet = enemyBullets.get(j);
 			        				if(friendly.collisionDetection(bullet)){//bullet collided with rocket
