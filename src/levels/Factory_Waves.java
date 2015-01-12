@@ -6,7 +6,6 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
-import enemies.Shooting_ArrayMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 
 /**
@@ -65,7 +64,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 
-	public void spawnStraightFallingMeteorsAtRandomXPositions(final int numMeteors, final int millisecondsBetweenEachMeteor){
+	public void spawnStraightFallingMeteorsAtRandomXPositionsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
@@ -83,7 +82,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 
-	public void spawnSidewaysMeteors(final int numMeteors, final int millisecondsBetweenEachMeteor){
+	public void spawnSidewaysMeteorsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
@@ -101,14 +100,14 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 	
-	public void spawnGiantSidewaysMeteors(final int numMeteors, final int millisecondsBetweenEachMeteor){
+	public void spawnGiantMeteorWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
 				if(!levelPaused){
-					spawnGiantMeteor();
+					spawnHandler.post(spawnGiantMeteor);
 					
 					numSpawned++;
 					if(numSpawned<numMeteors){
@@ -119,7 +118,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 		
-	public void spawnDiveBomberWaves(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public void spawnDiveBomberWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
@@ -155,17 +154,8 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 
-	public void spawnAllMovingArrayShooters(){
-		if(!levelPaused){
-			int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
-			
-			for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
-				spawnOneShooting_MovingArrayView();
-			}
-		}
-	}
 	
-	public void spawnCircularOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
@@ -183,7 +173,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 	
-	public void spawnRectangularOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public void spawnRectangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
@@ -201,7 +191,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 	
-	public void spawnTriangularOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public void spawnTriangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
@@ -219,7 +209,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 	
-	public void spawnHorizontalOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
