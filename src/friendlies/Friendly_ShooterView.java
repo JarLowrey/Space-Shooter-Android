@@ -183,6 +183,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	@Override
 	public void addGun(Gun newGun) {
 		myGuns.add(newGun);
+		//do not fire by default
 	}
 
 	@Override

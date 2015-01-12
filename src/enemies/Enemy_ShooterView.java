@@ -23,7 +23,6 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 
 			myGuns= new ArrayList<Gun>();
 			myBullets = new ArrayList<BulletView>();
-			this.startShooting();
 		}
 
 		/**
@@ -82,6 +81,8 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		@Override
 		public void addGun(Gun newGun) {
 			myGuns.add(newGun);
+			this.stopShooting();//reset shooting on adding a gun
+			this.startShooting();
 		}
 
 		@Override

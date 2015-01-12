@@ -4,7 +4,6 @@ import interfaces.Shooter;
 import levels.LevelSystem;
 import parents.MovingView;
 import android.os.Handler;
-import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -19,35 +18,17 @@ public class CollisionDetector {
         @Override
         public void run() {
         	if( ! LevelSystem.isLevelCompleted() || GameActivity.enemies.size() !=0){
+        		boolean enemyDies=false,friendlyDies=false;	
+        		//run collision detection on every friendly
 	        	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
 	        		FriendlyView friendly = GameActivity.friendlies.get(k);
 	        		boolean isProtagonist = GameActivity.friendlies.get(k) == GameActivity.protagonist;
-	        		
 	        		boolean friendlyIsAShooter = GameActivity.friendlies.get(k) instanceof Shooter;
-	        		
+
+		        	//check if enemy and friendly have collided
 		        	for(int i=GameActivity.enemies.size()-1;i>=0;i--){
-		        		Log.d("lowrey","numEnemies="+GameActivity.enemies.size());
-		        		
-		        		/*			COLLISION DETECTION			*/
-		        		boolean enemyDies=false,friendlyDies=false;	        		
 		        		EnemyView enemy = GameActivity.enemies.get(i);
 		        		
-		        		
-		        		//check enemies' bullets
-	        			for(int j=GameActivity.enemyBullets.size()-1;j>=0;j--){
-	        				BulletView bullet = GameActivity.enemyBullets.get(j);
-	        				if(friendly.collisionDetection(bullet)){//bullet collided with rocket
-	        					//rocket is damaged
-	                			friendlyDies = friendly.takeDamage(bullet.getDamage());
-	                			if(friendlyDies && isProtagonist){GameActivity.gameOver();return;}
-	                			else if(isProtagonist){GameActivity.setHealthBar();}
-	                			
-	                			
-	                			bullet.removeGameObject();
-	                		}
-	        			}
-		        		
-		    			//check if the enemy itself has collided with the  friendly
 		        		if(enemy.getHealth()>0 && friendly.collisionDetection(enemy)){
 		        			friendlyDies = friendly.takeDamage(enemy.getDamage());
 		        			if(friendlyDies && isProtagonist){GameActivity.gameOver();return;}
@@ -59,34 +40,9 @@ public class CollisionDetector {
 		        			}
 		        		}
 		        		
-		        		//check if friendly bullets have hit enemy
-		    			for(int j=GameActivity.friendlyBullets.size()-1;j>=0;j--){
-//		    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
-		    				BulletView bullet = GameActivity.friendlyBullets.get(j);
-		    				
-		    				if(bullet.collisionDetection(enemy)){//bullet collided with rocket
-		    					//enemy is damaged
-		            			enemyDies = enemy.takeDamage(bullet.getDamage());
-		            			if(enemyDies){
-		            				LevelSystem.incrementScore(enemy.getScoreForKilling());
-		            			}
-		            			
-		            			bullet.removeGameObject();
-//		            			/*
-//		            			 * only one bullet can hit a specific enemy at once. 
-//		            			 * If that enemy were to die, then checking to see if the other bullets hit 
-//		            			 * him wastes resources and may cause issues.
-//		            			 */
-//		            			stopCheckingIfFriendlysBulletsHitEnemy=true;
-		            		}
-//		    				if(stopCheckingIfFriendlysBulletsHitEnemy){
-//		            			break;
-//		    				}
-		    			}
 		        	}
-		        	//enemies loop is over
-		
-		        	//check for bonuses
+
+		        	//check if friendly has hit a bonus
 		        	if(friendlyIsAShooter){
 		        		Shooter friendlyShooter= (Shooter)GameActivity.friendlies.get(k);
 			        	for(int i=GameActivity.bonuses.size()-1;i>=0;i--){
@@ -105,7 +61,50 @@ public class CollisionDetector {
 			        		}
 			        	}
 		        	}
+		        
+	        		//check if enemy bullets have hit friendly
+	    			for(int j=GameActivity.enemyBullets.size()-1;j>=0;j--){
+	    				BulletView bullet = GameActivity.enemyBullets.get(j);
+	    				if(friendly.collisionDetection(bullet)){//bullet collided with rocket
+	    					//rocket is damaged
+	            			friendlyDies = friendly.takeDamage(bullet.getDamage());
+	            			if(friendlyDies && isProtagonist){GameActivity.gameOver();return;}
+	            			else if(isProtagonist){GameActivity.setHealthBar();}
+	            			
+	            			
+	            			bullet.removeGameObject();
+	            		}
+	    			}
 	        	}
+    			
+	        	//check if friendly bullets have hit enemy. This should not be done in the above loop over the friendlies, as it does not relate
+    			for(int j=GameActivity.friendlyBullets.size()-1;j>=0;j--){
+		        	for(int i=GameActivity.enemies.size()-1;i>=0;i--){
+		        		
+		        		EnemyView enemy = GameActivity.enemies.get(i);
+	    				BulletView bullet = GameActivity.friendlyBullets.get(j);
+	    				boolean stopCheckingIfFriendlysBulletsHitEnemy=false;
+	    				
+	    				if(bullet.collisionDetection(enemy)){
+	    					//enemy is damaged
+	            			enemyDies = enemy.takeDamage(bullet.getDamage());
+	            			if(enemyDies){
+	            				LevelSystem.incrementScore(enemy.getScoreForKilling());
+	            			}
+	            			
+	            			bullet.removeGameObject();
+	            			/*
+	            			 * only one bullet can hit a specific enemy at once. 
+	            			 * If that enemy were to die, then checking to see if the other bullets hit 
+	            			 * him wastes resources and would cause extra bullets to be removed from game
+	            			 */
+	            			stopCheckingIfFriendlysBulletsHitEnemy=true;
+	            		}
+	    				if(stopCheckingIfFriendlysBulletsHitEnemy){
+	            			break;
+	    				}
+		        	}
+    			}
 				/*			DO OTHER STUFF ?		*/
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
         	}else{

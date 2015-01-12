@@ -88,15 +88,18 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		//move in X direction at speed X, move right if speed X positive and left otherwise
 		case SIDEWAYS:
 			x+=speedX;
+			outOfScreen = x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth());
 			this.setX(x);
 			break;
 		//move Left or right on screen, use abs(speedX)
 		case LEFT:
 			x-=Math.abs(speedX);
+			outOfScreen = x < -this.getWidth();
 			this.setX(x);
 			break;
 		case RIGHT:
 			x+=Math.abs(speedX);
+			outOfScreen = x > (MainActivity.getWidthPixels() + this.getWidth());
 			this.setX(x);
 			break;
 		}
