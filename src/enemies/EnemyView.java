@@ -1,6 +1,5 @@
 package enemies;
 
-import interfaces.Shooter;
 import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.content.Context;

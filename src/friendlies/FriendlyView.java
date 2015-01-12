@@ -1,6 +1,5 @@
 package friendlies;
 
-import interfaces.Shooter;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.util.AttributeSet;

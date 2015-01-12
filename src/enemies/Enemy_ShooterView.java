@@ -6,11 +6,8 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.ViewGroup;
 import bullets.BulletView;
-
-import com.jtronlabs.to_the_moon.GameActivity;
 
 public class Enemy_ShooterView extends EnemyView implements Shooter{
 		
@@ -26,6 +23,7 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 
 			myGuns= new ArrayList<Gun>();
 			myBullets = new ArrayList<BulletView>();
+			this.startShooting();
 		}
 
 		/**

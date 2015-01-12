@@ -62,7 +62,7 @@ public class Factory_Enemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		enemy.startShooting();
+		
 		
 		gameLayout.addView(enemy,0);
 		
@@ -154,7 +154,7 @@ public class Factory_Enemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		enemy.startShooting();
+		
 		
 		gameLayout.addView(enemy,0);
 		
@@ -201,7 +201,7 @@ public class Factory_Enemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		enemy.startShooting();
+		
 		
 		gameLayout.addView(enemy,0);
 		
@@ -240,7 +240,7 @@ public class Factory_Enemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		enemy.startShooting();
+		
 		
 		gameLayout.addView(enemy,0);
 		
@@ -269,7 +269,7 @@ public class Factory_Enemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		enemy.startShooting();
+		
 		
 		gameLayout.addView(enemy,0);
 		

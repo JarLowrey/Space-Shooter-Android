@@ -249,15 +249,15 @@ public class GameActivity extends Activity implements OnTouchListener{
 		try{
 			switch(whichUpgrade){
 			case UPGRADE_BULLET_DAMAGE:
-				cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletBulletFreqWeight()+1) ;
+				cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletDamageLevel()+1) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
 				break;
 			case UPGRADE_BULLET_SPEED:
-				cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletBulletFreqWeight()+1) ;
+				cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * (protagonist.getBulletBulletSpeedYLevel()+1) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
 				break;
 			case UPGRADE_BULLET_FREQ:
-				cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * (protagonist.getBulletBulletFreqWeight()+1) ;
+				cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * (protagonist.getBulletBulletFreqLevel()+1) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
 				break;
 			case UPGRADE_GUN:
@@ -310,13 +310,13 @@ public class GameActivity extends Activity implements OnTouchListener{
 
 		switch(whichUpgrade){
 		case UPGRADE_BULLET_DAMAGE:
-			if(upgraded){ protagonist.incrementBulletDamageWeight(); }
+			if(upgraded){ protagonist.incrementBulletDamageLevel(); }
 			break;
 		case UPGRADE_BULLET_SPEED:
-			if(upgraded){protagonist.incrementBulletSpeedYWeight();}
+			if(upgraded){protagonist.incrementBulletSpeedYLevel();}
 			break;
 		case UPGRADE_BULLET_FREQ:
-			if(upgraded){protagonist.incrementBulletFreqWeight();}
+			if(upgraded){protagonist.incrementBulletFreqLevel();}
 			break;
 		case UPGRADE_GUN:
 			if(upgraded){protagonist.upgradeGun();}			//NEED TO DEFINE GUN UPGRADE
@@ -333,9 +333,10 @@ public class GameActivity extends Activity implements OnTouchListener{
 		}
 		
 		if(upgraded){
-			if(whichUpgrade==UPGRADE_GUN){btnShoot.setVisibility(View.VISIBLE);}//on first upgraded gun, set shoot to visible
+			if(whichUpgrade==UPGRADE_GUN){btnShoot.setVisibility(View.VISIBLE);}//on first upgraded gun, set shoot to visible. this can be removed later but currently applies on every upgrade
 			LevelSystem.decrementScore(cost);
 			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(LevelSystem.getScore()));
+			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();
 		}else{
 			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 		}

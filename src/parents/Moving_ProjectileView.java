@@ -4,12 +4,9 @@ import interfaces.CollidableObjectWithHealthDamageEtc;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
-
-import enemies_orbiters.Shooting_OrbiterView;
 
 /**
  * ImageView object to be placed on screen with gameplay properties such as health, score, speeds, and more
