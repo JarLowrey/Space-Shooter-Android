@@ -34,10 +34,10 @@
     <dimen name="boss1_height">80dp</dimen>
     
     <!-- BULLETS -->
-    <dimen name="laser_short_width">4dp</dimen>
-    <dimen name="laser_short_height">12dp</dimen>    
-    <dimen name="laser_long_width">3.2dp</dimen>
-    <dimen name="laser_long_height">25dp</dimen>
+    <dimen name="laser_short_width">5dp</dimen>
+    <dimen name="laser_short_height">12.5dp</dimen>    
+    <dimen name="laser_long_width">3.1dp</dimen>
+    <dimen name="laser_long_height">18dp</dimen>
     <dimen name="missile_one_width">10dp</dimen>
     <dimen name="missile_one_height">16.15dp</dimen>
     

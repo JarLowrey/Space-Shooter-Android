@@ -39,7 +39,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		 */
 		
 		
-		for(int i=currentProgressInLevel;i<level1.length;i++){
+		for(int i=currentProgressInLevel;i<levels[myLevel-1].length;i++){
 			spawnHandler.postDelayed(levels[myLevel-1][i], i * DEFAULT_WAVE_DURATION);
 		}
 		
