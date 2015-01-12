@@ -1,4 +1,4 @@
-package parents;
+package abstract_parents;
 
 import interfaces.CollidableObjectWithHealthDamageEtc;
 import android.content.Context;
@@ -13,7 +13,7 @@ import com.jtronlabs.to_the_moon.R;
  * @author JAMES LOWREY
  *
  */
-public class Moving_ProjectileView extends MovingView implements CollidableObjectWithHealthDamageEtc{
+public abstract class Moving_ProjectileView extends MovingView implements CollidableObjectWithHealthDamageEtc{
 
 	double speedX, damage, health,maxHealth;
 	

@@ -1,4 +1,4 @@
-package parents;
+package abstract_parents;
 
 import interfaces.Gravity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.util.AttributeSet;
  * @author JAMES LOWREY
  *
  */
-public class Projectile_GravityView extends Moving_ProjectileView implements Gravity{
+public abstract class Projectile_GravityView extends Moving_ProjectileView implements Gravity{
 
 	private int gravityThreshold;
 	private boolean atThreshold;

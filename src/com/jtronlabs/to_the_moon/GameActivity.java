@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import levels.LevelSystem;
-import parents.Moving_ProjectileView;
+import abstract_parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -115,16 +116,13 @@ public class GameActivity extends Activity implements OnTouchListener{
     public void onPause() {
         super.onPause();
 
-        for(EnemyView enemy : enemies){
-        	enemy.removeCallbacks(null);
-        }
-        for(FriendlyView friendly : friendlies){
-        	friendly.removeCallbacks(null);
-        }
-        for(BonusView bonus : bonuses){
-        	bonus.removeCallbacks(null);
-        }
-    	if(LevelSystem.hasLevelStarted()){CollisionDetector.stopDetecting();}
+		for(int i=enemies.size()-1;i>=0;i--){
+			enemies.get(i).removeGameObject();
+		}
+		for(int i=bonuses.size()-1;i>=0;i--){
+			bonuses.get(i).removeGameObject();
+		}
+    	if(LevelSystem.hasLevelStarted()){CollisionDetector.stopDetecting();}//check in case onPause is called before onCreate. Not sure of Activity lifecycle, need to check
     	levelFactory.pauseLevel();
     }
 	
@@ -132,20 +130,15 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public void onResume(){
 		super.onResume();
 		
-        for(EnemyView enemy : enemies){
-        	enemy.restartThreads();
-        }
         for(FriendlyView friendly : friendlies){
         	friendly.restartThreads();
-        }
-        for(BonusView bonus : bonuses){
-        	bonus.restartThreads();
         }
         if( LevelSystem.hasLevelStarted()==false && LevelSystem.getLevel()==0){levelFactory.newGame();}
         else {levelFactory.resumeLevel();}
 	}
 	
 	public static void gameOver(){
+		Log.d("lowrey","num enemies spawned="+EnemyView.numSpawn+" died="+EnemyView.numRemoved);
 		levelFactory.pauseLevel();
 		healthBar.setProgress(0);
 		
@@ -270,7 +263,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
 				break;
 			case UPGRADE_BULLET_SPEED:
-				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * Math.pow((protagonist.getBulletSpeedYLevel()+1),2)) ;
+				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_speed_base_cost) * Math.pow((protagonist.getBulletSpeedYLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
 				break;
 			case UPGRADE_BULLET_FREQ:
@@ -295,7 +288,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 				break;
 			}
 			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost with commas
-		}catch(IndexOutOfBoundsException e){
+		}catch(IndexOutOfBoundsException e){//upgrade is past set bounds of the arrays.xml value
 			msg="Maximum upgrade attained";
 			maxLevelItem=true;
 		}
@@ -323,7 +316,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 	
 	private void applyUpgrade(final int whichUpgrade,int cost){
 		boolean upgraded = LevelSystem.getScore() >= cost;
-		
 
 		switch(whichUpgrade){
 		case UPGRADE_BULLET_DAMAGE:

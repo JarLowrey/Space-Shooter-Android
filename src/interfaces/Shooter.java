@@ -16,7 +16,6 @@ public interface Shooter extends CollidableObjectWithHealthDamageEtc{
 	public void addGun(Gun newGun);
 	public ArrayList<Gun> getAllGuns();
 	
-	
 	public void startShooting();
 	
 	public void stopShooting();

@@ -1,7 +1,7 @@
 package bullets;
 
-import parents.MovingView;
 import interfaces.Shooter;
+import abstract_parents.MovingView;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;

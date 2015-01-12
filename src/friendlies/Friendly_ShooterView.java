@@ -16,7 +16,7 @@ import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 
-public class Friendly_ShooterView extends FriendlyView implements Shooter{
+public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
 	public final static int BULLET_DAMAGE_WEIGHT=3,
 			BULLET_SPEED_WEIGHT=2,
@@ -33,8 +33,8 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	Context ctx;
 	
 	//myGun needs to be set in a specific View's class
-	private ArrayList<Gun> myGuns;
-	private ArrayList<BulletView> myBullets;
+	protected ArrayList<Gun> myGuns;
+	protected ArrayList<BulletView> myBullets;
 	
 	private int bulletFreqLevel=0, 
 		bulletDamageLevel=0,
@@ -66,6 +66,14 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		this.removeCallbacks(null);
 	}
 	
+	@Override
+	public void removeGameObject(){
+		super.removeGameObject();
+		
+		stopShooting();
+		myBullets=new ArrayList<BulletView>();
+		myGuns=new ArrayList<Gun>();
+	}
 	/**
 	 * define the different levels of guns protagonist may have
 	 */
@@ -127,18 +135,6 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 	}
 	public int getBulletBulletFreqLevel(){
 		return bulletFreqLevel;
-	}
-	
-	
-	@Override
-	public void removeGameObject(){
-		super.removeGameObject();
-		
-		stopShooting();
-		
-		for(int i=myBullets.size()-1;i>=0;i--){
-			myBullets.remove(i);
-		}
 	}
 	
 	@Override

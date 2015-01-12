@@ -1,4 +1,4 @@
-package parents;
+package abstract_parents;
 
 import interfaces.GameObjectInterface;
 import android.content.Context;
@@ -15,7 +15,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
  * @author JAMES LOWREY
  *
  */
-public class MovingView extends ImageView implements GameObjectInterface{
+public abstract class MovingView extends ImageView implements GameObjectInterface{
 
 	public static final int HOW_OFTEN_TO_MOVE=100,
 			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
@@ -105,7 +105,7 @@ public class MovingView extends ImageView implements GameObjectInterface{
 		}
 		
 		if(outOfScreen){
-			removeGameObject();
+			this.removeGameObject();
 		}
 		
 		return outOfScreen;
@@ -132,15 +132,20 @@ public class MovingView extends ImageView implements GameObjectInterface{
 	public void restartThreads() {
 		//do nothing yet
 	}
+	
+	
+	
 
+	public abstract void removeGameObject();
+	
 	/**
-	 * Remove all threads posted to this View and mark as removed. Show an explosion if needed. Remove view from parent layour
+	 * Call this on every implementation of removeGameObject();
 	 */
-	@Override
-	public void removeGameObject() {
+	protected void deaultCleanupOnRemoval(){
 		isRemoved=true;
 		this.removeCallbacks(null);
 		ViewGroup parent = (ViewGroup)this.getParent();
-		if(parent!=null){parent.removeView(this);}
+		if(parent!=null){parent.removeView(this);}		
 	}
+	
 }

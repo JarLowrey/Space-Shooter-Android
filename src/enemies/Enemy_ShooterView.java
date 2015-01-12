@@ -9,7 +9,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 import bullets.BulletView;
 
-public class Enemy_ShooterView extends EnemyView implements Shooter{
+public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 		
 		//myGun needs to be set in a specific View's class
@@ -26,16 +26,15 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		}
 
 		/**
-		 * if a game object still has bullets on screen, it cannot be removed from the GameActivity list, as bullets would stop collision detection
+		 * To be called on implementation of onRemoveGameObject
+		 * NEW BEHAVIOR = drop references to guns and bullets
 		 */
-		@Override
-		public void removeGameObject(){
-			stopShooting();
-			
-			for(int i=myBullets.size()-1;i>=0;i--){
-				myBullets.remove(i);
-			}
+		protected void removeEnemyShooterGameObject(){
 			super.removeGameObject();
+			
+			stopShooting();			
+			myBullets=new ArrayList<BulletView>();
+			myGuns=new ArrayList<Gun>();			
 		}
 		
 		@Override

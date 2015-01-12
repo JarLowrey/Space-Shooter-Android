@@ -1,7 +1,7 @@
 package bonuses;
 
 import interfaces.Shooter;
-import parents.Moving_GravityView;
+import abstract_parents.Moving_GravityView;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
@@ -40,11 +40,11 @@ public abstract class BonusView extends Moving_GravityView {
 	
 	public abstract void applyBenefit(Shooter theBenefitter);
 	
-	public void removeView(boolean showExplosion){
-//		if(GameActivity.bonuses.contains(this)){
-			GameActivity.bonuses.remove(this);			
-//		}
-		super.removeGameObject();
+	@Override
+	public void removeGameObject(){
+		this.deaultCleanupOnRemoval();
+		
+		GameActivity.bonuses.remove(this);
 	}
 	
 	public static BonusView getRandomBonusView(Context context,float positionX,float positionY){

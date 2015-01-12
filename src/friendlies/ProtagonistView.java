@@ -3,7 +3,7 @@ package friendlies;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_StraightSingleShot;
-import parents.Moving_ProjectileView;
+import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.util.AttributeSet;
 import bullets.Bullet_Basic_LaserShort;
@@ -110,4 +110,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public void stopMoving(){
 		this.removeCallbacks(moveRunnable);
 	}
+
+	@Override
+	public void removeGameObject() {
+		//no additional cleanup currently needed
+		super.removeGameObject();
+	}
+	
 }

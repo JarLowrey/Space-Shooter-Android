@@ -1,8 +1,8 @@
 package bullets;
   
 import interfaces.Shooter;
-import parents.MovingView;
-import parents.Moving_ProjectileView;
+import abstract_parents.MovingView;
+import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -102,15 +102,17 @@ public class BulletView extends Moving_ProjectileView{
 	}
 	
 	/**
-	 * Remove bullet from Shooter's list of bullets. Check if Shooter is dead and all bullets are gone, if so remove Shooter from GameActivity.enemies. call super
+	 * Remove bullet from Shooter's list of bullets  and GameActivity's list
 	 */
 	public void removeGameObject(){
+		this.deaultCleanupOnRemoval();
+		
 		if(theOneWhoShotMe.isFriendly()){
 			GameActivity.friendlyBullets.remove(this);
 		}else{
 			GameActivity.enemyBullets.remove(this);			
 		}
-		super.removeGameObject();
+		theOneWhoShotMe.getMyBullets().remove(this);
 	}
 	
 

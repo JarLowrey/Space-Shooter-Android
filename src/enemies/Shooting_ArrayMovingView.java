@@ -2,8 +2,8 @@ package enemies;
 
 import java.util.ArrayList;
 
-import parents.Moving_ProjectileView;
 
+import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.os.Handler;
 import android.widget.RelativeLayout;
@@ -162,7 +162,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 				for(int j=temp.getMyBullets().size();j>=0;j--){
 					temp.getMyBullets().get(i).removeGameObject();
 				}
-				allSimpleShooters.get(i).removeGameObject();
+				temp.removeGameObject();
 			}
 			allSimpleShooters = new ArrayList<Shooting_ArrayMovingView>();
 //		}
