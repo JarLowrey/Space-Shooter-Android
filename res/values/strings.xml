@@ -19,8 +19,21 @@
     <color name="gray">#918383</color>
     <color name="dark_gray">#4D4D4D</color>
 
+    <string name="upgrade_bullet_speed">Increase firing speed of ammunition</string>
+    <string name="upgrade_bullet_damage">Increase collision damage of ammunition</string>
+    <string name="upgrade_bullet_frequency">Increase gun\'s firing frequency</string>
+    <string name="upgrade_heal">Fully repair craft</string>
+    <string name="upgrade_score_multiplier_create">Create drones to help gather space debris</string>
+    <string name="upgrade_score_multiplier_improve">Improve drone\'s gathering capabilities</string>
+    <string name="upgrade_buy_friend">Other ships were also sent on this mission. Unfortunately our homing beacon was destoyed on launch. Repair beacon and try to signal a ship.</string>
+    
+    
+    <string-array name="gun_descriptions">
+	    <item>The ship\'s main blaster was damaged on launch. It wouldn\'t take much to fix it up.</item>
+    </string-array>
+	
+	
     <string name="title_activity_game">GameActivity</string>
-    <string name="title_activity_asdasdamain">ASDASDAMainActivity</string>
+    <string name="title_activity">MainActivity</string>
     <string name="title_activity_intro">IntroActivity</string>
-
 </resources>

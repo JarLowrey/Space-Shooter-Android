@@ -3,7 +3,7 @@
     android:id="@+id/animating_main_menu_list"
     android:oneshot="false">
     
-
+<!-- 
     <item
         android:drawable="@drawable/stars_frame1"
         android:duration="500" />
@@ -16,5 +16,5 @@
     <item
         android:drawable="@drawable/stars_frame4"
         android:duration="500" />
-    
+    -->
 </animation-list>

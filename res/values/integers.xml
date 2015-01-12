@@ -4,7 +4,18 @@
     <integer name="inc_bullet_speed_base_cost">500</integer>
     <integer name="inc_bullet_damage_base_cost">500</integer>
     <integer name="inc_bullet_frequency_base_cost">500</integer>
+    <integer name="score_multiplier_base_cost">100000</integer>
     <integer name="friend_base_cost">500</integer>
+    
+    
+    <integer-array name="gun_upgrade_costs">
+        <item>2000</item>
+        <item>7000</item>
+        <item>22000</item>
+        <item>42000</item>
+        <item>92000</item>
+        <item>172000</item>
+    </integer-array>
     
 	<!-- gun costs can be found in friendly shooter's costToUpgradeGun function -->
 </resources>

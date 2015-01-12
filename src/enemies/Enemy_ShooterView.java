@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.ViewGroup;
-import bonuses.BonusView;
 import bullets.BulletView;
 
 import com.jtronlabs.to_the_moon.GameActivity;

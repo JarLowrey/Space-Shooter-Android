@@ -6,8 +6,9 @@ import levels.CollisionDetector;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -47,7 +48,10 @@ public class GameActivity extends Activity implements OnTouchListener{
 	//MODEL
 	private static LevelSystem levelFactory;
 	
-    
+
+	private static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
+			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -211,72 +215,136 @@ public class GameActivity extends Activity implements OnTouchListener{
 					protagonist.stopShooting();	
 					break;
 				case R.id.btn_heal:
-					final int healthCost = 	this.getResources().getInteger(R.integer.heal_base_cost) * LevelSystem.getLevel() ;
-					if(LevelSystem.getScore() < healthCost){
-						notEnoughMinerals();
-					}else{
-						LevelSystem.decrementScore(healthCost);
-						protagonist.heal(protagonist.getMaxHealth() - protagonist.getHealth());//heal to full health
-					}
+					confirmUpgradeDialog(UPGRADE_HEAL);
 					break;
 				case R.id.btn_inc_bullet_dmg:
-					final int bulletDmgCost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
-					if(LevelSystem.getScore() < bulletDmgCost){
-						notEnoughMinerals();
-					}else{
-						LevelSystem.decrementScore(bulletDmgCost);
-						protagonist.incrementBulletFreqWeight();
-					}
+					confirmUpgradeDialog(UPGRADE_BULLET_DAMAGE);					
 					break;
 				case R.id.btn_inc_bullet_freq:
-					final int bulletFreqCost = 	this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * LevelSystem.getLevel() ;
-					if(LevelSystem.getScore() < bulletFreqCost){
-						notEnoughMinerals();
-					}else{
-						LevelSystem.decrementScore(bulletFreqCost);
-						protagonist.incrementBulletDamageWeight();
-					}
+					confirmUpgradeDialog(UPGRADE_BULLET_FREQ);
 					break;
 				case R.id.btn_inc_bullet_speed:
-					final int bulletSpeedCost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
-					if(LevelSystem.getScore() < bulletSpeedCost){
-						notEnoughMinerals();
-					}else{
-						LevelSystem.decrementScore(bulletSpeedCost);
-						protagonist.incrementBulletSpeedYWeight();
-					}
+					confirmUpgradeDialog(UPGRADE_BULLET_SPEED);					
 					break;
 				case R.id.btn_inc_score_weight:
+					confirmUpgradeDialog(UPGRADE_SCORE_MULTIPLIER);
 					break;
 				case R.id.btn_new_gun:
-					final int gunCost = protagonist.costToUpgradeGun();
-					if(LevelSystem.getScore() < gunCost){
-						notEnoughMinerals();
-					}else{
-						LevelSystem.decrementScore(gunCost);
-						protagonist.upgradeGun();
-					}
+					confirmUpgradeDialog(UPGRADE_GUN);					
 					break;
 				case R.id.btn_purchase_friend:
+					confirmUpgradeDialog(UPGRADE_FRIEND);
 					break;
 				case R.id.start_next_level:
 					closeStoreAndStartNextLevel();
 					break;
 			}
 			break;
-		} 
-		resourceCount.setText(""+ LevelSystem.getScore());
+		}
 		return false;
-	}
-	
-	/**
-	 * inform user they do not have enough resources to purchase the requested item
-	 */
-	private void notEnoughMinerals(){
-		Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 	}
 	
 	public static void setHealthBar(){
 		healthBar.setProgress((int) protagonist.getHealth());
 	}
+	
+	private void confirmUpgradeDialog(final int whichUpgrade){
+		String msg="";
+		int cost=0;
+		boolean maxGunLevel=false;
+		
+		switch(whichUpgrade){
+		case UPGRADE_BULLET_DAMAGE:
+			cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
+			msg=this.getResources().getString(R.string.upgrade_bullet_damage);
+			break;
+		case UPGRADE_BULLET_SPEED:
+			cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
+			msg=this.getResources().getString(R.string.upgrade_bullet_speed);
+			break;
+		case UPGRADE_BULLET_FREQ:
+			cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * LevelSystem.getLevel() ;
+			msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
+			break;
+		case UPGRADE_GUN:
+			try{
+				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()] * LevelSystem.getLevel() ;
+				maxGunLevel=true;
+				msg=this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()];
+			}catch(Exception e){
+				msg="Maximum gun upgrade";
+				cost=Integer.MIN_VALUE;
+			}
+			break;
+		case UPGRADE_FRIEND:
+			cost = this.getResources().getInteger(R.integer.friend_base_cost) * LevelSystem.getLevel() ;
+			msg=this.getResources().getString(R.string.upgrade_buy_friend);
+			break;
+		case UPGRADE_SCORE_MULTIPLIER:
+			cost = this.getResources().getInteger(R.integer.score_multiplier_base_cost) * LevelSystem.getLevel() ;
+			msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
+			break;
+		case UPGRADE_HEAL:
+			cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * LevelSystem.getLevel() ;
+			msg=this.getResources().getString(R.string.upgrade_heal);
+			break;
+		}
+		if(cost!=Integer.MIN_VALUE){msg+="\n\n"+cost;}
+		final int costCopy=cost;
+		
+		new AlertDialog.Builder(this)
+	    .setTitle("Upgrade")
+	    .setMessage(msg)
+	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            applyUpgrade(whichUpgrade,costCopy);
+	        }
+	     })
+	    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	     .show();
+	}
+	
+	private void applyUpgrade(final int whichUpgrade,int cost){
+		boolean upgraded = LevelSystem.getScore() >= cost;;
+		boolean maxGunLevel=false;
+		
+
+		switch(whichUpgrade){
+		case UPGRADE_BULLET_DAMAGE:
+			if(upgraded){ protagonist.incrementBulletDamageWeight(); }
+			break;
+		case UPGRADE_BULLET_SPEED:
+			if(upgraded){protagonist.incrementBulletSpeedYWeight();}
+			break;
+		case UPGRADE_BULLET_FREQ:
+			if(upgraded){protagonist.incrementBulletFreqWeight();}
+			break;
+		case UPGRADE_GUN:
+//			if(upgraded){protagonist.incrementBulletFreqWeight();}			NEED TO DEFINE GUN UPGRADE
+			break;
+		case UPGRADE_FRIEND:
+//			if(upgraded){protagonist.incrementBulletFreqWeight();}		NO FRIEND CAPABILITY YET
+			break;
+		case UPGRADE_SCORE_MULTIPLIER:
+//			if(upgraded){protagonist.incrementBulletFreqWeight();}		NO SCORE MULT YET
+			break;
+		case UPGRADE_HEAL:
+			if(upgraded){ protagonist.heal(protagonist.getMaxHealth() - protagonist.getHealth()); }
+			break;
+		}
+		
+		if(upgraded){
+			LevelSystem.decrementScore(cost);
+			resourceCount.setText(""+LevelSystem.getScore());
+		}else{
+			if(maxGunLevel){
+				Toast.makeText(getApplicationContext(),"Maximum gun attained", Toast.LENGTH_SHORT).show();				
+			}else{
+				Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
+			}
+		}
+	}		
 }
