@@ -28,7 +28,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		}
 		switch(myLevel){
 		case 1:
-			startLevelFour(true);
+			startLevelOne(true);
 			break;
 		case 2:
 			startLevelTwo(true);

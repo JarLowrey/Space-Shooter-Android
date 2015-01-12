@@ -52,8 +52,6 @@ public class Moving_ProjectileView extends MovingView implements CollidableObjec
 		health-=amountOfDamage;
 		
 		if(health<=0){
-			Log.d("lowrey","ranOutOfHealth"+(this instanceof Shooting_OrbiterView));
-//			createExplosion();
 			removeGameObject();
 			dies = true;
 		}else{

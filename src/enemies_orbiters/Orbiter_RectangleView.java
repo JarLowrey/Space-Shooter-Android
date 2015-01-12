@@ -64,7 +64,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_rectangular_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;
@@ -89,7 +89,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_rectangular_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;

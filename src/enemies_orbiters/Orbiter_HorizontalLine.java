@@ -56,7 +56,7 @@ public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements Game
 		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_horizontal_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		 
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold(DEFAULT_ORBIT_LOCATION);
 		this.setX(MainActivity.getWidthPixels()/2);

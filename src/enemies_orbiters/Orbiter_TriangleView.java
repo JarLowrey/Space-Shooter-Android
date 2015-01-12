@@ -61,7 +61,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_triangular_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		 
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 		
 		currentSideOfTriangle=0; 
 		orbitDist=orbitLength;
@@ -84,7 +84,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_triangular_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 		
 		currentSideOfTriangle=0;
 		orbitDist=orbitLength;

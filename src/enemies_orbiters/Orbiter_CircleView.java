@@ -95,7 +95,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_circular_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 		
 		currentDegree=270;
 		radius=circleRadius*MainActivity.getScreenDens();
@@ -127,7 +127,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_circular_width);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
 		
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 		
 		currentDegree=270;
 		radius=circleRadius*MainActivity.getScreenDens();
