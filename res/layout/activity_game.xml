@@ -44,7 +44,6 @@
 				    android:id="@+id/btn_shoot"
 				    android:layout_width="@dimen/btn_small_width"
 				    android:layout_height="@dimen/btn_small_height"
-				    android:visibility="gone"
 					android:layout_centerInParent="true"
 				    android:background="@drawable/btn_green" />
 			

@@ -28,9 +28,7 @@ public class FriendlyView extends Moving_ProjectileView{
 	
 	@Override 
 	public void removeGameObject(){
-		if( ! (this instanceof Shooter)){
-			GameActivity.friendlies.remove(this);
-		}
+		GameActivity.friendlies.remove(this);	
 		super.removeGameObject();
 	}
 }

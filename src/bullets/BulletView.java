@@ -62,8 +62,14 @@ public class BulletView extends Moving_ProjectileView{
 		}
 		setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
 		
-		shooter.getMyBullets().add(this);
 		this.post(moveBulletRunnable);
+
+		if(theOneWhoShotMe.isFriendly()){
+			GameActivity.friendlyBullets.add(this);
+		}else{
+			GameActivity.enemyBullets.add(this);			
+		}
+		theOneWhoShotMe.getMyBullets().add(this);
 	}
 	
 	public void setBulletRotation(){	
@@ -99,11 +105,11 @@ public class BulletView extends Moving_ProjectileView{
 	 * Remove bullet from Shooter's list of bullets. Check if Shooter is dead and all bullets are gone, if so remove Shooter from GameActivity.enemies. call super
 	 */
 	public void removeGameObject(){
-		theOneWhoShotMe.getMyBullets().remove(this);
-		if(theOneWhoShotMe.isDead() && theOneWhoShotMe.getMyBullets().size()==0){
-			GameActivity.enemies.remove(theOneWhoShotMe);
+		if(theOneWhoShotMe.isFriendly()){
+			GameActivity.friendlyBullets.remove(this);
+		}else{
+			GameActivity.enemyBullets.remove(this);			
 		}
-		
 		super.removeGameObject();
 	}
 	

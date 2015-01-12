@@ -54,6 +54,8 @@ public class Factory_Bosses extends Factory_Enemies{
 		
 		enemy.setBackgroundResource(R.drawable.ship_enemy_boss1);
 		
+		enemy.heal(400);
+		
 		return enemy;
 	}
 }

@@ -226,7 +226,6 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 		final Runnable[] waves = {wave1,wave2,wave2,boss,wave6,finalWaveOfLevel,levelOverRunnable};
 
 
-
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
 		 * If handler has runnables canceled before level finishes, then current progress will not change.

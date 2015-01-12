@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import bonuses.BonusView;
+import bullets.BulletView;
 import enemies.EnemyView;
 import enemies.Shooting_ArrayMovingView;
 import friendlies.FriendlyView;
@@ -42,6 +41,9 @@ public class GameActivity extends Activity implements OnTouchListener{
 //	private RelativeLayout btnBackground;
 	private static RelativeLayout gameLayout,storeLayout;
 
+
+	public static ArrayList<BulletView> friendlyBullets=new ArrayList<BulletView>();
+	public static ArrayList<BulletView> enemyBullets=new ArrayList<BulletView>();
 	public static ArrayList<FriendlyView> friendlies=new ArrayList<FriendlyView>();
 	public static ArrayList<EnemyView> enemies=new ArrayList<EnemyView>();
 	public static ArrayList<BonusView> bonuses=new ArrayList<BonusView>();
@@ -166,7 +168,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static void openStore(){
 		storeLayout.setVisibility(View.VISIBLE);
 		gameLayout.setVisibility(View.GONE);
-		resourceCount.setText(LevelSystem.getScore()+"");
+		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(LevelSystem.getScore()));
 	}
 	
 	private static void closeStoreAndStartNextLevel(){

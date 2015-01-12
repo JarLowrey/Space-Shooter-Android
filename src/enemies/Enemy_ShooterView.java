@@ -6,6 +6,7 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ViewGroup;
 import bullets.BulletView;
 
@@ -17,7 +18,7 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		//myGun needs to be set in a specific View's class
 		private ArrayList<Gun> myGuns;
 		private ArrayList<BulletView> myBullets;
-
+		
 		public Enemy_ShooterView(Context context,int scoreForKilling, double projectileSpeedY,double projectileSpeedX, 
 				double projectileDamage,double projectileHealth,double probSpawnBeneficialObject) {
 			super(context,scoreForKilling,projectileSpeedY,projectileSpeedX,
@@ -33,8 +34,9 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		@Override
 		public void removeGameObject(){
 			stopShooting();
-			if(this.getMyBullets().size()==0){
-				GameActivity.enemies.remove(this);
+			
+			for(int i=myBullets.size()-1;i>=0;i--){
+				myBullets.remove(i);
 			}
 			super.removeGameObject();
 		}
@@ -43,10 +45,6 @@ public class Enemy_ShooterView extends EnemyView implements Shooter{
 		public void restartThreads(){
 			startShooting();
 			super.restartThreads();
-		}
-		@Override
-		public void setMyBullets(ArrayList<BulletView> bullets) {
-			myBullets=bullets;
 		}
 
 		@Override

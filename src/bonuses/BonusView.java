@@ -10,7 +10,7 @@ import com.jtronlabs.to_the_moon.R;
 
 public abstract class BonusView extends Moving_GravityView {
 
-	public final static float DEFAULT_SPEED_Y=3;
+	public final static int DEFAULT_SPEED_Y=4;
 	Context ctx;
 	
 	

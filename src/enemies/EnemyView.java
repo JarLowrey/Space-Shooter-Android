@@ -41,10 +41,8 @@ public class EnemyView extends Projectile_GravityView{
 			if(parent!=null){parent.addView(bene,1);}
 		}
 		
-		if( ! (this instanceof Shooter)){
-			GameActivity.enemies.remove(this);
-			if(this.getHealth()>0){LevelSystem.incrementScore(this.getScoreForKilling()/3);}
-		}
+		GameActivity.enemies.remove(this);
+		LevelSystem.incrementScore(this.getScoreForKilling()/3);
 
 		super.removeGameObject();
 	}

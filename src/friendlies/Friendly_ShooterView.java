@@ -137,8 +137,9 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		super.removeGameObject();
 		
 		stopShooting();
-		if(this.getMyBullets().size()==0){
-			GameActivity.friendlies.remove(this);			
+		
+		for(int i=myBullets.size()-1;i>=0;i--){
+			myBullets.remove(i);
 		}
 	}
 	
@@ -147,11 +148,6 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		startShooting();
 		super.restartThreads();
 	}
-	@Override
-	public void setMyBullets(ArrayList<BulletView> bullets) {
-		myBullets=bullets;
-	}
-
 	@Override
 	public ArrayList<BulletView> getMyBullets() {
 		return myBullets;

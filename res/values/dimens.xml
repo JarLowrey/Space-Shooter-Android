@@ -38,8 +38,8 @@
     <dimen name="laser_short_height">12dp</dimen>    
     <dimen name="laser_long_width">3.2dp</dimen>
     <dimen name="laser_long_height">25dp</dimen>
-    <dimen name="missile_one_width">20dp</dimen>
-    <dimen name="missile_one_height">32.3dp</dimen>
+    <dimen name="missile_one_width">10dp</dimen>
+    <dimen name="missile_one_height">16.15dp</dimen>
     
     
     <!-- Default screen margins, per the Android Design guidelines. -->

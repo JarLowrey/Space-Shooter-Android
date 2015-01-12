@@ -27,7 +27,4 @@ public interface Shooter extends CollidableObjectWithHealthDamageEtc{
 
 	//GET METHODS
 	public ArrayList<BulletView> getMyBullets();
-	
-	//SET METHODS
-	public void setMyBullets(ArrayList<BulletView> bullets);
 }

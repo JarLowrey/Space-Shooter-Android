@@ -20,7 +20,7 @@
     <color name="dark_gray">#4D4D4D</color>
 
     <string name="upgrade_bullet_speed">Increase speed of ammunition</string>
-    <string name="upgrade_bullet_damage">Increase collision damage of ammunition</string>
+    <string name="upgrade_bullet_damage">Increase bulet damage</string>
     <string name="upgrade_bullet_frequency">Increase gun\'s firing frequency</string>
     <string name="upgrade_heal">Fully repair craft</string>
     <string name="upgrade_score_multiplier_create">Create drones to help gather space debris. Increase rate of scrap retrieval.</string>
