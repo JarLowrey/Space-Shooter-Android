@@ -9,18 +9,18 @@ import com.jtronlabs.to_the_moon.R;
 public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingView{
 	
 
-	public static final int DEFAULT_DIVE_BOMBER_SCORE=15,
+	public static final int DEFAULT_SCORE=15,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_dive_bomber,
-			DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL=1250;
+			DEFAULT_BULLET_FREQ_INTERVAL=1250;
 	
-	public final static double DEFAULT_DIVE_BOMBER_SPEED_Y=1.8,
-			DEFAULT_DIVE_BOMBER_SPEED_X=3,
-			DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE=20, 
-			DEFAULT_DIVE_BOMBER_HEALTH=60,
-			DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
+	public final static double DEFAULT_SPEED_Y=1.8,
+			DEFAULT_SPEED_X=3,
+			DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_HEALTH=60,
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
 	
-	public final static double DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y=10,
-			DEFAULT_DIVE_BOMBER_BULLET_DAMAGE=10;
+	public final static double DEFAULT_BULLET_SPEED_Y=10,
+			DEFAULT_BULLET_DAMAGE=10;
 	
 	
 	private final static int NUM_DIVE_BOMBER_COLUMNS=6;

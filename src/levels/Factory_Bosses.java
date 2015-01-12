@@ -1,12 +1,18 @@
 package levels;
 
+import android.content.Context;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
+import bullets.Bullet_Basic_LaserShort;
+import bullets.Bullet_Basic_Missile;
+
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies_non_shooters.Gravity_MeteorView;
-import android.content.Context;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
+import enemies_orbiters.Orbiter_HorizontalLine;
+import guns.Gun_StraightDualShot;
+import guns.Gun_StraightSingleShot;
 
 /**
  * Create a default enemy using EnemyFactory class, then overwrite position, speed, damage size, background, guns, bullets, etc To make a boss
@@ -35,5 +41,19 @@ public class Factory_Bosses extends Factory_Enemies{
 		giant.setScoreValue(100);
 		
 		return giant;
+	}
+	
+	protected Orbiter_HorizontalLine spawnBigBossOne(){
+		Orbiter_HorizontalLine enemy = spawnHorizontalLineOrbiter();
+		
+		enemy.removeAllGuns();
+		enemy.addGun(new Gun_StraightDualShot(ctx, enemy, new Bullet_Basic_LaserShort(),
+				2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE*1.4));
+		enemy.addGun(new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_Missile(),
+				2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE*2));
+		
+		enemy.setBackgroundResource(R.drawable.ship_enemy_boss1);
+		
+		return enemy;
 	}
 }

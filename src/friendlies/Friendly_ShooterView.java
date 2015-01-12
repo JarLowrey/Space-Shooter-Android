@@ -28,14 +28,14 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 			DEFAULT_BULLET_SPEED_Y=30,
 			DEFAULT_BULLET_DAMAGE=10, 
 			DEFAULT_BULLET_FREQ=500;
-	
-	boolean legalToShootAgain=true;
-	Runnable gunsCooldown = new Runnable(){
-		@Override
-		public void run() {
-			
-		}
-	};
+//	
+//	boolean legalToShootAgain=true;
+//	Runnable gunsCooldown = new Runnable(){
+//		@Override
+//		public void run() {
+//			
+//		}
+//	};
 	
 	Context ctx;
 	
@@ -66,6 +66,7 @@ public class Friendly_ShooterView extends FriendlyView implements Shooter{
 		super(context, at,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth);
 		
+		ctx=context;
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
 		

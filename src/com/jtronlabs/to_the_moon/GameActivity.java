@@ -331,6 +331,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		}
 		
 		if(upgraded){
+			if(whichUpgrade==UPGRADE_GUN){btnShoot.setVisibility(View.VISIBLE);}//on first upgraded gun, set shoot to visible
 			LevelSystem.decrementScore(cost);
 			resourceCount.setText(""+LevelSystem.getScore());
 		}else{

@@ -36,6 +36,9 @@ public class LevelSystem extends Factory_LevelsScripted{
 		case 3:
 			startLevelThree(true);
 			break;
+		case 4:
+			startLevelFour(true);
+			break;
 		}
 		CollisionDetector.startDetecting();
 		return false;
@@ -52,7 +55,11 @@ public class LevelSystem extends Factory_LevelsScripted{
 		case 3:
 			startLevelThree(false);
 			break;
+		case 4:
+			startLevelFour(false);
+			break;
 		}
+		CollisionDetector.startDetecting();
 	}
 	
 	public static void incrementScore(int score){

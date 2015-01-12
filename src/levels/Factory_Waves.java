@@ -9,6 +9,12 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import enemies.Shooting_ArrayMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 
+/**
+ * spawn a number of a given enemy over a duration of time
+ * @author JAMES LOWREY
+ *
+ */
+
 public class Factory_Waves extends Factory_Bosses{
 
     protected Handler spawnHandler;
@@ -113,17 +119,15 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 		
-	public void spawnDiveBomberWaves(final int totalNumShips, final int millisecondsBetweenEachSpawn, final int numShipsPerSpawn){
+	public void spawnDiveBomberWaves(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		spawnHandler.post(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
 				if(!levelPaused){
-					for(int i=0;i<numShipsPerSpawn;i++){
-						spawnDiveBomber();
-					}
-					numSpawned+=numShipsPerSpawn;
+					spawnDiveBomber();
+					numSpawned++;
 					
 					if(numSpawned<totalNumShips){
 						spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
@@ -215,7 +219,23 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 	
-	
+	public void spawnHorizontalOrbiters(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+		spawnHandler.post(new Runnable(){
+			private int numSpawned=0;
+			
+			@Override
+			public void run() {
+				if(!levelPaused){
+					spawnHorizontalLineOrbiter();
+					numSpawned++;
+					
+					if(numSpawned<totalNumShips && !levelPaused){
+						spawnHandler.postDelayed(this,millisecondsBetweenEachSpawn);
+					}
+				}
+			}
+		});
+	}
 	
 	
 	

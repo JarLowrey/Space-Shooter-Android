@@ -12,10 +12,12 @@ import enemies.Shooting_Diagonal_DiveBomberView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
+import enemies_orbiters.Orbiter_HorizontalLine;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_orbiters.Shooting_OrbiterView;
 import guns.Gun;
+import guns.Gun_StraightDualShot;
 import guns.Gun_StraightSingleShot;
 
 /**
@@ -69,16 +71,16 @@ public class Factory_Enemies{
 	}
 
 	protected Shooting_Diagonal_DiveBomberView spawnDiveBomber(){
-		final int score=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SCORE;
-		final double speedY=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SPEED_Y,
-				speedX=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SPEED_X, 
-				collisionDamage=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_COLLISION_DAMAGE,
-				health=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_HEALTH,
-				spawnBeneficialObject= Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
-				bulletDmg=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_DAMAGE,
-				bulletSpdY=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_SPEED_Y,
-				bulletFreq=Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL+
-				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Shooting_Diagonal_DiveBomberView.DEFAULT_DIVE_BOMBER_BULLET_FREQ_INTERVAL);
+		final int score=Shooting_Diagonal_DiveBomberView.DEFAULT_SCORE;
+		final double speedY=Shooting_Diagonal_DiveBomberView.DEFAULT_SPEED_Y,
+				speedX=Shooting_Diagonal_DiveBomberView.DEFAULT_SPEED_X, 
+				collisionDamage=Shooting_Diagonal_DiveBomberView.DEFAULT_COLLISION_DAMAGE,
+				health=Shooting_Diagonal_DiveBomberView.DEFAULT_HEALTH,
+				spawnBeneficialObject= Shooting_Diagonal_DiveBomberView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+				bulletDmg=Shooting_Diagonal_DiveBomberView.DEFAULT_BULLET_DAMAGE,
+				bulletSpdY=Shooting_Diagonal_DiveBomberView.DEFAULT_BULLET_SPEED_Y,
+				bulletFreq=Shooting_Diagonal_DiveBomberView.DEFAULT_BULLET_FREQ_INTERVAL+
+				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Shooting_Diagonal_DiveBomberView.DEFAULT_BULLET_FREQ_INTERVAL);
 		
 		Shooting_Diagonal_DiveBomberView enemy =  new Shooting_Diagonal_DiveBomberView(ctx,score,speedY,speedX,
 				collisionDamage,health,spawnBeneficialObject);
@@ -92,7 +94,33 @@ public class Factory_Enemies{
 		
 		return enemy;
 	}
+	
+	//HORIZONTAL ORBITER
+	protected Orbiter_HorizontalLine spawnHorizontalLineOrbiter(){
+		final int score=Orbiter_HorizontalLine.DEFAULT_SCORE;
+		final double speedY=Orbiter_HorizontalLine.DEFAULT_SPEED_Y,
+				speedX=Orbiter_HorizontalLine.DEFAULT_SPEED_X, 
+				collisionDamage=Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE,
+				health=Orbiter_HorizontalLine.DEFAULT_HEALTH,
+				spawnBeneficialObject= Orbiter_HorizontalLine.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+				bulletDmg=Orbiter_HorizontalLine.DEFAULT_BULLET_DAMAGE,
+				bulletSpdY=Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y,
+				bulletFreq=Orbiter_HorizontalLine.DEFAULT_BULLET_FREQ_INTERVAL+
+				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Orbiter_HorizontalLine.DEFAULT_BULLET_FREQ_INTERVAL);
+		
+		Orbiter_HorizontalLine enemy =  new Orbiter_HorizontalLine(ctx,score,speedY,speedX,
+				collisionDamage,health,spawnBeneficialObject);
 
+
+		Gun defaultGun = new Gun_StraightDualShot(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg);
+		enemy.addGun(defaultGun);
+		
+		gameLayout.addView(enemy,0);
+		
+		return enemy;
+	}
+	
 	//CIRCLE ORBITERS
 	/**
 	 * use default radius, angular velocity. Pass in pixel x,y desired to orbit

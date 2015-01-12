@@ -7,7 +7,7 @@ import enemies.Enemy_ShooterView;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
-	public final static int DEFAULT_SCORE=10,
+	public final static int DEFAULT_SCORE=100,
 			DEFAULT_BULLET_FREQ_INTERVAL=1000;
 	public final static double DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,
