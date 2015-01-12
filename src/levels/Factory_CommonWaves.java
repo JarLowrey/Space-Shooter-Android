@@ -1,8 +1,8 @@
 package levels;
 
-import enemies.Shooting_ArrayMovingView;
 import android.content.Context;
 import android.widget.RelativeLayout;
+import enemies.Shooting_ArrayMovingView;
 
 public class Factory_CommonWaves extends Factory_Waves{
 
@@ -49,10 +49,10 @@ public class Factory_CommonWaves extends Factory_Waves{
 	};	
 	
 	//meteor showers
-	Runnable meteorShowerLong = new Runnable(){//lasts 3 waves
+	Runnable meteorShowerLong = new Runnable(){//lasts 2 waves
 		@Override
 		public void run() {
-			spawnMeteorShower( (DEFAULT_WAVE_DURATION *3 )/1500,1500,true);
+			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
 		}
 	};
 	Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
