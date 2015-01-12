@@ -1,8 +1,9 @@
 package com.jtronlabs.to_the_moon;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-import levels.CollisionDetector;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
 import android.app.Activity;
@@ -251,65 +252,68 @@ public class GameActivity extends Activity implements OnTouchListener{
 	private void confirmUpgradeDialog(final int whichUpgrade){
 		String msg="";
 		int cost=0;
-		boolean maxGunLevel=false;
+		boolean maxLevelItem=false;
 		
-		switch(whichUpgrade){
-		case UPGRADE_BULLET_DAMAGE:
-			cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
-			msg=this.getResources().getString(R.string.upgrade_bullet_damage);
-			break;
-		case UPGRADE_BULLET_SPEED:
-			cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * LevelSystem.getLevel() ;
-			msg=this.getResources().getString(R.string.upgrade_bullet_speed);
-			break;
-		case UPGRADE_BULLET_FREQ:
-			cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * LevelSystem.getLevel() ;
-			msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
-			break;
-		case UPGRADE_GUN:
-			try{
-				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()] * LevelSystem.getLevel() ;
-				maxGunLevel=true;
+		try{
+			switch(whichUpgrade){
+			case UPGRADE_BULLET_DAMAGE:
+				cost = 	this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * protagonist.getBulletDamageWeight() ;
+				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
+				break;
+			case UPGRADE_BULLET_SPEED:
+				cost = this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * protagonist.getBulletBulletSpeedYWeight() ;
+				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
+				break;
+			case UPGRADE_BULLET_FREQ:
+				cost = this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * protagonist.getBulletBulletFreqWeight() ;
+				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
+				break;
+			case UPGRADE_GUN:
+				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()] ;
 				msg=this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()];
-			}catch(Exception e){
-				msg="Maximum gun upgrade";
-				cost=Integer.MIN_VALUE;
+				break;
+			case UPGRADE_FRIEND:
+				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
+				msg=this.getResources().getString(R.string.upgrade_buy_friend);
+				break;
+			case UPGRADE_SCORE_MULTIPLIER:
+				cost = this.getResources().getInteger(R.integer.score_multiplier_base_cost) ;
+				msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
+				break;
+			case UPGRADE_HEAL:
+				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * LevelSystem.getLevel() ;
+				msg=this.getResources().getString(R.string.upgrade_heal);
+				break;
 			}
-			break;
-		case UPGRADE_FRIEND:
-			cost = this.getResources().getInteger(R.integer.friend_base_cost) * LevelSystem.getLevel() ;
-			msg=this.getResources().getString(R.string.upgrade_buy_friend);
-			break;
-		case UPGRADE_SCORE_MULTIPLIER:
-			cost = this.getResources().getInteger(R.integer.score_multiplier_base_cost) * LevelSystem.getLevel() ;
-			msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
-			break;
-		case UPGRADE_HEAL:
-			cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * LevelSystem.getLevel() ;
-			msg=this.getResources().getString(R.string.upgrade_heal);
-			break;
+			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost with commas
+		}catch(IndexOutOfBoundsException e){
+			msg="Maximum upgrade attained";
+			maxLevelItem=true;
 		}
-		if(cost!=Integer.MIN_VALUE){msg+="\n\n"+cost;}
 		final int costCopy=cost;
+		final boolean maxLevelItemCopy = maxLevelItem;
 		
 		new AlertDialog.Builder(this)
 	    .setTitle("Upgrade")
 	    .setMessage(msg)
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
-	            applyUpgrade(whichUpgrade,costCopy);
+	        	if(!maxLevelItemCopy){ 
+	        		applyUpgrade(whichUpgrade,costCopy); 
+        		}else{
+        			dialog.cancel();
+        		}
 	        }
 	     })
 	    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 	     })
-	    .setIcon(android.R.drawable.ic_dialog_alert)
+//	    .setIcon(android.R.drawable.ic_dialog_alert)
 	     .show();
 	}
 	
 	private void applyUpgrade(final int whichUpgrade,int cost){
-		boolean upgraded = LevelSystem.getScore() >= cost;;
-		boolean maxGunLevel=false;
+		boolean upgraded = LevelSystem.getScore() >= cost;
 		
 
 		switch(whichUpgrade){
@@ -340,11 +344,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 			LevelSystem.decrementScore(cost);
 			resourceCount.setText(""+LevelSystem.getScore());
 		}else{
-			if(maxGunLevel){
-				Toast.makeText(getApplicationContext(),"Maximum gun attained", Toast.LENGTH_SHORT).show();				
-			}else{
-				Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
-			}
+			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 		}
 	}		
+
 }

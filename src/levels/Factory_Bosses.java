@@ -8,6 +8,11 @@ import android.content.Context;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
+/**
+ * Create a default enemy using EnemyFactory class, then overwrite position, speed, damage size, background, guns, bullets, etc To make a boss
+ * @author JAMES LOWREY
+ *
+ */
 public class Factory_Bosses extends Factory_Enemies{
 	
 	public Factory_Bosses(Context context,RelativeLayout gameScreen){

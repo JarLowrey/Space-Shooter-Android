@@ -1,8 +1,10 @@
-package levels;
+package com.jtronlabs.to_the_moon;
 
 import interfaces.Shooter;
 
 import java.util.ArrayList;
+
+import levels.LevelSystem;
 
 import parents.MovingView;
 import android.os.Handler;
@@ -10,7 +12,6 @@ import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 
 import enemies.EnemyView;
 import friendlies.FriendlyView;

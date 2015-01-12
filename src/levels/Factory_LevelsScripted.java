@@ -3,12 +3,19 @@ package levels;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-public class Factory_ScriptedLevels extends Factory_Waves{
+public class Factory_LevelsScripted extends Factory_Waves{
   
+	public static int DEFAULT_WAVE_DURATION=5000;
+	
 	protected static boolean levelCompleted,levelStarted;
 	protected int currentProgressInLevel;
 	
-	public Factory_ScriptedLevels(Context context,RelativeLayout gameScreen){
+	private final Runnable levelOverRunnable = new Runnable(){
+		@Override
+		public void run() {	levelOver(); }
+	};
+	
+	public Factory_LevelsScripted(Context context,RelativeLayout gameScreen){
 		super( context, gameScreen);
 		levelCompleted = false;
 		levelStopped=false;
@@ -56,8 +63,8 @@ public class Factory_ScriptedLevels extends Factory_Waves{
 								if(!levelStopped){spawnHandler.postDelayed(new Runnable(){
 									@Override
 									public void run() {
-										spawnGiantSidewaysMeteors(20, 2000);
-										spawnSidewaysMeteors(40,1000);
+										spawnMeteorShower(4,500,true);
+										spawnMeteorShower(4,500,false);
 										final long wave5Duration = 20*2000;
 										currentProgressInLevel++;
 
@@ -86,6 +93,53 @@ public class Factory_ScriptedLevels extends Factory_Waves{
 			}
 		}, wave1Duration);}
 		
+	}
+	public void startLevel(){
+		final int numWaves=5;
+		Runnable wave1 = new Runnable(){
+			@Override
+			public void run() {
+				if(!levelStopped){
+					spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+					spawnSidewaysMeteors(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+					spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * numWaves )/800 ,800);//spawn for entire level
+					spawnStraightFallingMeteorsAtRandomXPositions( ( DEFAULT_WAVE_DURATION * numWaves )/1500 ,1500);//spawn for entire level
+				}
+			}
+		};
+		Runnable wave2 = new Runnable(){
+			@Override
+			public void run() {
+				spawnMeteorShower(5,DEFAULT_WAVE_DURATION/5,true);//spawn for entire wave
+				spawnMeteorShower(5,DEFAULT_WAVE_DURATION/5,false);//spawn for entire wave
+			}
+		};
+		Runnable wave3 = new Runnable(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		Runnable wave4 = new Runnable(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		Runnable wave5 = new Runnable(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		final Runnable[] waves = {wave1,wave2,wave3,wave4,wave5,levelOverRunnable};
+		
+		for(int i=0;i<waves.length;i++){
+			spawnHandler.postDelayed(waves[i],i * DEFAULT_WAVE_DURATION);
+		}
 	}
 	
 	protected void startLevelTwo(){

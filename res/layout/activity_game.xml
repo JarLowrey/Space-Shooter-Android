@@ -91,7 +91,7 @@
     <RelativeLayout
         android:id="@+id/store_layout"
         android:layout_width="match_parent"
-        android:background="@color/blue"
+        android:background="@drawable/space1_0"
         android:layout_height="match_parent"
         android:visibility="gone">
         

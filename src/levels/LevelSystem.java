@@ -1,9 +1,11 @@
 package levels;
 
+import com.jtronlabs.to_the_moon.CollisionDetector;
+
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-public class LevelSystem extends Factory_ScriptedLevels{
+public class LevelSystem extends Factory_LevelsScripted{
 
 	public static final int MAX_NUMBER_LEVELS=5;
 	private static int myScore;
