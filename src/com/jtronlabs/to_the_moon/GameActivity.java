@@ -4,9 +4,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import support.CollisionDetector;
-
-
+import levels.CollisionDetector;
 import levels.LevelSystem;
 import abstract_parents.Moving_ProjectileView;
 import android.app.Activity;
@@ -129,8 +127,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		for(int i=bonuses.size()-1;i>=0;i--){ 
 			bonuses.get(i).removeGameObject();
 		}
-    	if(LevelSystem.hasLevelStarted()){CollisionDetector.startDetecting();}//check in case onPause is called before onCreate. Not sure of Activity lifecycle, need to check
-    	levelCreater.pauseLevel();
+		levelCreater.pauseLevel();
     }
 	
 	@Override
@@ -141,7 +138,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         	friendly.restartThreads();
         }
         
-        if( LevelSystem.hasLevelStarted()==false && LevelSystem.getLevel()==LevelSystem.GAME_NOT_BEGUN){levelCreater.newGame();}
+        if( ! levelCreater.areLevelWavesCompleted() && levelCreater.getLevel()==LevelSystem.GAME_NOT_BEGUN){levelCreater.newGame();}
         else {levelCreater.resumeLevel();}
 	}
 	
@@ -173,7 +170,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static void openStore(){
 		storeLayout.setVisibility(View.VISIBLE);
 		gameLayout.setVisibility(View.GONE);
-		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(LevelSystem.getScore()));
+		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreater.getScore()));
 	}
 	
 	private static void closeStoreAndStartNextLevel(){
@@ -234,7 +231,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 					confirmUpgradeDialog(UPGRADE_FRIEND);
 					break;
 				case R.id.start_next_level:
-					if(LevelSystem.getLevel()==1 && protagonist.getGunLevel()==0){
+					if(levelCreater.getLevel()==1 && protagonist.getGunLevel()==0){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
 							new AlertDialog.Builder(this)
@@ -295,7 +292,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 				msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
 				break;
 			case UPGRADE_HEAL:
-				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * LevelSystem.getLevel() ;
+				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreater.getLevel()+1) ;
 				msg=this.getResources().getString(R.string.upgrade_heal);
 				break;
 			}
@@ -327,7 +324,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	}
 	
 	private void applyUpgrade(final int whichUpgrade,int cost){
-		boolean upgraded = LevelSystem.getScore() >= cost;
+		boolean upgraded = levelCreater.getScore() >= cost;
 
 		switch(whichUpgrade){
 		case UPGRADE_BULLET_DAMAGE:
@@ -355,8 +352,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 		
 		if(upgraded){
 			if(whichUpgrade==UPGRADE_GUN){btnShoot.setVisibility(View.VISIBLE);}//on first upgraded gun, set shoot to visible. this can be removed later but currently applies on every upgrade
-			LevelSystem.decrementScore(cost);
-			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(LevelSystem.getScore()));
+			levelCreater.decrementScore(cost);
+			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreater.getScore()));
 			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();
 		}else{
 			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();

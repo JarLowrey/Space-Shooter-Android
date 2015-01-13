@@ -10,7 +10,6 @@ public class Factory_LevelWaves extends Factory_Waves{
 	
 	protected int currentProgressInLevel;
 	
-
 	public Factory_LevelWaves(Context context,RelativeLayout gameScreen){
 		super( context, gameScreen);
 	}
@@ -32,7 +31,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	protected final Runnable levelWavesOver = new Runnable(){
 		@Override
 		public void run() {	
-			LevelSystem.notifyLevelWavesCompleted();
+			levelWavesCompleted=true;
 		}
 	};
 	

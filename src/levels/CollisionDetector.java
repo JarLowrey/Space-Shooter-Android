@@ -1,7 +1,6 @@
-package support;
+package levels;
 
 import interfaces.Shooter;
-import levels.LevelSystem;
 import abstract_parents.MovingView;
 import android.os.Handler;
 import bonuses.BonusView;
@@ -14,13 +13,18 @@ import friendlies.FriendlyView;
 
 public class CollisionDetector {
 	
-	static Handler gameHandler = new Handler();
-	   
-    static Runnable collisionDetectionRunnable = new Runnable() { 
+	private LevelSystem myLevelSystem;
+	
+	public CollisionDetector(LevelSystem aLevelSystem){
+		myLevelSystem=aLevelSystem;
+	}
+	
+	private Handler gameHandler = new Handler();
+    private Runnable collisionDetectionRunnable = new Runnable() { 
 
         @Override
         public void run() {
-        	if( ! LevelSystem.areLevelWavesCompleted() || GameActivity.enemies.size() !=0){
+        	if( ! myLevelSystem.isLevelPaused() && ! myLevelSystem.areLevelWavesCompleted() || GameActivity.enemies.size() !=0){
         		
         		boolean protagonistDiedFromCollision = detectAnyFriendlyHasCollidedWithAnyEnemy();
         		boolean protagonistDiedFromBullet = detectAnyFriendlyHasHitAnyEnemyBullet();
@@ -34,12 +38,12 @@ public class CollisionDetector {
 		            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
         		}
         	}else{
-        		if(LevelSystem.getLevel()==LevelSystem.MAX_NUMBER_LEVELS){
+        		if(myLevelSystem.getLevel()==LevelSystem.MAX_NUMBER_LEVELS){
         			
         			GameActivity.beatGame();
         			
         		}else{
-	        		LevelSystem.notifyLevelFinishedAndAllEnemiesAreDead();
+//	        		myLevelSystem.notifyLevelFinishedAndAllEnemiesAreDead();
 	        		GameActivity.openStore();
         		}
         	}
@@ -136,10 +140,10 @@ public class CollisionDetector {
     	}
     }
     
-    public static void startDetecting(){
+    public void startDetecting(){
     	gameHandler.post(collisionDetectionRunnable);
     }
-    public static void stopDetecting(){
+    public void stopDetecting(){
     	gameHandler.removeCallbacks(collisionDetectionRunnable);
     }
 }

@@ -2,7 +2,7 @@ package support;
 
 import interfaces.GameObjectInterface;
 import interfaces.Shooter;
-import levels.LevelSystem;
+import levels.Factory_Waves;
 import android.os.Handler;
 /*
  * 
@@ -16,6 +16,7 @@ import android.os.Handler;
  */
 public class ConditionalHandler {
 	
+	//static handler for Game Objects (removeable Views). View must be not removed
 	/**
 	 * Post Runnable r after a delay 
 	 * @param r
@@ -38,33 +39,7 @@ public class ConditionalHandler {
 		}
 	}
 
-	private static Handler spawnHandler = new Handler();
-	/**
-	 * Post Runnable r immediately
-	 * @param r
-	 * @param delayInMilliseconds
-	 */
-	public static void postIfLevelResumed(Runnable r,long delayInMilliseconds){
-		if( ! LevelSystem.isLevelPaused()){
-			spawnHandler.postDelayed(r, delayInMilliseconds);
-		}
-	}
-	/**
-	 * Post Runnable r immediately
-	 * @param r
-	 */
-	public static void postIfLevelResumed(Runnable r){
-		if( ! LevelSystem.isLevelPaused() && ! LevelSystem.areLevelWavesCompleted() ){
-			spawnHandler.postDelayed(r, 0);
-		}
-	}
-	/**
-	 * stop a level-should be uneccessary due to the whole point of a ConditionalHandler. will remove later
-	 * @param r
-	 */
-	public static void removeLevelHandlerCallbacks(){
-		spawnHandler.removeCallbacks(null);
-	}
+	//static handler for Shooters. shooter must be alive and shooting
 	/**
 	 * post if alive and isShooting()
 	 * @param r
@@ -75,4 +50,31 @@ public class ConditionalHandler {
 			shooter.postDelayed(r, bulletFreq);
 		}
 	}
+	
+	//Conditional handler for the leveling system. level cannot be paused or over
+	private Handler spawnHandler = new Handler();
+	private Factory_Waves myWaveFactory;
+	public ConditionalHandler( Factory_Waves someLevelSystem){
+		myWaveFactory=someLevelSystem;
+	}
+	/**
+	 * Post Runnable r immediately
+	 * @param r
+	 * @param delayInMilliseconds
+	 */
+	public void postIfLevelResumed(Runnable r,long delayInMilliseconds){
+		if( ! myWaveFactory.isLevelPaused()  && ! myWaveFactory.areLevelWavesCompleted()){
+			spawnHandler.postDelayed(r, delayInMilliseconds);
+		}
+	}
+	/**
+	 * Post Runnable r immediately
+	 * @param r
+	 */
+	public void postIfLevelResumed(Runnable r){
+		if( ! myWaveFactory.isLevelPaused() && ! myWaveFactory.areLevelWavesCompleted() ){
+			spawnHandler.postDelayed(r, 0);
+		}
+	}
+	
 }
