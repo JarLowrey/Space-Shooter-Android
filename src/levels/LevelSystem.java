@@ -113,7 +113,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		levelPaused=false;
 		
 		for(int i=currentProgressInLevel;i<level1.length;i++){
-			ConditionalHandler.postIfLevelResumed(levels[myLevel][i], i * DEFAULT_WAVE_DURATION);
+			ConditionalHandler.postIfLevelResumed(levels[myLevel-1][i], i * DEFAULT_WAVE_DURATION);
 		}
 		
 		CollisionDetector.startDetecting();
