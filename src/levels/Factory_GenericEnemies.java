@@ -45,7 +45,7 @@ public class Factory_GenericEnemies{
 
 	//GET methods
 	public  int getLevel(){
-		return currentLevel;
+		return currentLevel+1;
 	}
 	
 	//DIAGONAL ORBITERS

@@ -18,8 +18,8 @@ import bullets.Bullet_Basic_Missile;
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
 	public final static int BULLET_DAMAGE_WEIGHT=3,
-			BULLET_SPEED_WEIGHT=2,
-			BULLET_FREQ_WEIGHT=30;
+			BULLET_SPEED_WEIGHT=3,
+			BULLET_FREQ_WEIGHT=20;
 
 	public final static double DEFAULT_SPEED_Y=12.5,
 			DEFAULT_SPEEDX=14,
@@ -51,8 +51,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
- 
-		startShooting();//protagonist spawns through Attribute set constructor, so it is safe to start shooting here 
 	}
 
 	@Override

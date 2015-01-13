@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 
 /**
@@ -72,7 +73,7 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 			break;
 		case DOWN:
 			y+=Math.abs(speedY);
-			outOfScreen=y>MainActivity.getHeightPixels();
+			outOfScreen=y > GameActivity.protagonistBottomPosition;
 			this.setY(y);
 			break;
 		//move in X direction at speed X, move right if speed X positive and left otherwise

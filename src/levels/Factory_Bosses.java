@@ -2,7 +2,6 @@ package levels;
 
 import interfaces.InteractiveGameInterface;
 import android.content.Context;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
@@ -30,19 +29,19 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 	final  Runnable spawnGiantMeteor = new Runnable(){
 		@Override
 		public void run() {
-			Gravity_MeteorView giant = spawnSidewaysMeteor();
+			Gravity_MeteorView enemy = spawnSidewaysMeteor();
 			
 			//change width and height. set X and Y positions
 			final int width = (int)ctx.getResources().getDimension(R.dimen.giant_meteor_length);
 			final int height= (int)ctx.getResources().getDimension(R.dimen.giant_meteor_length);
 			
-			giant.setLayoutParams(new LayoutParams(width,height));
-			giant.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
+			enemy.setLayoutParams(new LayoutParams(width,height));
+			enemy.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
 			
 			//make more powerful
-			giant.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );
-			giant.heal(100);
-			giant.setScoreValue(100);
+			enemy.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );
+			enemy.heal(100);
+			enemy.setScoreValue(100);
 		}
 	};
 	
@@ -57,9 +56,12 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 			enemy.addGun(new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_Missile(),
 					2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE*2));
 			
+			enemy.startShooting();
+			
 			enemy.setImageResource(R.drawable.ship_enemy_boss1);
 			
 			enemy.heal(400);
+			enemy.setScoreValue(700);
 		}
 	};
 }

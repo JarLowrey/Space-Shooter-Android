@@ -26,7 +26,6 @@ public abstract class Gun {
 	Context ctx;
 
 	protected double bulletFreq,bulletSpeedY,bulletDamage;
-	private Handler handler = new Handler();
 	
 	private Runnable shootingRunnable = new Runnable(){
 		  	@Override
@@ -47,11 +46,11 @@ public abstract class Gun {
 	} 
 	
 	public void startShooting(){
-		handler.postDelayed(shootingRunnable, (long) bulletFreq);
+		ConditionalHandler.postIfShooting(shootingRunnable, (long) bulletFreq,shooter);
 	}
 	
 	public void stopShooting(){
-		handler.removeCallbacks(shootingRunnable);
+		ConditionalHandler.postIfShooting(shootingRunnable, (long) bulletFreq,shooter);
 	}
 	
 	public Bullet getBulletType(){

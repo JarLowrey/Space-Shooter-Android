@@ -79,8 +79,8 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		@Override
 		public void addGun(Gun newGun) {
 			myGuns.add(newGun);
-			this.stopShooting();//reset shooting on adding a gun
-			this.startShooting();
+//			this.stopShooting();//reset shooting on adding a gun
+//			this.startShooting();
 		}
 
 		@Override

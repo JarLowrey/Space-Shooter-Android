@@ -3,6 +3,7 @@ package levels;
 import interfaces.Shooter;
 import abstract_parents.MovingView;
 import android.os.Handler;
+import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -22,22 +23,29 @@ public class CollisionDetector {
         @Override
         public void run() {
         	if( ! myLevelSystem.isLevelPaused() && ! myLevelSystem.areLevelWavesCompleted() || LevelSystem.enemies.size() !=0){
-        		        		
-        		detectAnyFriendlyHasCollidedWithAnyEnemy();
-        		detectAnyFriendlyHasHitAnyEnemyBullet();
-        		detectAnyFriendlyHasHitAnyBonus();
-        		detectAnyEnemyHasHitAnyFriendlyBullets();
+        		
+        		try{
+	        		detectAnyFriendlyHasCollidedWithAnyEnemy();
+	        		detectAnyFriendlyHasHitAnyEnemyBullet();
+	        		detectAnyFriendlyHasHitAnyBonus();
+	        		detectAnyEnemyHasHitAnyFriendlyBullets();
+        		}catch(IndexOutOfBoundsException e){
+        			//it is possible for enemy to be removed after beginning a for(enemies) loop, but before calling enemies.get(i)
+        			//in that case, just catch the error and don't worry about it, it was already processed
+        			//...i think
+        		}
         		
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
 	            
         	}else{
-        		if(myLevelSystem.getLevel()==LevelSystem.MAX_NUMBER_LEVELS){
+        		if( myLevelSystem.getLevel() == myLevelSystem.highestLevel() ){
+        			Log.d("lowrey","beatGame");
         			myLevelSystem.getInteractivityInterface().beatGame();
         		}else{ 
         			myLevelSystem.getInteractivityInterface().openStore();
         		}
         	}
-        }
+        } 
     };
     
     private void detectAnyFriendlyHasCollidedWithAnyEnemy(){		
@@ -49,7 +57,7 @@ public class CollisionDetector {
 	    		if(friendly.collisionDetection(enemy)){
 	    			
 	    			friendly.takeDamage(enemy.getDamage());
-	    			enemy.takeDamage(friendly.getDamage());
+	    			enemy.removeGameObject();
 	    		}
 	    	}
     	}

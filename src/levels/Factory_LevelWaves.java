@@ -1,5 +1,8 @@
 package levels;
 
+import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
+
 import interfaces.InteractiveGameInterface;
 import android.content.Context;
 import enemies.Shooting_ArrayMovingView;
@@ -39,14 +42,14 @@ public class Factory_LevelWaves extends Factory_Waves{
 	final Runnable meteorSidewaysOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			spawnSidewaysMeteorsWave( getCurrentLevelLength() /1500 ,1000);
+			spawnSidewaysMeteorsWave( getCurrentLevelLength() /2000 ,2000);
 			currentProgressInLevel++;
 		}
 	};
 	final Runnable meteorsStraightOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLength() /1500 ,1000);
+			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLength() /2000 ,2000);
 			currentProgressInLevel++;
 		}
 	};
@@ -69,23 +72,32 @@ public class Factory_LevelWaves extends Factory_Waves{
 	final Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
 		@Override
 		public void run() {
-				spawnMeteorShower(4,400,true);
-				spawnMeteorShower(4,400,false);
-				currentProgressInLevel++;
+			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+			numMeteors/=2;
+			numMeteors-=2;
+			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
+			
+			spawnMeteorShower(numMeteors,400,true);
+			spawnMeteorShower(numMeteors,400,false);
+			currentProgressInLevel++;
 		}
 	};
 	final Runnable meteorShowersThatForceUserToRight = new Runnable(){
 		@Override
 		public void run() {
-				spawnMeteorShower(9,DEFAULT_WAVE_DURATION/9,true);
-				currentProgressInLevel++;
+			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+			numMeteors-=4;
+			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
+			currentProgressInLevel++;
 		}
 	};
 	final Runnable meteorShowersThatForceUserToLeft = new Runnable(){
 		@Override
 		public void run() {
-				spawnMeteorShower(9,DEFAULT_WAVE_DURATION/9,false);
-				currentProgressInLevel++;
+			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+			numMeteors-=4;
+			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,false);
+			currentProgressInLevel++;
 		}
 	};
 

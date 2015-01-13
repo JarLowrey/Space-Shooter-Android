@@ -111,7 +111,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
 		// set col position
 		final float staggeredMargin = context.getResources().getDimension(R.dimen.activity_margin_med);
-		final float shipXInterval = (MainActivity.getWidthPixels() -(int)widthView/2)/ numCols;//divide the screen into number of columns
+		final float shipXInterval = MainActivity.getWidthPixels()/ numCols;//divide the screen into number of columns
 		final float myColPos = myPosition % numCols;//find this ships column
 		float xPos = shipXInterval * myColPos ;//x position is columInterval * this ships column. Here some left margin is also added
 		if (staggered && myRowNum % 2 == 1) {//stagger

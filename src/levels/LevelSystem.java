@@ -5,17 +5,14 @@ import interfaces.InteractiveGameInterface;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.widget.RelativeLayout;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
 import friendlies.FriendlyView;
-import friendlies.ProtagonistView;
 
 public class LevelSystem extends Factory_LevelWaves{
 
-	public static final int MAX_NUMBER_LEVELS=5,
-			GAME_NOT_BEGUN=-1;
+	public static final int GAME_NOT_BEGUN=-1;
 	
 	CollisionDetector gameDetector;
 
@@ -49,11 +46,10 @@ public class LevelSystem extends Factory_LevelWaves{
 	 */
 	public boolean startNextLevel(){
 		currentLevel++;
-		if(currentLevel==MAX_NUMBER_LEVELS){
+		if(currentLevel==levels.length){
 			return true;
 		}else{
 			levelWavesCompleted=false;
-//			levelRunning=true;
 			levelPaused=false;
 			currentProgressInLevel=0;
 			
@@ -92,11 +88,15 @@ public class LevelSystem extends Factory_LevelWaves{
 		gameDetector.stopDetecting();
 	}
 	
+	public int highestLevel(){
+		return levels.length;
+	}
+	
 	//GET/SET LEVEL STATE
 	public void notifyLevelWavesCompleted(){
 		levelWavesCompleted=true;
 	}
-//	
+	
 	//SCORE
 	public static void incrementScore(int score){
 		myScore+=Math.abs(score);

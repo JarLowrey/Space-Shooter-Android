@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnTouchListener, InteractiveGameInterface{
 
+	public static int protagonistBottomPosition;
 	private Button btnMoveLeft,btnMoveRight,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
@@ -89,10 +90,13 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		btnNextLevel.setOnTouchListener(this); 
 		btnNewGun.setOnTouchListener(this);
 		
-		//create the protagonist's rocket
+
 		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
-		protagonist = new ProtagonistView(this,this);//(ProtagonistView)findViewById(R.id.rocket_game);
-		protagonist.setY( controlPanel.getY()-protagonist.getHeight() );
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);//(ProtagonistView)findViewById(R.id.rocket_game);
+		gameLayout.addView(protagonist);
+		protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
+		int protagonistPosition = protagonistBottomPosition - protagonist.getLayoutParams().height;
+		protagonist.setY( protagonistPosition );
 		
 		//set up the game
 		levelCreater = new LevelSystem(this,this);
@@ -103,7 +107,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 //		    @Override 
 //		    public void onGlobalLayout() {
 //		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//		    	levelFactory.newGame();
+//		    	//do stuff??
 //		    } 
 //		});
 		
@@ -159,7 +163,8 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 	}
 	
 	public void beatGame(){
-		resourceCount.setText("YOU WIN");//to be completed
+		Toast.makeText(this, "winner winner chicken dinner", Toast.LENGTH_LONG).show();
+		finish();
 	}
 	
 	public void openStore(){
@@ -283,7 +288,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 				msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
 				break;
 			case UPGRADE_HEAL:
-				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreater.getLevel()+1) ;
+				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreater.getLevel()) ;
 				msg=this.getResources().getString(R.string.upgrade_heal);
 				break;
 			}
