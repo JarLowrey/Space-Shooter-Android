@@ -3,7 +3,6 @@ package abstract_parents;
 import interfaces.Gravity;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.util.AttributeSet;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
  * The downward force may be different from the upward speed.
@@ -19,15 +18,6 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
 	public Projectile_GravityView(Context context,double movingSpeedY,double movingSpeedX,double projectileDamage,
 	double projectileHealth){
 		super(context, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth);
-
-		atThreshold=false;
-		gravityThreshold=Gravity.NO_THRESHOLD;
-		ConditionalHandler.postIfAlive(gravityRunnable, this);
-	}
-	
-	public Projectile_GravityView(Context context,AttributeSet at,double movingSpeedY,double movingSpeedX,double projectileDamage,
-			double projectileHealth) {
-		super(context,at,movingSpeedY,movingSpeedX,projectileDamage,projectileHealth);
 
 		atThreshold=false;
 		gravityThreshold=Gravity.NO_THRESHOLD;

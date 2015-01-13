@@ -5,7 +5,7 @@ package interfaces;
  * @author JAMES LOWREY
  *
  */
-public interface GameObjectInterface {
+public interface GameObjectInterface{
 
 	/**
 	 * Manage the execution of threads. onPause all callbacks will be 

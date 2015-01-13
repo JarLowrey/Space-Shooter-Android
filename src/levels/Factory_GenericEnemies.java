@@ -1,7 +1,10 @@
 package levels;
 
+import guns.Gun;
+import guns.Gun_StraightDualShot;
+import guns.Gun_StraightSingleShot;
+import interfaces.InteractiveGameInterface;
 import android.content.Context;
-import android.widget.RelativeLayout;
 import bullets.Bullet_Basic_LaserShort;
 
 import com.jtronlabs.to_the_moon.R;
@@ -16,9 +19,6 @@ import enemies_orbiters.Orbiter_HorizontalLine;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_orbiters.Shooting_OrbiterView;
-import guns.Gun;
-import guns.Gun_StraightDualShot;
-import guns.Gun_StraightSingleShot;
 
 /**
  * Factory in charge of create enemies with default values and adding that enemy to game layout
@@ -34,12 +34,13 @@ public class Factory_GenericEnemies{
 	
 	protected int currentLevel=0;
 	protected Context ctx;
-	private RelativeLayout gameLayout;
+	protected InteractiveGameInterface myGameInteractivityInterface;
 	
-	public Factory_GenericEnemies(Context context,RelativeLayout gameScreen){
+	
+	public Factory_GenericEnemies(Context context,InteractiveGameInterface myGame){
 		ctx=context;
 		
-		gameLayout= gameScreen;
+		myGameInteractivityInterface = myGame;
 	} 
 
 	//GET methods
@@ -68,8 +69,7 @@ public class Factory_GenericEnemies{
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		
-		
-		gameLayout.addView(enemy,0);
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 		
@@ -94,8 +94,8 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		
-		gameLayout.addView(enemy,0);
+
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 	}
@@ -120,8 +120,8 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightDualShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		
-		gameLayout.addView(enemy,0);
+
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 	}
@@ -160,8 +160,8 @@ public class Factory_GenericEnemies{
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		
-		
-		gameLayout.addView(enemy,0);
+
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 	}
@@ -206,9 +206,8 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		
-		
-		gameLayout.addView(enemy,0);
+
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 	}
@@ -246,8 +245,8 @@ public class Factory_GenericEnemies{
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		
-		
-		gameLayout.addView(enemy,0);
+
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 	}
@@ -274,9 +273,8 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
-		
-		
-		gameLayout.addView(enemy,0);
+
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 		
@@ -294,7 +292,7 @@ public class Factory_GenericEnemies{
 		
 		Gravity_MeteorView enemy = new Gravity_MeteorView(ctx,score,speedY,collisionDamage,health,spawnBeneficialObject);
 
-		gameLayout.addView(enemy,0);
+		myGameInteractivityInterface.addToScreen(enemy);
 		
 		return enemy;
 	}
@@ -310,7 +308,8 @@ public class Factory_GenericEnemies{
 		
 		Meteor_SidewaysView enemy = new Meteor_SidewaysView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject);
 
-		gameLayout.addView(enemy,0);
+		myGameInteractivityInterface.addToScreen(enemy);
+		
 		return enemy;
 	}
 

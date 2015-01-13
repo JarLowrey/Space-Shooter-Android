@@ -1,39 +1,51 @@
 package friendlies;
 
-import support.ConditionalHandler;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_StraightSingleShot;
+import interfaces.InteractiveGameInterface;
+import support.ConditionalHandler;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
-import android.util.AttributeSet;
+import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 public class ProtagonistView extends Friendly_ShooterView{
 	
 	private final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 	private int directionMoving=Moving_ProjectileView.LEFT;
 	
-	public ProtagonistView(Context context, AttributeSet at) {
-		super(context, at,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+	InteractiveGameInterface myGame;
+	
+	public ProtagonistView(Context context,InteractiveGameInterface interactWithGame) {
+		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 
+		this.stopShooting();
+		
+		//set image background
+		this.setImageResource(R.drawable.ship_protagonist);
+		
+		//set image width,length and X position. Let Y Position be set in GameActivity
+		int height=(int)this.getResources().getDimension(R.dimen.protagonist_game_height);
+		int width=(int)this.getResources().getDimension(R.dimen.protagonist_game_width);
+		this.setLayoutParams(new LayoutParams(width,height));
+		
+		this.setX(MainActivity.getWidthPixels()/2-width/2);//middle of screen
+		
+		myGame=interactWithGame;
+		
+		//debugging purposes only, will be deleted when user buys first gun
 		Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),
 				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 		Gun gun2 = new Gun_StraightSingleShot(ctx, this, new Bullet_Basic_Missile(),
 				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 		this.addGun(gun2);
 		this.addGun(gun1);
-		//if created via Attribute set, it is safe to set up rocket exhaust runnable. CURRENTLY NOT WORKING AS ID LIKE
-//		this.post(exhaustRunnable);
-	}
-
-	public ProtagonistView(Context context) {
-		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH);
 	}
 	
 	
@@ -74,7 +86,23 @@ public class ProtagonistView extends Friendly_ShooterView{
 		}
 		
 	};
+	@Override
+	public void heal(double howMuchHealed){
+		super.heal(howMuchHealed);
+		myGame.setHealthBar();
+	}
 	
+	@Override 
+	public boolean takeDamage(double howMuchDamage){
+		boolean isDead = super.takeDamage(howMuchDamage);
+		if(isDead){
+			myGame.gameOver();
+		}
+		myGame.setHealthBar();
+		return isDead;
+	}
+	
+	@Override
 	public void restartThreads(){
 		super.restartThreads();
 		this.stopShooting();//super will start the gun shooting. For the protagonist, gun must not be shooting on restart

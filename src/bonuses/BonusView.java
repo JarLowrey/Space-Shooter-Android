@@ -1,11 +1,11 @@
 package bonuses;
 
 import interfaces.Shooter;
+import levels.LevelSystem;
 import abstract_parents.Moving_GravityView;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 
 public abstract class BonusView extends Moving_GravityView {
@@ -34,7 +34,7 @@ public abstract class BonusView extends Moving_GravityView {
 		this.setBackgroundResource(R.drawable.white_center_red_outline);
 
 		//add to collision detector
-		GameActivity.bonuses.add(this);
+		LevelSystem.bonuses.add(this);
 		
 	}
 	
@@ -42,7 +42,7 @@ public abstract class BonusView extends Moving_GravityView {
 	
 	@Override
 	public void removeGameObject(){		
-		GameActivity.bonuses.remove(this);
+		LevelSystem.bonuses.remove(this);
 		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 	

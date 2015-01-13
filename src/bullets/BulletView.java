@@ -1,13 +1,12 @@
 package bullets;
   
-import support.ConditionalHandler;
 import interfaces.Shooter;
+import levels.LevelSystem;
+import support.ConditionalHandler;
 import abstract_parents.MovingView;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
-
-import com.jtronlabs.to_the_moon.GameActivity;
 
 /**
  * By default, a bullet moves straight and spawns in the middle of its shooter
@@ -63,9 +62,9 @@ public class BulletView extends Moving_ProjectileView{
 		ConditionalHandler.postIfAlive(moveBulletRunnable, this);
 
 		if(theOneWhoShotMe.isFriendly()){
-			GameActivity.friendlyBullets.add(this);
+			LevelSystem.friendlyBullets.add(this);
 		}else{
-			GameActivity.enemyBullets.add(this);			
+			LevelSystem.enemyBullets.add(this);			
 		}
 		theOneWhoShotMe.getMyBullets().add(this);
 	}
@@ -104,9 +103,9 @@ public class BulletView extends Moving_ProjectileView{
 	 */
 	public void removeGameObject(){		
 		if(theOneWhoShotMe.isFriendly()){
-			GameActivity.friendlyBullets.remove(this);
+			LevelSystem.friendlyBullets.remove(this);
 		}else{
-			GameActivity.enemyBullets.remove(this);			
+			LevelSystem.enemyBullets.remove(this);			
 		}
 		theOneWhoShotMe.getMyBullets().remove(this);
 		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks

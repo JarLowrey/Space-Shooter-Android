@@ -1,18 +1,34 @@
 package levels;
 
+import interfaces.InteractiveGameInterface;
+
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.widget.RelativeLayout;
+import bonuses.BonusView;
+import bullets.BulletView;
+import enemies.EnemyView;
+import friendlies.FriendlyView;
+import friendlies.ProtagonistView;
 
 public class LevelSystem extends Factory_LevelWaves{
 
 	public static final int MAX_NUMBER_LEVELS=5,
 			GAME_NOT_BEGUN=-1;
-	private static int myScore;
 	
 	CollisionDetector gameDetector;
+
+	private static int myScore;
+	public static ArrayList<BulletView> friendlyBullets=new ArrayList<BulletView>();
+	public static ArrayList<BulletView> enemyBullets=new ArrayList<BulletView>();
+	public static ArrayList<FriendlyView> friendlies=new ArrayList<FriendlyView>();
+	public static ArrayList<EnemyView> enemies=new ArrayList<EnemyView>();
+	public static ArrayList<BonusView> bonuses=new ArrayList<BonusView>();
 	
-	public LevelSystem(Context context, RelativeLayout gameScreen) {
-		super(context, gameScreen);
+	
+	public LevelSystem(Context context,InteractiveGameInterface gameScreen) {
+		super(context,gameScreen);
 		
 		gameDetector = new CollisionDetector(this);
 	}
@@ -21,6 +37,10 @@ public class LevelSystem extends Factory_LevelWaves{
 		myScore=0;
 		currentLevel=GAME_NOT_BEGUN;//= -1. 
 		startNextLevel();
+	}
+	
+	public InteractiveGameInterface getInteractivityInterface(){
+		return myGameInteractivityInterface;
 	}
 	
 	/**

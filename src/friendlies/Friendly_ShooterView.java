@@ -9,7 +9,6 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.ViewGroup;
 import bullets.BulletView;
 import bullets.Bullet_Basic_LaserLong;
@@ -56,18 +55,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		startShooting();//protagonist spawns through Attribute set constructor, so it is safe to start shooting here 
 	}
 
-	public Friendly_ShooterView(Context context,AttributeSet at, double projectileSpeedY,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth) {
-		super(context, at,projectileSpeedY,projectileSpeedX,
-				projectileDamage,projectileHealth);
-		
-		ctx=context;
-		myGuns= new ArrayList<Gun>();
-		myBullets = new ArrayList<BulletView>();
-		
-		this.removeCallbacks(null);
-	}
-	
 	@Override
 	public void removeGameObject(){		
 		stopShooting();

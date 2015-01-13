@@ -1,11 +1,17 @@
 package com.jtronlabs.to_the_moon;
 
+import enemies.EnemyView;
+import enemies.Shooting_ArrayMovingView;
+import friendlies.FriendlyView;
+import friendlies.ProtagonistView;
+import interfaces.InteractiveGameInterface;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import levels.CollisionDetector;
 import levels.LevelSystem;
+import abstract_parents.MovingView;
 import abstract_parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,39 +28,25 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import bonuses.BonusView;
-import bullets.BulletView;
-import enemies.EnemyView;
-import enemies.Shooting_ArrayMovingView;
-import friendlies.FriendlyView;
-import friendlies.ProtagonistView;
 
-public class GameActivity extends Activity implements OnTouchListener{
+public class GameActivity extends Activity implements OnTouchListener, InteractiveGameInterface{
 
-	//VIEWS
-	private static Button btnMoveLeft,btnMoveRight,btnShoot;
-	private static ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
+	private Button btnMoveLeft,btnMoveRight,btnShoot;
+	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
 //	private TextView gameWindowOverlay;
-	private static TextView resourceCount;
-	private static ProgressBar healthBar;
-	public static ProtagonistView protagonist;
-	public static ImageView rocketExhaust;
+	private TextView resourceCount;
+	private ProgressBar healthBar;
+	public ProtagonistView protagonist;
+	public ImageView rocketExhaust;
 //	private RelativeLayout btnBackground;
-	private static RelativeLayout gameLayout,storeLayout;
+	private RelativeLayout gameLayout,storeLayout;
 
-
-	public static ArrayList<BulletView> friendlyBullets=new ArrayList<BulletView>();
-	public static ArrayList<BulletView> enemyBullets=new ArrayList<BulletView>();
-	public static ArrayList<FriendlyView> friendlies=new ArrayList<FriendlyView>();
-	public static ArrayList<EnemyView> enemies=new ArrayList<EnemyView>();
-	public static ArrayList<BonusView> bonuses=new ArrayList<BonusView>();
-	
 	//MODEL
-	private static LevelSystem levelCreater;
+	private LevelSystem levelCreater;
 	
 
-	private static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
+	private final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
 	
 	@Override
@@ -75,8 +67,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
 		healthBar.setProgress(healthBar.getMax());
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
-		protagonist = (ProtagonistView)findViewById(R.id.rocket_game);
-		friendlies.add(protagonist);
 		
 		//set up Store View and listeners
 		resourceCount = (TextView)findViewById(R.id.resource_count);
@@ -99,8 +89,13 @@ public class GameActivity extends Activity implements OnTouchListener{
 		btnNextLevel.setOnTouchListener(this); 
 		btnNewGun.setOnTouchListener(this);
 		
+		//create the protagonist's rocket
+		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
+		protagonist = new ProtagonistView(this,this);//(ProtagonistView)findViewById(R.id.rocket_game);
+		protagonist.setY( controlPanel.getY()-protagonist.getHeight() );
+		
 		//set up the game
-		levelCreater = new LevelSystem(this,gameLayout);
+		levelCreater = new LevelSystem(this,this);
 		
 //		//start the game
 //		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
@@ -121,11 +116,11 @@ public class GameActivity extends Activity implements OnTouchListener{
     public void onPause() {
         super.onPause();
 
-		for(int i=enemies.size()-1;i>=0;i--){
-			enemies.get(i).removeGameObject();
+		for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
+			LevelSystem.enemies.get(i).removeGameObject();
 		}
-		for(int i=bonuses.size()-1;i>=0;i--){ 
-			bonuses.get(i).removeGameObject();
+		for(int i=LevelSystem.bonuses.size()-1;i>=0;i--){ 
+			LevelSystem.bonuses.get(i).removeGameObject();
 		}
 		levelCreater.pauseLevel();
     }
@@ -134,7 +129,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public void onResume(){
 		super.onResume(); 
 		
-        for(FriendlyView friendly : friendlies){
+        for(FriendlyView friendly : LevelSystem.friendlies){
         	friendly.restartThreads();
         }
         
@@ -142,7 +137,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         else {levelCreater.resumeLevel();}
 	}
 	
-	public static void gameOver(){
+	public void gameOver(){
 		Log.d("lowrey","num enemies spawned="+EnemyView.numSpawn+" died="+EnemyView.numRemoved);
 		levelCreater.pauseLevel();
 		healthBar.setProgress(0);
@@ -153,27 +148,27 @@ public class GameActivity extends Activity implements OnTouchListener{
 //		btnShoot.setOnTouchListener(null);
 		
 //		levelFactory.stopSpawning();
-		for(int i=enemies.size()-1;i>=0;i--){
-			enemies.get(i).removeGameObject();//this cleans up the threads and removes the Views from the Activity
+		for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
+			LevelSystem.enemies.get(i).removeGameObject();//this cleans up the threads and removes the Views from the Activity
 		}
 		
-		//clean up static variables
-		enemies=new ArrayList<EnemyView>();
+		//clean up variables
+		LevelSystem.enemies=new ArrayList<EnemyView>();
 		Shooting_ArrayMovingView.resetSimpleShooterArray();
 		
 	}
 	
-	public static void beatGame(){
+	public void beatGame(){
 		resourceCount.setText("YOU WIN");//to be completed
 	}
 	
-	public static void openStore(){
+	public void openStore(){
 		storeLayout.setVisibility(View.VISIBLE);
 		gameLayout.setVisibility(View.GONE);
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreater.getScore()));
 	}
 	
-	private static void closeStoreAndStartNextLevel(){
+	private void closeStoreAndStartNextLevel(){
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 		levelCreater.startNextLevel();
@@ -230,7 +225,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 				case R.id.btn_purchase_friend:
 					confirmUpgradeDialog(UPGRADE_FRIEND);
 					break;
-				case R.id.start_next_level:
+				case R.id.start_next_level: 
 					if(levelCreater.getLevel()==1 && protagonist.getGunLevel()==0){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
@@ -254,10 +249,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 			break;
 		}
 		return false;//do not consume event, allow buttons to receive the touch as well
-	}
-	
-	public static void setHealthBar(){
-		healthBar.setProgress((int) protagonist.getHealth());
 	}
 	
 	private void confirmUpgradeDialog(final int whichUpgrade){
@@ -359,5 +350,16 @@ public class GameActivity extends Activity implements OnTouchListener{
 			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 		}
 	}
-
+	@Override
+	public ProtagonistView getProtagonist() {
+		return this.protagonist;
+	}
+	@Override
+	public void addToScreen(MovingView view) {
+		gameLayout.addView(view,0);		
+	}
+	@Override
+	public void setHealthBar(){
+		healthBar.setProgress((int) protagonist.getHealth());
+	}
 }

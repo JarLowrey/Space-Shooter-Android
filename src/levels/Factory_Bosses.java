@@ -1,5 +1,6 @@
 package levels;
 
+import interfaces.InteractiveGameInterface;
 import android.content.Context;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -22,7 +23,7 @@ import guns.Gun_StraightSingleShot;
  */
 public class Factory_Bosses extends Factory_GenericEnemies{
 	
-	public Factory_Bosses(Context context,RelativeLayout gameScreen){
+	public Factory_Bosses(Context context,InteractiveGameInterface gameScreen){
 		super(context,gameScreen);
 	} 
 

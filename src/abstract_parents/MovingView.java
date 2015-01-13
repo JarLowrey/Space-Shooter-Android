@@ -2,7 +2,6 @@ package abstract_parents;
 
 import interfaces.GameObjectInterface;
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,14 +24,6 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 	
 	public MovingView(Context context,double movingSpeedY,double movingSpeedX) {
 		super(context);
-
-		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
-		speedX=movingSpeedX*MainActivity.getScreenDens();
-		isRemoved=false;
-	}
-	
-	public MovingView(Context context,AttributeSet at,double movingSpeedY,double movingSpeedX) {
-		super(context,at);
 
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();

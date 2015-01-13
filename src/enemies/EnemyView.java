@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.ViewGroup;
 import bonuses.BonusView;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-
 public class EnemyView extends Projectile_GravityView{
 	
 	//TODO Enemies that dodge (move away) from nearby friendly's bullets ? 
@@ -27,7 +25,7 @@ public class EnemyView extends Projectile_GravityView{
 		numSpawn++;
 		score=scoreForKilling;
 		probSpawnBeneficialObject= probSpawnBeneficialObjectUponDeath;
-		GameActivity.enemies.add(this);
+		LevelSystem.enemies.add(this);
 	}
 	
 	/**
@@ -53,7 +51,7 @@ public class EnemyView extends Projectile_GravityView{
 		else {//fallen offscreen
 			LevelSystem.incrementScore(this.getScoreForKilling()/3);
 		}
-		boolean passed = GameActivity.enemies.remove(this);
+		boolean passed = LevelSystem.enemies.remove(this);
 		if(!passed){Log.d("lowrey","this should very rarely be printed.");}
 
 		numRemoved++;

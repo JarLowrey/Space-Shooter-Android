@@ -19,7 +19,7 @@
 	        android:src="@drawable/ship_protgonist_exhaust" />
 	    
 	  	<RelativeLayout
-	        android:id="@+id/btn_background"
+	        android:id="@+id/control_panel"
 	        android:layout_width="match_parent"
 	        android:layout_height="@dimen/control_panel_height"
 	        android:background="@drawable/control_panel_background"
@@ -64,27 +64,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:layout_alignParentTop="true" />
 		    
-		    <!-- 
-			<TextView
-			    android:id="@+id/ammo"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-				android:layout_centerInParent="true"
-	        	android:textAppearance="@style/score_and_ammo_text"
-				android:visibility="gone"
-	        	android:text="0" />
-	-->
 		</RelativeLayout>
-	
-	    <friendlies.ProtagonistView
-	        android:id="@+id/rocket_game"
-	        android:layout_width="@dimen/protagonist_game_width"
-	        android:layout_height="@dimen/protagonist_game_height"
-	        android:layout_above="@+id/btn_background"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginBottom="@dimen/activity_margin_small"
-	        android:src="@drawable/ship_protagonist" />
-	    
     </RelativeLayout>
     
     

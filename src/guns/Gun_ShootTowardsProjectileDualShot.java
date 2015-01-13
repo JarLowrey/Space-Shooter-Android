@@ -1,12 +1,12 @@
 package guns;
   
 import interfaces.Shooter;
+import levels.LevelSystem;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import bullets.Bullet;
 import bullets.BulletView;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 
 public  class Gun_ShootTowardsProjectileDualShot extends Gun {
@@ -32,13 +32,13 @@ public  class Gun_ShootTowardsProjectileDualShot extends Gun {
 	public boolean shoot(){		
 		//check if there is a target set
 		if(shootTowardsMe==null){
-			if(GameActivity.enemies.size()>0){
+			if(LevelSystem.enemies.size()>0){
 				//find oldest living enemy
 //				for(int i=GameActivity.enemies.size()-1;i>=0;i--){
 //					Moving_ProjectileView cast = (Moving_ProjectileView) GameActivity.enemies.get(i);
 //					//check if an enemy is living. if so, set him as target and stop looping
 //					if( ! cast.isRemoved()){
-						shootTowardsMe= (Moving_ProjectileView) GameActivity.enemies.get(0);//enemy should always be living...this has change from previously
+						shootTowardsMe= (Moving_ProjectileView) LevelSystem.enemies.get(0);//enemy should always be living...this has change from previously
 //						break;
 //					}
 //				}

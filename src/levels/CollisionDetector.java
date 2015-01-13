@@ -5,9 +5,6 @@ import abstract_parents.MovingView;
 import android.os.Handler;
 import bonuses.BonusView;
 import bullets.BulletView;
-
-import com.jtronlabs.to_the_moon.GameActivity;
-
 import enemies.EnemyView;
 import friendlies.FriendlyView;
 
@@ -24,96 +21,65 @@ public class CollisionDetector {
 
         @Override
         public void run() {
-        	if( ! myLevelSystem.isLevelPaused() && ! myLevelSystem.areLevelWavesCompleted() || GameActivity.enemies.size() !=0){
+        	if( ! myLevelSystem.isLevelPaused() && ! myLevelSystem.areLevelWavesCompleted() || LevelSystem.enemies.size() !=0){
+        		        		
+        		detectAnyFriendlyHasCollidedWithAnyEnemy();
+        		detectAnyFriendlyHasHitAnyEnemyBullet();
+        		detectAnyFriendlyHasHitAnyBonus();
+        		detectAnyEnemyHasHitAnyFriendlyBullets();
         		
-        		boolean protagonistDiedFromCollision = detectAnyFriendlyHasCollidedWithAnyEnemy();
-        		boolean protagonistDiedFromBullet = detectAnyFriendlyHasHitAnyEnemyBullet();
-        		 
-        		if(protagonistDiedFromCollision || protagonistDiedFromBullet){
-        			GameActivity.gameOver(); 
-        		}else{
-	        		detectAnyFriendlyHasHitAnyBonus();
-	        		detectAnyEnemyHasHitAnyFriendlyBullets();
-	        		
-		            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
-        		}
+	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
+	            
         	}else{
         		if(myLevelSystem.getLevel()==LevelSystem.MAX_NUMBER_LEVELS){
-        			
-        			GameActivity.beatGame();
-        			
-        		}else{
-//	        		myLevelSystem.notifyLevelFinishedAndAllEnemiesAreDead();
-	        		GameActivity.openStore();
+        			myLevelSystem.getInteractivityInterface().beatGame();
+        		}else{ 
+        			myLevelSystem.getInteractivityInterface().openStore();
         		}
         	}
         }
     };
     
-    private static boolean detectAnyFriendlyHasCollidedWithAnyEnemy(){		
-    	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
-    		FriendlyView friendly = GameActivity.friendlies.get(k);
-//    		if(!friendly.isRemoved()){//game object could be removed in previous loop iteration?
-//    			
-	    		boolean isProtagonist = friendly == GameActivity.protagonist;
-	    		
-		    	for(int i=GameActivity.enemies.size()-1;i>=0;i--){
-		    		EnemyView enemy = GameActivity.enemies.get(i);
-		    		if( /*!enemy.isRemoved() && */ friendly.collisionDetection(enemy)){
-		    			//have the friendly take damage. if he is the protagonist then update health bar, 
-						//and if he died then run gameover
-		    			final boolean friendlyDies = friendly.takeDamage(enemy.getDamage());
-		    			if(isProtagonist){
-		    				if(friendlyDies){
-		        				return true;
-		    				}
-		    				GameActivity.setHealthBar();
-						}
-		    			//enemy takes damage as well
-		    			enemy.takeDamage(friendly.getDamage());
-		    		}
-		    	}
-//	    	}
+    private void detectAnyFriendlyHasCollidedWithAnyEnemy(){		
+    	for(int k=LevelSystem.friendlies.size()-1;k>=0;k--){
+    		FriendlyView friendly = LevelSystem.friendlies.get(k);
+    		
+	    	for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
+	    		EnemyView enemy = LevelSystem.enemies.get(i);
+	    		if(friendly.collisionDetection(enemy)){
+	    			
+	    			friendly.takeDamage(enemy.getDamage());
+	    			enemy.takeDamage(friendly.getDamage());
+	    		}
+	    	}
     	}
-    	return false;
     }
     
-    private static boolean detectAnyFriendlyHasHitAnyEnemyBullet(){
-    	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
-			FriendlyView friendly = GameActivity.friendlies.get(k);
-//    		if(!friendly.isRemoved()){//game object could be removed in previous loop iteration
-				boolean isProtagonist = friendly == GameActivity.protagonist;
-				
-				for(int j=GameActivity.enemyBullets.size()-1;j>=0;j--){
-					BulletView bullet = GameActivity.enemyBullets.get(j);
-					if(/*!bullet.isRemoved() && */ friendly.collisionDetection(bullet)){//game object could be removed in previous loop iteration
-						//have the friendly take damage. if he is the protagonist then update health bar, 
-						//and if he died then run gameover
-		    			final boolean friendlyDies = friendly.takeDamage(bullet.getDamage());
-		    			if(isProtagonist){
-		    				if(friendlyDies){
-		        				return true;
-		    				}
-		    				GameActivity.setHealthBar();
-						}
-		    			bullet.removeGameObject();
-		    		}
-				}
-//    		}
+    private void detectAnyFriendlyHasHitAnyEnemyBullet(){
+    	for(int k=LevelSystem.friendlies.size()-1;k>=0;k--){
+			FriendlyView friendly = LevelSystem.friendlies.get(k);
+			
+			for(int j=LevelSystem.enemyBullets.size()-1;j>=0;j--){
+				BulletView bullet = LevelSystem.enemyBullets.get(j);
+				if( friendly.collisionDetection(bullet)){
+
+	    			friendly.takeDamage(bullet.getDamage());
+	    			bullet.removeGameObject();
+	    		}
+			}
     	}
-		return false;
     }
 
-    private static void detectAnyFriendlyHasHitAnyBonus(){
-    	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
-			FriendlyView friendly = GameActivity.friendlies.get(k);
+    private void detectAnyFriendlyHasHitAnyBonus(){
+    	for(int k=LevelSystem.friendlies.size()-1;k>=0;k--){
+			FriendlyView friendly = LevelSystem.friendlies.get(k);
 			
 			//check if friendly has hit a bonus
 			if(friendly instanceof Shooter){
-				Shooter friendlyShooter= (Shooter)GameActivity.friendlies.get(k);
-		    	for(int i=GameActivity.bonuses.size()-1;i>=0;i--){
+				Shooter friendlyShooter= (Shooter)LevelSystem.friendlies.get(k);
+		    	for(int i=LevelSystem.bonuses.size()-1;i>=0;i--){
 		    		
-		    		BonusView bonus = GameActivity.bonuses.get(i);
+		    		BonusView bonus = LevelSystem.bonuses.get(i);
 		    		if( /*! bonus.isRemoved() &&*/ friendly.collisionDetection(bonus)){//game object could be removed in previous loop iteration
 		    			bonus.applyBenefit(friendlyShooter);
 		    			bonus.removeGameObject();
@@ -123,20 +89,19 @@ public class CollisionDetector {
     	}
     }
     
-    private static void detectAnyEnemyHasHitAnyFriendlyBullets(){
-    	for(int i=GameActivity.enemies.size()-1;i>=0;i--){
-    		EnemyView enemy = GameActivity.enemies.get(i);
+    private void detectAnyEnemyHasHitAnyFriendlyBullets(){
+    	for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
+    		EnemyView enemy = LevelSystem.enemies.get(i);
     		
-//    		if(!enemy.isRemoved()){//game object could be removed in previous loop iteration
-	    		for(int j=GameActivity.friendlyBullets.size()-1;j>=0;j--){
+	    		for(int j=LevelSystem.friendlyBullets.size()-1;j>=0;j--){
 	    			
-					BulletView bullet = GameActivity.friendlyBullets.get(j);
-					if(/*!bullet.isRemoved() &&*/ bullet.collisionDetection(enemy)){//game object could be removed in previous loop iteration
+					BulletView bullet = LevelSystem.friendlyBullets.get(j);
+					if( bullet.collisionDetection(enemy)){
+						
 	        			enemy.takeDamage(bullet.getDamage());
 	        			bullet.removeGameObject();
 	        		}
 	        	}
-//    		}
     	}
     }
     

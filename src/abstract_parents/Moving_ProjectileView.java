@@ -1,12 +1,10 @@
 package abstract_parents;
 
-import support.ConditionalHandler;
 import interfaces.CollidableObjectWithHealthDamageEtc;
+import support.ConditionalHandler;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.AttributeSet;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.R;
 
 /**
@@ -22,21 +20,9 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 			double projectileHealth) {
 		super(context, movingSpeedY, movingSpeedX);	
 
-		initInstanceVars( projectileDamage, projectileHealth);
-	}
-	
-	public Moving_ProjectileView(Context context,AttributeSet at,double movingSpeedY,double movingSpeedX,
-			double projectileDamage,double projectileHealth) {
-		super(context,at, movingSpeedY, movingSpeedX);	
-		
-		initInstanceVars(     projectileDamage, projectileHealth);
-	}
-	private void initInstanceVars(double projectileDamage,double projectileHealth){
-		
 		damage=projectileDamage;
 		health=projectileHealth;
 		maxHealth=projectileHealth;
-		
 	}
 
 	/**
@@ -68,13 +54,8 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 	}
 	
 	public void heal(double howMuchHealed){
-		health+=howMuchHealed;
-		if(this == GameActivity.protagonist){
-			GameActivity.setHealthBar();
-		}
+		health+=Math.abs(howMuchHealed);
 	}
-	
-
 	
 	//SET METHODS
 	public void setDamage(double newDamage){

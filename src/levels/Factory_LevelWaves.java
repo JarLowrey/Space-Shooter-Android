@@ -1,7 +1,7 @@
 package levels;
 
+import interfaces.InteractiveGameInterface;
 import android.content.Context;
-import android.widget.RelativeLayout;
 import enemies.Shooting_ArrayMovingView;
 
 public class Factory_LevelWaves extends Factory_Waves{
@@ -10,7 +10,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	
 	protected int currentProgressInLevel;
 	
-	public Factory_LevelWaves(Context context,RelativeLayout gameScreen){
+	public Factory_LevelWaves(Context context,InteractiveGameInterface gameScreen){
 		super( context, gameScreen);
 	}
 	

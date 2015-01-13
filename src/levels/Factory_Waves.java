@@ -1,8 +1,8 @@
 package levels;
 
+import interfaces.InteractiveGameInterface;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
@@ -23,7 +23,7 @@ public class Factory_Waves extends Factory_Bosses{
 	protected boolean levelWavesCompleted=false;
 	protected boolean levelPaused;
 	
-	public Factory_Waves(Context context,RelativeLayout gameScreen) {
+	public Factory_Waves(Context context,InteractiveGameInterface gameScreen) {
 		super(context,gameScreen);
 		
 		levelHandler = new ConditionalHandler(this);
