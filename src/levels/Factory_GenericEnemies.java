@@ -28,7 +28,7 @@ import guns.Gun_StraightSingleShot;
  *
  */
 
-public class Factory_Enemies{
+public class Factory_GenericEnemies{
 	
 	public static final int BULLET_FREQ_LONG_INTERVAL=10,BULLET_FREQ_SHORT_INTERVAL=5;
 	
@@ -36,7 +36,7 @@ public class Factory_Enemies{
 	protected Context ctx;
 	private RelativeLayout gameLayout;
 	
-	public Factory_Enemies(Context context,RelativeLayout gameScreen){
+	public Factory_GenericEnemies(Context context,RelativeLayout gameScreen){
 		ctx=context;
 		
 		gameLayout= gameScreen;

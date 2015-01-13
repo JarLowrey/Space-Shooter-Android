@@ -53,7 +53,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	public static ArrayList<BonusView> bonuses=new ArrayList<BonusView>();
 	
 	//MODEL
-	private static LevelSystem levelFactory;
+	private static LevelSystem levelCreater;
 	
 
 	private static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
@@ -102,7 +102,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		btnNewGun.setOnTouchListener(this);
 		
 		//set up the game
-		levelFactory = new LevelSystem(this,gameLayout);
+		levelCreater = new LevelSystem(this,gameLayout);
 		
 //		//start the game
 //		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
@@ -129,8 +129,8 @@ public class GameActivity extends Activity implements OnTouchListener{
 		for(int i=bonuses.size()-1;i>=0;i--){ 
 			bonuses.get(i).removeGameObject();
 		}
-    	if(LevelSystem.hasLevelStarted()){CollisionDetector.stopDetecting();}//check in case onPause is called before onCreate. Not sure of Activity lifecycle, need to check
-    	levelFactory.pauseLevel();
+    	if(LevelSystem.hasLevelStarted()){CollisionDetector.startDetecting();}//check in case onPause is called before onCreate. Not sure of Activity lifecycle, need to check
+    	levelCreater.pauseLevel();
     }
 	
 	@Override
@@ -140,19 +140,20 @@ public class GameActivity extends Activity implements OnTouchListener{
         for(FriendlyView friendly : friendlies){
         	friendly.restartThreads();
         }
-        if( LevelSystem.hasLevelStarted()==false && LevelSystem.getLevel()==0){levelFactory.newGame();}
-        else {levelFactory.resumeLevel();}
+        
+        if( LevelSystem.hasLevelStarted()==false && LevelSystem.getLevel()==0){levelCreater.newGame();}
+        else {levelCreater.resumeLevel();}
 	}
 	
 	public static void gameOver(){
 		Log.d("lowrey","num enemies spawned="+EnemyView.numSpawn+" died="+EnemyView.numRemoved);
-		levelFactory.pauseLevel();
+		levelCreater.pauseLevel();
 		healthBar.setProgress(0);
 		
 		//remove OnClickListeners
-		btnMoveLeft.setOnTouchListener(null);
-		btnMoveRight.setOnTouchListener(null);
-		btnShoot.setOnTouchListener(null);
+//		btnMoveLeft.setOnTouchListener(null);
+//		btnMoveRight.setOnTouchListener(null);
+//		btnShoot.setOnTouchListener(null);
 		
 //		levelFactory.stopSpawning();
 		for(int i=enemies.size()-1;i>=0;i--){
@@ -178,7 +179,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	private static void closeStoreAndStartNextLevel(){
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
-		levelFactory.startNextLevel();
+		levelCreater.startNextLevel();
 	}
 
 	@Override
@@ -200,7 +201,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 			}
 			break;
 		case MotionEvent.ACTION_UP:
-			v.performClick();
+//			v.performClick();//why is this needed?
 			switch(v.getId()){
 				case R.id.btn_move_left:
 						protagonist.stopMoving();
@@ -255,7 +256,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 			}
 			break;
 		}
-		return false;
+		return false;//do not consume event, allow buttons to receive the touch as well
 	}
 	
 	public static void setHealthBar(){

@@ -20,8 +20,7 @@ public class CollisionDetector {
 
         @Override
         public void run() {
-//        	Log.d("lowrey","numEnemies"+GameActivity.enemies.size());
-        	if( ! LevelSystem.isLevelCompleted() || GameActivity.enemies.size() !=0){
+        	if( ! LevelSystem.areLevelWavesCompleted() || GameActivity.enemies.size() !=0){
         		
         		boolean protagonistDiedFromCollision = detectAnyFriendlyHasCollidedWithAnyEnemy();
         		boolean protagonistDiedFromBullet = detectAnyFriendlyHasHitAnyEnemyBullet();
@@ -37,8 +36,10 @@ public class CollisionDetector {
         	}else{
         		if(LevelSystem.getLevel()==LevelSystem.MAX_NUMBER_LEVELS){
         			GameActivity.beatGame();
+        		}else{
+	        		LevelSystem.notifyLevelFinishedAndAllEnemiesAreDead();
+	        		GameActivity.openStore();
         		}
-        		GameActivity.openStore();
         	}
         }
     };

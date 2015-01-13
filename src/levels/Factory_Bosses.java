@@ -19,7 +19,7 @@ import guns.Gun_StraightSingleShot;
  * @author JAMES LOWREY
  *
  */
-public class Factory_Bosses extends Factory_Enemies{
+public class Factory_Bosses extends Factory_GenericEnemies{
 	
 	public Factory_Bosses(Context context,RelativeLayout gameScreen){
 		super(context,gameScreen);

@@ -86,13 +86,11 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
-					spawnSidewaysMeteor();
-					
-					numSpawned++;
-					if(numSpawned<numMeteors){
-						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-					}
+				spawnSidewaysMeteor();
+				
+				numSpawned++;
+				if(numSpawned<numMeteors){
+					ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
 				}
 			}
 		});

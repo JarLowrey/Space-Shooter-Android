@@ -54,7 +54,7 @@ public class ConditionalHandler {
 	 * @param r
 	 */
 	public static void postIfLevelResumed(Runnable r){
-		if( ! LevelSystem.isLevelPaused()){
+		if( ! LevelSystem.isLevelPaused() && ! LevelSystem.areLevelWavesCompleted() ){
 			spawnHandler.postDelayed(r, 0);
 		}
 	}
