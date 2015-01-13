@@ -12,6 +12,7 @@ public class Gun_StraightSingleShot extends Gun {
 			Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg);
 	}
+	
 	public boolean shoot(){
 		//create one bullet at center of shooter
 		BulletView bulletMid = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);

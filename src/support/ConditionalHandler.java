@@ -1,8 +1,8 @@
 package support;
 
 import interfaces.GameObjectInterface;
+import interfaces.Shooter;
 import levels.LevelSystem;
-import abstract_parents.MovingView;
 import android.os.Handler;
 /*
  * 
@@ -44,7 +44,7 @@ public class ConditionalHandler {
 	 * @param r
 	 * @param delayInMilliseconds
 	 */
-	public static void postIfLevelResumed(Runnable r,int delayInMilliseconds){
+	public static void postIfLevelResumed(Runnable r,long delayInMilliseconds){
 		if( ! LevelSystem.isLevelPaused()){
 			spawnHandler.postDelayed(r, delayInMilliseconds);
 		}
@@ -58,7 +58,21 @@ public class ConditionalHandler {
 			spawnHandler.postDelayed(r, 0);
 		}
 	}
+	/**
+	 * stop a level-should be uneccessary due to the whole point of a ConditionalHandler. will remove later
+	 * @param r
+	 */
 	public static void removeLevelHandlerCallbacks(){
 		spawnHandler.removeCallbacks(null);
+	}
+	/**
+	 * post if alive and isShooting()
+	 * @param r
+	 * @param shooter
+	 */
+	public static void postIfShooting(Runnable r,long bulletFreq,Shooter shooter){
+		if( ! shooter.isRemoved() && shooter.isShooting()){
+			shooter.postDelayed(r, bulletFreq);
+		}
 	}
 }

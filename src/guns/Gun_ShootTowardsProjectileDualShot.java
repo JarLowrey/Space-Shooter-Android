@@ -34,14 +34,14 @@ public  class Gun_ShootTowardsProjectileDualShot extends Gun {
 		if(shootTowardsMe==null){
 			if(GameActivity.enemies.size()>0){
 				//find oldest living enemy
-				for(int i=GameActivity.enemies.size()-1;i>=0;i--){
-					Moving_ProjectileView cast = (Moving_ProjectileView) GameActivity.enemies.get(i);
-					//check if an enemy is living. if so, set him as target and stop looping
+//				for(int i=GameActivity.enemies.size()-1;i>=0;i--){
+//					Moving_ProjectileView cast = (Moving_ProjectileView) GameActivity.enemies.get(i);
+//					//check if an enemy is living. if so, set him as target and stop looping
 //					if( ! cast.isRemoved()){
-						shootTowardsMe= cast;
-						break;
+						shootTowardsMe= (Moving_ProjectileView) GameActivity.enemies.get(0);//enemy should always be living...this has change from previously
+//						break;
 //					}
-				}
+//				}
 			}
 		}
 

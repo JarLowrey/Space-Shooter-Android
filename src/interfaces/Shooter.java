@@ -22,7 +22,9 @@ public interface Shooter extends CollidableObjectWithHealthDamageEtc{
 	
 	public ViewGroup getMyScreen();
 	
-	public boolean isFriendly();	
+	public boolean isFriendly();
+	
+	public boolean isShooting();
 
 	//GET METHODS
 	public ArrayList<BulletView> getMyBullets();

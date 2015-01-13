@@ -16,6 +16,8 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		private ArrayList<Gun> myGuns;
 		private ArrayList<BulletView> myBullets;
 		
+		private boolean isShooting=true;
+		
 		public Enemy_ShooterView(Context context,int scoreForKilling, double projectileSpeedY,double projectileSpeedX, 
 				double projectileDamage,double projectileHealth,double probSpawnBeneficialObject) {
 			super(context,scoreForKilling,projectileSpeedY,projectileSpeedX,
@@ -24,7 +26,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			myGuns= new ArrayList<Gun>();
 			myBullets = new ArrayList<BulletView>();
 		}
-
+ 
 		/**
 		 * To be called on implementation of onRemoveGameObject
 		 * NEW BEHAVIOR = drop references to guns and bullets
@@ -50,6 +52,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 
 		@Override
 		public void startShooting() {
+			isShooting=true;
 			for(Gun gun: myGuns){
 				gun.startShooting();
 			}
@@ -57,9 +60,10 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 
 		@Override
 		public void stopShooting() {
-			for(Gun gun: myGuns){
-				gun.stopShooting();
-			}
+			isShooting=false;//no need to loop through, the ConditionalHandler will stop callbacks
+//			for(Gun gun: myGuns){
+//				gun.stopShooting();
+//			}
 		}
 
 		@Override
@@ -89,6 +93,11 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			for(int i=myGuns.size()-1; i>=0;i--){
 				myGuns.remove(i);
 			}
+		}
+		
+		@Override 
+		public boolean isShooting(){
+			return isShooting;
 		}
 
 }

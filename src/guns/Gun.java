@@ -1,9 +1,10 @@
 package guns;
   
-import support.ConditionalHandler;
 import interfaces.Shooter;
+import support.ConditionalHandler;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import bullets.Bullet;
 
 
@@ -31,8 +32,8 @@ public abstract class Gun {
 	private Runnable shootingRunnable = new Runnable(){
 		  	@Override
 		      public void run() {
-	  				Gun.this.shoot();
-	  				ConditionalHandler.postIfAlive(this, (long) bulletFreq,shooter);
+	  				if( ! shooter.isRemoved()){Gun.this.shoot();}//apparently, even with all the checking, its still possible for a shooter to be removed before this call
+	  				ConditionalHandler.postIfShooting(this, (long) bulletFreq,shooter);
 		  		}
 			};
 	

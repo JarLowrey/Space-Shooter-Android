@@ -40,6 +40,8 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		bulletDamageLevel=0,
 		bullletVerticalSpeedLevel=0,
 		currentGunConfiguration=0;
+	
+	private boolean isShooting=false;
 
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
@@ -51,7 +53,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
  
-		startShooting();//protagonist spawns through Attirbute set constructor, so it is safe to start shooting here 
+		startShooting();//protagonist spawns through Attribute set constructor, so it is safe to start shooting here 
 	}
 
 	public Friendly_ShooterView(Context context,AttributeSet at, double projectileSpeedY,double projectileSpeedX, 
@@ -149,6 +151,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 
 	@Override
 	public void startShooting() {
+		isShooting=true;
 		for(Gun gun: myGuns){
 			gun.startShooting();
 		}
@@ -156,6 +159,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 
 	@Override
 	public void stopShooting() {
+		isShooting=false;//the ConditionalHandler will stop them all. no need to loop through
 		for(Gun gun: myGuns){
 			gun.stopShooting();
 		}
@@ -189,6 +193,9 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		}
 	}
 	
+	public boolean isShooting(){
+		return this.isShooting;
+	}
 	
 	
 	
