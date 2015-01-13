@@ -27,35 +27,33 @@ public class Factory_LevelWaves extends Factory_Waves{
 	 * this class should contain runnables, not functions, so that the level factory can post delay them
 	 */
 	
-	protected final Runnable doNothing = new Runnable(){
+	protected final static Runnable doNothing = new Runnable(){
 		@Override
 		public void run() {}};
 
-	protected final Runnable levelOverRunnable = new Runnable(){
+	protected final static Runnable levelWavesOver = new Runnable(){
 		@Override
 		public void run() {	
-//			LevelSystem.notifyLevelCompleted();
+			LevelSystem.notifyLevelWavesCompleted();
 		}
 	};
 	
 	//regular meteors
-	Runnable meteorSidewaysOnePerSecondForWholeLevel = new Runnable(){
+	final static Runnable meteorSidewaysOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			int length = LEVEL_LENGTHS[myLevel-1];
-			spawnSidewaysMeteorsWave( length/1500 ,1000);
+			spawnSidewaysMeteorsWave( LevelSystem.getCurrentLevelLength() /1500 ,1000);
 			currentProgressInLevel++;
 		}
 	};
-	Runnable meteorsStraightOnePerSecondForWholeLevel = new Runnable(){
+	final static Runnable meteorsStraightOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			int length = LEVEL_LENGTHS[myLevel-1];
-			spawnStraightFallingMeteorsAtRandomXPositionsWave( length /1500 ,1000);
+			spawnStraightFallingMeteorsAtRandomXPositionsWave( LevelSystem.getCurrentLevelLength() /1500 ,1000);
 			currentProgressInLevel++;
 		}
 	};
-	Runnable meteorSidewaysThisWave = new Runnable(){
+	final static Runnable meteorSidewaysThisWave = new Runnable(){
 		@Override
 		public void run() {
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
@@ -64,14 +62,14 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};	
 	
 	//meteor showers
-	Runnable meteorShowerLong = new Runnable(){//lasts 2 waves
+	final static Runnable meteorShowerLong = new Runnable(){//lasts 2 waves
 		@Override
 		public void run() {
 			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
 			currentProgressInLevel++;
 		}
 	};
-	Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
+	final static Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
 		@Override
 		public void run() {
 				spawnMeteorShower(4,400,true);
@@ -79,14 +77,14 @@ public class Factory_LevelWaves extends Factory_Waves{
 				currentProgressInLevel++;
 		}
 	};
-	Runnable meteorShowersThatForceUserToRight = new Runnable(){
+	final static Runnable meteorShowersThatForceUserToRight = new Runnable(){
 		@Override
 		public void run() {
 				spawnMeteorShower(9,DEFAULT_WAVE_DURATION/9,true);
 				currentProgressInLevel++;
 		}
 	};
-	Runnable meteorShowersThatForceUserToLeft = new Runnable(){
+	final static Runnable meteorShowersThatForceUserToLeft = new Runnable(){
 		@Override
 		public void run() {
 				spawnMeteorShower(9,DEFAULT_WAVE_DURATION/9,false);
@@ -95,7 +93,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};
 
 	//giant meteors
-	Runnable meteorsGiantAndSideways = new Runnable(){
+	final static Runnable meteorsGiantAndSideways = new Runnable(){
 		@Override
 		public void run() {
 			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
@@ -103,7 +101,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			currentProgressInLevel++;
 		}
 	};
-	Runnable meteorsOnlyGiants = new Runnable(){
+	final static Runnable meteorsOnlyGiants = new Runnable(){
 		@Override
 		public void run() {
 			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
@@ -112,7 +110,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};
 	
 	//array shooters
-	Runnable refreshArrayShooters = new Runnable(){
+	final static Runnable refreshArrayShooters = new Runnable(){
 		@Override
 		public void run() {
 			int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
@@ -125,11 +123,13 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};
 	
 	//dive bombers	
-	Runnable diveBomberOnePerSecond = new Runnable(){
+	final static Runnable diveBomberOnePerSecond = new Runnable(){
 		@Override
 		public void run() {
 			spawnDiveBomberWave(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
 			currentProgressInLevel++;
 		}
 	};
+	
+	
 }

@@ -6,7 +6,6 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
-
 import enemies_non_shooters.Gravity_MeteorView;
 
 /**
@@ -19,16 +18,12 @@ import enemies_non_shooters.Gravity_MeteorView;
  */
 
 public class Factory_Waves extends Factory_Bosses{
-
-    protected static boolean levelPaused;
     
 	public Factory_Waves(Context context,RelativeLayout gameScreen) {
 		super(context,gameScreen);
-		
-		levelPaused=false;
 	}
 
-	public void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
+	public final static void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			
 			private int numSpawned=0;
@@ -64,7 +59,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 
-	public void spawnStraightFallingMeteorsAtRandomXPositionsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
+	public final static void spawnStraightFallingMeteorsAtRandomXPositionsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
@@ -80,7 +75,7 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 
-	public void spawnSidewaysMeteorsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
+	public final static  void spawnSidewaysMeteorsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
@@ -96,129 +91,115 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 	
-	public void spawnGiantMeteorWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
+	public final static void spawnGiantMeteorWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
-					ConditionalHandler.postIfLevelResumed(spawnGiantMeteor);
-					
-					numSpawned++;
-					if(numSpawned<numMeteors){
-						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-					}
+				ConditionalHandler.postIfLevelResumed(spawnGiantMeteor);
+				
+				numSpawned++;
+				if(numSpawned<numMeteors){
+					ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
 				}
 			}
 		});
 	}
 		
-	public void spawnDiveBomberWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public final static void spawnDiveBomberWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
-					spawnDiveBomber();
-					numSpawned++;
-					
-					if(numSpawned<totalNumShips){
-						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-					}
+				spawnDiveBomber();
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
-	public void spawnFullScreenDiagonalAttackersWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public final static void spawnFullScreenDiagonalAttackersWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
-					spawnFullScreenDiagonalAttacker();
-					numSpawned++;
-					
-					if(numSpawned<totalNumShips){
-						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-					}
+				spawnFullScreenDiagonalAttacker();
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 
 	
-	public void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public final static void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
-					spawnCircularOrbitingView();
-					numSpawned++;
-					
-					if(numSpawned<totalNumShips && !levelPaused){
-						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-					}
+				spawnCircularOrbitingView();
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
-	public void spawnRectangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public final static void spawnRectangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
-					spawnRectanglularOrbitingView();
-					numSpawned++;
-					
-					if(numSpawned<totalNumShips && !levelPaused){
-						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-					}
+				spawnRectanglularOrbitingView();
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
-	public void spawnTriangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public final static void spawnTriangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
 					spawnTriangularOrbitingView();
 					numSpawned++;
 					
-					if(numSpawned<totalNumShips && !levelPaused){
+					if(numSpawned<totalNumShips ){
 						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 					}
-				}
 			}
 		});
 	}
 	
-	public void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	public final static void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		ConditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				if(!levelPaused){
 					spawnHorizontalLineOrbiter();
 					numSpawned++;
 					
-					if(numSpawned<totalNumShips && !levelPaused){
+					if(numSpawned<totalNumShips ){
 						ConditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 					}
-				}
 			}
 		});
 	}
@@ -261,18 +242,30 @@ public class Factory_Waves extends Factory_Bosses{
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+//	
+//	
+//	//USING JAVA FUNCTION POINTERS--all these functions pretty much do the same thing, but vary by which function they call. 
+//	Is there a way to simplify this utilizing function pointers?
+//	
+//	//http://stackoverflow.com/questions/24148175/pass-function-with-parameter-defined-behavior-in-java
+//		
+//	public static SpawnOverTime spawnSetNumbetOfEnemiesOverTime(final int numEnemies, final int delayBetweenEnemies){
+//		return new SpawnOverTime(){//this is an interface
+//			@Override
+//			public void spawn(int numEnemies, int delayBetweenEach) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		};
+//	}
+//	public void spawnFnPointer(){
+//		
+//	}
+//	
+//	
+//	
+//	
+//		
 	
 	
 	
@@ -282,7 +275,7 @@ public class Factory_Waves extends Factory_Bosses{
 	
 	
 	/*	Trying to get wave spawning behavior using ASyncTask. Tried to wait for end of wave before spawning a new one, but issue was calling Thread.sleep prevented function
-	 * from reaching the CountDownLatch's await call. so the caller would be free to continue onwards. decided to give up and use much easier Handler/Runnable system for now
+	 * from reaching the CountDownLatch's await call. so the caller would be free to continue onwards. decided to give up and use much easier Handler/Runnable system
 	 * 	
 //	private boolean meteorsFallFromLeftToRight;
 	public void spawnMeteorWaves(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean firstMeteorShowerRunsLeftToRight,

@@ -5,13 +5,13 @@ import support.ConditionalHandler;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-public class LevelSystem extends Factory_LevelsScripted{
+public class LevelSystem extends Factory_LevelWaves{
 
 	public static final int MAX_NUMBER_LEVELS=5;
 	private static int myScore;
-	protected static boolean levelWavesCompleted,levelStarted;
+	protected static boolean levelWavesCompleted,levelStarted, levelPaused;
 	
-	final Runnable[] level1 = {meteorSidewaysOnePerSecondForWholeLevel,
+	final static Runnable[] level1 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToRight,
@@ -22,11 +22,11 @@ public class LevelSystem extends Factory_LevelsScripted{
 			meteorShowerLong,
 			meteorsOnlyGiants,
 			meteorsOnlyGiants,
-			levelOverRunnable};
+			levelWavesOver};
 	
-	final Runnable[] level2 =level1;
+	final static Runnable[] level2 =level1;
 	
-	final Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
+	final static Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
@@ -34,11 +34,12 @@ public class LevelSystem extends Factory_LevelsScripted{
 			doNothing,
 			doNothing,
 			doNothing,
-			refreshArrayShooters,
 			doNothing,
-			levelOverRunnable};
+			doNothing,
+			refreshArrayShooters,
+			levelWavesOver};
 	
-	final Runnable[] level4 = {meteorSidewaysOnePerSecondForWholeLevel,
+	final static Runnable[] level4 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysThisWave,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
@@ -50,9 +51,9 @@ public class LevelSystem extends Factory_LevelsScripted{
 			doNothing,
 			diveBomberOnePerSecond,
 			diveBomberOnePerSecond,
-			levelOverRunnable};
+			levelWavesOver};
 	
-	final Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
+	final static Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToRight,
 			meteorShowersThatForceUserToLeft,
 			refreshArrayShooters,
@@ -61,9 +62,9 @@ public class LevelSystem extends Factory_LevelsScripted{
 			doNothing,
 			diveBomberOnePerSecond,
 			boss1,
-			levelOverRunnable};
+			levelWavesOver};
 	
-	final Runnable levels[][] ={level1,level2,level3,level4,level5};
+	final static Runnable levels[][] ={level1,level2,level3,level4,level5};
 	
 	public LevelSystem(Context context, RelativeLayout gameScreen) {
 		super(context, gameScreen);
@@ -71,7 +72,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 
 	public void newGame(){
 		myScore=0;
-		myLevel=0;
+		currentLevel=-1;
 		startNextLevel();
 	}
 	
@@ -80,8 +81,8 @@ public class LevelSystem extends Factory_LevelsScripted{
 	 * @return True if user has passed the last level
 	 */
 	public boolean startNextLevel(){
-		myLevel++;
-		if(myLevel==MAX_NUMBER_LEVELS){
+		currentLevel++;
+		if(currentLevel==MAX_NUMBER_LEVELS){
 			return true;
 		}else{
 			levelWavesCompleted=false;
@@ -96,8 +97,8 @@ public class LevelSystem extends Factory_LevelsScripted{
 			 */
 			
 			
-			for(int i=currentProgressInLevel;i<levels[myLevel-1].length;i++){
-				ConditionalHandler.postIfLevelResumed(levels[myLevel-1][i], i * DEFAULT_WAVE_DURATION);
+			for(int i=currentProgressInLevel;i<levels[currentLevel].length;i++){
+				ConditionalHandler.postIfLevelResumed(levels[currentLevel-1][i], i * DEFAULT_WAVE_DURATION);
 			}
 			CollisionDetector.startDetecting();
 			return false;
@@ -113,7 +114,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		levelPaused=false;
 		
 		for(int i=currentProgressInLevel;i<level1.length;i++){
-			ConditionalHandler.postIfLevelResumed(levels[myLevel-1][i], i * DEFAULT_WAVE_DURATION);
+			ConditionalHandler.postIfLevelResumed(levels[currentLevel][i], i * DEFAULT_WAVE_DURATION);
 		}
 		
 		CollisionDetector.startDetecting();
@@ -124,7 +125,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		ConditionalHandler.removeLevelHandlerCallbacks();
 	}
 	
-	//GET/set LEVEL STATE
+	//GET/SET LEVEL STATE
 	public static boolean isLevelPaused(){
 		return levelPaused;
 	}
@@ -151,9 +152,9 @@ public class LevelSystem extends Factory_LevelsScripted{
 	public static int getScore(){
 		return myScore;
 	}
-	
-	//GET LEVEL
-	public static int getLevel(){
-		return myLevel;
+
+	//other GET methods
+	public static int getCurrentLevelLength(){
+		return levels[currentLevel].length*DEFAULT_WAVE_DURATION;
 	}
 }

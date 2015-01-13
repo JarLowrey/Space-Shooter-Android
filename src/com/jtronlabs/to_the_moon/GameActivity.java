@@ -196,7 +196,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
 				case R.id.btn_shoot:
-					protagonist.startShooting();	
+					if( ! protagonist.isShooting())	{	protagonist.startShooting();	}	
 					break;
 			}
 			break;
@@ -240,14 +240,14 @@ public class GameActivity extends Activity implements OnTouchListener{
 							new AlertDialog.Builder(this)
 					    .setTitle("Continue")
 					    .setMessage("Venture out into the void")
+					    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
+					     })
 					    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					        public void onClick(DialogInterface dialog, int which) {
 					        	dialog.cancel();
 					        	closeStoreAndStartNextLevel();
 					        }
-					     })
-					    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-					        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 					     })
 //					    .setIcon(android.R.drawable.ic_dialog_alert)
 					     .show();
@@ -310,6 +310,9 @@ public class GameActivity extends Activity implements OnTouchListener{
 		new AlertDialog.Builder(this)
 	    .setTitle("Upgrade")
 	    .setMessage(msg)
+	    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
+	     })
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	        	if(!maxLevelItemCopy){ 
@@ -318,9 +321,6 @@ public class GameActivity extends Activity implements OnTouchListener{
         			dialog.cancel();
         		}
 	        }
-	     })
-	    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 	     })
 //	    .setIcon(android.R.drawable.ic_dialog_alert)
 	     .show();

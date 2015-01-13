@@ -1,8 +1,6 @@
 package abstract_parents;
 
-import support.ConditionalHandler;
 import interfaces.GameObjectInterface;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;

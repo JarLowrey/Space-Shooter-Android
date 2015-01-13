@@ -25,7 +25,7 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 		super(context,gameScreen);
 	} 
 
-	Runnable spawnGiantMeteor = new Runnable(){
+	final static  Runnable spawnGiantMeteor = new Runnable(){
 		@Override
 		public void run() {
 			Gravity_MeteorView giant = spawnSidewaysMeteor();
@@ -44,7 +44,7 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 		}
 	};
 	
-	Runnable boss1 = new Runnable(){
+	final static Runnable boss1 = new Runnable(){
 		@Override
 		public void run() {
 			Orbiter_HorizontalLine enemy = spawnHorizontalLineOrbiter();

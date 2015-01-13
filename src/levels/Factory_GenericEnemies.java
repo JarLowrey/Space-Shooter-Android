@@ -32,18 +32,23 @@ public class Factory_GenericEnemies{
 	
 	public static final int BULLET_FREQ_LONG_INTERVAL=10,BULLET_FREQ_SHORT_INTERVAL=5;
 	
-	protected static int myLevel=0;
-	protected Context ctx;
-	private RelativeLayout gameLayout;
+	protected static int currentLevel=0;
+	protected static Context ctx;
+	private static RelativeLayout gameLayout;
 	
 	public Factory_GenericEnemies(Context context,RelativeLayout gameScreen){
 		ctx=context;
 		
 		gameLayout= gameScreen;
 	} 
+
+	//GET methods
+	public static  int getLevel(){
+		return currentLevel;
+	}
 	
 	//DIAGONAL ORBITERS
-	protected Shooting_DiagonalMovingView spawnFullScreenDiagonalAttacker(){
+	protected final static  Shooting_DiagonalMovingView spawnFullScreenDiagonalAttacker(){
 		final int score=Shooting_DiagonalMovingView.DEFAULT_SCORE;
 		final double speedY=Shooting_DiagonalMovingView.DEFAULT_SPEED_Y,
 				speedX=Shooting_DiagonalMovingView.DEFAULT_SPEED_X, 
@@ -70,7 +75,7 @@ public class Factory_GenericEnemies{
 		
 	}
 
-	protected Shooting_Diagonal_DiveBomberView spawnDiveBomber(){
+	protected final static Shooting_Diagonal_DiveBomberView spawnDiveBomber(){
 		final int score=Shooting_Diagonal_DiveBomberView.DEFAULT_SCORE;
 		final double speedY=Shooting_Diagonal_DiveBomberView.DEFAULT_SPEED_Y,
 				speedX=Shooting_Diagonal_DiveBomberView.DEFAULT_SPEED_X, 
@@ -96,7 +101,7 @@ public class Factory_GenericEnemies{
 	}
 	
 	//HORIZONTAL ORBITER
-	protected Orbiter_HorizontalLine spawnHorizontalLineOrbiter(){
+	protected final static  Orbiter_HorizontalLine spawnHorizontalLineOrbiter(){
 		final int score=Orbiter_HorizontalLine.DEFAULT_SCORE;
 		final double speedY=Orbiter_HorizontalLine.DEFAULT_SPEED_Y,
 				speedX=Orbiter_HorizontalLine.DEFAULT_SPEED_X, 
@@ -128,7 +133,7 @@ public class Factory_GenericEnemies{
 	 * @param orbitPixelY
 	 * @return
 	 */
-	protected Shooting_OrbiterView spawnCircularOrbitingView(int radius,int angularVelocity){
+	protected final static Shooting_OrbiterView spawnCircularOrbitingView(int radius,int angularVelocity){
 
 		final int orbitRadius=radius;
 
@@ -165,7 +170,7 @@ public class Factory_GenericEnemies{
 	 * use default radius, angular velocity, and orbit location
 	 * @return
 	 */
-	protected Shooting_OrbiterView spawnCircularOrbitingView(){
+	protected final static Shooting_OrbiterView spawnCircularOrbitingView(){
 		return spawnCircularOrbitingView(Orbiter_CircleView.DEFAULT_CIRCLE_RADIUS,Orbiter_CircleView.DEFAULT_ANGULAR_VELOCITY);
 	}
 	
@@ -177,7 +182,7 @@ public class Factory_GenericEnemies{
 	 * @param orbitPixelY
 	 * @return
 	 */
-	protected Shooting_OrbiterView spawnTriangularOrbitingView(int angle){
+	protected final static Shooting_OrbiterView spawnTriangularOrbitingView(int angle){
 		final int orbitLength=Orbiter_TriangleView.DEFAULT_ORBIT_LENGTH;
 	
 		final int score=Orbiter_TriangleView.DEFAULT_SCORE;
@@ -212,12 +217,12 @@ public class Factory_GenericEnemies{
 	 * use default triangle angle and orbiting location
 	 * @return
 	 */
-	protected Shooting_OrbiterView spawnTriangularOrbitingView(){
+	protected final static Shooting_OrbiterView spawnTriangularOrbitingView(){
 		return spawnTriangularOrbitingView(Orbiter_TriangleView.DEFAULT_ANGLE);
 	}
 
 	//RECTANGLE ORBITERS
-	protected Shooting_OrbiterView spawnRectanglularOrbitingView(){
+	protected final static  Shooting_OrbiterView spawnRectanglularOrbitingView(){
 		final int orbitLength=Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH;
 	
 		final int score=Orbiter_RectangleView.DEFAULT_SCORE;
@@ -248,7 +253,7 @@ public class Factory_GenericEnemies{
 	}
 	
 	//Shooter ARRAY
-	protected Shooting_ArrayMovingView spawnOneShooting_MovingArrayView(){
+	protected final static Shooting_ArrayMovingView spawnOneShooting_MovingArrayView(){
 		final int score=Shooting_ArrayMovingView.DEFAULT_SCORE;
 		final double speedY=Shooting_ArrayMovingView.DEFAULT_SPEED_Y,
 				speedX=Shooting_ArrayMovingView.DEFAULT_SPEEDX, 
@@ -278,7 +283,7 @@ public class Factory_GenericEnemies{
 	}
 	
 	//METEORS
-	protected Gravity_MeteorView spawnMeteor(){
+	protected final static Gravity_MeteorView spawnMeteor(){
 
 		final int score=Gravity_MeteorView.DEFAULT_SCORE;
 				
@@ -294,7 +299,7 @@ public class Factory_GenericEnemies{
 		return enemy;
 	}
 	
-	protected Meteor_SidewaysView spawnSidewaysMeteor(){
+	protected final static Meteor_SidewaysView spawnSidewaysMeteor(){
 		final int score=Meteor_SidewaysView.DEFAULT_SCORE;
 				
 		final double speedY=Meteor_SidewaysView.DEFAULT_SPEED_Y,

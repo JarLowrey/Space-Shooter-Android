@@ -4,7 +4,6 @@ import interfaces.Shooter;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import bullets.Bullet;
 
 
