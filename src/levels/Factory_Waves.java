@@ -10,6 +10,9 @@ import enemies_non_shooters.Gravity_MeteorView;
 
 /**
  * spawn a number of a given enemy over a duration of time
+ * 
+ * Every runnable MUST check for levelPaused on run()
+ * 
  * @author JAMES LOWREY
  *
  */

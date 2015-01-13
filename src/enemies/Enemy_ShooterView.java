@@ -30,11 +30,11 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		 * NEW BEHAVIOR = drop references to guns and bullets
 		 */
 		protected void removeEnemyShooterGameObject(){
-			super.removeGameObject();
-			
 			stopShooting();			
 			myBullets=new ArrayList<BulletView>();
-			myGuns=new ArrayList<Gun>();			
+			myGuns=new ArrayList<Gun>();
+			
+			this.removeGameObject();//needs to be the last thing called for handler to remove all callbacks			
 		}
 		
 		@Override
@@ -60,11 +60,6 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			for(Gun gun: myGuns){
 				gun.stopShooting();
 			}
-		}
-
-		@Override
-		public boolean isDead() {
-			return super.isRemoved() || super.getHealth()<=0;
 		}
 
 		@Override

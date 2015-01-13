@@ -44,7 +44,7 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 	 * @param amountOfDamage-how much the view's health should be subtracted
 	 * @return True if thi dies
 	 */
-	public boolean takeDamage(double amountOfDamage){
+	public boolean takeDamage(double amountOfDamage){		
 		boolean dies= false;
 		health-=amountOfDamage;
 		
@@ -96,9 +96,9 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 	public void restartThreads() {
 		// do nothing for this class. Override in a child class if there are threads added
 	}
-
-	@Override
-	public boolean isDead() {
-		return isRemoved() || health < 0;
-	}
+//
+//	@Override
+//	public boolean isDead() {
+//		return isRemoved() || health < 0;
+//	}
 }

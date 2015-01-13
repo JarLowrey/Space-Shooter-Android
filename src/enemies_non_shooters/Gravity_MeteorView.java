@@ -25,9 +25,12 @@ public class Gravity_MeteorView extends EnemyView{
 	private Runnable rotateRunnable = new Runnable(){
 		@Override
 		public void run() {
-			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
-			Gravity_MeteorView.this.setRotation(currentRotation);
-			Gravity_MeteorView.this.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE * 2);
+    		//ensure view is not removed before moving
+    		if( ! Gravity_MeteorView.this.isRemoved()){
+				currentRotation+=DEFAULT_ROTATION_SPEED * direction;
+				Gravity_MeteorView.this.setRotation(currentRotation);
+				Gravity_MeteorView.this.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE * 2);
+    		}
 		}
 	};
 	

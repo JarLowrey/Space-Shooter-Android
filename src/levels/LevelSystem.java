@@ -1,9 +1,11 @@
 package levels;
 
-import com.jtronlabs.to_the_moon.CollisionDetector;
-
 import android.content.Context;
+import android.util.Log;
 import android.widget.RelativeLayout;
+
+import com.jtronlabs.to_the_moon.CollisionDetector;
+import com.jtronlabs.to_the_moon.GameActivity;
 
 public class LevelSystem extends Factory_LevelsScripted{
 
@@ -25,12 +27,12 @@ public class LevelSystem extends Factory_LevelsScripted{
 	 * @return True if user has passed the last level
 	 */
 	public boolean startNextLevel(){
+		Log.d("lowrey","enemies size = "+GameActivity.enemies.size());
 		myLevel++;
 		if(myLevel==MAX_NUMBER_LEVELS){
 			return true;
 		}
 		initLevelVarsAtBeginningOfEveryLevel();//this will reset current progress in level
-
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
 		 * If handler has runnables canceled before level finishes, then current progress will not change.
@@ -46,6 +48,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		return false;
 	}
 	public void resumeLevel(){
+		startNextLevel();
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
 		 * If handler has runnables canceled before level finishes, then current progress will not change.

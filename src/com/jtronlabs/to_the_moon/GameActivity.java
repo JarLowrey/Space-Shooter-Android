@@ -112,6 +112,10 @@ public class GameActivity extends Activity implements OnTouchListener{
 //		});
 		
 	}
+	/**
+	 * Pause game. Eventually, state will need to be saved to database, as after on pause any
+	 * variables are liable for Android garbage collection!
+	 */
 	@Override
     public void onPause() {
         super.onPause();
@@ -119,7 +123,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 		for(int i=enemies.size()-1;i>=0;i--){
 			enemies.get(i).removeGameObject();
 		}
-		for(int i=bonuses.size()-1;i>=0;i--){
+		for(int i=bonuses.size()-1;i>=0;i--){ 
 			bonuses.get(i).removeGameObject();
 		}
     	if(LevelSystem.hasLevelStarted()){CollisionDetector.stopDetecting();}//check in case onPause is called before onCreate. Not sure of Activity lifecycle, need to check
@@ -128,7 +132,7 @@ public class GameActivity extends Activity implements OnTouchListener{
 	
 	@Override
 	public void onResume(){
-		super.onResume();
+		super.onResume(); 
 		
         for(FriendlyView friendly : friendlies){
         	friendly.restartThreads();

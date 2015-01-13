@@ -9,8 +9,6 @@ public interface CollidableObjectWithHealthDamageEtc{
 
 	public boolean takeDamage(double amountOfDamage);
 	
-	public boolean isDead();
-
 	public void setDamage(double newDamage);
 	public double getDamage();
 	public boolean isRemoved();

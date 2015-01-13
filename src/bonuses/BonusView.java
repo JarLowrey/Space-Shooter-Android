@@ -41,10 +41,9 @@ public abstract class BonusView extends Moving_GravityView {
 	public abstract void applyBenefit(Shooter theBenefitter);
 	
 	@Override
-	public void removeGameObject(){
-		this.deaultCleanupOnRemoval();
-		
+	public void removeGameObject(){		
 		GameActivity.bonuses.remove(this);
+		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 	
 	public static BonusView getRandomBonusView(Context context,float positionX,float positionY){

@@ -45,34 +45,43 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	private static Runnable moveInARectangleRunnable = new Runnable() {
 		@Override
 		public void run() {
-			// loop through all living instances of this class
-			for (int i = 0; i < allSimpleShooters.size(); i++) {
-	    		//ensure view is not removed before moving
-	    		if( ! allSimpleShooters.get(i).isRemoved()){
-					switch (currentPos) {
-					case 0:
-						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.RIGHT);
-						break;
-					case 1:
-						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.UP);
-						break;
-					case 2:
-						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.LEFT);
-						break;
-					case 3:
-						allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.DOWN);
-						break;
-					}
-	    		}
-			}
-			howManyTimesMoved++;
-			if (howManyTimesMoved % 6 == 0) {
-				currentPos = (currentPos + 1) % 4;
-				howManyTimesMoved=0;
+			//ensure array of shooters is non empty on run()
+			if(allSimpleShooters.size()!=0){
+				
+				// loop through all living instances of this class
+				for (int i = 0; i < allSimpleShooters.size(); i++) {
+					
+		    		//ensure view is not removed before moving
+		    		if( ! allSimpleShooters.get(i).isRemoved()){
+						switch (currentPos) {
+						case 0:
+							allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.RIGHT);
+							break;
+						case 1:
+							allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.UP);
+							break;
+						case 2:
+							allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.LEFT);
+							break;
+						case 3:
+							allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.DOWN);
+							break;
+						}
+		    		}
+				}
+				
+				//increment position, and check for change of direction
+				howManyTimesMoved++;
+				if (howManyTimesMoved % 6 == 0) {
+					currentPos = (currentPos + 1) % 4;
+					howManyTimesMoved=0;
+				}
+				
+				staticArrayMovementHandler.postDelayed(this,
+					Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
+				
 			}
 			
-			staticArrayMovementHandler.postDelayed(this,
-					Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 		}
 	};
 
@@ -122,7 +131,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			staticArrayMovementHandler.removeCallbacks(moveInARectangleRunnable);
 		}
 
-		super.removeGameObject();
+		super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks
 	}
 
 	public static int getMaxNumShips() {

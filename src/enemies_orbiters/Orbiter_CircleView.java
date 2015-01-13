@@ -22,9 +22,11 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	private Runnable moveInACircleRunnable = new Runnable(){
 		@Override
 		public void run() {
-
+			
     		//ensure view is not removed before running
 			if( ! Orbiter_CircleView.this.isRemoved()){
+				
+				
 //				imagine a circle around this triangle. the right point is the next position 
 //					|\-----top triangle
 //					| \----third side

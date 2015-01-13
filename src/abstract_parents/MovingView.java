@@ -12,21 +12,35 @@ import com.jtronlabs.to_the_moon.MainActivity;
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
  * The downward force may be different from the upward speed.
  * 
+ * 
+ * 
+ * Any children that have RUNNABLES must include a condition for !MovingView.this.isRemoved() before running.
+ * this ensures resources are not instance that has been removed from game.
+ * Why? Handler.removeCallbacks(null) only removes pending messages. If  the Runnable has begun then it will get through,
+ * and since all these game runnables have Handler.postDelayed(this,delayInMillisec) at the end, it will continue to execute
+ * 
+ * 
+ * 
  * @author JAMES LOWREY
  *
  */
 public abstract class MovingView extends ImageView implements GameObjectInterface{
 
+	private static int referenceId=Integer.MIN_VALUE;
+	
 	public static final int HOW_OFTEN_TO_MOVE=100,
 			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
 			NOT_DEAD=-1;
 
+	private int myId;
 	boolean isRemoved;
 	double speedY,speedX;
 	
 	public MovingView(Context context,double movingSpeedY,double movingSpeedX) {
 		super(context);
 
+		myId=referenceId;
+		referenceId++;
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();
 		isRemoved=false;
@@ -35,6 +49,8 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 	public MovingView(Context context,AttributeSet at,double movingSpeedY,double movingSpeedX) {
 		super(context,at);
 
+		myId=referenceId;
+		referenceId++;
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();
 		isRemoved=false;
@@ -128,18 +144,11 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 	public void setSpeedY(double newSpeed){
 		this.speedY=newSpeed;
 	}
-	@Override
-	public void restartThreads() {
-		//do nothing yet
-	}
-	
-	
-	
 
 	public abstract void removeGameObject();
 	
 	/**
-	 * Call this on every implementation of removeGameObject();
+	 * To be called on every implementation of removeGameObject();
 	 */
 	protected void deaultCleanupOnRemoval(){
 		isRemoved=true;
@@ -148,4 +157,23 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 		if(parent!=null){parent.removeView(this);}		
 	}
 	
+	public int getId(){
+		return this.myId;
+	}
+
+//	/**
+//	 * must override the .equals method in order for ArrayList.remove(Object) to function as
+//	 * intended.
+//	 */
+//	@Override
+//	public boolean equals(Object other){
+//		if(other instanceof MovingView){
+//			final int id= ((MovingView)other).getId();
+////			Log.d("lowrey", "id1"+myId+ " id2= "+id );
+//			return this.myId == id;
+//		}else{
+//			return false;
+//		}
+////		return true;
+//	}
 }

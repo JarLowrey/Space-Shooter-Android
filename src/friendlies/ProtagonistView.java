@@ -70,8 +70,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 	private Runnable moveRunnable = new Runnable(){
 		@Override
 		public void run() {
-			ProtagonistView.this.moveDirection(directionMoving);
-			ProtagonistView.this.postDelayed(moveRunnable,HOW_OFTEN_TO_MOVE_ROCKET);
+    		//ensure view is not removed before moving
+			if(!ProtagonistView.this.isRemoved()){
+				ProtagonistView.this.moveDirection(directionMoving);
+				ProtagonistView.this.postDelayed(moveRunnable,HOW_OFTEN_TO_MOVE_ROCKET);
+			}
 		}
 		
 	};

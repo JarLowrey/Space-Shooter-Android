@@ -43,7 +43,8 @@ public abstract class Bullet_Tracking extends Bullet{
 	Runnable trackingRunnable = new Runnable(){
     	@Override
         public void run() {
-			if( ! shooter.isDead()){
+    		//ensure view is not removed before running
+			if( ! shooter.isRemoved()){
 	    		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
 	    		
 				ArrayList<BulletView> bullets = shooter.getMyBullets();

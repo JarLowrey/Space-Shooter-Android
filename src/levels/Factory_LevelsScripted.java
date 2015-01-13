@@ -27,8 +27,8 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 	};
 	
 
-	final Runnable[] level1 = {meteorsOneStraightFallingEverySecondForWholeLevel,
-			meteorsOneSidewaysFallingEverySecondForWholeLevel,
+	final Runnable[] level1 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
+			meteorSidewaysOneFallingEverySecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToRight,
@@ -38,11 +38,11 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 			meteorsOnlyGiants,
 			meteorsOnlyGiants,
 			levelOverRunnable};
-
+	
 	final Runnable[] level2 =level1;
 	
-	final Runnable[] level3 = {meteorsOneSidewaysFallingEverySecondForWholeLevel,
-			meteorsOneSidewaysFallingEverySecondForWholeLevel,
+	final Runnable[] level3 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
+			meteorSidewaysOneFallingEverySecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
@@ -52,7 +52,7 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 			diveBombersEverySecondWave,
 			levelOverRunnable};
 	
-	final Runnable[] level4 = {meteorsOneSidewaysFallingEverySecondForWholeLevel,
+	final Runnable[] level4 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
 			meteorSidewaysThisWave,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
@@ -63,7 +63,7 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 			diveBombersEverySecondWave,
 			levelOverRunnable};
 	
-	final Runnable[] level5 = {meteorsOneSidewaysFallingEverySecondForWholeLevel,
+	final Runnable[] level5 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
 			meteorShowersThatForceUserToRight,
 			meteorShowersThatForceUserToLeft,
 			refreshArrayShooters,

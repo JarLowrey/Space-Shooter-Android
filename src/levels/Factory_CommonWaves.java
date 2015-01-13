@@ -27,14 +27,14 @@ public class Factory_CommonWaves extends Factory_Waves{
 
 	
 	//regular meteors
-	Runnable meteorsOneSidewaysFallingEverySecondForWholeLevel = new Runnable(){
+	Runnable meteorSidewaysOneFallingEverySecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
 			int length = LEVEL_LENGTHS[myLevel-1];
 			spawnSidewaysMeteorsWave( length/1500 ,1000);
 		}
 	};
-	Runnable meteorsOneStraightFallingEverySecondForWholeLevel = new Runnable(){
+	Runnable meteorsStraightFallingOneEverySecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
 			int length = LEVEL_LENGTHS[myLevel-1];

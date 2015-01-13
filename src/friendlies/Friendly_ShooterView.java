@@ -67,12 +67,12 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	}
 	
 	@Override
-	public void removeGameObject(){
-		super.removeGameObject();
-		
+	public void removeGameObject(){		
 		stopShooting();
 		myBullets=new ArrayList<BulletView>();
 		myGuns=new ArrayList<Gun>();
+		
+		super.removeGameObject();//needs to be called last for all pending callbacks to 'this' to be removed
 	}
 	/**
 	 * define the different levels of guns protagonist may have
@@ -159,11 +159,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		for(Gun gun: myGuns){
 			gun.stopShooting();
 		}
-	}
-
-	@Override
-	public boolean isDead() {
-		return super.isRemoved() || super.getHealth()<=0;
 	}
 
 	@Override

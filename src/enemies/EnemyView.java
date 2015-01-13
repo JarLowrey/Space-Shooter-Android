@@ -39,8 +39,6 @@ public class EnemyView extends Projectile_GravityView{
 	 */
 	@Override
 	public void removeGameObject(){
-		this.deaultCleanupOnRemoval();
-		
 		if(this.getHealth()<=0){//died
 			LevelSystem.incrementScore(this.getScoreForKilling());
 			
@@ -54,11 +52,15 @@ public class EnemyView extends Projectile_GravityView{
 		}
 		else {//fallen offscreen
 			LevelSystem.incrementScore(this.getScoreForKilling()/3);
+			Log.d("lowrey","offscreen");
 		}
-		boolean removed = GameActivity.enemies.remove(this);
-		Log.d("lowrey","removed? ="+removed);
+		GameActivity.enemies.remove(this); 
+Log.d("lowrey","enemySize"+GameActivity.enemies.size());
+		Log.d("lowrey","removed from game already="+this.isRemoved());
+		
 
-		numRemoved++;		
+		numRemoved++;
+		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 	
 	public void setProbSpawnBeneficialObjectOnDeath(double prob){

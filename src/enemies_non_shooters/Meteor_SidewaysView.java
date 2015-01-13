@@ -20,8 +20,11 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 
 		@Override
 		public void run() {
-			Meteor_SidewaysView.this.moveDirection(MovingView.SIDEWAYS);
-			Meteor_SidewaysView.this.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
+    		//ensure view is not removed before moving
+    		if( ! Meteor_SidewaysView.this.isRemoved()){
+				Meteor_SidewaysView.this.moveDirection(MovingView.SIDEWAYS);
+				Meteor_SidewaysView.this.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
+    		}
 		}
 		
 	};
