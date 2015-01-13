@@ -1,5 +1,6 @@
 package abstract_parents;
 
+import support.ConditionalHandler;
 import interfaces.GameObjectInterface;
 
 import android.content.Context;
@@ -11,15 +12,6 @@ import android.widget.ImageView;
 import com.jtronlabs.to_the_moon.MainActivity;
 
 /**
- * 
- * 
- * 
- * Any children that have RUNNABLES must include a condition for !MovingView.this.isRemoved() before running.
- * this ensures resources are not instance that has been removed from game.
- * Why? Handler.removeCallbacks(null) only removes pending messages. If  the Runnable has begun then it will get through,
- * and since all these game runnables have Handler.postDelayed(this,delayInMillisec) at the end, it will continue to execute
- * 
- * 
  * 
  * @author JAMES LOWREY
  *

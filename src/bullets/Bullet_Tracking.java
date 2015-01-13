@@ -4,7 +4,7 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
-
+import support.ConditionalHandler;
 import abstract_parents.MovingView;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -43,31 +43,28 @@ public abstract class Bullet_Tracking extends Bullet{
 	Runnable trackingRunnable = new Runnable(){
     	@Override
         public void run() {
-    		//ensure view is not removed before running
-			if( ! shooter.isRemoved()){
-	    		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
+    		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
+    		
+			ArrayList<BulletView> bullets = shooter.getMyBullets();
+			
+			for(BulletView bullet : bullets){
+	    		final float bulletXMidPos = (2 * bullet.getX()+bullet.getWidth() ) / 2; 
+				final float diff = bulletXMidPos - objectTrackingMidPoint;
+    			
+				//if bullet is approximately at tracking destination, don't move it and set rotation to 0
+	    		if( Math.abs(diff) < shooter.getWidth() ){
+	    			bullet.setSpeedX(Bullet.BULLET_TRAVELS_STRAIGHT);
+	    		}else{
+	    			trackingSpeed = -diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
+	    			 
+	    			//set speed and move sideways
+        			bullet.setSpeedX(trackingSpeed);
+        			bullet.moveDirection(MovingView.SIDEWAYS);    
+	    		}
 	    		
-				ArrayList<BulletView> bullets = shooter.getMyBullets();
-				
-				for(BulletView bullet : bullets){
-		    		final float bulletXMidPos = (2 * bullet.getX()+bullet.getWidth() ) / 2; 
-					final float diff = bulletXMidPos - objectTrackingMidPoint;
-        			
-					//if bullet is approximately at tracking destination, don't move it and set rotation to 0
-		    		if( Math.abs(diff) < shooter.getWidth() ){
-		    			bullet.setSpeedX(Bullet.BULLET_TRAVELS_STRAIGHT);
-		    		}else{
-		    			trackingSpeed = -diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
-		    			 
-		    			//set speed and move sideways
-	        			bullet.setSpeedX(trackingSpeed);
-	        			bullet.moveDirection(MovingView.SIDEWAYS);    
-		    		}
-		    		
-	    			bullet.setBulletRotation();
-				}
-				shooter.postDelayed(this,MovingView.HOW_OFTEN_TO_MOVE*3);
+    			bullet.setBulletRotation();
 			}
+			ConditionalHandler.postIfAlive(this,MovingView.HOW_OFTEN_TO_MOVE*3,shooter);//I could use the default time and lower the speed, but having a higher speed and a less often movement time is less computationally intense
     	}
 	};
 

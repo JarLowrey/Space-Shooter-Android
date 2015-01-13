@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import support.ConditionalHandler;
 import interfaces.GameObjectInterface;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
@@ -22,8 +23,6 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 	private Runnable moveInARectangleRunnable = new Runnable() {
 		@Override
 		public void run() {
-    		//ensure view is not removed before running
-			if( ! Orbiter_RectangleView.this.isRemoved()){
 				switch (currentSideOfRectangle) {
 				case 0:
 					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
@@ -45,9 +44,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 				}
 				howManyTimesMoved++;
 				
-				Orbiter_RectangleView.this.postDelayed(this,
-						Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
+				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
 		}
 	};
 	

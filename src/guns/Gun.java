@@ -1,5 +1,6 @@
 package guns;
   
+import support.ConditionalHandler;
 import interfaces.Shooter;
 import android.content.Context;
 import android.os.Handler;
@@ -30,12 +31,8 @@ public abstract class Gun {
 	private Runnable shootingRunnable = new Runnable(){
 		  	@Override
 		      public void run() {
-		  			//ensure shooter is not removed before running
-			  		if( ! shooter.isRemoved() ){
-		  				Gun.this.shoot();
-		  				
-			  			handler.postDelayed(this, (long) bulletFreq);
-			  		}
+	  				Gun.this.shoot();
+	  				ConditionalHandler.postIfAlive(this, (long) bulletFreq,shooter);
 		  		}
 			};
 	

@@ -52,7 +52,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 				for (int i = 0; i < allSimpleShooters.size(); i++) {
 					
 		    		//ensure view is not removed before moving
-		    		if( ! allSimpleShooters.get(i).isRemoved()){
+//		    		if( ! allSimpleShooters.get(i).isRemoved()){
 						switch (currentPos) {
 						case 0:
 							allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.RIGHT);
@@ -67,7 +67,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 							allSimpleShooters.get(i).moveDirection(Moving_ProjectileView.DOWN);
 							break;
 						}
-		    		}
+//		    		}
 				}
 				
 				//increment position, and check for change of direction

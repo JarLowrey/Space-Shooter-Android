@@ -37,10 +37,10 @@ public  class Gun_ShootTowardsProjectileDualShot extends Gun {
 				for(int i=GameActivity.enemies.size()-1;i>=0;i--){
 					Moving_ProjectileView cast = (Moving_ProjectileView) GameActivity.enemies.get(i);
 					//check if an enemy is living. if so, set him as target and stop looping
-					if( ! cast.isRemoved()){
+//					if( ! cast.isRemoved()){
 						shootTowardsMe= cast;
 						break;
-					}
+//					}
 				}
 			}
 		}

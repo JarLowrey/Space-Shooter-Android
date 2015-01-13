@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import support.ConditionalHandler;
 import interfaces.GameObjectInterface;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
@@ -28,8 +29,6 @@ public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements Game
 	private Runnable moveInALineRunnable = new Runnable(){
 		@Override
 		public void run() {
-    		//ensure view is not removed before running
-			if( ! Orbiter_HorizontalLine.this.isRemoved()){
 				Orbiter_HorizontalLine.this.moveDirection(SIDEWAYS);
 				
 				
@@ -39,9 +38,7 @@ public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements Game
 					Orbiter_HorizontalLine.this.setSpeedX(Orbiter_HorizontalLine.this.getSpeedX() * -1);//reverse side direction
 				}
 					
-				Orbiter_HorizontalLine.this.postDelayed(this,
-							Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
+				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE, Orbiter_HorizontalLine.this);
 		}
 	};
 	

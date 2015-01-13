@@ -1,4 +1,4 @@
-package custom_support_classes;
+package support;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

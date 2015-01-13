@@ -1,5 +1,6 @@
 package enemies_non_shooters;
 
+import support.ConditionalHandler;
 import abstract_parents.MovingView;
 import android.content.Context;
 
@@ -20,11 +21,8 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 
 		@Override
 		public void run() {
-    		//ensure view is not removed before moving
-    		if( ! Meteor_SidewaysView.this.isRemoved()){
-				Meteor_SidewaysView.this.moveDirection(MovingView.SIDEWAYS);
-				Meteor_SidewaysView.this.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
-    		}
+			Meteor_SidewaysView.this.moveDirection(MovingView.SIDEWAYS);
+			ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE,Meteor_SidewaysView.this);
 		}
 		
 	};

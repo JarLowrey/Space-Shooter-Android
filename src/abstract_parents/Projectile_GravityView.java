@@ -1,6 +1,7 @@
 package abstract_parents;
 
 import interfaces.Gravity;
+import support.ConditionalHandler;
 import android.content.Context;
 import android.util.AttributeSet;
 /**
@@ -37,14 +38,11 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
     Runnable gravityRunnable = new Runnable(){
     	@Override
         public void run() {
-    		//ensure view is not removed before running
-    		if( ! Projectile_GravityView.this.isRemoved()){
-        		atThreshold=moveDirection(Moving_ProjectileView.DOWN);
-        		
-        		//if View is at lowest threshold stop reposting runnable
-        		if(!atThreshold){
-        			Projectile_GravityView.this.postDelayed(this, HOW_OFTEN_TO_MOVE/2);
-        		}
+    		atThreshold=moveDirection(Moving_ProjectileView.DOWN);
+    		
+    		//if View is at lowest threshold stop reposting runnable
+    		if(!atThreshold){
+    			ConditionalHandler.postIfAlive(this, HOW_OFTEN_TO_MOVE/2,Projectile_GravityView.this);
     		}
     	}
     };

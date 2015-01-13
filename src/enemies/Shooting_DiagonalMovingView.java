@@ -1,5 +1,6 @@
 package enemies;
 
+import support.ConditionalHandler;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout;
@@ -25,9 +26,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	Runnable moveDiagonalRunnable = new Runnable(){
 
 		@Override
-		public void run() {
-    		//ensure view is not removed before running
-    		if( ! Shooting_DiagonalMovingView.this.isRemoved()){			
+		public void run() {		
 				final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
 				final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
 				double mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();
@@ -43,8 +42,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 				}
 				Shooting_DiagonalMovingView.this.moveDirection(Moving_ProjectileView.SIDEWAYS);
 				
-				Shooting_DiagonalMovingView.this.postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-    		}
+				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Shooting_DiagonalMovingView.this);
 		}
 		
 	};

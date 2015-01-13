@@ -1,4 +1,4 @@
-package misc;
+package support;
 
 import interfaces.Shooter;
 import levels.LevelSystem;
@@ -46,13 +46,13 @@ public class CollisionDetector {
     private static boolean detectAnyFriendlyHasCollidedWithAnyEnemy(){		
     	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
     		FriendlyView friendly = GameActivity.friendlies.get(k);
-    		if(!friendly.isRemoved()){//game object could be removed in previous loop iteration
-    			
+//    		if(!friendly.isRemoved()){//game object could be removed in previous loop iteration?
+//    			
 	    		boolean isProtagonist = friendly == GameActivity.protagonist;
 	    		
 		    	for(int i=GameActivity.enemies.size()-1;i>=0;i--){
 		    		EnemyView enemy = GameActivity.enemies.get(i);
-		    		if( !enemy.isRemoved() && friendly.collisionDetection(enemy)){//game object could be removed in previous loop iteration
+		    		if( /*!enemy.isRemoved() && */ friendly.collisionDetection(enemy)){
 		    			//have the friendly take damage. if he is the protagonist then update health bar, 
 						//and if he died then run gameover
 		    			final boolean friendlyDies = friendly.takeDamage(enemy.getDamage());
@@ -66,7 +66,7 @@ public class CollisionDetector {
 		    			enemy.takeDamage(friendly.getDamage());
 		    		}
 		    	}
-	    	}
+//	    	}
     	}
     	return false;
     }
@@ -74,12 +74,12 @@ public class CollisionDetector {
     private static boolean detectAnyFriendlyHasHitAnyEnemyBullet(){
     	for(int k=GameActivity.friendlies.size()-1;k>=0;k--){
 			FriendlyView friendly = GameActivity.friendlies.get(k);
-    		if(!friendly.isRemoved()){//game object could be removed in previous loop iteration
+//    		if(!friendly.isRemoved()){//game object could be removed in previous loop iteration
 				boolean isProtagonist = friendly == GameActivity.protagonist;
 				
 				for(int j=GameActivity.enemyBullets.size()-1;j>=0;j--){
 					BulletView bullet = GameActivity.enemyBullets.get(j);
-					if(!bullet.isRemoved() && friendly.collisionDetection(bullet)){//game object could be removed in previous loop iteration
+					if(/*!bullet.isRemoved() && */ friendly.collisionDetection(bullet)){//game object could be removed in previous loop iteration
 						//have the friendly take damage. if he is the protagonist then update health bar, 
 						//and if he died then run gameover
 		    			final boolean friendlyDies = friendly.takeDamage(bullet.getDamage());
@@ -92,7 +92,7 @@ public class CollisionDetector {
 		    			bullet.removeGameObject();
 		    		}
 				}
-    		}
+//    		}
     	}
 		return false;
     }
@@ -107,7 +107,7 @@ public class CollisionDetector {
 		    	for(int i=GameActivity.bonuses.size()-1;i>=0;i--){
 		    		
 		    		BonusView bonus = GameActivity.bonuses.get(i);
-		    		if( ! bonus.isRemoved() && friendly.collisionDetection(bonus)){//game object could be removed in previous loop iteration
+		    		if( /*! bonus.isRemoved() &&*/ friendly.collisionDetection(bonus)){//game object could be removed in previous loop iteration
 		    			bonus.applyBenefit(friendlyShooter);
 		    			bonus.removeGameObject();
 		    		}
@@ -120,16 +120,16 @@ public class CollisionDetector {
     	for(int i=GameActivity.enemies.size()-1;i>=0;i--){
     		EnemyView enemy = GameActivity.enemies.get(i);
     		
-    		if(!enemy.isRemoved()){//game object could be removed in previous loop iteration
+//    		if(!enemy.isRemoved()){//game object could be removed in previous loop iteration
 	    		for(int j=GameActivity.friendlyBullets.size()-1;j>=0;j--){
 	    			
 					BulletView bullet = GameActivity.friendlyBullets.get(j);
-					if(!bullet.isRemoved() && bullet.collisionDetection(enemy)){//game object could be removed in previous loop iteration
+					if(/*!bullet.isRemoved() &&*/ bullet.collisionDetection(enemy)){//game object could be removed in previous loop iteration
 	        			enemy.takeDamage(bullet.getDamage());
 	        			bullet.removeGameObject();
 	        		}
 	        	}
-    		}
+//    		}
     	}
     }
     

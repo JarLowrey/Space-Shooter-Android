@@ -54,9 +54,7 @@ public class EnemyView extends Projectile_GravityView{
 			LevelSystem.incrementScore(this.getScoreForKilling()/3);
 			Log.d("lowrey","offscreen");
 		}
-		GameActivity.enemies.remove(this); 
-Log.d("lowrey","enemySize"+GameActivity.enemies.size());
-		Log.d("lowrey","removed from game already="+this.isRemoved());
+		GameActivity.enemies.remove(this);
 		
 
 		numRemoved++;

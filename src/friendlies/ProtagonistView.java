@@ -1,5 +1,6 @@
 package friendlies;
 
+import support.ConditionalHandler;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_StraightSingleShot;
@@ -45,7 +46,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 //    	 @Override
 //         public void run() {
 //			//ensure view is not removed before running
-//			if( ! ProtagonistView.this.isRemoved() && GameActivity.rocketExhaust!=null){
 //				if(count*EXHAUST_MOVE_FREQ<EXHAUST_VISIBLE_TIME){
 //					GameActivity.rocketExhaust.setVisibility(View.VISIBLE);					
 //		    		 //position the exhaust
@@ -56,25 +56,21 @@ public class ProtagonistView extends Friendly_ShooterView{
 //					GameActivity.rocketExhaust.setX(x);
 //					count++;
 //
-//					ProtagonistView.this.postDelayed(this,EXHAUST_MOVE_FREQ);//repost this runnable so the exhaust will reposition quickly
+//					ConditionalHandler.postIfAlive(this,EXHAUST_MOVE_FREQ,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
 //				
 //				}else{
 //					count=0;
 //					GameActivity.rocketExhaust.setVisibility(View.INVISIBLE);					
-//					ProtagonistView.this.postDelayed(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()));//repost this runnable so the exhaust will reposition quickly
+//					ConditionalHandler.postIfAlive(this,EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random(),ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
 //				}
-//			}
 //         }
 //    };
     
 	private Runnable moveRunnable = new Runnable(){
 		@Override
 		public void run() {
-    		//ensure view is not removed before moving
-			if(!ProtagonistView.this.isRemoved()){
 				ProtagonistView.this.moveDirection(directionMoving);
-				ProtagonistView.this.postDelayed(moveRunnable,HOW_OFTEN_TO_MOVE_ROCKET);
-			}
+				ConditionalHandler.postIfAlive(moveRunnable,HOW_OFTEN_TO_MOVE_ROCKET,ProtagonistView.this);
 		}
 		
 	};

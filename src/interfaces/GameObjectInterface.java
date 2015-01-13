@@ -19,5 +19,14 @@ public interface GameObjectInterface {
 	 */
 	public void removeGameObject();
 	
+	public boolean isRemoved();
 	
+	//default, built in, final, Android interface methods
+	public float getX();	
+	public int getWidth();	
+	public float getY();	
+	public int getHeight();
+	public boolean removeCallbacks(Runnable run);
+	public boolean postDelayed(Runnable r, long millisecondDelay);
+	public boolean post(Runnable r);
 }

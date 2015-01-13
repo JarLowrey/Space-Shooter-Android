@@ -1,11 +1,9 @@
 package levels;
 
-import misc.CollisionDetector;
+import support.CollisionDetector;
+import support.ConditionalHandler;
 import android.content.Context;
-import android.util.Log;
 import android.widget.RelativeLayout;
-
-import com.jtronlabs.to_the_moon.GameActivity;
 
 public class LevelSystem extends Factory_LevelsScripted{
 
@@ -40,7 +38,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		
 		
 		for(int i=currentProgressInLevel;i<levels[myLevel-1].length;i++){
-			spawnHandler.postDelayed(levels[myLevel-1][i], i * DEFAULT_WAVE_DURATION);
+			ConditionalHandler.postIfLevelResumed(levels[myLevel-1][i], i * DEFAULT_WAVE_DURATION);
 		}
 		CollisionDetector.startDetecting();
 		return false;
@@ -55,7 +53,7 @@ public class LevelSystem extends Factory_LevelsScripted{
 		
 		
 		for(int i=currentProgressInLevel;i<level1.length;i++){
-			spawnHandler.postDelayed(levels[myLevel][i], i * DEFAULT_WAVE_DURATION);
+			ConditionalHandler.postIfLevelResumed(levels[myLevel][i], i * DEFAULT_WAVE_DURATION);
 		}
 		
 		CollisionDetector.startDetecting();
@@ -72,5 +70,8 @@ public class LevelSystem extends Factory_LevelsScripted{
 	}
 	public static int getLevel(){
 		return myLevel;
+	}
+	public static boolean isLevelPaused(){
+		return levelPaused;
 	}
 }

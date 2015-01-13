@@ -1,5 +1,6 @@
 package levels;
 
+import support.ConditionalHandler;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
@@ -96,7 +97,7 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 	
 	public void pauseLevel(){
 		levelPaused=true;
-		spawnHandler.removeCallbacks(null);
+		ConditionalHandler.removeLevelHandlerCallbacks();
 	}
 	
 	public static boolean isLevelCompleted(){

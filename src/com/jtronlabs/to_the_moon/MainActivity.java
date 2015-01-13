@@ -1,5 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
+import support.DrawTextView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +15,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import custom_support_classes.DrawTextView;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
 

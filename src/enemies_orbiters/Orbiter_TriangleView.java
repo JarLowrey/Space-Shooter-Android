@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import support.ConditionalHandler;
 import interfaces.GameObjectInterface;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
@@ -19,8 +20,6 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 	private Runnable moveInATriangleRunnable = new Runnable(){
 		@Override
 		public void run() {
-    		//ensure view is not removed before running
-			if( ! Orbiter_TriangleView.this.isRemoved()){
 				//triangle is equilateral
 					switch (currentSideOfTriangle) {
 					case 0:
@@ -42,9 +41,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 					}
 					howManyTimesMoved++;
 					
-					Orbiter_TriangleView.this.postDelayed(this,
-							Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
+					ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_TriangleView.this);
 		}
 	};
 	

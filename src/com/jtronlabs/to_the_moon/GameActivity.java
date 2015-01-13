@@ -4,8 +4,10 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import support.CollisionDetector;
+
+
 import levels.LevelSystem;
-import misc.CollisionDetector;
 import abstract_parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;

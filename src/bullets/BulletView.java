@@ -1,5 +1,6 @@
 package bullets;
   
+import support.ConditionalHandler;
 import interfaces.Shooter;
 import abstract_parents.MovingView;
 import abstract_parents.Moving_ProjectileView;
@@ -22,26 +23,23 @@ public class BulletView extends Moving_ProjectileView{
 	Runnable moveBulletRunnable = new Runnable(){
     	@Override
         public void run() {
-    		//ensure view is not removed before running
-    		if( ! BulletView.this.isRemoved()){
-	    		//move up and down
-	    		if(theOneWhoShotMe.isFriendly()){
-	    			BulletView.this.moveDirection(MovingView.UP);
-	    		}else{
-	    			BulletView.this.moveDirection(MovingView.DOWN);
-	    		}
-	    		
-	    		//move sideways only if horizontal speed is not 0. This is not needed (since 0 horizontal speed results in 0 movement),
-	    		//but I'd like to think it saves some resources
-    			if( (Math.abs(BulletView.this.getSpeedX())>0.0001)){
-    				//move sideways
-        			BulletView.this.moveDirection(MovingView.SIDEWAYS);
-        		}
-
-    			BulletView.this.setBulletRotation();
-    			BulletView.this.postDelayed(this,HOW_OFTEN_TO_MOVE);
+    		//move up and down
+    		if(theOneWhoShotMe.isFriendly()){
+    			BulletView.this.moveDirection(MovingView.UP);
+    		}else{
+    			BulletView.this.moveDirection(MovingView.DOWN);
     		}
-    	}
+    		
+    		//move sideways only if horizontal speed is not 0. This is not needed (since 0 horizontal speed results in 0 movement),
+    		//but I'd like to think it saves some resources
+			if( (Math.abs(BulletView.this.getSpeedX())>0.0001)){
+				//move sideways
+    			BulletView.this.moveDirection(MovingView.SIDEWAYS);
+    		}
+
+			BulletView.this.setBulletRotation();
+			ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,BulletView.this);
+		}
 	};
 	
 	public BulletView(Context context,Shooter shooter,

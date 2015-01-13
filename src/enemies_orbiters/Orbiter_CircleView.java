@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import support.ConditionalHandler;
 import interfaces.GameObjectInterface;
 import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
@@ -22,9 +23,6 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	private Runnable moveInACircleRunnable = new Runnable(){
 		@Override
 		public void run() {
-			
-    		//ensure view is not removed before running
-			if( ! Orbiter_CircleView.this.isRemoved()){
 				
 				
 //				imagine a circle around this triangle. the right point is the next position 
@@ -67,19 +65,17 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 //				break;
 //			}
 	
-				//dear christ. Why am i so stupid. Figured it out eventually!
-				currentDegree = ( angularVelocity+currentDegree )%360;
-				float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
-				float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));
-				
-				Orbiter_CircleView.this.setX( orbitX+x );
-				Orbiter_CircleView.this.setY( orbitY+y );
+			//dear christ. Why am i so stupid. Figured it out eventually!
+			currentDegree = ( angularVelocity+currentDegree )%360;
+			float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
+			float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));
 			
-				howManyTimesMoved++;
-				
-				Orbiter_CircleView.this.postDelayed(this,
-						Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
+			Orbiter_CircleView.this.setX( orbitX+x );
+			Orbiter_CircleView.this.setY( orbitY+y );
+		
+			howManyTimesMoved++;
+			
+			ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_CircleView.this);
 		}
 	};
 	

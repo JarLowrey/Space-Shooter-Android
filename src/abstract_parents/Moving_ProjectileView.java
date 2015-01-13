@@ -96,9 +96,4 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 	public void restartThreads() {
 		// do nothing for this class. Override in a child class if there are threads added
 	}
-//
-//	@Override
-//	public boolean isDead() {
-//		return isRemoved() || health < 0;
-//	}
 }
