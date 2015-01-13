@@ -1,4 +1,4 @@
-package com.jtronlabs.to_the_moon;
+package misc;
 
 import interfaces.Shooter;
 import levels.LevelSystem;
@@ -6,6 +6,9 @@ import abstract_parents.MovingView;
 import android.os.Handler;
 import bonuses.BonusView;
 import bullets.BulletView;
+
+import com.jtronlabs.to_the_moon.GameActivity;
+
 import enemies.EnemyView;
 import friendlies.FriendlyView;
 
@@ -17,6 +20,7 @@ public class CollisionDetector {
 
         @Override
         public void run() {
+//        	Log.d("lowrey","numEnemies"+GameActivity.enemies.size());
         	if( ! LevelSystem.isLevelCompleted() || GameActivity.enemies.size() !=0){
         		
         		boolean protagonistDiedFromCollision = detectAnyFriendlyHasCollidedWithAnyEnemy();
@@ -31,6 +35,9 @@ public class CollisionDetector {
 		            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
         		}
         	}else{
+        		if(LevelSystem.getLevel()==LevelSystem.MAX_NUMBER_LEVELS){
+        			GameActivity.beatGame();
+        		}
         		GameActivity.openStore();
         	}
         }

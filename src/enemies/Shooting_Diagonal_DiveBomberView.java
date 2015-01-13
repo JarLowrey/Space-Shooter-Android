@@ -13,13 +13,12 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_dive_bomber,
 			DEFAULT_BULLET_FREQ_INTERVAL=1250;
 	
-	public final static double DEFAULT_SPEED_Y=1.8,
+	public final static double DEFAULT_SPEED_Y=1.2,
 			DEFAULT_SPEED_X=3,
 			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=60,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
-	
-	public final static double DEFAULT_BULLET_SPEED_Y=10,
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1,
+			DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10;
 	
 	

@@ -1,10 +1,10 @@
 package levels;
 
+import misc.CollisionDetector;
 import android.content.Context;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.CollisionDetector;
 import com.jtronlabs.to_the_moon.GameActivity;
 
 public class LevelSystem extends Factory_LevelsScripted{
@@ -27,7 +27,6 @@ public class LevelSystem extends Factory_LevelsScripted{
 	 * @return True if user has passed the last level
 	 */
 	public boolean startNextLevel(){
-		Log.d("lowrey","enemies size = "+GameActivity.enemies.size());
 		myLevel++;
 		if(myLevel==MAX_NUMBER_LEVELS){
 			return true;
@@ -43,12 +42,11 @@ public class LevelSystem extends Factory_LevelsScripted{
 		for(int i=currentProgressInLevel;i<levels[myLevel-1].length;i++){
 			spawnHandler.postDelayed(levels[myLevel-1][i], i * DEFAULT_WAVE_DURATION);
 		}
-		
 		CollisionDetector.startDetecting();
 		return false;
 	}
 	public void resumeLevel(){
-		startNextLevel();
+//		startNextLevel();//this is for testing purposes only
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
 		 * If handler has runnables canceled before level finishes, then current progress will not change.

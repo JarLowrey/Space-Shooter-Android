@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import levels.LevelSystem;
+import misc.CollisionDetector;
 import abstract_parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -160,6 +161,10 @@ public class GameActivity extends Activity implements OnTouchListener{
 		enemies=new ArrayList<EnemyView>();
 		Shooting_ArrayMovingView.resetSimpleShooterArray();
 		
+	}
+	
+	public static void beatGame(){
+		resourceCount.setText("YOU WIN");//to be completed
 	}
 	
 	public static void openStore(){
@@ -353,6 +358,6 @@ public class GameActivity extends Activity implements OnTouchListener{
 		}else{
 			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 		}
-	}		
+	}
 
 }

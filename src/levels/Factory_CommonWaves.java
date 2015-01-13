@@ -8,9 +8,13 @@ public class Factory_CommonWaves extends Factory_Waves{
 
 	public static int DEFAULT_WAVE_DURATION=5000;
 	
-	//For runnables that last an entire level. Typically found by multiplying DEFAULT_WAVE_DURATION by the length of the level arrays 
-	//in Factory_LevelsScripted. Can be less than level, the only effect is affected waves will last less time, which could be useful
-	public static final int[] LEVEL_LENGTHS={110000,110000,100000,50000,45000};
+	//For runnables that last an entire level. Equal to (num waves in a level - 1)*wave_duration. The minus one is to ensure nothing new spawns at end of level
+	//This time can be less than level, the only effect is waves will last less time, which could be useful
+	public static final int[] LEVEL_LENGTHS={ 11*DEFAULT_WAVE_DURATION,
+		11*DEFAULT_WAVE_DURATION,
+		10*DEFAULT_WAVE_DURATION,
+		12*DEFAULT_WAVE_DURATION,
+		9*DEFAULT_WAVE_DURATION};
 	
 	public Factory_CommonWaves(Context context,RelativeLayout gameScreen){
 		super( context, gameScreen);
@@ -27,14 +31,14 @@ public class Factory_CommonWaves extends Factory_Waves{
 
 	
 	//regular meteors
-	Runnable meteorSidewaysOneFallingEverySecondForWholeLevel = new Runnable(){
+	Runnable meteorSidewaysOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
 			int length = LEVEL_LENGTHS[myLevel-1];
 			spawnSidewaysMeteorsWave( length/1500 ,1000);
 		}
 	};
-	Runnable meteorsStraightFallingOneEverySecondForWholeLevel = new Runnable(){
+	Runnable meteorsStraightOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
 			int length = LEVEL_LENGTHS[myLevel-1];
@@ -105,7 +109,7 @@ public class Factory_CommonWaves extends Factory_Waves{
 	};
 	
 	//dive bombers	
-	Runnable diveBombersEverySecondWave = new Runnable(){
+	Runnable diveBomberOnePerSecond = new Runnable(){
 		@Override
 		public void run() {
 			spawnDiveBomberWave(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave

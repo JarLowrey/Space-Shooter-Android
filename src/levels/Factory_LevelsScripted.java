@@ -27,11 +27,12 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 	};
 	
 
-	final Runnable[] level1 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
-			meteorSidewaysOneFallingEverySecondForWholeLevel,
-			meteorShowersThatForceUserToMiddle,
+	final Runnable[] level1 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToRight,
+			doNothing,
+			meteorShowersThatForceUserToLeft,
 			meteorsGiantAndSideways,
 			meteorsGiantAndSideways,
 			meteorShowerLong,
@@ -41,35 +42,40 @@ public class Factory_LevelsScripted extends Factory_CommonWaves{
 	
 	final Runnable[] level2 =level1;
 	
-	final Runnable[] level3 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
-			meteorSidewaysOneFallingEverySecondForWholeLevel,
+	final Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
 			doNothing,
+			doNothing,
+			doNothing,
 			refreshArrayShooters,
-			diveBombersEverySecondWave,
-			diveBombersEverySecondWave,
+			doNothing,
 			levelOverRunnable};
 	
-	final Runnable[] level4 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
+	final Runnable[] level4 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysThisWave,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
 			doNothing,
 			doNothing,
+			doNothing,
 			refreshArrayShooters,
 			doNothing,
-			diveBombersEverySecondWave,
+			doNothing,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond,
 			levelOverRunnable};
 	
-	final Runnable[] level5 = {meteorSidewaysOneFallingEverySecondForWholeLevel,
+	final Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToRight,
 			meteorShowersThatForceUserToLeft,
 			refreshArrayShooters,
-			diveBombersEverySecondWave,
 			doNothing,
-			diveBombersEverySecondWave,
+			diveBomberOnePerSecond,
+			doNothing,
+			diveBomberOnePerSecond,
 			boss1,
 			levelOverRunnable};
 	

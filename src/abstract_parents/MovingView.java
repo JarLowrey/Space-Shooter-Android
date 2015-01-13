@@ -1,6 +1,7 @@
 package abstract_parents;
 
 import interfaces.GameObjectInterface;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -8,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+
 /**
- * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
- * The downward force may be different from the upward speed.
  * 
  * 
  * 
@@ -26,21 +26,16 @@ import com.jtronlabs.to_the_moon.MainActivity;
  */
 public abstract class MovingView extends ImageView implements GameObjectInterface{
 
-	private static int referenceId=Integer.MIN_VALUE;
-	
 	public static final int HOW_OFTEN_TO_MOVE=100,
 			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
 			NOT_DEAD=-1;
 
-	private int myId;
 	boolean isRemoved;
 	double speedY,speedX;
 	
 	public MovingView(Context context,double movingSpeedY,double movingSpeedX) {
 		super(context);
 
-		myId=referenceId;
-		referenceId++;
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();
 		isRemoved=false;
@@ -49,8 +44,6 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 	public MovingView(Context context,AttributeSet at,double movingSpeedY,double movingSpeedX) {
 		super(context,at);
 
-		myId=referenceId;
-		referenceId++;
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();
 		isRemoved=false;
@@ -156,24 +149,4 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 		ViewGroup parent = (ViewGroup)this.getParent();
 		if(parent!=null){parent.removeView(this);}		
 	}
-	
-	public int getId(){
-		return this.myId;
-	}
-
-//	/**
-//	 * must override the .equals method in order for ArrayList.remove(Object) to function as
-//	 * intended.
-//	 */
-//	@Override
-//	public boolean equals(Object other){
-//		if(other instanceof MovingView){
-//			final int id= ((MovingView)other).getId();
-////			Log.d("lowrey", "id1"+myId+ " id2= "+id );
-//			return this.myId == id;
-//		}else{
-//			return false;
-//		}
-////		return true;
-//	}
 }
