@@ -22,7 +22,7 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
 
 		atThreshold=false;
 		gravityThreshold=Gravity.NO_THRESHOLD;
-		this.post(gravityRunnable);
+		ConditionalHandler.postIfAlive(gravityRunnable, this);
 	}
 	
 	public Projectile_GravityView(Context context,AttributeSet at,double movingSpeedY,double movingSpeedX,double projectileDamage,
@@ -31,7 +31,7 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
 
 		atThreshold=false;
 		gravityThreshold=Gravity.NO_THRESHOLD;
-		this.post(gravityRunnable);
+		ConditionalHandler.postIfAlive(gravityRunnable, this);
 	}
 
     //GRAVITY RUNNABLE
@@ -63,7 +63,7 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
 		this.removeCallbacks(gravityRunnable);		
 	}
 	public void startGravity(){
-		this.postDelayed(gravityRunnable,HOW_OFTEN_TO_MOVE);		
+		ConditionalHandler.postIfAlive(gravityRunnable,this);		
 	}
 	
 	public void setThreshold (int newLowestPositionThreshold){

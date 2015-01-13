@@ -39,7 +39,7 @@ public class Gravity_MeteorView extends EnemyView{
 				
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
-		this.post(rotateRunnable); 
+		ConditionalHandler.postIfAlive(rotateRunnable, this);
 		
 		//set image background
 		this.setImageResource(R.drawable.meteor);
@@ -57,7 +57,7 @@ public class Gravity_MeteorView extends EnemyView{
 	
 	@Override 
 	public void restartThreads(){
-		this.postDelayed(rotateRunnable, MovingView.HOW_OFTEN_TO_MOVE);
+		ConditionalHandler.postIfAlive(rotateRunnable, this);
 		super.restartThreads();
 	}
 }

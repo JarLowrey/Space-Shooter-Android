@@ -1,11 +1,16 @@
 package enemies_orbiters;
 
+import support.ConditionalHandler;
+
 import com.jtronlabs.to_the_moon.MainActivity;
 
 import android.content.Context;
 import enemies.Enemy_ShooterView;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
+
+	//NEEDS TO BE INSTANTIATED IN CHILD CLASS
+	public Runnable orbitingRunnable;
 	
 	public final static int DEFAULT_SCORE=100,
 			DEFAULT_BULLET_FREQ_INTERVAL=1000;
@@ -16,7 +21,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10;
-	
+		
 	private boolean hasBegunOrbiting=false;
 	protected int howManyTimesMoved;
 	protected int orbitY,orbitX;
@@ -70,7 +75,11 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		super.restartThreads();
 	}
 	
-	public abstract void beginOrbit();
-	public abstract void endOrbit();
+	public void beginOrbit(){
+		ConditionalHandler.postIfAlive(orbitingRunnable, this);
+	}
+	public void endOrbit(){
+		this.removeCallbacks(orbitingRunnable);
+	}
 
 }

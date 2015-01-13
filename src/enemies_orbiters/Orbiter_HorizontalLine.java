@@ -26,22 +26,6 @@ public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements Game
 	public final static double DEFAULT_BULLET_SPEED_Y=15,
 			DEFAULT_BULLET_DAMAGE=30;
 	
-	private Runnable moveInALineRunnable = new Runnable(){
-		@Override
-		public void run() {
-				Orbiter_HorizontalLine.this.moveDirection(SIDEWAYS);
-				
-				
-				final float leftPos = Orbiter_HorizontalLine.this.getX();
-				final float rightPos = Orbiter_HorizontalLine.this.getX()+Orbiter_HorizontalLine.this.getHeight();
-				if(leftPos<0 || rightPos > MainActivity.getWidthPixels()){
-					Orbiter_HorizontalLine.this.setSpeedX(Orbiter_HorizontalLine.this.getSpeedX() * -1);//reverse side direction
-				}
-					
-				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE, Orbiter_HorizontalLine.this);
-		}
-	};
-	
 	public Orbiter_HorizontalLine(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health,double probSpawnBeneficialObjecyUponDeath) {
 		super(context, score,speedY, speedX,
@@ -57,13 +41,21 @@ public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements Game
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold(DEFAULT_ORBIT_LOCATION);
 		this.setX(MainActivity.getWidthPixels()/2);
+		
+		orbitingRunnable = new Runnable(){
+			@Override
+			public void run() {
+					Orbiter_HorizontalLine.this.moveDirection(SIDEWAYS);
+					
+					
+					final float leftPos = Orbiter_HorizontalLine.this.getX();
+					final float rightPos = Orbiter_HorizontalLine.this.getX()+Orbiter_HorizontalLine.this.getHeight();
+					if(leftPos<0 || rightPos > MainActivity.getWidthPixels()){
+						Orbiter_HorizontalLine.this.setSpeedX(Orbiter_HorizontalLine.this.getSpeedX() * -1);//reverse side direction
+					}
+						
+					ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE, Orbiter_HorizontalLine.this);
+			}
+		};
 	}
-	
-	public void beginOrbit(){
-		this.post(moveInALineRunnable);	
-	}
-	public void endOrbit(){
-		this.removeCallbacks(moveInALineRunnable);
-	}
-
 }

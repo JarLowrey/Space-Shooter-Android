@@ -35,7 +35,9 @@ public class CollisionDetector {
         		}
         	}else{
         		if(LevelSystem.getLevel()==LevelSystem.MAX_NUMBER_LEVELS){
+        			
         			GameActivity.beatGame();
+        			
         		}else{
 	        		LevelSystem.notifyLevelFinishedAndAllEnemiesAreDead();
 	        		GameActivity.openStore();

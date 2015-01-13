@@ -6,32 +6,30 @@ import enemies.Shooting_ArrayMovingView;
 
 public class Factory_LevelWaves extends Factory_Waves{
 
-	public static int DEFAULT_WAVE_DURATION=5000;
+	public int DEFAULT_WAVE_DURATION=5000;
 	
-	protected static int currentProgressInLevel;
+	protected int currentProgressInLevel;
 	
-	//For runnables that last an entire level. Equal to (num waves in a level - 1)*wave_duration. The minus one is to ensure nothing new spawns at end of level
-	//This time can be less than level, the only effect is waves will last less time, which could be useful
-	public static final int[] LEVEL_LENGTHS={ 11*DEFAULT_WAVE_DURATION,
-		11*DEFAULT_WAVE_DURATION,
-		10*DEFAULT_WAVE_DURATION,
-		12*DEFAULT_WAVE_DURATION,
-		9*DEFAULT_WAVE_DURATION};
-	
+
 	public Factory_LevelWaves(Context context,RelativeLayout gameScreen){
 		super( context, gameScreen);
 	}
+	
+	private int getCurrentLevelLength(){
+		return levels[currentLevel].length*DEFAULT_WAVE_DURATION;
+	}
+	
 	
 	/**
 	 * define common waves here. for example, 2 meteor showers, one on each eadge of screen that force user to go into middle of screen.
 	 * this class should contain runnables, not functions, so that the level factory can post delay them
 	 */
 	
-	protected final static Runnable doNothing = new Runnable(){
+	protected final  Runnable doNothing = new Runnable(){
 		@Override
 		public void run() {}};
 
-	protected final static Runnable levelWavesOver = new Runnable(){
+	protected final Runnable levelWavesOver = new Runnable(){
 		@Override
 		public void run() {	
 			LevelSystem.notifyLevelWavesCompleted();
@@ -39,21 +37,21 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};
 	
 	//regular meteors
-	final static Runnable meteorSidewaysOnePerSecondForWholeLevel = new Runnable(){
+	final Runnable meteorSidewaysOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			spawnSidewaysMeteorsWave( LevelSystem.getCurrentLevelLength() /1500 ,1000);
+			spawnSidewaysMeteorsWave( getCurrentLevelLength() /1500 ,1000);
 			currentProgressInLevel++;
 		}
 	};
-	final static Runnable meteorsStraightOnePerSecondForWholeLevel = new Runnable(){
+	final Runnable meteorsStraightOnePerSecondForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			spawnStraightFallingMeteorsAtRandomXPositionsWave( LevelSystem.getCurrentLevelLength() /1500 ,1000);
+			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLength() /1500 ,1000);
 			currentProgressInLevel++;
 		}
 	};
-	final static Runnable meteorSidewaysThisWave = new Runnable(){
+	final Runnable meteorSidewaysThisWave = new Runnable(){
 		@Override
 		public void run() {
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
@@ -62,14 +60,14 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};	
 	
 	//meteor showers
-	final static Runnable meteorShowerLong = new Runnable(){//lasts 2 waves
+	final Runnable meteorShowerLong = new Runnable(){//lasts 2 waves
 		@Override
 		public void run() {
 			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
 			currentProgressInLevel++;
 		}
 	};
-	final static Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
+	final Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
 		@Override
 		public void run() {
 				spawnMeteorShower(4,400,true);
@@ -77,14 +75,14 @@ public class Factory_LevelWaves extends Factory_Waves{
 				currentProgressInLevel++;
 		}
 	};
-	final static Runnable meteorShowersThatForceUserToRight = new Runnable(){
+	final Runnable meteorShowersThatForceUserToRight = new Runnable(){
 		@Override
 		public void run() {
 				spawnMeteorShower(9,DEFAULT_WAVE_DURATION/9,true);
 				currentProgressInLevel++;
 		}
 	};
-	final static Runnable meteorShowersThatForceUserToLeft = new Runnable(){
+	final Runnable meteorShowersThatForceUserToLeft = new Runnable(){
 		@Override
 		public void run() {
 				spawnMeteorShower(9,DEFAULT_WAVE_DURATION/9,false);
@@ -93,7 +91,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};
 
 	//giant meteors
-	final static Runnable meteorsGiantAndSideways = new Runnable(){
+	final Runnable meteorsGiantAndSideways = new Runnable(){
 		@Override
 		public void run() {
 			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
@@ -101,7 +99,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			currentProgressInLevel++;
 		}
 	};
-	final static Runnable meteorsOnlyGiants = new Runnable(){
+	final Runnable meteorsOnlyGiants = new Runnable(){
 		@Override
 		public void run() {
 			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
@@ -110,7 +108,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};
 	
 	//array shooters
-	final static Runnable refreshArrayShooters = new Runnable(){
+	final Runnable refreshArrayShooters = new Runnable(){
 		@Override
 		public void run() {
 			int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
@@ -123,7 +121,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	};
 	
 	//dive bombers	
-	final static Runnable diveBomberOnePerSecond = new Runnable(){
+	final Runnable diveBomberOnePerSecond = new Runnable(){
 		@Override
 		public void run() {
 			spawnDiveBomberWave(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
@@ -131,5 +129,60 @@ public class Factory_LevelWaves extends Factory_Waves{
 		}
 	};
 	
+	//levels defined in terms of the previous waves
+	final Runnable[] level1 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorSidewaysOnePerSecondForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToRight,
+			doNothing,
+			meteorShowersThatForceUserToLeft,
+			meteorsGiantAndSideways,
+			meteorsGiantAndSideways,
+			meteorShowerLong,
+			meteorsOnlyGiants,
+			meteorsOnlyGiants,
+			levelWavesOver};
+	
+	final  Runnable[] level2 =level1;
+	
+	final  Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToMiddle,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			doNothing,
+			doNothing,
+			doNothing,
+			refreshArrayShooters,
+			levelWavesOver};
+	
+	final  Runnable[] level4 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorSidewaysThisWave,
+			meteorShowersThatForceUserToMiddle,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			doNothing,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond,
+			levelWavesOver};
+	
+	final  Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorShowersThatForceUserToRight,
+			meteorShowersThatForceUserToLeft,
+			refreshArrayShooters,
+			doNothing,
+			diveBomberOnePerSecond,
+			doNothing,
+			diveBomberOnePerSecond,
+			boss1,
+			levelWavesOver};
+	
+	final Runnable levels[][] ={level1,level2,level3,level4,level5};
 	
 }

@@ -68,11 +68,11 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		leftThreshold=0;//far left of screen
 		rightThreshold=MainActivity.getWidthPixels()-this.getWidth();//far right of screen
 
-		this.post(moveDiagonalRunnable);
+		ConditionalHandler.postIfAlive(moveDiagonalRunnable, this);
 	}
 	
 	public void restartThreads(){
-		this.postDelayed(moveDiagonalRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
+		ConditionalHandler.postIfAlive(moveDiagonalRunnable,HOW_OFTEN_TO_MOVE, this);
 		super.restartThreads();
 	}
 }

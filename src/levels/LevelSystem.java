@@ -7,64 +7,10 @@ import android.widget.RelativeLayout;
 
 public class LevelSystem extends Factory_LevelWaves{
 
-	public static final int MAX_NUMBER_LEVELS=5;
+	public static final int MAX_NUMBER_LEVELS=5,
+			GAME_NOT_BEGUN=-1;
 	private static int myScore;
 	protected static boolean levelWavesCompleted,levelStarted, levelPaused;
-	
-	final static Runnable[] level1 = {meteorSidewaysOnePerSecondForWholeLevel,
-			meteorSidewaysOnePerSecondForWholeLevel,
-			meteorShowersThatForceUserToMiddle,
-			meteorShowersThatForceUserToRight,
-			doNothing,
-			meteorShowersThatForceUserToLeft,
-			meteorsGiantAndSideways,
-			meteorsGiantAndSideways,
-			meteorShowerLong,
-			meteorsOnlyGiants,
-			meteorsOnlyGiants,
-			levelWavesOver};
-	
-	final static Runnable[] level2 =level1;
-	
-	final static Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
-			meteorShowersThatForceUserToMiddle,
-			meteorShowersThatForceUserToMiddle,
-			meteorShowersThatForceUserToMiddle,
-			refreshArrayShooters,
-			doNothing,
-			doNothing,
-			doNothing,
-			doNothing,
-			doNothing,
-			refreshArrayShooters,
-			levelWavesOver};
-	
-	final static Runnable[] level4 = {meteorSidewaysOnePerSecondForWholeLevel,
-			meteorSidewaysThisWave,
-			meteorShowersThatForceUserToMiddle,
-			refreshArrayShooters,
-			doNothing,
-			doNothing,
-			doNothing,
-			refreshArrayShooters,
-			doNothing,
-			doNothing,
-			diveBomberOnePerSecond,
-			diveBomberOnePerSecond,
-			levelWavesOver};
-	
-	final static Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
-			meteorShowersThatForceUserToRight,
-			meteorShowersThatForceUserToLeft,
-			refreshArrayShooters,
-			doNothing,
-			diveBomberOnePerSecond,
-			doNothing,
-			diveBomberOnePerSecond,
-			boss1,
-			levelWavesOver};
-	
-	final static Runnable levels[][] ={level1,level2,level3,level4,level5};
 	
 	public LevelSystem(Context context, RelativeLayout gameScreen) {
 		super(context, gameScreen);
@@ -72,7 +18,7 @@ public class LevelSystem extends Factory_LevelWaves{
 
 	public void newGame(){
 		myScore=0;
-		currentLevel=-1;
+		currentLevel=GAME_NOT_BEGUN;//= -1. 
 		startNextLevel();
 	}
 	
@@ -98,7 +44,7 @@ public class LevelSystem extends Factory_LevelWaves{
 			
 			
 			for(int i=currentProgressInLevel;i<levels[currentLevel].length;i++){
-				ConditionalHandler.postIfLevelResumed(levels[currentLevel-1][i], i * DEFAULT_WAVE_DURATION);
+				ConditionalHandler.postIfLevelResumed(levels[currentLevel][i], i * DEFAULT_WAVE_DURATION);
 			}
 			CollisionDetector.startDetecting();
 			return false;
@@ -151,10 +97,5 @@ public class LevelSystem extends Factory_LevelWaves{
 	}
 	public static int getScore(){
 		return myScore;
-	}
-
-	//other GET methods
-	public static int getCurrentLevelLength(){
-		return levels[currentLevel].length*DEFAULT_WAVE_DURATION;
 	}
 }

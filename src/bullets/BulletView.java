@@ -59,8 +59,8 @@ public class BulletView extends Moving_ProjectileView{
 			this.setY(theOneWhoShotMe.getY()+theOneWhoShotMe.getHeight());//bottom
 		}
 		setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
-		
-		this.post(moveBulletRunnable);
+
+		ConditionalHandler.postIfAlive(moveBulletRunnable, this);
 
 		if(theOneWhoShotMe.isFriendly()){
 			GameActivity.friendlyBullets.add(this);
@@ -115,7 +115,7 @@ public class BulletView extends Moving_ProjectileView{
 
 	@Override
 	public void restartThreads() {
-		this.post(moveBulletRunnable);
+		ConditionalHandler.postIfAlive(moveBulletRunnable, this);
 		super.restartThreads();
 	}
 }

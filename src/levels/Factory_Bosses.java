@@ -11,6 +11,7 @@ import com.jtronlabs.to_the_moon.R;
 
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_orbiters.Orbiter_HorizontalLine;
+import friendlies.ProtagonistView;
 import guns.Gun_StraightDualShot;
 import guns.Gun_StraightSingleShot;
 
@@ -25,7 +26,7 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 		super(context,gameScreen);
 	} 
 
-	final static  Runnable spawnGiantMeteor = new Runnable(){
+	final  Runnable spawnGiantMeteor = new Runnable(){
 		@Override
 		public void run() {
 			Gravity_MeteorView giant = spawnSidewaysMeteor();
@@ -37,14 +38,14 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 			giant.setLayoutParams(new LayoutParams(width,height));
 			giant.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
 			
-			//set damage and health to 200, score to 20
-			giant.setDamage(150);
+			//make more powerful
+			giant.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );
 			giant.heal(100);
 			giant.setScoreValue(100);
 		}
 	};
 	
-	final static Runnable boss1 = new Runnable(){
+	final Runnable boss1 = new Runnable(){
 		@Override
 		public void run() {
 			Orbiter_HorizontalLine enemy = spawnHorizontalLineOrbiter();

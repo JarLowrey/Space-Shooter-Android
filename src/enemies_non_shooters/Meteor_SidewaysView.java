@@ -34,12 +34,13 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 				
 		if(Math.random()<0.5){speedX *= -1;}
 		this.setSpeedX(speedX);
-		this.post(moveSideways);
+
+		ConditionalHandler.postIfAlive(moveSideways, this);
 	}
 	
 	@Override 
 	public void restartThreads(){
-		this.postDelayed(moveSideways, MovingView.HOW_OFTEN_TO_MOVE);
+		ConditionalHandler.postIfAlive(moveSideways,HOW_OFTEN_TO_MOVE, this);
 		super.restartThreads();
 	}
 }

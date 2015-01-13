@@ -20,34 +20,6 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 	
 	private int currentSideOfRectangle,orbitDist;
 
-	private Runnable moveInARectangleRunnable = new Runnable() {
-		@Override
-		public void run() {
-				switch (currentSideOfRectangle) {
-				case 0:
-					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
-					break;
-				case 1:
-					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.DOWN);
-					break;
-				case 2:
-					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.LEFT);
-					break;
-				case 3:
-					Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.UP);
-					break;
-				}
-				
-				//change side
-				if (howManyTimesMoved % orbitDist == 0) {
-					currentSideOfRectangle = (currentSideOfRectangle + 1) % 4;
-				}
-				howManyTimesMoved++;
-				
-				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
-		}
-	};
-	
 	public Orbiter_RectangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health, 
 			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
@@ -69,6 +41,34 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
 		this.setThreshold((int) (orbitY-(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist *3.0/4);
+		
+		orbitingRunnable = new Runnable() {
+			@Override
+			public void run() {
+					switch (currentSideOfRectangle) {
+					case 0:
+						Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
+						break;
+					case 1:
+						Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.DOWN);
+						break;
+					case 2:
+						Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.LEFT);
+						break;
+					case 3:
+						Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.UP);
+						break;
+					}
+					
+					//change side
+					if (howManyTimesMoved % orbitDist == 0) {
+						currentSideOfRectangle = (currentSideOfRectangle + 1) % 4;
+					}
+					howManyTimesMoved++;
+					
+					ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
+			}
+		};
 	}
 	
 
@@ -95,12 +95,4 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 		this.setThreshold((int) (orbitY+(orbitDist*this.getMagnitudeOfSpeedY() ) ));
 		howManyTimesMoved=(int) (orbitDist *3.0/4);
 	}
-	
-	public void beginOrbit(){
-		this.post(moveInARectangleRunnable);	
-	}
-	public void endOrbit(){
-		this.removeCallbacks(moveInARectangleRunnable);
-	}
-
 }

@@ -16,34 +16,6 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_triangle;
 	
 	private int currentSideOfTriangle, orbitDist;
-
-	private Runnable moveInATriangleRunnable = new Runnable(){
-		@Override
-		public void run() {
-				//triangle is equilateral
-					switch (currentSideOfTriangle) {
-					case 0:
-						Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.LEFT);
-						Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.LEFT);
-						break;
-					case 1:
-						Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
-						Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.DOWN);
-						break;
-					case 2:
-						Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
-						Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.UP);
-						break;
-					}
-					//change side
-					if (howManyTimesMoved % orbitDist == 0) {
-						currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
-					}
-					howManyTimesMoved++;
-					
-					ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_TriangleView.this);
-		}
-	};
 	
 	public Orbiter_TriangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health,
@@ -66,6 +38,36 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold((int) (orbitY-(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
+		
+
+		orbitingRunnable = new Runnable(){
+			@Override
+			public void run() {
+					//triangle is equilateral
+						switch (currentSideOfTriangle) {
+						case 0:
+							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.LEFT);
+							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.LEFT);
+							break;
+						case 1:
+							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
+							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.DOWN);
+							break;
+						case 2:
+							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
+							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.UP);
+							break;
+						}
+						//change side
+						if (howManyTimesMoved % orbitDist == 0) {
+							currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
+						}
+						howManyTimesMoved++;
+						
+						ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_TriangleView.this);
+			}
+		};
+		
 	}
 	
 
@@ -90,12 +92,4 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 		this.setThreshold((int) (orbitY+(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist /3.0);
 	}
-	
-	public void beginOrbit(){
-		this.post(moveInATriangleRunnable);	
-	}
-	public void endOrbit(){
-		this.removeCallbacks(moveInATriangleRunnable);
-	}
-
 }

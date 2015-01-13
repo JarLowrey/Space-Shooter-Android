@@ -1,5 +1,6 @@
 package abstract_parents;
 
+import support.ConditionalHandler;
 import interfaces.CollidableObjectWithHealthDamageEtc;
 import android.content.Context;
 import android.graphics.Color;
@@ -59,8 +60,7 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 				@Override
 				public void run() {Moving_ProjectileView.this.setBackgroundColor(Color.TRANSPARENT);}
 			};
-			this.postDelayed(removeDmg, howLongBackgroundIsApplied);
-			
+			ConditionalHandler.postIfAlive(removeDmg,howLongBackgroundIsApplied,this);			
 //			createExplosion();
 		}
 		

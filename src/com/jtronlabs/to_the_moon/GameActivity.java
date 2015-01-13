@@ -141,7 +141,7 @@ public class GameActivity extends Activity implements OnTouchListener{
         	friendly.restartThreads();
         }
         
-        if( LevelSystem.hasLevelStarted()==false && LevelSystem.getLevel()==0){levelCreater.newGame();}
+        if( LevelSystem.hasLevelStarted()==false && LevelSystem.getLevel()==LevelSystem.GAME_NOT_BEGUN){levelCreater.newGame();}
         else {levelCreater.resumeLevel();}
 	}
 	

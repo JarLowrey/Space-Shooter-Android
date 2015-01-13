@@ -22,7 +22,7 @@ public abstract class Moving_GravityView extends MovingView implements Gravity{
 
 		atThreshold=false;
 		gravityThreshold=Gravity.NO_THRESHOLD;
-		this.post(gravityRunnable);
+		ConditionalHandler.postIfAlive(gravityRunnable,this);
 	}
 	
 	public Moving_GravityView(Context context,AttributeSet at,double movingSpeedY,double movingSpeedX) {
@@ -30,7 +30,7 @@ public abstract class Moving_GravityView extends MovingView implements Gravity{
 
 		atThreshold=false;
 		gravityThreshold=Gravity.NO_THRESHOLD;
-		this.post(gravityRunnable);
+		ConditionalHandler.postIfAlive(gravityRunnable,this);
 	}
 
     //GRAVITY RUNNABLE
@@ -62,7 +62,7 @@ public abstract class Moving_GravityView extends MovingView implements Gravity{
 		this.removeCallbacks(gravityRunnable);		
 	}
 	public void startGravity(){
-		this.postDelayed(gravityRunnable,HOW_OFTEN_TO_MOVE);		
+		ConditionalHandler.postIfAlive(gravityRunnable,this);		
 	}
 	
 	@Override
