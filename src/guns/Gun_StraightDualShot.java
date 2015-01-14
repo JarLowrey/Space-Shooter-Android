@@ -18,8 +18,8 @@ public class Gun_StraightDualShot extends Gun {
 		BulletView bulletRight = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
 		
 		//position bullets on edges of shooter
-		bulletLeft.setPositionOnShooterAsAPercentage(0);
-		bulletRight.setPositionOnShooterAsAPercentage(100);
+		bulletLeft.setPositionOnShooterAsAPercentage(Bullet.BULLET_LEFT);
+		bulletRight.setPositionOnShooterAsAPercentage(Bullet.BULLET_RIGHT);
 
 		//add bullets to layout
 		shooter.getMyScreen().addView(bulletLeft,1);

@@ -1,8 +1,8 @@
 package enemies_orbiters;
 
+import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import interfaces.GameObjectInterface;
-import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout;
 

@@ -4,8 +4,9 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
+import parents.MovingView;
+
 import support.ConditionalHandler;
-import abstract_parents.MovingView;
 
 import com.jtronlabs.to_the_moon.MainActivity;
   

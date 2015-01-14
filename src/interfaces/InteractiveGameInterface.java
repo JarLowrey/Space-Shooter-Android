@@ -1,6 +1,6 @@
 package interfaces;
 
-import abstract_parents.MovingView;
+import parents.MovingView;
 import friendlies.ProtagonistView;
 
 public interface InteractiveGameInterface {

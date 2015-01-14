@@ -1,7 +1,7 @@
 package friendlies;
 
+import parents.Moving_ProjectileView;
 import levels.LevelSystem;
-import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 
 public class FriendlyView extends Moving_ProjectileView{

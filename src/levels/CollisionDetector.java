@@ -1,7 +1,7 @@
 package levels;
 
+import parents.MovingView;
 import interfaces.Shooter;
-import abstract_parents.MovingView;
 import android.os.Handler;
 import android.util.Log;
 import bonuses.BonusView;

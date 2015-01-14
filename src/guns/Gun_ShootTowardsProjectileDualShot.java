@@ -1,8 +1,8 @@
 package guns;
   
+import parents.Moving_ProjectileView;
 import interfaces.Shooter;
 import levels.LevelSystem;
-import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import bullets.Bullet;
 import bullets.BulletView;

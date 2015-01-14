@@ -1,4 +1,4 @@
-package abstract_parents;
+package parents;
 
 import interfaces.CollidableObjectWithHealthDamageEtc;
 import support.ConditionalHandler;

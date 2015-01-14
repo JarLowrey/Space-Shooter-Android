@@ -1,4 +1,4 @@
-package abstract_parents;
+package parents;
 
 import interfaces.GameObjectInterface;
 import android.content.Context;

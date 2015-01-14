@@ -1,10 +1,10 @@
 package bullets;
   
+import parents.MovingView;
+import parents.Moving_ProjectileView;
 import interfaces.Shooter;
 import levels.LevelSystem;
 import support.ConditionalHandler;
-import abstract_parents.MovingView;
-import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 

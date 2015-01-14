@@ -68,6 +68,7 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
+		enemy.startShooting();
 		
 		myGameInteractivityInterface.addToScreen(enemy);
 		
@@ -94,6 +95,7 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
+		enemy.startShooting();
 
 		myGameInteractivityInterface.addToScreen(enemy);
 		
@@ -120,6 +122,7 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightDualShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
+		enemy.startShooting();
 
 		myGameInteractivityInterface.addToScreen(enemy);
 		
@@ -159,6 +162,7 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
+		enemy.startShooting();
 		
 
 		myGameInteractivityInterface.addToScreen(enemy);
@@ -206,6 +210,7 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
+		enemy.startShooting();
 
 		myGameInteractivityInterface.addToScreen(enemy);
 		
@@ -244,6 +249,7 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
+		enemy.startShooting();
 		
 
 		myGameInteractivityInterface.addToScreen(enemy);
@@ -273,6 +279,7 @@ public class Factory_GenericEnemies{
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
+		enemy.startShooting();
 
 		myGameInteractivityInterface.addToScreen(enemy);
 		

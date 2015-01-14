@@ -1,7 +1,7 @@
 package enemies;
 
+import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
-import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout;
 

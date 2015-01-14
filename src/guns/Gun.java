@@ -3,7 +3,6 @@ package guns;
 import interfaces.Shooter;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.os.Handler;
 import bullets.Bullet;
 
 

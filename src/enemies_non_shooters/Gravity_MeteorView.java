@@ -1,7 +1,7 @@
 package enemies_non_shooters;
 
+import parents.MovingView;
 import support.ConditionalHandler;
-import abstract_parents.MovingView;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 

@@ -56,6 +56,7 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 			enemy.addGun(new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_Missile(),
 					2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE*2));
 			
+			enemy.stopShooting();
 			enemy.startShooting();
 			
 			enemy.setImageResource(R.drawable.ship_enemy_boss1);

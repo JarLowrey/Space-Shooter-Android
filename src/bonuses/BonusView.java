@@ -1,8 +1,8 @@
 package bonuses;
 
+import parents.Moving_GravityView;
 import interfaces.Shooter;
 import levels.LevelSystem;
-import abstract_parents.Moving_GravityView;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
@@ -25,7 +25,7 @@ public abstract class BonusView extends Moving_GravityView {
 		
 		
 		//set width and height, x and y
-		final int len=(int)context.getResources().getDimension(R.dimen.benefical_object_len);
+		final int len=(int)context.getResources().getDimension(R.dimen.bonus_background_len);
 		this.setLayoutParams(new RelativeLayout.LayoutParams(len,len));
 		this.setX(positionX);
 		this.setY(positionY);

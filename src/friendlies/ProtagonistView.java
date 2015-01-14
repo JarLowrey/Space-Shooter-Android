@@ -1,11 +1,11 @@
 package friendlies;
 
+import parents.Moving_ProjectileView;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_StraightSingleShot;
 import interfaces.InteractiveGameInterface;
 import support.ConditionalHandler;
-import abstract_parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
