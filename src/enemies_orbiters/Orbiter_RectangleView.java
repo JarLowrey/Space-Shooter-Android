@@ -21,19 +21,11 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 	private int currentSideOfRectangle,orbitDist;
 
 	public Orbiter_RectangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, 
-			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength) {
+			double health, double probSpawnBeneficialObjecyUponDeath,
+			int orbitLength,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
-				collisionDamage, health,heightView,widthView,
-				 probSpawnBeneficialObjecyUponDeath);
-
-		//set image background, width, and height and orbit location
-		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_rectangular_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_rectangular_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		
-		this.setImageResource(DEFAULT_BACKGROUND);
+				collisionDamage, health,
+				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
 
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;
@@ -75,19 +67,11 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements GameO
 	public Orbiter_RectangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health, 
 			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength,int orbitPixelX,int orbitPixelY) {
+			int orbitLength,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
-				collisionDamage, health,heightView,widthView,
-				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY);
+				collisionDamage, health,
+				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
 		
-
-		//set image background, width, and height and orbit location
-		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_rectangular_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_rectangular_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		
-		this.setImageResource(DEFAULT_BACKGROUND);
-
 		currentSideOfRectangle=0;
 		orbitDist=orbitLength;
 	

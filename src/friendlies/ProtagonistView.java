@@ -1,12 +1,14 @@
 package friendlies;
 
-import parents.Moving_ProjectileView;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_StraightSingleShot;
 import interfaces.InteractiveGameInterface;
+import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
@@ -24,19 +26,12 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	public ProtagonistView(Context context,InteractiveGameInterface interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH);
+				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
+				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
 
 		gunsAvailable=true;
 		
-		//set image background
-		this.setImageResource(R.drawable.ship_protagonist);
-		
-		//set image width,length and X position. Let Y Position be set in GameActivity
-		int height=(int)this.getResources().getDimension(R.dimen.protagonist_game_height);
-		int width=(int)this.getResources().getDimension(R.dimen.protagonist_game_width);
-		this.setLayoutParams(new LayoutParams(width,height));
-		
-		this.setX(MainActivity.getWidthPixels()/2-width/2);//middle of screen
+		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width/2) );//middle of screen
 		
 		myGame=interactWithGame;
 		
@@ -141,10 +136,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 
 	@Override
 	public void startShooting(){
+		Log.d("lowrey","guns avail?"+gunsAvailable);
 		if(gunsAvailable){
 			super.startShooting();
+			gunsAvailable=false;
 		}
-		gunsAvailable=false;
 	}
 	@Override
 	public void stopShooting(){
@@ -157,6 +153,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 		this.postDelayed(delayedShot, (long) (DEFAULT_BULLET_FREQ - this.bulletFreqLevel * BULLET_FREQ_WEIGHT));
 	}
 	
+	public boolean gunsAvailable(){
+		return gunsAvailable;
+	}
 	
 //	@Override
 //	public void removeGameObject() {

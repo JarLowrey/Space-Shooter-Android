@@ -8,13 +8,11 @@ public class Orbiter_Circle_SwitchDirectionOnHitView extends Orbiter_CircleView 
 	
 
 	public Orbiter_Circle_SwitchDirectionOnHitView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health,
-			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
-			int circleRadius,int angularVelocityInDegrees) {
+			double health,double probSpawnBeneficialObjecyUponDeath,
+			int circleRadius,int angularVelocityInDegrees,int width,int height,int imageId) {
 		super( context, score, speedY,  speedX, collisionDamage, 
-				 health,
-				 heightView, widthView, probSpawnBeneficialObjecyUponDeath,
-				 circleRadius, angularVelocityInDegrees);
+				 health, probSpawnBeneficialObjecyUponDeath,
+				 circleRadius, angularVelocityInDegrees, width, height, imageId);
 	}
 	
 	@Override

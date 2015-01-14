@@ -26,11 +26,6 @@ public  class Gun_AngledDualShot extends Gun {
 		bulletLeft.setSpeedX(bulletSpeedX * -1);
 		bulletRight.setSpeedX(bulletSpeedX);
 		
-		//add bullets to layout
-		shooter.getMyScreen().addView(bulletLeft,1);
-		shooter.getMyScreen().addView(bulletRight,1);
-
-		//decrement special ammo and return result
 		return false;
 	}
 }

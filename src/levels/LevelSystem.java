@@ -8,6 +8,7 @@ import parents.Moving_GravityView;
 import android.content.Context;
 import android.util.Log;
 import android.widget.RelativeLayout;
+import background_objects.Clouds;
 import bonuses.BonusView;
 import bullets.BulletView;
 
@@ -22,7 +23,7 @@ public class LevelSystem extends Factory_LevelWaves{
 	public static final int GAME_NOT_BEGUN=-1;
 	
 	CollisionDetector gameDetector;
-	
+	InteractiveGameInterface gameInteractivityInterface;
 
 	private static int score;
 	public static ArrayList<BulletView> friendlyBullets=new ArrayList<BulletView>();
@@ -33,13 +34,13 @@ public class LevelSystem extends Factory_LevelWaves{
 	
 	
 	public LevelSystem(Context context,InteractiveGameInterface gameScreen) {
-		super(context,gameScreen);
+		super(context);
 		
+		gameInteractivityInterface = gameScreen;
 		gameDetector = new CollisionDetector(this);
 	}
 
 	public void newGame(){
-		Log.d("lowrey","new game");
 		score=0;
 		currentLevel=GAME_NOT_BEGUN;//= -1. 
 		startNextLevel();
@@ -134,23 +135,12 @@ public class LevelSystem extends Factory_LevelWaves{
 	Runnable clouds = new Runnable(){
 		@Override
 		public void run() {
+			
 			if(Math.random() < 0.5){
-				Moving_GravityView cloud = new Moving_GravityView(ctx,1,0);
-				cloud.setImageResource(R.drawable.cloud_img2);
-				int height = (int) ctx.getResources().getDimension(R.dimen.cloud_height);
-				int width = (int) ctx.getResources().getDimension(R.dimen.cloud_width);
-				cloud.setLayoutParams(new RelativeLayout.LayoutParams(width,height));
-				cloud.setX( (float) (( MainActivity.getWidthPixels()-width ) *Math.random()));//random X position
-				gameInteractivityInterface.addBackgroundObjectToScreen(cloud);
+				new Clouds(ctx,Clouds.CLOUD_2);//auto added to screen
 			}
 			
-			Moving_GravityView cloud = new Moving_GravityView(ctx,1,0);
-			cloud.setImageResource(R.drawable.cloud_img1);
-			int height = (int) ctx.getResources().getDimension(R.dimen.cloud_height);
-			int width = (int) ctx.getResources().getDimension(R.dimen.cloud_width);
-			cloud.setLayoutParams(new RelativeLayout.LayoutParams(width,height));
-			cloud.setX( (float) (( MainActivity.getWidthPixels()-cloud.getLayoutParams().width ) *Math.random()));//random X position
-			gameInteractivityInterface.addBackgroundObjectToScreen(cloud);
+			new Clouds(ctx,Clouds.CLOUD_1);//auto added to screen
 			
 			conditionalHandler.postIfLevelResumed(this, 5000);
 		}

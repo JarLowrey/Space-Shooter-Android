@@ -8,9 +8,9 @@ public class FriendlyView extends Moving_ProjectileView{
 	
 	public FriendlyView(Context context,double projectileSpeedY
 			,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth) {
+			double projectileDamage,double projectileHealth,int width,int height,int imageId) {
 		super( context, projectileSpeedY,projectileSpeedX, 
-				 projectileDamage, projectileHealth);
+				 projectileDamage, projectileHealth, width, height, imageId);
 		
 		LevelSystem.friendlies.add(this);
 	}

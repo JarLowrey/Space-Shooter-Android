@@ -22,8 +22,8 @@ import guns.Gun_StraightSingleShot;
  */
 public class Factory_Bosses extends Factory_GenericEnemies{
 	
-	public Factory_Bosses(Context context,InteractiveGameInterface gameScreen){
-		super(context,gameScreen);
+	public Factory_Bosses(Context context){
+		super(context);
 	} 
 
 	final  Runnable spawnGiantMeteor = new Runnable(){
@@ -32,8 +32,8 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 			Gravity_MeteorView enemy = spawnSidewaysMeteor();
 			
 			//change width and height. set X and Y positions
-			final int width = (int)ctx.getResources().getDimension(R.dimen.giant_meteor_length);
-			final int height= (int)ctx.getResources().getDimension(R.dimen.giant_meteor_length);
+			final int width = (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
+			final int height= (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
 			
 			enemy.setLayoutParams(new LayoutParams(width,height));
 			enemy.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position

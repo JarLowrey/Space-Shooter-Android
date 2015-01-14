@@ -1,10 +1,9 @@
 package enemies_orbiters;
 
+import interfaces.GameObjectInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
-import interfaces.GameObjectInterface;
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
 
@@ -18,20 +17,12 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 	private int currentSideOfTriangle, orbitDist;
 	
 	public Orbiter_TriangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health,
-			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength) {
+			double health,double probSpawnBeneficialObjecyUponDeath,
+			int orbitLength,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
-				collisionDamage, health,heightView,widthView,
-				 probSpawnBeneficialObjecyUponDeath);
+				collisionDamage, health,
+				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
 
-		//set image background, width, and height
-		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_triangular_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_triangular_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		 
-		this.setImageResource(DEFAULT_BACKGROUND);
-		
 		currentSideOfTriangle=0; 
 		orbitDist=orbitLength;
 
@@ -72,18 +63,10 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameOb
 	
 
 	public Orbiter_TriangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health,
-			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength, int orbitPixelX, int orbitPixelY) {
+			double health,double probSpawnBeneficialObjecyUponDeath,
+			int orbitLength, int orbitPixelX, int orbitPixelY,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
-				collisionDamage, health,heightView,widthView, probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY);
-
-		//set image background, width, and height
-		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_triangular_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_triangular_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		
-		this.setImageResource(DEFAULT_BACKGROUND);
+				collisionDamage, health, probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
 		
 		currentSideOfTriangle=0;
 		orbitDist=orbitLength;

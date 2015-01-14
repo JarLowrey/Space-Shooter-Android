@@ -1,5 +1,5 @@
 package bonuses;
-
+ 
 import interfaces.GameObjectInterface;
 import interfaces.Shooter;
 import android.content.Context;

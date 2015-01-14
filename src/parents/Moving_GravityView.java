@@ -16,8 +16,8 @@ public class Moving_GravityView extends MovingView implements Gravity{
 	private int gravityThreshold;
 	private boolean atThreshold;
 	
-	public Moving_GravityView(Context context,double movingSpeedY,double movingSpeedX){
-		super(context, movingSpeedY, movingSpeedX);
+	public Moving_GravityView(Context context,double movingSpeedY,double movingSpeedX,int width,int height,int imageId){
+		super(context, movingSpeedY, movingSpeedX, width, height, imageId);
 
 		atThreshold=false;
 		gravityThreshold=Gravity.NO_THRESHOLD;

@@ -1,10 +1,9 @@
 package enemies_orbiters;
 
+import interfaces.GameObjectInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
-import interfaces.GameObjectInterface;
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -21,33 +20,25 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObje
 	private double radius;
 
 	public Orbiter_CircleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health,
-			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
-			int circleRadius,int angularVelocityInDegrees) {
+			double health,double probSpawnBeneficialObjecyUponDeath,
+			int circleRadius,int angularVelocityInDegrees,int width,int height,int imageId) {
 		super(context,score, speedY, speedX,
-				collisionDamage, health,heightView,widthView,
-				 probSpawnBeneficialObjecyUponDeath);
+				collisionDamage, health,
+				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
 
-		//set image background, width, and height, and orbit location
-		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_circular_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_circular_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		
-		this.setImageResource(DEFAULT_BACKGROUND);
-		
 		currentDegree=270;
 		radius=circleRadius*MainActivity.getScreenDens();
 		angularVelocity=angularVelocityInDegrees;
 		//ensure radius and angular velocity are within bounds
 		if(Math.abs(angularVelocity)>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
-		final int maxRadiusX = (int) (MainActivity.getWidthPixels()/2 - width_int/2 );
-		final int maxRadiusY = (int) (MainActivity.getHeightPixels()/2 - height_int/2 );
+		final int maxRadiusX = (int) (MainActivity.getWidthPixels()/2 - width/2 );
+		final int maxRadiusY = (int) (MainActivity.getHeightPixels()/2 - height/2 );
 		final int maxRadius = (maxRadiusX>maxRadiusY) ? maxRadiusY : maxRadiusX;//choose the smaller of the x and y
 		if(Math.abs(radius)>maxRadius){radius = maxRadius;}
 		howManyTimesMoved=0; 
 		
 		this.setThreshold((int) (orbitY - radius));//begin orbit at top of circle
-		this.setX(orbitX-width_int/2);
+		this.setX(orbitX-width/2);
 		
 		
 		orbitingRunnable = new Runnable(){

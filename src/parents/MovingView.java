@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -23,9 +24,13 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 	boolean isRemoved;
 	double speedY,speedX;
 	
-	public MovingView(Context context,double movingSpeedY,double movingSpeedX) {
+	public MovingView(Context context,double movingSpeedY,double movingSpeedX,int width,int height,int imageId) {
 		super(context);
 
+		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
+		this.setImageResource(imageId);
+		this.addToForeground();
+		
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();
 		isRemoved=false;
@@ -119,7 +124,18 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 	public void setSpeedY(double newSpeed){
 		this.speedY=newSpeed;
 	}
-
+	
+	@Override
+	public void addToForeground(){
+		ViewGroup parent = (ViewGroup)this.getParent();
+		parent.addView(this,parent.getChildCount()-2);//-2 so it is behind the control panel, the game RelativeLAyout		
+	}
+	@Override
+	public void addToBackground(){
+		ViewGroup parent = (ViewGroup)this.getParent();
+		parent.addView(this,parent.getChildCount()-2);//-2 so it is behind the control panel, the game RelativeLAyout		
+	}
+	
 	public abstract void removeGameObject();
 	
 	/**

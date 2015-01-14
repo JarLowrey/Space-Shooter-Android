@@ -27,17 +27,11 @@ public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements Game
 			DEFAULT_BULLET_DAMAGE=30;
 	
 	public Orbiter_HorizontalLine(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health,double probSpawnBeneficialObjecyUponDeath) {
+			double health,double probSpawnBeneficialObjecyUponDeath,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
-				collisionDamage, health,0,0,//these are 0 as they do not apply for a horizontal line orbiter
-				 probSpawnBeneficialObjecyUponDeath);
+				collisionDamage, health,probSpawnBeneficialObjecyUponDeath,
+				 width, height,imageId);
 
-		//set image background, width, and height
-		final int height_int=(int)context.getResources().getDimension(R.dimen.orbit_horizontal_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.orbit_horizontal_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		 
-		this.setImageResource(DEFAULT_BACKGROUND);
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold(DEFAULT_ORBIT_LOCATION);
 		this.setX(MainActivity.getWidthPixels()/2);

@@ -42,13 +42,12 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
 	public Shooting_OrbiterView(Context context,int scoreForKilling,double speedY, double speedX,double collisionDamage, 
 			double health, 
-			float heightView,float widthView,
-			double probSpawnBeneficialObjecyUponDeath) {
+			double probSpawnBeneficialObjecyUponDeath,int width,int height,int imageId) {
 		super(context, scoreForKilling, speedY,
-				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath);
+				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, width, height, imageId);
 
 		//defeault orbit location
-		orbitX=(int) (MainActivity.getWidthPixels()/2-widthView/2);
+		orbitX=(int) (MainActivity.getWidthPixels()/2-width/2);
 		orbitY=(int) (MainActivity.getHeightPixels()/3);
 		
 		this.setX(orbitX);
@@ -56,10 +55,9 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	}
 	public Shooting_OrbiterView(Context context,int scoreForKilling,double speedY, double speedX,double collisionDamage, 
 			double health, 
-			float heightView,float widthView,
-			double probSpawnBeneficialObjecyUponDeath,int orbitPixelX,int orbitPixelY) {
+			double probSpawnBeneficialObjecyUponDeath,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
 		super(context, scoreForKilling, speedY,
-				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath);
+				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, width, height, imageId);
 
 		//defeault orbit location
 		orbitX=orbitPixelX;

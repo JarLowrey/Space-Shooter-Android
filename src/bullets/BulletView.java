@@ -42,15 +42,12 @@ public class BulletView extends Moving_ProjectileView{
 	};
 	
 	public BulletView(Context context,Shooter shooter,
-			int bulletWidth, int bulletHeight,double bulletSpeedY,double bulletDamage) {
+			int bulletWidth, int bulletHeight,double bulletSpeedY,double bulletDamage,int width,int height,int imageId) {
 		super(context,bulletSpeedY,
-				DEFAULT_HORIZONTAL_SPEED ,bulletDamage,1);
+				DEFAULT_HORIZONTAL_SPEED ,bulletDamage,1, width, height, imageId);
 	
 		//set instance variables
 		theOneWhoShotMe=shooter;
-		
-		//very important to set these layout params of height and width before setting position
-		this.setLayoutParams(new LayoutParams(bulletWidth,bulletHeight));
 		
 		if(shooter.isFriendly()){
 			this.setY(theOneWhoShotMe.getY());//top			

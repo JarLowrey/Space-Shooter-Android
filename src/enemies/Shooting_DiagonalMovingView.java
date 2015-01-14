@@ -3,7 +3,6 @@ package enemies;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -48,21 +47,14 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	};
 	
 	public Shooting_DiagonalMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health, double probSpawnBeneficialObjectOnDeath) {
+			double health, double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {
 		super(context,score,speedY,speedX,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath);
+				health,probSpawnBeneficialObjectOnDeath, width, height, imageId);
 		
 		this.setThreshold((int) MainActivity.getHeightPixels());
 		if(Math.random()<0.5){this.setSpeedX(this.getSpeedX() * -1);}
 		
-		
-		//set image background, width, and height
-		this.setImageResource(DEFAULT_BACKGROUND);
-		final int height_int=(int)context.getResources().getDimension(R.dimen.diagonal_shooter_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.diagonal_shooter_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
-		
-		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
+		this.setX((float) ( (MainActivity.getWidthPixels()-width)*Math.random()));
 		this.setY(0);
 		
 		leftThreshold=0;//far left of screen

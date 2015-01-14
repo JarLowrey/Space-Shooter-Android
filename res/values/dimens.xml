@@ -3,36 +3,38 @@
     <dimen name="bonus_background_len">30dp</dimen>
     <dimen name="bonus_img_len">20dp</dimen>
     
-    <dimen name="simple_enemy_shooter_height">48dp</dimen>
-    <dimen name="simple_enemy_shooter_width">34.66dp</dimen>
+    <dimen name="ship_array_shooter_height">48dp</dimen>
+    <dimen name="ship_array_shooter_width">34.66dp</dimen>
     
-    <dimen name="diagonal_shooter_height">30dp</dimen>
-    <dimen name="diagonal_shooter_width">47.7272dp</dimen>
+    <dimen name="ship_diagonal_height">30dp</dimen>
+    <dimen name="ship_diagonal_width">47.7272dp</dimen>
     
-    <dimen name="dive_bomber_height">30.513dp</dimen>
-    <dimen name="dive_bomber_width">35dp</dimen>
+    <dimen name="ship_dive_bomber_height">30.513dp</dimen>
+    <dimen name="ship_dive_bomber_width">35dp</dimen>
     
     
-    <dimen name="orbit_rectangular_width">40dp</dimen>
-    <dimen name="orbit_rectangular_height">34dp</dimen>
-    <dimen name="orbit_circular_width">45dp</dimen>
-    <dimen name="orbit_circular_height">40dp</dimen>
-    <dimen name="orbit_triangular_width">31dp</dimen>
-    <dimen name="orbit_triangular_height">45dp</dimen>
-    <dimen name="orbit_horizontal_width">41dp</dimen>
-    <dimen name="orbit_horizontal_height">50dp</dimen>
+    <dimen name="ship_orbit_rectangular_width">40dp</dimen>
+    <dimen name="ship_orbit_rectangular_height">34dp</dimen>
+    <dimen name="ship_orbit_circular_width">45dp</dimen>
+    <dimen name="ship_orbit_circular_height">40dp</dimen>
+    <dimen name="ship_orbit_triangular_width">31dp</dimen>
+    <dimen name="ship_orbit_triangular_height">45dp</dimen>
+    <dimen name="ship_orbit_horizontal_width">41dp</dimen>
+    <dimen name="ship_orbit_horizontal_height">50dp</dimen>
     
     <dimen name="meteor_length">30dp</dimen>
-    <dimen name="giant_meteor_length">80dp</dimen>
+    <dimen name="meteor_giant_length">80dp</dimen>
     
     <dimen name="exhaust_height">40dp</dimen>
     <dimen name="exhaust_width">25dp</dimen>
-    <dimen name="protagonist_game_height">40dp</dimen>
-    <dimen name="protagonist_game_width">40dp</dimen>
+    <dimen name="ship_protagonist_game_height">40dp</dimen>
+    <dimen name="ship_protagonist_game_width">40dp</dimen>
     
     <!-- Background items -->
     <dimen name="cloud_width">90dp</dimen>
     <dimen name="cloud_height">49dp</dimen>
+    
+    
     <!-- Bosses -->
     <dimen name="boss1_width">63dp</dimen>
     <dimen name="boss1_height">80dp</dimen>

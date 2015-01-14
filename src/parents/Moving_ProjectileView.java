@@ -17,12 +17,14 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 	double speedX, damage, health,maxHealth;
 	
 	public Moving_ProjectileView(Context context,double movingSpeedY,double movingSpeedX,double projectileDamage,
-			double projectileHealth) {
-		super(context, movingSpeedY, movingSpeedX);	
+			double projectileHealth,int width,int height,int imageId) {
+		super(context, movingSpeedY, movingSpeedX, width, height, imageId);	
 
 		damage=projectileDamage;
 		health=projectileHealth;
 		maxHealth=projectileHealth;
+		
+		this.addToForeground();
 	}
 
 	/**

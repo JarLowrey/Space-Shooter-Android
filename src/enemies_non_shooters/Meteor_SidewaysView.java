@@ -28,9 +28,9 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 	};
 	
 	public Meteor_SidewaysView(Context context,int score,double speedY,double speedX,
-			double collisionDamage,double health,double probSpawnBeneficialObjectOnDeath) {
+			double collisionDamage,double health,double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {
 		super(context,score,speedY,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath);
+				health,probSpawnBeneficialObjectOnDeath, width, height, imageId);
 				
 		if(Math.random()<0.5){speedX *= -1;}
 		this.setSpeedX(speedX);

@@ -66,13 +66,8 @@ public final class R {
          */
         public static final int cloud_width=0x7f060016;
         public static final int control_panel_height=0x7f06002f;
-        public static final int diagonal_shooter_height=0x7f060004;
-        public static final int diagonal_shooter_width=0x7f060005;
-        public static final int dive_bomber_height=0x7f060006;
-        public static final int dive_bomber_width=0x7f060007;
         public static final int exhaust_height=0x7f060012;
         public static final int exhaust_width=0x7f060013;
-        public static final int giant_meteor_length=0x7f060011;
         public static final int ic_large=0x7f060032;
         public static final int ic_med=0x7f060031;
         public static final int ic_small=0x7f060030;
@@ -85,27 +80,32 @@ public final class R {
         /**  BULLETS 
          */
         public static final int laser_short_width=0x7f06001a;
+        public static final int meteor_giant_length=0x7f060011;
         public static final int meteor_length=0x7f060010;
         public static final int missile_one_height=0x7f06001f;
         public static final int missile_one_width=0x7f06001e;
         /**  Game Layout  
          */
         public static final int moon_length=0x7f060026;
-        public static final int orbit_circular_height=0x7f06000b;
-        public static final int orbit_circular_width=0x7f06000a;
-        public static final int orbit_horizontal_height=0x7f06000f;
-        public static final int orbit_horizontal_width=0x7f06000e;
-        public static final int orbit_rectangular_height=0x7f060009;
-        public static final int orbit_rectangular_width=0x7f060008;
-        public static final int orbit_triangular_height=0x7f06000d;
-        public static final int orbit_triangular_width=0x7f06000c;
-        public static final int protagonist_game_height=0x7f060014;
-        public static final int protagonist_game_width=0x7f060015;
         /**  Store Layout 
          */
         public static final int resource_img_len=0x7f060027;
-        public static final int simple_enemy_shooter_height=0x7f060002;
-        public static final int simple_enemy_shooter_width=0x7f060003;
+        public static final int ship_array_shooter_height=0x7f060002;
+        public static final int ship_array_shooter_width=0x7f060003;
+        public static final int ship_diagonal_height=0x7f060004;
+        public static final int ship_diagonal_width=0x7f060005;
+        public static final int ship_dive_bomber_height=0x7f060006;
+        public static final int ship_dive_bomber_width=0x7f060007;
+        public static final int ship_orbit_circular_height=0x7f06000b;
+        public static final int ship_orbit_circular_width=0x7f06000a;
+        public static final int ship_orbit_horizontal_height=0x7f06000f;
+        public static final int ship_orbit_horizontal_width=0x7f06000e;
+        public static final int ship_orbit_rectangular_height=0x7f060009;
+        public static final int ship_orbit_rectangular_width=0x7f060008;
+        public static final int ship_orbit_triangular_height=0x7f06000d;
+        public static final int ship_orbit_triangular_width=0x7f06000c;
+        public static final int ship_protagonist_game_height=0x7f060014;
+        public static final int ship_protagonist_game_width=0x7f060015;
         public static final int store_btn_margin_vertical=0x7f06002a;
         public static final int store_btn_next_level_len=0x7f060029;
         public static final int store_item_len=0x7f060028;

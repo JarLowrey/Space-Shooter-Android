@@ -10,8 +10,6 @@ public interface InteractiveGameInterface {
 	public void beatGame();
 	public void setHealthBar();
 	public ProtagonistView getProtagonist();
-	public void addForegroundObjectToScreen(MovingView view);
-	public void addBackgroundObjectToScreen(MovingView view);	
 	public void changeBackground(int newBackgroundId);
 	
 }

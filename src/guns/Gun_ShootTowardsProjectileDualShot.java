@@ -83,11 +83,7 @@ public  class Gun_ShootTowardsProjectileDualShot extends Gun {
 		
 		//set bullet's X speed 
 		bulletLeft.setSpeedX(bulletSpeedX);
-		bulletRight.setSpeedY(bulletSpeedX);		
-		
-		//add bullets to layout
-		shooter.getMyScreen().addView(bulletLeft,1);
-		shooter.getMyScreen().addView(bulletRight,1);
+		bulletRight.setSpeedY(bulletSpeedX);
 		
 		return false;
 	}

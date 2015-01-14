@@ -1,5 +1,7 @@
 package interfaces;
 
+import parents.MovingView;
+
 /**
  * 
  * @author JAMES LOWREY
@@ -20,6 +22,10 @@ public interface GameObjectInterface{
 	public void removeGameObject();
 	
 	public boolean isRemoved();
+	
+
+	public void addToForeground();
+	public void addToBackground();	
 	
 	//default, built in, final, Android interface methods
 	public float getX();	

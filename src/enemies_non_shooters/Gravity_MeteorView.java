@@ -33,23 +33,16 @@ public class Gravity_MeteorView extends EnemyView{
 	};
 	
 	public Gravity_MeteorView(Context context,int score,double speedY,
-			double collisionDamage,double health,double probSpawnBeneficialObjectOnDeath) {
+			double collisionDamage,double health,double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {
 		super(context,score,speedY, DEFAULT_SPEED_X ,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath);
+				health,probSpawnBeneficialObjectOnDeath, width, height, imageId);
 				
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
 		ConditionalHandler.postIfAlive(rotateRunnable, this);
 		
-		//set image background
-		this.setImageResource(R.drawable.meteor);
-		
-		//set image width,length
-		int len=(int)this.getResources().getDimension(R.dimen.meteor_length);
-		this.setLayoutParams(new LayoutParams(len,len));
-		
 		//set initial position of View
-		float xRand = (float) ((MainActivity.getWidthPixels()-len)*Math.random());
+		float xRand = (float) ((MainActivity.getWidthPixels()-width)*Math.random());
 		this.setX(xRand);
 		this.setY(0);
 		

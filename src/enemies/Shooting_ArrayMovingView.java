@@ -87,9 +87,8 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	};
 
 	public Shooting_ArrayMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health,
-			float heightView,float widthView,double probSpawnBeneficialObject) {
-		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject);
+			double health,double probSpawnBeneficialObject,int width,int height,int imageId) {
+		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject, width, height, imageId);
 
 		//if this is first instance of this class created, post movement thread and intitalize static vars
 		if(allSimpleShooters.size()==0){
@@ -100,14 +99,10 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);
 
-		// set image background, width, and height
-		this.setImageResource(DEFAULT_BACKGROUND);
-		this.setLayoutParams(new RelativeLayout.LayoutParams((int)widthView,
-				(int)heightView));
 
 		//set row destination
 		final float lowestPointOnScreen = MainActivity.getHeightPixels()*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
-		final float myRowNum = (myPosition / numCols) * heightView;//, multiply that by heightOfView to get top of row
+		final float myRowNum = (myPosition / numCols) * height;//, multiply that by heightOfView to get top of row
 		this.setThreshold((int) (lowestPointOnScreen - myRowNum));
 
 		// set col position

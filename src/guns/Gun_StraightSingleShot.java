@@ -17,9 +17,6 @@ public class Gun_StraightSingleShot extends Gun {
 		//create one bullet at center of shooter
 		BulletView bulletMid = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
 		
-		//add bullets to layout
-		shooter.getMyScreen().addView(bulletMid,1);
-		
 		return false;
 	}
 	

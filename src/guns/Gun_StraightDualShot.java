@@ -21,10 +21,6 @@ public class Gun_StraightDualShot extends Gun {
 		bulletLeft.setPositionOnShooterAsAPercentage(Bullet.BULLET_LEFT);
 		bulletRight.setPositionOnShooterAsAPercentage(Bullet.BULLET_RIGHT);
 
-		//add bullets to layout
-		shooter.getMyScreen().addView(bulletLeft,1);
-		shooter.getMyScreen().addView(bulletRight,1);
-
 		return false;
 	}
 	

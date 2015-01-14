@@ -20,8 +20,6 @@ public interface Shooter extends CollidableObjectWithHealthDamageEtc{
 	
 	public void stopShooting();
 	
-	public ViewGroup getMyScreen();
-	
 	public boolean isFriendly();
 	
 	public boolean isShooting();

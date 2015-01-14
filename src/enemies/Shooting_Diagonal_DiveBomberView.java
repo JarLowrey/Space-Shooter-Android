@@ -25,14 +25,9 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 	private final static int NUM_DIVE_BOMBER_COLUMNS=6;
 	
 	public Shooting_Diagonal_DiveBomberView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health,double probSpawnBeneficialObjectOnDeath) {
+			double health,double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {
 		super(context,score,speedY,speedX,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath);
-
-		this.setImageResource(DEFAULT_BACKGROUND);
-		final int height_int=(int)context.getResources().getDimension(R.dimen.dive_bomber_height);
-		int width_int = (int)context.getResources().getDimension(R.dimen.dive_bomber_width);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(width_int,height_int));
+				health,probSpawnBeneficialObjectOnDeath, width, height, imageId);
 		
 		// set col position
 		final float shipXInterval = (MainActivity.getWidthPixels() )/ NUM_DIVE_BOMBER_COLUMNS;//divide the screen into number of columns

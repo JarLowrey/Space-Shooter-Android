@@ -12,14 +12,13 @@ public class Bullet_Basic_LaserShort extends Bullet_Basic{
 
 		final int width=(int) context.getResources().getDimension(R.dimen.laser_short_width);
 		final int height=(int) context.getResources().getDimension(R.dimen.laser_short_height);
-		 
-		BulletView bullet = new BulletView(context,shooter, width,height, bulletSpeedY, bulletDamage);
+		
 
 		int backgroundId=R.drawable.laser1_enemy;
 		if(shooter.isFriendly()){backgroundId = R.drawable.laser1_friendly;}
 		
-		bullet.setBackgroundResource(backgroundId);
-		
+		BulletView bullet = new BulletView(context,shooter, width,height, bulletSpeedY, bulletDamage,width,height,backgroundId);
+
 		return bullet;
 	}
 

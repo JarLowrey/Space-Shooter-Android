@@ -22,8 +22,8 @@
     
     <ImageView
         android:id="@+id/rocket_main"
-        android:layout_width="@dimen/protagonist_game_width"
-        android:layout_height="@dimen/protagonist_game_height"
+        android:layout_width="@dimen/ship_protagonist_game_width"
+        android:layout_height="@dimen/ship_protagonist_game_height"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"

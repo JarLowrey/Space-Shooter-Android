@@ -10,12 +10,11 @@ public class Orbiter_Circle_IncSpeedOnHitView extends Orbiter_CircleView impleme
 	
 	public Orbiter_Circle_IncSpeedOnHitView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health, double bulletFreq,
-			float heightView,float widthView,double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath,
-			int circleRadius,int angularVelocityInDegrees) {
+			double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath,
+			int circleRadius,int angularVelocityInDegrees,int width,int height,int imageId) {
 		super( context, score, speedY,  speedX, collisionDamage, 
-				 health, 
-				 heightView, widthView, probSpawnBeneficialObjecyUponDeath,
-				 circleRadius, angularVelocityInDegrees);
+				 health,  probSpawnBeneficialObjecyUponDeath,
+				 circleRadius, angularVelocityInDegrees, width, height, imageId);
 	}
 	
 	/**

@@ -6,7 +6,6 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import bullets.BulletView;
 
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
@@ -19,9 +18,9 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		private boolean isShooting=true;
 		
 		public Enemy_ShooterView(Context context,int scoreForKilling, double projectileSpeedY,double projectileSpeedX, 
-				double projectileDamage,double projectileHealth,double probSpawnBeneficialObject) {
+				double projectileDamage,double projectileHealth,double probSpawnBeneficialObject,int width,int height,int imageId) {
 			super(context,scoreForKilling,projectileSpeedY,projectileSpeedX,
-					projectileDamage,projectileHealth,probSpawnBeneficialObject);
+					projectileDamage,projectileHealth,probSpawnBeneficialObject, width, height, imageId);
 
 			myGuns= new ArrayList<Gun>();
 			myBullets = new ArrayList<BulletView>();
@@ -65,12 +64,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 //				gun.stopShooting();
 //			}
 		}
-
-		@Override
-		public ViewGroup getMyScreen() {
-			return (ViewGroup)this.getParent();
-		}
-
+		
 		@Override
 		public boolean isFriendly() {
 			return false;

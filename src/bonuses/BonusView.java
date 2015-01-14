@@ -1,10 +1,9 @@
 package bonuses;
 
-import parents.Moving_GravityView;
 import interfaces.Shooter;
 import levels.LevelSystem;
+import parents.Moving_GravityView;
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
 
@@ -15,16 +14,11 @@ public abstract class BonusView extends Moving_GravityView {
 	
 	
 	public BonusView(Context context,float positionX,float positionY) {
-		super(context,DEFAULT_SPEED_Y,0);	
+		super(context,DEFAULT_SPEED_Y,0,(int) context.getResources().getDimension(R.dimen.bonus_background_len),
+				(int)context.getResources().getDimension(R.dimen.bonus_background_len),0);	//children classes will set image resource
 		
 
 		ctx = context;
-		
-		//set width and height, x and y
-		final int len=(int)context.getResources().getDimension(R.dimen.bonus_background_len);
-		this.setLayoutParams(new RelativeLayout.LayoutParams(len,len));
-		this.setX(positionX);
-		this.setY(positionY);
 		
 		//set background
 		this.setBackgroundResource(R.drawable.white_center_red_outline);

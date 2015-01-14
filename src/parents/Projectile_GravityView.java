@@ -16,8 +16,8 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
 	private boolean atThreshold;
 	
 	public Projectile_GravityView(Context context,double movingSpeedY,double movingSpeedX,double projectileDamage,
-	double projectileHealth){
-		super(context, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth);
+	double projectileHealth,int width,int height,int imageId){
+		super(context, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth, width, height, imageId);
 
 		atThreshold=false;
 		gravityThreshold=Gravity.NO_THRESHOLD;

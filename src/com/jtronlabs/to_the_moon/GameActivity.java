@@ -10,10 +10,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import parents.MovingView;
-import parents.Moving_ProjectileView;
-
 import levels.LevelSystem;
+import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -193,7 +191,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
 				case R.id.btn_shoot:
-					protagonist.startShooting();	
+					if(protagonist.gunsAvailable()){protagonist.startShooting();}	
 					break;
 			}
 			break;
@@ -358,14 +356,6 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 	@Override
 	public ProtagonistView getProtagonist() {
 		return this.protagonist;
-	}
-	@Override
-	public void addForegroundObjectToScreen(MovingView view) {
-		gameLayout.addView(view,gameLayout.getChildCount()-2);//-2 so it is behind the control panel, the game RelativeLAyout		
-	}
-	@Override
-	public void addBackgroundObjectToScreen(MovingView view){
-		gameLayout.addView(view,0);
 	}
 	@Override
 	public void setHealthBar(){

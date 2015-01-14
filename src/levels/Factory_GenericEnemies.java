@@ -34,13 +34,11 @@ public class Factory_GenericEnemies{
 	
 	protected int currentLevel=0;
 	protected Context ctx;
-	protected InteractiveGameInterface gameInteractivityInterface;
 	
 	
-	public Factory_GenericEnemies(Context context,InteractiveGameInterface myGame){
+	public Factory_GenericEnemies(Context context){
 		ctx=context;
 		
-		gameInteractivityInterface = myGame;
 	} 
 
 	//GET methods
@@ -62,15 +60,16 @@ public class Factory_GenericEnemies{
 				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Shooting_DiagonalMovingView.DEFAULT_BULLET_FREQ_INTERVAL);
 		
 		Shooting_DiagonalMovingView enemy = new Shooting_DiagonalMovingView(ctx,score,speedY,speedX,
-				collisionDamage,health,spawnBeneficialObject);
+				collisionDamage,health,spawnBeneficialObject,
+				(int)ctx.getResources().getDimension(R.dimen.ship_diagonal_width),
+				(int)ctx.getResources().getDimension(R.dimen.ship_diagonal_width),
+				Shooting_DiagonalMovingView.DEFAULT_BACKGROUND);
 
 
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
-		
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 		
@@ -89,15 +88,16 @@ public class Factory_GenericEnemies{
 				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Shooting_Diagonal_DiveBomberView.DEFAULT_BULLET_FREQ_INTERVAL);
 		
 		Shooting_Diagonal_DiveBomberView enemy =  new Shooting_Diagonal_DiveBomberView(ctx,score,speedY,speedX,
-				collisionDamage,health,spawnBeneficialObject);
+				collisionDamage,health,spawnBeneficialObject,
+				(int)ctx.getResources().getDimension(R.dimen.ship_dive_bomber_width),
+				(int)ctx.getResources().getDimension(R.dimen.ship_dive_bomber_height),
+				Shooting_Diagonal_DiveBomberView.DEFAULT_BACKGROUND);
 
 
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
-
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -116,7 +116,10 @@ public class Factory_GenericEnemies{
 				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Orbiter_HorizontalLine.DEFAULT_BULLET_FREQ_INTERVAL);
 		
 		Orbiter_HorizontalLine enemy =  new Orbiter_HorizontalLine(ctx,score,speedY,speedX,
-				collisionDamage,health,spawnBeneficialObject);
+				collisionDamage,health,spawnBeneficialObject,
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_horizontal_width),
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_horizontal_height),
+				Orbiter_HorizontalLine.DEFAULT_BACKGROUND);
 
 
 		Gun defaultGun = new Gun_StraightDualShot(ctx, enemy, new Bullet_Basic_LaserShort(),
@@ -124,8 +127,6 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
-		
 		return enemy;
 	}
 	
@@ -151,21 +152,20 @@ public class Factory_GenericEnemies{
 				bulletSpdY=Orbiter_CircleView.DEFAULT_BULLET_SPEED_Y,
 				bulletFreq=Orbiter_CircleView.DEFAULT_BULLET_FREQ_INTERVAL+
 				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Orbiter_CircleView.DEFAULT_BULLET_FREQ_INTERVAL);
-		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
-				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
+		
 		
 		Shooting_OrbiterView enemy =  new Orbiter_CircleView(ctx,score,speedY,speedX,
-				collisionDamage,health,height,width,
-				spawnBeneficialObject,orbitRadius,angVel);
+				collisionDamage,health,
+				spawnBeneficialObject,orbitRadius,angVel,
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width),
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height),
+				Orbiter_CircleView.DEFAULT_BACKGROUND);
 
 
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
-		
-
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -199,12 +199,13 @@ public class Factory_GenericEnemies{
 				bulletSpdY=Orbiter_TriangleView.DEFAULT_BULLET_SPEED_Y,
 				bulletFreq=Orbiter_TriangleView.DEFAULT_BULLET_FREQ_INTERVAL+
 				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Orbiter_TriangleView.DEFAULT_BULLET_FREQ_INTERVAL);
-		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
-				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
 		Shooting_OrbiterView enemy =  new Orbiter_TriangleView(ctx,score,speedY,speedX,
-				collisionDamage,health,height,width,
-				spawnBeneficialObject,orbitLength);
+				collisionDamage,health,
+				spawnBeneficialObject,orbitLength,
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_triangular_width),
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_triangular_height),
+				Orbiter_TriangleView.DEFAULT_BACKGROUND);
 
 
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
@@ -212,8 +213,6 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
-		
 		return enemy;
 	}
 	
@@ -239,20 +238,18 @@ public class Factory_GenericEnemies{
 				bulletSpdY=Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y,
 				bulletFreq=Orbiter_RectangleView.DEFAULT_BULLET_FREQ_INTERVAL+
 				(Math.random() * BULLET_FREQ_SHORT_INTERVAL * Orbiter_RectangleView.DEFAULT_BULLET_FREQ_INTERVAL);
-		final float height=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
-				width=ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
 		Shooting_OrbiterView enemy =  new Orbiter_RectangleView(ctx,score,speedY,speedX,
-				collisionDamage,health,height,width,
-				spawnBeneficialObject,orbitLength);
+				collisionDamage,health,
+				spawnBeneficialObject,orbitLength,
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_rectangular_width),
+				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_rectangular_height),
+				Orbiter_RectangleView.DEFAULT_BACKGROUND);
 
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
-		
-
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -270,19 +267,18 @@ public class Factory_GenericEnemies{
 				(Math.random() * BULLET_FREQ_LONG_INTERVAL * Shooting_ArrayMovingView.DEFAULT_BULLET_FREQ_INTERVAL),
 				spawnBeneficialFreq=Shooting_ArrayMovingView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH;
 		
-		final float height = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_height),
-				width = ctx.getResources().getDimension(R.dimen.simple_enemy_shooter_width);
 		
-		Shooting_ArrayMovingView enemy = new Shooting_ArrayMovingView(ctx,score,speedY,speedX,collisionDamage,health,
-				height,width,spawnBeneficialFreq);
+		Shooting_ArrayMovingView enemy = new Shooting_ArrayMovingView(ctx,score,speedY,
+				speedX,collisionDamage,health,spawnBeneficialFreq,
+				(int)ctx.getResources().getDimension(R.dimen.ship_array_shooter_width),
+				(int)ctx.getResources().getDimension(R.dimen.ship_array_shooter_height),
+				Shooting_ArrayMovingView.DEFAULT_BACKGROUND);
 
 		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
-		
 		return enemy;
 		
 	}
@@ -297,9 +293,10 @@ public class Factory_GenericEnemies{
 				health=Gravity_MeteorView.DEFAULT_HEALTH,
 				spawnBeneficialObject= Gravity_MeteorView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH;
 		
-		Gravity_MeteorView enemy = new Gravity_MeteorView(ctx,score,speedY,collisionDamage,health,spawnBeneficialObject);
-
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
+		Gravity_MeteorView enemy = new Gravity_MeteorView(ctx,score,speedY,collisionDamage,health,spawnBeneficialObject,
+				(int)ctx.getResources().getDimension(R.dimen.meteor_length),
+				(int)ctx.getResources().getDimension(R.dimen.meteor_length),
+				Gravity_MeteorView.DEFAULT_BACKGROUND);
 		
 		return enemy;
 	}
@@ -313,10 +310,11 @@ public class Factory_GenericEnemies{
 				spawnBeneficialObject= Meteor_SidewaysView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
 				speedX=Meteor_SidewaysView.DEFAULT_SPEED_X;
 		
-		Meteor_SidewaysView enemy = new Meteor_SidewaysView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject);
+		Meteor_SidewaysView enemy = new Meteor_SidewaysView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject,
+				(int)ctx.getResources().getDimension(R.dimen.meteor_length),
+				(int)ctx.getResources().getDimension(R.dimen.meteor_length),
+				Gravity_MeteorView.DEFAULT_BACKGROUND);
 
-		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
-		
 		return enemy;
 	}
 

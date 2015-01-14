@@ -14,12 +14,8 @@ public class Bullet_Basic_Missile extends Bullet_Basic{
 		final int height=(int) context.getResources().getDimension(R.dimen.missile_one_width);
 		
 		BulletView bullet = new BulletView(context,shooter,
-				width,height, bulletSpeedY, bulletDamage);
+				width,height, bulletSpeedY, bulletDamage,width,height,R.drawable.missile);
 
-		int backgroundId=R.drawable.missile;
-		
-		bullet.setBackgroundResource(backgroundId);
-		
 		return bullet;
 	}
 	

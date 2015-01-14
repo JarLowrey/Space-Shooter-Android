@@ -9,7 +9,6 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import bullets.BulletView;
 import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
@@ -43,9 +42,9 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	private boolean isShooting;
 
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth) {
+			double projectileDamage,double projectileHealth,int width,int height,int imageId) {
 		super(context,projectileSpeedY,projectileSpeedX,
-				projectileDamage,projectileHealth);
+				projectileDamage,projectileHealth, width, height, imageId);
 		
 		ctx=context;//prob not necessary to hold onto this context. just saying, figure it out later
 		isShooting=false;
@@ -148,11 +147,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		for(Gun gun: myGuns){
 			gun.stopShooting();
 		}
-	}
-
-	@Override
-	public ViewGroup getMyScreen() {
-		return (ViewGroup)this.getParent();
 	}
 
 	@Override
