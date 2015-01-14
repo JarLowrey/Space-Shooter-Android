@@ -17,12 +17,8 @@ public abstract class BonusView extends Moving_GravityView {
 	public BonusView(Context context,float positionX,float positionY) {
 		super(context,DEFAULT_SPEED_Y,0);	
 		
-		
-		this.init(context, positionX, positionY);
-	}
-	private void init(Context context,float positionX,float positionY){
+
 		ctx = context;
-		
 		
 		//set width and height, x and y
 		final int len=(int)context.getResources().getDimension(R.dimen.bonus_background_len);
@@ -35,15 +31,13 @@ public abstract class BonusView extends Moving_GravityView {
 
 		//add to collision detector
 		LevelSystem.bonuses.add(this);
-		
 	}
-	
 	public abstract void applyBenefit(Shooter theBenefitter);
 	
 	@Override
 	public void removeGameObject(){		
+		super.removeGameObject();
 		LevelSystem.bonuses.remove(this);
-		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 	
 	public static BonusView getRandomBonusView(Context context,float positionX,float positionY){

@@ -91,10 +91,10 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		btnNextLevel.setOnTouchListener(this); 
 		btnNewGun.setOnTouchListener(this);
 		
-
-		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);//(ProtagonistView)findViewById(R.id.rocket_game);
+		//set up protagonist
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
 		gameLayout.addView(protagonist);
+		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
 		protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
 		int protagonistPosition = protagonistBottomPosition - protagonist.getLayoutParams().height;
 		protagonist.setY( protagonistPosition );
@@ -102,16 +102,16 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		//set up the game
 		levelCreater = new LevelSystem(this,this);
 		
-//		//start the game
-//		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
-//		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
-//		    @Override 
-//		    public void onGlobalLayout() {
-//		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//		    	//do stuff??
-//		    } 
-//		});
-		
+		/*
+		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
+		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
+		    @Override 
+		    public void onGlobalLayout() {
+		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+		    	//do stuff??
+		    } 
+		});
+		*/
 	}
 	/**
 	 * Pause game. Eventually, state will need to be saved to database, as after on pause any
@@ -138,8 +138,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
         	friendly.restartThreads();
         }
         
-        if( ! levelCreater.areLevelWavesCompleted() && levelCreater.getLevel()==LevelSystem.GAME_NOT_BEGUN){levelCreater.newGame();}
-        else {levelCreater.resumeLevel();}
+        levelCreater.resumeLevel();
 	}
 	
 	public void gameOver(){
@@ -194,7 +193,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
 				case R.id.btn_shoot:
-					if( ! protagonist.isShooting())	{	protagonist.startShooting();	}	
+					protagonist.startShooting();	
 					break;
 			}
 			break;
@@ -355,17 +354,25 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		}else{
 			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 		}
-	}
+	} 
 	@Override
 	public ProtagonistView getProtagonist() {
 		return this.protagonist;
 	}
 	@Override
-	public void addToScreen(MovingView view) {
-		gameLayout.addView(view,0);		
+	public void addForegroundObjectToScreen(MovingView view) {
+		gameLayout.addView(view,gameLayout.getChildCount()-2);//-2 so it is behind the control panel, the game RelativeLAyout		
+	}
+	@Override
+	public void addBackgroundObjectToScreen(MovingView view){
+		gameLayout.addView(view,0);
 	}
 	@Override
 	public void setHealthBar(){
 		healthBar.setProgress((int) protagonist.getHealth());
+	}
+	@Override
+	public void changeBackground(int newBackgroundId) {
+		this.gameLayout.setBackgroundResource(newBackgroundId);
 	}
 }

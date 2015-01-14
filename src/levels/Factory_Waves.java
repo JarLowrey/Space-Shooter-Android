@@ -19,14 +19,14 @@ import enemies_non_shooters.Gravity_MeteorView;
 
 public class Factory_Waves extends Factory_Bosses{
     
-	ConditionalHandler levelHandler;
+	ConditionalHandler conditionalHandler;
 	protected boolean levelWavesCompleted=false;
 	protected boolean levelPaused;
 	
 	public Factory_Waves(Context context,InteractiveGameInterface gameScreen) {
 		super(context,gameScreen);
 		
-		levelHandler = new ConditionalHandler(this);
+		conditionalHandler = new ConditionalHandler(this);
 	}
 
 	public boolean isLevelPaused(){
@@ -37,7 +37,7 @@ public class Factory_Waves extends Factory_Bosses{
 	}
 
 	public final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			
 			private int numSpawned=0;
 			private boolean meteorsFallLeftToRight = beginOnLeft;
@@ -66,14 +66,14 @@ public class Factory_Waves extends Factory_Bosses{
 					
 					numSpawned++;
 					if(numSpawned<numMeteors){
-						levelHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
+						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
 					}
 			}
 		});
 	}
 
 	public final void spawnStraightFallingMeteorsAtRandomXPositionsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -82,14 +82,14 @@ public class Factory_Waves extends Factory_Bosses{
 					
 					numSpawned++;
 					if(numSpawned<numMeteors){
-						levelHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
+						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
 					}
 			}
 		});
 	}
 
 	public final  void spawnSidewaysMeteorsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -98,30 +98,30 @@ public class Factory_Waves extends Factory_Bosses{
 				
 				numSpawned++;
 				if(numSpawned<numMeteors){
-					levelHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
+					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
 				}
 			}
 		});
 	}
 	
 	public final void spawnGiantMeteorWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				levelHandler.postIfLevelResumed(spawnGiantMeteor);
+				conditionalHandler.postIfLevelResumed(spawnGiantMeteor);
 				
 				numSpawned++;
 				if(numSpawned<numMeteors){
-					levelHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
+					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
 				}
 			}
 		});
 	}
 		
 	public final void spawnDiveBomberWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -130,14 +130,14 @@ public class Factory_Waves extends Factory_Bosses{
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					levelHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
+					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
 	public final void spawnFullScreenDiagonalAttackersWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -146,7 +146,7 @@ public class Factory_Waves extends Factory_Bosses{
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					levelHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
+					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
@@ -154,7 +154,7 @@ public class Factory_Waves extends Factory_Bosses{
 
 	
 	public final void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -163,14 +163,14 @@ public class Factory_Waves extends Factory_Bosses{
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					levelHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
+					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
 	public final void spawnRectangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -179,14 +179,14 @@ public class Factory_Waves extends Factory_Bosses{
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					levelHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
+					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		});
 	}
 	
 	public final void spawnTriangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -195,14 +195,14 @@ public class Factory_Waves extends Factory_Bosses{
 					numSpawned++;
 					
 					if(numSpawned<totalNumShips ){
-						levelHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
+						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 					}
 			}
 		});
 	}
 	
 	public final void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		levelHandler.postIfLevelResumed(new Runnable(){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -211,7 +211,7 @@ public class Factory_Waves extends Factory_Bosses{
 					numSpawned++;
 					
 					if(numSpawned<totalNumShips ){
-						levelHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
+						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
 					}
 			}
 		});

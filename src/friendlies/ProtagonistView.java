@@ -20,12 +20,13 @@ public class ProtagonistView extends Friendly_ShooterView{
 	private int directionMoving=Moving_ProjectileView.LEFT;
 	
 	InteractiveGameInterface myGame;
+	private boolean gunsAvailable;
 	
 	public ProtagonistView(Context context,InteractiveGameInterface interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH);
 
-		this.stopShooting();
+		gunsAvailable=true;
 		
 		//set image background
 		this.setImageResource(R.drawable.ship_protagonist);
@@ -39,7 +40,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		
 		myGame=interactWithGame;
 		
-		//debugging purposes only, will be deleted when user buys first gun
+		//debugging purposes only, will be overwritten when user buys first gun
 		Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),
 				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 		Gun gun2 = new Gun_StraightSingleShot(ctx, this, new Bullet_Basic_Missile(),
@@ -139,9 +140,28 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 
 	@Override
-	public void removeGameObject() {
-		//no additional cleanup currently needed
-		super.removeGameObject();
+	public void startShooting(){
+		if(gunsAvailable){
+			super.startShooting();
+		}
+		gunsAvailable=false;
 	}
+	@Override
+	public void stopShooting(){
+		super.stopShooting();
+
+		Runnable delayedShot = new Runnable(){
+			@Override
+			public void run() { gunsAvailable=true; }};
+			
+		this.postDelayed(delayedShot, (long) (DEFAULT_BULLET_FREQ - this.bulletFreqLevel * BULLET_FREQ_WEIGHT));
+	}
+	
+	
+//	@Override
+//	public void removeGameObject() {
+//		//no additional cleanup currently needed
+//		super.removeGameObject();
+//	}
 	
 }

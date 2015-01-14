@@ -11,7 +11,7 @@ import android.content.Context;
  * @author JAMES LOWREY
  *
  */
-public abstract class Moving_GravityView extends MovingView implements Gravity{
+public class Moving_GravityView extends MovingView implements Gravity{
 	
 	private int gravityThreshold;
 	private boolean atThreshold;
@@ -71,5 +71,12 @@ public abstract class Moving_GravityView extends MovingView implements Gravity{
 	@Override
 	public int getThreshold() {
 		return gravityThreshold;
+	}
+
+
+
+	@Override
+	public void removeGameObject() {
+		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 }

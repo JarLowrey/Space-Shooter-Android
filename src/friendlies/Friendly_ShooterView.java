@@ -35,12 +35,12 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	protected ArrayList<Gun> myGuns;
 	protected ArrayList<BulletView> myBullets;
 	
-	private int bulletFreqLevel=0, 
+	protected int bulletFreqLevel=0, 
 		bulletDamageLevel=0,
 		bullletVerticalSpeedLevel=0,
 		currentGunConfiguration=0;
 	
-	private boolean isShooting=false;
+	private boolean isShooting;
 
 	public Friendly_ShooterView(Context context, double projectileSpeedY,double projectileSpeedX, 
 			double projectileDamage,double projectileHealth) {
@@ -48,7 +48,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 				projectileDamage,projectileHealth);
 		
 		ctx=context;//prob not necessary to hold onto this context. just saying, figure it out later
-		
+		isShooting=false;
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
 	}
@@ -144,7 +144,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 
 	@Override
 	public void stopShooting() {
-		isShooting=false;//the ConditionalHandler will stop them all. no need to loop through
+		isShooting=false;//the ConditionalHandler will stop them all. no need to loop through?
 		for(Gun gun: myGuns){
 			gun.stopShooting();
 		}

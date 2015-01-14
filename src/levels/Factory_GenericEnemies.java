@@ -34,13 +34,13 @@ public class Factory_GenericEnemies{
 	
 	protected int currentLevel=0;
 	protected Context ctx;
-	protected InteractiveGameInterface myGameInteractivityInterface;
+	protected InteractiveGameInterface gameInteractivityInterface;
 	
 	
 	public Factory_GenericEnemies(Context context,InteractiveGameInterface myGame){
 		ctx=context;
 		
-		myGameInteractivityInterface = myGame;
+		gameInteractivityInterface = myGame;
 	} 
 
 	//GET methods
@@ -70,7 +70,7 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 		
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 		
@@ -97,7 +97,7 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -124,7 +124,7 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -165,7 +165,7 @@ public class Factory_GenericEnemies{
 		enemy.startShooting();
 		
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -212,7 +212,7 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -252,7 +252,7 @@ public class Factory_GenericEnemies{
 		enemy.startShooting();
 		
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -281,7 +281,7 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 		
@@ -299,7 +299,7 @@ public class Factory_GenericEnemies{
 		
 		Gravity_MeteorView enemy = new Gravity_MeteorView(ctx,score,speedY,collisionDamage,health,spawnBeneficialObject);
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}
@@ -315,7 +315,7 @@ public class Factory_GenericEnemies{
 		
 		Meteor_SidewaysView enemy = new Meteor_SidewaysView(ctx,score,speedY,speedX,collisionDamage,health,spawnBeneficialObject);
 
-		myGameInteractivityInterface.addToScreen(enemy);
+		gameInteractivityInterface.addForegroundObjectToScreen(enemy);
 		
 		return enemy;
 	}

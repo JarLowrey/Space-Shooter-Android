@@ -29,7 +29,7 @@ public abstract class Gun {
 	private Runnable shootingRunnable = new Runnable(){
 		  	@Override
 		      public void run() {
-	  				if( ! shooter.isRemoved()){Gun.this.shoot();}//apparently, even with all the checking, its still possible for a shooter to be removed before this call
+	  				Gun.this.shoot();
 	  				ConditionalHandler.postIfShooting(this, (long) bulletFreq,shooter);
 		  		}
 			};
