@@ -29,7 +29,6 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 
 		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
 		this.setImageResource(imageId);
-		this.addToForeground();
 		
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();
@@ -124,18 +123,6 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 	public void setSpeedY(double newSpeed){
 		this.speedY=newSpeed;
 	}
-	
-	@Override
-	public void addToForeground(){
-		ViewGroup parent = (ViewGroup)this.getParent();
-		parent.addView(this,parent.getChildCount()-2);//-2 so it is behind the control panel, the game RelativeLAyout		
-	}
-	@Override
-	public void addToBackground(){
-		ViewGroup parent = (ViewGroup)this.getParent();
-		parent.addView(this,parent.getChildCount()-2);//-2 so it is behind the control panel, the game RelativeLAyout		
-	}
-	
 	public abstract void removeGameObject();
 	
 	/**

@@ -31,7 +31,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 
 		gunsAvailable=true;
 		
-		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width/2) );//middle of screen
+		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
 		
 		myGame=interactWithGame;
 		

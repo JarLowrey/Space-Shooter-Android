@@ -23,8 +23,8 @@ public class Factory_Waves extends Factory_Bosses{
 	protected boolean levelWavesCompleted=false;
 	protected boolean levelPaused;
 	
-	public Factory_Waves(Context context) {
-		super(context);
+	public Factory_Waves(Context context,InteractiveGameInterface gameScreen) {
+		super(context,gameScreen);
 		
 		conditionalHandler = new ConditionalHandler(this);
 	}

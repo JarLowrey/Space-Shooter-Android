@@ -11,8 +11,8 @@ public class BackgroundObject extends Moving_GravityView{
 			double movingSpeedX, int width, int height, int imageId) {
 		super(context, movingSpeedY, movingSpeedX, width, height, imageId);
 
+		
 		this.setX( (float) (( MainActivity.getWidthPixels()-width ) *Math.random()));//random X position
-		this.addToBackground();
 	}
 
 }

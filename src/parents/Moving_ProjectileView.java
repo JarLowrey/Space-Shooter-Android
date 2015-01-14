@@ -23,8 +23,6 @@ public abstract class Moving_ProjectileView extends MovingView implements Collid
 		damage=projectileDamage;
 		health=projectileHealth;
 		maxHealth=projectileHealth;
-		
-		this.addToForeground();
 	}
 
 	/**

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import levels.LevelSystem;
+import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,6 +21,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -87,29 +90,29 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		btnHeal.setOnTouchListener(this); 
 		btnPurchaseFriend.setOnTouchListener(this); 
 		btnNextLevel.setOnTouchListener(this); 
-		btnNewGun.setOnTouchListener(this);
-		
-		//set up protagonist
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		gameLayout.addView(protagonist);
-		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
-		protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
-		int protagonistPosition = protagonistBottomPosition - protagonist.getLayoutParams().height;
-		protagonist.setY( protagonistPosition );
+		btnNewGun.setOnTouchListener(this); 
 		
 		//set up the game
 		levelCreater = new LevelSystem(this,this);
 		
-		/*
-		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to find position of btnBackground afte Views have been drawn. This pos is used as rocket's gravity threshold
+		
+		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to perform actions after layouts have been loaded
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
 		    @Override 
 		    public void onGlobalLayout() {
 		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-		    	//do stuff??
+
+				//set up protagonist
+				protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+				gameLayout.addView(protagonist);
+				RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
+				protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
+				int protagonistPosition = protagonistBottomPosition - protagonist.getLayoutParams().height;
+				protagonist.setY( protagonistPosition );
+				
 		    } 
 		});
-		*/
+		
 	}
 	/**
 	 * Pause game. Eventually, state will need to be saved to database, as after on pause any
@@ -362,7 +365,15 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		healthBar.setProgress((int) protagonist.getHealth());
 	}
 	@Override
-	public void changeBackground(int newBackgroundId) {
+	public void changeGameBackground(int newBackgroundId) {
 		this.gameLayout.setBackgroundResource(newBackgroundId);
+	}
+	@Override
+	public void addToForeground(MovingView view) {
+		gameLayout.addView(view,gameLayout.getChildCount()-2);		
+	}
+	@Override
+	public void addToBackground(MovingView view) {
+		gameLayout.addView(view,0);
 	}
 }

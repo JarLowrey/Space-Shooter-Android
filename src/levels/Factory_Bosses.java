@@ -22,8 +22,8 @@ import guns.Gun_StraightSingleShot;
  */
 public class Factory_Bosses extends Factory_GenericEnemies{
 	
-	public Factory_Bosses(Context context){
-		super(context);
+	public Factory_Bosses(Context context,InteractiveGameInterface gameScreen){
+		super(context,gameScreen);
 	} 
 
 	final  Runnable spawnGiantMeteor = new Runnable(){

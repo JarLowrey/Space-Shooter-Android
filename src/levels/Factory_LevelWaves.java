@@ -13,8 +13,8 @@ public class Factory_LevelWaves extends Factory_Waves{
 	
 	protected int currentProgressInLevel;
 	
-	public Factory_LevelWaves(Context context){
-		super( context);
+	public Factory_LevelWaves(Context context,InteractiveGameInterface gameScreen){
+		super( context, gameScreen);
 	}
 	
 	private int getCurrentLevelLength(){
@@ -140,8 +140,16 @@ public class Factory_LevelWaves extends Factory_Waves{
 		}
 	};
 	
-	//levels defined in terms of the previous waves
+	//levels defined in terms of 5second  waves
 	final Runnable[] level1 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorSidewaysOnePerSecondForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToLeft,
+			meteorShowersThatForceUserToRight,
+			levelWavesOver};
+	
+	final  Runnable[] level2 ={meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToRight,
@@ -152,9 +160,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			meteorShowerLong,
 			meteorsOnlyGiants,
 			meteorsOnlyGiants,
-			levelWavesOver};
-	
-	final  Runnable[] level2 =level1;
+			levelWavesOver};;
 	
 	final  Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,

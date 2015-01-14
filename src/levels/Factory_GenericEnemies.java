@@ -31,14 +31,16 @@ import enemies_orbiters.Shooting_OrbiterView;
 public class Factory_GenericEnemies{
 	
 	public final int BULLET_FREQ_LONG_INTERVAL=10,BULLET_FREQ_SHORT_INTERVAL=5;
-	
+
 	protected int currentLevel=0;
 	protected Context ctx;
+	protected InteractiveGameInterface gameInteractivityInterface;
 	
 	
-	public Factory_GenericEnemies(Context context){
+	public Factory_GenericEnemies(Context context,InteractiveGameInterface myGame){
 		ctx=context;
 		
+		gameInteractivityInterface = myGame;
 	} 
 
 	//GET methods
@@ -70,6 +72,8 @@ public class Factory_GenericEnemies{
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
+
+		gameInteractivityInterface.addToForeground(enemy);
 		
 		return enemy;
 		
@@ -98,6 +102,8 @@ public class Factory_GenericEnemies{
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
+
+		gameInteractivityInterface.addToForeground(enemy);
 		
 		return enemy;
 	}
@@ -127,6 +133,8 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
+		gameInteractivityInterface.addToForeground(enemy);
+		
 		return enemy;
 	}
 	
@@ -166,6 +174,8 @@ public class Factory_GenericEnemies{
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
+
+		gameInteractivityInterface.addToForeground(enemy);
 		
 		return enemy;
 	}
@@ -213,6 +223,8 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
+		gameInteractivityInterface.addToForeground(enemy);
+		
 		return enemy;
 	}
 	
@@ -250,6 +262,8 @@ public class Factory_GenericEnemies{
 				bulletFreq, bulletSpdY, bulletDmg);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
+
+		gameInteractivityInterface.addToForeground(enemy);
 		
 		return enemy;
 	}
@@ -279,6 +293,8 @@ public class Factory_GenericEnemies{
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
+		gameInteractivityInterface.addToForeground(enemy);
+		
 		return enemy;
 		
 	}
@@ -297,6 +313,8 @@ public class Factory_GenericEnemies{
 				(int)ctx.getResources().getDimension(R.dimen.meteor_length),
 				(int)ctx.getResources().getDimension(R.dimen.meteor_length),
 				Gravity_MeteorView.DEFAULT_BACKGROUND);
+
+		gameInteractivityInterface.addToForeground(enemy);
 		
 		return enemy;
 	}
@@ -315,6 +333,8 @@ public class Factory_GenericEnemies{
 				(int)ctx.getResources().getDimension(R.dimen.meteor_length),
 				Gravity_MeteorView.DEFAULT_BACKGROUND);
 
+		gameInteractivityInterface.addToForeground(enemy);
+		
 		return enemy;
 	}
 

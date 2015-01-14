@@ -23,10 +23,6 @@ public interface GameObjectInterface{
 	
 	public boolean isRemoved();
 	
-
-	public void addToForeground();
-	public void addToBackground();	
-	
 	//default, built in, final, Android interface methods
 	public float getX();	
 	public int getWidth();	
