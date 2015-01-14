@@ -92,27 +92,27 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		btnNextLevel.setOnTouchListener(this); 
 		btnNewGun.setOnTouchListener(this); 
 		
+
+		//set up protagonist
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
+		protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
+		int protagonistPosition = protagonistBottomPosition - protagonist.getLayoutParams().height;
+		protagonist.setY( protagonistPosition );
+		
 		//set up the game
-		levelCreater = new LevelSystem(this,this);
+		levelCreater = new LevelSystem(this);
 		
-		
+		/*
 		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to perform actions after layouts have been loaded
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
 		    @Override 
 		    public void onGlobalLayout() {
 		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-
-				//set up protagonist
-				protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-				gameLayout.addView(protagonist);
-				RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
-				protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
-				int protagonistPosition = protagonistBottomPosition - protagonist.getLayoutParams().height;
-				protagonist.setY( protagonistPosition );
-				
+			
 		    } 
 		});
-		
+		*/
 	}
 	/**
 	 * Pause game. Eventually, state will need to be saved to database, as after on pause any
@@ -374,6 +374,9 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 	}
 	@Override
 	public void addToBackground(MovingView view) {
+		//addToForeground is called in every instantiation of every MovingView. Thus addToBackground is non default,
+		//and thus the view needs to be removed from its parent before it can be re-added
+		gameLayout.removeView(view);
 		gameLayout.addView(view,0);
 	}
 }

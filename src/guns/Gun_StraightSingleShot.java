@@ -1,5 +1,6 @@
 package guns;
    
+import interfaces.InteractiveGameInterface;
 import interfaces.Shooter;
 import android.content.Context;
 import bullets.Bullet;

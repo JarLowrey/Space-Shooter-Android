@@ -1,6 +1,7 @@
 package parents;
 
 import interfaces.GameObjectInterface;
+import interfaces.InteractiveGameInterface;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 
 		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
 		this.setImageResource(imageId);
+
+		((InteractiveGameInterface)context).addToForeground(this);
 		
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();

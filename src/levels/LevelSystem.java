@@ -29,9 +29,12 @@ public class LevelSystem extends Factory_LevelWaves{
 	public static ArrayList<EnemyView> enemies=new ArrayList<EnemyView>();
 	public static ArrayList<BonusView> bonuses=new ArrayList<BonusView>();
 	
-	
-	public LevelSystem(Context context,InteractiveGameInterface gameScreen) {
-		super(context,gameScreen);
+	/**
+	 * 
+	 * @param context MUST IMPLEMENT InteractiveGameInterface.java
+	 */
+	public LevelSystem(Context context) {
+		super(context);
 		
 		gameDetector = new CollisionDetector(this);
 	}
@@ -44,7 +47,7 @@ public class LevelSystem extends Factory_LevelWaves{
 	}
 	
 	public InteractiveGameInterface getInteractivityInterface(){
-		return gameInteractivityInterface;
+		return (InteractiveGameInterface)ctx;
 	}
 	
 	/**
@@ -123,7 +126,7 @@ public class LevelSystem extends Factory_LevelWaves{
 	private void createBackgroundEffects(){
 		switch( currentLevel ){
 		case 0:
-			this.gameInteractivityInterface.changeGameBackground(R.color.sky_blue);
+			this.getInteractivityInterface().changeGameBackground(R.color.sky_blue);
 			this.conditionalHandler.postIfLevelResumed(clouds);
 			break;
 		}
@@ -134,12 +137,9 @@ public class LevelSystem extends Factory_LevelWaves{
 		public void run() {
 			if(Math.random() < 0.5){
 				Clouds cloud2 = new Clouds(ctx,Clouds.CLOUD_2);//auto added to screen
-
-				gameInteractivityInterface.addToBackground(cloud2);
 			}
 			
 			Clouds cloud = new Clouds(ctx,Clouds.CLOUD_1);//auto added to screen
-			gameInteractivityInterface.addToBackground(cloud);
 			
 			conditionalHandler.postIfLevelResumed(this, 5000);
 		}

@@ -49,7 +49,7 @@ public final class R {
          */
         public static final int activity_margin_xsmall=0x7f060020;
         public static final int activity_margin_xxlarge=0x7f060025;
-        public static final int ad_banner_margin=0x7f060036;
+        public static final int ad_banner_margin=0x7f060035;
         /**  MovingView-Bonus, enemies, friendlies 
          */
         public static final int bonus_background_len=0x7f060000;
@@ -58,22 +58,22 @@ public final class R {
         /**  Bosses 
          */
         public static final int boss1_width=0x7f060018;
-        public static final int btn_large_len=0x7f06002c;
-        public static final int btn_small_height=0x7f06002e;
-        public static final int btn_small_width=0x7f06002d;
+        public static final int btn_large_len=0x7f06002b;
+        public static final int btn_small_height=0x7f06002d;
+        public static final int btn_small_width=0x7f06002c;
         public static final int cloud_height=0x7f060017;
         /**  Background items 
          */
         public static final int cloud_width=0x7f060016;
-        public static final int control_panel_height=0x7f06002f;
+        public static final int control_panel_height=0x7f06002e;
         public static final int exhaust_height=0x7f060012;
         public static final int exhaust_width=0x7f060013;
-        public static final int ic_large=0x7f060032;
-        public static final int ic_med=0x7f060031;
-        public static final int ic_small=0x7f060030;
+        public static final int ic_large=0x7f060031;
+        public static final int ic_med=0x7f060030;
+        public static final int ic_small=0x7f06002f;
         /**  ETC 
          */
-        public static final int intro_text_view_width=0x7f06002b;
+        public static final int intro_text_view_width=0x7f06002a;
         public static final int laser_long_height=0x7f06001d;
         public static final int laser_long_width=0x7f06001c;
         public static final int laser_short_height=0x7f06001b;
@@ -87,9 +87,6 @@ public final class R {
         /**  Game Layout  
          */
         public static final int moon_length=0x7f060026;
-        /**  Store Layout 
-         */
-        public static final int resource_img_len=0x7f060027;
         public static final int ship_array_shooter_height=0x7f060002;
         public static final int ship_array_shooter_width=0x7f060003;
         public static final int ship_diagonal_height=0x7f060004;
@@ -106,12 +103,14 @@ public final class R {
         public static final int ship_orbit_triangular_width=0x7f06000c;
         public static final int ship_protagonist_game_height=0x7f060014;
         public static final int ship_protagonist_game_width=0x7f060015;
-        public static final int store_btn_margin_vertical=0x7f06002a;
-        public static final int store_btn_next_level_len=0x7f060029;
-        public static final int store_item_len=0x7f060028;
-        public static final int title_canvas_height=0x7f060033;
-        public static final int title_outline_size=0x7f060035;
-        public static final int title_size=0x7f060034;
+        public static final int store_btn_margin_vertical=0x7f060029;
+        public static final int store_btn_next_level_len=0x7f060028;
+        /**  Store Layout 
+         */
+        public static final int store_item_len=0x7f060027;
+        public static final int title_canvas_height=0x7f060032;
+        public static final int title_outline_size=0x7f060034;
+        public static final int title_size=0x7f060033;
     }
     public static final class drawable {
         public static final int btn_blue=0x7f020000;
@@ -126,37 +125,38 @@ public final class R {
         public static final int control_panel_background=0x7f020009;
         public static final int dual_bullet=0x7f02000a;
         public static final int explosion1=0x7f02000b;
-        public static final int heal=0x7f02000c;
-        public static final int ic_action_play=0x7f02000d;
-        public static final int ic_launcher=0x7f02000e;
-        public static final int laser1_enemy=0x7f02000f;
-        public static final int laser1_friendly=0x7f020010;
-        public static final int laser_default_img=0x7f020011;
-        public static final int laser_long_img=0x7f020012;
-        public static final int level1=0x7f020013;
-        public static final int level2=0x7f020014;
-        public static final int level3=0x7f020015;
-        public static final int level4=0x7f020016;
-        public static final int meteor=0x7f020017;
-        public static final int missile=0x7f020018;
-        public static final int missile_bonus=0x7f020019;
-        public static final int moon=0x7f02001a;
-        public static final int resources=0x7f02001b;
-        public static final int satellite=0x7f02001c;
-        public static final int ship_enemy_array_shooter=0x7f02001d;
-        public static final int ship_enemy_boss1=0x7f02001e;
-        public static final int ship_enemy_diagonal_full_screen=0x7f02001f;
-        public static final int ship_enemy_dive_bomber=0x7f020020;
-        public static final int ship_enemy_orbiter_circle=0x7f020021;
-        public static final int ship_enemy_orbiter_horizontal_line=0x7f020022;
-        public static final int ship_enemy_orbiter_rectangle=0x7f020023;
-        public static final int ship_enemy_orbiter_triangle=0x7f020024;
-        public static final int ship_protagonist=0x7f020025;
-        public static final int ship_protgonist_exhaust=0x7f020026;
-        public static final int space1_0=0x7f020027;
-        public static final int upgrade_gun=0x7f020028;
-        public static final int view_damaged=0x7f020029;
-        public static final int white_center_red_outline=0x7f02002a;
+        public static final int gun=0x7f02000c;
+        public static final int heal=0x7f02000d;
+        public static final int ic_action_play=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int laser1_enemy=0x7f020010;
+        public static final int laser1_friendly=0x7f020011;
+        public static final int laser_default_img=0x7f020012;
+        public static final int laser_long_img=0x7f020013;
+        public static final int level1=0x7f020014;
+        public static final int level2=0x7f020015;
+        public static final int level3=0x7f020016;
+        public static final int level4=0x7f020017;
+        public static final int meteor=0x7f020018;
+        public static final int missile=0x7f020019;
+        public static final int missile_bonus=0x7f02001a;
+        public static final int moon=0x7f02001b;
+        public static final int resources=0x7f02001c;
+        public static final int satellite=0x7f02001d;
+        public static final int ship_enemy_array_shooter=0x7f02001e;
+        public static final int ship_enemy_boss1=0x7f02001f;
+        public static final int ship_enemy_diagonal_full_screen=0x7f020020;
+        public static final int ship_enemy_dive_bomber=0x7f020021;
+        public static final int ship_enemy_orbiter_circle=0x7f020022;
+        public static final int ship_enemy_orbiter_horizontal_line=0x7f020023;
+        public static final int ship_enemy_orbiter_rectangle=0x7f020024;
+        public static final int ship_enemy_orbiter_triangle=0x7f020025;
+        public static final int ship_protagonist=0x7f020026;
+        public static final int ship_protgonist_exhaust=0x7f020027;
+        public static final int space1_0=0x7f020028;
+        public static final int upgrade_gun=0x7f020029;
+        public static final int view_damaged=0x7f02002a;
+        public static final int white_center_red_outline=0x7f02002b;
     }
     public static final class id {
         public static final int activity_main=0x7f0c0017;

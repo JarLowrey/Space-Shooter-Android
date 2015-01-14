@@ -13,8 +13,8 @@ public class Factory_LevelWaves extends Factory_Waves{
 	
 	protected int currentProgressInLevel;
 	
-	public Factory_LevelWaves(Context context,InteractiveGameInterface gameScreen){
-		super( context, gameScreen);
+	public Factory_LevelWaves(Context context){
+		super( context );
 	}
 	
 	private int getCurrentLevelLength(){
