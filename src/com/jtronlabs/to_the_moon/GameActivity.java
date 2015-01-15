@@ -180,21 +180,29 @@ public class GameActivity extends Activity implements OnTouchListener, GameView{
 		levelCreater.startNextLevel();
 	}
 
+	private boolean canBeginShooting=true;
+	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		switch(event.getAction()){
 		case MotionEvent.ACTION_DOWN:
 			switch(v.getId()){
 				case R.id.btn_move_left:
-//					protagonist.stopMoving();
 					protagonist.beginMoving(Moving_ProjectileView.LEFT);
 					break; 
 				case R.id.btn_move_right:
-//					protagonist.stopMoving();
 					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
 				case R.id.btn_shoot:
-//					if(protagonist.getNumShooting()==0){protagonist.startShooting();}	
+					Runnable canShootAgainRunnable = new Runnable(){
+						@Override
+						public void run() {	canBeginShooting=true;	}	};
+						
+					if(canBeginShooting && ! protagonist.isShooting()){
+						protagonist.startShooting();
+						canBeginShooting=false;
+						protagonist.postDelayed(canShootAgainRunnable,(long)protagonist.getShootingDelay() * 2);
+					}	
 					break;
 			}
 			break;

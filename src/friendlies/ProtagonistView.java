@@ -7,7 +7,6 @@ import interfaces.GameView;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
@@ -20,15 +19,13 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public static final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 	
 	GameView myGame;
-	private boolean canShoot,isMoving;
+	private boolean isMoving;
 	
 	public ProtagonistView(Context context,GameView interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
 
-		canShoot=true;
-		
 		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
 		
 		myGame=interactWithGame;
@@ -126,35 +123,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	public boolean isMoving(){
 		return isMoving;
-	}
-	
-	private int numShootings=0;
-public int getNumShooting(){
-	return numShootings;
-}
-	@Override
-	public void startShooting(){
-		numShootings++;
-		Log.d("lowrey","numShots"+numShootings);
-//		Log.d("lowrey","guns avail?"+canShoot);
-		if(canShoot && numShootings==1){
-			super.startShooting();
-			canShoot=false;
-		}
-	}
-	@Override
-	public void stopShooting(){
-		super.stopShooting();
-
-		Runnable delayedShot = new Runnable(){
-			@Override
-			public void run() { canShoot=true;	numShootings--; }};
-			
-		this.postDelayed(delayedShot, (long) (DEFAULT_BULLET_FREQ - this.bulletFreqLevel * BULLET_FREQ_WEIGHT));
-	}
-	
-	public boolean canShoot(){
-		return canShoot;
 	}
 	
 //	@Override

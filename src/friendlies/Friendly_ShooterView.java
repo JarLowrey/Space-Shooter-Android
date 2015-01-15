@@ -68,10 +68,14 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		createGunSet();
 	}
 	
+	public double getShootingDelay(){
+		return DEFAULT_BULLET_FREQ - bulletFreqLevel * BULLET_FREQ_WEIGHT;
+	}
+	
 	private void createGunSet(){
 		this.removeAllGuns();
 		
-		final double freq = DEFAULT_BULLET_FREQ - bulletFreqLevel * BULLET_FREQ_WEIGHT;
+		final double freq = getShootingDelay();
 		final double dmg = DEFAULT_BULLET_DAMAGE + bulletDamageLevel * BULLET_DAMAGE_WEIGHT;
 		final double speed = DEFAULT_BULLET_SPEED_Y + bullletVerticalSpeedLevel * BULLET_SPEED_WEIGHT;
 		

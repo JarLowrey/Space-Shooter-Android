@@ -63,12 +63,7 @@ public class ConditionalHandler {
 	 */
 	public static void postIfShooting(Runnable r,long bulletFreq,Shooter shooter){
 		if( ! shooter.isRemoved() && shooter.isShooting()){
-			if(shooter instanceof ProtagonistView){
-				ProtagonistView hero = (ProtagonistView)shooter;
-				if(hero.canShoot()){hero.postDelayed(r, bulletFreq);}
-			}else{
-				shooter.postDelayed(r, bulletFreq);
-			}
+			shooter.postDelayed(r, bulletFreq);
 		}
 	}
 	
