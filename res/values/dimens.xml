@@ -70,8 +70,8 @@
     <dimen name="intro_text_view_width">300dp</dimen>
     
     <dimen name="btn_large_len">100dp</dimen>
-    <dimen name="btn_small_width">60dp</dimen>
-    <dimen name="btn_small_height">45dp</dimen>
+    <dimen name="btn_move_len">55dp</dimen>
+    <dimen name="btn_shoot_width">60dp</dimen>
     <dimen name="control_panel_height">150dp</dimen>
     
     <dimen name="ic_small">30dp</dimen>

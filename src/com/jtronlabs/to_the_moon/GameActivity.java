@@ -34,7 +34,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	public static int offscreenBottom;
 	
-	private Button btnMoveLeft,btnMoveRight,btnShoot;
+	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
 	private TextView resourceCount;
@@ -58,11 +58,14 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//set up Gameplay Views and listeners and layouts
 		btnMoveLeft= (Button)findViewById(R.id.btn_move_left); 
 		btnMoveRight= (Button)findViewById(R.id.btn_move_right);
+		btnMoveUp = (Button)findViewById(R.id.btn_move_up);
+		btnMoveDown = (Button)findViewById(R.id.btn_move_down);
 		btnShoot = (Button)findViewById(R.id.btn_shoot);
+		btnMoveUp.setOnTouchListener(this);
+		btnMoveDown.setOnTouchListener(this);
 		btnMoveLeft.setOnTouchListener(this);
 		btnMoveRight.setOnTouchListener(this); 
 		btnShoot.setOnTouchListener(this);
-//		btnShoot.setOnLongClickListener(this);
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
@@ -154,7 +157,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//clean up variables
 		LevelSystem.enemies=new ArrayList<EnemyView>();
 		Shooting_ArrayMovingView.resetSimpleShooterArray();
-		
+
+		finish();
+		Toast.makeText(this, "you suck...", Toast.LENGTH_LONG).show();
 	}
 	
 	public void beatGame(){
@@ -187,6 +192,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				case R.id.btn_move_right:
 					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
+				case R.id.btn_move_up:
+					protagonist.beginMoving(Moving_ProjectileView.UP);
+					break;
+				case R.id.btn_move_down:
+					protagonist.beginMoving(Moving_ProjectileView.DOWN);
+					break;
 				case R.id.btn_shoot:
 						
 					if(canBeginShooting){
@@ -206,6 +217,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				case R.id.btn_move_right:
 						protagonist.stopMoving();
 					break;
+				case R.id.btn_move_up:
+					protagonist.stopMoving();
+					break; 
+				case R.id.btn_move_down:
+					protagonist.stopMoving();
+					break;
 				case R.id.btn_shoot:					
 					protagonist.stopShooting();	
 					
@@ -215,7 +232,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 						public void run() {	canBeginShooting=true;beginShootingRunnablePosted=false;	}	};
 					
 					if( ! beginShootingRunnablePosted){
-						protagonist.postDelayed(canShootAgainRunnable,1000);
+						protagonist.postDelayed(canShootAgainRunnable,(long)ProtagonistView.DEFAULT_BULLET_FREQ);
 						beginShootingRunnablePosted=true;
 					}
 					

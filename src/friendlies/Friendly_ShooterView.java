@@ -20,8 +20,8 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			BULLET_SPEED_WEIGHT=3,
 			BULLET_FREQ_WEIGHT=20;
 
-	public final static double DEFAULT_SPEED_Y=12.5,
-			DEFAULT_SPEEDX=14,
+	public final static double DEFAULT_SPEED_Y=14,
+			DEFAULT_SPEED_X=14,
 			DEFAULT_COLLISION_DAMAGE=100, 
 			DEFAULT_HEALTH=1000,
 			DEFAULT_BULLET_SPEED_Y=30,

@@ -126,6 +126,9 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	public void setSpeedY(double newSpeed){
 		this.speedY=newSpeed;
 	}
+	public double getSpeedY(){
+		return this.speedY;
+	}
 	public abstract void removeGameObject();
 	
 	/**

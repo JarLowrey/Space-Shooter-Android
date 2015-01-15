@@ -16,17 +16,15 @@ public class CollisionDetector {
 	public CollisionDetector(LevelSystem aLevelSystem){
 		myLevelSystem=aLevelSystem;
 	}
-	private static int num=0;
 	private Handler gameHandler = new Handler();
     private Runnable collisionDetectionRunnable = new Runnable() { 
 
         @Override
         public void run() {
-        	num++;
-        	Log.d("lowrey",num+"");
         	 
-        	if( ! myLevelSystem.isLevelPaused() && 
-        		! myLevelSystem.areLevelWavesCompleted() || LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0){
+        	if( myLevelSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
+        			( ! myLevelSystem.isLevelPaused() && ! myLevelSystem.areLevelWavesCompleted() 
+        			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0 ) ){
         		
         		try{
 	        		detectAnyFriendlyHasCollidedWithAnyEnemy();

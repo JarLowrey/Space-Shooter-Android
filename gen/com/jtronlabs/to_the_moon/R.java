@@ -59,8 +59,8 @@ public final class R {
          */
         public static final int boss1_width=0x7f060018;
         public static final int btn_large_len=0x7f06002b;
-        public static final int btn_small_height=0x7f06002d;
-        public static final int btn_small_width=0x7f06002c;
+        public static final int btn_move_len=0x7f06002c;
+        public static final int btn_shoot_width=0x7f06002d;
         public static final int cloud_height=0x7f060017;
         /**  Background items 
          */
@@ -159,36 +159,38 @@ public final class R {
         public static final int white_center_red_outline=0x7f02002b;
     }
     public static final class id {
-        public static final int activity_main=0x7f0c0017;
-        public static final int animating_main_menu_list=0x7f0c001d;
-        public static final int btn_heal=0x7f0c000f;
-        public static final int btn_inc_bullet_dmg=0x7f0c000e;
-        public static final int btn_inc_bullet_freq=0x7f0c0011;
-        public static final int btn_inc_bullet_speed=0x7f0c0010;
-        public static final int btn_inc_score_weight=0x7f0c0012;
-        public static final int btn_move_left=0x7f0c0005;
-        public static final int btn_move_right=0x7f0c0006;
-        public static final int btn_new_gun=0x7f0c000a;
-        public static final int btn_purchase_friend=0x7f0c0013;
-        public static final int btn_shoot=0x7f0c0004;
+        public static final int activity_main=0x7f0c0019;
+        public static final int animating_main_menu_list=0x7f0c001f;
+        public static final int btn_heal=0x7f0c0011;
+        public static final int btn_inc_bullet_dmg=0x7f0c0010;
+        public static final int btn_inc_bullet_freq=0x7f0c0013;
+        public static final int btn_inc_bullet_speed=0x7f0c0012;
+        public static final int btn_inc_score_weight=0x7f0c0014;
+        public static final int btn_move_down=0x7f0c0009;
+        public static final int btn_move_left=0x7f0c0006;
+        public static final int btn_move_right=0x7f0c0007;
+        public static final int btn_move_up=0x7f0c0008;
+        public static final int btn_new_gun=0x7f0c000c;
+        public static final int btn_purchase_friend=0x7f0c0015;
+        public static final int btn_shoot=0x7f0c0005;
         public static final int btns_wrap=0x7f0c0003;
         public static final int control_panel=0x7f0c0002;
-        public static final int earth=0x7f0c001a;
-        public static final int explanation=0x7f0c0009;
+        public static final int earth=0x7f0c001c;
+        public static final int explanation=0x7f0c000b;
         public static final int gameplay_layout=0x7f0c0000;
-        public static final int health_bar=0x7f0c0007;
-        public static final int intro_btn_next=0x7f0c0016;
-        public static final int intro_text=0x7f0c0015;
-        public static final int moon=0x7f0c0018;
-        public static final int playBtn=0x7f0c001b;
-        public static final int resource_count=0x7f0c000c;
-        public static final int resource_layout=0x7f0c000b;
-        public static final int resources_img=0x7f0c000d;
+        public static final int health_bar=0x7f0c0004;
+        public static final int intro_btn_next=0x7f0c0018;
+        public static final int intro_text=0x7f0c0017;
+        public static final int moon=0x7f0c001a;
+        public static final int playBtn=0x7f0c001d;
+        public static final int resource_count=0x7f0c000e;
+        public static final int resource_layout=0x7f0c000d;
+        public static final int resources_img=0x7f0c000f;
         public static final int rocket_exhaust=0x7f0c0001;
-        public static final int rocket_main=0x7f0c0019;
-        public static final int start_next_level=0x7f0c0014;
-        public static final int store_layout=0x7f0c0008;
-        public static final int title=0x7f0c001c;
+        public static final int rocket_main=0x7f0c001b;
+        public static final int start_next_level=0x7f0c0016;
+        public static final int store_layout=0x7f0c000a;
+        public static final int title=0x7f0c001e;
     }
     public static final class integer {
         public static final int friend_base_cost=0x7f070005;

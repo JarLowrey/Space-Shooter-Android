@@ -7,10 +7,12 @@ import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 
+import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
@@ -22,7 +24,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	private boolean isMoving;
 	
 	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
-		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
+		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
 
@@ -124,11 +126,12 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	
 	/**
-	 * Do not allow the rocket to move off the sides of the screen
+	 * Do not allow the rocket to move off screen or past bounds
 	 */
 	@Override
 	public boolean moveDirection(int direction){
 		float x =this.getX();
+		float y =this.getY();
 		
 		switch(direction){
 		case Moving_ProjectileView.RIGHT:
@@ -139,8 +142,14 @@ public class ProtagonistView extends Friendly_ShooterView{
 			x-=this.getSpeedX();
 			if(x>=0){this.setX(x);}			
 			break;
-		default:
-			return super.moveDirection(direction);			
+		case Moving_ProjectileView.UP:
+			y-=this.getSpeedY();
+			if(y > MainActivity.getHeightPixels()/2){this.setY(y);}			
+			break;
+		case Moving_ProjectileView.DOWN:
+			y+=this.getSpeedY();
+			if(y < ( GameActivity.offscreenBottom + this.getHeight() ) ){this.setY(y);}			
+			break;		
 		}
 		return false;
 	}
