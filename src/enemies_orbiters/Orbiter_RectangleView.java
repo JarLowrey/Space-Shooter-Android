@@ -1,6 +1,6 @@
 package enemies_orbiters;
 
-import interfaces.MovingObject;
+import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
@@ -9,7 +9,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 
-public class Orbiter_RectangleView extends Shooting_OrbiterView implements MovingObject {
+public class Orbiter_RectangleView extends Shooting_OrbiterView implements MovingViewInterface {
 
 	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
 			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2);

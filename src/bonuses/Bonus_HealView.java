@@ -1,6 +1,6 @@
 package bonuses;
  
-import interfaces.MovingObject;
+import interfaces.MovingViewInterface;
 import interfaces.Shooter;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 
 import com.jtronlabs.to_the_moon.R;
 
-public class Bonus_HealView extends BonusView implements MovingObject{
+public class Bonus_HealView extends BonusView implements MovingViewInterface{
 	
 	public Bonus_HealView(Context context,float positionX,float positionY) {
 		super(context,positionX,positionY);	
@@ -24,7 +24,8 @@ public class Bonus_HealView extends BonusView implements MovingObject{
 	}
 	
 	public void applyBenefit(Shooter theBenefitter){
-		final double amtToHeal = theBenefitter.getMaxHealth()/5;
+		final double amtToHeal = theBenefitter.getMaxHealth()/6;
+		
 		if(theBenefitter.getHealth()+amtToHeal<theBenefitter.getMaxHealth()){
 			theBenefitter.heal(amtToHeal);
 		}else{

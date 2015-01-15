@@ -1,6 +1,6 @@
 package bonuses;
 
-import interfaces.MovingObject;
+import interfaces.MovingViewInterface;
 import interfaces.Shooter;
 import levels.LevelSystem;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable;
 
 import com.jtronlabs.to_the_moon.R;
 
-public class Bonus_ScoreView extends BonusView implements MovingObject{
+public class Bonus_ScoreView extends BonusView implements MovingViewInterface{
 	
 	public Bonus_ScoreView(Context context,float positionX,float positionY) {
 		super(context,positionX,positionY);	

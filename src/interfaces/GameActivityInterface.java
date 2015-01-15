@@ -4,7 +4,7 @@ import android.widget.ImageView;
 import parents.MovingView;
 import friendlies.ProtagonistView;
 
-public interface GameView {
+public interface GameActivityInterface {
 
 	public void openStore();
 	public void gameOver();

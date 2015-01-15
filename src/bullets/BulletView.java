@@ -6,6 +6,9 @@ import parents.MovingView;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 /**
  * By default, a bullet moves straight and spawns in the middle of its shooter
@@ -48,21 +51,34 @@ public class BulletView extends Moving_ProjectileView{
 		//set instance variables
 		theOneWhoShotMe=shooter;
 		
-		if(shooter.isFriendly()){
-			this.setY(theOneWhoShotMe.getY());//top			
+		//position bullet behind shooter
+		ViewGroup parent = (ViewGroup)theOneWhoShotMe.getParent();
+		if(parent!=null){
+			parent.removeView(this);//bullet already added to parent in MovingView's instantiation
+			int shooterIndex = parent.indexOfChild( (View) theOneWhoShotMe);
+			parent.addView(this, shooterIndex);
+			
+			//position bullet in middle of shooter
+			if(shooter.isFriendly()){
+				this.setY(theOneWhoShotMe.getY() + theOneWhoShotMe.getHeight()/2);//middle			
+			}else{
+				this.setY(theOneWhoShotMe.getY() - theOneWhoShotMe.getHeight()/2);//middle
+			}
+			setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
+	
+			ConditionalHandler.postIfAlive(moveBulletRunnable, this);
+	
+			if(theOneWhoShotMe.isFriendly()){
+				LevelSystem.friendlyBullets.add(this);
+			}else{
+				LevelSystem.enemyBullets.add(this);			
+			}
+			theOneWhoShotMe.getMyBullets().add(this);
 		}else{
-			this.setY(theOneWhoShotMe.getY()+theOneWhoShotMe.getHeight());//bottom
+			this.removeGameObject();
+			//for some reason, shooters continue to fire even after being killed. This simple check ensure that the shooter
+			//has not been removed from his parent. If he has, then remove this bullet
 		}
-		setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
-
-		ConditionalHandler.postIfAlive(moveBulletRunnable, this);
-
-		if(theOneWhoShotMe.isFriendly()){
-			LevelSystem.friendlyBullets.add(this);
-		}else{
-			LevelSystem.enemyBullets.add(this);			
-		}
-		theOneWhoShotMe.getMyBullets().add(this);
 	}
 	
 	public void setBulletRotation(){	

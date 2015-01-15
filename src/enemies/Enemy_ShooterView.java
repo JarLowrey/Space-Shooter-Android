@@ -30,12 +30,13 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		 * To be called on implementation of onRemoveGameObject
 		 * NEW BEHAVIOR = drop references to guns and bullets
 		 */
-		protected void removeEnemyShooterGameObject(){
+		@Override
+		public void removeGameObject(){
 			stopShooting();			
 			myBullets=new ArrayList<BulletView>();
 			myGuns=new ArrayList<Gun>();
 			
-			this.removeGameObject();//needs to be the last thing called for handler to remove all callbacks			
+			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks			
 		}
 		
 		@Override

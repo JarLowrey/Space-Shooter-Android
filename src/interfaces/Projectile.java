@@ -1,7 +1,7 @@
 package interfaces;
  
 
-public interface Projectile extends MovingObject{
+public interface Projectile extends MovingViewInterface{
 
 	public void heal(double howMuchHealed);
 	public double getMaxHealth();

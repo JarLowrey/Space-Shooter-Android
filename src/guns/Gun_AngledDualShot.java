@@ -8,7 +8,7 @@ import bullets.BulletView;
 
 public  class Gun_AngledDualShot extends Gun {
 	
-	private static final double DEFAULT_ANGLE=30;
+	private static final double DEFAULT_ANGLE=40;
 	
 	public Gun_AngledDualShot(Context context,
 			Shooter theShooter,Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg) {

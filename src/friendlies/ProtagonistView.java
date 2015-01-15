@@ -3,7 +3,7 @@ package friendlies;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_StraightSingleShot;
-import interfaces.GameView;
+import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
@@ -18,10 +18,10 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	public static final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 	
-	GameView myGame;
+	GameActivityInterface myGame;
 	private boolean isMoving;
 	
-	public ProtagonistView(Context context,GameView interactWithGame) {
+	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
@@ -49,7 +49,7 @@ public class ProtagonistView extends Friendly_ShooterView{
     Runnable exhaustRunnable = new Runnable(){
     	 @Override
          public void run() {
-				GameView screen = (GameView)ctx;
+				GameActivityInterface screen = (GameActivityInterface)ctx;
 				if(count*HOW_OFTEN_TO_MOVE_ROCKET<EXHAUST_VISIBLE_TIME){
 					screen.getExhaust().setVisibility(View.VISIBLE);					
 		    		 //position the exhaust
@@ -74,6 +74,27 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public void heal(double howMuchHealed){
 		super.heal(howMuchHealed);
 		myGame.setHealthBar();
+	}
+	
+	private boolean canBeginShooting=true;
+	@Override
+	public void startShooting(){
+
+//		if(canBeginShooting){
+			super.startShooting();
+//		}	
+//		canBeginShooting=false;
+	}
+	
+	@Override 
+	public void stopShooting(){
+		super.stopShooting();
+
+//		Runnable canShootAgainRunnable = new Runnable(){//force a delay until user can begin shooting again
+//			@Override
+//			public void run() {	canBeginShooting=true;	}	};
+//			
+//		postDelayed(canShootAgainRunnable,(long)getShootingDelay() * 2);
 	}
 	
 	@Override 

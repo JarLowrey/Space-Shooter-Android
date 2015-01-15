@@ -1,6 +1,6 @@
 package background_objects;
 
-import interfaces.GameView;
+import interfaces.GameActivityInterface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
@@ -14,7 +14,7 @@ public class BackgroundObject extends Moving_GravityView{
 		super(context, movingSpeedY, movingSpeedX, width, height, imageId);
 
 
-		((GameView)context).addToBackground(this);
+		((GameActivityInterface)context).addToBackground(this);
 		
 		this.setY(-height/2);
 		this.setX( (float) (( MainActivity.getWidthPixels()-width ) *Math.random()));//random X position

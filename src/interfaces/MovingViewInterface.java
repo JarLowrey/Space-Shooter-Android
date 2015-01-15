@@ -1,13 +1,13 @@
 package interfaces;
 
-import parents.MovingView;
+import android.view.ViewParent;
 
 /**
  * 
  * @author JAMES LOWREY
  *
  */
-public interface MovingObject{
+public interface MovingViewInterface{
 
 	/**
 	 * Manage the execution of threads. onPause all callbacks will be 
@@ -31,4 +31,5 @@ public interface MovingObject{
 	public boolean removeCallbacks(Runnable run);
 	public boolean postDelayed(Runnable r, long millisecondDelay);
 	public boolean post(Runnable r);
+	public ViewParent getParent();
 }

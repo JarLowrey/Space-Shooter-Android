@@ -1,6 +1,6 @@
 package levels;
 
-import interfaces.GameView;
+import interfaces.GameActivityInterface;
 
 import java.util.ArrayList;
 
@@ -46,8 +46,8 @@ public class LevelSystem extends Factory_LevelWaves{
 		startNextLevel();
 	}
 	
-	public GameView getInteractivityInterface(){
-		return (GameView)ctx;
+	public GameActivityInterface getInteractivityInterface(){
+		return (GameActivityInterface)ctx;
 	}
 	
 	/**

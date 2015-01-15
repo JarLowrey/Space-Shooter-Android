@@ -1,6 +1,6 @@
 package levels;
 
-import interfaces.GameView;
+import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;

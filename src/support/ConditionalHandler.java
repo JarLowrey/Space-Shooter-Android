@@ -1,7 +1,7 @@
 package support;
 
 import friendlies.ProtagonistView;
-import interfaces.MovingObject;
+import interfaces.MovingViewInterface;
 import interfaces.Shooter;
 import levels.Factory_Waves;
 import android.os.Handler;
@@ -24,7 +24,7 @@ public class ConditionalHandler {
 	 * @param delayInMilliseconds
 	 * @param theViewToPostTo
 	 */
-	public static void postIfAlive(Runnable r,long delayInMilliseconds,MovingObject theViewToPostTo){
+	public static void postIfAlive(Runnable r,long delayInMilliseconds,MovingViewInterface theViewToPostTo){
 		if( ! theViewToPostTo.isRemoved()){
 			theViewToPostTo.postDelayed(r, delayInMilliseconds);
 		}
@@ -34,7 +34,7 @@ public class ConditionalHandler {
 	 * @param r
 	 * @param theViewToPostTo
 	 */
-	public static void postIfAlive(Runnable r,MovingObject theViewToPostTo){
+	public static void postIfAlive(Runnable r,MovingViewInterface theViewToPostTo){
 		if( ! theViewToPostTo.isRemoved()){
 			theViewToPostTo.postDelayed(r, 0);
 		}

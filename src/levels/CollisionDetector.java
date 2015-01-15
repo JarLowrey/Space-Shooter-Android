@@ -22,7 +22,8 @@ public class CollisionDetector {
 
         @Override
         public void run() {
-        	if( ! myLevelSystem.isLevelPaused() && ! myLevelSystem.areLevelWavesCompleted() || LevelSystem.enemies.size() !=0){
+        	if( ! myLevelSystem.isLevelPaused() && 
+        		! myLevelSystem.areLevelWavesCompleted() || LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0){
         		
         		try{
 	        		detectAnyFriendlyHasCollidedWithAnyEnemy();

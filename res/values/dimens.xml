@@ -41,7 +41,7 @@
     
     <!-- BULLETS -->
     <dimen name="laser_short_width">5dp</dimen>
-    <dimen name="laser_short_height">12.5dp</dimen>    
+    <dimen name="laser_short_height">15dp</dimen>    
     <dimen name="laser_long_width">3.1dp</dimen>
     <dimen name="laser_long_height">18dp</dimen>
     <dimen name="missile_one_width">10dp</dimen>

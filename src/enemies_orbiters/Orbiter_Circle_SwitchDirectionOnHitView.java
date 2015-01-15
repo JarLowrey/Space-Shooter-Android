@@ -1,10 +1,10 @@
 package enemies_orbiters;
 
-import interfaces.MovingObject;
+import interfaces.MovingViewInterface;
 import android.content.Context;
 
 
-public class Orbiter_Circle_SwitchDirectionOnHitView extends Orbiter_CircleView implements MovingObject {
+public class Orbiter_Circle_SwitchDirectionOnHitView extends Orbiter_CircleView implements MovingViewInterface {
 	
 
 	public Orbiter_Circle_SwitchDirectionOnHitView(Context context,int score,double speedY, double speedX,double collisionDamage, 

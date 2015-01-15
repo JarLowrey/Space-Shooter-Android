@@ -4,7 +4,7 @@ import enemies.EnemyView;
 import enemies.Shooting_ArrayMovingView;
 import friendlies.FriendlyView;
 import friendlies.ProtagonistView;
-import interfaces.GameView;
+import interfaces.GameActivityInterface;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameActivity extends Activity implements OnTouchListener, GameView{
+public class GameActivity extends Activity implements OnTouchListener, GameActivityInterface{
 
 	public static int protagonistBottomPosition;
 	private Button btnMoveLeft,btnMoveRight,btnShoot;
@@ -201,7 +201,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameView{
 					if(canBeginShooting && ! protagonist.isShooting()){
 						protagonist.startShooting();
 						canBeginShooting=false;
-						protagonist.postDelayed(canShootAgainRunnable,(long)protagonist.getShootingDelay() * 2);
+						protagonist.postDelayed(canShootAgainRunnable,1000);
+						//force a delay after finishing shooting before user can shoot again. This is to try and fix an infinite shooting bug
 					}	
 					break;
 			}
