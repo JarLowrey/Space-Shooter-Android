@@ -144,9 +144,9 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	@Override
 	public void stopShooting() {
 		isShooting=false;//the ConditionalHandler will stop them all. no need to loop through?
-		for(Gun gun: myGuns){
-			gun.stopShooting();
-		}
+//		for(Gun gun: myGuns){
+//			gun.stopShooting();
+//		}
 	}
 
 	@Override

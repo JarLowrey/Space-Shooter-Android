@@ -1,7 +1,7 @@
 package interfaces;
  
 
-public interface CollidableObjectWithHealthDamageEtc extends GameObjectInterface{
+public interface Projectile extends MovingObject{
 
 	public void heal(double howMuchHealed);
 	public double getMaxHealth();

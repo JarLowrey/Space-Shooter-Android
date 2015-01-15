@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import bullets.BulletView;
 
 
-public interface Shooter extends CollidableObjectWithHealthDamageEtc{
+public interface Shooter extends Projectile{
 
 //	public void upgradeOrDowngradeGun(boolean upgrade);
 	

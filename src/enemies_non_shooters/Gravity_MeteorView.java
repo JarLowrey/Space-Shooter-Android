@@ -3,7 +3,6 @@ package enemies_non_shooters;
 import parents.MovingView;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;

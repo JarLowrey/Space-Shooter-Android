@@ -3,7 +3,7 @@ package levels;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import interfaces.InteractiveGameInterface;
+import interfaces.GameView;
 import android.content.Context;
 import enemies.Shooting_ArrayMovingView;
 

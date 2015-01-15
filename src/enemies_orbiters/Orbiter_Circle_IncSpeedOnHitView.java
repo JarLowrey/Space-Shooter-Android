@@ -1,10 +1,10 @@
 package enemies_orbiters;
 
-import interfaces.GameObjectInterface;
+import interfaces.MovingObject;
 import android.content.Context;
 
 
-public class Orbiter_Circle_IncSpeedOnHitView extends Orbiter_CircleView implements GameObjectInterface {
+public class Orbiter_Circle_IncSpeedOnHitView extends Orbiter_CircleView implements MovingObject {
 	
 	public static final int ANGULAR_INCREMENT=3;
 	

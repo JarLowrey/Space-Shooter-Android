@@ -1,6 +1,6 @@
 package enemies_orbiters;
 
-import interfaces.GameObjectInterface;
+import interfaces.MovingObject;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-public class Orbiter_CircleView extends Shooting_OrbiterView implements GameObjectInterface {
+public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingObject {
 	
 	public static final int DEFAULT_ANGULAR_VELOCITY=2, 
 			MAX_ANGULAR_VELOCITY = 30,

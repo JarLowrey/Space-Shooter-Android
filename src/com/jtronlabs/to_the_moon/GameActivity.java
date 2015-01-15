@@ -4,7 +4,7 @@ import enemies.EnemyView;
 import enemies.Shooting_ArrayMovingView;
 import friendlies.FriendlyView;
 import friendlies.ProtagonistView;
-import interfaces.InteractiveGameInterface;
+import interfaces.GameView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -16,13 +16,13 @@ import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,7 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameActivity extends Activity implements OnTouchListener, InteractiveGameInterface{
+public class GameActivity extends Activity implements OnTouchListener, GameView{
 
 	public static int protagonistBottomPosition;
 	private Button btnMoveLeft,btnMoveRight,btnShoot;
@@ -48,7 +48,6 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 	//MODEL
 	private LevelSystem levelCreater;
 	
-
 	private final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
 	
@@ -56,6 +55,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		//set up Gameplay Views and listeners and layouts
 		btnMoveLeft= (Button)findViewById(R.id.btn_move_left); 
@@ -64,7 +64,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		btnMoveLeft.setOnTouchListener(this);
 		btnMoveRight.setOnTouchListener(this); 
 		btnShoot.setOnTouchListener(this);
-//		rocket_exhaust = (ImageView)findViewById(R.id.rocket_exhaust); 
+//		btnShoot.setOnLongClickListener(this);
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
@@ -97,7 +97,7 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
 		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
 		protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
-		int protagonistPosition = protagonistBottomPosition - protagonist.getLayoutParams().height;
+		int protagonistPosition = (int) (protagonistBottomPosition - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
 		protagonist.setY( protagonistPosition );
 		
 		//set up the game
@@ -186,15 +186,15 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		case MotionEvent.ACTION_DOWN:
 			switch(v.getId()){
 				case R.id.btn_move_left:
-					protagonist.stopMoving();
+//					protagonist.stopMoving();
 					protagonist.beginMoving(Moving_ProjectileView.LEFT);
 					break; 
 				case R.id.btn_move_right:
-					protagonist.stopMoving();
+//					protagonist.stopMoving();
 					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
 				case R.id.btn_shoot:
-					if(protagonist.gunsAvailable()){protagonist.startShooting();}	
+//					if(protagonist.getNumShooting()==0){protagonist.startShooting();}	
 					break;
 			}
 			break;
@@ -379,4 +379,16 @@ public class GameActivity extends Activity implements OnTouchListener, Interacti
 		gameLayout.removeView(view);
 		gameLayout.addView(view,0);
 	}
+	@Override
+	public ImageView getExhaust(){
+		return this.rocketExhaust;
+	}
+	
+//	@Override
+//	public boolean onLongClick(View arg0) {
+//		if(arg0.getId()==R.id.btn_shoot){
+//			protagonist.startShooting();
+//		}
+//		return false;
+//	}
 }

@@ -7,7 +7,7 @@ import parents.MovingView;
  * @author JAMES LOWREY
  *
  */
-public interface GameObjectInterface{
+public interface MovingObject{
 
 	/**
 	 * Manage the execution of threads. onPause all callbacks will be 

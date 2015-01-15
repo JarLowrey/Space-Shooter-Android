@@ -1,6 +1,6 @@
 package levels;
 
-import interfaces.InteractiveGameInterface;
+import interfaces.GameView;
 import support.ConditionalHandler;
 import android.content.Context;
 

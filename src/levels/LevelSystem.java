@@ -1,6 +1,6 @@
 package levels;
 
-import interfaces.InteractiveGameInterface;
+import interfaces.GameView;
 
 import java.util.ArrayList;
 
@@ -46,8 +46,8 @@ public class LevelSystem extends Factory_LevelWaves{
 		startNextLevel();
 	}
 	
-	public InteractiveGameInterface getInteractivityInterface(){
-		return (InteractiveGameInterface)ctx;
+	public GameView getInteractivityInterface(){
+		return (GameView)ctx;
 	}
 	
 	/**
@@ -136,12 +136,13 @@ public class LevelSystem extends Factory_LevelWaves{
 		@Override
 		public void run() {
 			if(Math.random() < 0.5){
-				Clouds cloud2 = new Clouds(ctx,Clouds.CLOUD_2);//auto added to screen
+				new Clouds(ctx,Clouds.CLOUD_2);//auto added to screen
 			}
+
+			new Clouds(ctx,Clouds.CLOUD_2);//auto added to screen
+			new Clouds(ctx,Clouds.CLOUD_1);//auto added to screen
 			
-			Clouds cloud = new Clouds(ctx,Clouds.CLOUD_1);//auto added to screen
-			
-			conditionalHandler.postIfLevelResumed(this, 5000);
+			conditionalHandler.postIfLevelResumed(this, 4000);
 		}
 	};
 	

@@ -1,6 +1,6 @@
 package bonuses;
  
-import interfaces.GameObjectInterface;
+import interfaces.MovingObject;
 import interfaces.Shooter;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 
 import com.jtronlabs.to_the_moon.R;
 
-public class Bonus_HealView extends BonusView implements GameObjectInterface{
+public class Bonus_HealView extends BonusView implements MovingObject{
 	
 	public Bonus_HealView(Context context,float positionX,float positionY) {
 		super(context,positionX,positionY);	

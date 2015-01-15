@@ -1,6 +1,6 @@
 package enemies_orbiters;
 
-import interfaces.GameObjectInterface;
+import interfaces.MovingObject;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.R;
 
 
-public class Orbiter_TriangleView extends Shooting_OrbiterView implements GameObjectInterface {
+public class Orbiter_TriangleView extends Shooting_OrbiterView implements MovingObject {
 
 	public final static int DEFAULT_ORBIT_LENGTH=25,
 			DEFAULT_ANGLE = 30,

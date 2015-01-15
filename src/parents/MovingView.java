@@ -1,7 +1,7 @@
 package parents;
 
-import interfaces.GameObjectInterface;
-import interfaces.InteractiveGameInterface;
+import interfaces.MovingObject;
+import interfaces.GameView;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
  * @author JAMES LOWREY
  *
  */
-public abstract class MovingView extends ImageView implements GameObjectInterface{
+public abstract class MovingView extends ImageView implements MovingObject{
 
 	public static final int HOW_OFTEN_TO_MOVE=100,
 			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
@@ -31,7 +31,7 @@ public abstract class MovingView extends ImageView implements GameObjectInterfac
 		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
 		this.setImageResource(imageId);
 
-		((InteractiveGameInterface)context).addToForeground(this);
+		((GameView)context).addToForeground(this);
 		
 		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
 		speedX=movingSpeedX*MainActivity.getScreenDens();

@@ -1,6 +1,6 @@
 package parents;
 
-import interfaces.CollidableObjectWithHealthDamageEtc;
+import interfaces.Projectile;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.graphics.Color;
@@ -12,7 +12,7 @@ import com.jtronlabs.to_the_moon.R;
  * @author JAMES LOWREY
  *
  */
-public abstract class Moving_ProjectileView extends MovingView implements CollidableObjectWithHealthDamageEtc{
+public abstract class Moving_ProjectileView extends MovingView implements Projectile{
 
 	double speedX, damage, health,maxHealth;
 	

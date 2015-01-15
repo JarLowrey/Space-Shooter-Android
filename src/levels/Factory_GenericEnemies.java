@@ -3,7 +3,7 @@ package levels;
 import guns.Gun;
 import guns.Gun_StraightDualShot;
 import guns.Gun_StraightSingleShot;
-import interfaces.InteractiveGameInterface;
+import interfaces.GameView;
 import android.content.Context;
 import bullets.Bullet_Basic_LaserShort;
 

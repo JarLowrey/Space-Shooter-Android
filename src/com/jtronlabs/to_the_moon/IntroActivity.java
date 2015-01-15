@@ -2,6 +2,7 @@ package com.jtronlabs.to_the_moon;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class IntroActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intro);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		text = (TextView)findViewById(R.id.intro_text);
 		next = (Button)findViewById(R.id.intro_btn_next);

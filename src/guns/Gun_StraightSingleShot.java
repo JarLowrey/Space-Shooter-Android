@@ -1,6 +1,5 @@
 package guns;
    
-import interfaces.InteractiveGameInterface;
 import interfaces.Shooter;
 import android.content.Context;
 import bullets.Bullet;
@@ -17,6 +16,8 @@ public class Gun_StraightSingleShot extends Gun {
 	public boolean shoot(){
 		//create one bullet at center of shooter
 		BulletView bulletMid = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
+
+		bulletMid.setPositionOnShooterAsAPercentage(50);
 		
 		return false;
 	}

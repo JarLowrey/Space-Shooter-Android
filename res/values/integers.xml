@@ -10,11 +10,11 @@
     
     <integer-array name="gun_upgrade_costs">
         <item>100</item>
-        <item>7000</item>
-        <item>15000</item>
-        <item>25000</item>
-        <item>30000</item>
-        <item>50000</item>
+        <item>5000</item>
+        <item>10000</item>
+        <item>20000</item>
+        <item>40000</item>
+        <item>80000</item>
     </integer-array>
     
 	<!-- gun costs can be found in friendly shooter's costToUpgradeGun function -->

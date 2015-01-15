@@ -1,10 +1,9 @@
 package enemies;
 
-import parents.Projectile_GravityView;
 import levels.LevelSystem;
+import parents.Projectile_GravityView;
 import android.content.Context;
 import android.util.Log;
-import android.view.ViewGroup;
 import bonuses.BonusView;
 
 public class EnemyView extends Projectile_GravityView{
@@ -43,9 +42,7 @@ public class EnemyView extends Projectile_GravityView{
 			if(Math.random()<probSpawnBeneficialObject){//check for random bonus
 				final float xAvg = (2 * this.getX()+this.getWidth())/2;
 				final float yAvg = (2 * this.getY()+this.getHeight())/2;
-				BonusView bene = BonusView.getRandomBonusView(this.getContext(),xAvg,yAvg);
-				ViewGroup parent = (ViewGroup)this.getParent();
-				if(parent!=null){parent.addView(bene,1);}
+				BonusView.displayRandomBonusView(this.getContext(),xAvg,yAvg);
 			}
 		}
 		else {//fallen offscreen

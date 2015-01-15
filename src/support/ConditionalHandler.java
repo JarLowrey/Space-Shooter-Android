@@ -1,6 +1,7 @@
 package support;
 
-import interfaces.GameObjectInterface;
+import friendlies.ProtagonistView;
+import interfaces.MovingObject;
 import interfaces.Shooter;
 import levels.Factory_Waves;
 import android.os.Handler;
@@ -16,14 +17,14 @@ import android.os.Handler;
  */
 public class ConditionalHandler {
 	
-	//static handler for Game Objects (removeable Views). View must be not removed
+	// handler for Game Objects (removeable Views). View must be not removed
 	/**
 	 * Post Runnable r after a delay 
 	 * @param r
 	 * @param delayInMilliseconds
 	 * @param theViewToPostTo
 	 */
-	public static void postIfAlive(Runnable r,long delayInMilliseconds,GameObjectInterface theViewToPostTo){
+	public static void postIfAlive(Runnable r,long delayInMilliseconds,MovingObject theViewToPostTo){
 		if( ! theViewToPostTo.isRemoved()){
 			theViewToPostTo.postDelayed(r, delayInMilliseconds);
 		}
@@ -33,25 +34,45 @@ public class ConditionalHandler {
 	 * @param r
 	 * @param theViewToPostTo
 	 */
-	public static void postIfAlive(Runnable r,GameObjectInterface theViewToPostTo){
+	public static void postIfAlive(Runnable r,MovingObject theViewToPostTo){
 		if( ! theViewToPostTo.isRemoved()){
 			theViewToPostTo.postDelayed(r, 0);
 		}
 	}
 
-	//static handler for Shooters. shooter must be alive and shooting
+	//Handlers for the protagonist
+	public static void startMoving(final ProtagonistView hero,final int direction){
+		Runnable moveRunnable = new Runnable(){
+			@Override
+			public void run() {
+				if( hero.isMoving()){
+					hero.moveDirection(direction);
+					ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE_ROCKET,hero);
+				}
+			}};
+		
+		hero.post(moveRunnable);
+	}
+	
+	
+	// handler for Shooters. shooter must be alive and shooting
 	/**
-	 * post if alive and isShooting()
+	 * post if alive and isShooting(). if a protagonist view then check canShoot()
 	 * @param r
 	 * @param shooter
 	 */
 	public static void postIfShooting(Runnable r,long bulletFreq,Shooter shooter){
 		if( ! shooter.isRemoved() && shooter.isShooting()){
-			shooter.postDelayed(r, bulletFreq);
+			if(shooter instanceof ProtagonistView){
+				ProtagonistView hero = (ProtagonistView)shooter;
+				if(hero.canShoot()){hero.postDelayed(r, bulletFreq);}
+			}else{
+				shooter.postDelayed(r, bulletFreq);
+			}
 		}
 	}
 	
-	//Conditional handler for the leveling system. level cannot be paused or over
+	// handler for the leveling system. level cannot be paused or over
 	private Handler spawnHandler = new Handler();
 	private Factory_Waves myWaveFactory;
 	public ConditionalHandler( Factory_Waves someLevelSystem){

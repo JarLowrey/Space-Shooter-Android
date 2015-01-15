@@ -3,11 +3,8 @@ package enemies;
 import java.util.ArrayList;
 
 import parents.Moving_ProjectileView;
-
-
 import android.content.Context;
 import android.os.Handler;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;

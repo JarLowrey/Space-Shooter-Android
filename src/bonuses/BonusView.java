@@ -34,14 +34,13 @@ public abstract class BonusView extends Moving_GravityView {
 		LevelSystem.bonuses.remove(this);
 	}
 	
-	public static BonusView getRandomBonusView(Context context,float positionX,float positionY){
-		BonusView bonus = new Bonus_HealView(context,positionX,positionY);
+	public static void displayRandomBonusView(Context context,float positionX,float positionY){
 		double rand = Math.random();
 		
 		if(rand<.5){
-			bonus = new Bonus_ScoreView(context,positionX,positionY);
+			new Bonus_ScoreView(context,positionX,positionY);
+		}else{
+			new Bonus_HealView(context,positionX,positionY);
 		}
-		
-		return bonus;
 	}
 }

@@ -1,16 +1,15 @@
 package enemies_orbiters;
 
+import interfaces.MovingObject;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
-import interfaces.GameObjectInterface;
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 
-public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements GameObjectInterface {
+public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements MovingObject {
 
 	public final static int DEFAULT_ORBIT_LOCATION=(int) (MainActivity.getHeightPixels()/4),
 			DEFAULT_ANGLE = 30,

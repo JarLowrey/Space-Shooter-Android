@@ -1,7 +1,6 @@
 package enemies;
 
 import android.content.Context;
-import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;

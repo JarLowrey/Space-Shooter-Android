@@ -3,13 +3,12 @@ package friendlies;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_StraightSingleShot;
-import interfaces.InteractiveGameInterface;
+import interfaces.GameView;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout.LayoutParams;
+import android.view.View;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 
@@ -18,18 +17,17 @@ import com.jtronlabs.to_the_moon.R;
 
 public class ProtagonistView extends Friendly_ShooterView{
 	
-	private final int HOW_OFTEN_TO_MOVE_ROCKET=50;
-	private int directionMoving=Moving_ProjectileView.LEFT;
+	public static final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 	
-	InteractiveGameInterface myGame;
-	private boolean gunsAvailable;
+	GameView myGame;
+	private boolean canShoot,isMoving;
 	
-	public ProtagonistView(Context context,InteractiveGameInterface interactWithGame) {
+	public ProtagonistView(Context context,GameView interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEEDX,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
 
-		gunsAvailable=true;
+		canShoot=true;
 		
 		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
 		
@@ -42,46 +40,39 @@ public class ProtagonistView extends Friendly_ShooterView{
 				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
 		this.addGun(gun2);
 		this.addGun(gun1);
+		this.post(exhaustRunnable);
 	}
 	
 	
-//	private static final long EXHAUST_VISIBLE_TIME=500,EXHAUST_MOVE_FREQ=20;
-//	private static final double EXHAUST_FREQ=15000;
-//	 
-//	private int count = 0;
-//    
-//    Runnable exhaustRunnable = new Runnable(){
-//    	 @Override
-//         public void run() {
-//			//ensure view is not removed before running
-//				if(count*EXHAUST_MOVE_FREQ<EXHAUST_VISIBLE_TIME){
-//					GameActivity.rocketExhaust.setVisibility(View.VISIBLE);					
-//		    		 //position the exhaust
-//					final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
-//					final float averageRocketsX= (2 * ProtagonistView.this.getX()+ProtagonistView.this.getWidth() )/2;//find average of rocket's left and right x pos
-//					final float x = averageRocketsX-GameActivity.rocketExhaust.getWidth()/2;//fire's new X pos should set the middle of fire to middle of rocket
-//					GameActivity.rocketExhaust.setY(y);
-//					GameActivity.rocketExhaust.setX(x);
-//					count++;
-//
-//					ConditionalHandler.postIfAlive(this,EXHAUST_MOVE_FREQ,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
-//				
-//				}else{
-//					count=0;
-//					GameActivity.rocketExhaust.setVisibility(View.INVISIBLE);					
-//					ConditionalHandler.postIfAlive(this,EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random(),ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
-//				}
-//         }
-//    };
+	private static final long EXHAUST_VISIBLE_TIME=500,HOW_OFTEN_TO_MOVE_EXHAUST=HOW_OFTEN_TO_MOVE_ROCKET / 2;
+	private static final double EXHAUST_FREQ=5000;
+	 
+	private int count = 0;
     
-	private Runnable moveRunnable = new Runnable(){
-		@Override
-		public void run() {
-				ProtagonistView.this.moveDirection(directionMoving);
-				ConditionalHandler.postIfAlive(moveRunnable,HOW_OFTEN_TO_MOVE_ROCKET,ProtagonistView.this);
-		}
-		
-	};
+    Runnable exhaustRunnable = new Runnable(){
+    	 @Override
+         public void run() {
+				GameView screen = (GameView)ctx;
+				if(count*HOW_OFTEN_TO_MOVE_ROCKET<EXHAUST_VISIBLE_TIME){
+					screen.getExhaust().setVisibility(View.VISIBLE);					
+		    		 //position the exhaust
+					final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
+					final float averageRocketsX= (2 * ProtagonistView.this.getX()+ProtagonistView.this.getWidth() )/2;//find average of rocket's left and right x pos
+					final float x = averageRocketsX-screen.getExhaust().getLayoutParams().width /2;//fire's new X pos should set the middle of fire to middle of rocket
+					screen.getExhaust().setY(y);
+					screen.getExhaust().setX(x);
+					count++;
+
+					ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE_EXHAUST,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
+				
+				}else{
+					count=0;
+					screen.getExhaust().setVisibility(View.GONE);					
+					ConditionalHandler.postIfAlive(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()),ProtagonistView.this);//repost this to a random time in the future
+				}
+         }
+    };
+	
 	@Override
 	public void heal(double howMuchHealed){
 		super.heal(howMuchHealed);
@@ -126,20 +117,29 @@ public class ProtagonistView extends Friendly_ShooterView{
 		return false;
 	}
 	
-	public void beginMoving(int direction){
-		directionMoving = direction;
-		this.post(moveRunnable);
+	public void beginMoving(final int direction){
+		isMoving=true;
+		ConditionalHandler.startMoving(this, direction);
 	}
 	public void stopMoving(){
-		this.removeCallbacks(moveRunnable);
+		isMoving=false;
 	}
-
+	public boolean isMoving(){
+		return isMoving;
+	}
+	
+	private int numShootings=0;
+public int getNumShooting(){
+	return numShootings;
+}
 	@Override
 	public void startShooting(){
-		Log.d("lowrey","guns avail?"+gunsAvailable);
-		if(gunsAvailable){
+		numShootings++;
+		Log.d("lowrey","numShots"+numShootings);
+//		Log.d("lowrey","guns avail?"+canShoot);
+		if(canShoot && numShootings==1){
 			super.startShooting();
-			gunsAvailable=false;
+			canShoot=false;
 		}
 	}
 	@Override
@@ -148,13 +148,13 @@ public class ProtagonistView extends Friendly_ShooterView{
 
 		Runnable delayedShot = new Runnable(){
 			@Override
-			public void run() { gunsAvailable=true; }};
+			public void run() { canShoot=true;	numShootings--; }};
 			
 		this.postDelayed(delayedShot, (long) (DEFAULT_BULLET_FREQ - this.bulletFreqLevel * BULLET_FREQ_WEIGHT));
 	}
 	
-	public boolean gunsAvailable(){
-		return gunsAvailable;
+	public boolean canShoot(){
+		return canShoot;
 	}
 	
 //	@Override

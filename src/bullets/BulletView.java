@@ -1,12 +1,11 @@
 package bullets;
   
-import parents.MovingView;
-import parents.Moving_ProjectileView;
 import interfaces.Shooter;
 import levels.LevelSystem;
+import parents.MovingView;
+import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.widget.RelativeLayout.LayoutParams;
 
 /**
  * By default, a bullet moves straight and spawns in the middle of its shooter
