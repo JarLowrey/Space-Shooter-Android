@@ -7,6 +7,8 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import friendlies.ProtagonistView;
+
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	public final static int DEFAULT_SCORE=10,
@@ -14,7 +16,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	public final static double DEFAULT_SPEED_Y=1.8,
 			DEFAULT_SPEED_X=10,
-			DEFAULT_COLLISION_DAMAGE=20, 
+			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_HEALTH=40,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,

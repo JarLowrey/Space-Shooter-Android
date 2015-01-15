@@ -6,6 +6,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
 
 import android.content.Context;
 import enemies.Enemy_ShooterView;
+import friendlies.ProtagonistView;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
@@ -14,13 +15,11 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
 	public final static int DEFAULT_SCORE=100,
 			DEFAULT_BULLET_FREQ_INTERVAL=1000;
+	
 	public final static double DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,
-			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=100,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
-	public final static double DEFAULT_BULLET_SPEED_Y=10,
-			DEFAULT_BULLET_DAMAGE=10;
 		
 	private boolean hasBegunOrbiting=false;
 	protected int howManyTimesMoved;

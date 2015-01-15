@@ -109,8 +109,8 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	@Override
 	public void restartThreads(){
+		this.post(exhaustRunnable);
 		super.restartThreads();
-		this.stopShooting();//super will start the gun shooting. For the protagonist, gun must not be shooting on restart
 	}
 	
 	/**

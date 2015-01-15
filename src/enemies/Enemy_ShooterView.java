@@ -1,5 +1,6 @@
 package enemies;
 
+import friendlies.ProtagonistView;
 import guns.Gun;
 import interfaces.Shooter;
 
@@ -10,7 +11,11 @@ import bullets.BulletView;
 
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
-		
+
+		public static double DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/15,
+				DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
+				DEFAULT_BULLET_SPEED_Y=10;;
+				
 		//myGun needs to be set in a specific View's class
 		private ArrayList<Gun> myGuns;
 		private ArrayList<BulletView> myBullets;

@@ -9,20 +9,21 @@ import android.os.Handler;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import friendlies.ProtagonistView;
+
 public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
 	public static final int DEFAULT_NUM_ROWS=4,
 			DEFAULT_NUM_COLS=5, 
 			DEFAULT_SCORE=10,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter;
+	
 	public static final boolean DEFAULT_STAGGERED=true;
+	
 	public final static double DEFAULT_SPEED_Y=3,
 			DEFAULT_SPEEDX=3,
-			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=50,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05,
-			DEFAULT_BULLET_SPEED_Y=10,
-			DEFAULT_BULLET_DAMAGE=10,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	
 

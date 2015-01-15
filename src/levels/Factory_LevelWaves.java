@@ -144,9 +144,9 @@ public class Factory_LevelWaves extends Factory_Waves{
 	final Runnable[] level1 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
-			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToLeft,
 			meteorShowersThatForceUserToRight,
+			meteorShowersThatForceUserToLeft,
 			levelWavesOver};
 	
 	final  Runnable[] level2 ={meteorSidewaysOnePerSecondForWholeLevel,

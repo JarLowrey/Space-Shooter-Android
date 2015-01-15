@@ -129,7 +129,9 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	
 	@Override
 	public void restartThreads(){
-		startShooting();
+		if( ! (this instanceof ProtagonistView) ) {
+			startShooting();			
+		}
 		super.restartThreads();
 	}
 	@Override

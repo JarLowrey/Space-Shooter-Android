@@ -166,11 +166,11 @@ public final class R {
         public static final int btn_inc_bullet_freq=0x7f0c0011;
         public static final int btn_inc_bullet_speed=0x7f0c0010;
         public static final int btn_inc_score_weight=0x7f0c0012;
-        public static final int btn_move_left=0x7f0c0004;
+        public static final int btn_move_left=0x7f0c0005;
         public static final int btn_move_right=0x7f0c0006;
         public static final int btn_new_gun=0x7f0c000a;
         public static final int btn_purchase_friend=0x7f0c0013;
-        public static final int btn_shoot=0x7f0c0005;
+        public static final int btn_shoot=0x7f0c0004;
         public static final int btns_wrap=0x7f0c0003;
         public static final int control_panel=0x7f0c0002;
         public static final int earth=0x7f0c001a;

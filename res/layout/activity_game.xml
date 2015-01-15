@@ -37,19 +37,21 @@
 			    android:layout_centerInParent="true"
 			    android:layout_marginBottom="@dimen/activity_margin_small"
 		        >
-				<Button
-				    android:id="@+id/btn_move_left"
-				    android:layout_width="@dimen/btn_large_len"
-				    android:layout_height="@dimen/btn_large_len"
-				    android:layout_alignParentLeft="true"
-				    android:background="@drawable/btn_red" />
 				
 				<Button
 				    android:id="@+id/btn_shoot"
 				    android:layout_width="@dimen/btn_small_width"
 				    android:layout_height="@dimen/btn_large_len"
-					android:layout_centerInParent="true"
+					android:layout_centerVertical="true"
+					android:layout_alignParentLeft="true"
 				    android:background="@drawable/btn_green" />
+				
+				<Button
+				    android:id="@+id/btn_move_left"
+				    android:layout_width="@dimen/btn_large_len"
+				    android:layout_height="@dimen/btn_large_len"
+				    android:layout_toLeftOf="@+id/btn_move_right"
+				    android:background="@drawable/btn_red" />
 			
 				<Button
 				    android:id="@+id/btn_move_right"

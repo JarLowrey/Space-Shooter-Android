@@ -37,12 +37,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private Button btnMoveLeft,btnMoveRight,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
-//	private TextView gameWindowOverlay;
 	private TextView resourceCount;
 	private ProgressBar healthBar;
 	public ProtagonistView protagonist;
 	public ImageView rocketExhaust;
-//	private RelativeLayout btnBackground;
 	private RelativeLayout gameLayout,storeLayout;
 
 	//MODEL
@@ -180,7 +178,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCreater.startNextLevel();
 	}
 
-	private boolean canBeginShooting=true;
+	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -189,21 +187,17 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			switch(v.getId()){
 				case R.id.btn_move_left:
 					protagonist.beginMoving(Moving_ProjectileView.LEFT);
-					break; 
+					break;  
 				case R.id.btn_move_right:
 					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
 					break;
 				case R.id.btn_shoot:
-					Runnable canShootAgainRunnable = new Runnable(){
-						@Override
-						public void run() {	canBeginShooting=true;	}	};
 						
-					if(canBeginShooting && ! protagonist.isShooting()){
+					if(canBeginShooting){
 						protagonist.startShooting();
-						canBeginShooting=false;
-						protagonist.postDelayed(canShootAgainRunnable,1000);
 						//force a delay after finishing shooting before user can shoot again. This is to try and fix an infinite shooting bug
 					}	
+					canBeginShooting=false;
 					break;
 			}
 			break;
@@ -216,8 +210,19 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				case R.id.btn_move_right:
 						protagonist.stopMoving();
 					break;
-				case R.id.btn_shoot:
+				case R.id.btn_shoot:					
 					protagonist.stopShooting();	
+					
+
+					Runnable canShootAgainRunnable = new Runnable(){//only one of these should ever be posted at a time
+						@Override
+						public void run() {	canBeginShooting=true;beginShootingRunnablePosted=false;	}	};
+					
+					if( ! beginShootingRunnablePosted){
+						protagonist.postDelayed(canShootAgainRunnable,1000);
+						beginShootingRunnablePosted=true;
+						}
+					
 					break;
 				case R.id.btn_heal:
 					confirmUpgradeDialog(UPGRADE_HEAL);
