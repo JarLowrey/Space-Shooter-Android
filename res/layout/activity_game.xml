@@ -43,21 +43,21 @@
 				    android:layout_width="@dimen/btn_small_width"
 				    android:layout_height="@dimen/btn_large_len"
 					android:layout_centerVertical="true"
-					android:layout_alignParentLeft="true"
+					android:layout_alignParentRight="true"
 				    android:background="@drawable/btn_green" />
 				
 				<Button
 				    android:id="@+id/btn_move_left"
 				    android:layout_width="@dimen/btn_large_len"
 				    android:layout_height="@dimen/btn_large_len"
-				    android:layout_toLeftOf="@+id/btn_move_right"
+					android:layout_alignParentLeft="true"
 				    android:background="@drawable/btn_red" />
 			
 				<Button
 				    android:id="@+id/btn_move_right"
 				    android:layout_width="@dimen/btn_large_len"
 				    android:layout_height="@dimen/btn_large_len"
-				    android:layout_alignParentRight="true"
+					android:layout_toRightOf="@+id/btn_move_left"
 				    android:background="@drawable/btn_red" />
 			</RelativeLayout>
 	

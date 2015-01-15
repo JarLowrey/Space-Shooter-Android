@@ -52,8 +52,7 @@ public class ConditionalHandler {
 			}};
 		
 		hero.post(moveRunnable);
-	}
-	
+	}	
 	
 	// handler for Shooters. shooter must be alive and shooting
 	/**
@@ -61,12 +60,11 @@ public class ConditionalHandler {
 	 * @param r
 	 * @param shooter
 	 */
-	public static void postIfShooting(Runnable r,long bulletFreq,Shooter shooter){
+	public static void postDelayedIfShooting(Runnable r,long bulletFreq,Shooter shooter){
 		if( ! shooter.isRemoved() && shooter.isShooting()){
 			shooter.postDelayed(r, bulletFreq);
 		}
 	}
-	
 	// handler for the leveling system. level cannot be paused or over
 	private Handler spawnHandler = new Handler();
 	private Factory_Waves myWaveFactory;
@@ -92,5 +90,4 @@ public class ConditionalHandler {
 			spawnHandler.postDelayed(r, 0);
 		}
 	}
-	
 }

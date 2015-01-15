@@ -1,10 +1,10 @@
 package levels;
 
+import android.content.Context;
+
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import interfaces.GameActivityInterface;
-import android.content.Context;
 import enemies.Shooting_ArrayMovingView;
 
 public class Factory_LevelWaves extends Factory_Waves{
@@ -200,6 +200,6 @@ public class Factory_LevelWaves extends Factory_Waves{
 			boss1,
 			levelWavesOver};
 	
-	final Runnable levels[][] ={level1,level2,level3,level4,level5};
+	final Runnable levels[][] ={level1,level4,level5};
 	
 }

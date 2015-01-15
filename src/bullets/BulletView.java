@@ -8,7 +8,6 @@ import support.ConditionalHandler;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 
 /**
  * By default, a bullet moves straight and spawns in the middle of its shooter
@@ -59,11 +58,11 @@ public class BulletView extends Moving_ProjectileView{
 			parent.addView(this, shooterIndex);
 			
 			//position bullet in middle of shooter
-			if(shooter.isFriendly()){
+//			if(shooter.isFriendly()){
 				this.setY(theOneWhoShotMe.getY() + theOneWhoShotMe.getHeight()/2);//middle			
-			}else{
-				this.setY(theOneWhoShotMe.getY() - theOneWhoShotMe.getHeight()/2);//middle
-			}
+//			}else{
+//				this.setY(theOneWhoShotMe.getY() - theOneWhoShotMe.getHeight()/2);//middle
+//			}
 			setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
 	
 			ConditionalHandler.postIfAlive(moveBulletRunnable, this);

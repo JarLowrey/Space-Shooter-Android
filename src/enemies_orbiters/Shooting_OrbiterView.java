@@ -1,12 +1,11 @@
 package enemies_orbiters;
 
 import support.ConditionalHandler;
+import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
-import android.content.Context;
 import enemies.Enemy_ShooterView;
-import friendlies.ProtagonistView;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 

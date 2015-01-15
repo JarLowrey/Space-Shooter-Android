@@ -59,16 +59,16 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		public void startShooting() {
 			isShooting=true;
 			for(Gun gun: myGuns){
-				gun.startShooting();
+				gun.startShootingDelayed();
 			}
 		}
 
 		@Override
 		public void stopShooting() {
-			isShooting=false;//no need to loop through, the ConditionalHandler will stop callbacks
-//			for(Gun gun: myGuns){
-//				gun.stopShooting();
-//			}
+			isShooting=false;
+			for(Gun gun: myGuns){
+				gun.stopShooting();
+			}
 		}
 		
 		@Override

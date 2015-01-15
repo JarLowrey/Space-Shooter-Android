@@ -15,10 +15,16 @@ public class IntroActivity extends Activity implements OnClickListener{
 	
 	private TextView text;
 	private Button next;
-	private final String[] introText={"Strange things are happening on the moon.","Tides are out of alignment, meteors plummet from above.","Strange, strange things are happening on the moon.",
-			"Soldier, you are the last hope.\n\nSteer your vessel to the heavens above and solve this.","For humanity.\nFor your family.\nFor the ladies.","You are equipped with the latest "+
-	"and greatest ship.","God speed..."};
-	private int posInArray=0,posInCurrentString=0,newCharInterval=50;
+	private final String[] introText={"Strange things are happening on the moon.",
+			"Tides are out of alignment, meteors plummet from above.",
+			"Strange, strange things are happening on the moon.",
+			"Soldier, you are the last hope.\n\nSteer your vessel to the heavens above and solve this.",
+			"For humanity.\nFor your family.\nFor the ladies.",
+			"You are equipped with the latest and greatest ship.",
+			"God speed..."};
+	
+	private int posInArray=0,posInCurrentString=0,
+			newCharInterval=50;
 	private boolean allCharsDisplayed=false;
 	   
 	//Handler and runnable to display one extra character every newCharInterval

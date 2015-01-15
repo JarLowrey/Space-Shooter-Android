@@ -12,7 +12,7 @@ import friendlies.ProtagonistView;
 
 public class Gravity_MeteorView extends EnemyView{
 	
-	public final static int DEFAULT_SCORE=20,
+	public final static int DEFAULT_SCORE=10,
 			DEFAULT_BACKGROUND=R.drawable.meteor,
 			DEFAULT_ROTATION_SPEED=7;
 	public final static double DEFAULT_SPEED_Y=7,
@@ -45,7 +45,6 @@ public class Gravity_MeteorView extends EnemyView{
 		float xRand = (float) ((MainActivity.getWidthPixels()-width)*Math.random());
 		this.setX(xRand);
 		this.setY(0);
-		
 	}
 	
 	@Override 

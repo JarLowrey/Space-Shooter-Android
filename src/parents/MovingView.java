@@ -80,7 +80,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 			break;
 		case DOWN:
 			y+=Math.abs(speedY);
-			outOfScreen=y > GameActivity.protagonistBottomPosition;
+			outOfScreen=y > GameActivity.offscreenBottom;
 			this.setY(y);
 			break;
 		//move in X direction at speed X, move right if speed X positive and left otherwise

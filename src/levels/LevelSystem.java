@@ -4,6 +4,7 @@ import interfaces.GameActivityInterface;
 
 import java.util.ArrayList;
 
+import support.ConditionalHandler;
 import android.content.Context;
 import android.util.Log;
 import background_objects.Clouds;
@@ -100,7 +101,6 @@ public class LevelSystem extends Factory_LevelWaves{
 	
 	public void pauseLevel(){
 		levelPaused=true;
-		gameDetector.stopDetecting();
 	}
 	
 	public int highestLevel(){
@@ -121,6 +121,10 @@ public class LevelSystem extends Factory_LevelWaves{
 	}
 	public static int getScore(){
 		return score;
+	}
+	
+	public ConditionalHandler getConditionalHandler(){
+		return this.conditionalHandler;
 	}
 	
 	private void createBackgroundEffects(){

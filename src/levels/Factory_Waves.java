@@ -1,6 +1,5 @@
 package levels;
 
-import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
 import android.content.Context;
 
@@ -266,7 +265,7 @@ public class Factory_Waves extends Factory_Bosses{
 //		return new SpawnOverTime(){//this is an interface
 //			@Override
 //			public void spawn(int numEnemies, int delayBetweenEach) {
-//				// TODO Auto-generated method stub
+//
 //				
 //			}
 //		};
@@ -339,7 +338,6 @@ public class Factory_Waves extends Factory_Bosses{
 					try {
 						Thread.sleep(millisecondsBetweenEachMeteor);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 //					waiting.countDown();
@@ -349,7 +347,6 @@ public class Factory_Waves extends Factory_Bosses{
 //					try {
 //						waiting.await();
 //					} catch (InterruptedException e) {///////////////////WHAT TO DO?
-//						// TODO Auto-generated catch block
 //						e.printStackTrace();
 //					}
 //				}

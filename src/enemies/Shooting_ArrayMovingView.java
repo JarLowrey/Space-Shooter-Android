@@ -9,13 +9,11 @@ import android.os.Handler;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import friendlies.ProtagonistView;
-
 public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
 	public static final int DEFAULT_NUM_ROWS=4,
 			DEFAULT_NUM_COLS=5, 
-			DEFAULT_SCORE=10,
+			DEFAULT_SCORE=30,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter;
 	
 	public static final boolean DEFAULT_STAGGERED=true;

@@ -76,33 +76,43 @@ public class ProtagonistView extends Friendly_ShooterView{
 		myGame.setHealthBar();
 	}
 	
-	private boolean canBeginShooting=true;
-	@Override
-	public void startShooting(){
+//	private boolean canBeginShooting=true;
+	
+//	@Override
+//	public void startShooting(){
+//
+////		if(canBeginShooting){
+//			super.startShooting();
+////		}	
+////		canBeginShooting=false;
+//	}
+//	
 
-//		if(canBeginShooting){
-			super.startShooting();
-//		}	
-//		canBeginShooting=false;
+	@Override
+	public void startShooting() {
+		isShooting=true;
+		for(Gun gun: myGuns){
+			gun.startShootingImmediately();
+		}
 	}
 	
-	@Override 
-	public void stopShooting(){
-		super.stopShooting();
-
+//	@Override 
+//	public void stopShooting(){
+//		super.stopShooting();
+//
 //		Runnable canShootAgainRunnable = new Runnable(){//force a delay until user can begin shooting again
 //			@Override
 //			public void run() {	canBeginShooting=true;	}	};
 //			
 //		postDelayed(canShootAgainRunnable,(long)getShootingDelay() * 2);
-	}
+//	}
 	
 	@Override 
 	public boolean takeDamage(double howMuchDamage){
 		boolean isDead = super.takeDamage(howMuchDamage);
-		if(isDead){
-			myGame.gameOver();
-		}
+//		if(isDead){//not working, but functional if put in the collision detection
+//			myGame.gameOver();
+//		}
 		myGame.setHealthBar();
 		return isDead;
 	}

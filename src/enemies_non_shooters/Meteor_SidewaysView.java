@@ -4,18 +4,10 @@ import parents.MovingView;
 import support.ConditionalHandler;
 import android.content.Context;
 
-import com.jtronlabs.to_the_moon.R;
-
-import friendlies.ProtagonistView;
-
 public class Meteor_SidewaysView extends Gravity_MeteorView{
 	
-	public final static int DEFAULT_SCORE=30;
-	
 	public final static double DEFAULT_SPEED_Y=6,
-			DEFAULT_SPEED_X=6,
-			DEFAULT_HEALTH=40,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.02;
+			DEFAULT_SPEED_X=6;
 	
 	private Runnable moveSideways = new Runnable(){
 

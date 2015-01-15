@@ -1,9 +1,5 @@
 package levels;
 
-import guns.Gun;
-import guns.Gun_StraightDualShot;
-import guns.Gun_StraightSingleShot;
-import interfaces.GameActivityInterface;
 import android.content.Context;
 import bullets.Bullet_Basic_LaserShort;
 
@@ -19,6 +15,9 @@ import enemies_orbiters.Orbiter_HorizontalLine;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_orbiters.Shooting_OrbiterView;
+import guns.Gun;
+import guns.Gun_StraightDualShot;
+import guns.Gun_StraightSingleShot;
 
 /**
  * Factory in charge of create enemies with default values and adding that enemy to game layout

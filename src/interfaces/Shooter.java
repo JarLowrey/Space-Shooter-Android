@@ -4,7 +4,6 @@ import guns.Gun;
 
 import java.util.ArrayList;
 
-import android.view.ViewGroup;
 import bullets.BulletView;
 
 

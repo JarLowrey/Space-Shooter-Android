@@ -30,7 +30,7 @@ public abstract class Gun {
 		  	@Override
 		      public void run() {
 	  				Gun.this.shoot();
-	  				ConditionalHandler.postIfShooting(this, (long) bulletFreq,shooter);
+	  				ConditionalHandler.postDelayedIfShooting(this, (long) bulletFreq,shooter);
 		  		}
 			};
 	
@@ -44,12 +44,15 @@ public abstract class Gun {
 		shooter=theShooter;
 	} 
 	
-	public void startShooting(){
-		ConditionalHandler.postIfShooting(shootingRunnable, (long) bulletFreq,shooter);
+	public void startShootingImmediately(){
+		ConditionalHandler.postDelayedIfShooting(shootingRunnable,0,shooter);
+	}
+	public void startShootingDelayed(){
+		ConditionalHandler.postDelayedIfShooting(shootingRunnable,(long)bulletFreq,shooter);	
 	}
 	
 	public void stopShooting(){
-		ConditionalHandler.postIfShooting(shootingRunnable, (long) bulletFreq,shooter);
+		shooter.removeCallbacks(shootingRunnable);
 	}
 	
 	public Bullet getBulletType(){

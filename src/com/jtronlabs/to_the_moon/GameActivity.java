@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,7 +32,8 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnTouchListener, GameActivityInterface{
 
-	public static int protagonistBottomPosition;
+	public static int offscreenBottom;
+	
 	private Button btnMoveLeft,btnMoveRight,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
@@ -90,12 +90,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		btnNextLevel.setOnTouchListener(this); 
 		btnNewGun.setOnTouchListener(this); 
 		
-
+		//set up control panel
+		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
+		offscreenBottom = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
+		
 		//set up protagonist
 		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
-		protagonistBottomPosition = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
-		int protagonistPosition = (int) (protagonistBottomPosition - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
 		protagonist.setY( protagonistPosition );
 		
 		//set up the game
@@ -144,11 +145,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		Log.d("lowrey","num enemies spawned="+EnemyView.numSpawn+" died="+EnemyView.numRemoved);
 		levelCreater.pauseLevel();
 		healthBar.setProgress(0);
-		
-		//remove OnClickListeners
-//		btnMoveLeft.setOnTouchListener(null);
-//		btnMoveRight.setOnTouchListener(null);
-//		btnShoot.setOnTouchListener(null);
 		
 //		levelFactory.stopSpawning();
 		for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
@@ -221,7 +217,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					if( ! beginShootingRunnablePosted){
 						protagonist.postDelayed(canShootAgainRunnable,1000);
 						beginShootingRunnablePosted=true;
-						}
+					}
 					
 					break;
 				case R.id.btn_heal:
