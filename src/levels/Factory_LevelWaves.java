@@ -160,22 +160,31 @@ public class Factory_LevelWaves extends Factory_Waves{
 			meteorShowerLong,
 			meteorsOnlyGiants,
 			meteorsOnlyGiants,
-			levelWavesOver};;
+			levelWavesOver};
 	
 	final  Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
-			refreshArrayShooters,
-			doNothing,
-			doNothing,
-			doNothing,
-			doNothing,
-			doNothing,
-			refreshArrayShooters,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond,
 			levelWavesOver};
 	
+
 	final  Runnable[] level4 = {meteorSidewaysOnePerSecondForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond,
+			doNothing,
+			doNothing,
+			doNothing,
+			levelWavesOver};
+	
+	final  Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysThisWave,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
@@ -189,7 +198,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			diveBomberOnePerSecond,
 			levelWavesOver};
 	
-	final  Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
+	final  Runnable[] level6 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToRight,
 			meteorShowersThatForceUserToLeft,
 			refreshArrayShooters,
@@ -200,6 +209,6 @@ public class Factory_LevelWaves extends Factory_Waves{
 			boss1,
 			levelWavesOver};
 	
-	final Runnable levels[][] ={level1,level2,level3,level4,level5};
+	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6};
 	
 }

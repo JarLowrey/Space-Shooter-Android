@@ -7,7 +7,6 @@ import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;

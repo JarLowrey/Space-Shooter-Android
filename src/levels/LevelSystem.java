@@ -142,7 +142,7 @@ public class LevelSystem extends Factory_LevelWaves{
 		if(currentLevel<3){
 			new Sun(ctx);
 
-			for(int i=0;i<12;i++){
+			for(int i=0;i< (12/getLevel()) ;i++){
 				Clouds a = new Clouds(ctx);
 				Clouds b = new Clouds(ctx);
 				a.setY((float) (MainActivity.getHeightPixels()*Math.random()));
@@ -170,7 +170,7 @@ public class LevelSystem extends Factory_LevelWaves{
 			new Bird(ctx);
 			new Clouds(ctx);
 			
-			conditionalHandler.postIfLevelResumed(this, 4000);
+			conditionalHandler.postIfLevelResumed(this, 4000*getLevel());
 		}
 	};
 	
