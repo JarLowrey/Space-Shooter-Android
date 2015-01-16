@@ -28,27 +28,28 @@ public class Bird extends BackgroundView{
 				(int) ( 30*MainActivity.getScreenDens() ), 
 				0);
 
+		//set position somewhere on the right side of the screen
+		this.setX(MainActivity.getWidthPixels()-this.getLayoutParams().width);
+		this.setY( (float) (( MainActivity.getHeightPixels()/2 ) *Math.random()));
+
+		//reset image
 		if(Math.random()<.5){
 			this.setBackgroundResource(R.anim.bird_1);
 		}else{
 			this.setBackgroundResource(R.anim.bird_2);			
 		} 
-			 
-		this.setX(MainActivity.getWidthPixels()-this.getLayoutParams().width);
-		
-		this.setY( (float) (( MainActivity.getHeightPixels()/2 ) *Math.random()));
-		ConditionalHandler.postIfAlive(moveSideways, this);
-		
-
 		//create background animation
 		animation = (AnimationDrawable) this.getBackground();
 	    animation.start();
+	    
+
+		ConditionalHandler.postIfAlive(moveSideways, this);
+		
 	}
        
        @Override
        public void removeGameObject(){
     	   animation.stop();
-    	   Log.d("lowrey","birdRemoved");
     	   super.removeGameObject();
        }
        

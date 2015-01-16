@@ -10,15 +10,13 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 
 	public static final int DEFAULT_SCORE=100,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_dive_bomber,
-			DEFAULT_BULLET_FREQ_INTERVAL=1250;
+			DEFAULT_BULLET_FREQ_INTERVAL=1250,
+			NUM_DIVE_BOMBER_COLUMNS=5;
 	
 	public final static double DEFAULT_SPEED_Y=1.5,
 			DEFAULT_SPEED_X=3,
 			DEFAULT_HEALTH=60,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
-	
-	
-	private final static int NUM_DIVE_BOMBER_COLUMNS=6;
 	
 	public Shooting_Diagonal_DiveBomberView(Context context, int score,double speedY, double speedX,double collisionDamage, 
 			double health,double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {

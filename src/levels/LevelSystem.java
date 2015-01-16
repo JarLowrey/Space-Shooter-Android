@@ -139,7 +139,7 @@ public class LevelSystem extends Factory_LevelWaves{
 	private final int[] backgroundColors={R.color.blue,R.color.dark_blue};
 	
 	private void createBackgroundEffects(){
-		if(currentLevel<3){
+		if(currentLevel<2){
 			new Sun(ctx);
 
 			for(int i=0;i<12;i++){
@@ -151,7 +151,7 @@ public class LevelSystem extends Factory_LevelWaves{
 			
 			this.conditionalHandler.postIfLevelResumed(clouds);
 		} 
-		if(currentLevel>backgroundColors.length){
+		if(currentLevel>=backgroundColors.length){
 			this.getInteractivityInterface().changeGameBackground(R.color.black);			
 		}else{
 			this.getInteractivityInterface().changeGameBackground(backgroundColors[currentLevel]);			
