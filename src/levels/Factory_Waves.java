@@ -114,11 +114,11 @@ public class Factory_Waves extends Factory_Bosses{
 				numSpawned++;
 				if(numSpawned<numMeteors){
 					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-				}
+				} 
 			}
 		});
 	}
-		
+		 
 	public final void spawnDiveBomberWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;

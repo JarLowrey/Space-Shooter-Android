@@ -59,6 +59,7 @@
     <!-- Game Layout  -->
     
     <dimen name="moon_length">80dp</dimen>
+    <dimen name="sun_length">80dp</dimen>
     
     <!-- Store Layout -->
 
@@ -70,7 +71,7 @@
     <dimen name="intro_text_view_width">300dp</dimen>
     
     <dimen name="btn_large_len">100dp</dimen>
-    <dimen name="btn_move_len">55dp</dimen>
+    <dimen name="btn_move_len">50dp</dimen>
     <dimen name="btn_shoot_width">60dp</dimen>
     <dimen name="control_panel_height">150dp</dimen>
     

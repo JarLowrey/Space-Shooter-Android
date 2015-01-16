@@ -16,9 +16,9 @@ import bullets.Bullet_Basic_Missile;
 
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
-	public final static int BULLET_DAMAGE_WEIGHT=3,
-			BULLET_SPEED_WEIGHT=3,
-			BULLET_FREQ_WEIGHT=20;
+	public final static int BULLET_DAMAGE_WEIGHT=6,
+			BULLET_SPEED_WEIGHT=4,
+			BULLET_FREQ_WEIGHT=50;
 
 	public final static double DEFAULT_SPEED_Y=14,
 			DEFAULT_SPEED_X=14,
@@ -26,7 +26,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			DEFAULT_HEALTH=1000,
 			DEFAULT_BULLET_SPEED_Y=30,
 			DEFAULT_BULLET_DAMAGE=10, 
-			DEFAULT_BULLET_FREQ=900;
+			DEFAULT_BULLET_FREQ=850;
 	
 	Context ctx;
 	

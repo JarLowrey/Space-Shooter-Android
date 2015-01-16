@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	private static float screenDens,widthPixels,heightPixels;
 	
-	AnimationDrawable animation;
+//	AnimationDrawable animation;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

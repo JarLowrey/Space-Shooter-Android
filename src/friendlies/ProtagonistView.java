@@ -43,7 +43,8 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	
 	
-	private static final long EXHAUST_VISIBLE_TIME=500,HOW_OFTEN_TO_MOVE_EXHAUST=HOW_OFTEN_TO_MOVE_ROCKET / 2;
+	private static final long EXHAUST_VISIBLE_TIME=500,
+			HOW_OFTEN_TO_MOVE_EXHAUST=HOW_OFTEN_TO_MOVE_ROCKET / 2;
 	private static final double EXHAUST_FREQ=5000;
 	 
 	private int count = 0;

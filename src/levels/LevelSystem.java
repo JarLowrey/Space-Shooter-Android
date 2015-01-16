@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.util.Log;
+import background_objects.BackgroundView;
+import background_objects.Bird;
 import background_objects.Clouds;
+import background_objects.Sun;
 import bonuses.BonusView;
 import bullets.BulletView;
 
+import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies.EnemyView;
@@ -24,6 +28,7 @@ public class LevelSystem extends Factory_LevelWaves{
 	
 
 	private static int score;
+	public static ArrayList<BackgroundView> backgroundViews=new ArrayList<BackgroundView>();
 	public static ArrayList<BulletView> friendlyBullets=new ArrayList<BulletView>();
 	public static ArrayList<BulletView> enemyBullets=new ArrayList<BulletView>();
 	public static ArrayList<FriendlyView> friendlies=new ArrayList<FriendlyView>();
@@ -56,6 +61,9 @@ public class LevelSystem extends Factory_LevelWaves{
 	 * @return True if user has passed the last level
 	 */
 	public boolean startNextLevel(){
+		for(int i=backgroundViews.size()-1;i>=0;i--){
+			backgroundViews.get(i).removeGameObject();
+		}
 		currentLevel++;
 		if(currentLevel==levels.length){
 			return true;
@@ -86,6 +94,7 @@ public class LevelSystem extends Factory_LevelWaves{
 		levelPaused=false;
 		
 		createBackgroundEffects();
+		
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
 		 * If handler has runnables canceled before level finishes, then current progress will not change.
@@ -127,24 +136,39 @@ public class LevelSystem extends Factory_LevelWaves{
 		return this.conditionalHandler;
 	}
 	
+	private final int[] backgroundColors={R.color.blue,R.color.dark_blue};
+	
 	private void createBackgroundEffects(){
-		switch( currentLevel ){
-		case 0:
-			this.getInteractivityInterface().changeGameBackground(R.color.sky_blue);
+		if(currentLevel<3){
+			new Sun(ctx);
+
+			for(int i=0;i<12;i++){
+				Clouds a = new Clouds(ctx);
+				Clouds b = new Clouds(ctx);
+				a.setY((float) (MainActivity.getHeightPixels()*Math.random()));
+				b.setY((float) (MainActivity.getHeightPixels()*Math.random()));
+			}
+			
 			this.conditionalHandler.postIfLevelResumed(clouds);
-			break;
+		} 
+		if(currentLevel>backgroundColors.length){
+			this.getInteractivityInterface().changeGameBackground(R.color.black);			
+		}else{
+			this.getInteractivityInterface().changeGameBackground(backgroundColors[currentLevel]);			
 		}
 	}
 	
 	Runnable clouds = new Runnable(){
 		@Override
 		public void run() {
-			if(Math.random() < 0.5){
-				new Clouds(ctx,Clouds.CLOUD_2);//auto added to screen
+			if(Math.random()<.5){
+				new Bird(ctx);
 			}
-
-			new Clouds(ctx,Clouds.CLOUD_2);//auto added to screen
-			new Clouds(ctx,Clouds.CLOUD_1);//auto added to screen
+			if(Math.random()<.5){
+				new Clouds(ctx);
+			}
+			new Bird(ctx);
+			new Clouds(ctx);
 			
 			conditionalHandler.postIfLevelResumed(this, 4000);
 		}
