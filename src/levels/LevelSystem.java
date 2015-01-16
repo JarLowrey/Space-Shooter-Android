@@ -136,10 +136,10 @@ public class LevelSystem extends Factory_LevelWaves{
 		return this.conditionalHandler;
 	}
 	
-	private final int[] backgroundColors={R.color.blue,R.color.dark_blue};
+	private final int[] backgroundColors={R.color.blue,R.color.dark_blue,R.color.very_dark_blue};
 	
 	private void createBackgroundEffects(){
-		if(currentLevel<2){
+		if(currentLevel<3){
 			new Sun(ctx);
 
 			for(int i=0;i<12;i++){

@@ -14,9 +14,9 @@
     <color name="red">#f50000</color>
     <color name="light_red">#FF2659</color>
     <color name="light_blue">#00D5FF</color>
-    <color name="sky_blue">#00a8f0</color>
     <color name="blue">#006AD4</color>
     <color name="dark_blue">#0054A8</color>
+    <color name="very_dark_blue">#2E4963</color>
     <color name="gray">#918383</color>
     <color name="dark_gray">#4D4D4D</color>
     <color name="black">#000000</color>

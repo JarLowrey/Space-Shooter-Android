@@ -7,7 +7,7 @@ import com.jtronlabs.to_the_moon.R;
 
 public class Clouds extends BackgroundView{
 
-	public static final int CLOUD_1=R.drawable.cloud_img1,CLOUD_2=R.drawable.cloud_img2;
+	public static final int CLOUD_1=R.drawable.cloud_1,CLOUD_2=R.drawable.cloud_2;
 	
 	public Clouds(Context context) {
 		super(context, 
@@ -21,9 +21,9 @@ public class Clouds extends BackgroundView{
 	}
 	private static int getCloudImgId(){
 		if(Math.random()<.5){
-			return R.drawable.cloud_img1;
+			return R.drawable.cloud_1;
 		}else{
-			return R.drawable.cloud_img2;			
+			return R.drawable.cloud_2;			
 		}
 	}
 }

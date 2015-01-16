@@ -7,7 +7,7 @@ import com.jtronlabs.to_the_moon.R;
 
 public class Sun extends BackgroundView{
 
-	public static final int CLOUD_1=R.drawable.cloud_img1,CLOUD_2=R.drawable.cloud_img2;
+	public static final int CLOUD_1=R.drawable.cloud_1,CLOUD_2=R.drawable.cloud_2;
 	
 	public Sun(Context context) {
 		super(context, 

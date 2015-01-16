@@ -3,7 +3,6 @@ package levels;
 import interfaces.Shooter;
 import parents.MovingView;
 import android.os.Handler;
-import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;

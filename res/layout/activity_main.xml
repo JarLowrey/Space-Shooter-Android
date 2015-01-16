@@ -36,7 +36,7 @@
         android:layout_marginBottom="-225dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/level3" />
+        android:src="@drawable/earth" />
     
     
     <ImageButton
