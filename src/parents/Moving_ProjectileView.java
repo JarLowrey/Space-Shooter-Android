@@ -22,7 +22,7 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 
 		damage=projectileDamage;
 		health=projectileHealth;
-		maxHealth=projectileHealth;
+		maxHealth=projectileHealth;//set at beginning of life, or overwrite on heal()
 	}
 
 	/**
@@ -55,6 +55,9 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 	
 	public void heal(double howMuchHealed){
 		health+=Math.abs(howMuchHealed);
+		if(health>maxHealth){
+			maxHealth=health;
+		}
 	}
 	
 	//SET METHODS

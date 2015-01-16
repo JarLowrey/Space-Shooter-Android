@@ -19,7 +19,7 @@ public class EnemyView extends Projectile_GravityView{
 		super( context, projectileSpeedY, projectileSpeedX, 
 				 projectileDamage, projectileHealth, width, height, imageId);
 		
-		this.setY(- ( 3 * this.getHeight() ) /4);//start all enemies 3/4 way offscreen
+		this.setY( - this.getHeight() /2 );//start all enemies 3/4 way offscreen
 		
 		numSpawn++;
 		score=scoreForKilling;

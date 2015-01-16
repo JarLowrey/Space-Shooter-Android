@@ -1,5 +1,7 @@
 package enemies_non_shooters;
 
+import com.jtronlabs.to_the_moon.MainActivity;
+
 import parents.MovingView;
 import support.ConditionalHandler;
 import android.content.Context;
@@ -27,6 +29,10 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 		if(Math.random()<0.5){speedX *= -1;}
 		this.setSpeedX(speedX);
 
+		//must spawn in middle 3/4 X of screen
+		float xRand = (float) ( MainActivity.getWidthPixels()/2*Math.random() + MainActivity.getWidthPixels()/4);
+		this.setX(xRand);
+		
 		ConditionalHandler.postIfAlive(moveSideways, this);
 	}
 	
