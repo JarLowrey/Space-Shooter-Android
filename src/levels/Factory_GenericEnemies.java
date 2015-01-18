@@ -1,5 +1,6 @@
 package levels;
 
+import interfaces.GameActivityInterface;
 import android.content.Context;
 import bullets.Bullet_Basic_LaserShort;
 
@@ -16,8 +17,7 @@ import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_orbiters.Shooting_OrbiterView;
 import guns.Gun;
-import guns.Gun_StraightDualShot;
-import guns.Gun_StraightSingleShot;
+import guns.Gun_SingleShotStraight;
 
 /**
  * Factory in charge of create enemies with default values and adding that enemy to game layout
@@ -44,6 +44,11 @@ public class Factory_GenericEnemies{
 	public  int getLevel(){
 		return currentLevel+1;
 	}
+
+	public GameActivityInterface getInteractivityInterface(){
+		return (GameActivityInterface)ctx;
+	}
+	
 	
 	//DIAGONAL ORBITERS
 	protected final  Shooting_DiagonalMovingView spawnFullScreenDiagonalAttacker(){
@@ -65,8 +70,8 @@ public class Factory_GenericEnemies{
 				Shooting_DiagonalMovingView.DEFAULT_BACKGROUND);
 
 
-		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-				bulletFreq, bulletSpdY, bulletDmg);
+		Gun defaultGun = new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg,50);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
@@ -95,8 +100,8 @@ public class Factory_GenericEnemies{
 				Shooting_Diagonal_DiveBomberView.DEFAULT_BACKGROUND);
 
 
-		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-				bulletFreq, bulletSpdY, bulletDmg);
+		Gun defaultGun = new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg,50);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
@@ -125,9 +130,10 @@ public class Factory_GenericEnemies{
 				Orbiter_HorizontalLine.DEFAULT_BACKGROUND);
 
 
-		Gun defaultGun = new Gun_StraightDualShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-				bulletFreq, bulletSpdY, bulletDmg);
-		enemy.addGun(defaultGun);
+		enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+						bulletFreq, bulletSpdY, bulletDmg,20));
+		enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg,80));
 		enemy.startShooting();
 
 //		gameInteractivityInterface.addToForeground(enemy);
@@ -167,8 +173,8 @@ public class Factory_GenericEnemies{
 				Orbiter_CircleView.DEFAULT_BACKGROUND);
 
 
-		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-				bulletFreq, bulletSpdY, bulletDmg);
+		Gun defaultGun = new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg,50);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
@@ -215,8 +221,8 @@ public class Factory_GenericEnemies{
 				Orbiter_TriangleView.DEFAULT_BACKGROUND);
 
 
-		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-				bulletFreq, bulletSpdY, bulletDmg);
+		Gun defaultGun = new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg,50);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
@@ -255,8 +261,8 @@ public class Factory_GenericEnemies{
 				(int)ctx.getResources().getDimension(R.dimen.ship_orbit_rectangular_height),
 				Orbiter_RectangleView.DEFAULT_BACKGROUND);
 
-		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-				bulletFreq, bulletSpdY, bulletDmg);
+		Gun defaultGun = new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg,50);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 
@@ -285,8 +291,8 @@ public class Factory_GenericEnemies{
 				(int)ctx.getResources().getDimension(R.dimen.ship_array_shooter_height),
 				Shooting_ArrayMovingView.DEFAULT_BACKGROUND);
 
-		Gun defaultGun = new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-				bulletFreq, bulletSpdY, bulletDmg);
+		Gun defaultGun = new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+				bulletFreq, bulletSpdY, bulletDmg,50);
 		enemy.addGun(defaultGun);
 		enemy.startShooting();
 

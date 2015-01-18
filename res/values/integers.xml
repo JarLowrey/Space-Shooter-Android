@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="heal_base_cost">100</integer>
-    <integer name="inc_bullet_speed_base_cost">1000</integer>
-    <integer name="inc_bullet_damage_base_cost">1000</integer>
-    <integer name="inc_bullet_frequency_base_cost">1000</integer>
+    <integer name="inc_bullet_speed_base_cost">400</integer>
+    <integer name="inc_bullet_damage_base_cost">400</integer>
+    <integer name="inc_bullet_frequency_base_cost">400</integer>
     <integer name="score_multiplier_base_cost">100000</integer>
     <integer name="friend_base_cost">80000</integer>
     
     
     <integer-array name="gun_upgrade_costs">
         <item>100</item>
-        <item>5000</item>
+        <item>4000</item>
         <item>10000</item>
         <item>20000</item>
         <item>40000</item>

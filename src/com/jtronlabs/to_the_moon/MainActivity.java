@@ -51,9 +51,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		ImageView moon= (ImageView)findViewById(R.id.moon);
 		moon.startAnimation(moonSpin);
 		// earth spinning animation 
-		Animation earthSpin=AnimationUtils.loadAnimation(this,R.anim.spin_earth);
-		ImageView earth= (ImageView)findViewById(R.id.earth);
-		earth.startAnimation(earthSpin);
+//		Animation earthSpin=AnimationUtils.loadAnimation(this,R.anim.spin_earth);
+//		ImageView earth= (ImageView)findViewById(R.id.earth);
+//		earth.startAnimation(earthSpin);
 		
 		//set up buttons
 		ImageButton playBtn = (ImageButton)findViewById(R.id.playBtn);

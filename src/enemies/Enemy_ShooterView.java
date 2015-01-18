@@ -14,7 +14,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 
 		public static double DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/15,
 				DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
-				DEFAULT_BULLET_SPEED_Y=10;;
+				DEFAULT_BULLET_SPEED_Y=5;
 				
 		//myGun needs to be set in a specific View's class
 		private ArrayList<Gun> myGuns;
@@ -91,6 +91,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		@Override
 		public void removeAllGuns() {
 			for(int i=myGuns.size()-1; i>=0;i--){
+				myGuns.get(i).stopShooting();
 				myGuns.remove(i);
 			}
 		}

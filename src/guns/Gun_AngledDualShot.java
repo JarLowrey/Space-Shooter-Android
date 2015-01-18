@@ -11,16 +11,20 @@ public  class Gun_AngledDualShot extends Gun {
 	private static final double DEFAULT_ANGLE=40;
 	
 	public Gun_AngledDualShot(Context context,
-			Shooter theShooter,Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg) {
-		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg);
+			Shooter theShooter,Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg,int positionOnShooterAsAPercentage) {
+		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 	}
 	public boolean shoot(){
 		//travel horizontally at a speed such that the bullets will move in DEFAULT_ANGLE direction
 		double bulletSpeedX = bulletSpeedY * Math.tan(Math.toRadians(DEFAULT_ANGLE));
 
-		//create left and right bullets at center of shooter
+		//create left and right bullets
 		BulletView bulletLeft = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
 		BulletView bulletRight = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
+		
+		//set position on shooter
+		bulletLeft.setPositionOnShooterAsAPercentage(this.posOnShooter);
+		bulletRight.setPositionOnShooterAsAPercentage(this.posOnShooter);
 		
 		//set bullets speed x to non default value
 		bulletLeft.setSpeedX(bulletSpeedX * -1);

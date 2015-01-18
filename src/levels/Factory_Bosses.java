@@ -11,8 +11,8 @@ import com.jtronlabs.to_the_moon.R;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_orbiters.Orbiter_HorizontalLine;
 import friendlies.ProtagonistView;
-import guns.Gun_StraightDualShot;
-import guns.Gun_StraightSingleShot;
+import guns.Gun_ShootTowardsTargetSingleShot;
+import guns.Gun_SingleShotStraight;
 
 /**
  * Create a default enemy using EnemyFactory class, then overwrite position, speed, damage size, background, guns, bullets, etc To make a boss
@@ -39,7 +39,7 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 			
 			//make more powerful
 			enemy.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );
-			enemy.heal(100);
+			enemy.heal(ProtagonistView.DEFAULT_BULLET_DAMAGE*3.5);
 			enemy.setScoreValue(100);
 		}
 	};
@@ -50,18 +50,42 @@ public class Factory_Bosses extends Factory_GenericEnemies{
 			Orbiter_HorizontalLine enemy = spawnHorizontalLineOrbiter();
 			
 			enemy.removeAllGuns();
-			enemy.addGun(new Gun_StraightDualShot(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE*1.4));
-			enemy.addGun(new Gun_StraightSingleShot(ctx, enemy, new Bullet_Basic_Missile(),
-					2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE*2));
+			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
+					2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE*2,0) );
+			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+					2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE,0) );
+			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+					2000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE,0) );
 			
-			enemy.stopShooting();
 			enemy.startShooting();
 			
 			enemy.setImageResource(R.drawable.ship_enemy_boss1);
 			
 			enemy.heal(400);
 			enemy.setScoreValue(700);
+		}
+	};
+	
+	final Runnable boss2 = new Runnable(){
+		@Override
+		public void run() {
+			Orbiter_HorizontalLine enemy = spawnHorizontalLineOrbiter();
+			
+			enemy.removeAllGuns();
+			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+					1000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE,5));
+			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+					1000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE,50));
+			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+					1000, Orbiter_HorizontalLine.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLine.DEFAULT_COLLISION_DAMAGE,95));
+			
+//			enemy.stopShooting();
+			enemy.startShooting();
+			
+			enemy.setImageResource(R.drawable.ship_enemy_boss2);
+			
+			enemy.heal(500);
+			enemy.setScoreValue(1500);
 		}
 	};
 }

@@ -18,14 +18,14 @@ public class Gravity_MeteorView extends EnemyView{
 	public final static double DEFAULT_SPEED_Y=7,
 			DEFAULT_SPEED_X=0,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/25, 
-			DEFAULT_HEALTH=40,
+			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*1.5,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.01;
 	
 	private int direction = 1;
 	private int currentRotation;
 	private Runnable rotateRunnable = new Runnable(){
 		@Override
-		public void run() {
+		public void run() { 
 			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
 			Gravity_MeteorView.this.setRotation(currentRotation);
 			ConditionalHandler.postIfAlive(this,MovingView.HOW_OFTEN_TO_MOVE,Gravity_MeteorView.this);

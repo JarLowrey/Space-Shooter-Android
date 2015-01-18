@@ -22,8 +22,6 @@ public class Orbiter_HorizontalLine extends Shooting_OrbiterView implements Movi
 			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=300,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
-	public final static double DEFAULT_BULLET_SPEED_Y=15,
-			DEFAULT_BULLET_DAMAGE=30;
 	
 	public Orbiter_HorizontalLine(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health,double probSpawnBeneficialObjecyUponDeath,int width,int height,int imageId) {

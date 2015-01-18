@@ -152,23 +152,26 @@ public final class R {
         public static final int resources=0x7f020021;
         public static final int ship_enemy_array_shooter=0x7f020022;
         public static final int ship_enemy_boss1=0x7f020023;
-        public static final int ship_enemy_diagonal_full_screen=0x7f020024;
-        public static final int ship_enemy_dive_bomber=0x7f020025;
-        public static final int ship_enemy_orbiter_circle=0x7f020026;
-        public static final int ship_enemy_orbiter_horizontal_line=0x7f020027;
-        public static final int ship_enemy_orbiter_rectangle=0x7f020028;
-        public static final int ship_enemy_orbiter_triangle=0x7f020029;
-        public static final int ship_protagonist=0x7f02002a;
-        public static final int ship_protgonist_exhaust=0x7f02002b;
-        public static final int space1_0=0x7f02002c;
-        public static final int sun=0x7f02002d;
-        public static final int upgrade_gun=0x7f02002e;
-        public static final int view_damaged=0x7f02002f;
-        public static final int white_center_red_outline=0x7f020030;
+        public static final int ship_enemy_boss2=0x7f020024;
+        public static final int ship_enemy_boss3=0x7f020025;
+        public static final int ship_enemy_boss4=0x7f020026;
+        public static final int ship_enemy_diagonal_full_screen=0x7f020027;
+        public static final int ship_enemy_dive_bomber=0x7f020028;
+        public static final int ship_enemy_orbiter_circle=0x7f020029;
+        public static final int ship_enemy_orbiter_horizontal_line=0x7f02002a;
+        public static final int ship_enemy_orbiter_rectangle=0x7f02002b;
+        public static final int ship_enemy_orbiter_triangle=0x7f02002c;
+        public static final int ship_protagonist=0x7f02002d;
+        public static final int ship_protgonist_exhaust=0x7f02002e;
+        public static final int space1_0=0x7f02002f;
+        public static final int sun=0x7f020030;
+        public static final int upgrade_gun=0x7f020031;
+        public static final int view_damaged=0x7f020032;
+        public static final int white_center_red_outline=0x7f020033;
     }
     public static final class id {
         public static final int activity_main=0x7f0c0019;
-        public static final int animating_main_menu_list=0x7f0c001f;
+        public static final int animating_main_menu_list=0x7f0c001e;
         public static final int btn_heal=0x7f0c0011;
         public static final int btn_inc_bullet_dmg=0x7f0c0010;
         public static final int btn_inc_bullet_freq=0x7f0c0013;
@@ -182,7 +185,6 @@ public final class R {
         public static final int btn_purchase_friend=0x7f0c0015;
         public static final int btn_shoot=0x7f0c0003;
         public static final int control_panel=0x7f0c0002;
-        public static final int earth=0x7f0c001c;
         public static final int explanation=0x7f0c000b;
         public static final int gameplay_layout=0x7f0c0000;
         public static final int health_bar=0x7f0c0004;
@@ -190,7 +192,7 @@ public final class R {
         public static final int intro_text=0x7f0c0017;
         public static final int moon=0x7f0c001a;
         public static final int move_btns=0x7f0c0005;
-        public static final int playBtn=0x7f0c001d;
+        public static final int playBtn=0x7f0c001c;
         public static final int resource_count=0x7f0c000e;
         public static final int resource_layout=0x7f0c000d;
         public static final int resources_img=0x7f0c000f;
@@ -198,7 +200,7 @@ public final class R {
         public static final int rocket_main=0x7f0c001b;
         public static final int start_next_level=0x7f0c0016;
         public static final int store_layout=0x7f0c000a;
-        public static final int title=0x7f0c001e;
+        public static final int title=0x7f0c001d;
     }
     public static final class integer {
         public static final int friend_base_cost=0x7f070005;

@@ -33,7 +33,7 @@
 			    android:id="@+id/btn_shoot"
 			    android:layout_width="@dimen/btn_shoot_width"
 			    android:layout_height="@dimen/btn_large_len"
-			    android:visibility="gone"
+			    android:visibility="visible"
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
 				android:layout_marginRight="@dimen/activity_margin_large"

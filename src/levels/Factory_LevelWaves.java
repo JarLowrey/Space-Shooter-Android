@@ -147,7 +147,8 @@ public class Factory_LevelWaves extends Factory_Waves{
 			meteorShowersThatForceUserToLeft,
 			meteorShowersThatForceUserToRight,
 			meteorShowersThatForceUserToLeft,
-			levelWavesOver};
+			levelWavesOver
+		};
 	
 	final  Runnable[] level2 ={meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysOnePerSecondForWholeLevel,
@@ -160,7 +161,8 @@ public class Factory_LevelWaves extends Factory_Waves{
 			meteorShowerLong,
 			meteorsOnlyGiants,
 			meteorsOnlyGiants,
-			levelWavesOver};
+			levelWavesOver
+		};
 	
 	final  Runnable[] level3 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
@@ -169,7 +171,8 @@ public class Factory_LevelWaves extends Factory_Waves{
 			diveBomberOnePerSecond,
 			diveBomberOnePerSecond,
 			diveBomberOnePerSecond,
-			levelWavesOver};
+			levelWavesOver
+		};
 	
 
 	final  Runnable[] level4 = {meteorSidewaysOnePerSecondForWholeLevel,
@@ -182,7 +185,8 @@ public class Factory_LevelWaves extends Factory_Waves{
 			doNothing,
 			doNothing,
 			doNothing,
-			levelWavesOver};
+			levelWavesOver
+		};
 	
 	final  Runnable[] level5 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorSidewaysThisWave,
@@ -196,7 +200,8 @@ public class Factory_LevelWaves extends Factory_Waves{
 			doNothing,
 			diveBomberOnePerSecond,
 			diveBomberOnePerSecond,
-			levelWavesOver};
+			levelWavesOver
+		};
 	
 	final  Runnable[] level6 = {meteorSidewaysOnePerSecondForWholeLevel,
 			meteorShowersThatForceUserToRight,
@@ -207,8 +212,22 @@ public class Factory_LevelWaves extends Factory_Waves{
 			doNothing,
 			diveBomberOnePerSecond,
 			boss1,
-			levelWavesOver};
+			levelWavesOver
+		};
 	
-	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6};
+	final Runnable[] level7 = {
+			refreshArrayShooters,
+			refreshArrayShooters,
+			refreshArrayShooters,
+			refreshArrayShooters,
+			refreshArrayShooters,
+			refreshArrayShooters,
+			refreshArrayShooters,
+			refreshArrayShooters,
+			refreshArrayShooters,
+			levelWavesOver
+		};
+	
+	final Runnable levels[][] ={level7};
 	
 }

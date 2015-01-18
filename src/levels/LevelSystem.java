@@ -1,12 +1,9 @@
 package levels;
 
-import interfaces.GameActivityInterface;
-
 import java.util.ArrayList;
 
 import support.ConditionalHandler;
 import android.content.Context;
-import android.util.Log;
 import background_objects.BackgroundView;
 import background_objects.Bird;
 import background_objects.Clouds;
@@ -43,19 +40,12 @@ public class LevelSystem extends Factory_LevelWaves{
 		super(context);
 		
 		gameDetector = new CollisionDetector(this);
+		
+
+		score=0;
+		currentLevel=GAME_NOT_BEGUN;//= -1
 	}
 
-	public void newGame(){
-		Log.d("lowrey","new game");
-		score=0;
-		currentLevel=GAME_NOT_BEGUN;//= -1. 
-		startNextLevel();
-	}
-	
-	public GameActivityInterface getInteractivityInterface(){
-		return (GameActivityInterface)ctx;
-	}
-	
 	/**
 	 * 
 	 * @return True if user has passed the last level
@@ -64,7 +54,9 @@ public class LevelSystem extends Factory_LevelWaves{
 		for(int i=backgroundViews.size()-1;i>=0;i--){
 			backgroundViews.get(i).removeGameObject();
 		}
+		
 		currentLevel++;
+		
 		if(currentLevel==levels.length){
 			return true;
 		}else{

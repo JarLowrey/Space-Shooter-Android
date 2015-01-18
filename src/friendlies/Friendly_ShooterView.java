@@ -2,8 +2,7 @@ package friendlies;
 
 import guns.Gun;
 import guns.Gun_AngledDualShot;
-import guns.Gun_StraightDualShot;
-import guns.Gun_StraightSingleShot;
+import guns.Gun_SingleShotStraight;
 import interfaces.Shooter;
 
 import java.util.ArrayList;
@@ -14,17 +13,19 @@ import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 
+import com.jtronlabs.to_the_moon.MainActivity;
+
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
-	public final static int BULLET_DAMAGE_WEIGHT=6,
-			BULLET_SPEED_WEIGHT=4,
+	public final static double BULLET_DAMAGE_WEIGHT=6,
+			BULLET_SPEED_WEIGHT=MainActivity.getScreenDens() * 1.5,
 			BULLET_FREQ_WEIGHT=50;
 
-	public final static double DEFAULT_SPEED_Y=14,
-			DEFAULT_SPEED_X=14,
+	public final static double DEFAULT_SPEED_Y=10,
+			DEFAULT_SPEED_X=10,
 			DEFAULT_COLLISION_DAMAGE=100, 
 			DEFAULT_HEALTH=1000,
-			DEFAULT_BULLET_SPEED_Y=30,
+			DEFAULT_BULLET_SPEED_Y=9,
 			DEFAULT_BULLET_DAMAGE=10, 
 			DEFAULT_BULLET_FREQ=850;
 	
@@ -81,20 +82,23 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		
 		switch(currentGunConfiguration){
 		case 1:
-			this.addGun(new Gun_StraightSingleShot(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed) );
+			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed,50) );
 			break;
 		case 2:
-			this.addGun(new Gun_StraightDualShot(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed) );
+			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed,20) );
+			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed,80) );
 			break;
 		case 3:
-			this.addGun(new Gun_StraightDualShot(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed) );
+			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed,20) );
+			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed,80) );
 			break;
 		case 4:
-			this.addGun(new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),freq,dmg,speed) );
+			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed,20) );
+			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,dmg,speed,80) );
 			break;
 		case 5:
-			Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),freq,dmg,speed) ;
-			Gun gun2 = new Gun_StraightSingleShot(ctx, this, new Bullet_Basic_Missile(),freq,dmg,speed) ;
+			Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),freq,dmg,speed,50) ;
+			Gun gun2 = new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_Missile(),freq,dmg,speed,50) ;
 			this.addGun(gun1);
 			this.addGun(gun2);
 			break;
@@ -174,6 +178,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	@Override
 	public void removeAllGuns() {
 		for(int i=myGuns.size()-1; i>=0;i--){
+			myGuns.get(i).stopShooting();
 			myGuns.remove(i);
 		}
 	}

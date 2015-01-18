@@ -5,6 +5,8 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import friendlies.ProtagonistView;
+
 public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingView{
 	
 
@@ -15,7 +17,7 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 	
 	public final static double DEFAULT_SPEED_Y=1.5,
 			DEFAULT_SPEED_X=3,
-			DEFAULT_HEALTH=60,
+			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
 	
 	public Shooting_Diagonal_DiveBomberView(Context context, int score,double speedY, double speedX,double collisionDamage, 

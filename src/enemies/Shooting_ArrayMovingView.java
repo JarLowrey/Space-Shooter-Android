@@ -9,6 +9,8 @@ import android.os.Handler;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import friendlies.ProtagonistView;
+
 public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
 	public static final int DEFAULT_NUM_ROWS=4,
@@ -20,7 +22,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	
 	public final static double DEFAULT_SPEED_Y=3,
 			DEFAULT_SPEEDX=3,
-			DEFAULT_HEALTH=50,
+			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	

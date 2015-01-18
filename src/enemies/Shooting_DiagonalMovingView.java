@@ -17,7 +17,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	public final static double DEFAULT_SPEED_Y=1.8,
 			DEFAULT_SPEED_X=10,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
-			DEFAULT_HEALTH=40,
+			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*3,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10;

@@ -44,7 +44,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private RelativeLayout gameLayout,storeLayout;
 
 	//MODEL
-	private LevelSystem levelCreater;
+	private LevelSystem levelCreator;
 	
 	private final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
@@ -103,7 +103,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		protagonist.setY( protagonistPosition );
 		
 		//set up the game
-		levelCreater = new LevelSystem(this);
+		levelCreator = new LevelSystem(this); 
+		levelCreator.startNextLevel();
 		
 		/*
 		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to perform actions after layouts have been loaded
@@ -130,7 +131,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		for(int i=LevelSystem.bonuses.size()-1;i>=0;i--){ 
 			LevelSystem.bonuses.get(i).removeGameObject();
 		}
-		levelCreater.pauseLevel();
+		levelCreator.pauseLevel();
     }
 	
 	@Override
@@ -141,12 +142,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
         	friendly.restartThreads();
         }
         
-        levelCreater.resumeLevel();
+        if(levelCreator.isLevelPaused()){levelCreator.resumeLevel();}
 	}
 	
 	public void gameOver(){
 		Log.d("lowrey","num enemies spawned="+EnemyView.numSpawn+" died="+EnemyView.numRemoved);
-		levelCreater.pauseLevel();
+		levelCreator.pauseLevel();
 		healthBar.setProgress(0);
 		
 //		levelFactory.stopSpawning();
@@ -170,13 +171,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public void openStore(){
 		storeLayout.setVisibility(View.VISIBLE);
 		gameLayout.setVisibility(View.GONE);
-		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreater.getScore()));
+		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getScore()));
 	}
 	
 	private void closeStoreAndStartNextLevel(){
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
-		levelCreater.startNextLevel();
+		levelCreator.startNextLevel();
 	}
 
 	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
@@ -259,7 +260,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					confirmUpgradeDialog(UPGRADE_FRIEND);
 					break;
 				case R.id.start_next_level: 
-					if(levelCreater.getLevel()==1 && protagonist.getGunLevel()==0){
+					if(levelCreator.getLevel()==1 && protagonist.getGunLevel()==0){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
 							new AlertDialog.Builder(this)
@@ -316,7 +317,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
 				break;
 			case UPGRADE_HEAL:
-				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreater.getLevel()) ;
+				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel()) ;
 				msg=this.getResources().getString(R.string.upgrade_heal);
 				break;
 			}
@@ -348,7 +349,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	private void applyUpgrade(final int whichUpgrade,int cost){
-		boolean upgraded = levelCreater.getScore() >= cost;
+		boolean upgraded = levelCreator.getScore() >= cost;
 
 		switch(whichUpgrade){
 		case UPGRADE_BULLET_DAMAGE:
@@ -376,8 +377,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		if(upgraded){
 			if(whichUpgrade==UPGRADE_GUN){btnShoot.setVisibility(View.VISIBLE);}//on first upgraded gun, set shoot to visible. this can be removed later but currently applies on every upgrade
-			levelCreater.decrementScore(cost);
-			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreater.getScore()));
+			levelCreator.decrementScore(cost);
+			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getScore()));
 			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();
 		}else{
 			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();

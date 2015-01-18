@@ -2,7 +2,7 @@ package friendlies;
 
 import guns.Gun;
 import guns.Gun_AngledDualShot;
-import guns.Gun_StraightSingleShot;
+import guns.Gun_SingleShotStraight;
 import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
@@ -33,9 +33,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 		
 		//debugging purposes only, will be overwritten when user buys first gun
 		Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),
-				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
-		Gun gun2 = new Gun_StraightSingleShot(ctx, this, new Bullet_Basic_Missile(),
-				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_DAMAGE,DEFAULT_BULLET_SPEED_Y);
+				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
+		Gun gun2 = new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_Missile(),
+				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
 		this.addGun(gun2);
 		this.addGun(gun1);
 		this.post(exhaustRunnable);

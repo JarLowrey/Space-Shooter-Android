@@ -42,6 +42,7 @@ public class EnemyView extends Projectile_GravityView{
 			if(Math.random()<probSpawnBeneficialObject){//check for random bonus
 				final float xAvg = (2 * this.getX()+this.getWidth())/2;
 				final float yAvg = (2 * this.getY()+this.getHeight())/2;
+				Log.d("lowrey","x="+xAvg);
 				BonusView.displayRandomBonusView(this.getContext(),xAvg,yAvg);
 			}
 		}

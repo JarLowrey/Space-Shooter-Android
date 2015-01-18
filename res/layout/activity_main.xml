@@ -24,11 +24,11 @@
         android:id="@+id/rocket_main"
         android:layout_width="@dimen/ship_protagonist_game_width"
         android:layout_height="@dimen/ship_protagonist_game_height"
-        android:layout_alignParentBottom="true"
+		android:layout_below="@+id/playBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="@dimen/activity_margin_large"
         android:src="@drawable/ship_protagonist" />
-    
+    <!-- 
     <ImageView
         android:id="@+id/earth"
         android:layout_width="match_parent"
@@ -37,13 +37,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:src="@drawable/earth" />
-    
+    -->
     
     <ImageButton
         android:id="@+id/playBtn"
         android:layout_width="@dimen/btn_large_len"
         android:layout_height="@dimen/btn_large_len"
-        android:layout_alignTop="@+id/earth"
+       	android:layout_alignParentBottom="true"
+       	android:layout_marginBottom="@dimen/activity_margin_large"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_action_play"
         android:background="@drawable/btn_gray" >

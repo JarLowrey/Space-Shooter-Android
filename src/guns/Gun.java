@@ -1,5 +1,7 @@
 package guns;
   
+import com.jtronlabs.to_the_moon.MainActivity;
+
 import interfaces.Shooter;
 import support.ConditionalHandler;
 import android.content.Context;
@@ -23,8 +25,10 @@ public abstract class Gun {
 	Shooter shooter;
 	Bullet myBulletType;
 	Context ctx;
+	
 
-	protected double bulletFreq,bulletSpeedY,bulletDamage;
+	protected double bulletFreq,bulletSpeedY,bulletSpeedX,bulletDamage;
+	protected int posOnShooter;
 	
 	private Runnable shootingRunnable = new Runnable(){
 		  	@Override
@@ -34,11 +38,14 @@ public abstract class Gun {
 		  		}
 			};
 	
-	public Gun(Context context,Shooter theShooter,Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg) {
+	public Gun(Context context,Shooter theShooter,Bullet bulletType,
+			double bulletFrequency,double bulletSpeedVertical,double bulletDmg,int positionOnShooterAsAPercentage) {
 		ctx=context;
 		
+		posOnShooter=positionOnShooterAsAPercentage;
 		bulletFreq=bulletFrequency;
-		bulletSpeedY=bulletSpeedVertical;
+		bulletSpeedX=0;
+		bulletSpeedY=bulletSpeedVertical*MainActivity.getScreenDens();
 		bulletDamage=bulletDmg;
 		myBulletType = bulletType;
 		shooter=theShooter;
