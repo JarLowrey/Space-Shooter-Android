@@ -5,7 +5,14 @@ import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
+import enemies.Shooting_DiagonalMovingView;
+import enemies.Shooting_Diagonal_DiveBomberView;
 import enemies_non_shooters.Gravity_MeteorView;
+import enemies_non_shooters.Meteor_SidewaysView;
+import enemies_orbiters.Orbiter_CircleView;
+import enemies_orbiters.Orbiter_HorizontalLineView;
+import enemies_orbiters.Orbiter_RectangleView;
+import enemies_orbiters.Orbiter_TriangleView;
 
 /** 
  * spawn a number of a given enemy over a duration of time
@@ -44,7 +51,7 @@ public class Factory_Waves extends Factory_Bosses{
 			@Override
 			public void run() {
 					//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
-					Gravity_MeteorView  met= spawnMeteor();
+					Gravity_MeteorView  met= new Gravity_MeteorView(ctx);
 					final int width = +met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
 					final int numMeteorsPossibleOnScreenAtOnce= (int) (MainActivity.getWidthPixels()/width);
 					final int currentMeteor = numSpawned % numMeteorsPossibleOnScreenAtOnce;
@@ -77,7 +84,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-					spawnMeteor();
+				new Gravity_MeteorView(ctx);
 					
 					numSpawned++;
 					if(numSpawned<numMeteors){
@@ -93,7 +100,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				spawnSidewaysMeteor();
+				new Meteor_SidewaysView(ctx);
 				
 				numSpawned++;
 				if(numSpawned<numMeteors){
@@ -125,7 +132,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				spawnDiveBomber();
+				new Shooting_Diagonal_DiveBomberView(ctx);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -141,7 +148,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				spawnFullScreenDiagonalAttacker();
+				new Shooting_DiagonalMovingView(ctx);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -158,7 +165,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				spawnCircularOrbitingView();
+				new Orbiter_CircleView(ctx);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -174,7 +181,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				spawnRectanglularOrbitingView();
+				new Orbiter_RectangleView(ctx);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -190,7 +197,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-					spawnTriangularOrbitingView();
+				new Orbiter_TriangleView(ctx);
 					numSpawned++;
 					
 					if(numSpawned<totalNumShips ){
@@ -206,7 +213,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-					spawnHorizontalLineOrbiter();
+				new Orbiter_HorizontalLineView(ctx);
 					numSpawned++;
 					
 					if(numSpawned<totalNumShips ){

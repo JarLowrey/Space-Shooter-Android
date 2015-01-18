@@ -21,13 +21,13 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 		
 	};
 	
-	public Meteor_SidewaysView(Context context,int score,double speedY,double speedX,
-			double collisionDamage,double health,double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {
-		super(context,score,speedY,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath, width, height, imageId);
+	public Meteor_SidewaysView(Context context) {
+		super(context);
 				
+		double speedX=DEFAULT_SPEED_X;
 		if(Math.random()<0.5){speedX *= -1;}
 		this.setSpeedX(speedX);
+		this.setSpeedY(DEFAULT_SPEED_Y);
 
 		//must spawn in middle 3/4 X of screen
 		float xRand = (float) ( MainActivity.getWidthPixels()/2*Math.random() + MainActivity.getWidthPixels()/4);

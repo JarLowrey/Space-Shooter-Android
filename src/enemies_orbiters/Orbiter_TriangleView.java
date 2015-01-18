@@ -16,16 +16,34 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	
 	private int currentSideOfTriangle, orbitDist;
 	
+	public Orbiter_TriangleView(Context context) {
+		super(context, DEFAULT_SCORE, 
+				(int)context.getResources().getDimension(R.dimen.ship_orbit_triangular_width), 
+				(int)context.getResources().getDimension(R.dimen.ship_orbit_triangular_height), 
+				DEFAULT_BACKGROUND);
+
+		orbitDist=DEFAULT_ORBIT_LENGTH;
+
+		init();
+	}
+	
+
 	public Orbiter_TriangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health,double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength,int width,int height,int imageId) {
+			int orbitLength, int orbitPixelX, int orbitPixelY,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
-				collisionDamage, health,
-				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
-
-		currentSideOfTriangle=0; 
+				collisionDamage, health, probSpawnBeneficialObjecyUponDeath, 
+				orbitPixelX, orbitPixelY, width, height, imageId);
+		
 		orbitDist=orbitLength;
 
+		init();
+	}
+	
+	private void init(){
+
+		currentSideOfTriangle=0;
+		
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold((int) (orbitY-(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
@@ -58,21 +76,5 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 						ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_TriangleView.this);
 			}
 		};
-		
-	}
-	
-
-	public Orbiter_TriangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health,double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength, int orbitPixelX, int orbitPixelY,int width,int height,int imageId) {
-		super(context, score,speedY, speedX,
-				collisionDamage, health, probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
-		
-		currentSideOfTriangle=0;
-		orbitDist=orbitLength;
-
-		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
-		this.setThreshold((int) (orbitY+(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
-		howManyTimesMoved=(int) (orbitDist /3.0);
 	}
 }

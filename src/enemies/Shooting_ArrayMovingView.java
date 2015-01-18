@@ -21,7 +21,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	public static final boolean DEFAULT_STAGGERED=true;
 	
 	public final static double DEFAULT_SPEED_Y=3,
-			DEFAULT_SPEEDX=3,
+			DEFAULT_SPEED_X=3,
 			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
@@ -84,9 +84,12 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		}
 	};
 
-	public Shooting_ArrayMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health,double probSpawnBeneficialObject,int width,int height,int imageId) {
-		super(context,score, speedY, speedX, collisionDamage, health,probSpawnBeneficialObject, width, height, imageId);
+	public Shooting_ArrayMovingView(Context context) {
+		super(context,DEFAULT_SCORE, DEFAULT_SPEED_Y, DEFAULT_SPEED_X, DEFAULT_COLLISION_DAMAGE, 
+				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+				(int)context.getResources().getDimension(R.dimen.ship_array_shooter_width),
+				(int)context.getResources().getDimension(R.dimen.ship_array_shooter_height), 
+				DEFAULT_BACKGROUND);
 
 		//if this is first instance of this class created, post movement thread and intitalize static vars
 		if(allSimpleShooters.size()==0){
@@ -97,10 +100,9 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		final int randPos = (int) (freePositions.size() * Math.random());
 		myPosition = freePositions.remove(randPos);
 
-
 		//set row destination
 		final float lowestPointOnScreen = MainActivity.getHeightPixels()*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
-		final float myRowNum = (myPosition / numCols) * height;//, multiply that by heightOfView to get top of row
+		final float myRowNum = (myPosition / numCols) * context.getResources().getDimension(R.dimen.ship_array_shooter_height);//, multiply that by heightOfView to get top of row
 		this.setThreshold((int) (lowestPointOnScreen - myRowNum));
 
 		// set col position
@@ -112,7 +114,6 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			xPos += staggeredMargin / 2;
 		}
 		this.setX(xPos);
-		this.setY(0);
 
 		allSimpleShooters.add(this);
 	}

@@ -6,15 +6,12 @@ import android.content.Context;
 
 public class Orbiter_Circle_IncSpeedOnHitView extends Orbiter_CircleView implements MovingViewInterface {
 	
-	public static final int ANGULAR_INCREMENT=3;
-	
 	public Orbiter_Circle_IncSpeedOnHitView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, double bulletFreq,
-			double bulletDamage,double bulletVerticalSpeed,double probSpawnBeneficialObjecyUponDeath,
-			int circleRadius,int angularVelocityInDegrees,int width,int height,int imageId) {
+			double health,double probSpawnBeneficialObjecyUponDeath,
+			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,int circleRadius,int angularVelocityInDegrees) {
 		super( context, score, speedY,  speedX, collisionDamage, 
-				 health,  probSpawnBeneficialObjecyUponDeath,
-				 circleRadius, angularVelocityInDegrees, width, height, imageId);
+				 health, probSpawnBeneficialObjecyUponDeath,
+				 orbitPixelX, orbitPixelY, width, height, imageId,circleRadius, angularVelocityInDegrees);
 	}
 	
 	/**

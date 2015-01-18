@@ -48,16 +48,35 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		
 	};
 	
-	public Shooting_DiagonalMovingView(Context context, int score,double speedY, double speedX,double collisionDamage, 
-			double health, double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {
-		super(context,score,speedY,speedX,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath, width, height, imageId);
+	public Shooting_DiagonalMovingView(Context context) {
+		super(context,DEFAULT_SCORE,
+				DEFAULT_SPEED_Y,DEFAULT_SPEED_X,
+				DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,
+				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
+				(int)context.getResources().getDimension(R.dimen.ship_diagonal_width),
+				(int)context.getResources().getDimension(R.dimen.ship_diagonal_height), 
+				DEFAULT_BACKGROUND);
 		
-		this.setThreshold((int) MainActivity.getHeightPixels());
+		init((int)context.getResources().getDimension(R.dimen.ship_diagonal_width));		
+	}
+	
+	public Shooting_DiagonalMovingView(Context context,int score,double speedY, double speedX,double collisionDamage, 
+			double health, double probSpawnBeneficialObjecyUponDeath,
+			int width,int height,int imageId) {
+		super(context, score,speedY, speedX,
+				collisionDamage, health,
+				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
+		
+		init(width);		
+	}
+	
+	private void init(int width){
+
+		this.setThreshold((int) MainActivity.getHeightPixels()*2);//move Y to offscreen
 		if(Math.random()<0.5){this.setSpeedX(this.getSpeedX() * -1);}
 		
 		this.setX((float) ( (MainActivity.getWidthPixels()-width)*Math.random()));
-		this.setY(0);
 		
 		leftThreshold=0;//far left of screen
 		rightThreshold=MainActivity.getWidthPixels()-this.getWidth();//far right of screen

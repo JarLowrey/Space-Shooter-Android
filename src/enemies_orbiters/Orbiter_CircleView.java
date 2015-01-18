@@ -19,16 +19,35 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	private int angularVelocity;
 	private double radius;
 
+	public Orbiter_CircleView(Context context) {
+		super(context,DEFAULT_SCORE, 
+				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width), 
+				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_height), 
+				DEFAULT_BACKGROUND);
+
+		final int width=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
+		final int height=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
+		radius=MainActivity.getWidthPixels()-width;
+		angularVelocity=DEFAULT_ANGULAR_VELOCITY;
+		
+		init(width,height);
+	}
+	
 	public Orbiter_CircleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
 			double health,double probSpawnBeneficialObjecyUponDeath,
-			int circleRadius,int angularVelocityInDegrees,int width,int height,int imageId) {
-		super(context,score, speedY, speedX,
+			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,int circularRadius,int angVelocity) {
+		super(context, score,speedY, speedX,
 				collisionDamage, health,
-				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
-
+				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
+		
+		radius=circularRadius;
+		angularVelocity=angVelocity;
+		init(width,height);
+	}
+	
+	private void init(int width,int height){
 		currentDegree=270;
-		radius=circleRadius*MainActivity.getScreenDens();
-		angularVelocity=angularVelocityInDegrees;
+		
 		//ensure radius and angular velocity are within bounds
 		if(Math.abs(angularVelocity)>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
 		final int maxRadiusX = (int) (MainActivity.getWidthPixels()/2 - width/2 );

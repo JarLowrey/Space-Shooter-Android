@@ -19,16 +19,35 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	
 	private int currentSideOfRectangle,orbitDist;
 
+	public Orbiter_RectangleView(Context context) {
+		super(context, DEFAULT_SCORE, 
+				(int)context.getResources().getDimension(R.dimen.ship_orbit_rectangular_width), 
+				(int)context.getResources().getDimension(R.dimen.ship_orbit_rectangular_height), 
+				DEFAULT_BACKGROUND);
+
+		orbitDist=DEFAULT_ORBIT_LENGTH;
+		
+		init();
+	}
+	
+
 	public Orbiter_RectangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength,int width,int height,int imageId) {
+			double health, 
+			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
+			int orbitLength,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health,
-				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
+				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
+		
+		orbitDist=orbitLength;
+		
+		init();
+	}
+	
+	private void init(){
 
 		currentSideOfRectangle=0;
-		orbitDist=orbitLength;
-	
+		
 		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
 		this.setThreshold((int) (orbitY-(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist *3.0/4);
@@ -60,22 +79,5 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 					ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
 			}
 		};
-	}
-	
-
-	public Orbiter_RectangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, 
-			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
-			int orbitLength,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
-		super(context, score,speedY, speedX,
-				collisionDamage, health,
-				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
-		
-		currentSideOfRectangle=0;
-		orbitDist=orbitLength;
-	
-		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
-		this.setThreshold((int) (orbitY+(orbitDist*this.getMagnitudeOfSpeedY() ) ));
-		howManyTimesMoved=(int) (orbitDist *3.0/4);
 	}
 }

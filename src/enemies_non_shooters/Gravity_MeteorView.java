@@ -32,17 +32,20 @@ public class Gravity_MeteorView extends EnemyView{
 		}
 	};
 	
-	public Gravity_MeteorView(Context context,int score,double speedY,
-			double collisionDamage,double health,double probSpawnBeneficialObjectOnDeath,int width,int height,int imageId) {
-		super(context,score,speedY, DEFAULT_SPEED_X ,collisionDamage,
-				health,probSpawnBeneficialObjectOnDeath, width, height, imageId);
+	public Gravity_MeteorView(Context context) {
+		super(context,DEFAULT_SCORE, DEFAULT_SPEED_Y, DEFAULT_SPEED_X,
+				DEFAULT_COLLISION_DAMAGE, 
+				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+				(int)context.getResources().getDimension(R.dimen.meteor_length),
+				(int)context.getResources().getDimension(R.dimen.meteor_length), 
+				DEFAULT_BACKGROUND);
 				
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
 		ConditionalHandler.postIfAlive(rotateRunnable, this);
 		
 		//spawn anywhere in X on screen
-		float xRand = (float) ((MainActivity.getWidthPixels()-width)*Math.random());
+		float xRand = (float) ((MainActivity.getWidthPixels()-context.getResources().getDimension(R.dimen.meteor_length))*Math.random());
 		this.setX(xRand);
 	}
 	

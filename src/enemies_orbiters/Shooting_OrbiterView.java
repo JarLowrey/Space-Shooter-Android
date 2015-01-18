@@ -13,8 +13,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	//NEEDS TO BE INSTANTIATED IN CHILD CLASS
 	public Runnable orbitingRunnable;
 	
-	public final static int DEFAULT_SCORE=100,
-			DEFAULT_BULLET_FREQ_INTERVAL=1000;
+	public final static int DEFAULT_SCORE=100;
 	
 	public final static double DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,
@@ -39,11 +38,11 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	}
 	
 
-	public Shooting_OrbiterView(Context context,int scoreForKilling,double speedY, double speedX,double collisionDamage, 
-			double health, 
-			double probSpawnBeneficialObjecyUponDeath,int width,int height,int imageId) {
-		super(context, scoreForKilling, speedY,
-				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, width, height, imageId);
+	public Shooting_OrbiterView(Context context,int scoreForKilling, 
+			int width,int height,int imageId) {
+		super(context, scoreForKilling, DEFAULT_SPEED_Y,
+				DEFAULT_SPEED_X, DEFAULT_COLLISION_DAMAGE, DEFAULT_HEALTH,
+				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, width, height, imageId);
 
 		//defeault orbit location
 		orbitX=(int) (MainActivity.getWidthPixels()/2-width/2);
