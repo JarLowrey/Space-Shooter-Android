@@ -219,7 +219,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			diveBomberOnePerSecond,
 			doNothing,
 			diveBomberOnePerSecond,
-			boss1,
+			boss1_missileAndDualLaser,
 			levelWavesOver
 		};
 	

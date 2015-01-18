@@ -58,16 +58,16 @@ public class Factory_Bosses{
 		}
 	};
 	
-	final Runnable boss1 = new Runnable(){
+	final Runnable boss1_missileAndDualLaser = new Runnable(){
 		@Override
 		public void run() {
-			final int width=(int) ctx.getResources().getDimension(R.dimen.boss1_width);
-			final int height=(int) ctx.getResources().getDimension(R.dimen.boss1_height);
 			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
 					Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
 					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
 					Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y,
-					width,height,R.drawable.ship_enemy_boss1);
+					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
+					(int) ctx.getResources().getDimension(R.dimen.boss1_height),
+					R.drawable.ship_enemy_boss1);
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
@@ -82,10 +82,16 @@ public class Factory_Bosses{
 		}
 	};
 	
-	final Runnable boss2 = new Runnable(){
+	final Runnable boss2_threeTrackingShots = new Runnable(){
 		@Override
 		public void run() {
-			Orbiter_HorizontalLineView enemy = spawnHorizontalLineOrbiter();
+			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1500,
+					Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
+					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
+					Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y,
+					(int) ctx.getResources().getDimension(R.dimen.boss2_width),
+					(int) ctx.getResources().getDimension(R.dimen.boss2_height),
+					R.drawable.ship_enemy_boss2);
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
@@ -95,13 +101,7 @@ public class Factory_Bosses{
 			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
 					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,95));
 			
-//			enemy.stopShooting();
 			enemy.startShooting();
-			
-			enemy.setImageResource(R.drawable.ship_enemy_boss2);
-			
-			enemy.heal(500);
-			enemy.setScoreValue(1500);
 		}
 	};
 }

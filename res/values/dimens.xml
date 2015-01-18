@@ -38,6 +38,8 @@
     <!-- Bosses -->
     <dimen name="boss1_width">63dp</dimen>
     <dimen name="boss1_height">80dp</dimen>
+    <dimen name="boss2_width">63dp</dimen>
+    <dimen name="boss2_height">80dp</dimen>
     
     <!-- BULLETS -->
     <dimen name="laser_short_width">5dp</dimen>
