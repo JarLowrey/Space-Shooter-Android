@@ -11,10 +11,11 @@ import com.jtronlabs.to_the_moon.R;
 
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
-import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_HorizontalLineView;
+import enemies_orbiters.Orbiter_RectangleView;
 import friendlies.ProtagonistView;
-import guns.Gun_ShootTowardsTargetSingleShot;
+import guns.Gun_TrackingGattling;
+import guns.Gun_TrackingSingle;
 import guns.Gun_SingleShotStraight;
 
 /**
@@ -94,12 +95,38 @@ public class Factory_Bosses{
 					R.drawable.ship_enemy_boss2);
 			
 			enemy.removeAllGuns();
-			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
 					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,5));
-			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
 					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,50));
-			enemy.addGun(new Gun_ShootTowardsTargetSingleShot(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
 					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,95));
+			
+			enemy.startShooting();
+		}
+	};
+	
+	final Runnable boss3 = new Runnable(){
+		@Override
+		public void run() {
+			Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
+					Orbiter_RectangleView.DEFAULT_SPEED_Y,Orbiter_RectangleView.DEFAULT_SPEED_X,
+					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,400,50,
+					Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH,
+					Orbiter_RectangleView.DEFAULT_ORBIT_X,
+					Orbiter_RectangleView.DEFAULT_ORBIT_Y,
+					(int) ctx.getResources().getDimension(R.dimen.boss2_width),
+					(int) ctx.getResources().getDimension(R.dimen.boss2_height),
+					R.drawable.ship_enemy_boss3);
+			
+			enemy.removeAllGuns();
+			enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
+					new Bullet_Basic_LaserShort(),
+					5000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+					5,
+					Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
 			
 			enemy.startShooting();
 		}

@@ -29,7 +29,7 @@ public class Gravity_MeteorView extends EnemyView{
 			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
 			Gravity_MeteorView.this.setRotation(currentRotation);
 			ConditionalHandler.postIfAlive(this,MovingView.HOW_OFTEN_TO_MOVE,Gravity_MeteorView.this);
-		}
+		} 
 	};
 	
 	public Gravity_MeteorView(Context context) {

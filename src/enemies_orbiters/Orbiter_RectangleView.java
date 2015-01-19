@@ -32,8 +32,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	
 
 	public Orbiter_RectangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, 
-			float heightView,float widthView,double probSpawnBeneficialObjecyUponDeath,
+			double health,double probSpawnBeneficialObjecyUponDeath,
 			int orbitLength,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health,

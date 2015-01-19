@@ -224,15 +224,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 		};
 	
 	final Runnable[] level7 = {
-			refreshArrayShooters,
-			refreshArrayShooters,
-			refreshArrayShooters,
-			refreshArrayShooters,
-			refreshArrayShooters,
-			refreshArrayShooters,
-			refreshArrayShooters,
-			refreshArrayShooters,
-			refreshArrayShooters,
+			boss3,
 			levelWavesOver
 		};
 	
