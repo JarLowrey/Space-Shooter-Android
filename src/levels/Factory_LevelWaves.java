@@ -228,6 +228,6 @@ public class Factory_LevelWaves extends Factory_Waves{
 			levelWavesOver
 		};
 	
-	final Runnable levels[][] ={level6,level7};
+	final Runnable levels[][] ={level7};
 	
 }

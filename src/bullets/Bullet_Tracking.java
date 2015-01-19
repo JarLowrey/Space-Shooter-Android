@@ -53,7 +53,7 @@ public abstract class Bullet_Tracking extends Bullet{
 				final float diff = bulletXMidPos - objectTrackingMidPoint;
     			
 				//if bullet is approximately at tracking destination, don't move it and set rotation to 0
-	    		if( Math.abs(diff) < shooter.getWidth() ){
+	    		if( Math.abs(diff) < viewTracking.getWidth()/2 ){
 	    			bullet.setSpeedX(Bullet.BULLET_TRAVELS_STRAIGHT);
 	    		}else{
 	    			trackingSpeed = -diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
