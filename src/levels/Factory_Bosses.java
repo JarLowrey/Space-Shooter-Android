@@ -61,7 +61,7 @@ public class Factory_Bosses{
 		}
 	};
 	
-	final Runnable boss1_missileAndDualLaser = new Runnable(){
+	final Runnable boss1 = new Runnable(){
 		@Override
 		public void run() {
 			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
@@ -74,18 +74,18 @@ public class Factory_Bosses{
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE*2,50) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5,50) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,5) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,95) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,95) );
 			
 			enemy.startShooting();
 			
 		}
 	};
 	
-	final Runnable boss2_threeTrackingShots = new Runnable(){
+	final Runnable boss2 = new Runnable(){
 		@Override
 		public void run() {
 			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1500,
@@ -98,11 +98,11 @@ public class Factory_Bosses{
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,5));
+					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5));
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,50));
+					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,50));
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,95));
+					1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,95));
 			
 			enemy.startShooting();
 		}
@@ -123,24 +123,24 @@ public class Factory_Bosses{
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic_LaserShort(),
 					5000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					10,
 					Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
 			enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic_LaserShort(),
 					5000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					90,
 					Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
 			enemy.addGun(new Gun_SingleShotStraight(ctx,enemy,
 					new Bullet_Tracking_Missile( getInteractivityInterface().getProtagonist(), enemy),
 					5000, 
-					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5,
 					50));
 			
 			enemy.startShooting();

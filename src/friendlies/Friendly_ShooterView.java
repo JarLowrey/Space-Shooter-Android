@@ -55,11 +55,14 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 
 	@Override
 	public void removeGameObject(){		
-		stopShooting();
+		stopShooting();			
 		myBullets=new ArrayList<BulletView>();
+		for(Gun gun : myGuns){
+			gun.destroyGun();
+		}
 		myGuns=new ArrayList<Gun>();
 		
-		super.removeGameObject();//needs to be called last for all pending callbacks to 'this' to be removed
+		super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks	
 	}
 	/**
 	 * define the different levels of guns protagonist may have

@@ -40,7 +40,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 					freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,50);
 			this.addGun(defaultGun);
 			this.startShooting();
-		}
+		} 
  
 		/**
 		 * To be called on implementation of onRemoveGameObject
@@ -50,9 +50,12 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		public void removeGameObject(){
 			stopShooting();			
 			myBullets=new ArrayList<BulletView>();
+			for(Gun gun : myGuns){
+				gun.destroyGun();
+			}
 			myGuns=new ArrayList<Gun>();
 			
-			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks			
+			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks		
 		}
 		
 		@Override

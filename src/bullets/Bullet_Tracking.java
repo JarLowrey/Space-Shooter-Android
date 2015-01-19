@@ -5,7 +5,6 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import parents.MovingView;
-
 import support.ConditionalHandler;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -20,10 +19,12 @@ public abstract class Bullet_Tracking extends Bullet{
 	private double trackingSpeed;
 	private MovingView viewTracking;
 	private Shooter shooter;
+	protected ArrayList<BulletView> myTrackingBullets;
 	
 	
 	public Bullet_Tracking(double trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
 		
+		myTrackingBullets= new ArrayList<BulletView>();
 		shooter = shooterWithTrackingBullets;
 		final double trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
 		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED * 
@@ -34,6 +35,7 @@ public abstract class Bullet_Tracking extends Bullet{
 	
 	public Bullet_Tracking(MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
 		
+		myTrackingBullets= new ArrayList<BulletView>();
 		shooter = shooterWithTrackingBullets;
 		trackingSpeed = DEFAULT_TRACKING_SPEED;
 		
@@ -46,9 +48,7 @@ public abstract class Bullet_Tracking extends Bullet{
         public void run() {
     		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
     		
-			ArrayList<BulletView> bullets = shooter.getMyBullets();
-			
-			for(BulletView bullet : bullets){
+			for(BulletView bullet : myTrackingBullets){
 	    		final float bulletXMidPos = (2 * bullet.getX()+bullet.getWidth() ) / 2; 
 				final float diff = bulletXMidPos - objectTrackingMidPoint;
     			
@@ -69,9 +69,12 @@ public abstract class Bullet_Tracking extends Bullet{
     	}
 	};
 
-	public void stopBulletThreads(){
+	@Override
+	public void removeBulletType(){
 		shooter.removeCallbacks(trackingRunnable);
+		for(int i=myTrackingBullets.size()-1;i>=0;i--){
+			myTrackingBullets.remove(i);
+		}
 	}
-		
-		
+	
 }

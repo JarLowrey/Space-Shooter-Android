@@ -16,8 +16,8 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 			DEFAULT_BULLET_FREQ_INTERVAL=1250,
 			NUM_DIVE_BOMBER_COLUMNS=5;
 	
-	public final static double DEFAULT_SPEED_Y=1.5,
-			DEFAULT_SPEED_X=3,
+	public final static double DEFAULT_SPEED_Y=1.5*MainActivity.getScreenDens(),
+			DEFAULT_SPEED_X=3*MainActivity.getScreenDens(),
 			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
 	
@@ -26,7 +26,7 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 		
 		//override parent's default values
 		this.setScoreValue(DEFAULT_SCORE);
-		this.setSpeedX(DEFAULT_SPEED_X*MainActivity.getScreenDens());
+		this.setSpeedX(DEFAULT_SPEED_X);
 		this.setSpeedY(DEFAULT_SPEED_Y);
 		this.heal(DEFAULT_HEALTH);
 		this.setProbSpawnBeneficialObjectOnDeath(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH);
@@ -39,12 +39,12 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 	
 	
 	public Shooting_Diagonal_DiveBomberView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, double probSpawnBeneficialObjecyUponDeath,
+			double health, double probSpawnBeneficialObjectUponDeath,
 			int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health,
-				 probSpawnBeneficialObjecyUponDeath, width, height, imageId);
-		
+				 probSpawnBeneficialObjectUponDeath, width, height, imageId);
+
 		init();
 	}
 	

@@ -93,5 +93,13 @@ public abstract class Gun {
 	public void setBulletDamage(double newDamage) {
 		bulletDamage = newDamage;
 	}
+	
+	public void destroyGun(){
+		myBulletType.removeBulletType();
+		ctx=null;
+		shooter=null;
+		myBulletType=null;
+		
+	}
 
 }

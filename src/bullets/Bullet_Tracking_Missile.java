@@ -27,6 +27,9 @@ public class Bullet_Tracking_Missile extends Bullet_Tracking{
 		 
 		BulletView bullet = new BulletView(context,shooter, width, height, bulletSpeedY, bulletDamage,width,height,backgroundId);
 
+		myTrackingBullets.add(bullet);
+		
+		
 		return bullet;
 	}	
 }
