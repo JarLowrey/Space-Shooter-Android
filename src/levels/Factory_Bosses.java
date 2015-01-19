@@ -3,7 +3,6 @@ package levels;
 import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
-import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 import bullets.Bullet_Tracking_Missile;
@@ -68,6 +67,30 @@ public class Factory_Bosses{
 					Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
 					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
 					Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y,
+					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
+					(int) ctx.getResources().getDimension(R.dimen.boss1_height),
+					R.drawable.ship_enemy_boss1);
+			
+			enemy.removeAllGuns();
+			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5,50) );
+			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5) );
+			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,95) );
+			
+			enemy.startShooting();
+			
+		}
+	};
+	
+	final Runnable boss1_1 = new Runnable(){
+		@Override
+		public void run() {
+			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
+					Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
+					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
+					0,
 					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss1_height),
 					R.drawable.ship_enemy_boss1);

@@ -18,6 +18,6 @@ public class FriendlyView extends Moving_ProjectileView{
 
 	@Override
 	public void removeGameObject() {
-		deaultCleanupOnRemoval();//needs to be called last for all pending callbacks to 'this' to be removed
+		deaultCleanupOnRemoval(true);//needs to be called last for all pending callbacks to 'this' to be removed
 	}
 }

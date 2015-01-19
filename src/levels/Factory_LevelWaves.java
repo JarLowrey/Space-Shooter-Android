@@ -224,7 +224,17 @@ public class Factory_LevelWaves extends Factory_Waves{
 		};
 	
 	final Runnable[] level7 = {
-			boss3,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			doNothing,
+			doNothing,
+			doNothing,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			doNothing,
+			boss1_1,
 			levelWavesOver
 		};
 	

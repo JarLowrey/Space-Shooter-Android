@@ -53,7 +53,7 @@ public class EnemyView extends Projectile_GravityView{
 		if(!passed){Log.d("lowrey","this should very rarely be printed.");}
 
 		numRemoved++;
-		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
+		this.deaultCleanupOnRemoval(true);//needs to be the last thing called for handler to remove all callbacks
 	}
 	
 	public void setProbSpawnBeneficialObjectOnDeath(double prob){

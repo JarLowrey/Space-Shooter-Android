@@ -3,7 +3,6 @@ package parents;
 import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
  *
  */
 public abstract class MovingView extends ImageView implements MovingViewInterface{
-private static int num=0;
+
 	public static final int HOW_OFTEN_TO_MOVE=100,
 			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
 			NOT_DEAD=-1;
@@ -104,15 +104,12 @@ private static int num=0;
 		}
 		
 		if(outOfScreen){
-			num++;
-			Log.d("lowrey","outofscreen"+num);
 			this.removeGameObject();
 		}
 		
 		return outOfScreen;
 	}
 
-	 
 	public void setSpeedX(double newSpeed){
 		this.speedX=newSpeed;
 	}
@@ -132,14 +129,27 @@ private static int num=0;
 		return this.speedY;
 	}
 	public abstract void removeGameObject();
-	
+	 
 	/**
 	 * To be called on every implementation of removeGameObject();
 	 */
-	protected void deaultCleanupOnRemoval(){
+	protected void deaultCleanupOnRemoval(boolean showExplosion){
 		isRemoved=true;
-		this.removeCallbacks(null);
-		ViewGroup parent = (ViewGroup)this.getParent();
-		if(parent!=null){parent.removeView(this);}		
+		this.removeCallbacks(null);	
+		
+		if(showExplosion){
+			this.setImageResource(R.drawable.explosion1);
+			this.postDelayed(new Runnable(){
+				@Override
+				public void run() {
+					ViewGroup parent = (ViewGroup)MovingView.this.getParent();
+					if(parent!=null){parent.removeView(MovingView.this);}
+				}
+			},300);	
+		}else{
+			ViewGroup parent = (ViewGroup)MovingView.this.getParent();
+			if(parent!=null){parent.removeView(MovingView.this);}		
+		}
 	}
+		
 }
