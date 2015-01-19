@@ -1,8 +1,9 @@
 package parents;
 
-import interfaces.MovingViewInterface;
 import interfaces.GameActivityInterface;
+import interfaces.MovingViewInterface;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,7 +18,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
  *
  */
 public abstract class MovingView extends ImageView implements MovingViewInterface{
-
+private static int num=0;
 	public static final int HOW_OFTEN_TO_MOVE=100,
 			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
 			NOT_DEAD=-1;
@@ -80,7 +81,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 			break;
 		case DOWN:
 			y+=Math.abs(speedY);
-			outOfScreen=y > GameActivity.offscreenBottom;
+			outOfScreen=y > GameActivity.getBottomScreen();
 			this.setY(y);
 			break;
 		//move in X direction at speed X, move right if speed X positive and left otherwise
@@ -103,14 +104,15 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		}
 		
 		if(outOfScreen){
+			num++;
+			Log.d("lowrey","outofscreen"+num);
 			this.removeGameObject();
 		}
 		
 		return outOfScreen;
 	}
 
-	
-	
+	 
 	public void setSpeedX(double newSpeed){
 		this.speedX=newSpeed;
 	}

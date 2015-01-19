@@ -26,13 +26,13 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 		
 		//override parent's default values
 		this.setScoreValue(DEFAULT_SCORE);
-		this.setSpeedX(DEFAULT_SPEED_X);
+		this.setSpeedX(DEFAULT_SPEED_X*MainActivity.getScreenDens());
 		this.setSpeedY(DEFAULT_SPEED_Y);
 		this.heal(DEFAULT_HEALTH);
 		this.setProbSpawnBeneficialObjectOnDeath(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH);
 		this.setLayoutParams(new RelativeLayout.LayoutParams((int)context.getResources().getDimension(R.dimen.ship_dive_bomber_width),
 				(int)context.getResources().getDimension(R.dimen.ship_dive_bomber_height)));
-		this.setBackgroundResource(DEFAULT_BACKGROUND);
+		this.setImageResource(DEFAULT_BACKGROUND);
 		
 		init();
 	}

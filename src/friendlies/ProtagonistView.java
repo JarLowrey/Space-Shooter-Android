@@ -148,7 +148,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 			break;
 		case Moving_ProjectileView.DOWN:
 			y+=this.getSpeedY();
-			if(y < ( GameActivity.offscreenBottom - this.getHeight() ) ){this.setY(y);}			
+			if(y < ( GameActivity.getBottomScreen() - this.getHeight() ) ){this.setY(y);}			
 			break;		
 		}
 		return false;

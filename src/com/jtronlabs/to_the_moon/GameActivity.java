@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnTouchListener, GameActivityInterface{
 
-	public static int offscreenBottom;
+	private static int offscreenBottom;
 	
 	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
@@ -116,6 +116,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		    } 
 		});
 		*/
+	}
+	
+	public static int getBottomScreen(){
+		return offscreenBottom;
 	}
 	/**
 	 * Pause game. Eventually, state will need to be saved to database, as after on pause any

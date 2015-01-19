@@ -3,8 +3,10 @@ package levels;
 import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
+import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
+import bullets.Bullet_Tracking_Missile;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -14,9 +16,9 @@ import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_HorizontalLineView;
 import enemies_orbiters.Orbiter_RectangleView;
 import friendlies.ProtagonistView;
+import guns.Gun_SingleShotStraight;
 import guns.Gun_TrackingGattling;
 import guns.Gun_TrackingSingle;
-import guns.Gun_SingleShotStraight;
 
 /**
  * Create a default enemy using EnemyFactory class, then overwrite position, speed, damage size, background, guns, bullets, etc To make a boss
@@ -72,11 +74,11 @@ public class Factory_Bosses{
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE*2,0) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE*2,50) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,0) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,5) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,0) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,95) );
 			
 			enemy.startShooting();
 			
@@ -121,12 +123,25 @@ public class Factory_Bosses{
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
-					new Bullet_Basic_LaserShort(),
+					new Bullet_Basic_LaserLong(),
 					5000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
-					5,
+					10,
 					Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
+			enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
+					new Bullet_Basic_LaserLong(),
+					5000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+					90,
+					Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
+			enemy.addGun(new Gun_SingleShotStraight(ctx,enemy,
+					new Bullet_Tracking_Missile( getInteractivityInterface().getProtagonist(), enemy),
+					5000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+					50));
 			
 			enemy.startShooting();
 		}
