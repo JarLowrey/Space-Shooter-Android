@@ -18,7 +18,7 @@ public class Bullet_Tracking_Missile extends Bullet_Tracking{
 		super(viewToTrack,shooterWithTrackingBullets);
 	}
 	
-	public BulletView getBullet(Context context, Shooter shooter,double bulletSpeedY,double bulletDamage){
+	public BulletView getBullet(Context context, Shooter shooter,float bulletSpeedY,int bulletDamage){
 
 		final int width=(int) context.getResources().getDimension(R.dimen.missile_one_width);
 		final int height=(int) context.getResources().getDimension(R.dimen.missile_one_height);

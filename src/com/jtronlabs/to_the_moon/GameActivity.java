@@ -16,6 +16,7 @@ import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,18 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	private static int offscreenBottom;
 	
+	private static final String GAME_STATE_PREFS = "GameStatePrefs",
+			STATE_HEALTH="health",
+			STATE_RESOURCES="resources",
+			STATE_GUN_CONFIG="gunConfig",
+			STATE_BULLET_FREQ_LEVEL="bulletFreqLevel",
+			STATE_BULLET_DAMAGE_LEVEL="bulletDamageLevel",
+			STATE_BULLET_SPEED_LEVEL="bulletSpeedLevel",
+			STATE_RESOURCE_MULTIPLIER_LEVEL="resourceMultLevel",
+			STATE_FRIEND_LEVEL="friendLevel",
+			STATE_LEVEL="level",
+			STATE_WAVE="wave";
+	
 	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
@@ -45,9 +58,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	//MODEL
 	private LevelSystem levelCreator;
-	
-	private final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
-			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -131,16 +141,53 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			LevelSystem.bonuses.get(i).removeGameObject();
 		}
 		levelCreator.pauseLevel();
+		
+		//save game state
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		SharedPreferences.Editor editor = gameState.edit();
+
+		editor.putInt(STATE_HEALTH,protagonist.getHealth());
+		editor.putInt(STATE_GUN_CONFIG,protagonist.getGunLevel());
+		editor.putInt(STATE_BULLET_FREQ_LEVEL,protagonist.getBulletBulletFreqLevel());
+		editor.putInt(STATE_BULLET_DAMAGE_LEVEL,protagonist.getBulletDamageLevel());
+		editor.putInt(STATE_BULLET_SPEED_LEVEL,protagonist.getBulletSpeedYLevel());
+		editor.putInt(STATE_RESOURCES,levelCreator.getScore());
+		editor.putInt(STATE_LEVEL,levelCreator.getLevel());
+		editor.putInt(STATE_WAVE,levelCreator.getWaveNumber());
+
+		editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL,0);
+		editor.putInt(STATE_FRIEND_LEVEL,0);
+		
+		editor.commit();
     }
 	
 	@Override
 	public void onResume(){
 		super.onResume(); 
 		
-        for(FriendlyView friendly : LevelSystem.friendlies){
-        	friendly.restartThreads();
-        }
-        
+		//load game state
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		final int level = gameState.getInt(STATE_LEVEL, 0);
+		if(level== 0){
+			
+		}else{
+			levelCreator.setLevel(level);
+			levelCreator.setWave(gameState.getInt(STATE_WAVE, 0));
+			levelCreator.setScore(gameState.getInt(STATE_RESOURCES,0));
+			protagonist.setGunConfig(gameState.getInt(STATE_GUN_CONFIG,0));
+			protagonist.setBulletDamageLevel(gameState.getInt(STATE_BULLET_DAMAGE_LEVEL, 0));
+			protagonist.setBulletSpeedLevel(gameState.getInt(STATE_BULLET_SPEED_LEVEL, 0));
+			protagonist.setBulletFreqLevel(gameState.getInt(STATE_BULLET_FREQ_LEVEL, 0));
+			protagonist.createGunSet();
+			
+		}
+		
+		
+		
+//        for(FriendlyView friendly : LevelSystem.friendlies){
+//        	friendly.restartThreads();
+//        }
+//        
         if(levelCreator.isLevelPaused()){levelCreator.resumeLevel();}
         
 		//set up protagonist
@@ -243,25 +290,25 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					
 					break;
 				case R.id.btn_heal:
-					confirmUpgradeDialog(UPGRADE_HEAL);
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_HEAL);
 					break;
 				case R.id.btn_inc_bullet_dmg:
-					confirmUpgradeDialog(UPGRADE_BULLET_DAMAGE);					
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_DAMAGE);					
 					break;
 				case R.id.btn_inc_bullet_freq:
-					confirmUpgradeDialog(UPGRADE_BULLET_FREQ);
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_FREQ);
 					break;
 				case R.id.btn_inc_bullet_speed:
-					confirmUpgradeDialog(UPGRADE_BULLET_SPEED);					
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_SPEED);					
 					break;
 				case R.id.btn_inc_score_weight:
-					confirmUpgradeDialog(UPGRADE_SCORE_MULTIPLIER);
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_SCORE_MULTIPLIER);
 					break;
 				case R.id.btn_new_gun:
-					confirmUpgradeDialog(UPGRADE_GUN);					
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_GUN);					
 					break;
 				case R.id.btn_purchase_friend:
-					confirmUpgradeDialog(UPGRADE_FRIEND);
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_FRIEND);
 					break;
 				case R.id.start_next_level: 
 					if(levelCreator.getLevel()==1 && protagonist.getGunLevel()==0){
@@ -296,31 +343,31 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		try{
 			switch(whichUpgrade){
-			case UPGRADE_BULLET_DAMAGE:
+			case ProtagonistView.UPGRADE_BULLET_DAMAGE:
 				cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
 				break;
-			case UPGRADE_BULLET_SPEED:
+			case ProtagonistView.UPGRADE_BULLET_SPEED:
 				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_speed_base_cost) * Math.pow((protagonist.getBulletSpeedYLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
 				break;
-			case UPGRADE_BULLET_FREQ:
+			case ProtagonistView.UPGRADE_BULLET_FREQ:
 				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * Math.pow((protagonist.getBulletBulletFreqLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
 				break;
-			case UPGRADE_GUN:
+			case ProtagonistView.UPGRADE_GUN:
 				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()] ;
 				msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()];
 				break;
-			case UPGRADE_FRIEND:
+			case ProtagonistView.UPGRADE_FRIEND:
 				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
 				msg=this.getResources().getString(R.string.upgrade_buy_friend);
 				break;
-			case UPGRADE_SCORE_MULTIPLIER:
+			case ProtagonistView.UPGRADE_SCORE_MULTIPLIER:
 				cost = this.getResources().getInteger(R.integer.score_multiplier_base_cost) ;
 				msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
 				break;
-			case UPGRADE_HEAL:
+			case ProtagonistView.UPGRADE_HEAL:
 				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel()) ;
 				msg=this.getResources().getString(R.string.upgrade_heal);
 				break;
@@ -342,7 +389,16 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	        	if(!maxLevelItemCopy){ 
-	        		applyUpgrade(whichUpgrade,costCopy); 
+	        		if(costCopy<levelCreator.getScore()){
+		        		protagonist.applyUpgrade(whichUpgrade);
+		        		
+		        		levelCreator.setScore(levelCreator.getScore()-costCopy);
+		    			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getScore()));	 
+		    			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();       			
+	        		}else{
+	        			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
+	        		}
+	        		dialog.cancel(); 
         		}else{
         			dialog.cancel();
         		}
@@ -352,42 +408,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	     .show();
 	}
 	
-	private void applyUpgrade(final int whichUpgrade,int cost){
-		boolean upgraded = levelCreator.getScore() >= cost;
-
-		switch(whichUpgrade){
-		case UPGRADE_BULLET_DAMAGE:
-			if(upgraded){ protagonist.incrementBulletDamageLevel(); }
-			break;
-		case UPGRADE_BULLET_SPEED:
-			if(upgraded){protagonist.incrementBulletSpeedYLevel();}
-			break;
-		case UPGRADE_BULLET_FREQ:
-			if(upgraded){protagonist.incrementBulletFreqLevel();}
-			break;
-		case UPGRADE_GUN:
-			if(upgraded){protagonist.upgradeGun();}			//NEED TO DEFINE GUN UPGRADE
-			break;
-		case UPGRADE_FRIEND:
-//			if(upgraded){protagonist.incrementBulletFreqWeight();}		//NO FRIEND CAPABILITY YET
-			break;
-		case UPGRADE_SCORE_MULTIPLIER:
-//			if(upgraded){protagonist.incrementBulletFreqWeight();}		//NO SCORE MULT YET
-			break;
-		case UPGRADE_HEAL:
-			if(upgraded){ protagonist.heal(protagonist.getMaxHealth() - protagonist.getHealth()); }
-			break;
-		}
-		
-		if(upgraded){
-			if(whichUpgrade==UPGRADE_GUN){btnShoot.setVisibility(View.VISIBLE);}//on first upgraded gun, set shoot to visible. this can be removed later but currently applies on every upgrade
-			levelCreator.decrementScore(cost);
-			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getScore()));
-			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();
-		}else{
-			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
-		}
-	} 
 	@Override
 	public ProtagonistView getProtagonist() {
 		return this.protagonist;
@@ -415,12 +435,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public ImageView getExhaust(){
 		return this.rocketExhaust;
 	}
-	
-//	@Override
-//	public boolean onLongClick(View arg0) {
-//		if(arg0.getId()==R.id.btn_shoot){
-//			protagonist.startShooting();
-//		}
-//		return false;
-//	}
+
+	@Override
+	public void setScore(int score) {
+		levelCreator.setScore(score);		
+	}
+	@Override
+	public void incrementScore(int score){
+		levelCreator.setScore(levelCreator.getScore()+score);
+	}
 }

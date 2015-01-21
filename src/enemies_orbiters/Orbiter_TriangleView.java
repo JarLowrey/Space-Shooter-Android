@@ -28,8 +28,8 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	}
 	
 
-	public Orbiter_TriangleView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health,double probSpawnBeneficialObjecyUponDeath,
+	public Orbiter_TriangleView(Context context,int score,float speedY, float speedX,int collisionDamage, 
+			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitLength, int orbitPixelX, int orbitPixelY,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health, probSpawnBeneficialObjecyUponDeath, 

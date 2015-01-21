@@ -14,6 +14,6 @@ public abstract class Bullet{
 	
 	public abstract void removeBulletType();
 	
-	public abstract BulletView getBullet(Context context,Shooter shooter,double bulletSpeedY,double bulletDamage);
+	public abstract BulletView getBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage);
 	
 }

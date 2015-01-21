@@ -1,5 +1,6 @@
 package enemies;
 
+import interfaces.GameActivityInterface;
 import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.content.Context;
@@ -13,9 +14,9 @@ public class EnemyView extends Projectile_GravityView{
 	private int score;
 	private double probSpawnBeneficialObject;
 	
-	public EnemyView(Context context,int scoreForKilling,double projectileSpeedY,
-			double projectileSpeedX, 
-			double projectileDamage,double projectileHealth,double probSpawnBeneficialObjectUponDeath,int width,int height,int imageId) {
+	public EnemyView(Context context,int scoreForKilling,float projectileSpeedY,
+			float projectileSpeedX, 
+			int projectileDamage,int projectileHealth,float probSpawnBeneficialObjectUponDeath,int width,int height,int imageId) {
 		super( context, projectileSpeedY, projectileSpeedX, 
 				 projectileDamage, projectileHealth, width, height, imageId);
 		
@@ -37,7 +38,7 @@ public class EnemyView extends Projectile_GravityView{
 	@Override
 	public void removeGameObject(){
 		if(this.getHealth()<=0){//died
-			LevelSystem.incrementScore(this.getScoreForKilling());
+			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
 			
 			if(Math.random()<probSpawnBeneficialObject){//check for random bonus
 				final float xAvg = (2 * this.getX()+this.getWidth())/2;
@@ -47,7 +48,7 @@ public class EnemyView extends Projectile_GravityView{
 			}
 		}
 		else {//fallen offscreen
-			LevelSystem.incrementScore(this.getScoreForKilling()/3);
+			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
 		}
 		boolean passed = LevelSystem.enemies.remove(this);
 		if(!passed){Log.d("lowrey","this should very rarely be printed.");}

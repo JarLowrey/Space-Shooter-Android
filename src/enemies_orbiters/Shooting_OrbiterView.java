@@ -16,10 +16,10 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	public final static int DEFAULT_SCORE=100, 
 			DEFAULT_ORBIT_Y = (int) (MainActivity.getHeightPixels()/3);
 	
-	public final static double DEFAULT_SPEED_Y=5,
+	public final static float DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,
-			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*8,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
+	public final static int	DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*8;
 		
 	private boolean hasBegunOrbiting=false;
 	protected int howManyTimesMoved;
@@ -52,9 +52,9 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		this.setX(orbitX);
 		
 	}
-	public Shooting_OrbiterView(Context context,int scoreForKilling,double speedY, double speedX,double collisionDamage, 
-			double health, 
-			double probSpawnBeneficialObjecyUponDeath,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
+	public Shooting_OrbiterView(Context context,int scoreForKilling,float speedY, float speedX,int collisionDamage, 
+			int health, 
+			float probSpawnBeneficialObjecyUponDeath,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
 		super(context, scoreForKilling, speedY,
 				speedX, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, width, height, imageId);
 

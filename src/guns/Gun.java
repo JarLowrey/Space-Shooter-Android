@@ -27,8 +27,8 @@ public abstract class Gun {
 	Context ctx;
 	
 
-	protected double bulletFreq,bulletSpeedY,bulletSpeedX,bulletDamage;
-	protected int posOnShooter;
+	protected float bulletFreq,bulletSpeedY,bulletSpeedX;
+	protected int bulletDamage,posOnShooter;
 	
 	private Runnable shootingRunnable = new Runnable(){
 		  	@Override
@@ -39,7 +39,7 @@ public abstract class Gun {
 			};
 	
 	public Gun(Context context,Shooter theShooter,Bullet bulletType,
-			double bulletFrequency,double bulletSpeedVertical,double bulletDmg,int positionOnShooterAsAPercentage) {
+			float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
 		ctx=context;
 		
 		posOnShooter=positionOnShooterAsAPercentage;
@@ -82,15 +82,15 @@ public abstract class Gun {
 		return bulletFreq;
 	}
 	
-	public void setBulletFreq(double freq) {
+	public void setBulletFreq(float freq) {
 		bulletFreq=freq;
 	}
 
-	public void setBulletSpeedY(double newSpeed) {
+	public void setBulletSpeedY(float newSpeed) {
 		bulletSpeedY=newSpeed;
 	}
 
-	public void setBulletDamage(double newDamage) {
+	public void setBulletDamage(int newDamage) {
 		bulletDamage = newDamage;
 	}
 	

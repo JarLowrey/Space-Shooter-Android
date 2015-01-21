@@ -2,11 +2,11 @@ package bonuses;
 
 import interfaces.MovingViewInterface;
 import interfaces.Shooter;
-import levels.LevelSystem;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import interfaces.GameActivityInterface;
 
 import com.jtronlabs.to_the_moon.R;
 
@@ -25,6 +25,6 @@ public class Bonus_ScoreView extends BonusView implements MovingViewInterface{
 	}
 	
 	public void applyBenefit(Shooter theBenefitter){
-		LevelSystem.incrementScore(500);
+		((GameActivityInterface) this.getContext()).incrementScore(500);
 	}
 }

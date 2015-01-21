@@ -12,8 +12,8 @@ import com.jtronlabs.to_the_moon.MainActivity;
 public abstract class Gun_Tracking extends Gun{
 
 	public Gun_Tracking(Context context, Shooter theShooter, Bullet bulletType,
-			double bulletFrequency, double bulletSpeedVertical,
-			double bulletDmg, int positionOnShooterAsAPercentage) {
+			float bulletFrequency, float bulletSpeedVertical,
+			int bulletDmg, int positionOnShooterAsAPercentage) {
 		super(context, theShooter, bulletType, bulletFrequency, bulletSpeedVertical,
 				bulletDmg, positionOnShooterAsAPercentage);
 	}

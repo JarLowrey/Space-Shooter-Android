@@ -14,10 +14,11 @@ import bullets.Bullet_Basic_LaserShort;
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 
-		public static final double DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/15,
-				DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
-				DEFAULT_BULLET_SPEED_Y=5,
+		public static final float DEFAULT_BULLET_SPEED_Y=5,
 				DEFAULT_BULLET_FREQ=2000;
+		
+		public static final int DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/15,
+				DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10;
 				
 		//myGun needs to be set in a specific View's class
 		private ArrayList<Gun> myGuns;
@@ -25,8 +26,8 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 		private boolean isShooting=true;
 		
-		public Enemy_ShooterView(Context context,int scoreForKilling, double projectileSpeedY,double projectileSpeedX, 
-				double projectileDamage,double projectileHealth,double probSpawnBeneficialObject,int width,int height,int imageId) {
+		public Enemy_ShooterView(Context context,int scoreForKilling, float projectileSpeedY,float projectileSpeedX, 
+				int projectileDamage,int projectileHealth,float probSpawnBeneficialObject,int width,int height,int imageId) {
 			super(context,scoreForKilling,projectileSpeedY,projectileSpeedX,
 					projectileDamage,projectileHealth,probSpawnBeneficialObject, width, height, imageId);
 
@@ -35,7 +36,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			
 
 			//add a default gun
-			final double freq = DEFAULT_BULLET_FREQ + Math.random() * 10 * DEFAULT_BULLET_FREQ;
+			final float freq = (float) (DEFAULT_BULLET_FREQ + Math.random() * 10 * DEFAULT_BULLET_FREQ);
 			Gun defaultGun = new Gun_SingleShotStraight(context, this, new Bullet_Basic_LaserShort(),
 					freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,50);
 			this.addGun(defaultGun);

@@ -16,12 +16,12 @@ public class Orbiter_HorizontalLineView extends Shooting_OrbiterView implements 
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_horizontal_line;
 
 	public final static int DEFAULT_SCORE=100,
-			DEFAULT_BULLET_FREQ_INTERVAL=1000;
-	public final static double DEFAULT_SPEED_Y=5,
-			DEFAULT_SPEED_X=5,
 			DEFAULT_COLLISION_DAMAGE=20, 
 			DEFAULT_HEALTH=300,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
+			DEFAULT_BULLET_FREQ_INTERVAL=1000;
+	public final static float DEFAULT_SPEED_Y=5,
+			DEFAULT_SPEED_X=5,
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 
 	public Orbiter_HorizontalLineView(Context context) {
 		super(context, DEFAULT_SCORE, 
@@ -31,8 +31,8 @@ public class Orbiter_HorizontalLineView extends Shooting_OrbiterView implements 
 		init(DEFAULT_ORBIT_Y);
 	}
 	
-	public Orbiter_HorizontalLineView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, double probSpawnBeneficialObjecyUponDeath,
+	public Orbiter_HorizontalLineView(Context context,int score,float speedY, float speedX,int collisionDamage, 
+			int health, float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelY,int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health,

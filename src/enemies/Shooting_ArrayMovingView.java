@@ -20,10 +20,10 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	
 	public static final boolean DEFAULT_STAGGERED=true;
 	
-	public final static double DEFAULT_SPEED_Y=3,
+	public final static float DEFAULT_SPEED_Y=3,
 			DEFAULT_SPEED_X=3,
-			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.05,
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .05;
+	public static final int DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
 	
 

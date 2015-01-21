@@ -15,12 +15,12 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 	public static int DEFAULT_NUM_GATTLING_SHOTS=10;
 	
 	private int currentNumShots,cutoffTotalShots;
-	private double originalBulletFreq;
+	private float originalBulletFreq;
 	private Moving_ProjectileView shootTowardsMe;
 	
 	public Gun_TrackingGattling(Context context,Moving_ProjectileView shootingAtMe,Shooter theShooter,
-			Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,
-			double bulletDmg,int positionOnShooterAsAPercentage,
+			Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,
+			int bulletDmg,int positionOnShooterAsAPercentage,
 			int numGattlingShots) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg,positionOnShooterAsAPercentage);
 		

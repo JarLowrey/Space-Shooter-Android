@@ -24,7 +24,7 @@ public class LevelSystem extends Factory_LevelWaves{
 	CollisionDetector gameDetector;
 	
 
-	private static int score;
+	private int score;
 	public static ArrayList<BackgroundView> backgroundViews=new ArrayList<BackgroundView>();
 	public static ArrayList<BulletView> friendlyBullets=new ArrayList<BulletView>();
 	public static ArrayList<BulletView> enemyBullets=new ArrayList<BulletView>();
@@ -112,15 +112,21 @@ public class LevelSystem extends Factory_LevelWaves{
 	public void notifyLevelWavesCompleted(){
 		levelWavesCompleted=true;
 	}
+	public int getWaveNumber(){
+		return this.currentProgressInLevel;
+	}
+	public void setWave(int wave){
+		this.currentProgressInLevel=wave;
+	}
+	public void setLevel(int level){
+		this.currentLevel=level;
+	}
 	
 	//SCORE
-	public static void incrementScore(int howMuchToIncrementScore){
-		score+=Math.abs(howMuchToIncrementScore);
+	public void setScore(int scoreValue){
+		score=scoreValue;
 	}
-	public static void decrementScore(int howMuchToDecrementScore){
-		score-=Math.abs(howMuchToDecrementScore);
-	}
-	public static int getScore(){
+	public int getScore(){
 		return score;
 	}
 	
@@ -128,6 +134,8 @@ public class LevelSystem extends Factory_LevelWaves{
 		return this.conditionalHandler;
 	}
 	
+	
+	//Background Animations and effects
 	private final int[] backgroundColors={R.color.blue,R.color.dark_blue,R.color.very_dark_blue};
 	
 	private void createBackgroundEffects(){

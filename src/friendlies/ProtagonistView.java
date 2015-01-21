@@ -18,6 +18,9 @@ import com.jtronlabs.to_the_moon.R;
 public class ProtagonistView extends Friendly_ShooterView{
 	
 	public static final int HOW_OFTEN_TO_MOVE_ROCKET=50;
+
+	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
+			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
 	
 	GameActivityInterface myGame;
 	private boolean isMoving;
@@ -73,7 +76,7 @@ public class ProtagonistView extends Friendly_ShooterView{
     };
 	
 	@Override
-	public void heal(double howMuchHealed){
+	public void heal(int howMuchHealed){
 		super.heal(howMuchHealed);
 		myGame.setHealthBar();
 	}
@@ -110,7 +113,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 //	}
 	
 	@Override 
-	public boolean takeDamage(double howMuchDamage){
+	public boolean takeDamage(int howMuchDamage){
 		boolean isDead = super.takeDamage(howMuchDamage);
 //		if(isDead){//not working, but functional if put in the collision detection
 //			myGame.gameOver();
@@ -163,6 +166,32 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	public boolean isMoving(){
 		return isMoving;
+	}
+	
+	public void applyUpgrade(final int whichUpgrade){
+		switch(whichUpgrade){
+		case UPGRADE_BULLET_DAMAGE:
+			incrementBulletDamageLevel();
+			break;
+		case UPGRADE_BULLET_SPEED:
+			incrementBulletSpeedYLevel();
+			break;
+		case UPGRADE_BULLET_FREQ:
+			incrementBulletFreqLevel();
+			break;
+		case UPGRADE_GUN:
+			upgradeGun();		//NEED TO DEFINE GUN UPGRADE
+			break;
+		case UPGRADE_FRIEND:
+//			incrementBulletFreqWeight();		//NO FRIEND CAPABILITY YET
+			break;
+		case UPGRADE_SCORE_MULTIPLIER:
+//			incrementBulletFreqWeight();		//NO SCORE MULT YET
+			break;
+		case UPGRADE_HEAL:
+			heal(getMaxHealth() - getHealth()); 
+			break;
+		}
 	}
 	
 //	@Override

@@ -39,10 +39,10 @@ public class CollisionDetector {
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
 	            
         	}else{
-        		if( myLevelSystem.getLevel() == myLevelSystem.highestLevel() ){
-        			myLevelSystem.getInteractivityInterface().beatGame();
-        		}else if(myLevelSystem.getInteractivityInterface().getProtagonist().getHealth() <=0 ){
+        		if(myLevelSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
         			myLevelSystem.getInteractivityInterface().gameOver();
+        		}else if( myLevelSystem.getLevel() == myLevelSystem.highestLevel() ){
+        			myLevelSystem.getInteractivityInterface().beatGame();
         		}else{ 
         			myLevelSystem.getInteractivityInterface().openStore();
         		}

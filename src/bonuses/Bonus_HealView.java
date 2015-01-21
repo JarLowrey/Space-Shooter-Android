@@ -24,7 +24,7 @@ public class Bonus_HealView extends BonusView implements MovingViewInterface{
 	}
 	
 	public void applyBenefit(Shooter theBenefitter){
-		final double amtToHeal = theBenefitter.getMaxHealth()/6;
+		final int amtToHeal = theBenefitter.getMaxHealth()/6;
 		
 		if(theBenefitter.getHealth()+amtToHeal<theBenefitter.getMaxHealth()){
 			theBenefitter.heal(amtToHeal);

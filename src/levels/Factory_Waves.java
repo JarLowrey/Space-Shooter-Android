@@ -170,8 +170,7 @@ public class Factory_Waves extends Factory_Bosses{
 				final int currentShip = numSpawned % numCirclesOnScreen ;
 				final int width  = (int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width);
 				final int radius= (int)( MainActivity.getWidthPixels()/numCirclesOnScreen-width ) / 2;
-				final int orbitX= ( width/2 ) * (2*currentShip)+radius * (2*currentShip +1);
-//				if(currentShip!=0){orbitX= ( (orbitX+width) * (currentShip+2) );}
+				final int orbitX= ( width/2 ) * (2*currentShip) + radius * (2*currentShip +1);
 				final int orbitY=Orbiter_CircleView.DEFAULT_ORBIT_Y;
 				
 				new Orbiter_CircleView(ctx,Orbiter_CircleView.DEFAULT_SCORE,Orbiter_CircleView.DEFAULT_SPEED_Y,
@@ -181,9 +180,7 @@ public class Factory_Waves extends Factory_Bosses{
 						width, 
 						(int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height),
 						Orbiter_CircleView.DEFAULT_BACKGROUND,radius,10);
-				
-//				new Orbiter_CircleView(ctx);
-				
+								
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){

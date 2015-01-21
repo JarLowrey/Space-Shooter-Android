@@ -33,9 +33,9 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		init(width,height);
 	}
 	
-	public Orbiter_CircleView(Context context,int score,double speedY, 
-			double speedX,double collisionDamage, 
-			double health,double probSpawnBeneficialObjecyUponDeath,
+	public Orbiter_CircleView(Context context,int score,float speedY, 
+			float speedX,int collisionDamage, 
+			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,
 			int circularRadius,int angVelocity) {
 		super(context, score,speedY, speedX,

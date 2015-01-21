@@ -10,6 +10,8 @@ public interface GameActivityInterface {
 	public void gameOver();
 	public void beatGame();
 	public void setHealthBar();
+	public void setScore(int score);
+	public void incrementScore(int score);
 	public ProtagonistView getProtagonist();
 	
 	public void changeGameBackground(int newBackgroundId);

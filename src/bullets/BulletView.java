@@ -43,7 +43,7 @@ public class BulletView extends Moving_ProjectileView{
 	};
 	
 	public BulletView(Context context,Shooter shooter,
-			int bulletWidth, int bulletHeight,double bulletSpeedY,double bulletDamage,int width,int height,int imageId) {
+			int bulletWidth, int bulletHeight,float bulletSpeedY,int bulletDamage,int width,int height,int imageId) {
 		super(context,bulletSpeedY,
 				DEFAULT_HORIZONTAL_SPEED ,bulletDamage,1, width, height, imageId);
 	

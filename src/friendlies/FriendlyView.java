@@ -6,9 +6,9 @@ import android.content.Context;
 
 public class FriendlyView extends Moving_ProjectileView{
 	
-	public FriendlyView(Context context,double projectileSpeedY
-			,double projectileSpeedX, 
-			double projectileDamage,double projectileHealth,int width,int height,int imageId) {
+	public FriendlyView(Context context,float projectileSpeedY
+			,float projectileSpeedX, 
+			int projectileDamage,int projectileHealth,int width,int height,int imageId) {
 		super( context, projectileSpeedY,projectileSpeedX, 
 				 projectileDamage, projectileHealth, width, height, imageId);
 		

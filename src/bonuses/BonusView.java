@@ -10,14 +10,10 @@ import com.jtronlabs.to_the_moon.R;
 public abstract class BonusView extends Moving_GravityView {
 
 	public final static int DEFAULT_SPEED_Y=4;
-	Context ctx;
-	
 	
 	public BonusView(Context context,float positionX,float positionY) {
 		super(context,DEFAULT_SPEED_Y,0,(int) context.getResources().getDimension(R.dimen.bonus_background_len),
 				(int)context.getResources().getDimension(R.dimen.bonus_background_len),0);	//children classes will set image resource
-		
-		ctx = context;
 		
 		//set background and position
 		this.setBackgroundResource(R.drawable.white_center_red_outline);

@@ -9,7 +9,7 @@ import bullets.BulletView;
 public class Gun_SingleShotStraight extends Gun {
 	
 	public Gun_SingleShotStraight(Context context,Shooter theShooter,
-			Bullet bulletType,double bulletFrequency,double bulletSpeedVertical,double bulletDmg,int positionOnShooterAsAPercentage) {
+			Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg,positionOnShooterAsAPercentage);
 	}
 	

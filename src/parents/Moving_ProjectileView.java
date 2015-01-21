@@ -14,10 +14,11 @@ import com.jtronlabs.to_the_moon.R;
  */
 public abstract class Moving_ProjectileView extends MovingView implements Projectile{
 
-	double speedX, damage, health,maxHealth;
+	float speedX;
+	int damage, health,maxHealth;
 	
-	public Moving_ProjectileView(Context context,double movingSpeedY,double movingSpeedX,double projectileDamage,
-			double projectileHealth,int width,int height,int imageId) {
+	public Moving_ProjectileView(Context context,float movingSpeedY,float movingSpeedX,int projectileDamage,
+			int projectileHealth,int width,int height,int imageId) {
 		super(context, movingSpeedY, movingSpeedX, width, height, imageId);	
 
 		damage=projectileDamage;
@@ -31,7 +32,7 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 	 * @param amountOfDamage-how much the view's health should be subtracted
 	 * @return True if thi dies
 	 */
-	public boolean takeDamage(double amountOfDamage){		
+	public boolean takeDamage(int amountOfDamage){		
 		boolean dies= false;
 		health-=amountOfDamage;
 		
@@ -53,26 +54,29 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 		return dies;
 	}
 	
-	public void heal(double howMuchHealed){
+	public void heal(int howMuchHealed){
 		health+=Math.abs(howMuchHealed);
 		if(health>maxHealth){
 			maxHealth=health;
 		}
 	}
-	
 	//SET METHODS
-	public void setDamage(double newDamage){
+	public void setDamage(int newDamage){
 		damage=newDamage;
 	}
+	public void setHealth(int healthValue){
+		this.health=healthValue;
+	}
+	
 	
 	//GET METHODS
-	public double getHealth(){
+	public int getHealth(){
 		return health;
 	}
-	public double getMaxHealth(){
+	public int getMaxHealth(){
 		return maxHealth;
 	}
-	public double getDamage(){
+	public int getDamage(){
 		return damage;
 	}
 

@@ -55,7 +55,7 @@ public class Factory_Bosses{
 			
 			//make more powerful
 			enemy.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );
-			enemy.heal(ProtagonistView.DEFAULT_BULLET_DAMAGE*3.5);
+			enemy.heal((int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*3.5));
 			enemy.setScoreValue(100);
 		}
 	};
@@ -73,7 +73,7 @@ public class Factory_Bosses{
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5,50) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, (int) (Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5),50) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
 					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
@@ -97,7 +97,7 @@ public class Factory_Bosses{
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
-					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5,50) );
+					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, (int) (Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5),50) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
 					2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
@@ -163,7 +163,7 @@ public class Factory_Bosses{
 					new Bullet_Tracking_Missile( getInteractivityInterface().getProtagonist(), enemy),
 					5000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
-					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5,
+					(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
 					50));
 			
 			enemy.startShooting();

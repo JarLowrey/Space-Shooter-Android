@@ -12,14 +12,14 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 	
 
 	public static final int DEFAULT_SCORE=100,
+			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_dive_bomber,
 			DEFAULT_BULLET_FREQ_INTERVAL=1250,
 			NUM_DIVE_BOMBER_COLUMNS=5;
 	
-	public final static double DEFAULT_SPEED_Y=1.5*MainActivity.getScreenDens(),
+	public final static float DEFAULT_SPEED_Y=(float) (1.5*MainActivity.getScreenDens()),
 			DEFAULT_SPEED_X=3*MainActivity.getScreenDens(),
-			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.1;
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .1;
 	
 	public Shooting_Diagonal_DiveBomberView(Context context) {
 		super(context);
@@ -38,8 +38,8 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 	}
 	
 	
-	public Shooting_Diagonal_DiveBomberView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, double probSpawnBeneficialObjectUponDeath,
+	public Shooting_Diagonal_DiveBomberView(Context context,int score,float speedY, float speedX,int collisionDamage, 
+			int health, float probSpawnBeneficialObjectUponDeath,
 			int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health,

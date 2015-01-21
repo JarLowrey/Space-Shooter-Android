@@ -12,13 +12,13 @@ import friendlies.ProtagonistView;
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	public final static int DEFAULT_SCORE=10,
-			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,
-			DEFAULT_BULLET_FREQ_INTERVAL=1500;
-	public final static double DEFAULT_SPEED_Y=1.8,
-			DEFAULT_SPEED_X=5,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*3,
-			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=.08;
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,
+			DEFAULT_BULLET_FREQ_INTERVAL=1500;
+	public final static float DEFAULT_SPEED_Y=(float) 1.8,
+			DEFAULT_SPEED_X=5,
+			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10;
 	
@@ -61,8 +61,8 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		init((int)context.getResources().getDimension(R.dimen.ship_diagonal_width));		
 	}
 	
-	public Shooting_DiagonalMovingView(Context context,int score,double speedY, double speedX,double collisionDamage, 
-			double health, double probSpawnBeneficialObjecyUponDeath,
+	public Shooting_DiagonalMovingView(Context context,int score,float speedY, float speedX,int collisionDamage, 
+			int health, float probSpawnBeneficialObjecyUponDeath,
 			int width,int height,int imageId) {
 		super(context, score,speedY, speedX,
 				collisionDamage, health,
