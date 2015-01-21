@@ -90,7 +90,7 @@ public class Factory_Bosses{
 			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
 					Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
 					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
-					0,
+					(int)(Math.random() * Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y),//CHANGE ORBIT Y LOCATION 
 					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss1_height),
 					R.drawable.ship_enemy_boss1);

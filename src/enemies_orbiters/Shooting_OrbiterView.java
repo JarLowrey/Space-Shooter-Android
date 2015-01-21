@@ -13,7 +13,8 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	//NEEDS TO BE INSTANTIATED IN CHILD CLASS
 	public Runnable orbitingRunnable;
 	
-	public final static int DEFAULT_SCORE=100;
+	public final static int DEFAULT_SCORE=100, 
+			DEFAULT_ORBIT_Y = (int) (MainActivity.getHeightPixels()/3);
 	
 	public final static double DEFAULT_SPEED_Y=5,
 			DEFAULT_SPEED_X=5,
@@ -46,7 +47,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
 		//defeault orbit location
 		orbitX=(int) (MainActivity.getWidthPixels()/2-width/2);
-		orbitY=(int) (MainActivity.getHeightPixels()/3);
+		orbitY=DEFAULT_ORBIT_Y;
 		
 		this.setX(orbitX);
 		

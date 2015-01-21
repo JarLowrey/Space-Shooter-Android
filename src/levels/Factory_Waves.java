@@ -4,6 +4,7 @@ import support.ConditionalHandler;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_DiagonalMovingView;
 import enemies.Shooting_Diagonal_DiveBomberView;
@@ -159,13 +160,30 @@ public class Factory_Waves extends Factory_Bosses{
 	}
 
 	
-	public final void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+	//orbiters
+	public final void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn,final int numCirclesOnScreen){
 		conditionalHandler.postIfLevelResumed(new Runnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void run() {
-				new Orbiter_CircleView(ctx);
+				final int currentShip = numSpawned % numCirclesOnScreen ;
+				final int width  = (int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width);
+				final int radius= (int)( MainActivity.getWidthPixels()/numCirclesOnScreen-width ) / 2;
+				final int orbitX= ( width/2 ) * (2*currentShip)+radius * (2*currentShip +1);
+//				if(currentShip!=0){orbitX= ( (orbitX+width) * (currentShip+2) );}
+				final int orbitY=Orbiter_CircleView.DEFAULT_ORBIT_Y;
+				
+				new Orbiter_CircleView(ctx,Orbiter_CircleView.DEFAULT_SCORE,Orbiter_CircleView.DEFAULT_SPEED_Y,
+						Orbiter_CircleView.DEFAULT_SPEED_X,Orbiter_CircleView.DEFAULT_COLLISION_DAMAGE,
+						Orbiter_CircleView.DEFAULT_HEALTH,Orbiter_CircleView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+						orbitX,orbitY,
+						width, 
+						(int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height),
+						Orbiter_CircleView.DEFAULT_BACKGROUND,radius,10);
+				
+//				new Orbiter_CircleView(ctx);
+				
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){

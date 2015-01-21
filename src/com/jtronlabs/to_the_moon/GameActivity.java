@@ -97,11 +97,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
 		offscreenBottom = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
 		
-		//set up protagonist
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
-		protagonist.setY( protagonistPosition );
-		
 		//set up the game
 		levelCreator = new LevelSystem(this); 
 		levelCreator.startNextLevel();
@@ -147,6 +142,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
         }
         
         if(levelCreator.isLevelPaused()){levelCreator.resumeLevel();}
+        
+		//set up protagonist
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		protagonist.setY( protagonistPosition );
 	}
 	
 	public void gameOver(){
