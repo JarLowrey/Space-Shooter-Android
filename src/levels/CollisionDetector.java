@@ -10,10 +10,10 @@ import friendlies.FriendlyView;
 
 public class CollisionDetector {
 	
-	private LevelSystem myLevelSystem;
+	private LevelSystem levelingSystem;
 	
 	public CollisionDetector(LevelSystem aLevelSystem){
-		myLevelSystem=aLevelSystem;
+		levelingSystem=aLevelSystem;
 	}
 	private Handler gameHandler = new Handler();
     private Runnable collisionDetectionRunnable = new Runnable() { 
@@ -21,8 +21,8 @@ public class CollisionDetector {
         @Override
         public void run() {
         	 
-        	if( myLevelSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
-        			( ! myLevelSystem.isLevelPaused() && ! myLevelSystem.areLevelWavesCompleted() 
+        	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
+        			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted() 
         			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0 ) ){
         		
         		try{
@@ -39,12 +39,14 @@ public class CollisionDetector {
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
 	            
         	}else{
-        		if(myLevelSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
-        			myLevelSystem.getInteractivityInterface().gameOver();
-        		}else if( myLevelSystem.getLevel() == myLevelSystem.highestLevel() ){
-        			myLevelSystem.getInteractivityInterface().beatGame();
+        		if(levelingSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
+        			levelingSystem.getInteractivityInterface().gameOver();
+        		}else if( levelingSystem.getLevel() == levelingSystem.getMaxLevel() ){
+        			levelingSystem.getInteractivityInterface().beatGame();
         		}else{ 
-        			myLevelSystem.getInteractivityInterface().openStore();
+        			levelingSystem.setWave(0);
+        			levelingSystem.incrementLevel();
+        			levelingSystem.getInteractivityInterface().openStore();
         		}
         	}
         } 

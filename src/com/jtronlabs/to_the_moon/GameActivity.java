@@ -35,7 +35,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	private static int offscreenBottom;
 	
-	private static final String GAME_STATE_PREFS = "GameStatePrefs",
+	public static final String GAME_STATE_PREFS = "GameStatePrefs",
 			STATE_HEALTH="health",
 			STATE_RESOURCES="resources",
 			STATE_GUN_CONFIG="gunConfig",
@@ -58,6 +58,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	//MODEL
 	private LevelSystem levelCreator;
+	private boolean gameOver;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		//set up the game
 		levelCreator = new LevelSystem(this); 
-		levelCreator.startNextLevel();
+		gameOver=false;
 		
 		/*
 		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to perform actions after layouts have been loaded
@@ -133,71 +134,42 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
     public void onPause() {
         super.onPause();
-
-		for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
-			LevelSystem.enemies.get(i).removeGameObject();
-		}
-		for(int i=LevelSystem.bonuses.size()-1;i>=0;i--){ 
-			LevelSystem.bonuses.get(i).removeGameObject();
-		}
-		levelCreator.pauseLevel();
 		
 		//save game state
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 
-		editor.putInt(STATE_HEALTH,protagonist.getHealth());
-		editor.putInt(STATE_GUN_CONFIG,protagonist.getGunLevel());
-		editor.putInt(STATE_BULLET_FREQ_LEVEL,protagonist.getBulletBulletFreqLevel());
-		editor.putInt(STATE_BULLET_DAMAGE_LEVEL,protagonist.getBulletDamageLevel());
-		editor.putInt(STATE_BULLET_SPEED_LEVEL,protagonist.getBulletSpeedYLevel());
+		final int health = (gameOver) ? ProtagonistView.DEFAULT_HEALTH : protagonist.getHealth();
+		editor.putInt(STATE_HEALTH,health);
 		editor.putInt(STATE_RESOURCES,levelCreator.getScore());
 		editor.putInt(STATE_LEVEL,levelCreator.getLevel());
 		editor.putInt(STATE_WAVE,levelCreator.getWaveNumber());
-
-		editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL,0);
-		editor.putInt(STATE_FRIEND_LEVEL,0);
 		
 		editor.commit();
+		
+		levelCreator.pauseLevel();
     }
 	
 	@Override
 	public void onResume(){
 		super.onResume(); 
-		
-		//load game state
+
+		//load game state::
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
-		final int level = gameState.getInt(STATE_LEVEL, 0);
-		if(level== 0){
-			
-		}else{
-			levelCreator.setLevel(level);
-			levelCreator.setWave(gameState.getInt(STATE_WAVE, 0));
-			levelCreator.setScore(gameState.getInt(STATE_RESOURCES,0));
-			protagonist.setGunConfig(gameState.getInt(STATE_GUN_CONFIG,0));
-			protagonist.setBulletDamageLevel(gameState.getInt(STATE_BULLET_DAMAGE_LEVEL, 0));
-			protagonist.setBulletSpeedLevel(gameState.getInt(STATE_BULLET_SPEED_LEVEL, 0));
-			protagonist.setBulletFreqLevel(gameState.getInt(STATE_BULLET_FREQ_LEVEL, 0));
-			protagonist.createGunSet();
-			
-		}
+		//restore level state
+		levelCreator.setLevel(gameState.getInt(STATE_LEVEL, 0));
+		levelCreator.setWave(gameState.getInt(STATE_WAVE, 0));
+		levelCreator.setScore(gameState.getInt(STATE_RESOURCES,0));
 		
+		generateProtagonist(); 
 		
-		
-//        for(FriendlyView friendly : LevelSystem.friendlies){
-//        	friendly.restartThreads();
-//        }
-//        
-        if(levelCreator.isLevelPaused()){levelCreator.resumeLevel();}
-        
-		//set up protagonist
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
-		protagonist.setY( protagonistPosition );
+		//set the level
+		levelCreator.resumeLevel();
 	}
 	
 	public void gameOver(){
 		Log.d("lowrey","num enemies spawned="+EnemyView.numSpawn+" died="+EnemyView.numRemoved);
+		gameOver=true;
 		levelCreator.pauseLevel();
 		healthBar.setProgress(0);
 		
@@ -215,20 +187,26 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void beatGame(){
+		gameOver=true;
+		levelCreator.incrementLevel();
 		Toast.makeText(this, "winner winner chicken dinner", Toast.LENGTH_LONG).show();
 		finish();
 	}
 	
 	public void openStore(){
-		storeLayout.setVisibility(View.VISIBLE);
+		levelCreator.pauseLevel();
 		gameLayout.setVisibility(View.GONE);
+		storeLayout.setVisibility(View.VISIBLE);
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getScore()));
 	}
 	
 	private void closeStoreAndStartNextLevel(){
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
-		levelCreator.startNextLevel();
+		
+		generateProtagonist();
+		levelCreator.incrementLevel();
+		levelCreator.resumeLevel();
 	}
 
 	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
@@ -406,6 +384,20 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	     })
 //	    .setIcon(android.R.drawable.ic_dialog_alert)
 	     .show();
+	}
+	
+	public void generateProtagonist(){
+		//load game state ::
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+
+		//create protagonist
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		protagonist.setY( protagonistPosition );
+
+		//restore protagonist's state
+		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
+		protagonist.createGunSet();//needs to be called after setting any dmg,freq,config, etc values. Done automatically when upgrading  
 	}
 	
 	@Override

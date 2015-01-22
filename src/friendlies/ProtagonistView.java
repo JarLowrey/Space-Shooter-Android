@@ -7,6 +7,7 @@ import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
@@ -80,18 +81,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 		super.heal(howMuchHealed);
 		myGame.setHealthBar();
 	}
-	
-//	private boolean canBeginShooting=true;
-	
-//	@Override
-//	public void startShooting(){
-//
-////		if(canBeginShooting){
-//			super.startShooting();
-////		}	
-////		canBeginShooting=false;
-//	}
-//	
 
 	@Override
 	public void startShooting() {
@@ -169,35 +158,39 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	
 	public void applyUpgrade(final int whichUpgrade){
+		SharedPreferences gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		SharedPreferences.Editor editor = gameState.edit();
+		
 		switch(whichUpgrade){
 		case UPGRADE_BULLET_DAMAGE:
-			incrementBulletDamageLevel();
+			final int gunDmg = gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0);
+			editor.putInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, gunDmg+1);
 			break;
 		case UPGRADE_BULLET_SPEED:
-			incrementBulletSpeedYLevel();
+			final int gunSpd = gameState.getInt(GameActivity.STATE_BULLET_SPEED_LEVEL, 0);
+			editor.putInt(GameActivity.STATE_BULLET_SPEED_LEVEL, gunSpd+1);
 			break;
 		case UPGRADE_BULLET_FREQ:
-			incrementBulletFreqLevel();
+			final int gunFreq = gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
+			editor.putInt(GameActivity.STATE_BULLET_FREQ_LEVEL, gunFreq+1);
 			break;
 		case UPGRADE_GUN:
-			upgradeGun();		//NEED TO DEFINE GUN UPGRADE
+			final int gunSet = gameState.getInt(GameActivity.STATE_GUN_CONFIG, 0);
+			editor.putInt(GameActivity.STATE_GUN_CONFIG, gunSet+1);
 			break;
 		case UPGRADE_FRIEND:
-//			incrementBulletFreqWeight();		//NO FRIEND CAPABILITY YET
+			final int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0);
+			editor.putInt(GameActivity.STATE_FRIEND_LEVEL, friendLvl+1);
 			break;
 		case UPGRADE_SCORE_MULTIPLIER:
-//			incrementBulletFreqWeight();		//NO SCORE MULT YET
+			final int resourceLvl = gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
+			editor.putInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, resourceLvl+1);
 			break;
 		case UPGRADE_HEAL:
-			heal(getMaxHealth() - getHealth()); 
+			editor.putInt(GameActivity.STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH);
 			break;
 		}
+		
+		editor.commit();
 	}
-	
-//	@Override
-//	public void removeGameObject() {
-//		//no additional cleanup currently needed
-//		super.removeGameObject();
-//	}
-	
 }

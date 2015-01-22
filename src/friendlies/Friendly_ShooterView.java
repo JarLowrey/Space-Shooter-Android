@@ -8,11 +8,13 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import bullets.BulletView;
 import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 
+import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
@@ -78,6 +80,13 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	
 	public void createGunSet(){
 		this.removeAllGuns();
+
+		//load state from preferences
+		SharedPreferences gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		setGunConfig(gameState.getInt(GameActivity.STATE_GUN_CONFIG,0));
+		setBulletDamageLevel(gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0));
+		setBulletSpeedLevel(gameState.getInt(GameActivity.STATE_BULLET_SPEED_LEVEL, 0));
+		setBulletFreqLevel(gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0));
 		
 		final float freq = getShootingDelay();
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + bulletDamageLevel * BULLET_DAMAGE_WEIGHT);
@@ -99,7 +108,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
 			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
 			break;
-		case 5:
+		default:
 			Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),freq,speed,dmg,50) ;
 			Gun gun2 = new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_Missile(),freq,speed,dmg,50) ;
 			this.addGun(gun1);
@@ -108,20 +117,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		}		
 	}
 	
-	public void incrementBulletSpeedYLevel(){
-		bullletVerticalSpeedLevel++;
-		createGunSet();
-	}
-	public void incrementBulletFreqLevel(){
-		bulletFreqLevel++;
-		createGunSet();
-	}
-
-	public void incrementBulletDamageLevel(){
-		bulletDamageLevel++;
-		createGunSet();
-	}
-
 	public void setGunConfig(int gunConfig){
 		currentGunConfiguration=gunConfig;
 	}

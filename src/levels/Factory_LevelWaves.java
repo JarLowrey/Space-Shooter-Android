@@ -11,14 +11,22 @@ public class Factory_LevelWaves extends Factory_Waves{
 
 	public int DEFAULT_WAVE_DURATION=5000;
 	
-	protected int currentProgressInLevel;
+	protected int currentWave;
 	
 	public Factory_LevelWaves(Context context){
 		super( context );
 	}
 	
-	private int getCurrentLevelLength(){
+	private int getCurrentLevelLengthMilliseconds(){
 		return levels[currentLevel].length*DEFAULT_WAVE_DURATION;
+	}
+	
+	public int getNumWavesInLevel(int level){
+		if(level>=0 && level<levels.length){
+			return levels[level].length;			
+		}else{
+			return 0;		
+		}
 	}
 	
 	
@@ -42,22 +50,22 @@ public class Factory_LevelWaves extends Factory_Waves{
 	final Runnable meteorSidewaysForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			spawnSidewaysMeteorsWave( getCurrentLevelLength() /2000 ,2000);
-			currentProgressInLevel++;
+			spawnSidewaysMeteorsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
+			currentWave++;
 		}
 	};
 	final Runnable meteorsStraightForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
-			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLength() /2000 ,2000);
-			currentProgressInLevel++;
+			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
+			currentWave++;
 		}
 	};
 	final Runnable meteorSidewaysThisWave = new Runnable(){
 		@Override
 		public void run() {
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};	
 	
@@ -66,7 +74,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 		@Override
 		public void run() {
 			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 	final Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
@@ -79,7 +87,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			
 			spawnMeteorShower(numMeteors,400,true);
 			spawnMeteorShower(numMeteors,400,false);
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 	final Runnable meteorShowersThatForceUserToRight = new Runnable(){
@@ -88,7 +96,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 	final Runnable meteorShowersThatForceUserToLeft = new Runnable(){
@@ -97,7 +105,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,false);
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 
@@ -107,14 +115,14 @@ public class Factory_LevelWaves extends Factory_Waves{
 		public void run() {
 			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 	final Runnable meteorsOnlyGiants = new Runnable(){
 		@Override
 		public void run() {
 			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 	
@@ -127,7 +135,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 			for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
 				new Shooting_ArrayMovingView(ctx);
 			}
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 	
@@ -136,7 +144,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 		@Override
 		public void run() {
 			spawnDiveBomberWave(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
-			currentProgressInLevel++;
+			currentWave++;
 		}
 	};
 	

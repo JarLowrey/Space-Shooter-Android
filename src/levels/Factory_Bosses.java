@@ -25,7 +25,7 @@ import guns.Gun_TrackingSingle;
  *
  */
 public class Factory_Bosses{
-	protected int currentLevel=0;
+	protected int currentLevel;
 	protected Context ctx;
 	
 	//GET methods
