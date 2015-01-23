@@ -8,7 +8,7 @@ import bullets.BulletView;
 
 public  class Gun_AngledDualShot extends Gun {
 	
-	private static final double DEFAULT_ANGLE=40;
+	private static final float DEFAULT_ANGLE=40;
 	
 	public Gun_AngledDualShot(Context context,
 			Shooter theShooter,Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
@@ -16,7 +16,7 @@ public  class Gun_AngledDualShot extends Gun {
 	}
 	public boolean shoot(){
 		//travel horizontally at a speed such that the bullets will move in DEFAULT_ANGLE direction
-		double bulletSpeedX = bulletSpeedY * Math.tan(Math.toRadians(DEFAULT_ANGLE));
+		float bulletSpeedX = (float) (bulletSpeedY * Math.tan(Math.toRadians(DEFAULT_ANGLE)));
 
 		//create left and right bullets
 		BulletView bulletLeft = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);

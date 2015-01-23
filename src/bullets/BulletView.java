@@ -84,10 +84,9 @@ public class BulletView extends Moving_ProjectileView{
 		float rotVal=0;
 		
 		
-		double 
-		arcTan = Math.atan(this.getSpeedX()/this.getMagnitudeOfSpeedY());
+		double arcTan = Math.atan(this.getSpeedX()/Math.abs(this.getSpeedY()) );
 		if( ! theOneWhoShotMe.isFriendly()){
-			arcTan = Math.atan(-this.getSpeedX()/this.getMagnitudeOfSpeedY());
+			arcTan = Math.atan(-this.getSpeedX()/Math.abs(this.getSpeedY()) );
 			arcTan+=Math.PI;//flip bullet image around so it is pointing downwards
 		}
 		rotVal = (float) Math.toDegrees(arcTan);
@@ -104,7 +103,7 @@ public class BulletView extends Moving_ProjectileView{
 			throw new IllegalArgumentException("Not a valid percentage");
 		}
 		final int bulletWidth = this.getLayoutParams().width;
-		final double posRelativeToShooter= theOneWhoShotMe.getWidth() * positionOnShooterAsAPercentageOfWidthFromTheLeftSide/100.0;
+		final float posRelativeToShooter= (float) (theOneWhoShotMe.getWidth() * positionOnShooterAsAPercentageOfWidthFromTheLeftSide/100.0);
 		final float middleOfBulletOnShootingPos = (float) (posRelativeToShooter+theOneWhoShotMe.getX()-bulletWidth/2.0);
 		this.setX(middleOfBulletOnShootingPos);
 	}

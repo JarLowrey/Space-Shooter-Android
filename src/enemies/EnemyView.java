@@ -38,7 +38,7 @@ public class EnemyView extends Projectile_GravityView{
 	@Override
 	public void removeGameObject(){
 		if(this.getHealth()<=0){//died
-			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
+			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling());
 			
 			if(Math.random()<probSpawnBeneficialObject){//check for random bonus
 				final float xAvg = (2 * this.getX()+this.getWidth())/2;
@@ -51,7 +51,7 @@ public class EnemyView extends Projectile_GravityView{
 			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
 		}
 		boolean passed = LevelSystem.enemies.remove(this);
-		if(!passed){Log.d("lowrey","this should very rarely be printed.");}
+//		if(!passed){Log.d("lowrey","this should very rarely be printed.");}
 
 		numRemoved++;
 		this.deaultCleanupOnRemoval(true);//needs to be the last thing called for handler to remove all callbacks

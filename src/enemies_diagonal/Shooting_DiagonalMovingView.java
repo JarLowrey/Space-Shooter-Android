@@ -1,4 +1,4 @@
-package enemies;
+package enemies_diagonal;
 
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
@@ -7,6 +7,7 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import enemies.Enemy_ShooterView;
 import friendlies.ProtagonistView;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
@@ -28,9 +29,9 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 
 		@Override
 		public void run() {		
-				final double rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
-				final double leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
-				double mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();
+				final float rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
+				final float leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
+				float mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();
 				
 				final boolean pastRightSide  = rightSideOfShip>=rightThreshold;
 				final boolean pastLeftSide = leftSideOfShip<=leftThreshold;
@@ -87,5 +88,10 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	public void restartThreads(){
 		ConditionalHandler.postIfAlive(moveDiagonalRunnable,HOW_OFTEN_TO_MOVE, this);
 		super.restartThreads();
+	}
+
+	@Override
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
 }

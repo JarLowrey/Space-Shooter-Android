@@ -18,11 +18,11 @@ public abstract class Gun_Tracking extends Gun{
 				bulletDmg, positionOnShooterAsAPercentage);
 	}
 
-	public static double MAX_X_SPEED=15*MainActivity.getScreenDens();
+	public static float MAX_X_SPEED=15*MainActivity.getScreenDens();
 	
-	protected double getTrackingXSpeed(Shooter shooter, Moving_ProjectileView shootTowardsMe,double bulletSpeedY){
+	protected float getTrackingXSpeed(Shooter shooter, Moving_ProjectileView shootTowardsMe,float bulletSpeedY){
 		
-		double bulletSpeedX=0;
+		float bulletSpeedX=0;
 		
 		//check if there is a target set
 		if(shootTowardsMe==null){
@@ -36,7 +36,7 @@ public abstract class Gun_Tracking extends Gun{
 		if(shootTowardsMe!=null){
 			
 			//find the absolute value of vertical distance between the shooter and shot at
-			double diffYAbs;
+			float diffYAbs;
 			if(shooter.isFriendly()){
 				diffYAbs = Math.abs(shooter.getY() - ( shootTowardsMe.getY()+shootTowardsMe.getHeight() ) );
 			}else{
@@ -45,7 +45,7 @@ public abstract class Gun_Tracking extends Gun{
 			
 			//find horizontal distance between middle of shooter to middle of ShotAt. 
 			//All spawned bullets will travel at same horizontal speed
-			final double diffX = ( shootTowardsMe.getX()*2 +shootTowardsMe.getWidth() )/2 - ( shooter.getX()*2 +shooter.getWidth() )/2;
+			final float diffX = ( shootTowardsMe.getX()*2 +shootTowardsMe.getWidth() )/2 - ( shooter.getX()*2 +shooter.getWidth() )/2;
 			
 			//set bulletSpeedX to bulletSpeedY scaled by the ratio of the differences of X/Y. 
 			//You are forming a similar triangle to the one formed by the differences

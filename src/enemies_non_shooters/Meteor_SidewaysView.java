@@ -8,8 +8,8 @@ import android.content.Context;
 
 public class Meteor_SidewaysView extends Gravity_MeteorView{
 	
-	public final static double DEFAULT_SPEED_Y=6*MainActivity.getScreenDens(),
-			DEFAULT_SPEED_X=6*MainActivity.getScreenDens();
+	public final static float DEFAULT_SPEED_Y=7*MainActivity.getScreenDens(),
+			DEFAULT_SPEED_X=(float) (1.5*MainActivity.getScreenDens());
 	
 	private Runnable moveSideways = new Runnable(){
 
@@ -24,7 +24,7 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 	public Meteor_SidewaysView(Context context) {
 		super(context);
 				
-		double speedX=DEFAULT_SPEED_X;
+		float speedX=DEFAULT_SPEED_X;
 		if(Math.random()<0.5){speedX *= -1;}
 		this.setSpeedX(speedX);
 		this.setSpeedY(DEFAULT_SPEED_Y);

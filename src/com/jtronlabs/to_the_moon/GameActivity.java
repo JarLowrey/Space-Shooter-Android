@@ -122,6 +122,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		    } 
 		});
 		*/
+		
+		//onResume() is called after onCreate, so needed setup is done there
 	}
 	
 	public static int getBottomScreen(){
@@ -139,11 +141,26 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 
-		final int health = (gameOver) ? ProtagonistView.DEFAULT_HEALTH : protagonist.getHealth();
-		editor.putInt(STATE_HEALTH,health);
-		editor.putInt(STATE_RESOURCES,levelCreator.getScore());
-		editor.putInt(STATE_LEVEL,levelCreator.getLevel());
-		editor.putInt(STATE_WAVE,levelCreator.getWaveNumber());
+		if(gameOver){//reset all persistent vars
+			editor.putInt(STATE_HEALTH,ProtagonistView.DEFAULT_HEALTH);
+			editor.putInt(STATE_RESOURCES, 0);
+			editor.putInt(STATE_GUN_CONFIG, -1);
+			editor.putInt(STATE_BULLET_DAMAGE_LEVEL, 0);
+			editor.putInt(STATE_BULLET_SPEED_LEVEL, 0);
+			editor.putInt(STATE_BULLET_FREQ_LEVEL, 0);
+			editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
+			editor.putInt(STATE_FRIEND_LEVEL, 0);
+			editor.putInt(STATE_LEVEL, 0);
+			editor.putInt(STATE_WAVE, 0);
+		}else{//save persistent vars
+			editor.putInt(STATE_HEALTH,protagonist.getHealth());
+			editor.putInt(STATE_RESOURCES, levelCreator.getScore());
+			editor.putInt(STATE_LEVEL, levelCreator.getLevel());
+			editor.putInt(STATE_WAVE, levelCreator.getWaveNumber());
+			
+			//upgrades are saved straight to persistent storage when bought (so does not need to be saved here).
+			//These var's are not, as they are used more often, and thus it is faster to use more volatile memory
+		}
 		
 		editor.commit();
 		
@@ -161,10 +178,18 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCreator.setWave(gameState.getInt(STATE_WAVE, 0));
 		levelCreator.setScore(gameState.getInt(STATE_RESOURCES,0));
 		
-		generateProtagonist(); 
+		//create protagonist & restore his state
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		protagonist.setY( protagonistPosition );
+		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
 		
 		//set the level
-		levelCreator.resumeLevel();
+		if(levelCreator.getWaveNumber()==0){
+			openStore();
+		}else{
+			levelCreator.resumeLevel();
+		}
 	}
 	
 	public void gameOver(){
@@ -194,7 +219,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void openStore(){
-		levelCreator.pauseLevel();
+		levelCreator.endLevel();
 		gameLayout.setVisibility(View.GONE);
 		storeLayout.setVisibility(View.VISIBLE);
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getScore()));
@@ -204,7 +229,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 		
-		generateProtagonist();
 		levelCreator.incrementLevel();
 		levelCreator.resumeLevel();
 	}
@@ -289,7 +313,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_FRIEND);
 					break;
 				case R.id.start_next_level: 
-					if(levelCreator.getLevel()==1 && protagonist.getGunLevel()==0){
+					if(levelCreator.getLevel()==1 && protagonist.getGunLevel() == -1){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
 							new AlertDialog.Builder(this)
@@ -334,8 +358,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
 				break;
 			case ProtagonistView.UPGRADE_GUN:
-				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()] ;
-				msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()];
+				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()+1] ;
+				msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()+1];
 				break;
 			case ProtagonistView.UPGRADE_FRIEND:
 				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
@@ -350,7 +374,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				msg=this.getResources().getString(R.string.upgrade_heal);
 				break;
 			}
-			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost with commas
+			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
 		}catch(IndexOutOfBoundsException e){//upgrade is past set bounds of the arrays.xml value
 			msg="Maximum upgrade attained";
 			maxLevelItem=true;
@@ -386,19 +410,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	     .show();
 	}
 	
-	public void generateProtagonist(){
-		//load game state ::
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
-
-		//create protagonist
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
-		protagonist.setY( protagonistPosition );
-
-		//restore protagonist's state
-		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
-		protagonist.createGunSet();//needs to be called after setting any dmg,freq,config, etc values. Done automatically when upgrading  
-	}
 	
 	@Override
 	public ProtagonistView getProtagonist() {

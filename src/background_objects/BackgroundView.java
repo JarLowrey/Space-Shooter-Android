@@ -9,8 +9,8 @@ import com.jtronlabs.to_the_moon.MainActivity;
 
 public class BackgroundView extends Moving_GravityView{
 
-	public BackgroundView(Context context, double movingSpeedY,
-			double movingSpeedX, int width, int height, int imageId) {
+	public BackgroundView(Context context, float movingSpeedY,
+			float movingSpeedX, int width, int height, int imageId) {
 		super(context, movingSpeedY, movingSpeedX, width, height, imageId);
 
 

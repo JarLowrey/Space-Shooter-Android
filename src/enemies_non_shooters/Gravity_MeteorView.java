@@ -14,7 +14,7 @@ public class Gravity_MeteorView extends EnemyView{
 	
 	public final static int DEFAULT_SCORE=20,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/25, 
-			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*1.5),
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE),
 			DEFAULT_BACKGROUND=R.drawable.meteor,
 			DEFAULT_ROTATION_SPEED=7;
 	public final static float DEFAULT_SPEED_Y=7,

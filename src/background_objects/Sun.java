@@ -11,7 +11,7 @@ public class Sun extends BackgroundView{
 	
 	public Sun(Context context) {
 		super(context, 
-				.1, 
+				(float) .1, 
 				0, 
 				(int) context.getResources().getDimension(R.dimen.sun_length), 
 				(int) context.getResources().getDimension(R.dimen.sun_length), 

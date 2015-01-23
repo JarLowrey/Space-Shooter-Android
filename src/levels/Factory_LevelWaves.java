@@ -154,7 +154,7 @@ public class Factory_LevelWaves extends Factory_Waves{
 	final Runnable circlesThreeOrbiters = new Runnable(){
 		@Override
 		public void run() {
-			spawnCircularOrbiterWave(8,500,1);
+			spawnCircularOrbiterWave(6,500,3);
 		}		
 	};
 	//levels defined in terms of 5second  waves
@@ -233,9 +233,12 @@ public class Factory_LevelWaves extends Factory_Waves{
 	
 	final Runnable[] level7 = {
 			circlesThreeOrbiters,
+			boss1_1,
+			boss1_1,
+			boss1_1,
 			levelWavesOver
 		};
 	
-	final Runnable levels[][] ={level7};
+	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6,level7};
 	
 }

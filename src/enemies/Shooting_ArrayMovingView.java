@@ -133,6 +133,10 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		return numCols*numRows;
 	}
 
+	@Override
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 10* DEFAULT_BULLET_FREQ * Math.random());
+	}
 	/**
 	 * Reset all static variables for this class
 	 * @param numberRows-the array of shooter will have this many rows

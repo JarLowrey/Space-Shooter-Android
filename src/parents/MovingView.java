@@ -24,9 +24,9 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 			NOT_DEAD=-1;
 
 	boolean isRemoved;
-	double speedY,speedX;
+	float speedY,speedX;
 	
-	public MovingView(Context context,double movingSpeedY,double movingSpeedX,int width,int height,int imageId) {
+	public MovingView(Context context,float movingSpeedY,float movingSpeedX,int width,int height,int imageId) {
 		super(context);
 
 		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
@@ -110,22 +110,19 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		return outOfScreen;
 	}
 
-	public void setSpeedX(double newSpeed){
+	public void setSpeedX(float newSpeed){
 		this.speedX=newSpeed;
 	}
-	public double getSpeedX(){
+	public float getSpeedX(){
 		return speedX;
 	}
 	public boolean isRemoved(){
 		return isRemoved;
 	}
-	public double getMagnitudeOfSpeedY(){
-		return speedY;
-	}
-	public void setSpeedY(double newSpeed){
+	public void setSpeedY(float newSpeed){
 		this.speedY=newSpeed;
 	}
-	public double getSpeedY(){
+	public float getSpeedY(){
 		return this.speedY;
 	}
 	public abstract void removeGameObject();

@@ -36,13 +36,13 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			
 
 			//add a default gun
-			final float freq = (float) (DEFAULT_BULLET_FREQ + Math.random() * 10 * DEFAULT_BULLET_FREQ);
 			Gun defaultGun = new Gun_SingleShotStraight(context, this, new Bullet_Basic_LaserShort(),
-					freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,50);
+					getShootingFreq(), DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,50);
 			this.addGun(defaultGun);
 			this.startShooting();
 		} 
  
+		public abstract float getShootingFreq();
 		/**
 		 * To be called on implementation of onRemoveGameObject
 		 * NEW BEHAVIOR = drop references to guns and bullets

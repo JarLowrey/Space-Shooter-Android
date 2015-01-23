@@ -23,7 +23,7 @@ public class Bird extends BackgroundView{
    	};
    	
        public Bird(Context context) {
-		super(context, 3, -Math.random()*5-7, 
+		super(context, 3, (float) (-Math.random()*5-7), 
 				(int) ( 30*MainActivity.getScreenDens() ), 
 				(int) ( 30*MainActivity.getScreenDens() ), 
 				0);

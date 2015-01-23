@@ -6,8 +6,8 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import enemies.Shooting_DiagonalMovingView;
-import enemies.Shooting_Diagonal_DiveBomberView;
+import enemies_diagonal.Shooting_DiagonalMovingView;
+import enemies_diagonal.Shooting_Diagonal_DiveBomberView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;

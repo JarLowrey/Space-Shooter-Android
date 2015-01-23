@@ -1,4 +1,4 @@
-package enemies;
+package enemies_diagonal;
 
 import android.content.Context;
 import android.widget.RelativeLayout;
@@ -28,7 +28,7 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 		this.setScoreValue(DEFAULT_SCORE);
 		this.setSpeedX(DEFAULT_SPEED_X);
 		this.setSpeedY(DEFAULT_SPEED_Y);
-		this.heal(DEFAULT_HEALTH);
+		this.setHealth(DEFAULT_HEALTH);
 		this.setProbSpawnBeneficialObjectOnDeath(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH);
 		this.setLayoutParams(new RelativeLayout.LayoutParams((int)context.getResources().getDimension(R.dimen.ship_dive_bomber_width),
 				(int)context.getResources().getDimension(R.dimen.ship_dive_bomber_height)));
@@ -59,5 +59,10 @@ public class Shooting_Diagonal_DiveBomberView extends Shooting_DiagonalMovingVie
 		leftThreshold=this.getSpeedX()+myColPos*shipXInterval;//farthest ship can move left is up to the boundary of the column it is in
 		rightThreshold=(myColPos+1)*shipXInterval-this.getWidth()-this.getSpeedX();//farthest ship can move right is up to irs right side being at the right side of the column it is in
 			
+	}
+	
+	@Override
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
 }

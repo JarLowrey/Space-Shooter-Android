@@ -30,7 +30,7 @@ public class Factory_Bosses{
 	
 	//GET methods
 	public  int getLevel(){
-		return currentLevel+1;
+		return currentLevel;
 	}
 
 	public GameActivityInterface getInteractivityInterface(){
@@ -65,7 +65,7 @@ public class Factory_Bosses{
 		public void run() {
 			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
 					Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
-					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
+					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,ProtagonistView.DEFAULT_BULLET_DAMAGE*10,50,
 					Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y,
 					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss1_height),
@@ -89,7 +89,7 @@ public class Factory_Bosses{
 		public void run() {
 			Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
 					Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
-					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
+					Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,ProtagonistView.DEFAULT_BULLET_DAMAGE*10,50,
 					(int)(Math.random() * Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y),//CHANGE ORBIT Y LOCATION 
 					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss1_height),

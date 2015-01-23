@@ -79,4 +79,9 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		this.removeCallbacks(orbitingRunnable);
 	}
 
+	@Override
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
+	}
+	
 }

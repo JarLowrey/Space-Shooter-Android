@@ -45,12 +45,7 @@ public class LevelSystem extends Factory_LevelWaves{
 		currentWave=0;
 	}
 	
-	public void resumeLevel(){
-		if(currentLevel >= getMaxLevel()){
-			currentLevel = 0;
-			currentWave = 0;
-		}
-		
+	public void resumeLevel(){		
 		levelPaused=false;
 		levelWavesCompleted=false;
 		
@@ -93,8 +88,29 @@ public class LevelSystem extends Factory_LevelWaves{
 		}
 	}
 	
+	public void endLevel(){
+		levelPaused=true;
+		
+		//clean up - kill Views & associated threads, stop all spawning & background threads
+		for(int i=backgroundViews.size()-1;i>=0;i--){ 
+			backgroundViews.get(i).removeGameObject();
+		}
+		for(int i=friendlyBullets.size()-1;i>=0;i--){ 
+			friendlyBullets.get(i).removeGameObject();
+		}	
+		for(int i=enemyBullets.size()-1;i>=0;i--){ 
+			enemyBullets.get(i).removeGameObject();
+		}	
+		for(int i=enemies.size()-1;i>=0;i--){
+			enemies.get(i).removeGameObject();
+		}
+		for(int i=bonuses.size()-1;i>=0;i--){ 
+			bonuses.get(i).removeGameObject();
+		}		
+	}
+	
 	public int getMaxLevel(){
-		return levels.length;
+		return levels.length-1;
 	}
 	
 	//GET/SET LEVEL STATE
@@ -131,7 +147,7 @@ public class LevelSystem extends Factory_LevelWaves{
 		if(currentLevel<3){
 			new Sun(ctx);
 
-			for(int i=0;i< (12/getLevel()) ;i++){
+			for(int i=0;i< 12/ ( currentLevel+1 ) ;i++){
 				Clouds a = new Clouds(ctx);
 				Clouds b = new Clouds(ctx);
 				a.setY((float) (MainActivity.getHeightPixels()*Math.random()));
@@ -159,7 +175,7 @@ public class LevelSystem extends Factory_LevelWaves{
 			new Bird(ctx);
 			new Clouds(ctx);
 			
-			conditionalHandler.postIfLevelResumed(this, 4000*getLevel());
+			conditionalHandler.postIfLevelResumed(this, 4000*(currentLevel+1));
 		}
 	};
 	

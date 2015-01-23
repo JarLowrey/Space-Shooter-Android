@@ -9,6 +9,7 @@ import support.ConditionalHandler;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
+import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
 import bullets.Bullet_Basic_Missile;
 
@@ -35,14 +36,17 @@ public class ProtagonistView extends Friendly_ShooterView{
 		
 		myGame=interactWithGame;
 		
+		
+//		createGunSet();
+		
 		//debugging purposes only, will be overwritten when user buys first gun
-		Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),
-				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
-		Gun gun2 = new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_Missile(),
-				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
-		this.addGun(gun2);
-		this.addGun(gun1);
-		this.post(exhaustRunnable);
+//		Gun gun1 = new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),
+//				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
+//		Gun gun2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),
+//				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
+//		this.addGun(gun2);
+//		this.addGun(gun1);
+//		this.post(exhaustRunnable);
 	}
 	
 	
@@ -55,7 +59,7 @@ public class ProtagonistView extends Friendly_ShooterView{
     Runnable exhaustRunnable = new Runnable(){
     	 @Override
          public void run() {
-				GameActivityInterface screen = (GameActivityInterface)ctx;
+				GameActivityInterface screen = (GameActivityInterface) getContext();
 				if(count*HOW_OFTEN_TO_MOVE_ROCKET<EXHAUST_VISIBLE_TIME){
 					screen.getExhaust().setVisibility(View.VISIBLE);					
 		    		 //position the exhaust
@@ -81,6 +85,12 @@ public class ProtagonistView extends Friendly_ShooterView{
 		super.heal(howMuchHealed);
 		myGame.setHealthBar();
 	}
+	@Override
+	public void setHealth(int healthValue){
+		super.setHealth(healthValue);
+		myGame.setHealthBar();
+	}
+	
 
 	@Override
 	public void startShooting() {
@@ -90,23 +100,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 		}
 	}
 	
-//	@Override 
-//	public void stopShooting(){
-//		super.stopShooting();
-//
-//		Runnable canShootAgainRunnable = new Runnable(){//force a delay until user can begin shooting again
-//			@Override
-//			public void run() {	canBeginShooting=true;	}	};
-//			
-//		postDelayed(canShootAgainRunnable,(long)getShootingDelay() * 2);
-//	}
-	
 	@Override 
 	public boolean takeDamage(int howMuchDamage){
 		boolean isDead = super.takeDamage(howMuchDamage);
-//		if(isDead){//not working, but functional if put in the collision detection
-//			myGame.gameOver();
-//		}
 		myGame.setHealthBar();
 		return isDead;
 	}
@@ -192,5 +188,60 @@ public class ProtagonistView extends Friendly_ShooterView{
 		}
 		
 		editor.commit();
+		
+		createGunSet();
 	}
+
+	/**
+	 * define the different levels of guns protagonist may have
+	 */
+	
+	public void createGunSet(){
+		this.removeAllGuns();
+		
+		final float freq = getShootingDelay();
+		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
+		final float speed = DEFAULT_BULLET_SPEED_Y + getBulletSpeedYLevel() * BULLET_SPEED_WEIGHT;
+		
+		switch(getGunLevel()){
+		case 0:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,50) );
+			break;
+		case 1:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
+			break;
+		case 2:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
+			break;
+		case 3:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
+			break;
+		case 4:
+			Gun gun1 = new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),freq,speed,dmg,50) ;
+			Gun gun2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),freq,speed,dmg,50) ;
+			this.addGun(gun1);
+			this.addGun(gun2);
+			break;
+		}
+	}
+
+	public float getShootingDelay(){
+		return DEFAULT_BULLET_FREQ - getBulletBulletFreqLevel() * BULLET_FREQ_WEIGHT;
+	}
+	public int getGunLevel(){
+		return gameState.getInt(GameActivity.STATE_GUN_CONFIG,-1);
+	}
+	public int getBulletDamageLevel(){
+		return gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0);
+	}
+	public int getBulletSpeedYLevel(){
+		return gameState.getInt(GameActivity.STATE_BULLET_SPEED_LEVEL, 0);
+	}
+	public int getBulletBulletFreqLevel(){
+		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
+	}
+	
 }

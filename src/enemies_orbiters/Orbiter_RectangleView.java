@@ -48,7 +48,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 		currentSideOfRectangle=0;
 		
 		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
-		this.setThreshold((int) (orbitY-(orbitDist*this.getMagnitudeOfSpeedY() ) / 2 ));
+		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist *3.0/4);
 		
 		orbitingRunnable = new Runnable() {

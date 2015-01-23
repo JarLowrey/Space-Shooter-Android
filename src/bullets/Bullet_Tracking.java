@@ -13,20 +13,20 @@ import com.jtronlabs.to_the_moon.MainActivity;
 // 					NOT WORKING			
 public abstract class Bullet_Tracking extends Bullet{
 
-	public static final double MAX_TRACKING_SPEED=5*MainActivity.getScreenDens();
-	public static final double DEFAULT_TRACKING_SPEED=4*MainActivity.getScreenDens();
+	public static final float MAX_TRACKING_SPEED=5*MainActivity.getScreenDens();
+	public static final float DEFAULT_TRACKING_SPEED=4*MainActivity.getScreenDens();
 	
-	private double trackingSpeed;
+	private float trackingSpeed;
 	private MovingView viewTracking;
 	private Shooter shooter;
 	protected ArrayList<BulletView> myTrackingBullets;
 	
 	
-	public Bullet_Tracking(double trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
+	public Bullet_Tracking(float trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
 		
 		myTrackingBullets= new ArrayList<BulletView>();
 		shooter = shooterWithTrackingBullets;
-		final double trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
+		final float trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
 		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED * 
 				MainActivity.getScreenDens() : trackSpeedDPI;
 		viewTracking=viewToTrack;
@@ -50,13 +50,13 @@ public abstract class Bullet_Tracking extends Bullet{
     		
 			for(BulletView bullet : myTrackingBullets){
 	    		final float bulletXMidPos = (2 * bullet.getX()+bullet.getWidth() ) / 2; 
-				final float diff = bulletXMidPos - objectTrackingMidPoint;
+				final float diff = objectTrackingMidPoint - bulletXMidPos ;
     			
 				//if bullet is approximately at tracking destination, don't move it and set rotation to 0
 	    		if( Math.abs(diff) < viewTracking.getWidth()/2 ){
-	    			bullet.setSpeedX(Bullet.BULLET_TRAVELS_STRAIGHT);
+	    			bullet.setSpeedX(0);
 	    		}else{
-	    			trackingSpeed = -diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
+	    			trackingSpeed = diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
 	    			 
 	    			//set speed and move sideways
         			bullet.setSpeedX(trackingSpeed);

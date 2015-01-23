@@ -31,17 +31,12 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			BULLET_SPEED_WEIGHT=(float) (MainActivity.getScreenDens() * 1.5),
 			BULLET_FREQ_WEIGHT=50;
 
-	
-	Context ctx;
+
+	SharedPreferences gameState;
 	
 	//myGun needs to be set in a specific View's class
 	protected ArrayList<Gun> myGuns;
 	protected ArrayList<BulletView> myBullets;
-	
-	protected int bulletFreqLevel=0, 
-		bulletDamageLevel=0,
-		bullletVerticalSpeedLevel=0,
-		currentGunConfiguration=0;
 	
 	protected boolean isShooting;
 
@@ -50,7 +45,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		super(context,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth, width, height, imageId);
 		
-		ctx=context;//prob not necessary to hold onto this context. just saying, figure it out later
+		gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		isShooting=false;
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
@@ -67,82 +62,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		
 		super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks	
 	}
-	/**
-	 * define the different levels of guns protagonist may have
-	 */
-	public void upgradeGun(){
-		currentGunConfiguration++;
-		createGunSet();
-	}
-	public float getShootingDelay(){
-		return DEFAULT_BULLET_FREQ - bulletFreqLevel * BULLET_FREQ_WEIGHT;
-	}
-	
-	public void createGunSet(){
-		this.removeAllGuns();
-
-		//load state from preferences
-		SharedPreferences gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-		setGunConfig(gameState.getInt(GameActivity.STATE_GUN_CONFIG,0));
-		setBulletDamageLevel(gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0));
-		setBulletSpeedLevel(gameState.getInt(GameActivity.STATE_BULLET_SPEED_LEVEL, 0));
-		setBulletFreqLevel(gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0));
-		
-		final float freq = getShootingDelay();
-		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + bulletDamageLevel * BULLET_DAMAGE_WEIGHT);
-		final float speed = DEFAULT_BULLET_SPEED_Y + bullletVerticalSpeedLevel * BULLET_SPEED_WEIGHT;
-		
-		switch(currentGunConfiguration){
-		case 1:
-			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,50) );
-			break;
-		case 2:
-			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
-			break;
-		case 3:
-			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
-			break;
-		case 4:
-			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
-			break;
-		default:
-			Gun gun1 = new Gun_AngledDualShot(ctx, this, new Bullet_Basic_LaserShort(),freq,speed,dmg,50) ;
-			Gun gun2 = new Gun_SingleShotStraight(ctx, this, new Bullet_Basic_Missile(),freq,speed,dmg,50) ;
-			this.addGun(gun1);
-			this.addGun(gun2);
-			break;
-		}		
-	}
-	
-	public void setGunConfig(int gunConfig){
-		currentGunConfiguration=gunConfig;
-	}
-	
-	public void setBulletDamageLevel(int level){
-		this.bulletDamageLevel=level;
-	}
-	public void setBulletFreqLevel(int level){
-		this.bulletFreqLevel=level;
-	}
-	public void setBulletSpeedLevel(int level){
-		this.bullletVerticalSpeedLevel=level;
-	}
-	public int getGunLevel(){
-		return this.currentGunConfiguration;
-	}
-	public int getBulletDamageLevel(){
-		return bulletDamageLevel;
-	}
-	public int getBulletSpeedYLevel(){
-		return bullletVerticalSpeedLevel;
-	}
-	public int getBulletBulletFreqLevel(){
-		return bulletFreqLevel;
-	}
-	
 	@Override
 	public void restartThreads(){
 		if( ! (this instanceof ProtagonistView) ) {
