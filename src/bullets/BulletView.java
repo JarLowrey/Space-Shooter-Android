@@ -118,7 +118,7 @@ public class BulletView extends Moving_ProjectileView{
 			LevelSystem.enemyBullets.remove(this);			
 		}
 		theOneWhoShotMe.getMyBullets().remove(this);
-		this.deaultCleanupOnRemoval(false);//needs to be the last thing called for handler to remove all callbacks
+		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 	
 

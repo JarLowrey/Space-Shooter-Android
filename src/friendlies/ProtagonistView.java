@@ -8,6 +8,7 @@ import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.view.View;
 import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Basic_LaserShort;
@@ -94,7 +95,10 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	
 	@Override 
-	public boolean takeDamage(int howMuchDamage){
+	public boolean takeDamage(int howMuchDamage){ 
+		//vibrate the phone  
+        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(50);
 		boolean isDead = super.takeDamage(howMuchDamage);
 		myGame.setHealthBar();
 		return isDead;
@@ -235,6 +239,14 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	public int getBulletBulletFreqLevel(){
 		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
+	}
+	
+	@Override
+	public void removeGameObject(){
+		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,5);
+		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,0);
+		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,0);
+		super.removeGameObject();
 	}
 	
 }

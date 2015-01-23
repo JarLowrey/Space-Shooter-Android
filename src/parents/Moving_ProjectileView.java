@@ -84,4 +84,8 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 	public void restartThreads() {
 		// do nothing for this class. Override in a child class if there are threads added
 	}
+	@Override
+	public void removeGameObject() {
+		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
+	}
 }

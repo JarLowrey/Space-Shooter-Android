@@ -73,10 +73,8 @@ public class Moving_GravityView extends MovingView implements Gravity{
 		return gravityThreshold;
 	}
 
-
-
 	@Override
 	public void removeGameObject() {
-		this.deaultCleanupOnRemoval(false);//needs to be the last thing called for handler to remove all callbacks
+		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 }

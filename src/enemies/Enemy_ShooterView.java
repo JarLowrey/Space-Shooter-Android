@@ -7,6 +7,8 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
+import com.jtronlabs.to_the_moon.R;
+
 import android.content.Context;
 import bullets.BulletView;
 import bullets.Bullet_Basic_LaserShort;
@@ -49,6 +51,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		 */
 		@Override
 		public void removeGameObject(){
+			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,1);
 			stopShooting();			
 			myBullets=new ArrayList<BulletView>();
 			for(Gun gun : myGuns){

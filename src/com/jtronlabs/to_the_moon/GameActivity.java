@@ -321,7 +321,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_FRIEND);
 					break;
 				case R.id.start_next_level: 
-					if(levelCreator.getLevel()==1 && protagonist.getGunLevel() == -1){
+					if(protagonist.getGunLevel() < 0){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
 							new AlertDialog.Builder(this)
@@ -354,15 +354,18 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		try{
 			switch(whichUpgrade){
 			case ProtagonistView.UPGRADE_BULLET_DAMAGE:
-				cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) * Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
+				cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) 
+						* Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
 				break;
 			case ProtagonistView.UPGRADE_BULLET_SPEED:
-				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_speed_base_cost) * Math.pow((protagonist.getBulletSpeedYLevel()+1),2)) ;
+				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_speed_base_cost) 
+						* Math.pow((protagonist.getBulletSpeedYLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
 				break;
 			case ProtagonistView.UPGRADE_BULLET_FREQ:
-				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) * Math.pow((protagonist.getBulletBulletFreqLevel()+1),2)) ;
+				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) 
+						* Math.pow((protagonist.getBulletBulletFreqLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
 				break;
 			case ProtagonistView.UPGRADE_GUN:
@@ -378,11 +381,18 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
 				break;
 			case ProtagonistView.UPGRADE_HEAL:
-				cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel()) ;
-				msg=this.getResources().getString(R.string.upgrade_heal);
+				if(protagonist.getHealth()==protagonist.getMaxHealth()){
+					maxLevelItem=true;
+					msg="Ship fully healed";
+				}else{
+					cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel()) ;
+					msg=this.getResources().getString(R.string.upgrade_heal);					
+				}
 				break;
 			}
-			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
+			if(!maxLevelItem){
+				msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
+			}
 		}catch(IndexOutOfBoundsException e){//upgrade is past set bounds of the arrays.xml value
 			msg="Maximum upgrade attained";
 			maxLevelItem=true;
@@ -398,7 +408,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	     })
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
-	        	if(!maxLevelItemCopy){ 
+	        	if(!maxLevelItemCopy){
 	        		if(costCopy<levelCreator.getScore()){
 		        		protagonist.applyUpgrade(whichUpgrade);
 		        		

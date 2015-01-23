@@ -3,6 +3,7 @@ package parents;
 import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,7 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
 
 /**
  * 
@@ -130,23 +130,35 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	/**
 	 * To be called on every implementation of removeGameObject();
 	 */
-	protected void deaultCleanupOnRemoval(boolean showExplosion){
+	protected void deaultCleanupOnRemoval(){
 		isRemoved=true;
 		this.removeCallbacks(null);	
 		
-		if(showExplosion){
-			this.setImageResource(R.drawable.explosion1);
-			this.postDelayed(new Runnable(){
-				@Override
-				public void run() {
-					ViewGroup parent = (ViewGroup)MovingView.this.getParent();
-					if(parent!=null){parent.removeView(MovingView.this);}
-				}
-			},300);	
-		}else{
-			ViewGroup parent = (ViewGroup)MovingView.this.getParent();
-			if(parent!=null){parent.removeView(MovingView.this);}		
-		}
+		ViewGroup parent = (ViewGroup)MovingView.this.getParent();
+		if(parent!=null){parent.removeView(MovingView.this);}
+	}
+	
+	protected void createExplosion(int width,int height,int explosionImgId,int numVibrates){
+		 //vibrate the phone  
+		long pattern[]=new long[numVibrates];
+		for(int i=0;i<pattern.length;i++){pattern[i]=(long) (Math.random()*50+50);}
+        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(pattern, -1);
+        
+		ImageView exp = new ImageView(getContext());
+		exp.setImageResource( explosionImgId );
+		exp.setLayoutParams(new RelativeLayout.LayoutParams(width,height));
+		
+		exp.setX(this.getX());
+		exp.setY(this.getY());
+		
+		exp.postDelayed(new Runnable(){
+			@Override
+			public void run() {
+				ViewGroup parent = (ViewGroup)MovingView.this.getParent();
+				if(parent!=null){parent.removeView(MovingView.this);}
+			}
+		},300);	
 	}
 		
 }

@@ -27,8 +27,8 @@ public abstract class BonusView extends Moving_GravityView {
 	
 	@Override
 	public void removeGameObject(){		
-		super.removeGameObject();
 		LevelSystem.bonuses.remove(this);
+		super.removeGameObject();
 	}
 	
 	public static void displayRandomBonusView(Context context,float positionX,float positionY){
