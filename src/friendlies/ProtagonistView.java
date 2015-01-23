@@ -46,7 +46,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 //				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
 //		this.addGun(gun2);
 //		this.addGun(gun1);
-//		this.post(exhaustRunnable);
+		this.post(exhaustRunnable);
 	}
 	
 	
@@ -171,7 +171,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 			editor.putInt(GameActivity.STATE_BULLET_FREQ_LEVEL, gunFreq+1);
 			break;
 		case UPGRADE_GUN:
-			final int gunSet = gameState.getInt(GameActivity.STATE_GUN_CONFIG, 0);
+			final int gunSet = gameState.getInt(GameActivity.STATE_GUN_CONFIG, -1);
 			editor.putInt(GameActivity.STATE_GUN_CONFIG, gunSet+1);
 			break;
 		case UPGRADE_FRIEND:

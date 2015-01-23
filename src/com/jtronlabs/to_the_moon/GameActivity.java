@@ -185,10 +185,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
 		
 		//set the level
-		if(levelCreator.getWaveNumber()==0){
-			openStore();
-		}else{
+		if(levelCreator.getWaveNumber()!=0 || levelCreator.getLevel()==0){
 			levelCreator.resumeLevel();
+		}else{
+			openStore();
 		}
 	}
 	
@@ -214,6 +214,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public void beatGame(){
 		gameOver=true;
 		levelCreator.incrementLevel();
+		levelCreator.setWave(0);
 		Toast.makeText(this, "winner winner chicken dinner", Toast.LENGTH_LONG).show();
 		finish();
 	}
@@ -229,7 +230,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 		
-		levelCreator.incrementLevel();
 		levelCreator.resumeLevel();
 	}
 

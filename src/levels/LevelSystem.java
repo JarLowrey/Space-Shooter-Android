@@ -90,6 +90,8 @@ public class LevelSystem extends Factory_LevelWaves{
 	
 	public void endLevel(){
 		levelPaused=true;
+		setWave(0);
+		incrementLevel();
 		
 		//clean up - kill Views & associated threads, stop all spawning & background threads
 		for(int i=backgroundViews.size()-1;i>=0;i--){ 
