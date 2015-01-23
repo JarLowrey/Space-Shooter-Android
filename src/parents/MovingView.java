@@ -138,27 +138,33 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		if(parent!=null){parent.removeView(MovingView.this);}
 	}
 	
-	protected void createExplosion(int width,int height,int explosionImgId,int numVibrates){
-		 //vibrate the phone  
-		long pattern[]=new long[numVibrates];
-		for(int i=0;i<pattern.length;i++){pattern[i]=(long) (Math.random()*50+50);}
-        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(pattern, -1);
-        
-		ImageView exp = new ImageView(getContext());
+	protected void createExplosion(int width,int height,int explosionImgId,long[] vibrationPattern){
+		if(vibrationPattern!=null){
+			 //vibrate the phone  
+	        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+	        vibrator.vibrate(vibrationPattern, -1);
+		}
+
+		final ViewGroup parent = (ViewGroup)MovingView.this.getParent();
+		final ImageView exp = new ImageView(getContext());
 		exp.setImageResource( explosionImgId );
 		exp.setLayoutParams(new RelativeLayout.LayoutParams(width,height));
 		
 		exp.setX(this.getX());
 		exp.setY(this.getY());
 		
+		parent.addView(exp);
+		
 		exp.postDelayed(new Runnable(){
 			@Override
 			public void run() {
-				ViewGroup parent = (ViewGroup)MovingView.this.getParent();
-				if(parent!=null){parent.removeView(MovingView.this);}
+				if(parent!=null){parent.removeView(exp);}
 			}
-		},300);	
+		},500);	
+	}
+	
+	protected void createExplosion(int width,int height,int explosionId){
+		createExplosion(width,height,explosionId,null);
 	}
 		
 }

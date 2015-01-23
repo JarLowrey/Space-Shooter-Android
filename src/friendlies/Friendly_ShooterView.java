@@ -6,10 +6,8 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import bullets.BulletView;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{

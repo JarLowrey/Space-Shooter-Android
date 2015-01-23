@@ -51,7 +51,8 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		 */
 		@Override
 		public void removeGameObject(){
-			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,1);
+			final long vibrationPattern[] = {0,100};
+			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibrationPattern);
 			stopShooting();			
 			myBullets=new ArrayList<BulletView>();
 			for(Gun gun : myGuns){

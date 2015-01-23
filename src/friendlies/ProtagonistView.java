@@ -243,9 +243,10 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	@Override
 	public void removeGameObject(){
-		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,5);
-		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,0);
-		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,0);
+		final long pattern[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};
+		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,pattern);
+		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
+		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
 		super.removeGameObject();
 	}
 	
