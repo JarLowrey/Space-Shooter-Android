@@ -5,7 +5,6 @@ import interfaces.MovingViewInterface;
 import android.content.Context;
 import android.os.Vibrator;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -133,9 +132,9 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	protected void deaultCleanupOnRemoval(){
 		isRemoved=true;
 		this.removeCallbacks(null);	
-		
-		ViewGroup parent = (ViewGroup)MovingView.this.getParent();
-		if(parent!=null){parent.removeView(MovingView.this);}
+
+
+		((GameActivityInterface)getContext()).removeView(this);
 	}
 	
 	protected void createExplosion(int width,int height,int explosionImgId,long[] vibrationPattern){
@@ -145,20 +144,19 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	        vibrator.vibrate(vibrationPattern, -1);
 		}
 
-		final ViewGroup parent = (ViewGroup)MovingView.this.getParent();
 		final ImageView exp = new ImageView(getContext());
 		exp.setImageResource( explosionImgId );
 		exp.setLayoutParams(new RelativeLayout.LayoutParams(width,height));
 		
 		exp.setX(this.getX());
 		exp.setY(this.getY());
-		
-		parent.addView(exp);
+
+		((GameActivityInterface)getContext()).addToForeground(exp);
 		
 		exp.postDelayed(new Runnable(){
 			@Override
 			public void run() {
-				if(parent!=null){parent.removeView(exp);}
+				((GameActivityInterface)MovingView.this.getContext()).removeView(exp);
 			}
 		},500);	
 	}

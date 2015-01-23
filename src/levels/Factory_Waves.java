@@ -2,7 +2,6 @@ package levels;
 
 import support.ConditionalHandler;
 import android.content.Context;
-import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -242,11 +241,11 @@ public class Factory_Waves extends Factory_Bosses{
 	final Runnable[] level7 = {
 			circlesThreeOrbiters,
 			boss1_1,
-			boss1_1,
-			boss1_1
+			boss2,
+			boss3
 		};
 	
-	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6,level7};
+	final Runnable levels[][] ={level7};
 	
 	
 	

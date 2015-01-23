@@ -96,11 +96,18 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	@Override 
 	public boolean takeDamage(int howMuchDamage){ 
-		//vibrate the phone  
-        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(50);
 		boolean isDead = super.takeDamage(howMuchDamage);
 		myGame.setHealthBar();
+		
+		if(isDead){
+			final long vibratePat[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};
+			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibratePat);
+			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
+			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
+		}else{
+	        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+	        vibrator.vibrate(100);
+		}
 		return isDead;
 	}
 	
@@ -239,15 +246,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	public int getBulletBulletFreqLevel(){
 		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
-	}
-	
-	@Override
-	public void removeGameObject(){
-		final long pattern[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};
-		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,pattern);
-		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
-		createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
-		super.removeGameObject();
 	}
 	
 }

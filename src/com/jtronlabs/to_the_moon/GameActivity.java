@@ -160,6 +160,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			editor.putInt(STATE_HEALTH,protagonist.getHealth());
 			editor.putInt(STATE_RESOURCES, levelCreator.getScore());
 			editor.putInt(STATE_LEVEL, levelCreator.getLevel());
+			
+			Log.d("lowrey","level====="+levelCreator.getLevel());
+			
 //			if(levelCreator.getWaveNumber()>0){
 //				editor.putInt(STATE_WAVE, levelCreator.getWaveNumber() -1 );
 //			}else{
@@ -446,17 +449,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		this.gameLayout.setBackgroundResource(newBackgroundId);
 	}
 	@Override
-	public void addToForeground(MovingView view) {
-		gameLayout.addView(view,gameLayout.getChildCount()-2);		
-	}
-	@Override
-	public void addToBackground(MovingView view) {
-		//addToForeground is called in every instantiation of every MovingView. Thus addToBackground is non default,
-		//and thus the view needs to be removed from its parent before it can be re-added
-		gameLayout.removeView(view);
-		gameLayout.addView(view,0);
-	}
-	@Override
 	public ImageView getExhaust(){
 		return this.rocketExhaust;
 	}
@@ -468,5 +460,23 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
 	public void incrementScore(int score){
 		levelCreator.setScore(levelCreator.getScore()+score);
+	}
+
+	@Override
+	public void removeView(ImageView view) {
+		gameLayout.removeView(view);
+	}
+
+	@Override
+	public void addToForeground(ImageView view) {
+		gameLayout.addView(view,gameLayout.getChildCount()-2);
+	}
+
+	@Override
+	public void addToBackground(ImageView view) {
+		//addToForeground is called in every instantiation of every MovingView. Thus addToBackground is non default,
+		//and thus the view needs to be removed from its parent before it can be re-added
+		gameLayout.removeView(view);
+		gameLayout.addView(view,0);
 	}
 }

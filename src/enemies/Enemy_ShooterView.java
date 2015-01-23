@@ -7,11 +7,11 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
-import com.jtronlabs.to_the_moon.R;
-
 import android.content.Context;
 import bullets.BulletView;
 import bullets.Bullet_Basic_LaserShort;
+
+import com.jtronlabs.to_the_moon.R;
 
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
@@ -51,8 +51,6 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		 */
 		@Override
 		public void removeGameObject(){
-			final long vibrationPattern[] = {0,100};
-			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibrationPattern);
 			stopShooting();			
 			myBullets=new ArrayList<BulletView>();
 			for(Gun gun : myGuns){
@@ -61,6 +59,17 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			myGuns=new ArrayList<Gun>();
 			
 			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks		
+		}
+		@Override 
+		public boolean takeDamage(int howMuchDamage){ 
+			boolean isDead = super.takeDamage(howMuchDamage);
+			
+			if(isDead){
+				final long vibrationPattern[] = {0,50};
+				createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibrationPattern);
+			}
+			
+			return isDead;
 		}
 		
 		@Override

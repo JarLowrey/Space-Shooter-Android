@@ -12,9 +12,9 @@ import com.jtronlabs.to_the_moon.MainActivity;
 
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
 	
-	public final static float DEFAULT_SPEED_Y=10,
-			DEFAULT_SPEED_X=10;
-	public final static int DEFAULT_COLLISION_DAMAGE=100, 
+	public final static float DEFAULT_SPEED_Y=11,
+			DEFAULT_SPEED_X=11;
+	public final static int DEFAULT_COLLISION_DAMAGE=Integer.MAX_VALUE, 
 			DEFAULT_HEALTH=10000,
 			DEFAULT_BULLET_SPEED_Y=9,
 			DEFAULT_BULLET_DAMAGE=DEFAULT_HEALTH/20, 

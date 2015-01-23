@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import support.ConditionalHandler;
 import android.content.Context;
-import android.util.Log;
 import background_objects.BackgroundView;
 import background_objects.Bird;
 import background_objects.Clouds;
@@ -57,8 +56,6 @@ public class LevelSystem extends Factory_Waves{
 		 * thus, when restarting a level simply find which runnable to call by using that current progress integer, and subtract 
 		 * the delay from the currrentWave for the next wave's post
 		 */
-		
-		Log.d("lowrey","resuemd, wave="+currentWave+ " level="+currentLevel);
 		
 		for(int i=currentWave;i<levels[currentLevel].length;i++){
 			conditionalHandler.postIfLevelResumed(levels[currentLevel][i], i * DEFAULT_WAVE_DURATION 

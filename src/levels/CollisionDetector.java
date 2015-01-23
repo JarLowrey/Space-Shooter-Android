@@ -59,7 +59,7 @@ public class CollisionDetector {
 	    		if(friendly.collisionDetection(enemy)){
 	    			
 	    			friendly.takeDamage(enemy.getDamage());
-	    			enemy.removeGameObject();
+	    			enemy.takeDamage(friendly.getDamage());
 	    		}
 	    	}
     	}
