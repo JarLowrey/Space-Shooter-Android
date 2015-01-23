@@ -3,6 +3,7 @@ package levels;
 import interfaces.Shooter;
 import parents.MovingView;
 import android.os.Handler;
+import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -17,10 +18,8 @@ public class CollisionDetector {
 	}
 	private Handler gameHandler = new Handler();
     private Runnable collisionDetectionRunnable = new Runnable() { 
-
         @Override
         public void run() {
-        	 
         	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
         			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted() 
         			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0 ) ){
@@ -39,13 +38,13 @@ public class CollisionDetector {
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
 	            
         	}else{
+    			levelingSystem.endLevel();
+    			
         		if(levelingSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
         			levelingSystem.getInteractivityInterface().gameOver();
         		}else if( levelingSystem.getLevel() == levelingSystem.getMaxLevel() ){
         			levelingSystem.getInteractivityInterface().beatGame();
         		}else{ 
-        			levelingSystem.setWave(0);
-        			levelingSystem.incrementLevel();
         			levelingSystem.getInteractivityInterface().openStore();
         		}
         	}

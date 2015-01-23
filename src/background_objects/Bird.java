@@ -3,7 +3,6 @@ import parents.MovingView;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
-import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;

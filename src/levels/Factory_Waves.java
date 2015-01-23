@@ -2,10 +2,12 @@ package levels;
 
 import support.ConditionalHandler;
 import android.content.Context;
+import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import enemies.Shooting_ArrayMovingView;
 import enemies_diagonal.Shooting_DiagonalMovingView;
 import enemies_diagonal.Shooting_Diagonal_DiveBomberView;
 import enemies_non_shooters.Gravity_MeteorView;
@@ -25,9 +27,10 @@ import enemies_orbiters.Orbiter_TriangleView;
  */
 
 public class Factory_Waves extends Factory_Bosses{
-    
+
+	public static final int DEFAULT_WAVE_DURATION=5000;
+	
 	ConditionalHandler conditionalHandler;
-	protected boolean levelWavesCompleted=false;
 	protected boolean levelPaused;
 	
 	public Factory_Waves(Context context) {
@@ -36,13 +39,220 @@ public class Factory_Waves extends Factory_Bosses{
 		conditionalHandler = new ConditionalHandler(this);
 	}
 
+	//get methods
+	private int getCurrentLevelLengthMilliseconds(){
+		return levels[currentLevel].length*DEFAULT_WAVE_DURATION;
+	}
+	public int getNumWavesInLevel(int level){
+		if(level>=0 && level<levels.length){
+			return levels[level].length;			
+		}else{
+			return 0;		
+		}
+	}
+	public boolean areLevelWavesCompleted(){
+		return currentWave==levels[currentLevel].length;
+	}
 	public boolean isLevelPaused(){
 		return levelPaused;
 	}
-	public boolean areLevelWavesCompleted(){
-		return levelWavesCompleted;
-	}
+		
+	protected final  Runnable doNothing = new Runnable(){
+		@Override
+		public void run() {currentWave++;}};
+	
+	//regular meteors
+	final Runnable meteorSidewaysForWholeLevel = new Runnable(){
+		@Override
+		public void run() {
+			spawnSidewaysMeteorsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
+			currentWave++;
+		}
+	};
+	final Runnable meteorsStraightForWholeLevel = new Runnable(){
+		@Override
+		public void run() {
+			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
+			currentWave++;
+		}
+	};
+	final Runnable meteorSidewaysThisWave = new Runnable(){
+		@Override
+		public void run() {
+			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
+			currentWave++;
+		}
+	};	
+	
+	//meteor showers
+	final Runnable meteorShowerLong = new Runnable(){//lasts 2 waves
+		@Override
+		public void run() {
+			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
+			currentWave++;
+		}
+	};
+	final Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
+		@Override
+		public void run() {
+			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+			numMeteors/=2;
+			numMeteors-=2;
+			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
+			
+			spawnMeteorShower(numMeteors,400,true);
+			spawnMeteorShower(numMeteors,400,false);
+			currentWave++;
+		}
+	};
+	final Runnable meteorShowersThatForceUserToRight = new Runnable(){
+		@Override
+		public void run() {
+			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+			numMeteors-=4;
+			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
+			currentWave++;
+		}
+	};
+	final Runnable meteorShowersThatForceUserToLeft = new Runnable(){
+		@Override
+		public void run() {
+			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+			numMeteors-=4;
+			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,false);
+			currentWave++;
+		}
+	};
 
+	//giant meteors
+	final Runnable meteorsGiantAndSideways = new Runnable(){
+		@Override
+		public void run() {
+			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
+			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
+			currentWave++;
+		}
+	};
+	final Runnable meteorsOnlyGiants = new Runnable(){
+		@Override
+		public void run() {
+			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
+			currentWave++;
+		}
+	};
+	
+	//array shooters
+	final Runnable refreshArrayShooters = new Runnable(){
+		@Override
+		public void run() {
+			int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
+			
+			for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
+				new Shooting_ArrayMovingView(ctx);
+			}
+			currentWave++;
+		}
+	};
+	
+	//dive bombers	
+	final Runnable diveBomberOnePerSecond = new Runnable(){
+		@Override
+		public void run() {
+			spawnDiveBomberWave(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+			currentWave++;
+		}
+	};
+	
+	//circular orbiters
+	final Runnable circlesThreeOrbiters = new Runnable(){
+		@Override
+		public void run() {
+			spawnCircularOrbiterWave(6,500,3);
+		}
+	};
+	
+	//levels defined in terms of 5second  waves
+	final Runnable[] level1 = {meteorSidewaysForWholeLevel,
+			meteorSidewaysForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToLeft,
+			meteorShowersThatForceUserToRight,
+			meteorShowersThatForceUserToLeft
+		};
+	
+	final  Runnable[] level2 ={meteorSidewaysForWholeLevel,
+			meteorSidewaysForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToRight,
+			doNothing,
+			meteorShowersThatForceUserToLeft,
+			meteorsGiantAndSideways,
+			meteorsGiantAndSideways,
+			meteorShowerLong,
+			meteorsOnlyGiants,
+			meteorsOnlyGiants
+		};
+	
+	final  Runnable[] level3 = {meteorSidewaysForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToMiddle,
+			meteorShowersThatForceUserToMiddle,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond
+		};
+	
+	final  Runnable[] level4 = {meteorSidewaysForWholeLevel,
+			meteorShowersThatForceUserToMiddle,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond,
+			doNothing,
+			doNothing,
+			doNothing
+		};
+	
+	final  Runnable[] level5 = {meteorSidewaysForWholeLevel,
+			meteorSidewaysThisWave,
+			meteorShowersThatForceUserToMiddle,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			doNothing,
+			refreshArrayShooters,
+			doNothing,
+			doNothing,
+			diveBomberOnePerSecond,
+			diveBomberOnePerSecond
+		};
+	
+	final  Runnable[] level6 = {meteorSidewaysForWholeLevel,
+			meteorShowersThatForceUserToRight,
+			meteorShowersThatForceUserToLeft,
+			refreshArrayShooters,
+			doNothing,
+			diveBomberOnePerSecond,
+			doNothing,
+			diveBomberOnePerSecond,
+			boss1
+		};
+	
+	final Runnable[] level7 = {
+			circlesThreeOrbiters,
+			boss1_1,
+			boss1_1,
+			boss1_1
+		};
+	
+	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6,level7};
+	
+	
+	
+	
+	
+	
 	public final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 		conditionalHandler.postIfLevelResumed(new Runnable(){
 			
@@ -237,147 +447,5 @@ public class Factory_Waves extends Factory_Bosses{
 			}
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	
-//	
-//	//USING JAVA FUNCTION POINTERS--all these functions pretty much do the same thing, but vary by which function they call. 
-//	Is there a way to simplify this utilizing function pointers?
-//	
-//	//http://stackoverflow.com/questions/24148175/pass-function-with-parameter-defined-behavior-in-java
-//		
-//	public SpawnOverTime spawnSetNumbetOfEnemiesOverTime(final int numEnemies, final int delayBetweenEnemies){
-//		return new SpawnOverTime(){//this is an interface
-//			@Override
-//			public void spawn(int numEnemies, int delayBetweenEach) {
-//
-//				
-//			}
-//		};
-//	}
-//	public void spawnFnPointer(){
-//		
-//	}
-//	
-//	
-//	
-//	
-//		
-	
-	
-	
-	
-	
-	
-	
-	
-	/*	Trying to get wave spawning behavior using ASyncTask. Tried to wait for end of wave before spawning a new one, but issue was calling Thread.sleep prevented function
-	 * from reaching the CountDownLatch's await call. so the caller would be free to continue onwards. decided to give up and use much easier Handler/Runnable system
-	 * 	
-//	private boolean meteorsFallFromLeftToRight;
-	public void spawnMeteorWaves(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean firstMeteorShowerRunsLeftToRight,
-			final boolean waitForExecutionToFinish) throws InterruptedException {
-		InterruptedException e = null;
-		
-		 AsyncTask<String, Integer, String> myTask = new AsyncTask<String, Integer, String>(){
-			
-			@Override
-			protected String doInBackground(String... params) {
-//				final CountDownLatch waiting = new CountDownLatch(numMeteors);
-				
-				for(int i=0;i<numMeteors;i++){
-					
-					final int numMeteorSpawned=i;
-					
-					Runnable spawnOneMeteor = new Runnable(){
-						@Override
-						public void run() {
-							//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
-							Gravity_MeteorView  met= enemyProducer.spawnMeteor();
-							final int width = +met.getLayoutParams().width;//view not added yet, so must use layout params instead of View.getWidth()
-							final int numMeteorsPossibleOnScreenAtOnce= (int) (MainActivity.getWidthPixels()/width);
-							final int currentMeteor = numMeteorSpawned % numMeteorsPossibleOnScreenAtOnce;
-							int myXPosition;
-							
-							boolean meteorsFallFromLeftToRight = firstMeteorShowerRunsLeftToRight;
-							//reverse direction if full meteor shower has occurred
-							if(numMeteorSpawned >= numMeteorsPossibleOnScreenAtOnce && numMeteorSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
-								meteorsFallFromLeftToRight = !meteorsFallFromLeftToRight;					
-							}
-							
-							if(meteorsFallFromLeftToRight){
-								myXPosition = width * currentMeteor;
-							}else{
-								myXPosition = (int) (MainActivity.getWidthPixels()- (width * (currentMeteor+1) ) );
-							}
-							met.setX(myXPosition);
-							
-							GameActivity.enemies.add(met);
-							gameLayout.addView(met,1);
-						}
-					};
-					 
-					myActivity.runOnUiThread(spawnOneMeteor);
-					
-					
-					try {
-						Thread.sleep(millisecondsBetweenEachMeteor);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-//					waiting.countDown();
-				}
-					
-//				if(waitForExecutionToFinish){
-//					try {
-//						waiting.await();
-//					} catch (InterruptedException e) {///////////////////WHAT TO DO?
-//						e.printStackTrace();
-//					}
-//				}
-				return null;
-			}
-		};
-		
-		myTask.execute();
-		
-	}
-*/
+
 }

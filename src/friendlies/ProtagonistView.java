@@ -24,6 +24,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
 	
+	SharedPreferences gameState;
 	GameActivityInterface myGame;
 	private boolean isMoving;
 	
@@ -33,19 +34,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
 
 		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
-		
+
+		gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		myGame=interactWithGame;
 		
-		
-//		createGunSet();
-		
-		//debugging purposes only, will be overwritten when user buys first gun
-//		Gun gun1 = new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),
-//				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
-//		Gun gun2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),
-//				DEFAULT_BULLET_FREQ,DEFAULT_BULLET_SPEED_Y,DEFAULT_BULLET_DAMAGE,50);
-//		this.addGun(gun2);
-//		this.addGun(gun1);
+		createGunSet();
 		this.post(exhaustRunnable);
 	}
 	
@@ -183,7 +176,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 			editor.putInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, resourceLvl+1);
 			break;
 		case UPGRADE_HEAL:
-			editor.putInt(GameActivity.STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH);
+			this.setHealth(getMaxHealth());
 			break;
 		}
 		

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import support.ConditionalHandler;
 import android.content.Context;
+import android.util.Log;
 import background_objects.BackgroundView;
 import background_objects.Bird;
 import background_objects.Clouds;
@@ -17,7 +18,7 @@ import com.jtronlabs.to_the_moon.R;
 import enemies.EnemyView;
 import friendlies.FriendlyView;
 
-public class LevelSystem extends Factory_LevelWaves{
+public class LevelSystem extends Factory_Waves{
 
 	CollisionDetector gameDetector;
 	
@@ -47,18 +48,21 @@ public class LevelSystem extends Factory_LevelWaves{
 	
 	public void resumeLevel(){		
 		levelPaused=false;
-		levelWavesCompleted=false;
 		
 		createBackgroundEffects();
 		
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
-		 * If handler has runnables canceled before level finishes, then current progress will not change.
-		 * thus, when restarting a level simply find which runnable to call by using that current progress integer
+		 * If handler has runnables canceled before level finishes, then current wave will not change.
+		 * thus, when restarting a level simply find which runnable to call by using that current progress integer, and subtract 
+		 * the delay from the currrentWave for the next wave's post
 		 */
 		
+		Log.d("lowrey","resuemd, wave="+currentWave+ " level="+currentLevel);
+		
 		for(int i=currentWave;i<levels[currentLevel].length;i++){
-			conditionalHandler.postIfLevelResumed(levels[currentLevel][i], i * DEFAULT_WAVE_DURATION);
+			conditionalHandler.postIfLevelResumed(levels[currentLevel][i], i * DEFAULT_WAVE_DURATION 
+					- currentWave * DEFAULT_WAVE_DURATION);
 		}
 		
 		gameDetector.startDetecting();
@@ -66,6 +70,8 @@ public class LevelSystem extends Factory_LevelWaves{
 	
 	public void pauseLevel(){
 		levelPaused=true;
+		
+		conditionalHandler.stopSpawning();
 		
 		//clean up - kill Views & associated threads, stop all spawning & background threads
 		for(int i=backgroundViews.size()-1;i>=0;i--){ 
@@ -90,10 +96,12 @@ public class LevelSystem extends Factory_LevelWaves{
 	
 	public void endLevel(){
 		levelPaused=true;
+		conditionalHandler.stopSpawning();
+		
 		setWave(0);
 		incrementLevel();
 		
-		//clean up - kill Views & associated threads, stop all spawning & background threads
+		//clean up - kill Views & associated threads, stop all spawning & background threads--do not kill friendlies
 		for(int i=backgroundViews.size()-1;i>=0;i--){ 
 			backgroundViews.get(i).removeGameObject();
 		}
@@ -116,9 +124,6 @@ public class LevelSystem extends Factory_LevelWaves{
 	}
 	
 	//GET/SET LEVEL STATE
-	public void notifyLevelWavesCompleted(){
-		levelWavesCompleted=true;
-	}
 	public int getWaveNumber(){
 		return this.currentWave;
 	}
@@ -128,7 +133,6 @@ public class LevelSystem extends Factory_LevelWaves{
 	public void setLevel(int level){
 		this.currentLevel=level;
 	}
-	
 	//SCORE
 	public void setScore(int scoreValue){
 		score=scoreValue;

@@ -137,6 +137,21 @@
 				android:layout_alignParentLeft="true"
 	            android:src="@drawable/resources" />
 		</RelativeLayout>
+		
+        <TextView
+            android:id="@+id/health_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/resource_layout"
+            android:text="100%"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/level_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/health_count"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
 		<ImageButton
 		    android:id="@+id/btn_inc_bullet_dmg"

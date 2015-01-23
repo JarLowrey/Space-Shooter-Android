@@ -1,8 +1,6 @@
 package friendlies;
 
 import guns.Gun;
-import guns.Gun_AngledDualShot;
-import guns.Gun_SingleShotStraight;
 import interfaces.Shooter;
 
 import java.util.ArrayList;
@@ -10,9 +8,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.SharedPreferences;
 import bullets.BulletView;
-import bullets.Bullet_Basic_LaserLong;
-import bullets.Bullet_Basic_LaserShort;
-import bullets.Bullet_Basic_Missile;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -32,7 +27,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			BULLET_FREQ_WEIGHT=50;
 
 
-	SharedPreferences gameState;
 	
 	//myGun needs to be set in a specific View's class
 	protected ArrayList<Gun> myGuns;
@@ -45,7 +39,6 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		super(context,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth, width, height, imageId);
 		
-		gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		isShooting=false;
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();

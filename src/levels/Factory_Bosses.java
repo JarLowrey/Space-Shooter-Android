@@ -26,6 +26,8 @@ import guns.Gun_TrackingSingle;
  */
 public class Factory_Bosses{
 	protected int currentLevel;
+	protected int currentWave;
+	
 	protected Context ctx;
 	
 	//GET methods
