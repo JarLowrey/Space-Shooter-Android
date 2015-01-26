@@ -9,9 +9,9 @@ import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_ArrayMovingView;
 import enemies.Shooting_DiagonalMovingView;
+import enemies.Shooting_TrackingView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
-import enemies_non_shooters.TrackingView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_HorizontalLineView;
 import enemies_orbiters.Orbiter_RectangleView;
@@ -401,7 +401,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				new TrackingView(ctx,((GameActivityInterface)ctx).getProtagonist());
+				new Shooting_TrackingView(ctx,((GameActivityInterface)ctx).getProtagonist());
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){

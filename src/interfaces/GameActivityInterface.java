@@ -1,7 +1,6 @@
 package interfaces;
 
 import android.widget.ImageView;
-import parents.MovingView;
 import friendlies.ProtagonistView;
 
 public interface GameActivityInterface {

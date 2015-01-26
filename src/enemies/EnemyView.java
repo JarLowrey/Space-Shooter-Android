@@ -48,8 +48,7 @@ public class EnemyView extends Projectile_GravityView{
 		else {//fallen offscreen
 			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
 		}
-		boolean passed = LevelSystem.enemies.remove(this);
-//		if(!passed){Log.d("lowrey","this should very rarely be printed.");}
+		LevelSystem.enemies.remove(this);
 
 		numRemoved++;
 		super.removeGameObject();

@@ -4,7 +4,6 @@ import friendlies.ProtagonistView;
 import interfaces.MovingViewInterface;
 import interfaces.Shooter;
 import levels.Factory_Waves;
-import levels.LevelSystem;
 import android.os.Handler;
 /*
  * 
