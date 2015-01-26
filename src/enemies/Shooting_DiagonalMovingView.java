@@ -1,4 +1,4 @@
-package enemies_diagonal;
+package enemies;
 
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
@@ -7,7 +7,6 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import enemies.Enemy_ShooterView;
 import friendlies.ProtagonistView;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
@@ -16,7 +15,8 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*3,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,
-			DEFAULT_BULLET_FREQ_INTERVAL=1500;
+			DEFAULT_BULLET_FREQ_INTERVAL=1500,
+			DEFAULT_DIVE_BOMBER_COLUMNS=5;
 	public final static float DEFAULT_SPEED_Y=(float) 1.8,
 			DEFAULT_SPEED_X=5,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
@@ -60,6 +60,31 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 				DEFAULT_BACKGROUND);
 		
 		init((int)context.getResources().getDimension(R.dimen.ship_diagonal_width));		
+	}
+	
+	public Shooting_DiagonalMovingView(Context context,int numColumns) {
+		super(context,DEFAULT_SCORE,
+				DEFAULT_SPEED_Y,DEFAULT_SPEED_X,
+				DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,
+				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
+				(int)context.getResources().getDimension(R.dimen.ship_diagonal_width),
+				(int)context.getResources().getDimension(R.dimen.ship_diagonal_height), 
+				DEFAULT_BACKGROUND);
+		
+		init((int)context.getResources().getDimension(R.dimen.ship_diagonal_width));	
+		
+
+		// overwrite left/write thresholds so that each diagonal mover can only stay in a column on the screen
+		final float shipXInterval = (MainActivity.getWidthPixels() )/ numColumns;//divide the screen into number of columns
+		final float myColPos = (int) (Math.random()*numColumns);//find this ships column
+		float xPos = shipXInterval * myColPos;//x position is columInterval * this ships column. Here some left margin is also added
+		this.setX(xPos);
+		
+		//set column boundaries
+		leftThreshold=this.getSpeedX()+myColPos*shipXInterval;//farthest ship can move left is up to the boundary of the column it is in
+		rightThreshold=(myColPos+1)*shipXInterval-this.getWidth()-this.getSpeedX();//farthest ship can move right is up to irs right side being at the right side of the column it is in
+			
 	}
 	
 	public Shooting_DiagonalMovingView(Context context,int score,float speedY, float speedX,int collisionDamage, 

@@ -9,8 +9,8 @@
     <dimen name="ship_diagonal_height">30dp</dimen>
     <dimen name="ship_diagonal_width">47.7272dp</dimen>
     
-    <dimen name="ship_dive_bomber_height">34.872dp</dimen>
-    <dimen name="ship_dive_bomber_width">40dp</dimen>
+    <dimen name="ship_tracker_height">34.872dp</dimen>
+    <dimen name="ship_tracker_width">40dp</dimen>
     
     
     <dimen name="ship_orbit_rectangular_width">40dp</dimen>

@@ -95,8 +95,6 @@ public final class R {
         public static final int ship_array_shooter_width=0x7f060003;
         public static final int ship_diagonal_height=0x7f060004;
         public static final int ship_diagonal_width=0x7f060005;
-        public static final int ship_dive_bomber_height=0x7f060006;
-        public static final int ship_dive_bomber_width=0x7f060007;
         public static final int ship_orbit_circular_height=0x7f06000b;
         public static final int ship_orbit_circular_width=0x7f06000a;
         public static final int ship_orbit_horizontal_height=0x7f06000f;
@@ -107,6 +105,8 @@ public final class R {
         public static final int ship_orbit_triangular_width=0x7f06000c;
         public static final int ship_protagonist_game_height=0x7f060014;
         public static final int ship_protagonist_game_width=0x7f060015;
+        public static final int ship_tracker_height=0x7f060006;
+        public static final int ship_tracker_width=0x7f060007;
         public static final int store_btn_margin_vertical=0x7f06002c;
         public static final int store_btn_next_level_len=0x7f06002b;
         /**  Store Layout 
@@ -158,11 +158,11 @@ public final class R {
         public static final int ship_enemy_boss3=0x7f020025;
         public static final int ship_enemy_boss4=0x7f020026;
         public static final int ship_enemy_diagonal_full_screen=0x7f020027;
-        public static final int ship_enemy_dive_bomber=0x7f020028;
-        public static final int ship_enemy_orbiter_circle=0x7f020029;
-        public static final int ship_enemy_orbiter_horizontal_line=0x7f02002a;
-        public static final int ship_enemy_orbiter_rectangle=0x7f02002b;
-        public static final int ship_enemy_orbiter_triangle=0x7f02002c;
+        public static final int ship_enemy_orbiter_circle=0x7f020028;
+        public static final int ship_enemy_orbiter_horizontal_line=0x7f020029;
+        public static final int ship_enemy_orbiter_rectangle=0x7f02002a;
+        public static final int ship_enemy_orbiter_triangle=0x7f02002b;
+        public static final int ship_enemy_tracker=0x7f02002c;
         public static final int ship_protagonist=0x7f02002d;
         public static final int ship_protgonist_exhaust=0x7f02002e;
         public static final int space1_0=0x7f02002f;

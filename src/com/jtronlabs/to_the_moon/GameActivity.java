@@ -232,7 +232,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		gameLayout.setVisibility(View.GONE);
 		storeLayout.setVisibility(View.VISIBLE);
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getScore()));
-		levelCount.setText("Level : "+ (levelCreator.getLevel()+1) );
+		levelCount.setText("Days In Space : "+ levelCreator.getLevel() );
 		final int health =  (int) ((protagonist.getHealth()+0.0) /protagonist.getMaxHealth() * 100);
 		healthCount.setText("Hull : "+ health +"%");
 	}

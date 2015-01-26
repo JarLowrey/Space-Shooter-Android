@@ -1,5 +1,6 @@
 package levels;
 
+import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
 import android.content.Context;
 
@@ -7,10 +8,10 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_ArrayMovingView;
-import enemies_diagonal.Shooting_DiagonalMovingView;
-import enemies_diagonal.Shooting_Diagonal_DiveBomberView;
+import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
+import enemies_non_shooters.TrackingView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_HorizontalLineView;
 import enemies_orbiters.Orbiter_RectangleView;
@@ -61,6 +62,8 @@ public class Factory_Waves extends Factory_Bosses{
 		public void run() {currentWave++;}};
 	
 	//regular meteors
+	
+		//meteor waves
 	final Runnable meteorSidewaysForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
@@ -141,6 +144,8 @@ public class Factory_Waves extends Factory_Bosses{
 	};
 	
 	//array shooters
+	
+	//array shooter waves
 	final Runnable refreshArrayShooters = new Runnable(){
 		@Override
 		public void run() {
@@ -152,12 +157,34 @@ public class Factory_Waves extends Factory_Bosses{
 			currentWave++;
 		}
 	};
+
+	//diagonal Waves
 	
 	//dive bombers	
-	final Runnable diveBomberOnePerSecond = new Runnable(){
+	
+	//diagonal shooter waves
+	final Runnable diagonalColumns = new Runnable(){
 		@Override
 		public void run() {
-			spawnDiveBomberWave(5,DEFAULT_WAVE_DURATION/5);//spawn for entire wave
+			spawnDiveBomberWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
+			currentWave++;
+		}
+	};
+	final Runnable diagonalFullScreen = new Runnable(){
+		@Override
+		public void run() {
+			spawnFullScreenDiagonalAttackersWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
+			currentWave++;
+		}
+	};
+	
+	//tracking waves
+	
+	//tracking waves
+	final Runnable trackingEnemy = new Runnable(){
+		@Override
+		public void run() {
+			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
 			currentWave++;
 		}
 	};
@@ -167,17 +194,17 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnCircularOrbiterWave(6,500,3);
-		}
+		} 
 	};
 	
 	//levels defined in terms of 5second  waves
-	final Runnable[] level1 = {meteorSidewaysForWholeLevel,
+	final Runnable[] level1 = {diagonalFullScreen,diagonalFullScreen,meteorSidewaysForWholeLevel,
 			meteorSidewaysForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToLeft,
 			meteorShowersThatForceUserToRight,
 			meteorShowersThatForceUserToLeft
-		};
+		}; 
 	
 	final  Runnable[] level2 ={meteorSidewaysForWholeLevel,
 			meteorSidewaysForWholeLevel,
@@ -196,9 +223,9 @@ public class Factory_Waves extends Factory_Bosses{
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
-			diveBomberOnePerSecond,
-			diveBomberOnePerSecond,
-			diveBomberOnePerSecond
+			diagonalColumns,
+			diagonalColumns,
+			diagonalColumns
 		};
 	
 	final  Runnable[] level4 = {meteorSidewaysForWholeLevel,
@@ -206,8 +233,8 @@ public class Factory_Waves extends Factory_Bosses{
 			refreshArrayShooters,
 			doNothing,
 			doNothing,
-			diveBomberOnePerSecond,
-			diveBomberOnePerSecond,
+			diagonalColumns,
+			diagonalColumns,
 			doNothing,
 			doNothing,
 			doNothing
@@ -223,8 +250,8 @@ public class Factory_Waves extends Factory_Bosses{
 			refreshArrayShooters,
 			doNothing,
 			doNothing,
-			diveBomberOnePerSecond,
-			diveBomberOnePerSecond
+			diagonalColumns,
+			diagonalColumns
 		};
 	
 	final  Runnable[] level6 = {meteorSidewaysForWholeLevel,
@@ -232,9 +259,9 @@ public class Factory_Waves extends Factory_Bosses{
 			meteorShowersThatForceUserToLeft,
 			refreshArrayShooters,
 			doNothing,
-			diveBomberOnePerSecond,
+			diagonalColumns,
 			doNothing,
-			diveBomberOnePerSecond,
+			diagonalColumns,
 			boss1
 		};
 	
@@ -245,7 +272,7 @@ public class Factory_Waves extends Factory_Bosses{
 			boss3
 		};
 	
-	final Runnable levels[][] ={level7};
+	final Runnable levels[][] ={level1,level7};
 	
 	
 	
@@ -342,7 +369,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				new Shooting_Diagonal_DiveBomberView(ctx);
+				new Shooting_DiagonalMovingView(ctx,Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_COLUMNS);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -368,6 +395,21 @@ public class Factory_Waves extends Factory_Bosses{
 		});
 	}
 
+	public final void spawnTrackingAttackerWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+		conditionalHandler.postIfLevelResumed(new Runnable(){
+			private int numSpawned=0;
+			
+			@Override
+			public void run() {
+				new TrackingView(ctx,((GameActivityInterface)ctx).getProtagonist());
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips){
+					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
+				}
+			}
+		});
+	}
 	
 	//orbiters
 	public final void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn,final int numCirclesOnScreen){

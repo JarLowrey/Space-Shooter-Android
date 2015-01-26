@@ -93,8 +93,6 @@
     
     <!-- STORE LAYOUT -->
     
-    
-    
     <RelativeLayout
         android:id="@+id/store_layout"
         android:layout_width="match_parent"
@@ -149,7 +147,8 @@
             android:id="@+id/level_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/health_count"
+			android:layout_above="@+id/resource_layout"
+			android:layout_centerHorizontal="true"
             android:text="0"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
