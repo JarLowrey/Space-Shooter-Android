@@ -39,11 +39,6 @@ public class LevelSystem extends Factory_Waves{
 		
 		gameDetector = new CollisionDetector(this);
 	}
-
-	public void incrementLevel(){
-		currentLevel++;
-		currentWave=0;
-	}
 	
 	public void resumeLevel(){		
 		levelPaused=false;
@@ -95,8 +90,8 @@ public class LevelSystem extends Factory_Waves{
 		levelPaused=true;
 		conditionalHandler.stopSpawning();
 		
-		setWave(0);
-		incrementLevel();
+		currentLevel++;
+		currentWave=0;
 		
 		//clean up - kill Views & associated threads, stop all spawning & background threads--do not kill friendlies
 		for(int i=backgroundViews.size()-1;i>=0;i--){ 

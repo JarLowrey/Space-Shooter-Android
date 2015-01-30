@@ -267,12 +267,11 @@ public class Factory_Waves extends Factory_Bosses{
 	
 	final Runnable[] level7 = {
 			circlesThreeOrbiters,
-			boss1_1,
 			boss2,
 			boss3
 		};
 	
-	final Runnable levels[][] ={level1,level7};
+	final Runnable levels[][] ={level7};
 	
 	
 	
@@ -353,7 +352,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			@Override
 			public void run() {
-				conditionalHandler.postIfLevelResumed(spawnGiantMeteor);
+				spawnGiantMeteor();
 				
 				numSpawned++;
 				if(numSpawned<numMeteors){

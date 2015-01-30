@@ -3,6 +3,7 @@ package levels;
 import interfaces.Shooter;
 import parents.MovingView;
 import android.os.Handler;
+import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -19,6 +20,8 @@ public class CollisionDetector {
     private Runnable collisionDetectionRunnable = new Runnable() { 
         @Override
         public void run() {
+//        	Log.d("lowrey","enemies="+LevelSystem.enemies.size() +" enemy bullets=" +LevelSystem.enemyBullets.size()+" wave="+levelingSystem.getWaveNumber());
+        	
         	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
         			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted() 
         			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0 ) ){
@@ -31,7 +34,7 @@ public class CollisionDetector {
         		}catch(IndexOutOfBoundsException e){
         			//it is possible for enemy to be removed after beginning a for(enemies) loop, but before calling enemies.get(i)
         			//in that case, just catch the error and don't worry about it, it was already processed
-        			//...i think
+        			//...i think (may be good to put this in the individual functions, so nothing would potentially get skipped)
         		}
         		
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
@@ -41,7 +44,7 @@ public class CollisionDetector {
     			
         		if(levelingSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
         			levelingSystem.getInteractivityInterface().gameOver();
-        		}else if( levelingSystem.getLevel() == levelingSystem.getMaxLevel() ){
+        		}else if( levelingSystem.getLevel() > levelingSystem.getMaxLevel() ){
         			levelingSystem.getInteractivityInterface().beatGame();
         		}else{ 
         			levelingSystem.getInteractivityInterface().openStore();

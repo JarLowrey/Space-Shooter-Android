@@ -64,6 +64,8 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	 * @return Always returns false, overwrite for different behavior
 	 */
 	public boolean moveDirection(int direction) throws IllegalArgumentException{
+		//A great way to simplify this would be to have a matrix of up,down,left,right and a thread in this class for moving.
+		//child classes would modify the movement array
 		if(direction!=UP && direction!=SIDEWAYS && direction!=DOWN && direction!=LEFT && direction != RIGHT){
 			throw new IllegalArgumentException("direction argument must be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT");
 		}

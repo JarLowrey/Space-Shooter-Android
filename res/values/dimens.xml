@@ -3,8 +3,8 @@
     <dimen name="bonus_background_len">30dp</dimen>
     <dimen name="bonus_img_len">20dp</dimen>
     
-    <dimen name="ship_array_shooter_height">48dp</dimen>
-    <dimen name="ship_array_shooter_width">34.66dp</dimen>
+    <dimen name="ship_array_shooter_height">34.66dp</dimen>
+    <dimen name="ship_array_shooter_width">48dp</dimen>
     
     <dimen name="ship_diagonal_height">30dp</dimen>
     <dimen name="ship_diagonal_width">47.7272dp</dimen>
