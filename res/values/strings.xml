@@ -21,7 +21,7 @@
     <color name="dark_gray">#4D4D4D</color>
     <color name="black">#000000</color>
 
-    <string name="upgrade_bullet_speed">Increase ammunition speed</string>
+    <string name="upgrade_defence">Increase shield capacity</string>
     <string name="upgrade_bullet_damage">Increase bullet damage</string>
     <string name="upgrade_bullet_frequency">Increase firing rate</string>
     <string name="upgrade_heal">Fully repair craft</string>

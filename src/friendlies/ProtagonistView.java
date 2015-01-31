@@ -22,7 +22,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	public static final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 
-	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_BULLET_SPEED=1,UPGRADE_BULLET_FREQ=3,
+	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_DEFENCE=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
 	
 	SharedPreferences gameState;
@@ -136,7 +136,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 			break;
 		case Moving_ProjectileView.UP:
 			y-=this.getSpeedY();
-			if(y > MainActivity.getHeightPixels()/2){this.setY(y);}			
+			if(y > 2 * MainActivity.getHeightPixels()/5){this.setY(y);}			
 			break;
 		case Moving_ProjectileView.DOWN:
 			y+=this.getSpeedY();
@@ -166,9 +166,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 			final int gunDmg = gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0);
 			editor.putInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, gunDmg+1);
 			break;
-		case UPGRADE_BULLET_SPEED:
-			final int gunSpd = gameState.getInt(GameActivity.STATE_BULLET_SPEED_LEVEL, 0);
-			editor.putInt(GameActivity.STATE_BULLET_SPEED_LEVEL, gunSpd+1);
+		case UPGRADE_DEFENCE:
+			final int defence = gameState.getInt(GameActivity.STATE_DEFENCE_LEVEL, 0);
+			editor.putInt(GameActivity.STATE_DEFENCE_LEVEL, defence+1);
 			break;
 		case UPGRADE_BULLET_FREQ:
 			final int gunFreq = gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
@@ -205,27 +205,26 @@ public class ProtagonistView extends Friendly_ShooterView{
 		
 		final float freq = getShootingDelay();
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
-		final float speed = DEFAULT_BULLET_SPEED_Y + getBulletSpeedYLevel() * BULLET_SPEED_WEIGHT;
 		
 		switch(getGunLevel()){
 		case 0:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,50) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
 			break;
 		case 1:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
 			break;
 		case 2:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
 			break;
 		case 3:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,speed,dmg,80) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
 			break;
 		case 4:
-			Gun gun1 = new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),freq,speed,dmg,50) ;
-			Gun gun2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),freq,speed,dmg,50) ;
+			Gun gun1 = new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) ;
+			Gun gun2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) ;
 			this.addGun(gun1);
 			this.addGun(gun2);
 			break;
@@ -241,8 +240,8 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public int getBulletDamageLevel(){
 		return gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0);
 	}
-	public int getBulletSpeedYLevel(){
-		return gameState.getInt(GameActivity.STATE_BULLET_SPEED_LEVEL, 0);
+	public int getDefenceLevel(){
+		return gameState.getInt(GameActivity.STATE_DEFENCE_LEVEL, 0);
 	}
 	public int getBulletBulletFreqLevel(){
 		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);

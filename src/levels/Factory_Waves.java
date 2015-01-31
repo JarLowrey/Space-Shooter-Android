@@ -194,11 +194,14 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnCircularOrbiterWave(6,500,3);
+			currentWave++;
 		} 
 	};
+
+	//levels
 	
 	//levels defined in terms of 5second  waves
-	final Runnable[] level1 = {diagonalFullScreen,diagonalFullScreen,meteorSidewaysForWholeLevel,
+	final Runnable[] level1 = {meteorSidewaysForWholeLevel,
 			meteorSidewaysForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToLeft,
@@ -223,6 +226,7 @@ public class Factory_Waves extends Factory_Bosses{
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
+			diagonalFullScreen,
 			diagonalColumns,
 			diagonalColumns,
 			diagonalColumns
@@ -246,12 +250,14 @@ public class Factory_Waves extends Factory_Bosses{
 			refreshArrayShooters,
 			doNothing,
 			doNothing,
+			trackingEnemy,
+			trackingEnemy,
+			doNothing,
 			doNothing,
 			refreshArrayShooters,
 			doNothing,
 			doNothing,
-			diagonalColumns,
-			diagonalColumns
+			trackingEnemy
 		};
 	
 	final  Runnable[] level6 = {meteorSidewaysForWholeLevel,
@@ -259,10 +265,14 @@ public class Factory_Waves extends Factory_Bosses{
 			meteorShowersThatForceUserToLeft,
 			refreshArrayShooters,
 			doNothing,
-			diagonalColumns,
+			doNothing,
+			doNothing,
 			doNothing,
 			diagonalColumns,
-			boss1
+			boss1,
+			doNothing,
+			doNothing,
+			trackingEnemy
 		};
 	
 	final Runnable[] level7 = {
@@ -271,12 +281,13 @@ public class Factory_Waves extends Factory_Bosses{
 			boss3
 		};
 	
-	final Runnable levels[][] ={level7};
+	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6,level7};
 	
 	
 	
 	
 	
+	//spawn enemies over a set period
 	
 	public final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 		conditionalHandler.postIfLevelResumed(new Runnable(){

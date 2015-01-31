@@ -69,9 +69,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		rocket.startAnimation(rocketLaunch);
 
 		//create background animation
-//		ImageView imgView = (ImageView) findViewById(R.id.animating_image_view_main_menu);
-//	    animation = (AnimationDrawable) imgView.getBackground();
-//	    animation.start();
+		ImageView imgView = (ImageView) findViewById(R.id.animating_image_view_main_menu);
+		AnimationDrawable animation = (AnimationDrawable) imgView.getBackground();
+	    animation.start();
 		
 	}
 	

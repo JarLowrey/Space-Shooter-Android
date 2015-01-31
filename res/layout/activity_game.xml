@@ -93,10 +93,10 @@
     
     <!-- STORE LAYOUT -->
     
-    <RelativeLayout
+   <RelativeLayout
         android:id="@+id/store_layout"
         android:layout_width="match_parent"
-        android:background="@drawable/space1_0"
+        android:background="@anim/stars"
         android:layout_height="match_parent"
         android:visibility="gone">
         
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_above="@+id/btn_new_gun"
+            android:layout_above="@+id/btn_inc_defence"
             android:layout_marginBottom="@dimen/activity_margin_large"
             android:gravity="center"
             android:text="We&apos;ve found refuge for the night. Scrap salvaged throughout the day can be used for repairs and upgrades." />
@@ -157,7 +157,11 @@
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/store_item_len"
 		    android:layout_height="@dimen/store_item_len"
-		    android:layout_centerInParent="true"
+		    
+		    android:layout_alignBaseline="@+id/btn_new_gun"
+		    android:layout_alignBottom="@+id/btn_new_gun"
+		    android:layout_toLeftOf="@+id/btn_heal"
+		    
 		    android:src="@drawable/bullet_damage"
   			android:scaleType="fitCenter"  
   			android:adjustViewBounds="true"  
@@ -171,14 +175,31 @@
 		    android:src="@drawable/gun"
 		    android:layout_width="@dimen/store_item_len"
 		    android:layout_height="@dimen/store_item_len"
-		    android:layout_above="@+id/btn_inc_bullet_dmg"
   			android:scaleType="fitCenter"  
   			android:adjustViewBounds="true"  
-		    android:layout_marginBottom="@dimen/store_btn_margin_vertical"
-		    android:layout_toRightOf="@+id/btn_inc_bullet_dmg"
 		    android:background="@drawable/white_center_red_outline"
+		    
+		    android:layout_centerInParent="true"
+		    
 		    android:contentDescription="new gun"
 		    android:text="gun" />
+		
+		<ImageButton
+		    android:id="@+id/btn_inc_defence"
+		    android:src="@drawable/shield"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="@dimen/store_item_len"
+  			android:scaleType="fitCenter"  
+  			android:adjustViewBounds="true"  
+		    android:layout_height="@dimen/store_item_len"
+		    android:background="@drawable/white_center_red_outline"
+		    
+		    android:layout_above="@+id/btn_new_gun"
+		    android:layout_marginBottom="@dimen/store_btn_margin_vertical"
+		    android:layout_toRightOf="@+id/btn_new_gun"
+		    
+		    android:contentDescription="defence"
+		    android:text="defence" />
 
 		<ImageButton
 		    android:id="@+id/btn_heal"
@@ -186,29 +207,15 @@
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/store_item_len"
 		    android:layout_height="@dimen/store_item_len"
-		    android:layout_alignBaseline="@+id/btn_new_gun"
-		    android:layout_alignBottom="@+id/btn_new_gun"
+		    android:layout_alignBaseline="@+id/btn_inc_defence"
+		    android:layout_alignBottom="@+id/btn_inc_defence"
   			android:scaleType="fitCenter"  
   			android:adjustViewBounds="true"  
 		    android:background="@drawable/white_center_red_outline"
-		    android:layout_toLeftOf="@+id/btn_inc_bullet_dmg"
+		    android:layout_toLeftOf="@+id/btn_new_gun"
 		    android:contentDescription="heal"
 		    android:text="" />
 
-		<ImageButton
-		    android:id="@+id/btn_inc_bullet_speed"
-		    android:src="@drawable/bullet_speed"
-		    style="?android:attr/buttonStyleSmall"
-		    android:layout_width="@dimen/store_item_len"
-  			android:scaleType="fitCenter"  
-  			android:adjustViewBounds="true"  
-		    android:layout_height="@dimen/store_item_len"
-		    android:background="@drawable/white_center_red_outline"
-		    android:layout_alignBaseline="@+id/btn_inc_bullet_dmg"
-		    android:layout_alignBottom="@+id/btn_inc_bullet_dmg"
-		    android:layout_toLeftOf="@+id/btn_heal"
-		    android:contentDescription="bulletspeed"
-		    android:text="bulletspeed" />
 
 		<ImageButton
 		    android:id="@+id/btn_inc_bullet_freq"
@@ -217,11 +224,11 @@
 		    android:layout_width="@dimen/store_item_len"
 		    android:layout_height="@dimen/store_item_len"
 		    android:background="@drawable/white_center_red_outline"
-		    android:layout_alignBaseline="@+id/btn_inc_bullet_dmg"
-		    android:layout_alignBottom="@+id/btn_inc_bullet_dmg"
+		    android:layout_alignBaseline="@+id/btn_new_gun"
+		    android:layout_alignBottom="@+id/btn_new_gun"
   			android:scaleType="fitCenter"  
   			android:adjustViewBounds="true"  
-		    android:layout_toRightOf="@+id/btn_new_gun"
+		    android:layout_toRightOf="@+id/btn_inc_defence"
 		    android:contentDescription="bulletfreq"
 		    android:text="bulletfreq" />
 
@@ -236,7 +243,7 @@
   			android:scaleType="fitCenter"  
   			android:adjustViewBounds="true"  
 		    android:layout_alignBottom="@+id/btn_purchase_friend"
-		    android:layout_toRightOf="@+id/btn_inc_bullet_dmg"
+		    android:layout_toRightOf="@+id/btn_new_gun"
 		    android:contentDescription="score increase"
 		    android:text="score" />
 
@@ -246,12 +253,12 @@
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/store_item_len"
 		    android:layout_height="@dimen/store_item_len"
-		    android:layout_below="@+id/btn_inc_bullet_dmg"
+		    android:layout_below="@+id/btn_new_gun"
 		    android:layout_marginTop="@dimen/store_btn_margin_vertical"
   			android:scaleType="fitCenter"  
   			android:adjustViewBounds="true"  
 		    android:background="@drawable/white_center_red_outline"
-		    android:layout_toLeftOf="@+id/btn_inc_bullet_dmg"
+		    android:layout_toLeftOf="@+id/btn_new_gun"
 		    android:contentDescription="friend"
 		    android:text="friend" />
 

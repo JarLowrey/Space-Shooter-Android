@@ -40,7 +40,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			STATE_GUN_CONFIG="gunConfig",
 			STATE_BULLET_FREQ_LEVEL="bulletFreqLevel",
 			STATE_BULLET_DAMAGE_LEVEL="bulletDamageLevel",
-			STATE_BULLET_SPEED_LEVEL="bulletSpeedLevel",
+			STATE_DEFENCE_LEVEL="defenceLevel",
 			STATE_RESOURCE_MULTIPLIER_LEVEL="resourceMultLevel",
 			STATE_FRIEND_LEVEL="friendLevel",
 			STATE_LEVEL="level";
@@ -88,7 +88,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCount = (TextView)findViewById(R.id.level_count);
 		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
 		btnIncBulletDmg= (ImageButton)findViewById(R.id.btn_inc_bullet_dmg); 
-		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_bullet_speed); 
+		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_defence); 
 		btnIncBulletFreq= (ImageButton)findViewById(R.id.btn_inc_bullet_freq); 
 		btnIncScoreWeight= (ImageButton)findViewById(R.id.btn_inc_score_weight); 
 		btnNewGun= (ImageButton)findViewById(R.id.btn_new_gun); 
@@ -149,8 +149,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			editor.putInt(STATE_HEALTH,ProtagonistView.DEFAULT_HEALTH);
 			editor.putInt(STATE_RESOURCES, 0);
 			editor.putInt(STATE_GUN_CONFIG, -1);
-			editor.putInt(STATE_BULLET_DAMAGE_LEVEL, 0);
-			editor.putInt(STATE_BULLET_SPEED_LEVEL, 0);
 			editor.putInt(STATE_BULLET_FREQ_LEVEL, 0);
 			editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
 			editor.putInt(STATE_FRIEND_LEVEL, 0);
@@ -198,7 +196,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			levelCreator.resumeLevel();
 			
 		}else{
-			Log.d("lowrey","store opened");
 			openStore();
 		}
 	}
@@ -311,8 +308,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				case R.id.btn_inc_bullet_freq:
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_FREQ);
 					break;
-				case R.id.btn_inc_bullet_speed:
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_SPEED);					
+				case R.id.btn_inc_defence:
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_DEFENCE);					
 					break;
 				case R.id.btn_inc_score_weight:
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_SCORE_MULTIPLIER);
@@ -361,10 +358,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 						* Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
 				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
 				break;
-			case ProtagonistView.UPGRADE_BULLET_SPEED:
-				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_speed_base_cost) 
-						* Math.pow((protagonist.getBulletSpeedYLevel()+1),2)) ;
-				msg=this.getResources().getString(R.string.upgrade_bullet_speed);
+			case ProtagonistView.UPGRADE_DEFENCE:
+				cost = (int) (this.getResources().getInteger(R.integer.inc_defence_base_cost) 
+						* Math.pow((protagonist.getDefenceLevel()+1),2)) ;
+				msg=this.getResources().getString(R.string.upgrade_defence);
 				break;
 			case ProtagonistView.UPGRADE_BULLET_FREQ:
 				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) 

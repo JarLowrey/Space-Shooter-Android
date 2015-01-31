@@ -3,15 +3,14 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/space1_0"
     tools:context="${relativePackage}.${activityClass}" >
-<!-- 
+
     <ImageView
         android:id="@+id/animating_image_view_main_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@anim/animating_main_menu"/>
-     -->   
+        android:background="@anim/stars"/>
+     
     <ImageView
         android:id="@+id/moon"
         android:layout_width="@dimen/moon_length"

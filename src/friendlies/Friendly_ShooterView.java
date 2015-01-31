@@ -16,7 +16,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			DEFAULT_SPEED_X=11;
 	public final static int DEFAULT_COLLISION_DAMAGE=Integer.MAX_VALUE, 
 			DEFAULT_HEALTH=10000,
-			DEFAULT_BULLET_SPEED_Y=9,
+			DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=DEFAULT_HEALTH/20, 
 			DEFAULT_BULLET_FREQ=850;
 

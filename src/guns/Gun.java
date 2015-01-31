@@ -96,10 +96,10 @@ public abstract class Gun {
 	
 	public void destroyGun(){
 		myBulletType.removeBulletType();
-		ctx=null;
-		shooter=null;
-		myBulletType=null;
-		
+//		ctx=null;
+//		shooter=null;
+//		myBulletType=null;
+//		
 	}
 
 }
