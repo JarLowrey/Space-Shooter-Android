@@ -11,8 +11,8 @@ import friendlies.ProtagonistView;
 
 public class Shooting_TrackingView extends Enemy_ShooterView{
 
-	public static final float DEFAULT_SPEED_Y=(float) 4.5,
-			DEFAULT_SPEED_X=(float) 2.5,
+	public static final float DEFAULT_SPEED_Y=(float) 4.8,
+			DEFAULT_SPEED_X=(float) 3,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .02,
 			DEFAULT_BULLET_FREQ=10000;
 	
