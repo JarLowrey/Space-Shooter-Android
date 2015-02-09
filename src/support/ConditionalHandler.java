@@ -65,11 +65,12 @@ public class ConditionalHandler {
 			shooter.postDelayed(r, bulletFreq);
 		}
 	}
-	// handler for the leveling system. level cannot be paused or over
-	private Handler spawnHandler = new Handler();
+	// handler for the leveling system. level cannot be paused or out of waves
+	private Handler spawnHandler;
 	private Factory_Waves myWaveFactory;
 	public ConditionalHandler( Factory_Waves someLevelSystem){
 		myWaveFactory=someLevelSystem;
+		spawnHandler = new Handler();
 	}
 	/**
 	 * Post Runnable r immediately

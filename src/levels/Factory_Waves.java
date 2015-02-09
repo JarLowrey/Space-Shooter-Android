@@ -34,7 +34,7 @@ public class Factory_Waves extends Factory_Bosses{
 	boolean currentlySpawningSomeWave;
 	protected boolean levelPaused;
 	
-	public Factory_Waves(Context context) {
+	public Factory_Waves(Context context) { 
 		super(context);
 		
 		conditionalHandler = new ConditionalHandler(this);
@@ -42,7 +42,7 @@ public class Factory_Waves extends Factory_Bosses{
 
 	//get methods
 	private int getCurrentLevelLengthMilliseconds(){
-		return levels[currentLevel].length*DEFAULT_WAVE_DURATION;
+		return levels[getLevel()].length*DEFAULT_WAVE_DURATION;
 	}
 	public int getNumWavesInLevel(int level){
 		if(level>=0 && level<levels.length){
@@ -52,7 +52,7 @@ public class Factory_Waves extends Factory_Bosses{
 		}
 	}
 	public boolean areLevelWavesCompleted(){
-		return currentWave==levels[currentLevel].length && ! currentlySpawningSomeWave;
+		return getWave()==levels[getLevel()].length /*&& ! currentlySpawningSomeWave*/;
 	}
 	public boolean isLevelPaused(){
 		return levelPaused;
@@ -60,7 +60,7 @@ public class Factory_Waves extends Factory_Bosses{
 		
 	protected final  Runnable doNothing = new Runnable(){
 		@Override
-		public void run() {currentWave++;}};
+		public void run() {incrementWave();}};
 	
 	//regular meteors
 	
@@ -69,21 +69,21 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnSidewaysMeteorsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
-			currentWave++;
+			incrementWave();
 		}
 	};
 	final Runnable meteorsStraightForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
 			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
-			currentWave++;
+			incrementWave();
 		}
 	};
 	final Runnable meteorSidewaysThisWave = new Runnable(){
 		@Override
 		public void run() {
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
-			currentWave++;
+			incrementWave();
 		}
 	};	
 	
@@ -92,7 +92,7 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
-			currentWave++;
+			incrementWave();
 		}
 	};
 	final Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
@@ -105,7 +105,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			spawnMeteorShower(numMeteors,400,true);
 			spawnMeteorShower(numMeteors,400,false);
-			currentWave++;
+			incrementWave();
 		}
 	};
 	final Runnable meteorShowersThatForceUserToRight = new Runnable(){
@@ -114,7 +114,7 @@ public class Factory_Waves extends Factory_Bosses{
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
-			currentWave++;
+			incrementWave();
 		}
 	};
 	final Runnable meteorShowersThatForceUserToLeft = new Runnable(){
@@ -123,7 +123,7 @@ public class Factory_Waves extends Factory_Bosses{
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,false);
-			currentWave++;
+			incrementWave();
 		}
 	};
 
@@ -133,14 +133,14 @@ public class Factory_Waves extends Factory_Bosses{
 		public void run() {
 			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
-			currentWave++;
+			incrementWave();
 		}
 	};
 	final Runnable meteorsOnlyGiants = new Runnable(){
 		@Override
 		public void run() {
 			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
-			currentWave++;
+			incrementWave();
 		}
 	};
 	
@@ -155,7 +155,7 @@ public class Factory_Waves extends Factory_Bosses{
 			for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
 				new Shooting_ArrayMovingView(ctx);
 			}
-			currentWave++;
+			incrementWave();
 		}
 	};
 
@@ -168,14 +168,14 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnDiveBomberWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
-			currentWave++;
+			incrementWave();
 		}
 	};
 	final Runnable diagonalFullScreen = new Runnable(){
 		@Override
 		public void run() {
 			spawnFullScreenDiagonalAttackersWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
-			currentWave++;
+			incrementWave();
 		}
 	};
 	
@@ -186,7 +186,7 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
-			currentWave++;
+			incrementWave();
 		}
 	};
 	
@@ -195,7 +195,7 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnCircularOrbiterWave(6,500,3);
-			currentWave++;
+			incrementWave();
 		} 
 	};
 
@@ -282,7 +282,7 @@ public class Factory_Waves extends Factory_Bosses{
 			boss3
 		};
 	
-	final Runnable levels[][] ={level5,level6,level7};
+	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6,level7};
 	
 	
 	

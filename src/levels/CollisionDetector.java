@@ -20,7 +20,8 @@ public class CollisionDetector {
     private Runnable collisionDetectionRunnable = new Runnable() { 
         @Override
         public void run() {
-//        	Log.d("lowrey","enemies="+LevelSystem.enemies.size() +" enemy bullets=" +LevelSystem.enemyBullets.size()+" wave="+levelingSystem.getWaveNumber());
+        	Log.d("lowrey","enemies="+LevelSystem.enemies.size() +" enemy bullets=" +
+        			LevelSystem.enemyBullets.size()+" wave="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
         	
         	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
         			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted() 

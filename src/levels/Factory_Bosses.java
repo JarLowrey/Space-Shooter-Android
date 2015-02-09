@@ -1,6 +1,5 @@
 package levels;
 
-import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
@@ -24,30 +23,17 @@ import guns.Gun_TrackingSingle;
  * @author JAMES LOWREY
  *
  */
-public class Factory_Bosses{
-	protected int currentLevel;
-	protected int currentWave;
-	
-	protected Context ctx;
-	
-	//GET methods
-	public  int getLevel(){
-		return currentLevel;
-	}
-
-	public GameActivityInterface getInteractivityInterface(){
-		return (GameActivityInterface)ctx;
-	}
-
+public class Factory_Bosses extends LevelAttributes
+{
 	public Factory_Bosses(Context context){
-		ctx=context;
+		super(context);
 	} 
 	
 	final Runnable boss1 = new Runnable(){
 		@Override
 		public void run() {
 			spawnBoss1();
-			currentWave++;
+			incrementWave();
 		}
 	};
 	
@@ -55,7 +41,7 @@ public class Factory_Bosses{
 		@Override
 		public void run() {
 			spawnBoss2();
-			currentWave++;
+			incrementWave();
 		}
 	};
 	
@@ -63,7 +49,7 @@ public class Factory_Bosses{
 		@Override
 		public void run() {
 			spawnBoss3();
-			currentWave++;
+			incrementWave();
 		}
 	};  
 	

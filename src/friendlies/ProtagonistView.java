@@ -247,4 +247,17 @@ public class ProtagonistView extends Friendly_ShooterView{
 		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
 	}
 	
+	@Override
+	public void removeGameObject(){
+		super.removeGameObject();
+		
+		if(this.getHealth()>0){//if not dead, then game is paused. Save needed Attributes
+//			SharedPreferences gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+//			SharedPreferences.Editor editor = gameState.edit();
+//			
+//			
+//			
+//			editor.commit();
+		}
+	}
 }
