@@ -54,4 +54,9 @@ public class Gravity_MeteorView extends EnemyView{
 		ConditionalHandler.postIfAlive(rotateRunnable, this);
 		super.restartThreads();
 	}
+
+	@Override
+	public void reachedGravityPosition() {
+		removeGameObject();
+	}
 }

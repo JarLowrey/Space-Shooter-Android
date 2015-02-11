@@ -85,7 +85,6 @@ public class LevelAttributes {
 		editor.commit();
 	}
 	public void loadScoreAndWaveAndLevel(){
-
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		setResources(gameState.getInt(GameActivity.STATE_RESOURCES,0));
 		setLevel(gameState.getInt(GameActivity.STATE_LEVEL,0));

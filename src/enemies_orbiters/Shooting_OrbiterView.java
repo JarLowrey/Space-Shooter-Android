@@ -84,4 +84,12 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
 	
+
+	@Override
+	public void reachedGravityPosition() {
+		//if(hasBegunOrbiting)//is this needed? I think not
+		stopGravity();
+		hasBegunOrbiting=true;
+		beginOrbit();
+	}
 }

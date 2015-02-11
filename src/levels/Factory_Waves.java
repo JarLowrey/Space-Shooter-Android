@@ -60,7 +60,8 @@ public class Factory_Waves extends Factory_Bosses{
 		
 	protected final  Runnable doNothing = new Runnable(){
 		@Override
-		public void run() {incrementWave();}};
+		public void run() {incrementWave();}
+	};
 	
 	//regular meteors
 	
@@ -150,11 +151,7 @@ public class Factory_Waves extends Factory_Bosses{
 	final Runnable refreshArrayShooters = new Runnable(){
 		@Override
 		public void run() {
-			int temp=Shooting_ArrayMovingView.allSimpleShooters.size();
-			
-			for(int i=temp;i<Shooting_ArrayMovingView.getMaxNumShips();i++){
-				new Shooting_ArrayMovingView(ctx);
-			}
+			Shooting_ArrayMovingView.refreshSimpleShooterArray(ctx);
 			incrementWave();
 		}
 	};
@@ -202,7 +199,7 @@ public class Factory_Waves extends Factory_Bosses{
 	//levels
 	
 	//levels defined in terms of 5second  waves
-	final Runnable[] level1 = {meteorSidewaysForWholeLevel,
+	final Runnable[] level_0 = {meteorSidewaysForWholeLevel,
 			meteorSidewaysForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToLeft,
@@ -210,7 +207,7 @@ public class Factory_Waves extends Factory_Bosses{
 			meteorShowersThatForceUserToLeft
 		}; 
 	
-	final  Runnable[] level2 ={meteorSidewaysForWholeLevel,
+	final  Runnable[] level_1 ={meteorSidewaysForWholeLevel,
 			meteorSidewaysForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToRight,
@@ -223,7 +220,7 @@ public class Factory_Waves extends Factory_Bosses{
 			meteorsOnlyGiants
 		};
 	
-	final  Runnable[] level3 = {meteorSidewaysForWholeLevel,
+	final  Runnable[] level_2 = {meteorSidewaysForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
 			meteorShowersThatForceUserToMiddle,
@@ -233,7 +230,7 @@ public class Factory_Waves extends Factory_Bosses{
 			diagonalColumns
 		};
 	
-	final  Runnable[] level4 = {meteorSidewaysForWholeLevel,
+	final  Runnable[] level_3 = {meteorSidewaysForWholeLevel,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
 			doNothing,
@@ -245,7 +242,7 @@ public class Factory_Waves extends Factory_Bosses{
 			doNothing
 		};
 	
-	final  Runnable[] level5 = {meteorSidewaysForWholeLevel,
+	final  Runnable[] level_4 = {meteorSidewaysForWholeLevel,
 			meteorSidewaysThisWave,
 			meteorShowersThatForceUserToMiddle,
 			refreshArrayShooters,
@@ -261,7 +258,7 @@ public class Factory_Waves extends Factory_Bosses{
 			trackingEnemy
 		};
 	
-	final  Runnable[] level6 = {meteorSidewaysForWholeLevel,
+	final  Runnable[] level_5 = {meteorSidewaysForWholeLevel,
 			meteorShowersThatForceUserToRight,
 			meteorShowersThatForceUserToLeft,
 			refreshArrayShooters,
@@ -276,13 +273,13 @@ public class Factory_Waves extends Factory_Bosses{
 			trackingEnemy
 		};
 	
-	final Runnable[] level7 = {
+	final Runnable[] level_6 = {
 			circlesThreeOrbiters,
 			boss2,
 			boss3
 		};
 	
-	final Runnable levels[][] ={level1,level2,level3,level4,level5,level6,level7};
+	final Runnable levels[][] ={/*level_0,level_1,level_2,level_3,*/level_4,level_5,level_6};
 	
 	
 	

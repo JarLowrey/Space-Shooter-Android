@@ -6,7 +6,7 @@ import parents.Projectile_GravityView;
 import android.content.Context;
 import bonuses.BonusView;
 
-public class EnemyView extends Projectile_GravityView{
+public abstract class EnemyView extends Projectile_GravityView{
 	
 	//TODO Enemies that dodge (move away) from nearby friendly's bullets ? 
 	public static int numSpawn=0,numRemoved=0;

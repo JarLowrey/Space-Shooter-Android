@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import levels.LevelSystem;
-import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -206,7 +205,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		//clean up variables
 		LevelSystem.enemies=new ArrayList<EnemyView>();
-		Shooting_ArrayMovingView.resetSimpleShooterArray();
 
 		finish();
 		Toast.makeText(this, "you suck...", Toast.LENGTH_LONG).show();

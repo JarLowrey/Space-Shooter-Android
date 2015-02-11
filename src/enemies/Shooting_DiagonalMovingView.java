@@ -119,4 +119,9 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	public float getShootingFreq(){
 		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
+
+	@Override
+	public void reachedGravityPosition() {
+		removeGameObject();
+	}
 }

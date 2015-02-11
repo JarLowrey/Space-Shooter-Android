@@ -33,6 +33,8 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
     		//if View is at lowest threshold stop reposting runnable
     		if(!atThreshold){
     			ConditionalHandler.postIfAlive(this, HOW_OFTEN_TO_MOVE/2,Projectile_GravityView.this);
+    		}else{
+    			reachedGravityPosition();
     		}
     	}
     };
@@ -48,6 +50,11 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
     	}
     	return offScreen || atThreshold;
     }
+    
+    /**
+     * Once the View has achieved it's threshold, allow further logic to be called
+     */
+    public abstract void reachedGravityPosition();
     
 	public void stopGravity(){
 		this.removeCallbacks(gravityRunnable);		

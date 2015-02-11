@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import background_objects.BackgroundView;
 import background_objects.Bird;
 import background_objects.Clouds;
@@ -101,13 +100,14 @@ public class LevelSystem extends Factory_Waves{
 		incrementLevel();
 		setWave(0);
 		
-		//save level and protagonist attributes
+		//save level attributes
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 		
 		editor.putInt(GameActivity.STATE_RESOURCES, this.getResourceCount());
 		editor.putInt(GameActivity.STATE_LEVEL, this.getLevel());
 		editor.putInt(GameActivity.STATE_WAVE, this.getWave());
+		//save protagonist state attributes
 		editor.putInt(GameActivity.STATE_HEALTH,this.getInteractivityInterface().getProtagonist().getHealth());
 		
 		editor.commit();
@@ -118,17 +118,8 @@ public class LevelSystem extends Factory_Waves{
 		}
 		for(int i=friendlyBullets.size()-1;i>=0;i--){ 
 			friendlyBullets.get(i).removeGameObject();
-		}	
-//		//level cannot end with enemies/bonuses alive, so don't worry about these
-//		for(int i=enemyBullets.size()-1;i>=0;i--){ 
-//			enemyBullets.get(i).removeGameObject();
-//		}	
-//		for(int i=enemies.size()-1;i>=0;i--){
-//			enemies.get(i).removeGameObject();
-//		}
-//		for(int i=bonuses.size()-1;i>=0;i--){ 
-//			bonuses.get(i).removeGameObject();
-//		}		
+		}
+		//enemies, enemy bullets, and bonuses must all already be removed for level to end - see collision detector
 	}
 	
 	public int getMaxLevel(){

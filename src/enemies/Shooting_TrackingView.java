@@ -82,4 +82,9 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	public float getShootingFreq() {
 		return DEFAULT_BULLET_FREQ;
 	}
+
+	@Override
+	public void reachedGravityPosition() {
+		removeGameObject();
+	}
 }
