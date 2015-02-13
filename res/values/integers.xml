@@ -9,7 +9,7 @@
     
     
     <integer-array name="gun_upgrade_costs">
-        <item>100</item>
+        <item>0</item>
         <item>4000</item>
         <item>10000</item>
         <item>20000</item>

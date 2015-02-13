@@ -166,7 +166,6 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			
 		}
 		
-		Log.d("lowrey","shooting Array Refreshed");
 	}
 
 	/**

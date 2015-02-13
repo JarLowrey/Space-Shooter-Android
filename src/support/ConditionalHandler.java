@@ -5,6 +5,7 @@ import interfaces.MovingViewInterface;
 import interfaces.Shooter;
 import levels.Factory_Waves;
 import android.os.Handler;
+import android.util.Log;
 /*
  * 
  * Any MovingView children that have RUNNABLES must include a condition for !MovingView.this.isRemoved() before running.
@@ -72,6 +73,7 @@ public class ConditionalHandler {
 		myWaveFactory=someLevelSystem;
 		spawnHandler = new Handler();
 	}
+	 
 	/**
 	 * Post Runnable r immediately
 	 * @param r

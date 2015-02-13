@@ -45,6 +45,8 @@ public class LevelSystem extends Factory_Waves{
 		levelPaused=false;
 		
 		createBackgroundEffects();
+
+		loadScoreAndWaveAndLevel();
 		
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in level, and each new level resets that progress.
@@ -56,9 +58,11 @@ public class LevelSystem extends Factory_Waves{
 		Runnable spawnWave = new Runnable(){
 			@Override
 			public void run() {
-				conditionalHandler.postIfLevelResumed(levels[getLevel()][getWave()]);
-				incrementWave();
-				conditionalHandler.postIfLevelResumed(this,DEFAULT_WAVE_DURATION);
+				if(!levelPaused && !areLevelWavesCompleted()){
+					conditionalHandler.postIfLevelResumed(levels[getLevel()][getWave()]);
+					incrementWave();
+					conditionalHandler.postIfLevelResumed(this,DEFAULT_WAVE_DURATION);
+				}
 			}
 		};
 		
@@ -92,7 +96,6 @@ public class LevelSystem extends Factory_Waves{
 		for(int i=bonuses.size()-1;i>=0;i--){ 
 			bonuses.get(i).removeGameObject();
 		}
-		
 	}
 	
 	public void endLevel(){
@@ -111,7 +114,7 @@ public class LevelSystem extends Factory_Waves{
 		
 		editor.putInt(GameActivity.STATE_RESOURCES, this.getResourceCount());
 		editor.putInt(GameActivity.STATE_LEVEL, this.getLevel());
-		editor.putInt(GameActivity.STATE_WAVE, this.getWave());
+//		editor.putInt(GameActivity.STATE_WAVE, 0);
 		//save protagonist state attributes
 		editor.putInt(GameActivity.STATE_HEALTH,this.getInteractivityInterface().getProtagonist().getHealth());
 		

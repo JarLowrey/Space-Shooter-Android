@@ -3,6 +3,7 @@ package levels;
 import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -278,8 +279,21 @@ public class Factory_Waves extends Factory_Bosses{
 			boss2,
 			boss3
 		};
+	/*
+	final Runnable toastyTest = new Runnable(){
+		@Override
+		public void run() {
+			Toast.makeText(ctx, "wave = "+getWave()+" paused = "+levelPaused, Toast.LENGTH_LONG).show();			
+		}
+		
+	};
+	final Runnable[] test_level = {
+			toastyTest,toastyTest,toastyTest,toastyTest,toastyTest,toastyTest,toastyTest,toastyTest,toastyTest,toastyTest,toastyTest,toastyTest
+	};
+	*/
 	
-	final Runnable levels[][] ={/*level_0,level_1,level_2,level_3,level_4,*/level_5,level_6};
+	final Runnable levels[][] ={		/*test_level*/
+			level_0,level_1,level_2,level_3,level_4,level_5,level_6};
 	
 	
 	

@@ -20,16 +20,6 @@ public class LevelAttributes {
 
 	//Waves
 	public int getWave(){
-//		//get saved Wave number.
-//		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-//		int savedWave = gameState.getInt(GameActivity.STATE_WAVE, 0);
-//		if(savedWave>0){
-//			waveNo=savedWave;
-//
-//			SharedPreferences.Editor editor = gameState.edit();
-//			editor.putInt(GameActivity.STATE_WAVE, 0);
-//			editor.commit();
-//		}
 		return waveNo;
 	}
 	public void setWave(int wave){
@@ -42,15 +32,9 @@ public class LevelAttributes {
 	//Levels
 	public  int getLevel(){
 		return levelNo;
-//		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-//		return gameState.getInt(GameActivity.STATE_LEVEL, 0);
 	}
 	protected void setLevel(int level){
 		levelNo=level;
-//		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-//		SharedPreferences.Editor editor = gameState.edit();
-//		editor.putInt(GameActivity.STATE_LEVEL, level);
-//		editor.commit();
 	}
 	protected void incrementLevel(){
 		setLevel(getLevel()+1);
@@ -58,25 +42,20 @@ public class LevelAttributes {
 	
 	//Resources
 	public void setResources(int scoreValue){
-		resourceNo=scoreValue;
+		//resources only DECREASE when buying things. Thus they should be saved to persistent memory
+		if(scoreValue < resourceNo){
+			resourceNo=scoreValue;
+    		saveResourceCount();
+		}else{
+			resourceNo=scoreValue;
+		}
 	}
 	public int getResourceCount(){
 		return resourceNo;
 	}
 
 	// persistent storage
-/*	public void saveScoreAndWaveAndLevel(){
-		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-		SharedPreferences.Editor editor = gameState.edit();
-		
-		editor.putInt(GameActivity.STATE_RESOURCES, resourceNo);
-		editor.putInt(GameActivity.STATE_LEVEL, levelNo);
-		editor.putInt(GameActivity.STATE_WAVE, waveNo);
-		
-		editor.commit();
-	}
-*/
-	public void saveResourceCount(){
+	protected void saveResourceCount(){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 		
@@ -84,10 +63,14 @@ public class LevelAttributes {
 		
 		editor.commit();
 	}
-	public void loadScoreAndWaveAndLevel(){
+	/**
+	 * Load saved level and resources from memory. Set wave to 0
+	 */
+	protected void loadScoreAndWaveAndLevel(){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		setResources(gameState.getInt(GameActivity.STATE_RESOURCES,0));
 		setLevel(gameState.getInt(GameActivity.STATE_LEVEL,0));
-		setWave(gameState.getInt(GameActivity.STATE_WAVE,0));
+//		setWave(gameState.getInt(GameActivity.STATE_WAVE,0));
+		setWave(0);
 	}
 }

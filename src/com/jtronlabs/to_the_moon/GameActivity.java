@@ -41,8 +41,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			STATE_DEFENCE_LEVEL="defenceLevel",
 			STATE_RESOURCE_MULTIPLIER_LEVEL="resourceMultLevel",
 			STATE_FRIEND_LEVEL="friendLevel",
-			STATE_LEVEL="level",
-			STATE_WAVE="wave";
+			STATE_LEVEL="level";
+//			STATE_WAVE="wave";
 	
 	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
@@ -159,7 +159,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			
 			//reset level properties
 			editor.putInt(STATE_LEVEL, 0);
-			editor.putInt(STATE_WAVE, 0);
+//			editor.putInt(STATE_WAVE, 0);
 			
 			editor.commit();
 		}else{
@@ -173,10 +173,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
 	public void onResume(){
 		super.onResume(); 
-		Log.d("lowrey","num enemies on resume = "+levelCreator.enemies.size());
-
-		//load game state::
-		levelCreator.loadScoreAndWaveAndLevel();
+		for(EnemyView e : levelCreator.enemies){
+			e.setBackgroundColor(getResources().getColor(R.color.red));
+		}
 
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		
@@ -192,6 +191,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}else{
 			openStore();
 		}
+		
+
+		Log.d("lowrey","num enemies on resume = "+levelCreator.enemies.size()+" waveNo = "+levelCreator.getWave());
 	}
 	
 	public void gameOver(){
@@ -407,7 +409,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		        		
 		        		//update Views in the store
 		        		levelCreator.setResources(levelCreator.getResourceCount()-costCopy);
-		        		levelCreator.saveResourceCount();
 		        		
 		    			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getResourceCount()));
 		    			final int health =  (int) ((protagonist.getHealth()+0.0) /protagonist.getMaxHealth() * 100);//in case health was purchased
