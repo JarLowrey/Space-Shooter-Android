@@ -91,7 +91,7 @@ public class ConditionalHandler {
 			spawnHandler.postDelayed(r, 0);
 		}
 	}
-	public void stopSpawning(){
+	public void stopSpawningWaves(){
 		spawnHandler.removeCallbacks(null);
 	}
 }

@@ -53,11 +53,16 @@ public class LevelSystem extends Factory_Waves{
 		 * the delay from the currrentWave for the next wave's post
 		 */
 		
-		for(int i=getWave();i<levels[getLevel()].length;i++){
-			conditionalHandler.postIfLevelResumed(levels[getLevel()][i], 
-					i * DEFAULT_WAVE_DURATION 
-					- getWave() * DEFAULT_WAVE_DURATION);
-		}
+		Runnable spawnWave = new Runnable(){
+			@Override
+			public void run() {
+				conditionalHandler.postIfLevelResumed(levels[getLevel()][getWave()]);
+				incrementWave();
+				conditionalHandler.postIfLevelResumed(this,DEFAULT_WAVE_DURATION);
+			}
+		};
+		
+		conditionalHandler.postIfLevelResumed(spawnWave);
 		
 		gameDetector.startDetecting();
 	}
@@ -66,7 +71,7 @@ public class LevelSystem extends Factory_Waves{
 		levelPaused=true;
 		
 		gameDetector.stopDetecting();
-		conditionalHandler.stopSpawning();
+		conditionalHandler.stopSpawningWaves();
 		
 		//clean up - kill Views & associated threads, stop all spawning & background threads
 		for(int i=backgroundViews.size()-1;i>=0;i--){ 
@@ -94,7 +99,7 @@ public class LevelSystem extends Factory_Waves{
 		levelPaused=true;
 
 		gameDetector.stopDetecting();
-		conditionalHandler.stopSpawning();
+		conditionalHandler.stopSpawningWaves();
 		
 		//set new level
 		incrementLevel();

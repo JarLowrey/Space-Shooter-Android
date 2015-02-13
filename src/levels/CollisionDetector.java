@@ -20,8 +20,8 @@ public class CollisionDetector {
     private Runnable collisionDetectionRunnable = new Runnable() { 
         @Override
         public void run() {
-        	Log.d("lowrey","enemiesNo="+LevelSystem.enemies.size() +" enemy bulletsNo=" +
-        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
+//        	Log.d("lowrey","enemiesNo="+LevelSystem.enemies.size() +" enemy bulletsNo=" +
+//        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
         	
         	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
         			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted() 
@@ -56,14 +56,14 @@ public class CollisionDetector {
     		FriendlyView friendly = LevelSystem.friendlies.get(k);
     		
 	    	for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
-	    		try{
+//	    		try{
 		    		EnemyView enemy = LevelSystem.enemies.get(i);
 		    		if(friendly.collisionDetection(enemy)){
 		    			
 		    			friendly.takeDamage(enemy.getDamage());
 		    			enemy.takeDamage(friendly.getDamage());
 		    		}
-	    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
+//	    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 	    	}
     	}
     }
@@ -73,14 +73,14 @@ public class CollisionDetector {
 			FriendlyView friendly = LevelSystem.friendlies.get(k);
 			
 			for(int j=LevelSystem.enemyBullets.size()-1;j>=0;j--){
-				try{
+//				try{
 					BulletView bullet = LevelSystem.enemyBullets.get(j);
 					if( friendly.collisionDetection(bullet)){
 	
 		    			friendly.takeDamage(bullet.getDamage());
 		    			bullet.removeGameObject();
 		    		}
-	    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
+//	    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 			}
     	}
     }
@@ -93,13 +93,13 @@ public class CollisionDetector {
 			if(friendly instanceof Shooter){
 				Shooter friendlyShooter= (Shooter)LevelSystem.friendlies.get(k);
 		    	for(int i=LevelSystem.bonuses.size()-1;i>=0;i--){
-		    		try{
+//		    		try{
 			    		BonusView bonus = LevelSystem.bonuses.get(i);
 			    		if( /*! bonus.isRemoved() &&*/ friendly.collisionDetection(bonus)){//game object could be removed in previous loop iteration
 			    			bonus.applyBenefit(friendlyShooter);
 			    			bonus.removeGameObject();
 			    		}
-		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
+//		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 		    	}
 			}
     	}
@@ -110,14 +110,14 @@ public class CollisionDetector {
     		EnemyView enemy = LevelSystem.enemies.get(i);
     		
 	    		for(int j=LevelSystem.friendlyBullets.size()-1;j>=0;j--){
-	    			try{
+//	    			try{
 						BulletView bullet = LevelSystem.friendlyBullets.get(j);
 						if( bullet.collisionDetection(enemy)){
 							
 		        			enemy.takeDamage(bullet.getDamage());
 		        			bullet.removeGameObject();
 		        		}
-		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
+//		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 	        	}
     	}
     }

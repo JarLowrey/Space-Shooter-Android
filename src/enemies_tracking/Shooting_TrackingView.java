@@ -1,4 +1,4 @@
-package enemies;
+package enemies_tracking;
 
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
@@ -7,6 +7,7 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import enemies.Enemy_ShooterView;
 import friendlies.ProtagonistView;
 
 public class Shooting_TrackingView extends Enemy_ShooterView{

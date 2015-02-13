@@ -1,7 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
 import enemies.EnemyView;
-import enemies.Shooting_ArrayMovingView;
 import friendlies.ProtagonistView;
 import interfaces.GameActivityInterface;
 
@@ -153,6 +152,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			//reset store purchase levels
 			editor.putInt(STATE_RESOURCES, 0);
 			editor.putInt(STATE_GUN_CONFIG, -1);
+			editor.putInt(STATE_BULLET_DAMAGE_LEVEL, 0);
 			editor.putInt(STATE_BULLET_FREQ_LEVEL, 0);
 			editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
 			editor.putInt(STATE_FRIEND_LEVEL, 0);
@@ -167,11 +167,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			//store upgrades are saved straight to persistent storage when bought (so does not need to be saved here).
 			//level attributes are saved in the levelSystem
 		}
+		Log.d("lowrey","num enemies on pause = "+levelCreator.enemies.size());
     }
 	
 	@Override
 	public void onResume(){
 		super.onResume(); 
+		Log.d("lowrey","num enemies on resume = "+levelCreator.enemies.size());
 
 		//load game state::
 		levelCreator.loadScoreAndWaveAndLevel();

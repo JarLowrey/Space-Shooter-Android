@@ -44,8 +44,6 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 		public void run() {
 			//ensure array of shooters is non empty on run()
 			if(allSimpleShooters.size()!=0){
-				Log.d("lowrey","moveArr");			
-				isMoving = true;
 				// loop through all living instances of this class
 				for (int i = 0; i < allSimpleShooters.size(); i++) {
 					
@@ -168,7 +166,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			
 		}
 		
-		Log.d("lowrey","numArray="+allSimpleShooters.size()+" num MaxArr="+getMaxNumShips());
+		Log.d("lowrey","shooting Array Refreshed");
 	}
 
 	/**
@@ -185,11 +183,12 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
 	@Override
 	public void reachedGravityPosition() {
-		//begin moving once lowest shooter has reached correct position from gravity
-		Log.d("lowrey",isMoving+" ismove?");
-		if(!isMoving && myPosition==0){
-			stopGravity();
-			staticArrayMovementHandler.postDelayed(moveInARectangleRunnable, Moving_ProjectileView.HOW_OFTEN_TO_MOVE);//must post after shooter created
+		final int myRow = (myPosition / numCols);
+		
+		//begin moving once lowest shooter has reached correct position from gravity		
+		if(!isMoving && myRow==0){
+			isMoving = true;
+			staticArrayMovementHandler.post(moveInARectangleRunnable);
 		}
 	}
 

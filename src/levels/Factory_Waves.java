@@ -9,13 +9,13 @@ import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_ArrayMovingView;
 import enemies.Shooting_DiagonalMovingView;
-import enemies.Shooting_TrackingView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_HorizontalLineView;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
+import enemies_tracking.Shooting_TrackingView;
 
 /** 
  * spawn a number of a given enemy over a duration of time
@@ -60,7 +60,7 @@ public class Factory_Waves extends Factory_Bosses{
 		
 	protected final  Runnable doNothing = new Runnable(){
 		@Override
-		public void run() {incrementWave();}
+		public void run() {}
 	};
 	
 	//regular meteors
@@ -70,21 +70,21 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnSidewaysMeteorsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
-			incrementWave();
+			
 		}
 	};
 	final Runnable meteorsStraightForWholeLevel = new Runnable(){
 		@Override
 		public void run() {
 			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
-			incrementWave();
+			
 		}
 	};
 	final Runnable meteorSidewaysThisWave = new Runnable(){
 		@Override
 		public void run() {
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
-			incrementWave();
+			
 		}
 	};	
 	
@@ -93,7 +93,7 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
-			incrementWave();
+			
 		}
 	};
 	final Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
@@ -106,7 +106,7 @@ public class Factory_Waves extends Factory_Bosses{
 			
 			spawnMeteorShower(numMeteors,400,true);
 			spawnMeteorShower(numMeteors,400,false);
-			incrementWave();
+			
 		}
 	};
 	final Runnable meteorShowersThatForceUserToRight = new Runnable(){
@@ -115,7 +115,7 @@ public class Factory_Waves extends Factory_Bosses{
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
-			incrementWave();
+			
 		}
 	};
 	final Runnable meteorShowersThatForceUserToLeft = new Runnable(){
@@ -124,7 +124,7 @@ public class Factory_Waves extends Factory_Bosses{
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,false);
-			incrementWave();
+			
 		}
 	};
 
@@ -134,14 +134,14 @@ public class Factory_Waves extends Factory_Bosses{
 		public void run() {
 			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
-			incrementWave();
+			
 		}
 	};
 	final Runnable meteorsOnlyGiants = new Runnable(){
 		@Override
 		public void run() {
 			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
-			incrementWave();
+			
 		}
 	};
 	
@@ -152,7 +152,7 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			Shooting_ArrayMovingView.refreshSimpleShooterArray(ctx);
-			incrementWave();
+			
 		}
 	};
 
@@ -165,14 +165,14 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnDiveBomberWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
-			incrementWave();
+			
 		}
 	};
 	final Runnable diagonalFullScreen = new Runnable(){
 		@Override
 		public void run() {
 			spawnFullScreenDiagonalAttackersWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
-			incrementWave();
+			
 		}
 	};
 	
@@ -183,7 +183,7 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
-			incrementWave();
+			
 		}
 	};
 	
@@ -192,7 +192,7 @@ public class Factory_Waves extends Factory_Bosses{
 		@Override
 		public void run() {
 			spawnCircularOrbiterWave(6,500,3);
-			incrementWave();
+			
 		} 
 	};
 
@@ -279,7 +279,7 @@ public class Factory_Waves extends Factory_Bosses{
 			boss3
 		};
 	
-	final Runnable levels[][] ={/*level_0,level_1,level_2,level_3,*/level_4,level_5,level_6};
+	final Runnable levels[][] ={/*level_0,level_1,level_2,level_3,level_4,*/level_5,level_6};
 	
 	
 	
@@ -298,17 +298,17 @@ public class Factory_Waves extends Factory_Bosses{
 			public void run() {
 					//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
 					Gravity_MeteorView  met= new Gravity_MeteorView(ctx);
-					final int width = +met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
-					final int numMeteorsPossibleOnScreenAtOnce= (int) (MainActivity.getWidthPixels()/width);
+					final int width = met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
+					final int numMeteorsPossibleOnScreenAtOnce = (int) (MainActivity.getWidthPixels()/width);
 					final int currentMeteor = numSpawned % numMeteorsPossibleOnScreenAtOnce;
 					
 					
-					int myXPosition;
 					//reverse direction if full meteor shower has occurred
 					if(numSpawned >= numMeteorsPossibleOnScreenAtOnce && numSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
 						meteorsFallLeftToRight = !meteorsFallLeftToRight;					
 					}
-					
+
+					int myXPosition;
 					if(meteorsFallLeftToRight){
 						myXPosition = width * currentMeteor;
 					}else{
