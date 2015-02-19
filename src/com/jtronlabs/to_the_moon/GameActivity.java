@@ -5,7 +5,6 @@ import friendlies.ProtagonistView;
 import interfaces.GameActivityInterface;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import levels.LevelSystem;
@@ -138,86 +137,79 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 		levelCreator.pauseLevel();
 		
-		//save game state
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
-		SharedPreferences.Editor editor = gameState.edit();
-
-		if(gameOver){
-			Log.d("lowrey","gameover saved vars");
-			
-			//reset protagonist attributes
-			editor.putInt(STATE_HEALTH,ProtagonistView.DEFAULT_HEALTH);
-			//max health/defence?
-			
-			//reset store purchase levels
-			editor.putInt(STATE_RESOURCES, 0);
-			editor.putInt(STATE_GUN_CONFIG, -1);
-			editor.putInt(STATE_BULLET_DAMAGE_LEVEL, 0);
-			editor.putInt(STATE_BULLET_FREQ_LEVEL, 0);
-			editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
-			editor.putInt(STATE_FRIEND_LEVEL, 0);
-			
-			//reset level properties
-			editor.putInt(STATE_LEVEL, 0);
-//			editor.putInt(STATE_WAVE, 0);
-			
-			editor.commit();
-		}else{
-			//protagonist attributes saved when he is removeGameObject() in pauseLevel
-			//store upgrades are saved straight to persistent storage when bought (so does not need to be saved here).
-			//level attributes are saved in the levelSystem
-		}
+		//protagonist attributes saved when he is removeGameObject() in pauseLevel
+		//store upgrades are saved straight to persistent storage when bought (so does not need to be saved here).
+		//level attributes are saved in the levelSystem
+		//gameover() resets variables in method
+		
 		Log.d("lowrey","num enemies on pause = "+levelCreator.enemies.size());
     }
 	
 	@Override
 	public void onResume(){
 		super.onResume(); 
-		for(EnemyView e : levelCreator.enemies){
-			e.setBackgroundColor(getResources().getColor(R.color.red));
+		levelCreator.loadScoreAndWaveAndLevel();
+		
+		//I have NO IDEA why, but enemies can exist onResume(). These enemies are gone onPause(), and all debugging has failed thus 
+		//far. Simple workaround is to remove these misplaced enemies
+		for(int i=levelCreator.enemies.size()-1;i>=0;i--){
+			levelCreator.enemies.get(i).removeGameObject();
 		}
 
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		recreateFriendlies();			
 		
-		//create protagonist View & restore his state
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
-		protagonist.setY( protagonistPosition );
-		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
-		
-		//set the level
 		if(/*levelCreator.getWaveNumber()!=0 ||*/ levelCreator.getLevel()==0){
 			levelCreator.resumeLevel();
 		}else{
 			openStore();
 		}
 		
-
-		Log.d("lowrey","num enemies on resume = "+levelCreator.enemies.size()+" waveNo = "+levelCreator.getWave());
 	}
 	
-	public void gameOver(){
-		Log.d("lowrey","num enemies spawned="+EnemyView.numSpawn+" died="+EnemyView.numRemoved);
+	public void lostGame(){
 		gameOver=true;
+		
 		levelCreator.pauseLevel();
+		resetSavedVariables();
+		
 		healthBar.setProgress(0);
 		
-//		levelFactory.stopSpawning();
-		for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
-			LevelSystem.enemies.get(i).removeGameObject();//this cleans up the threads and removes the Views from the Activity
-		}
-		
-		//clean up variables
-		LevelSystem.enemies=new ArrayList<EnemyView>();
-
+		//TESTING
 		finish();
 		Toast.makeText(this, "you suck...", Toast.LENGTH_LONG).show();
 	}
 	
 	public void beatGame(){
 		gameOver=true;
+		
+		levelCreator.pauseLevel();
+		resetSavedVariables();
+		
+		//TESTING
 		Toast.makeText(this, "winner winner chicken dinner", Toast.LENGTH_LONG).show();
 		finish();
+	}
+	
+	/**
+	 * All persistent variables set to default values
+	 */
+	private void resetSavedVariables(){
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		SharedPreferences.Editor editor = gameState.edit();
+		
+		editor.putInt(STATE_HEALTH,ProtagonistView.DEFAULT_HEALTH);	//protagonist properties
+		
+		editor.putInt(STATE_RESOURCES, 0);//store upgrades	
+		editor.putInt(STATE_DEFENCE_LEVEL, 0);
+		editor.putInt(STATE_GUN_CONFIG, -1);
+		editor.putInt(STATE_BULLET_DAMAGE_LEVEL, 0);
+		editor.putInt(STATE_BULLET_FREQ_LEVEL, 0);
+		editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
+		editor.putInt(STATE_FRIEND_LEVEL, 0);
+		
+		editor.putInt(STATE_LEVEL, 0);		//reset level properties
+		
+		editor.commit();
 	}
 	
 	public void openStore(){
@@ -232,8 +224,19 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private void closeStoreAndResumeLevel(){
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
-		
+
 		levelCreator.resumeLevel();
+	}
+	
+	private void recreateFriendlies(){
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		
+		//create protagonist View & restore his state
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		protagonist.setY( protagonistPosition );
+		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
+		
 	}
 
 	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
@@ -409,7 +412,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		        		
 		        		//update Views in the store
 		        		levelCreator.setResources(levelCreator.getResourceCount()-costCopy);
-		        		
+		        		levelCreator.saveResourceCount();
 		    			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getResourceCount()));
 		    			final int health =  (int) ((protagonist.getHealth()+0.0) /protagonist.getMaxHealth() * 100);//in case health was purchased
 		    			healthCount.setText("Hull : "+ health +"%");	 

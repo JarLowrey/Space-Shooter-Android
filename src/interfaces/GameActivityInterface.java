@@ -6,7 +6,7 @@ import friendlies.ProtagonistView;
 public interface GameActivityInterface {
 
 	public void openStore();
-	public void gameOver();
+	public void lostGame();
 	public void beatGame();
 	public void setHealthBar();
 	public void setScore(int score);

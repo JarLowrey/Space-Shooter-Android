@@ -6,18 +6,34 @@ import android.content.SharedPreferences;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 
-public class LevelAttributes {
+public abstract class AttributesOfLevels {
 	protected Context ctx;
-	private int waveNo,resourceNo,levelNo;
+	protected boolean levelPaused;
+	private int waveNo,resourceNo,levelNo, myId;	
+	private static int levelingId;
 
-	public LevelAttributes(Context context){
+	public AttributesOfLevels(Context context) {
 		ctx=context;
+		myId=levelingId;
 	}
 	
-	public GameActivityInterface getInteractivityInterface(){
-		return (GameActivityInterface)ctx;
-	}
 
+	public static final int DEFAULT_WAVE_DURATION=5000;
+	
+	//get methods
+	public abstract int getCurrentLevelLengthMilliseconds();
+	public abstract int getNumWavesInLevel(int level);
+	public abstract boolean areLevelWavesCompleted();
+	public abstract int getMaxLevel();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	protected boolean canSpawn(){
+		return !levelPaused && !areLevelWavesCompleted() && myId==levelingId;
+	}
+	
 	//Waves
 	public int getWave(){
 		return waveNo;
@@ -27,6 +43,15 @@ public class LevelAttributes {
 	}
 	protected void incrementWave(){
 		setWave(getWave()+1);		
+	}
+	
+	//paused?
+	public boolean isLevelPaused(){
+		return levelPaused;
+	}
+
+	public GameActivityInterface getInteractivityInterface(){
+		return (GameActivityInterface)ctx;
 	}
 	
 	//Levels
@@ -42,31 +67,25 @@ public class LevelAttributes {
 	
 	//Resources
 	public void setResources(int scoreValue){
-		//resources only DECREASE when buying things. Thus they should be saved to persistent memory
-		if(scoreValue < resourceNo){
-			resourceNo=scoreValue;
-    		saveResourceCount();
-		}else{
-			resourceNo=scoreValue;
-		}
+		resourceNo=scoreValue;
 	}
 	public int getResourceCount(){
 		return resourceNo;
 	}
 
 	// persistent storage
-	protected void saveResourceCount(){
+	public void saveResourceCount(){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 		
 		editor.putInt(GameActivity.STATE_RESOURCES, resourceNo);
 		
 		editor.commit();
-	}
+	} 
 	/**
 	 * Load saved level and resources from memory. Set wave to 0
 	 */
-	protected void loadScoreAndWaveAndLevel(){
+	public void loadScoreAndWaveAndLevel(){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		setResources(gameState.getInt(GameActivity.STATE_RESOURCES,0));
 		setLevel(gameState.getInt(GameActivity.STATE_LEVEL,0));

@@ -1,5 +1,6 @@
 package levels;
 
+import support.ConditionalHandler;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
@@ -23,8 +24,9 @@ import guns.Gun_TrackingSingle;
  * @author JAMES LOWREY
  *
  */
-public class Factory_Bosses extends LevelAttributes
+public abstract class Factory_Bosses extends Factory_Waves
 {
+	
 	public Factory_Bosses(Context context){
 		super(context);
 	} 
@@ -32,28 +34,99 @@ public class Factory_Bosses extends LevelAttributes
 	final Runnable boss1 = new Runnable(){
 		@Override
 		public void run() {
-			spawnBoss1();
-			incrementWave();
+			if(!isLevelPaused()){
+				Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
+						Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
+						Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,ProtagonistView.DEFAULT_BULLET_DAMAGE*10,50,
+						(int)(Math.random() * Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y),//CHANGE ORBIT Y LOCATION 
+						(int) ctx.getResources().getDimension(R.dimen.boss1_width),
+						(int) ctx.getResources().getDimension(R.dimen.boss1_height),
+						R.drawable.ship_enemy_boss1);
+				
+				enemy.removeAllGuns();
+				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
+						2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, (int) (Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5),50) );
+				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+						2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5) );
+				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
+						2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,95) );
+				
+				enemy.startShooting();		
+			}
 		}
 	};
 	
 	final Runnable boss2 = new Runnable(){
 		@Override
 		public void run() {
-			spawnBoss2();
-			incrementWave();
+			if(!isLevelPaused()){
+
+				Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1500,
+						Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
+						Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
+						Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y,
+						(int) ctx.getResources().getDimension(R.dimen.boss2_width),
+						(int) ctx.getResources().getDimension(R.dimen.boss2_height),
+						R.drawable.ship_enemy_boss2);
+				
+				enemy.removeAllGuns();
+				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+						1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5));
+				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+						1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,50));
+				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
+						1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,95));
+				
+				enemy.startShooting();	
+			}
 		}
 	};
 	
 	final Runnable boss3 = new Runnable(){
 		@Override
 		public void run() {
-			spawnBoss3();
-			incrementWave();
+			if(!isLevelPaused()){
+
+				Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
+						Orbiter_RectangleView.DEFAULT_SPEED_Y,Orbiter_RectangleView.DEFAULT_SPEED_X,
+						Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+						400,50,
+						Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH,
+						Orbiter_RectangleView.DEFAULT_ORBIT_X,
+						Orbiter_RectangleView.DEFAULT_ORBIT_Y,
+						(int) ctx.getResources().getDimension(R.dimen.boss2_width),
+						(int) ctx.getResources().getDimension(R.dimen.boss2_height),
+						R.drawable.ship_enemy_boss3);
+				
+				enemy.removeAllGuns();
+				enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
+						new Bullet_Basic_LaserShort(),
+						5000, 
+						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+						10,
+						Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
+				enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
+						new Bullet_Basic_LaserShort(),
+						5000, 
+						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+						90,
+						Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
+				enemy.addGun(new Gun_SingleShotStraight(ctx,enemy,
+						new Bullet_Tracking_Missile( getInteractivityInterface().getProtagonist(), enemy),
+						5000, 
+						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
+						(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
+						50));
+				
+				enemy.startShooting();	
+			}
 		}
 	};  
 	
 
+	//giant meteors
 	public final void spawnGiantMeteor(){
 		Gravity_MeteorView enemy = new Meteor_SidewaysView(ctx);
 		
@@ -69,82 +142,44 @@ public class Factory_Bosses extends LevelAttributes
 		enemy.heal((int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*3.5));
 		enemy.setScoreValue(100);
 	}
-	public final void spawnBoss1(){
+	
+	public final void spawnGiantMeteorWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
+		
+		Runnable r = new Runnable(){
+			private int numSpawned=0;
+			
+			@Override
+			public void run() {
+				spawnGiantMeteor();
+				
+				numSpawned++;
+				if(numSpawned<numMeteors){
+					currentlySpawningSomeWave=true;
+					ConditionalHandler.postIfCondition(this, millisecondsBetweenEachMeteor,!isLevelPaused());
+//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
+				}else{
+					currentlySpawningSomeWave=false;
+				}
+			}
+		};
 
-		Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
-				Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
-				Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,ProtagonistView.DEFAULT_BULLET_DAMAGE*10,50,
-				(int)(Math.random() * Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y),//CHANGE ORBIT Y LOCATION 
-				(int) ctx.getResources().getDimension(R.dimen.boss1_width),
-				(int) ctx.getResources().getDimension(R.dimen.boss1_height),
-				R.drawable.ship_enemy_boss1);
-		
-		enemy.removeAllGuns();
-		enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
-				2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, (int) (Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE*1.5),50) );
-		enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-				2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5) );
-		enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-				2000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,95) );
-		
-		enemy.startShooting();
-		 
+		ConditionalHandler.postIfCondition(r, !isLevelPaused());
 	}
-	public final void spawnBoss2(){
-
-		Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1500,
-				Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
-				Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
-				Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y,
-				(int) ctx.getResources().getDimension(R.dimen.boss2_width),
-				(int) ctx.getResources().getDimension(R.dimen.boss2_height),
-				R.drawable.ship_enemy_boss2);
-		
-		enemy.removeAllGuns();
-		enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-				1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,5));
-		enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-				1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,50));
-		enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-				1000, Orbiter_HorizontalLineView.DEFAULT_BULLET_SPEED_Y, Orbiter_HorizontalLineView.DEFAULT_BULLET_DAMAGE,95));
-		
-		enemy.startShooting();
-	}
-	public final void spawnBoss3(){
-
-		Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
-				Orbiter_RectangleView.DEFAULT_SPEED_Y,Orbiter_RectangleView.DEFAULT_SPEED_X,
-				Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
-				400,50,
-				Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH,
-				Orbiter_RectangleView.DEFAULT_ORBIT_X,
-				Orbiter_RectangleView.DEFAULT_ORBIT_Y,
-				(int) ctx.getResources().getDimension(R.dimen.boss2_width),
-				(int) ctx.getResources().getDimension(R.dimen.boss2_height),
-				R.drawable.ship_enemy_boss3);
-		
-		enemy.removeAllGuns();
-		enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
-				new Bullet_Basic_LaserShort(),
-				5000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-				10,
-				Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
-		enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
-				new Bullet_Basic_LaserShort(),
-				5000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-				90,
-				Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
-		enemy.addGun(new Gun_SingleShotStraight(ctx,enemy,
-				new Bullet_Tracking_Missile( getInteractivityInterface().getProtagonist(), enemy),
-				5000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
-				(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
-				50));
-		
-		enemy.startShooting();
-	}
+	
+	final Runnable meteorsGiantAndSideways = new Runnable(){
+		@Override
+		public void run() {
+			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
+			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
+			
+		}
+	};
+	
+	final Runnable meteorsOnlyGiants = new Runnable(){
+		@Override
+		public void run() {
+			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
+			
+		}
+	};
 }

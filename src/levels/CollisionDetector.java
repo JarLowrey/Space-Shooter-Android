@@ -3,7 +3,6 @@ package levels;
 import interfaces.Shooter;
 import parents.MovingView;
 import android.os.Handler;
-import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -24,7 +23,7 @@ public class CollisionDetector {
 //        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
         	
         	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
-        			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted() 
+        			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted()
         			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0  || LevelSystem.bonuses.size() != 0) ){
         		
         		detectAnyFriendlyHasCollidedWithAnyEnemy();
@@ -33,17 +32,17 @@ public class CollisionDetector {
         		detectAnyEnemyHasHitAnyFriendlyBullets();
         		
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
-	            
-        	}else{
-    			levelingSystem.endLevel();
-    			
-        		if(levelingSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
-        			levelingSystem.getInteractivityInterface().gameOver();
-        		}else if( levelingSystem.getLevel() > levelingSystem.getMaxLevel() ){
-        			levelingSystem.getInteractivityInterface().beatGame();
-        		}else{ 
-        			levelingSystem.getInteractivityInterface().openStore();
-        		}
+        	}else if( ! levelingSystem.isLevelPaused()) {
+        			
+	        		if(levelingSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
+	        			levelingSystem.getInteractivityInterface().lostGame();
+	        		}else if( levelingSystem.getLevel() > levelingSystem.getMaxLevel() ){
+	        			levelingSystem.getInteractivityInterface().beatGame();
+	        		}else if(levelingSystem.areLevelWavesCompleted() ){
+		    			levelingSystem.endLevel();
+	        			levelingSystem.getInteractivityInterface().openStore();
+	        		}
+	
         	}
         } 
     };
