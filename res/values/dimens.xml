@@ -1,4 +1,8 @@
 <resources>    
+    
+   <!--  <item name="resource_multiplier_weight" format="float" type="dimen">1.5</item>
+    -->
+    
     <!-- MovingView-Bonus, enemies, friendlies -->
     <dimen name="bonus_background_len">30dp</dimen>
     <dimen name="bonus_img_len">20dp</dimen>

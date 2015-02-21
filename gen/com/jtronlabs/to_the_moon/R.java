@@ -52,7 +52,9 @@ public final class R {
         public static final int activity_margin_xsmall=0x7f060022;
         public static final int activity_margin_xxlarge=0x7f060027;
         public static final int ad_banner_margin=0x7f060038;
-        /**  MovingView-Bonus, enemies, friendlies 
+        /**   <item name="resource_multiplier_weight" format="float" type="dimen">1.5</item>
+    
+ MovingView-Bonus, enemies, friendlies 
          */
         public static final int bonus_background_len=0x7f060000;
         public static final int bonus_img_len=0x7f060001;

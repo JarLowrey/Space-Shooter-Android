@@ -13,7 +13,7 @@ import friendlies.ProtagonistView;
 public class Shooting_TrackingView extends Enemy_ShooterView{
 
 	public static final float DEFAULT_SPEED_Y=(float) 4.8,
-			DEFAULT_SPEED_X=(float) 3,
+			DEFAULT_SPEED_X=(float) 4,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .02,
 			DEFAULT_BULLET_FREQ=10000;
 	
@@ -31,8 +31,9 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 			final int myPos = (int)( Shooting_TrackingView.this.getX()*2 + Shooting_TrackingView.this.getWidth() )/2;
 			final int diff = trackPoint - myPos;
 			float speedX=Math.abs( Shooting_TrackingView.this.getSpeedX() );
+			//set X direction
 			if(diff!=0){
-				speedX  *= diff/Math.abs(diff);
+				speedX  *= diff/Math.abs(diff);//multiply by sign of diff
 			}
 			Shooting_TrackingView.this.setSpeedX(speedX);
 			Shooting_TrackingView.this.moveDirection(SIDEWAYS);

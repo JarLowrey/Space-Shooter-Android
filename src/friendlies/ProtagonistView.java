@@ -1,24 +1,41 @@
 package friendlies;
 
 import guns.Gun;
-import guns.Gun_AngledDualShot;
-import guns.Gun_SingleShotStraight;
 import interfaces.GameActivityInterface;
-import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.view.View;
-import bullets.Bullet_Basic_LaserLong;
-import bullets.Bullet_Basic_LaserShort;
-import bullets.Bullet_Basic_Missile;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 public class ProtagonistView extends Friendly_ShooterView{
+//	
+//	public enum Upgrades{
+//		BULLET_DAMAGE(),
+//		DEFENCE(),
+//		BULLET_FREQUENCY(),
+//		GUN(),
+//		FRIEND(),
+//		SCORE_MULTIPLIER(),
+//		HEAL();
+//		
+//		private int level,maxLevel;
+//		
+//		private Upgrades(){
+//			
+//		}
+//		
+//		public String toString(){
+//			if(level>=maxLevel){return "Max upgrade attained";}
+//			else{
+//				
+//			}
+//		}
+//	}
 	
 	public static final int HOW_OFTEN_TO_MOVE_ROCKET=50;
 
@@ -39,8 +56,13 @@ public class ProtagonistView extends Friendly_ShooterView{
 		gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		myGame=interactWithGame;
 		
-		createGunSet();
 		this.post(exhaustRunnable);
+
+		//apply upgrades
+		final float freq = getShootingDelay();
+		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
+		createGunSet(freq,dmg,getGunLevel());
+		applyDefenceUpgradeToProtagonist();
 	}
 	
 	
@@ -77,12 +99,12 @@ public class ProtagonistView extends Friendly_ShooterView{
 	@Override
 	public void heal(int howMuchHealed){
 		super.heal(howMuchHealed);
-		myGame.setHealthBar();
+		myGame.setHealthBar(this.getMaxHealth(),this.getHealth());
 	}
 	@Override
 	public void setHealth(int healthValue){
 		super.setHealth(healthValue);
-		myGame.setHealthBar();
+		myGame.setHealthBar(this.getMaxHealth(),this.getHealth());
 	}
 	
 
@@ -97,7 +119,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	@Override 
 	public boolean takeDamage(int howMuchDamage){ 
 		boolean isDead = super.takeDamage(howMuchDamage);
-		myGame.setHealthBar();
+		myGame.setHealthBar(this.getMaxHealth(),this.getHealth());
 		
 		if(isDead){
 			final long vibratePat[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};
@@ -115,35 +137,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public void restartThreads(){
 		this.post(exhaustRunnable);
 		super.restartThreads();
-	}
-	
-	/**
-	 * Do not allow the rocket to move off screen or past bounds
-	 */
-	@Override
-	public boolean moveDirection(int direction){
-		float x =this.getX();
-		float y =this.getY();
-		
-		switch(direction){
-		case Moving_ProjectileView.RIGHT:
-			x+=this.getSpeedX();
-			if((x+this.getWidth())<=MainActivity.getWidthPixels()){this.setX(x);}
-			break;
-		case Moving_ProjectileView.LEFT:
-			x-=this.getSpeedX();
-			if(x>=0){this.setX(x);}			
-			break;
-		case Moving_ProjectileView.UP:
-			y-=this.getSpeedY();
-			if(y > 2 * MainActivity.getHeightPixels()/5){this.setY(y);}			
-			break;
-		case Moving_ProjectileView.DOWN:
-			y+=this.getSpeedY();
-			if(y < ( GameActivity.getBottomScreen() - this.getHeight() ) ){this.setY(y);}			
-			break;		
-		}
-		return false;
 	}
 	
 	public void beginMoving(final int direction){
@@ -188,47 +181,17 @@ public class ProtagonistView extends Friendly_ShooterView{
 			break;
 		case UPGRADE_HEAL:
 			this.setHealth(getMaxHealth());
+			editor.putInt(GameActivity.STATE_HEALTH, getMaxHealth());
 			break;
 		}
 		
 		editor.commit();
-		
-		createGunSet();
-	}
 
-	/**
-	 * define the different levels of guns protagonist may have
-	 */
-	
-	public void createGunSet(){
-		this.removeAllGuns();
-		
 		final float freq = getShootingDelay();
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
 		
-		switch(getGunLevel()){
-		case 0:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
-			break;
-		case 1:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
-			break;
-		case 2:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
-			break;
-		case 3:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
-			break;
-		case 4:
-			Gun gun1 = new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) ;
-			Gun gun2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) ;
-			this.addGun(gun1);
-			this.addGun(gun2);
-			break;
-		}
+		createGunSet(freq,dmg,getGunLevel());
+		applyDefenceUpgradeToProtagonist();
 	}
 
 	public float getShootingDelay(){
@@ -245,6 +208,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	public int getBulletBulletFreqLevel(){
 		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
+	}
+	public void applyDefenceUpgradeToProtagonist(){
+		this.setHealth(DEFAULT_HEALTH+ (DEFAULT_HEALTH/10) *getDefenceLevel() );
 	}
 	
 	@Override

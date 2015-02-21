@@ -2,6 +2,7 @@ package levels;
 
 import interfaces.Shooter;
 import parents.MovingView;
+import support.KillableRunnable;
 import android.os.Handler;
 import bonuses.BonusView;
 import bullets.BulletView;
@@ -16,9 +17,9 @@ public class CollisionDetector {
 		levelingSystem=aLevelSystem;
 	}
 	private Handler gameHandler = new Handler();
-    private Runnable collisionDetectionRunnable = new Runnable() { 
+    private KillableRunnable collisionDetectionRunnable = new KillableRunnable() { 
         @Override
-        public void run() {
+        public void doWork() {
 //        	Log.d("lowrey","enemiesNo="+LevelSystem.enemies.size() +" enemy bulletsNo=" +
 //        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
         	
@@ -122,9 +123,11 @@ public class CollisionDetector {
     }
     
     public void startDetecting(){
+//    	collisionDetectionRunnable.revive();
     	gameHandler.post(collisionDetectionRunnable);
     }
     public void stopDetecting(){
+//    	collisionDetectionRunnable.kill();
     	gameHandler.removeCallbacks(collisionDetectionRunnable);
     }
 }

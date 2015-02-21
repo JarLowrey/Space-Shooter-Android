@@ -1,12 +1,17 @@
 package friendlies;
 
 import guns.Gun;
+import guns.Gun_AngledDualShot;
+import guns.Gun_SingleShotStraight;
 import interfaces.Shooter;
 
 import java.util.ArrayList;
 
 import android.content.Context;
 import bullets.BulletView;
+import bullets.Bullet_Basic_LaserLong;
+import bullets.Bullet_Basic_LaserShort;
+import bullets.Bullet_Basic_Missile;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
@@ -40,6 +45,39 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		isShooting=false;
 		myGuns= new ArrayList<Gun>();
 		myBullets = new ArrayList<BulletView>();
+	}
+	
+
+	/**
+	 * define the different levels of guns protagonist may have
+	 */
+	
+	public void createGunSet(float freq, int dmg,int gunLevel){
+		this.removeAllGuns();
+		
+		switch(gunLevel){
+		case 0:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
+			break;
+		case 1:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
+			break;
+		case 2:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
+			break;
+		case 3:
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
+			break;
+		case 4:
+			Gun gun1 = new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) ;
+			Gun gun2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) ;
+			this.addGun(gun1);
+			this.addGun(gun2);
+			break;
+		}
 	}
 
 	@Override

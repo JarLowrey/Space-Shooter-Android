@@ -1,7 +1,8 @@
 package levels;
 
 import interfaces.GameActivityInterface;
-import support.ConditionalHandler;
+import parents.Moving_ProjectileView;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -16,11 +17,12 @@ import enemies_orbiters.Orbiter_HorizontalLineView;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_tracking.Shooting_TrackingView;
+import enemies_tracking.Tracking_AcceleratingView;
 
 /** 
  * spawn a number of a given enemy over a duration of time
  * 
- * Every runnable MUST check for !isLevelPaused() on run()
+ * Every KillableRunnable MUST check for !isLevelPaused() on doWork()
  * 
  * @author JAMES LOWREY
  *  
@@ -29,53 +31,52 @@ import enemies_tracking.Shooting_TrackingView;
 public abstract class Factory_Waves extends AttributesOfLevels{
 	
 //	ConditionalHandler conditionalHandler;
-	boolean currentlySpawningSomeWave;
 	
 	public Factory_Waves(Context context) { 
 		super(context);
 	}
 			
-	protected final  Runnable doNothing = new Runnable(){
+	protected final  KillableRunnable doNothing = new KillableRunnable(){
 		@Override
-		public void run() {}
+		public void doWork() {}
 	};
 	
 	//regular meteors
 	
 	//meteor waves
-	final Runnable meteorSidewaysForWholeLevel = new Runnable(){
+	final KillableRunnable meteorSidewaysForWholeLevel = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnSidewaysMeteorsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
 			
 		}
 	};
-	final Runnable meteorsStraightForWholeLevel = new Runnable(){
+	final KillableRunnable meteorsStraightForWholeLevel = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnStraightFallingMeteorsAtRandomXPositionsWave( getCurrentLevelLengthMilliseconds() /2000 ,2000);
 			
 		}
 	};
-	final Runnable meteorSidewaysThisWave = new Runnable(){
+	final KillableRunnable meteorSidewaysThisWave = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
 			
 		}
 	};	
 	
 	//meteor showers
-	final Runnable meteorShowerLong = new Runnable(){//lasts 2 waves
+	final KillableRunnable meteorShowerLong = new KillableRunnable(){//lasts 2 waves
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnMeteorShower( (DEFAULT_WAVE_DURATION * 2 )/1000,1000,true);
 			
 		}
 	};
-	final Runnable meteorShowersThatForceUserToMiddle = new Runnable(){//this does not last a whole wave, which is fine.
+	final KillableRunnable meteorShowersThatForceUserToMiddle = new KillableRunnable(){//this does not last a whole wave, which is fine.
 		@Override
-		public void run() {
+		public void doWork() {
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors/=2;
 			numMeteors-=2;
@@ -86,18 +87,18 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			
 		}
 	};
-	final Runnable meteorShowersThatForceUserToRight = new Runnable(){
+	final KillableRunnable meteorShowersThatForceUserToRight = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
 			
 		}
 	};
-	final Runnable meteorShowersThatForceUserToLeft = new Runnable(){
+	final KillableRunnable meteorShowersThatForceUserToLeft = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors-=4;
 			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,false);
@@ -108,9 +109,9 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 	//array shooters
 	
 	//array shooter waves
-	final Runnable refreshArrayShooters = new Runnable(){
+	final KillableRunnable refreshArrayShooters = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			Shooting_ArrayMovingView.refreshSimpleShooterArray(ctx);
 			
 		}
@@ -121,50 +122,57 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 	//dive bombers	
 	
 	//diagonal shooter waves
-	final Runnable diagonalColumns = new Runnable(){
+	final KillableRunnable diagonalColumns = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnDiveBomberWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
 			
 		}
 	};
-	final Runnable diagonalFullScreen = new Runnable(){
+	final KillableRunnable diagonalFullScreen = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnFullScreenDiagonalAttackersWave(3,DEFAULT_WAVE_DURATION/3);//spawn for entire wave
 			
 		}
 	};
 	
 	//tracking waves
-	final Runnable trackingEnemy = new Runnable(){
+	final KillableRunnable trackingEnemy = new KillableRunnable(){
 		@Override
-		public void run() {
-			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
+		public void doWork() {
+//			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
+			spawnTrackingEnemyOverTime(4,DEFAULT_WAVE_DURATION/4,Shooting_TrackingView.class);
+		}
+	};
+	final KillableRunnable trackingAcceleratingEnemy = new KillableRunnable(){
+		@Override
+		public void doWork() {
+//			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
+			spawnTrackingEnemyOverTime(4,DEFAULT_WAVE_DURATION/4,Tracking_AcceleratingView.class);
 			
 		}
 	};
 	
 	//circular orbiters
-	final Runnable circlesThreeOrbiters = new Runnable(){
+	final KillableRunnable circlesThreeOrbiters = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnCircularOrbiterWave(6,500,3);
 			
 		} 
 	};
 
 	//spawn enemies over a set period
-	
 	public final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			
 			private int numSpawned=0;
 			private boolean meteorsFallLeftToRight = beginOnLeft;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				if(!isLevelPaused()){
 					//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
 					Gravity_MeteorView  met= new Gravity_MeteorView(ctx);
@@ -188,137 +196,124 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 					
 					numSpawned++;
 					if(numSpawned<numMeteors){
-						currentlySpawningSomeWave=true;
-						ConditionalHandler.postIfCondition(this,millisecondsBetweenEachMeteor, !isLevelPaused());
+						spawningHandler.postDelayed(this,millisecondsBetweenEachMeteor);
 //						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-					}else{
-						currentlySpawningSomeWave=false;
 					}
 				}
 			}
 		};
 		
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 
 	public final void spawnStraightFallingMeteorsAtRandomXPositionsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		
-		Runnable r =new Runnable(){
+		KillableRunnable r =new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				new Gravity_MeteorView(ctx);
 					
 					numSpawned++;
 					if(numSpawned<numMeteors){
-						currentlySpawningSomeWave=true;
-						ConditionalHandler.postIfCondition(this, millisecondsBetweenEachMeteor,!isLevelPaused());
-//						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-					}else{
-						currentlySpawningSomeWave=false;
+						spawningHandler.postDelayed(this, millisecondsBetweenEachMeteor);
 					}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 
 	public final  void spawnSidewaysMeteorsWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				new Meteor_SidewaysView(ctx);
 				
 				numSpawned++;
 				if(numSpawned<numMeteors){
-					currentlySpawningSomeWave=true;
-					ConditionalHandler.postIfCondition(this,millisecondsBetweenEachMeteor, !isLevelPaused());
-//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-				}else{
-					currentlySpawningSomeWave=false;
+					spawningHandler.postDelayed(this,millisecondsBetweenEachMeteor);
 				}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 		 
 	public final void spawnDiveBomberWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				new Shooting_DiagonalMovingView(ctx,Shooting_DiagonalMovingView.DEFAULT_DIVE_BOMBER_COLUMNS);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					currentlySpawningSomeWave=true;
-					ConditionalHandler.postIfCondition(this,millisecondsBetweenEachSpawn, !isLevelPaused());
-//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-				}else{
-					currentlySpawningSomeWave=false;
+					spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 	
 	public final void spawnFullScreenDiagonalAttackersWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				new Shooting_DiagonalMovingView(ctx);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					currentlySpawningSomeWave=true;
-					ConditionalHandler.postIfCondition(this,millisecondsBetweenEachSpawn, !isLevelPaused());
-//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-				}else{
-					currentlySpawningSomeWave=false;
+					spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
-
-	public final void spawnTrackingAttackerWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		
-		Runnable r = new Runnable(){
+	
+	/**
+	 * 
+	 * @param numEnemies
+	 * @param millisecondsBetweenEachSpawn
+	 * @param c-must be of type Shooting_TrackingView, or a child with an equal constructor
+	 */
+	public final void spawnTrackingEnemyOverTime(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
-				new Shooting_TrackingView(ctx,((GameActivityInterface)ctx).getProtagonist());
+			public void doWork() {
+				try {
+					Class [] constructorArgs = new Class[] {Context.class,Moving_ProjectileView.class};
+					c.getDeclaredConstructor(constructorArgs).newInstance(ctx,((GameActivityInterface)ctx).getProtagonist());
+				} catch (Exception e){
+					e.printStackTrace();
+				}
 				numSpawned++;
 				
-				if(numSpawned<totalNumShips){
-					currentlySpawningSomeWave=true;
-					ConditionalHandler.postIfCondition(this, millisecondsBetweenEachSpawn,!isLevelPaused());
-//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-				}else{
-					currentlySpawningSomeWave=false;
+				if(numSpawned<numEnemies){
+					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
 				}
 			}
 		};
 		
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 	
 	//orbiters
 	public final void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn,final int numCols){
 		
-//		Runnable r = new Runnable(){
+//		KillableRunnable r = new KillableRunnable(){
 //			private int numSpawned=0;
 //			final double width  = ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width);
 //			final double height = ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height);	
@@ -329,18 +324,18 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 //
 //			
 //			@Override
-//			public void run() {				
+//			public void doWork() {				
 //				if(numSpawned<numRowsPossible*numColsPossible){
 //					final int myRow = numSpawned / numColsPossible;
 //					final int myCol = numSpawned % numColsPossible ;
 //					final double orbitX= ( width/2 ) * (2*myCol) + radius * (2*myCol +1);
 //					final double orbitY = (height/2)* (2*myRow) + radius *(2*myRow+1) + Orbiter_CircleView.DEFAULT_ORBIT_Y;
 //					
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				final int currentShip = numSpawned % numCols ;
 				final int width  = (int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width);
 				final int radius= (int)( MainActivity.getWidthPixels()/numCols-width ) / 2;
@@ -358,83 +353,67 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					currentlySpawningSomeWave=true;
-					ConditionalHandler.postIfCondition(this,millisecondsBetweenEachSpawn, !isLevelPaused());
-	//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-				}else{
-					currentlySpawningSomeWave=false;
+					spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 				}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 	
 	public final void spawnRectangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		
-		Runnable r  = new Runnable(){
+		KillableRunnable r  = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				new Orbiter_RectangleView(ctx);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
-					currentlySpawningSomeWave=true;
-					ConditionalHandler.postIfCondition(this, millisecondsBetweenEachSpawn,!isLevelPaused());
-//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-				}else{
-					currentlySpawningSomeWave=false;
+					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
 				}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 	
 	public final void spawnTriangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				new Orbiter_TriangleView(ctx);
 					numSpawned++;
 					
 					if(numSpawned<totalNumShips ){
-						currentlySpawningSomeWave=true;
-						ConditionalHandler.postIfCondition(this, millisecondsBetweenEachSpawn,!isLevelPaused());
-//						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-					}else{
-						currentlySpawningSomeWave=false;
+						spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
 					}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 	
 	public final void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				new Orbiter_HorizontalLineView(ctx);
 					numSpawned++;
 					
 					if(numSpawned<totalNumShips ){
-						currentlySpawningSomeWave=true;
-						ConditionalHandler.postIfCondition(this,millisecondsBetweenEachSpawn, !isLevelPaused());
-//						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachSpawn);
-					}else{
-						currentlySpawningSomeWave=false;
+						spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 					}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 
 }

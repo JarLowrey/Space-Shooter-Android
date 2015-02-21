@@ -3,36 +3,29 @@ package levels;
 import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 
 public abstract class AttributesOfLevels {
 	protected Context ctx;
 	protected boolean levelPaused;
-	private int waveNo,resourceNo,levelNo, myId;	
-	private static int levelingId;
+	private int waveNo,resourceNo,levelNo;
+	
+	Handler spawningHandler;
 
 	public AttributesOfLevels(Context context) {
 		ctx=context;
-		myId=levelingId;
+		spawningHandler = new Handler();
 	}
 	
 
 	public static final int DEFAULT_WAVE_DURATION=5000;
 	
-	//get methods
 	public abstract int getCurrentLevelLengthMilliseconds();
 	public abstract int getNumWavesInLevel(int level);
 	public abstract boolean areLevelWavesCompleted();
 	public abstract int getMaxLevel();
-	
-	/**
-	 * 
-	 * @return
-	 */
-	protected boolean canSpawn(){
-		return !levelPaused && !areLevelWavesCompleted() && myId==levelingId;
-	}
 	
 	//Waves
 	public int getWave(){

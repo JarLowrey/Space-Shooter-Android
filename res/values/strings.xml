@@ -3,7 +3,7 @@
 
     <string name="app_name">To The Moon</string>
     <string name="hello_world">Hello world!</string>
-
+    
     <color name="dark_yellow">#736D22</color>
     <color name="yellow">#B6BD00</color>
     <color name="light_yellow">#DEF200</color>

@@ -3,9 +3,6 @@ package support;
 import friendlies.ProtagonistView;
 import interfaces.MovingViewInterface;
 import interfaces.Shooter;
-import levels.Factory_Waves;
-import android.os.Handler;
-import android.util.Log;
 /*
  * 
  * Any MovingView children that have RUNNABLES must include a condition for !MovingView.this.isRemoved() before running.
@@ -67,56 +64,4 @@ public class ConditionalHandler {
 		}
 	}
 	
-	private static Handler poster = new Handler();
-	public static void postIfCondition(Runnable r, long delayInMilliseconds,boolean condition){
-		if(condition){
-			poster.postDelayed(r,delayInMilliseconds);
-		}
-	}
-	public static void postIfCondition(Runnable r,boolean condition){
-		if(condition){
-			poster.post(r);
-		}
-	}
-	
-	public static void stopPosting(){
-		poster.removeCallbacks(null);
-	}
-	
-//	// handler for the leveling system. level cannot be paused or out of waves
-//	private Handler spawnHandler;
-//	private Factory_Waves myWaveFactory;
-//	private boolean continueSpawning;
-//	public ConditionalHandler( Factory_Waves someLevelSystem){
-//		myWaveFactory=someLevelSystem;
-//		continueSpawning=true;
-//		spawnHandler = new Handler();
-//	}
-//	 
-//	
-//	
-//	/**
-//	 * Post Runnable r immediately
-//	 * @param r
-//	 * @param delayInMilliseconds
-//	 */
-//	public void postIfLevelResumed(Runnable r,long delayInMilliseconds){
-//		if( ! myWaveFactory.isLevelPaused()  && continueSpawning/*&& ! myWaveFactory.areLevelWavesCompleted()*/){
-//			spawnHandler.postDelayed(r, delayInMilliseconds);
-//		}
-//	}
-//	/**
-//	 * Post Runnable r immediately
-//	 * @param r
-//	 */
-//	public void postIfLevelResumed(Runnable r){
-//		if( ! myWaveFactory.isLevelPaused() && continueSpawning/*&& ! myWaveFactory.areLevelWavesCompleted() */){
-//			spawnHandler.postDelayed(r, 0);
-//		}
-//	}
-//	public void stopSpawningWaves(){
-//		spawnHandler.removeCallbacks(null);
-//		continueSpawning=false;
-//		spawnHandler=null;
-//	}
 }

@@ -54,7 +54,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	//MODEL
 	private LevelSystem levelCreator;
-	private boolean gameOver;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,19 +106,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		offscreenBottom = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
 		
 		//set up the game
-		levelCreator = new LevelSystem(this); 
-		gameOver=false;
-		
-		/*
-		ViewTreeObserver vto = gameLayout.getViewTreeObserver(); //Use a listener to perform actions after layouts have been loaded
-		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
-		    @Override 
-		    public void onGlobalLayout() {
-		    	gameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-			
-		    } 
-		});
-		*/
+		levelCreator = new LevelSystem(this);
 		
 		//onResume() is called after onCreate, so needed setup is done there
 	}
@@ -148,7 +135,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
 	public void onResume(){
 		super.onResume(); 
-		levelCreator.loadScoreAndWaveAndLevel();
 		
 		//I have NO IDEA why, but enemies can exist onResume(). These enemies are gone onPause(), and all debugging has failed thus 
 		//far. Simple workaround is to remove these misplaced enemies
@@ -156,9 +142,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			levelCreator.enemies.get(i).removeGameObject();
 		}
 
+				
+		levelCreator.loadScoreAndWaveAndLevel();//need to reload variables first thing
 		recreateFriendlies();			
 		
-		if(/*levelCreator.getWaveNumber()!=0 ||*/ levelCreator.getLevel()==0){
+		if(levelCreator.getLevel()==0){
 			levelCreator.resumeLevel();
 		}else{
 			openStore();
@@ -167,8 +155,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void lostGame(){
-		gameOver=true;
-		
 		levelCreator.pauseLevel();
 		resetSavedVariables();
 		
@@ -180,8 +166,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void beatGame(){
-		gameOver=true;
-		
 		levelCreator.pauseLevel();
 		resetSavedVariables();
 		
@@ -436,9 +420,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		return this.protagonist;
 	}
 	@Override
-	public void setHealthBar(){
-		healthBar.setMax(protagonist.getMaxHealth());
-		healthBar.setProgress((int) protagonist.getHealth());
+	public void setHealthBar(int max, int progress){
+		healthBar.setMax(max);
+		healthBar.setProgress(progress);
 	}
 	@Override
 	public void changeGameBackground(int newBackgroundId) {

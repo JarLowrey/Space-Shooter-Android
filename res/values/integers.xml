@@ -8,6 +8,7 @@
     <integer name="friend_base_cost">80000</integer>
     
     
+    
     <integer-array name="gun_upgrade_costs">
         <item>0</item>
         <item>4000</item>

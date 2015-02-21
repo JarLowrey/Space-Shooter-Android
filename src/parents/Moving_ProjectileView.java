@@ -65,6 +65,9 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 		damage=newDamage;
 	}
 	public void setHealth(int healthValue){
+		if(healthValue>maxHealth){
+			maxHealth = healthValue;
+		}
 		this.health=healthValue;
 	}
 	

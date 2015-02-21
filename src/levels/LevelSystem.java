@@ -2,7 +2,6 @@ package levels;
 
 import java.util.ArrayList;
 
-import support.ConditionalHandler;
 import android.content.Context;
 import android.content.SharedPreferences;
 import background_objects.BackgroundView;
@@ -73,11 +72,9 @@ public class LevelSystem extends Levels{
 	 */
 	public void pauseLevel() {
 		levelPaused = true;
-
+		
+		stopSpawningWaves();
 		gameDetector.stopDetecting();
-		ConditionalHandler.stopPosting();
-		// conditionalHandler.stopSpawningWaves();
-
 		// clean up - kill Views & associated threads, stop all spawning &
 		// background threads
 		for (int i = backgroundViews.size() - 1; i >= 0; i--) {
@@ -109,8 +106,8 @@ public class LevelSystem extends Levels{
 	public void endLevel() {
 		levelPaused = true;
 
+		stopSpawningWaves();
 		gameDetector.stopDetecting();
-		ConditionalHandler.stopPosting();
 		// conditionalHandler.stopSpawningWaves();
 
 		// set new level
@@ -162,7 +159,7 @@ public class LevelSystem extends Levels{
 				b.setY((float) (MainActivity.getHeightPixels() * Math.random()));
 			}
 
-			ConditionalHandler.postIfCondition(clouds, !isLevelPaused());
+			spawningHandler.post(clouds);
 			// this.conditionalHandler.postIfLevelResumed(clouds);
 		}
 		if (getLevel() >= backgroundColors.length) {
@@ -186,8 +183,7 @@ public class LevelSystem extends Levels{
 			new Bird(ctx);
 			new Clouds(ctx);
 
-			ConditionalHandler.postIfCondition(this, 4000 * (getLevel() + 1),
-					!isLevelPaused());
+			spawningHandler.postDelayed(this, 4000 * (getLevel() + 1));
 			// conditionalHandler.postIfLevelResumed(this, 4000*(getLevel()+1));
 		}
 	};

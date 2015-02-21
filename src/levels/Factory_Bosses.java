@@ -1,6 +1,6 @@
 package levels;
 
-import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserShort;
@@ -31,13 +31,15 @@ public abstract class Factory_Bosses extends Factory_Waves
 		super(context);
 	} 
 	
-	final Runnable boss1 = new Runnable(){
+	final KillableRunnable boss1 = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			if(!isLevelPaused()){
 				Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1000,
 						Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
-						Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,ProtagonistView.DEFAULT_BULLET_DAMAGE*10,50,
+						Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,
+						ProtagonistView.DEFAULT_BULLET_DAMAGE*10,
+						50,
 						(int)(Math.random() * Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y),//CHANGE ORBIT Y LOCATION 
 						(int) ctx.getResources().getDimension(R.dimen.boss1_width),
 						(int) ctx.getResources().getDimension(R.dimen.boss1_height),
@@ -56,14 +58,16 @@ public abstract class Factory_Bosses extends Factory_Waves
 		}
 	};
 	
-	final Runnable boss2 = new Runnable(){
+	final KillableRunnable boss2 = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			if(!isLevelPaused()){
 
 				Orbiter_HorizontalLineView enemy = new Orbiter_HorizontalLineView(ctx,1500,
 						Orbiter_HorizontalLineView.DEFAULT_SPEED_Y,Orbiter_HorizontalLineView.DEFAULT_SPEED_X,
-						Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,400,50,
+						Orbiter_HorizontalLineView.DEFAULT_COLLISION_DAMAGE,
+						ProtagonistView.DEFAULT_BULLET_DAMAGE*20,
+						75,
 						Orbiter_HorizontalLineView.DEFAULT_ORBIT_Y,
 						(int) ctx.getResources().getDimension(R.dimen.boss2_width),
 						(int) ctx.getResources().getDimension(R.dimen.boss2_height),
@@ -82,15 +86,16 @@ public abstract class Factory_Bosses extends Factory_Waves
 		}
 	};
 	
-	final Runnable boss3 = new Runnable(){
+	final KillableRunnable boss3 = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			if(!isLevelPaused()){
 
 				Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
 						Orbiter_RectangleView.DEFAULT_SPEED_Y,Orbiter_RectangleView.DEFAULT_SPEED_X,
 						Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
-						400,50,
+						ProtagonistView.DEFAULT_BULLET_DAMAGE*30,
+						100,
 						Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH,
 						Orbiter_RectangleView.DEFAULT_ORBIT_X,
 						Orbiter_RectangleView.DEFAULT_ORBIT_Y,
@@ -145,41 +150,36 @@ public abstract class Factory_Bosses extends Factory_Waves
 	
 	public final void spawnGiantMeteorWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
 		
-		Runnable r = new Runnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
-			public void run() {
+			public void doWork() {
 				spawnGiantMeteor();
 				
 				numSpawned++;
 				if(numSpawned<numMeteors){
-					currentlySpawningSomeWave=true;
-					ConditionalHandler.postIfCondition(this, millisecondsBetweenEachMeteor,!isLevelPaused());
-//					conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-				}else{
-					currentlySpawningSomeWave=false;
+					spawningHandler.postDelayed(this, millisecondsBetweenEachMeteor);
 				}
 			}
 		};
 
-		ConditionalHandler.postIfCondition(r, !isLevelPaused());
+		spawningHandler.post(r);
 	}
 	
-	final Runnable meteorsGiantAndSideways = new Runnable(){
+	final KillableRunnable meteorsGiantAndSideways = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
 			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
 			
 		}
 	};
 	
-	final Runnable meteorsOnlyGiants = new Runnable(){
+	final KillableRunnable meteorsOnlyGiants = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);
-			
 		}
 	};
 }

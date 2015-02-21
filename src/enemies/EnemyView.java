@@ -4,7 +4,12 @@ import interfaces.GameActivityInterface;
 import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.TypedValue;
 import bonuses.BonusView;
+
+import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.R;
 
 public abstract class EnemyView extends Projectile_GravityView{
 	
@@ -36,8 +41,17 @@ public abstract class EnemyView extends Projectile_GravityView{
 	 */
 	@Override
 	public void removeGameObject(){
+		//load resource multiplier 
+		SharedPreferences gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		int resourceLevel = gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
+		//TypedValue outValue = new TypedValue();
+		//getContext().getResources().getValue(R.dimen.resource_multiplier_weight, outValue, true);
+		float resourceMultiplier = (float) 1.5;//outValue.getFloat(); 
+		resourceMultiplier *=resourceLevel;
+		
+		//add this enemy's score to the player's score
 		if(this.getHealth()<=0){//died
-			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling());
+			((GameActivityInterface)this.getContext()).incrementScore((int) (this.getScoreForKilling()*resourceMultiplier));
 			
 			if(Math.random()<probSpawnBeneficialObject){//check for random bonus
 				final float xAvg = (2 * this.getX()+this.getWidth())/2;
