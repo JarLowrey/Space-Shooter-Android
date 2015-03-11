@@ -1,5 +1,7 @@
 package support;
 
+import java.util.ArrayList;
+
 /**
  * Runnable that can be stopped from executing
  * @author JTRONLABS
@@ -7,6 +9,11 @@ package support;
 public abstract class KillableRunnable implements Runnable{
 	
 	private boolean isKilled=false;
+	private static ArrayList<KillableRunnable> allRunnables = new ArrayList<KillableRunnable>();
+	
+	public KillableRunnable(){
+		allRunnables.add(this);
+	}
 	
 	/**
 	 * Instead of Overriding run(), override this method to perform a Runnable operation. This will allow editing instance variables
@@ -14,8 +21,9 @@ public abstract class KillableRunnable implements Runnable{
 	 */
 	public abstract void doWork();
 	
-	//The handler that posts this Runnable will call this method. By default, check if it has been killed. Change the method to Override 
-	//for callers of this KillableRunnable class
+	/** The handler that posts this Runnable will call this method. 
+	 * By default, check if it has been killed. Change the method to Override 
+	 * for callers of this KillableRunnable class */
 	@Override
 	final public void run(){
 		if(!isKilled){
@@ -29,5 +37,12 @@ public abstract class KillableRunnable implements Runnable{
 	
 	final public void revive(){
 		isKilled=false;
+	}
+	
+	final public static void killAll(){
+		for(KillableRunnable run: allRunnables){
+			run.kill();
+		}
+		allRunnables = new ArrayList<KillableRunnable>();//delete all references to Runnable Objects (so it can be garbage collected)
 	}
 }

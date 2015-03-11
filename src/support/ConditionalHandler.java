@@ -40,9 +40,9 @@ public class ConditionalHandler {
 
 	//Handlers for the protagonist
 	public static void startMoving(final ProtagonistView hero,final int direction){
-		Runnable moveRunnable = new Runnable(){
+		KillableRunnable moveRunnable = new KillableRunnable(){
 			@Override
-			public void run() {
+			public void doWork() {
 				if( hero.isMoving()){
 					hero.moveDirection(direction);
 					ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE_ROCKET,hero);

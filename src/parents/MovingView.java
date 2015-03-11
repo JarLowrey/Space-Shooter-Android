@@ -2,6 +2,7 @@ package parents;
 
 import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
+import support.KillableRunnable;
 import android.content.Context;
 import android.os.Vibrator;
 import android.view.View;
@@ -155,9 +156,9 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 
 		((GameActivityInterface)getContext()).addToForeground(exp);
 		
-		exp.postDelayed(new Runnable(){
+		exp.postDelayed(new KillableRunnable(){
 			@Override
-			public void run() {
+			public void doWork() {
 				((GameActivityInterface)MovingView.this.getContext()).removeView(exp);
 			}
 		},500);	

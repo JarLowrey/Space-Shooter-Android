@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import parents.MovingView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 
 import com.jtronlabs.to_the_moon.MainActivity;
   
@@ -43,9 +44,9 @@ public abstract class Bullet_Tracking extends Bullet{
 		shooter.post(trackingRunnable);
 	}
 
-	Runnable trackingRunnable = new Runnable(){
+	KillableRunnable trackingRunnable = new KillableRunnable(){
     	@Override
-        public void run() {
+        public void doWork() {
     		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
     		
 			for(BulletView bullet : myTrackingBullets){

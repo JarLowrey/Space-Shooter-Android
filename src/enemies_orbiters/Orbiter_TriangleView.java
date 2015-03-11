@@ -3,6 +3,7 @@ package enemies_orbiters;
 import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
@@ -49,9 +50,9 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
 		
 
-		orbitingRunnable = new Runnable(){
+		orbitingRunnable = new KillableRunnable(){
 			@Override
-			public void run() {
+			public void doWork() {
 					//triangle is equilateral
 						switch (currentSideOfTriangle) {
 						case 0:

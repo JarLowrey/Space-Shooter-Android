@@ -2,6 +2,7 @@ package parents;
 
 import interfaces.Projectile;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 import android.graphics.Color;
 
@@ -43,9 +44,9 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 			//set the background behind this view, and then remove it after howLongBackgroundIsApplied milliseconds
 			this.setBackgroundResource(R.drawable.view_damaged);
 			final int howLongBackgroundIsApplied=80;
-			Runnable removeDmg = new Runnable(){
+			KillableRunnable removeDmg = new KillableRunnable(){
 				@Override
-				public void run() {Moving_ProjectileView.this.setBackgroundColor(Color.TRANSPARENT);}
+				public void doWork() {Moving_ProjectileView.this.setBackgroundColor(Color.TRANSPARENT);}
 			};
 			ConditionalHandler.postIfAlive(removeDmg,howLongBackgroundIsApplied,this);			
 //			createExplosion();

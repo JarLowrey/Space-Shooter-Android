@@ -1,11 +1,12 @@
 package guns;
   
-import com.jtronlabs.to_the_moon.MainActivity;
-
 import interfaces.Shooter;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 import bullets.Bullet;
+
+import com.jtronlabs.to_the_moon.MainActivity;
 
 
 /**
@@ -30,9 +31,9 @@ public abstract class Gun {
 	protected float bulletFreq,bulletSpeedY,bulletSpeedX;
 	protected int bulletDamage,posOnShooter;
 	
-	private Runnable shootingRunnable = new Runnable(){
+	private KillableRunnable shootingRunnable = new KillableRunnable(){
 		  	@Override
-		      public void run() {
+		      public void doWork() {
 	  				Gun.this.shoot();
 	  				ConditionalHandler.postDelayedIfShooting(this, (long) bulletFreq,shooter);
 		  		}

@@ -3,6 +3,7 @@ package enemies_orbiters;
 import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -64,9 +65,9 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		this.setX(orbitX-width/2);
 		
 		
-		orbitingRunnable = new Runnable(){
+		orbitingRunnable = new KillableRunnable(){
 			@Override
-			public void run() {
+			public void doWork() {
 				currentDegree = ( angularVelocity+currentDegree )%360;
 				float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
 				float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));

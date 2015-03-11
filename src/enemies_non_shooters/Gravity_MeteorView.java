@@ -2,6 +2,7 @@ package enemies_non_shooters;
 
 import parents.MovingView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -23,9 +24,9 @@ public class Gravity_MeteorView extends EnemyView{
 	
 	private int direction = 1;
 	private int currentRotation;
-	private Runnable rotateRunnable = new Runnable(){
+	private KillableRunnable rotateRunnable = new KillableRunnable(){
 		@Override
-		public void run() { 
+		public void doWork() { 
 			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
 			Gravity_MeteorView.this.setRotation(currentRotation);
 			ConditionalHandler.postIfAlive(this,MovingView.HOW_OFTEN_TO_MOVE,Gravity_MeteorView.this);

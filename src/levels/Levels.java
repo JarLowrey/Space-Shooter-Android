@@ -145,7 +145,7 @@ public class Levels extends Factory_Bosses{
 				trackingAcceleratingEnemy,
 				trackingAcceleratingEnemy,
 				boss1
-				}
+				} 
 			};
 	
 	

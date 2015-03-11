@@ -1,6 +1,5 @@
 package com.jtronlabs.to_the_moon;
 
-import enemies.EnemyView;
 import friendlies.ProtagonistView;
 import interfaces.GameActivityInterface;
 
@@ -9,6 +8,7 @@ import java.util.Locale;
 
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
+import support.KillableRunnable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -121,7 +121,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
     public void onPause() {
         super.onPause();
-
+        
+        KillableRunnable.killAll();
 		levelCreator.pauseLevel();
 		
 		//protagonist attributes saved when he is removeGameObject() in pauseLevel
@@ -271,9 +272,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					protagonist.stopShooting();	
 					
 
-					Runnable canShootAgainRunnable = new Runnable(){//only one of these should ever be posted at a time
+					KillableRunnable canShootAgainRunnable = new KillableRunnable(){//only one of these should ever be posted at a time
 						@Override
-						public void run() {	canBeginShooting=true;beginShootingRunnablePosted=false;	}	};
+						public void doWork() {	canBeginShooting=true;beginShootingRunnablePosted=false;	}	};
 					
 					if( ! beginShootingRunnablePosted){
 						protagonist.postDelayed(canShootAgainRunnable,(long)ProtagonistView.DEFAULT_BULLET_FREQ);

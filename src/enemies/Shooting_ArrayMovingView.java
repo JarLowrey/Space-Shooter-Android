@@ -3,9 +3,9 @@ package enemies;
 import java.util.ArrayList;
 
 import parents.Moving_ProjectileView;
+import support.KillableRunnable;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -39,9 +39,9 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			currentPos, 
 			howManyTimesMoved;
 	private static Handler staticArrayMovementHandler = new Handler();
-	private static Runnable moveInARectangleRunnable = new Runnable() {
+	private static KillableRunnable moveInARectangleRunnable = new KillableRunnable() {
 		@Override
-		public void run() {
+		public void doWork() {
 			//ensure array of shooters is non empty on run()
 			if(allSimpleShooters.size()!=0){
 				// loop through all living instances of this class

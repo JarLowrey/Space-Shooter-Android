@@ -1,20 +1,21 @@
 package enemies_non_shooters;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-
 import parents.MovingView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
+
+import com.jtronlabs.to_the_moon.MainActivity;
 
 public class Meteor_SidewaysView extends Gravity_MeteorView{
 	
 	public final static float DEFAULT_SPEED_Y=7*MainActivity.getScreenDens(),
 			DEFAULT_SPEED_X=(float) (1.7*MainActivity.getScreenDens());
 	
-	private Runnable moveSideways = new Runnable(){
+	private KillableRunnable moveSideways = new KillableRunnable(){
 
 		@Override
-		public void run() {
+		public void doWork() {
 			Meteor_SidewaysView.this.moveDirection(MovingView.SIDEWAYS);
 			ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE,Meteor_SidewaysView.this);
 		}

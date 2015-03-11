@@ -1,5 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
+import support.KillableRunnable;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -29,9 +30,9 @@ public class IntroActivity extends Activity implements OnClickListener{
 	   
 	//Handler and runnable to display one extra character every newCharInterval
     Handler introHandler = new Handler();
-    Runnable showNewCharsRunnable = new Runnable() {
+    KillableRunnable showNewCharsRunnable = new KillableRunnable() {
 		@Override
-		public void run() {
+		public void doWork() {
 			posInCurrentString++;
 			String currentStringInArray = introText[posInArray];
 			

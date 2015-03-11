@@ -5,6 +5,7 @@ import levels.LevelSystem;
 import parents.MovingView;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,9 @@ public class BulletView extends Moving_ProjectileView{
 			DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE=50;
 	private Shooter theOneWhoShotMe;
 	
-	Runnable moveBulletRunnable = new Runnable(){
+	KillableRunnable moveBulletRunnable = new KillableRunnable(){
     	@Override
-        public void run() {
+        public void doWork() {
     		//move up and down
     		if(theOneWhoShotMe.isFriendly()){
     			BulletView.this.moveDirection(MovingView.UP);

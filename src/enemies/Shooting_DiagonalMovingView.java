@@ -2,6 +2,7 @@ package enemies;
 
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -25,10 +26,10 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	protected double leftThreshold,rightThreshold;
 	
-	Runnable moveDiagonalRunnable = new Runnable(){
+	KillableRunnable moveDiagonalRunnable = new KillableRunnable(){
 
 		@Override
-		public void run() {		
+		public void doWork() {		
 				final float rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
 				final float leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
 				float mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();

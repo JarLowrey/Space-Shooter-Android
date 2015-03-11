@@ -2,6 +2,7 @@ package levels;
 
 import java.util.ArrayList;
 
+import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
 import background_objects.BackgroundView;
@@ -171,9 +172,9 @@ public class LevelSystem extends Levels{
 		}
 	}
 
-	Runnable clouds = new Runnable() {
+	KillableRunnable clouds = new KillableRunnable() {
 		@Override
-		public void run() {
+		public void doWork() {
 			if (Math.random() < .5) {
 				new Bird(ctx);
 			}

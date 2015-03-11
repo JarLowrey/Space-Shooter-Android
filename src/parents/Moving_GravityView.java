@@ -2,6 +2,7 @@ package parents;
 
 import interfaces.Gravity;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 /**
@@ -25,9 +26,9 @@ public class Moving_GravityView extends MovingView implements Gravity{
 	}
 
     //GRAVITY RUNNABLE
-    Runnable gravityRunnable = new Runnable(){
+	KillableRunnable gravityRunnable = new KillableRunnable(){
     	@Override
-        public void run() {
+        public void doWork() {
         		atThreshold=moveDirection(Moving_ProjectileView.DOWN);
         		
         		//if View is at lowest threshold stop reposting runnable

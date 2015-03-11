@@ -1,6 +1,7 @@
 package background_objects;
 import parents.MovingView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 
@@ -11,10 +12,10 @@ public class Bird extends BackgroundView{
 
 	AnimationDrawable animation;
 	
-   	private Runnable moveSideways = new Runnable(){
+   	private KillableRunnable moveSideways = new KillableRunnable(){
    		
    		@Override
-   		public void run() {
+   		public void doWork() {
    			Bird.this.moveDirection(MovingView.SIDEWAYS);
    			ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE,Bird.this);
    		}

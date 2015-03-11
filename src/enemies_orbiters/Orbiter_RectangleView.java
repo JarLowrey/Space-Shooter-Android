@@ -3,6 +3,7 @@ package enemies_orbiters;
 import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -51,9 +52,9 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist *3.0/4);
 		
-		orbitingRunnable = new Runnable() {
+		orbitingRunnable = new KillableRunnable() {
 			@Override
-			public void run() {
+			public void doWork() {
 					switch (currentSideOfRectangle) {
 					case 0:
 						Orbiter_RectangleView.this.moveDirection(Moving_ProjectileView.RIGHT);

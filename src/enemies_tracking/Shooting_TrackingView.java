@@ -2,6 +2,7 @@ package enemies_tracking;
 
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -24,9 +25,9 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	
 	private Moving_ProjectileView viewToTrack;
 	
-	private Runnable track = new Runnable(){
+	private KillableRunnable track = new KillableRunnable(){
 		@Override
-		public void run() {
+		public void doWork() {
 			final int trackPoint =(int) ( viewToTrack.getX()*2 + viewToTrack.getWidth() )/2;
 			final int myPos = (int)( Shooting_TrackingView.this.getX()*2 + Shooting_TrackingView.this.getWidth() )/2;
 			final int diff = trackPoint - myPos;

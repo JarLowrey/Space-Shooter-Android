@@ -2,6 +2,7 @@ package parents;
 
 import interfaces.Gravity;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
@@ -25,9 +26,9 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
 	}
 
     //GRAVITY RUNNABLE
-    Runnable gravityRunnable = new Runnable(){
+	KillableRunnable gravityRunnable = new KillableRunnable(){
     	@Override
-        public void run() {
+        public void doWork() {
     		atThreshold=moveDirection(Moving_ProjectileView.DOWN);
     		
     		//if View is at lowest threshold stop reposting runnable

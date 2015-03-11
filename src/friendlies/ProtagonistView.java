@@ -3,6 +3,7 @@ package friendlies;
 import guns.Gun;
 import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
@@ -72,9 +73,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 	 
 	private int count = 0;
     
-    Runnable exhaustRunnable = new Runnable(){
+	KillableRunnable exhaustRunnable = new KillableRunnable(){
     	 @Override
-         public void run() {
+         public void doWork() {
 				GameActivityInterface screen = (GameActivityInterface) getContext();
 				if(count*HOW_OFTEN_TO_MOVE_ROCKET<EXHAUST_VISIBLE_TIME){
 					screen.getExhaust().setVisibility(View.VISIBLE);					

@@ -3,6 +3,7 @@ package enemies_orbiters;
 import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
+import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -48,9 +49,9 @@ public class Orbiter_HorizontalLineView extends Shooting_OrbiterView implements 
 		this.setThreshold(orbitY);
 		this.setX(MainActivity.getWidthPixels()/2);
 		
-		orbitingRunnable = new Runnable(){
+		orbitingRunnable = new KillableRunnable(){
 			@Override
-			public void run() {
+			public void doWork() {
 					Orbiter_HorizontalLineView.this.moveDirection(SIDEWAYS);
 					
 					
