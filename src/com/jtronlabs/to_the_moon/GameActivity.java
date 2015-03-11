@@ -156,6 +156,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void lostGame(){
+		KillableRunnable.killAll();
 		levelCreator.pauseLevel();
 		resetSavedVariables();
 		
@@ -167,6 +168,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void beatGame(){
+		KillableRunnable.killAll();
 		levelCreator.pauseLevel();
 		resetSavedVariables();
 		
