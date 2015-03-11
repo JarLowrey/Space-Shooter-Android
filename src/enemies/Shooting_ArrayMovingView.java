@@ -151,6 +151,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	 */
 	public static void refreshSimpleShooterArray(Context ctx,int numberRows,int numberCols,boolean isStaggered){
 		if(allSimpleShooters==null || allSimpleShooters.size()==0){
+			moveInARectangleRunnable.revive();
 			numRows=numberRows;
 			numCols=numberCols;
 			staggered=isStaggered;
