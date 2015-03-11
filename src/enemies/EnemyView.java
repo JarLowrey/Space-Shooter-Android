@@ -5,11 +5,9 @@ import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.TypedValue;
 import bonuses.BonusView;
 
 import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.R;
 
 public abstract class EnemyView extends Projectile_GravityView{
 	

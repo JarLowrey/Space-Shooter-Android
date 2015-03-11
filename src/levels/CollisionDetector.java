@@ -24,7 +24,7 @@ public class CollisionDetector {
 //        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
         	
         	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
-        			( ! levelingSystem.isLevelPaused() && ! levelingSystem.areLevelWavesCompleted()
+        			(! levelingSystem.areLevelWavesCompleted()
         			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0  || LevelSystem.bonuses.size() != 0) ){
         		
         		detectAnyFriendlyHasCollidedWithAnyEnemy();
@@ -33,7 +33,7 @@ public class CollisionDetector {
         		detectAnyEnemyHasHitAnyFriendlyBullets();
         		
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
-        	}else if( ! levelingSystem.isLevelPaused()) {
+        	}else {
         			
 	        		if(levelingSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
 	        			levelingSystem.getInteractivityInterface().lostGame();

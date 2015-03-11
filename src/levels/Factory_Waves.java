@@ -173,32 +173,30 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			
 			@Override
 			public void doWork() {
-				if(!isLevelPaused()){
-					//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
-					Gravity_MeteorView  met= new Gravity_MeteorView(ctx);
-					final int width = met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
-					final int numMeteorsPossibleOnScreenAtOnce = (int) (MainActivity.getWidthPixels()/width);
-					final int currentMeteor = numSpawned % numMeteorsPossibleOnScreenAtOnce;
-					
-					
-					//reverse direction if full meteor shower has occurred
-					if(numSpawned >= numMeteorsPossibleOnScreenAtOnce && numSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
-						meteorsFallLeftToRight = !meteorsFallLeftToRight;					
-					}
+				//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
+				Gravity_MeteorView  met= new Gravity_MeteorView(ctx);
+				final int width = met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
+				final int numMeteorsPossibleOnScreenAtOnce = (int) (MainActivity.getWidthPixels()/width);
+				final int currentMeteor = numSpawned % numMeteorsPossibleOnScreenAtOnce;
+				
+				
+				//reverse direction if full meteor shower has occurred
+				if(numSpawned >= numMeteorsPossibleOnScreenAtOnce && numSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
+					meteorsFallLeftToRight = !meteorsFallLeftToRight;					
+				}
 
-					int myXPosition;
-					if(meteorsFallLeftToRight){
-						myXPosition = width * currentMeteor;
-					}else{
-						myXPosition = (int) (MainActivity.getWidthPixels()- (width * (currentMeteor+1) ) );
-					}
-					met.setX(myXPosition);
-					
-					numSpawned++;
-					if(numSpawned<numMeteors){
-						spawningHandler.postDelayed(this,millisecondsBetweenEachMeteor);
+				int myXPosition;
+				if(meteorsFallLeftToRight){
+					myXPosition = width * currentMeteor;
+				}else{
+					myXPosition = (int) (MainActivity.getWidthPixels()- (width * (currentMeteor+1) ) );
+				}
+				met.setX(myXPosition);
+				
+				numSpawned++;
+				if(numSpawned<numMeteors){
+					spawningHandler.postDelayed(this,millisecondsBetweenEachMeteor);
 //						conditionalHandler.postIfLevelResumed(this,millisecondsBetweenEachMeteor);
-					}
 				}
 			}
 		};

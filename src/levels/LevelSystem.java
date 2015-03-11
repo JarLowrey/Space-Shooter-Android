@@ -47,8 +47,6 @@ public class LevelSystem extends Levels{
 	 * DEFAULT_WAVE_DURATION seconds. Start Collision detection
 	 */
 	public void resumeLevel() {
-		levelPaused = false;
-
 		// conditionalHandler = new ConditionalHandler(this);//must be reset
 		// every time level is resumed for previous wave spawnings to stop
 		createBackgroundEffects();
@@ -72,9 +70,6 @@ public class LevelSystem extends Levels{
 	 * every Game Object from the activity
 	 */
 	public void pauseLevel() {
-		levelPaused = true;
-		
-		stopSpawningWaves();
 		gameDetector.stopDetecting();
 		// clean up - kill Views & associated threads, stop all spawning &
 		// background threads
@@ -105,9 +100,6 @@ public class LevelSystem extends Levels{
 	 * bullets)
 	 */
 	public void endLevel() {
-		levelPaused = true;
-
-		stopSpawningWaves();
 		gameDetector.stopDetecting();
 		// conditionalHandler.stopSpawningWaves();
 

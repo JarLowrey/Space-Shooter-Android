@@ -9,7 +9,6 @@ import com.jtronlabs.to_the_moon.GameActivity;
 
 public abstract class AttributesOfLevels {
 	protected Context ctx;
-	protected boolean levelPaused;
 	private int waveNo,resourceNo,levelNo;
 	
 	Handler spawningHandler;
@@ -38,11 +37,6 @@ public abstract class AttributesOfLevels {
 		setWave(getWave()+1);		
 	}
 	
-	//paused?
-	public boolean isLevelPaused(){
-		return levelPaused;
-	}
-
 	public GameActivityInterface getInteractivityInterface(){
 		return (GameActivityInterface)ctx;
 	}

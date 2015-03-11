@@ -28,30 +28,24 @@ public class Levels extends Factory_Bosses{
 		return getWave()==levels[getLevel()].length;
 	}
 	
-	private KillableRunnable waveSpawningRunnable;
-	
 	/**
 	 * DOES NOT WORK. When exit activity and re-enter quickly
 	 */
 	public void startLevelSpawning(){
 		
-		waveSpawningRunnable = new KillableRunnable() {
+		spawningHandler.post(new KillableRunnable() {
 			@Override
 			public void doWork() {
-				if (!isLevelPaused() && !areLevelWavesCompleted()) {//check isKilled() to ensure Runnable cannot progress
+				if (!areLevelWavesCompleted()) {//check isKilled() to ensure Runnable cannot progress
 					spawningHandler.post(levels[getLevel()][getWave()]);
 					incrementWave();
 					spawningHandler.postDelayed(this,DEFAULT_WAVE_DURATION);
 				}
 			}
 			
-		};
-		spawningHandler.post(waveSpawningRunnable);
+		});
 	}
 	 
-	public void stopSpawningWaves(){
-		if(waveSpawningRunnable!=null){waveSpawningRunnable.kill();}
-	}
 	
 	//levels defined in terms of 5second  waves
 	private KillableRunnable levels[][] ={
