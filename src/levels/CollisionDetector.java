@@ -4,6 +4,7 @@ import interfaces.Shooter;
 import parents.MovingView;
 import support.KillableRunnable;
 import android.os.Handler;
+import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -34,16 +35,7 @@ public class CollisionDetector {
         		
 	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
         	}else {
-        			
-	        		if(levelingSystem.getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
-	        			levelingSystem.getInteractivityInterface().lostGame();
-	        		}else if( levelingSystem.getLevel() > levelingSystem.getMaxLevel() ){
-	        			levelingSystem.getInteractivityInterface().beatGame();
-	        		}else if(levelingSystem.areLevelWavesCompleted() ){
-		    			levelingSystem.endLevel();
-	        			levelingSystem.getInteractivityInterface().openStore();
-	        		}
-	
+    			levelingSystem.endLevel();	
         	}
         } 
     };

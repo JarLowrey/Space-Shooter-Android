@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import background_objects.BackgroundView;
 import background_objects.Bird;
 import background_objects.Clouds;
@@ -105,7 +106,6 @@ public class LevelSystem extends Levels{
 
 		// set new level
 		incrementLevel();
-		setWave(0);
 
 		// Save variables
 		SharedPreferences gameState = ctx.getSharedPreferences(
@@ -119,17 +119,29 @@ public class LevelSystem extends Levels{
 
 		editor.commit();
 
-		// kill Views. Friendly still needed and enemies already removed. Thus
-		// remove friendly bullets and background objects to
-		// clean up the screen
+		/* kill Views. Friendly still needed and enemies already removed. Thus
+		 remove friendly bullets and background objects to
+		 clean up the screen. enemies, enemy bullets, and bonuses must all already be removed for
+		 level to end (see collision detector)
+		 */
 		for (int i = backgroundViews.size() - 1; i >= 0; i--) {
 			backgroundViews.get(i).removeGameObject();
 		}
 		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
 			friendlyBullets.get(i).removeGameObject();
 		}
-		// enemies, enemy bullets, and bonuses must all already be removed for
-		// level to end - see collision detector
+
+		//check if user has lost game, beaten game, or beaten the level. Must be done after level has incremented
+		if(getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
+			getInteractivityInterface().lostGame();
+		}else if( getLevel() > getMaxLevel() ){
+			getInteractivityInterface().beatGame();
+		}else{
+			getInteractivityInterface().openStore();
+		}
+		
+		//reset waves for the next level
+		setWave(0);
 	}
 
 	//
