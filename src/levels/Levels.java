@@ -109,7 +109,7 @@ public class Levels extends Factory_Bosses{
 				trackingEnemy,
 				doNothing,
 				doNothing,
-				refreshArrayShooters,
+				trackingEnemy,
 				doNothing,
 				doNothing,
 				trackingEnemy
@@ -127,6 +127,8 @@ public class Levels extends Factory_Bosses{
 				boss1,
 				doNothing,
 				doNothing,
+				trackingEnemy,
+				doNothing,
 				trackingEnemy
 				},
 					
@@ -138,8 +140,24 @@ public class Levels extends Factory_Bosses{
 				trackingAcceleratingEnemy,
 				trackingAcceleratingEnemy,
 				trackingAcceleratingEnemy,
-				boss1
-				} 
+				boss1,
+				trackingAcceleratingEnemy,
+				trackingAcceleratingEnemy
+				},
+				
+			{meteorSidewaysForWholeLevel,					
+				boss1,
+				doNothing,
+				doNothing,
+				doNothing,
+				meteorShowersThatForceUserToMiddle,
+				trackingEnemy,
+				trackingEnemy,
+				doNothing,
+				doNothing,
+				meteorShowersThatForceUserToMiddle,
+				boss2
+				}
 			};
 	
 	

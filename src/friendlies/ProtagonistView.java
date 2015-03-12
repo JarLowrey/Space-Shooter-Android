@@ -1,5 +1,6 @@
 package friendlies;
 
+import parents.MovingView;
 import guns.Gun;
 import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
@@ -45,6 +46,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	SharedPreferences gameState;
 	GameActivityInterface myGame;
+	private int movingDirection;
 	private boolean isMoving;
 	
 	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
@@ -141,8 +143,39 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	
 	public void beginMoving(final int direction){
-		isMoving=true;
-		ConditionalHandler.startMoving(this, direction);
+		movingDirection = direction;
+		if(!isMoving){
+			isMoving=true;
+			this.post(new KillableRunnable(){
+				@Override
+				public void doWork() {
+					if( isMoving() ){
+						switch(movingDirection){
+						case MovingView.UP_LEFT:
+							moveDirection(MovingView.UP);
+							moveDirection(MovingView.LEFT);
+							break;
+						case MovingView.UP_RIGHT:
+							moveDirection(MovingView.UP);
+							moveDirection(MovingView.RIGHT);
+							break;
+						case MovingView.DOWN_LEFT:
+							moveDirection(MovingView.DOWN);
+							moveDirection(MovingView.LEFT);
+							break;
+						case MovingView.DOWN_RIGHT:
+							moveDirection(MovingView.DOWN);
+							moveDirection(MovingView.RIGHT);
+							break;
+						default:
+							moveDirection(movingDirection);
+							break;
+						}
+						ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE_ROCKET,ProtagonistView.this);
+					}
+				}
+			});
+		}
 	}
 	public void stopMoving(){
 		isMoving=false;

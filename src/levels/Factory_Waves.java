@@ -80,7 +80,7 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 			numMeteors/=2;
 			numMeteors-=2;
-			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
+//			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
 			
 			spawnMeteorShower(numMeteors,400,true);
 			spawnMeteorShower(numMeteors,400,false);

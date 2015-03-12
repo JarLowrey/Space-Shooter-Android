@@ -37,20 +37,6 @@ public class ConditionalHandler {
 			theViewToPostTo.postDelayed(r, 0);
 		}
 	}
-
-	//Handlers for the protagonist
-	public static void startMoving(final ProtagonistView hero,final int direction){
-		KillableRunnable moveRunnable = new KillableRunnable(){
-			@Override
-			public void doWork() {
-				if( hero.isMoving()){
-					hero.moveDirection(direction);
-					ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE_ROCKET,hero);
-				}
-			}};
-		
-		hero.post(moveRunnable);
-	}	
 	
 	// handler for Shooters. shooter must be alive and shooting
 	/**

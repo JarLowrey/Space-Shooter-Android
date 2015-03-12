@@ -106,6 +106,7 @@ public class LevelSystem extends Levels{
 
 		// set new level
 		incrementLevel();
+		setWave(0);
 
 		// Save variables
 		SharedPreferences gameState = ctx.getSharedPreferences(
@@ -131,7 +132,7 @@ public class LevelSystem extends Levels{
 			friendlyBullets.get(i).removeGameObject();
 		}
 
-		//check if user has lost game, beaten game, or beaten the level. Must be done after level has incremented
+		//check if user has lost game, beaten game, or beaten the level. 
 		if(getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
 			getInteractivityInterface().lostGame();
 		}else if( getLevel() > getMaxLevel() ){
@@ -139,9 +140,6 @@ public class LevelSystem extends Levels{
 		}else{
 			getInteractivityInterface().openStore();
 		}
-		
-		//reset waves for the next level
-		setWave(0);
 	}
 
 	//

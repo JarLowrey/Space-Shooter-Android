@@ -30,6 +30,9 @@ public class FriendlyView extends Moving_ProjectileView{
 	 */
 	@Override
 	public boolean moveDirection(int direction){
+		if(direction!=UP && direction!=DOWN && direction!=LEFT && direction != RIGHT){
+			throw new IllegalArgumentException("direction argument must be MovingView.UP, MovingView.RIGHT,MovingView.DOWN, or MovingView.LEFT");
+		}
 		float x =this.getX();
 		float y =this.getY();
 		

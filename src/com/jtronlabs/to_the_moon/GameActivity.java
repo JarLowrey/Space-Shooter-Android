@@ -43,7 +43,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			STATE_LEVEL="level";
 //			STATE_WAVE="wave";
 	
-	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown,btnShoot;
+//	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown;
+	private Button btnMove;
+	private Button btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
 	private TextView resourceCount,healthCount,levelCount;
@@ -62,15 +64,17 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		//set up Gameplay Views and listeners and layouts
-		btnMoveLeft= (Button)findViewById(R.id.btn_move_left); 
-		btnMoveRight= (Button)findViewById(R.id.btn_move_right);
-		btnMoveUp = (Button)findViewById(R.id.btn_move_up);
-		btnMoveDown = (Button)findViewById(R.id.btn_move_down);
+//		btnMoveLeft= (Button)findViewById(R.id.btn_move_left); 
+//		btnMoveRight= (Button)findViewById(R.id.btn_move_right);
+//		btnMoveUp = (Button)findViewById(R.id.btn_move_up);
+//		btnMoveDown = (Button)findViewById(R.id.btn_move_down);
+	    btnMove = (Button)findViewById(R.id.btn_move);
 		btnShoot = (Button)findViewById(R.id.btn_shoot);
-		btnMoveUp.setOnTouchListener(this);
-		btnMoveDown.setOnTouchListener(this);
-		btnMoveLeft.setOnTouchListener(this);
-		btnMoveRight.setOnTouchListener(this); 
+//		btnMoveUp.setOnTouchListener(this);
+//		btnMoveDown.setOnTouchListener(this);
+//		btnMoveLeft.setOnTouchListener(this);
+//		btnMoveRight.setOnTouchListener(this); 
+		btnMove.setOnTouchListener(this);
 		btnShoot.setOnTouchListener(this);
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
@@ -227,24 +231,94 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 
 	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
+	/**
+	 * 
+	 * @param left
+	 * @param top
+	 * @param right
+	 * @param bottom
+	 * @param xTouch
+	 * @param yTouch
+	 * @return 1=top left, 2=top mid, 3=top right, 4=mid left, 5=mid mid, 6=mid right, 7=bottom left, 8=bottom mid, 9=bottom right
+	 */
+	private int whichQuadrant(float left, float top,float right,float bottom,float xTouch,float yTouch){
+		//Log.d("lowrey"," l "+left+" r "+right+" t "+top+ " B "+ bottom+ " x "+xTouch+" y "+yTouch);
+		final float xPosInPercent = (xTouch-left)/(right-left);
+		final float yPosInPercent = (yTouch-top)/(bottom-top);
+		final int col = (int) (xPosInPercent*3);
+		final int row = (int) (yPosInPercent*3);
+		return col+row*3;
+	}
+	
+	private void moveProtagonist(int whichQuadrant){
+		Log.d("lowrey","quadrant "+ whichQuadrant);
+		switch(whichQuadrant){
+		//top row
+			case 0:
+				protagonist.beginMoving(Moving_ProjectileView.UP_LEFT);
+				break;
+			case 1:
+				protagonist.beginMoving(Moving_ProjectileView.UP);
+				break;
+			case 2:
+				protagonist.beginMoving(Moving_ProjectileView.UP_RIGHT);
+				break;
+		//middle row
+			case 3:
+				protagonist.beginMoving(Moving_ProjectileView.LEFT);
+				break;
+			case 4:
+				//do nothing
+				break;
+			case 5:
+				protagonist.beginMoving(Moving_ProjectileView.RIGHT);
+				break;
+		//bottom row
+			case 6:
+				protagonist.beginMoving(Moving_ProjectileView.DOWN_LEFT);
+				break;
+			case 7:
+				protagonist.beginMoving(Moving_ProjectileView.UP);
+				break;
+			case 8:
+				protagonist.beginMoving(Moving_ProjectileView.DOWN_RIGHT);
+				break;
+		//can occur when user moves finger outside bounds of button. In this case do nothing.
+			default:
+				protagonist.stopMoving();
+				break;
+		}
+	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		switch(event.getAction()){
+		case MotionEvent.ACTION_MOVE:
+			switch(v.getId()){
+				case R.id.btn_move:
+					final int whichQuad1 = whichQuadrant(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
+					moveProtagonist(whichQuad1);
+					break;
+			}
+			break;
 		case MotionEvent.ACTION_DOWN:
 			switch(v.getId()){
-				case R.id.btn_move_left:
-					protagonist.beginMoving(Moving_ProjectileView.LEFT);
-					break;  
-				case R.id.btn_move_right:
-					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
-					break;
-				case R.id.btn_move_up:
-					protagonist.beginMoving(Moving_ProjectileView.UP);
-					break;
-				case R.id.btn_move_down:
-					protagonist.beginMoving(Moving_ProjectileView.DOWN);
-					break;
+			case R.id.btn_move:
+				final int whichQuad2 = whichQuadrant(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
+				moveProtagonist(whichQuad2);
+				break;
+//				case R.id.btn_move_left:
+//					protagonist.beginMoving(Moving_ProjectileView.LEFT);
+//					break;  
+//				case R.id.btn_move_right:
+//					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
+//					break;
+//				case R.id.btn_move_up:
+//					protagonist.beginMoving(Moving_ProjectileView.UP);
+//					break;
+//				case R.id.btn_move_down:
+//					protagonist.beginMoving(Moving_ProjectileView.DOWN);
+//					break;
 				case R.id.btn_shoot:
 						
 					if(canBeginShooting){
@@ -258,18 +332,21 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		case MotionEvent.ACTION_UP:
 //			v.performClick();//why is this needed?
 			switch(v.getId()){
-				case R.id.btn_move_left:
-						protagonist.stopMoving();
-					break; 
-				case R.id.btn_move_right:
-						protagonist.stopMoving();
-					break;
-				case R.id.btn_move_up:
-					protagonist.stopMoving();
-					break; 
-				case R.id.btn_move_down:
-					protagonist.stopMoving();
-					break;
+			case R.id.btn_move:
+				protagonist.stopMoving();
+				break;
+//				case R.id.btn_move_left:
+//						protagonist.stopMoving();
+//					break; 
+//				case R.id.btn_move_right:
+//						protagonist.stopMoving();
+//					break;
+//				case R.id.btn_move_up:
+//					protagonist.stopMoving();
+//					break; 
+//				case R.id.btn_move_down:
+//					protagonist.stopMoving();
+//					break;
 				case R.id.btn_shoot:					
 					protagonist.stopShooting();	
 					
