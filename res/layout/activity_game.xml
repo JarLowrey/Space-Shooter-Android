@@ -37,7 +37,7 @@
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
 				android:layout_marginRight="@dimen/activity_margin_large"
-			    android:background="@drawable/btn_green" />
+			    android:background="@drawable/btn_red" />
 			
 		    <ProgressBar
 		        android:id="@+id/health_bar"
@@ -49,10 +49,10 @@
 		    <Button 
 			    android:id="@+id/btn_move"
 				android:layout_below="@+id/health_bar"
-			    android:layout_width="100dp"
-			    android:layout_height="100dp"
+			    android:layout_width="150dp"
+			    android:layout_height="150dp"
 				android:layout_marginLeft="@dimen/activity_margin_small"
-			    android:background="@drawable/btn_red"    />
+			    android:background="@drawable/btn_green"    />
 		    <!-- 
 		    <RelativeLayout
 		        android:id="@+id/move_btns"

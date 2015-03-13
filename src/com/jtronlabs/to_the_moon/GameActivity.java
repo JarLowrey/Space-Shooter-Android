@@ -278,7 +278,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				protagonist.beginMoving(Moving_ProjectileView.DOWN_LEFT);
 				break;
 			case 7:
-				protagonist.beginMoving(Moving_ProjectileView.UP);
+				protagonist.beginMoving(Moving_ProjectileView.DOWN);
 				break;
 			case 8:
 				protagonist.beginMoving(Moving_ProjectileView.DOWN_RIGHT);
