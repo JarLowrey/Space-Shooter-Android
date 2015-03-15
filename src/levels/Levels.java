@@ -49,6 +49,15 @@ public class Levels extends Factory_Bosses{
 	
 	//levels defined in terms of 5second  waves
 	private KillableRunnable levels[][] ={
+
+			//TEST LEVEL
+			{
+				boss1,
+				doNothing,
+				doNothing
+			},
+			
+			
 			{meteorSidewaysForWholeLevel,			
 				meteorSidewaysForWholeLevel,
 				meteorShowersThatForceUserToMiddle,

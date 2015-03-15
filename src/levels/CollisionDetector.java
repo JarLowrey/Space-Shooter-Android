@@ -4,7 +4,6 @@ import interfaces.Shooter;
 import parents.MovingView;
 import support.KillableRunnable;
 import android.os.Handler;
-import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -50,7 +49,7 @@ public class CollisionDetector {
 	    	for(int i=LevelSystem.enemies.size()-1;i>=0;i--){
 //	    		try{
 		    		EnemyView enemy = LevelSystem.enemies.get(i);
-		    		if(friendly.collisionDetection(enemy)){
+		    		if(friendly.RectToRectCollisionDetection(enemy)){
 		    			
 		    			friendly.takeDamage(enemy.getDamage());
 		    			enemy.takeDamage(friendly.getDamage());
@@ -67,7 +66,7 @@ public class CollisionDetector {
 			for(int j=LevelSystem.enemyBullets.size()-1;j>=0;j--){
 //				try{
 					BulletView bullet = LevelSystem.enemyBullets.get(j);
-					if( friendly.collisionDetection(bullet)){
+					if( friendly.RectToRectCollisionDetection(bullet)){
 	
 		    			friendly.takeDamage(bullet.getDamage());
 		    			bullet.removeGameObject();
@@ -87,7 +86,7 @@ public class CollisionDetector {
 		    	for(int i=LevelSystem.bonuses.size()-1;i>=0;i--){
 //		    		try{
 			    		BonusView bonus = LevelSystem.bonuses.get(i);
-			    		if( /*! bonus.isRemoved() &&*/ friendly.collisionDetection(bonus)){//game object could be removed in previous loop iteration
+			    		if( /*! bonus.isRemoved() &&*/ friendly.RectToRectCollisionDetection(bonus)){//game object could be removed in previous loop iteration
 			    			bonus.applyBenefit(friendlyShooter);
 			    			bonus.removeGameObject();
 			    		}
@@ -104,7 +103,7 @@ public class CollisionDetector {
 	    		for(int j=LevelSystem.friendlyBullets.size()-1;j>=0;j--){
 //	    			try{
 						BulletView bullet = LevelSystem.friendlyBullets.get(j);
-						if( bullet.collisionDetection(enemy)){
+						if( bullet.RectToRectCollisionDetection(enemy)){
 							
 		        			enemy.takeDamage(bullet.getDamage());
 		        			bullet.removeGameObject();

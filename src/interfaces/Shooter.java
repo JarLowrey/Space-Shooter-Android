@@ -8,9 +8,9 @@ import bullets.BulletView;
 
 
 public interface Shooter extends Projectile{
-
-//	public void upgradeOrDowngradeGun(boolean upgrade);
 	
+	public static final float DEFAULT_BULLET_SPEED_Y = 17;
+			
 	public void removeAllGuns();
 	public void addGun(Gun newGun);
 	public ArrayList<Gun> getAllGuns();

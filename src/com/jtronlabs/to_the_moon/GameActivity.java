@@ -7,7 +7,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import levels.LevelSystem;
-import parents.Moving_ProjectileView;
 import support.KillableRunnable;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -44,7 +43,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //			STATE_WAVE="wave";
 	
 //	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown;
-	private Button btnMove;
+	private ImageButton btnMove;
 	private Button btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
@@ -68,7 +67,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //		btnMoveRight= (Button)findViewById(R.id.btn_move_right);
 //		btnMoveUp = (Button)findViewById(R.id.btn_move_up);
 //		btnMoveDown = (Button)findViewById(R.id.btn_move_down);
-	    btnMove = (Button)findViewById(R.id.btn_move);
+	    btnMove = (ImageButton)findViewById(R.id.btn_move);
 		btnShoot = (Button)findViewById(R.id.btn_shoot);
 //		btnMoveUp.setOnTouchListener(this);
 //		btnMoveDown.setOnTouchListener(this);
@@ -235,60 +234,24 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	 * 
 	 * @param left
 	 * @param top
-	 * @param right
+	 * @param right 
 	 * @param bottom
 	 * @param xTouch
 	 * @param yTouch
 	 * @return 1=top left, 2=top mid, 3=top right, 4=mid left, 5=mid mid, 6=mid right, 7=bottom left, 8=bottom mid, 9=bottom right
 	 */
-	private int whichQuadrant(float left, float top,float right,float bottom,float xTouch,float yTouch){
-		//Log.d("lowrey"," l "+left+" r "+right+" t "+top+ " B "+ bottom+ " x "+xTouch+" y "+yTouch);
-		final float xPosInPercent = (xTouch-left)/(right-left);
-		final float yPosInPercent = (yTouch-top)/(bottom-top);
-		final int col = (int) (xPosInPercent*3);
-		final int row = (int) (yPosInPercent*3);
-		return col+row*3;
-	}
+	private float[] percentXYAwayFromMidPoint(float left, float top,float right,float bottom,float xTouch,float yTouch){
+		final float midX = (right-left)/2;
+		final float midY = (bottom-top)/2;
+		float xPosInPercent = (xTouch-midX)/(right-left);
+		float yPosInPercent = (yTouch-midY)/(bottom-top);
+		xPosInPercent = (Math.abs(xPosInPercent)>1) ? xPosInPercent/(Math.abs(xPosInPercent)) : xPosInPercent ;//maximum value is +/- 1
+		yPosInPercent = (Math.abs(yPosInPercent)>1) ? yPosInPercent/(Math.abs(yPosInPercent)) : yPosInPercent ;
+		final float[] percents = {xPosInPercent,yPosInPercent};
+//		Log.d("lowrey","x= "+xPosInPercent+" y= "+yPosInPercent);
+		return percents;
+	} 
 	
-	private void moveProtagonist(int whichQuadrant){
-		Log.d("lowrey","quadrant "+ whichQuadrant);
-		switch(whichQuadrant){
-		//top row
-			case 0:
-				protagonist.beginMoving(Moving_ProjectileView.UP_LEFT);
-				break;
-			case 1:
-				protagonist.beginMoving(Moving_ProjectileView.UP);
-				break;
-			case 2:
-				protagonist.beginMoving(Moving_ProjectileView.UP_RIGHT);
-				break;
-		//middle row
-			case 3:
-				protagonist.beginMoving(Moving_ProjectileView.LEFT);
-				break;
-			case 4:
-				//do nothing
-				break;
-			case 5:
-				protagonist.beginMoving(Moving_ProjectileView.RIGHT);
-				break;
-		//bottom row
-			case 6:
-				protagonist.beginMoving(Moving_ProjectileView.DOWN_LEFT);
-				break;
-			case 7:
-				protagonist.beginMoving(Moving_ProjectileView.DOWN);
-				break;
-			case 8:
-				protagonist.beginMoving(Moving_ProjectileView.DOWN_RIGHT);
-				break;
-		//can occur when user moves finger outside bounds of button. In this case do nothing.
-			default:
-				protagonist.stopMoving();
-				break;
-		}
-	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -296,16 +259,16 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		case MotionEvent.ACTION_MOVE:
 			switch(v.getId()){
 				case R.id.btn_move:
-					final int whichQuad1 = whichQuadrant(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
-					moveProtagonist(whichQuad1);
+					final float[] percentXY = percentXYAwayFromMidPoint(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
+					protagonist.beginMoving(percentXY[0],percentXY[1]);
 					break;
 			}
 			break;
 		case MotionEvent.ACTION_DOWN:
 			switch(v.getId()){
 			case R.id.btn_move:
-				final int whichQuad2 = whichQuadrant(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
-				moveProtagonist(whichQuad2);
+				final float[] percentXY_2 = percentXYAwayFromMidPoint(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
+				protagonist.beginMoving(percentXY_2[0],percentXY_2[1]);
 				break;
 //				case R.id.btn_move_left:
 //					protagonist.beginMoving(Moving_ProjectileView.LEFT);
@@ -471,7 +434,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	        	if(!maxLevelItemCopy){
-	        		if(costCopy<levelCreator.getResourceCount()){
+	        		if(costCopy<=levelCreator.getResourceCount()){
 		        		protagonist.applyUpgrade(whichUpgrade);
 		        		
 		        		//update Views in the store

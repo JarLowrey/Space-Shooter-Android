@@ -13,15 +13,14 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	public static int DEFAULT_BACKGROUND=0,
 			DEFAULT_HEALTH=ProtagonistView.UPGRADE_BULLET_DAMAGE*5,
 			DEFAULT_SCORE=100;
-	public static float DEFAULT_SPEED_Y=2,
-			DEFAULT_SPEED_X=0,
+	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
 	
 	private long amtOfTimeToPause;
 	
 	public Shooting_PauseAndMove (Context context) {
 		super(context,DEFAULT_SCORE,
-				DEFAULT_SPEED_Y,DEFAULT_SPEED_X,
+				DEFAULT_SPEED_Y,0,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
@@ -34,29 +33,30 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	}
 	
 	public Shooting_PauseAndMove(Context context, int scoreForKilling,
-			float projectileSpeedY, float projectileSpeedX,
+			float projectileSpeedY,
 			int projectileDamage, int projectileHealth,
 			float probSpawnBeneficialObject, int width, int height, int imageId, long howLongToPause) {
-		super(context, scoreForKilling, projectileSpeedY, projectileSpeedX,
+		super(context, scoreForKilling, projectileSpeedY, 0,
 				projectileDamage, projectileHealth, probSpawnBeneficialObject, width,
 				height, imageId);
 
 		this.setThreshold((int) MainActivity.getHeightPixels()/3);
 		amtOfTimeToPause = howLongToPause;
 	}
-
+	
 	@Override
-	public float getShootingFreq() {
-		// TODO Auto-generated method stub
-		return 0;
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
 
 	@Override
 	public void reachedGravityPosition() {
+		killMoveRunnable();
+		
 		this.postDelayed(new KillableRunnable(){
 			@Override
 			public void doWork() {
-				startGravity();
+				reviveMoveRunnable();
 			}
 		},this.amtOfTimeToPause);
 	}

@@ -10,10 +10,10 @@ import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_ArrayMovingView;
 import enemies.Shooting_DiagonalMovingView;
+import enemies.Shooting_HorizontalMovement;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
-import enemies_orbiters.Orbiter_HorizontalLineView;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_tracking.Shooting_TrackingView;
@@ -341,7 +341,7 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 				final int orbitX= ( width/2 ) * (2*currentShip) + radius * (2*currentShip +1);
 				final int orbitY=Orbiter_CircleView.DEFAULT_ORBIT_Y;
 				new Orbiter_CircleView(ctx,Orbiter_CircleView.DEFAULT_SCORE,Orbiter_CircleView.DEFAULT_SPEED_Y,
-						Orbiter_CircleView.DEFAULT_SPEED_X,Orbiter_CircleView.DEFAULT_COLLISION_DAMAGE,
+						Orbiter_CircleView.DEFAULT_COLLISION_DAMAGE,
 						Orbiter_CircleView.DEFAULT_HEALTH,Orbiter_CircleView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
 						(int)orbitX,(int)orbitY,
 						(int)width, (int)height,
@@ -358,6 +358,25 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 
 		spawningHandler.post(r);
 	}
+	
+	
+	
+	
+	public final KillableRunnable rect = new KillableRunnable(){
+		@Override
+		public void doWork() {
+			spawnRectangularOrbiterWave(5,1000);
+		}
+	};
+
+	public final KillableRunnable tri = new KillableRunnable(){
+		@Override
+		public void doWork() {
+			spawnTriangularOrbiterWave(5,1000);
+		}
+	};
+	
+	
 	
 	public final void spawnRectangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
 		
@@ -402,7 +421,7 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			
 			@Override
 			public void doWork() {
-				new Orbiter_HorizontalLineView(ctx);
+				new Shooting_HorizontalMovement(ctx);
 					numSpawned++;
 					
 					if(numSpawned<totalNumShips ){

@@ -1,7 +1,4 @@
 package background_objects;
-import parents.MovingView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 
@@ -11,16 +8,6 @@ import com.jtronlabs.to_the_moon.R;
 public class Bird extends BackgroundView{
 
 	AnimationDrawable animation;
-	
-   	private KillableRunnable moveSideways = new KillableRunnable(){
-   		
-   		@Override
-   		public void doWork() {
-   			Bird.this.moveDirection(MovingView.SIDEWAYS);
-   			ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE,Bird.this);
-   		}
-   		
-   	};
    	
        public Bird(Context context) {
 		super(context, 3, (float) (-Math.random()*5-7), 
@@ -37,14 +24,10 @@ public class Bird extends BackgroundView{
 			this.setBackgroundResource(R.anim.bird_1);
 		}else{
 			this.setBackgroundResource(R.anim.bird_2);			
-		} 
+		}
 		//create background animation
 		animation = (AnimationDrawable) this.getBackground();
-	    animation.start();
-	    
-
-		ConditionalHandler.postIfAlive(moveSideways, this);
-		
+	    animation.start();		
 	}
        
        @Override

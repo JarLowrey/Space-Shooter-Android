@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import background_objects.BackgroundView;
 import background_objects.Bird;
 import background_objects.Clouds;

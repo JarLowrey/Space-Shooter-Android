@@ -1,6 +1,5 @@
 package friendlies;
 
-import parents.MovingView;
 import guns.Gun;
 import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
@@ -15,39 +14,15 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 public class ProtagonistView extends Friendly_ShooterView{
-//	
-//	public enum Upgrades{
-//		BULLET_DAMAGE(),
-//		DEFENCE(),
-//		BULLET_FREQUENCY(),
-//		GUN(),
-//		FRIEND(),
-//		SCORE_MULTIPLIER(),
-//		HEAL();
-//		
-//		private int level,maxLevel;
-//		
-//		private Upgrades(){
-//			
-//		}
-//		
-//		public String toString(){
-//			if(level>=maxLevel){return "Max upgrade attained";}
-//			else{
-//				
-//			}
-//		}
-//	}
 	
-	public static final int HOW_OFTEN_TO_MOVE_ROCKET=50;
-
 	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_DEFENCE=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
+
+	public final static float DEFAULT_SPEED_Y=20,
+			DEFAULT_SPEED_X=20;
 	
 	SharedPreferences gameState;
 	GameActivityInterface myGame;
-	private int movingDirection;
-	private boolean isMoving;
 	
 	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
@@ -66,11 +41,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
 		createGunSet(freq,dmg,getGunLevel());
 		applyDefenceUpgradeToProtagonist();
+		this.killMoveRunnable();
 	}
 	
 	
-	private static final long EXHAUST_VISIBLE_TIME=500,
-			HOW_OFTEN_TO_MOVE_EXHAUST=HOW_OFTEN_TO_MOVE_ROCKET / 2;
+	private static final long EXHAUST_VISIBLE_TIME=500;
 	private static final double EXHAUST_FREQ=5000;
 	 
 	private int count = 0;
@@ -79,7 +54,7 @@ public class ProtagonistView extends Friendly_ShooterView{
     	 @Override
          public void doWork() {
 				GameActivityInterface screen = (GameActivityInterface) getContext();
-				if(count*HOW_OFTEN_TO_MOVE_ROCKET<EXHAUST_VISIBLE_TIME){
+				if( ( count* ProtagonistView.HOW_OFTEN_TO_MOVE )  <EXHAUST_VISIBLE_TIME){
 					screen.getExhaust().setVisibility(View.VISIBLE);					
 		    		 //position the exhaust
 					final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
@@ -89,7 +64,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 					screen.getExhaust().setX(x);
 					count++;
 
-					ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE_EXHAUST,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
+					ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE / 2,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
 				
 				}else{
 					count=0;
@@ -142,46 +117,24 @@ public class ProtagonistView extends Friendly_ShooterView{
 		super.restartThreads();
 	}
 	
-	public void beginMoving(final int direction){
-		movingDirection = direction;
-		if(!isMoving){
-			isMoving=true;
-			this.post(new KillableRunnable(){
-				@Override
-				public void doWork() {
-					if( isMoving() ){
-						switch(movingDirection){
-						case MovingView.UP_LEFT:
-							moveDirection(MovingView.UP);
-							moveDirection(MovingView.LEFT);
-							break;
-						case MovingView.UP_RIGHT:
-							moveDirection(MovingView.UP);
-							moveDirection(MovingView.RIGHT);
-							break;
-						case MovingView.DOWN_LEFT:
-							moveDirection(MovingView.DOWN);
-							moveDirection(MovingView.LEFT);
-							break;
-						case MovingView.DOWN_RIGHT:
-							moveDirection(MovingView.DOWN);
-							moveDirection(MovingView.RIGHT);
-							break;
-						default:
-							moveDirection(movingDirection);
-							break;
-						}
-						ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE_ROCKET,ProtagonistView.this);
-					}
-				}
-			});
-		}
+	public void beginMoving(final float percentXAwayFromMidPointOfMovementButton,final float percentYAwayFromMidPointOfMovementButton){
+
+		setSpeedX(ProtagonistView.DEFAULT_SPEED_X*percentXAwayFromMidPointOfMovementButton);
+		setSpeedY(ProtagonistView.DEFAULT_SPEED_Y*percentYAwayFromMidPointOfMovementButton);
+		
+		reassignMoveRunnable( new KillableRunnable(){
+			@Override
+			public void doWork() {
+				move(0,
+						(int) MainActivity.getWidthPixels() - ProtagonistView.this.getWidth(),
+						(int)(.4 * MainActivity.getHeightPixels()),
+						(int)(GameActivity.getBottomScreen() - ProtagonistView.this.getHeight()));
+				ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE,ProtagonistView.this);
+			}
+		});
 	}
 	public void stopMoving(){
-		isMoving=false;
-	}
-	public boolean isMoving(){
-		return isMoving;
+		this.killMoveRunnable();
 	}
 	
 	public void applyUpgrade(final int whichUpgrade){

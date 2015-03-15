@@ -23,7 +23,7 @@ public class IntroActivity extends Activity implements OnClickListener{
 			"For humanity.\nFor your family.\nFor the ladies.",
 			"You are equipped with the latest and greatest ship.",
 			"God speed..."};
-	
+	 
 	private int posInArray=0,posInCurrentString=0,
 			newCharInterval=50;
 	private boolean allCharsDisplayed=false;

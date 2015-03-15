@@ -1,5 +1,6 @@
 package interfaces;
 
+import support.KillableRunnable;
 import android.view.ViewParent;
 
 /**
@@ -20,6 +21,11 @@ public interface MovingViewInterface{
 	 * @return Score for killing this view. 
 	 */
 	public void removeGameObject();
+	
+	public void reassignMoveRunnable(KillableRunnable r);
+	public void killMoveRunnable();
+	public void reviveMoveRunnable();
+	
 	
 	public boolean isRemoved();
 	

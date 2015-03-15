@@ -16,8 +16,9 @@ import com.jtronlabs.to_the_moon.R;
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 
-		public static final float DEFAULT_BULLET_SPEED_Y=5,
-				DEFAULT_BULLET_FREQ=2000;
+		public static final float DEFAULT_BULLET_FREQ=2000,
+				DEFAULT_SPEED_Y = 8,
+				DEFAULT_SPEED_X = DEFAULT_SPEED_Y;
 		
 		public static final int DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/15,
 				DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10;

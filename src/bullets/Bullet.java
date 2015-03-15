@@ -11,8 +11,6 @@ public abstract class Bullet{
 			BULLET_MIDDLE=50,
 			BULLET_RIGHT=80;
 	
-	public abstract void removeBulletType();
-	
 	public abstract BulletView getBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage);
 	
 }

@@ -46,13 +46,15 @@
 		        android:layout_height="wrap_content"
 				android:layout_alignParentTop="true" />
 				
-		    <Button 
+		    <ImageButton 
 			    android:id="@+id/btn_move"
+			    android:src="@drawable/arrow_move"
 				android:layout_below="@+id/health_bar"
-			    android:layout_width="150dp"
-			    android:layout_height="150dp"
-				android:layout_marginLeft="@dimen/activity_margin_small"
-			    android:background="@drawable/btn_green"    />
+			    android:layout_width="100dp"
+			    android:layout_height="100dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="@dimen/activity_margin_large"
+			    android:background="@drawable/btn_red"    />
 		    <!-- 
 		    <RelativeLayout
 		        android:id="@+id/move_btns"

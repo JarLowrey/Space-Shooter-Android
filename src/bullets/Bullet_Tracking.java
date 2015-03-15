@@ -1,12 +1,10 @@
 package bullets;
 
 import interfaces.Shooter;
-
-import java.util.ArrayList;
-
 import parents.MovingView;
 import support.ConditionalHandler;
 import support.KillableRunnable;
+import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
   
@@ -19,63 +17,60 @@ public abstract class Bullet_Tracking extends Bullet{
 	
 	private float trackingSpeed;
 	private MovingView viewTracking;
-	private Shooter shooter;
-	protected ArrayList<BulletView> myTrackingBullets;
 	
 	
 	public Bullet_Tracking(float trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
+
+		init(viewToTrack,shooterWithTrackingBullets);
 		
-		myTrackingBullets= new ArrayList<BulletView>();
-		shooter = shooterWithTrackingBullets;
 		final float trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
-		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED * 
-				MainActivity.getScreenDens() : trackSpeedDPI;
-		viewTracking=viewToTrack;
-		shooter.post(trackingRunnable);
+		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED : trackSpeedDPI;
 	}
 	
 	public Bullet_Tracking(MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
-		
-		myTrackingBullets= new ArrayList<BulletView>();
-		shooter = shooterWithTrackingBullets;
+		init(viewToTrack,shooterWithTrackingBullets);
+	}
+	
+	private void init(MovingView viewToTrack,Shooter shooterWithTrackingBullets){
 		trackingSpeed = DEFAULT_TRACKING_SPEED;
-		
 		viewTracking=viewToTrack;
-		shooter.post(trackingRunnable);
 	}
 
-	KillableRunnable trackingRunnable = new KillableRunnable(){
-    	@Override
-        public void doWork() {
-    		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
-    		
-			for(BulletView bullet : myTrackingBullets){
-	    		final float bulletXMidPos = (2 * bullet.getX()+bullet.getWidth() ) / 2; 
+
+	public abstract BulletView getTrackingBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage);
+	
+
+	public BulletView getBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage){
+		BulletView b = getTrackingBullet( context, shooter, bulletSpeedY, bulletDamage);
+		setToTrackingBullet(b);
+		return b;
+	}
+	
+	private void setToTrackingBullet(final BulletView b){
+		
+		b.reassignMoveRunnable( new KillableRunnable(){
+			@Override
+			public void doWork() {
+				final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
+	    		final float bulletXMidPos = (2 * b.getX()+b.getWidth() ) / 2; 
 				final float diff = objectTrackingMidPoint - bulletXMidPos ;
-    			
+				
 				//if bullet is approximately at tracking destination, don't move it and set rotation to 0
 	    		if( Math.abs(diff) < viewTracking.getWidth()/2 ){
-	    			bullet.setSpeedX(0);
+	    			b.setSpeedX(0);
 	    		}else{
 	    			trackingSpeed = diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
 	    			 
 	    			//set speed and move sideways
-        			bullet.setSpeedX(trackingSpeed);
-        			bullet.moveDirection(MovingView.SIDEWAYS);    
+	    			b.setSpeedX(trackingSpeed); 
 	    		}
 	    		
-    			bullet.setBulletRotation();
+				b.setBulletRotation();
+				b.move();
+				
+				ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE,b);
 			}
-			ConditionalHandler.postIfAlive(this,MovingView.HOW_OFTEN_TO_MOVE*3,shooter);//I could use the default time and lower the speed, but having a higher speed and a less often movement time is less computationally intense
-    	}
-	};
-
-	@Override
-	public void removeBulletType(){
-		shooter.removeCallbacks(trackingRunnable);
-		for(int i=myTrackingBullets.size()-1;i>=0;i--){
-			myTrackingBullets.remove(i);
-		}
+		});
 	}
 	
 }

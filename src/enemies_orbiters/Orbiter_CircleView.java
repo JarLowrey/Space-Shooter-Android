@@ -35,11 +35,11 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	}
 	
 	public Orbiter_CircleView(Context context,int score,float speedY, 
-			float speedX,int collisionDamage, 
+			int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,
 			int circularRadius,int angVelocity) {
-		super(context, score,speedY, speedX,
+		super(context, score,speedY,
 				collisionDamage, health,
 				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
 		
@@ -63,9 +63,18 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		
 		this.setThreshold((int) (orbitY - radius));//begin orbit at top of circle
 		this.setX(orbitX-width/2);
-		
-		
-		orbitingRunnable = new KillableRunnable(){
+	}
+	
+	public void setAngularVelocity(int newVelocity){
+		this.angularVelocity=newVelocity;
+	}
+	public int getAngularVelocity(){
+		return angularVelocity;
+	}
+
+	@Override
+	protected void reachedGravityPosition() {
+		reassignMoveRunnable( new KillableRunnable(){
 			@Override
 			public void doWork() {
 				currentDegree = ( angularVelocity+currentDegree )%360;
@@ -79,14 +88,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 				
 				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_CircleView.this);
 			}
-		};
-	}
-	
-	public void setAngularVelocity(int newVelocity){
-		this.angularVelocity=newVelocity;
-	}
-	public int getAngularVelocity(){
-		return angularVelocity;
+		});
 	}
 
 }

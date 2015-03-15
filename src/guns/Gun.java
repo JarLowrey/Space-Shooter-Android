@@ -96,7 +96,7 @@ public abstract class Gun {
 	}
 	
 	public void destroyGun(){
-		myBulletType.removeBulletType();
+//		myBulletType.removeBulletType();
 //		ctx=null;
 //		shooter=null;
 //		myBulletType=null;

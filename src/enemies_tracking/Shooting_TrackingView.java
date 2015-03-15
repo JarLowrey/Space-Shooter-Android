@@ -25,23 +25,6 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	
 	private Moving_ProjectileView viewToTrack;
 	
-	private KillableRunnable track = new KillableRunnable(){
-		@Override
-		public void doWork() {
-			final int trackPoint =(int) ( viewToTrack.getX()*2 + viewToTrack.getWidth() )/2;
-			final int myPos = (int)( Shooting_TrackingView.this.getX()*2 + Shooting_TrackingView.this.getWidth() )/2;
-			final int diff = trackPoint - myPos;
-			float speedX=Math.abs( Shooting_TrackingView.this.getSpeedX() );
-			//set X direction
-			if(diff!=0){
-				speedX  *= diff/Math.abs(diff);//multiply by sign of diff
-			}
-			Shooting_TrackingView.this.setSpeedX(speedX);
-			Shooting_TrackingView.this.moveDirection(SIDEWAYS);
-			
-			ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
-		}
-	};
 	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe) {
 		super(context, DEFAULT_SCORE, 
 				DEFAULT_SPEED_Y, DEFAULT_SPEED_X,
@@ -51,10 +34,8 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 				(int)context.getResources().getDimension(R.dimen.ship_tracker_width),
 				(int)context.getResources().getDimension(R.dimen.ship_tracker_height), 
 				DEFAULT_BACKGROUND);
-		
-		viewToTrack=trackMe;
-		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
-		ConditionalHandler.postIfAlive(track, this);
+
+		init(trackMe);
 	}
 
 	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe, int scoreForKilling,
@@ -69,15 +50,40 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 				probSpawnBeneficialObject, 
 				width,height, 
 				imageId);
-		
+
+		init(trackMe);
+	}
+	
+	private void init(Moving_ProjectileView trackMe){
 		viewToTrack=trackMe;
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
-		ConditionalHandler.postIfAlive(track, this);
+
+		reassignMoveRunnable( new KillableRunnable(){
+			@Override
+			public void doWork() {
+				Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
+				
+				move();				
+				ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
+			}
+		});
+		
 	}
 
+	protected float getTrackingSpeedX(){
+		final int trackPoint =(int) ( viewToTrack.getX()*2 + viewToTrack.getWidth() )/2;
+		final int myPos = (int)( Shooting_TrackingView.this.getX()*2 + Shooting_TrackingView.this.getWidth() )/2;
+		final int diff = trackPoint - myPos;
+		float speedX=Math.abs( Shooting_TrackingView.this.getSpeedX() );
+		//set X direction
+		if(diff!=0){
+			speedX  *= diff/Math.abs(diff);//multiply by sign of diff
+		}
+		return speedX;	
+	}
+	
 	@Override 
 	public void restartThreads(){
-		ConditionalHandler.postIfAlive(track,HOW_OFTEN_TO_MOVE, this);
 		super.restartThreads();
 	}
 
@@ -90,4 +96,5 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	public void reachedGravityPosition() {
 		removeGameObject();
 	}
+
 }

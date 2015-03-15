@@ -1,6 +1,5 @@
 package support;
 
-import friendlies.ProtagonistView;
 import interfaces.MovingViewInterface;
 import interfaces.Shooter;
 /*

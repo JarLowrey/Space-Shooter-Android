@@ -1,8 +1,5 @@
 package enemies_non_shooters;
 
-import parents.MovingView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -11,16 +8,6 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 	
 	public final static float DEFAULT_SPEED_Y=7*MainActivity.getScreenDens(),
 			DEFAULT_SPEED_X=(float) (1.7*MainActivity.getScreenDens());
-	
-	private KillableRunnable moveSideways = new KillableRunnable(){
-
-		@Override
-		public void doWork() {
-			Meteor_SidewaysView.this.moveDirection(MovingView.SIDEWAYS);
-			ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE,Meteor_SidewaysView.this);
-		}
-		
-	};
 	
 	public Meteor_SidewaysView(Context context) {
 		super(context);
@@ -33,13 +20,10 @@ public class Meteor_SidewaysView extends Gravity_MeteorView{
 		//must spawn in middle 3/4 X of screen
 		float xRand = (float) ( MainActivity.getWidthPixels()/2*Math.random() + MainActivity.getWidthPixels()/4);
 		this.setX(xRand);
-		
-		ConditionalHandler.postIfAlive(moveSideways, this);
 	}
 	
 	@Override 
 	public void restartThreads(){
-		ConditionalHandler.postIfAlive(moveSideways,HOW_OFTEN_TO_MOVE, this);
 		super.restartThreads();
 	}
 }

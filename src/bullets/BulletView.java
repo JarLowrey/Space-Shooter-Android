@@ -2,7 +2,6 @@ package bullets;
   
 import interfaces.Shooter;
 import levels.LevelSystem;
-import parents.MovingView;
 import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import support.KillableRunnable;
@@ -20,28 +19,6 @@ public class BulletView extends Moving_ProjectileView{
 	public static final int DEFAULT_HORIZONTAL_SPEED=0,
 			DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE=50;
 	private Shooter theOneWhoShotMe;
-	
-	KillableRunnable moveBulletRunnable = new KillableRunnable(){
-    	@Override
-        public void doWork() {
-    		//move up and down
-    		if(theOneWhoShotMe.isFriendly()){
-    			BulletView.this.moveDirection(MovingView.UP);
-    		}else{
-    			BulletView.this.moveDirection(MovingView.DOWN);
-    		}
-    		
-    		//move sideways only if horizontal speed is not 0. This is not needed (since 0 horizontal speed results in 0 movement),
-    		//but I'd like to think it saves some resources
-			if( (Math.abs(BulletView.this.getSpeedX())>0.0001)){
-				//move sideways
-    			BulletView.this.moveDirection(MovingView.SIDEWAYS);
-    		}
-
-			BulletView.this.setBulletRotation();
-			ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,BulletView.this);
-		}
-	};
 	
 	public BulletView(Context context,Shooter shooter,
 			int bulletWidth, int bulletHeight,float bulletSpeedY,int bulletDamage,int width,int height,int imageId) {
@@ -66,11 +43,12 @@ public class BulletView extends Moving_ProjectileView{
 //			}
 			setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
 	
-			ConditionalHandler.postIfAlive(moveBulletRunnable, this);
 	
 			if(theOneWhoShotMe.isFriendly()){
+				setSpeedY( - Math.abs(bulletSpeedY) );
 				LevelSystem.friendlyBullets.add(this);
 			}else{
+				setSpeedY( Math.abs(bulletSpeedY) );
 				LevelSystem.enemyBullets.add(this);			
 			}
 			theOneWhoShotMe.getMyBullets().add(this);
@@ -79,6 +57,16 @@ public class BulletView extends Moving_ProjectileView{
 			//for some reason, shooters continue to fire even after being killed. This simple check ensure that the shooter
 			//has not been removed from his parent. If he has, then remove this bullet
 		}
+		
+
+		reassignMoveRunnable(new KillableRunnable(){
+	    	@Override
+	        public void doWork() {
+				BulletView.this.setBulletRotation();
+				move();
+				ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,BulletView.this);
+			}
+		});
 	}
 	
 	public void setBulletRotation(){	
@@ -125,7 +113,6 @@ public class BulletView extends Moving_ProjectileView{
 
 	@Override
 	public void restartThreads() {
-		ConditionalHandler.postIfAlive(moveBulletRunnable, this);
 		super.restartThreads();
 	}
 }

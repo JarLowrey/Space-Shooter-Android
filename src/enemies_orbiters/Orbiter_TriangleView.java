@@ -29,10 +29,10 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	}
 	
 
-	public Orbiter_TriangleView(Context context,int score,float speedY, float speedX,int collisionDamage, 
+	public Orbiter_TriangleView(Context context,int score,float speedY,int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitLength, int orbitPixelX, int orbitPixelY,int width,int height,int imageId) {
-		super(context, score,speedY, speedX,
+		super(context, score,speedY,
 				collisionDamage, health, probSpawnBeneficialObjecyUponDeath, 
 				orbitPixelX, orbitPixelY, width, height, imageId);
 		
@@ -48,34 +48,41 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
-		
+	}
 
-		orbitingRunnable = new KillableRunnable(){
+
+	@Override
+	protected void reachedGravityPosition() {
+		
+		reassignMoveRunnable( new KillableRunnable(){
 			@Override
 			public void doWork() {
-					//triangle is equilateral
-						switch (currentSideOfTriangle) {
-						case 0:
-							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.LEFT);
-							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.LEFT);
-							break;
-						case 1:
-							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
-							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.DOWN);
-							break;
-						case 2:
-							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.RIGHT);
-							Orbiter_TriangleView.this.moveDirection(Moving_ProjectileView.UP);
-							break;
-						}
 						//change side
 						if (howManyTimesMoved % orbitDist == 0) {
 							currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
+
+							//triangle is equilateral
+							switch (currentSideOfTriangle) {
+							case 0:
+								Orbiter_TriangleView.this.setSpeedY(0);
+								Orbiter_TriangleView.this.setSpeedX( - DEFAULT_SPEED_X * 2);
+								break;
+							case 1:
+								Orbiter_TriangleView.this.setSpeedY(DEFAULT_SPEED_Y);
+								Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
+								break;
+							case 2:
+								Orbiter_TriangleView.this.setSpeedY( - DEFAULT_SPEED_Y);
+								Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
+								break;
+							}
 						}
 						howManyTimesMoved++;
 						
+						move();
 						ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_TriangleView.this);
 			}
-		};
+		});
+		
 	}
 }

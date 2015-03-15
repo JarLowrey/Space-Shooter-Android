@@ -21,14 +21,13 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			DEFAULT_SPEED_X=11;
 	public final static int DEFAULT_COLLISION_DAMAGE=Integer.MAX_VALUE, 
 			DEFAULT_HEALTH=10000,
-			DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=DEFAULT_HEALTH/20, 
 			DEFAULT_BULLET_FREQ=850;
 
 	public final static float BULLET_DAMAGE_WEIGHT=DEFAULT_BULLET_DAMAGE/10,
 			BULLET_SPEED_WEIGHT=(float) (MainActivity.getScreenDens() * 1.5),
 			BULLET_FREQ_WEIGHT=50;
-
+ 
 
 	
 	//myGun needs to be set in a specific View's class

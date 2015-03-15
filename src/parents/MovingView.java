@@ -2,6 +2,7 @@ package parents;
 
 import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
+import support.ConditionalHandler;
 import support.KillableRunnable;
 import android.content.Context;
 import android.os.Vibrator;
@@ -19,13 +20,12 @@ import com.jtronlabs.to_the_moon.MainActivity;
  */
 public abstract class MovingView extends ImageView implements MovingViewInterface{
 
-	public static final int HOW_OFTEN_TO_MOVE=100,
-			UP=0,SIDEWAYS=1,DOWN=2,LEFT=3,RIGHT=4,
-			UP_LEFT=5,UP_RIGHT=6,DOWN_LEFT=7,DOWN_RIGHT=8,
-			NOT_DEAD=-1;
-
+	public static final int HOW_OFTEN_TO_MOVE=100;
+	private float speedX,speedY;
+	
 	boolean isRemoved;
-	float speedY,speedX;
+	
+	private KillableRunnable moveRunnable;
 	
 	public MovingView(Context context,float movingSpeedY,float movingSpeedX,int width,int height,int imageId) {
 		super(context);
@@ -35,12 +35,49 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 
 		((GameActivityInterface)context).addToForeground(this);
 		
-		speedY=Math.abs(movingSpeedY)*MainActivity.getScreenDens();
-		speedX=movingSpeedX*MainActivity.getScreenDens();
+		moveRunnable = new KillableRunnable(){
+			@Override
+			public void doWork() {
+				move();
+				ConditionalHandler.postIfAlive(this, HOW_OFTEN_TO_MOVE,MovingView.this);
+			}
+		};
+
+		speedY = ( Math.abs(movingSpeedY)*MainActivity.getScreenDens() );
+		speedX = ( movingSpeedX*MainActivity.getScreenDens() );
+		
 		isRemoved=false;
+		
+		this.post(moveRunnable);
 	}
 	
-	public boolean collisionDetection(View two){
+	@Override
+	public void reassignMoveRunnable(KillableRunnable r){
+		moveRunnable.kill();;
+		moveRunnable = r;
+		this.post(r);
+	}
+	
+	@Override 
+	public void killMoveRunnable(){
+		if(moveRunnable!=null){
+			moveRunnable.kill();
+		}
+	}
+	@Override 
+	public void reviveMoveRunnable(){
+		if(moveRunnable!=null){
+			moveRunnable.revive();
+			this.post(moveRunnable);
+		}
+	}
+	
+	@Override
+	public void restartThreads(){
+		ConditionalHandler.postIfAlive(moveRunnable, HOW_OFTEN_TO_MOVE,MovingView.this);		
+	}
+	
+	public boolean RectToRectCollisionDetection(View two){
 		float left1,right1,top1,bottom1;
 		float left2,right2,top2,bottom2;
 		
@@ -65,56 +102,49 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	 * @param direction-whichDirection the View should move. Input needs to be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT
 	 * @return Always returns false, overwrite for different behavior
 	 */
-	public boolean moveDirection(int direction) throws IllegalArgumentException{
-		//A great way to simplify this would be to have a matrix of up,down,left,right and a thread in this class for moving.
-		//child classes would modify the movement array
-		if(direction!=UP && direction!=SIDEWAYS && direction!=DOWN && direction!=LEFT && direction != RIGHT){
-			throw new IllegalArgumentException("direction argument must be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT");
-		}
-
+	public void move(){
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
-		float x =this.getX();
-		float y =this.getY();
-		boolean outOfScreen=false;
-		switch(direction){
-		case UP:
-			y-=Math.abs(speedY);
-			outOfScreen=y< -getHeight();
-			this.setY(y);
-			break;
-		case DOWN:
-			y+=Math.abs(speedY);
-			outOfScreen=y > GameActivity.getBottomScreen();
-			this.setY(y);
-			break;
-		//move in X direction at speed X, move right if speed X positive and left otherwise
-		case SIDEWAYS:
-			x+=speedX;
-			outOfScreen = x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth());
-			this.setX(x);
-			break;
-		//move Left or right on screen, use abs(speedX)
-		case LEFT:
-			x-=Math.abs(speedX);
-			outOfScreen = x < -this.getWidth();
-			this.setX(x);
-			break;
-		case RIGHT:
-			x+=Math.abs(speedX);
-			outOfScreen = x > (MainActivity.getWidthPixels() + this.getWidth());
-			this.setX(x);
-			break;
-		}
+		float x = this.getX();
+		float y = this.getY();
+		y+=this.getSpeedY();
+		x+=this.getSpeedX();
 		
-		if(outOfScreen){
+		//check that object is still within screen bounds
+		if(y < -getHeight() || y > GameActivity.getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
 			this.removeGameObject();
+		}else{
+			this.setY(y);
+			this.setX(x);
 		}
-		
-		return outOfScreen;
 	}
+	
+	public void move(int boundLeft,int boundRight, int boundTop, int boundBottom){
+		//Move by setting this instances X or Y position to its current position plus its respective speed.
+		float x = this.getX();
+		float y = this.getY();
+		y+=getSpeedY();
+		x+=getSpeedX();
+		
+		//check that object is still within screen bounds
+		if(y < -getHeight() || y > GameActivity.getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
+			this.removeGameObject();
+		}else{
+			if(y>boundTop && y<boundBottom){this.setY(y);}
+			if(x>boundLeft && x<boundRight){this.setX(x);}
 
+//			if(y<boundTop){this.setY(boundTop);this.setX(x);}//if outside of bounds, set position to bound (this algorithm does not currently work)
+//			else if(y>boundBottom){this.setY(boundBottom-this.getHeight());this.setX(x);}
+//			else if(x<boundLeft){this.setX(boundLeft);this.setY(y);}
+//			else if( x>boundRight){this.setX(boundRight-this.getWidth());this.setY(y);}
+//			else{
+//				this.setY(y);
+//				this.setX(x);
+//			}
+		}
+	}
+	
 	public void setSpeedX(float newSpeed){
-		this.speedX=newSpeed;
+		speedX=newSpeed;
 	}
 	public float getSpeedX(){
 		return speedX;
@@ -123,10 +153,10 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		return isRemoved;
 	}
 	public void setSpeedY(float newSpeed){
-		this.speedY=newSpeed;
+		speedY=newSpeed;
 	}
 	public float getSpeedY(){
-		return this.speedY;
+		return speedY;
 	}
 	public abstract void removeGameObject();
 	 

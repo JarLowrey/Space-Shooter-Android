@@ -1,12 +1,14 @@
 package enemies_tracking;
 
+import parents.Moving_ProjectileView;
+import support.ConditionalHandler;
+import support.KillableRunnable;
+import android.content.Context;
+
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import friendlies.ProtagonistView;
-
-import parents.Moving_ProjectileView;
-import android.content.Context;
 
 public class Tracking_AcceleratingView extends Shooting_TrackingView{
 
@@ -16,7 +18,7 @@ public class Tracking_AcceleratingView extends Shooting_TrackingView{
 	
 	public Tracking_AcceleratingView(Context context,Moving_ProjectileView trackMe) {
 		super(context, trackMe );
-		
+		init();
 	}
 
 	public Tracking_AcceleratingView(Context context,Moving_ProjectileView trackMe, int scoreForKilling,
@@ -31,15 +33,21 @@ public class Tracking_AcceleratingView extends Shooting_TrackingView{
 				probSpawnBeneficialObject, 
 				width,height, 
 				imageId);
-	
+		init();
 	}
 	
-	@Override
-	public boolean moveDirection(int direction){
-		//increase the speed a little bit on every gravity movement (every 200ms)
-		if(direction==DOWN){
-			this.setSpeedY((float) (this.getSpeedY()+0.2*MainActivity.getScreenDens()));
-		}
-		return super.moveDirection(direction);
+	
+	private void init(){
+		reassignMoveRunnable( new KillableRunnable(){
+			@Override
+			public void doWork() {
+				Tracking_AcceleratingView.this.setSpeedX(getTrackingSpeedX());
+				Tracking_AcceleratingView.this.setSpeedY(
+						(float) (Tracking_AcceleratingView.this.getSpeedY()+0.2*MainActivity.getScreenDens()));
+				
+				move();				
+				ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Tracking_AcceleratingView.this);
+			}
+		});
 	}
 }
