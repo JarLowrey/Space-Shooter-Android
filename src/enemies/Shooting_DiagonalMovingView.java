@@ -12,15 +12,15 @@ import friendlies.ProtagonistView;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
-	public final static int DEFAULT_SCORE=10,
+	public final static int DEFAULT_SCORE=50,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*3,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500,
 			DEFAULT_DIVE_BOMBER_COLUMNS=5;
 	public final static float 
-			DEFAULT_SPEED_Y=6,
-			DEFAULT_SPEED_X=6,
+			DEFAULT_SPEED_Y=12,
+			DEFAULT_SPEED_X=DEFAULT_SPEED_Y,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	public final static double DEFAULT_BULLET_SPEED_Y=10,
 			DEFAULT_BULLET_DAMAGE=10;

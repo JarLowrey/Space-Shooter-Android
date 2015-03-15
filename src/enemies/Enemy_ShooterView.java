@@ -14,7 +14,8 @@ import bullets.Bullet_Basic_LaserShort;
 import com.jtronlabs.to_the_moon.R;
 
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
-		
+
+	public static final float DEFAULT_BULLET_SPEED_Y = 20;
 
 		public static final float DEFAULT_BULLET_FREQ=2000;
 		

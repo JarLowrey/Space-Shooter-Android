@@ -16,6 +16,8 @@ import bullets.Bullet_Basic_Missile;
 import com.jtronlabs.to_the_moon.MainActivity;
 
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
+
+	public static final float DEFAULT_BULLET_SPEED_Y = 27;
 	
 	public final static float DEFAULT_SPEED_Y=11,
 			DEFAULT_SPEED_X=11;

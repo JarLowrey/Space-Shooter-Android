@@ -11,10 +11,6 @@ import com.jtronlabs.to_the_moon.GameActivity;
 
 public abstract class EnemyView extends Projectile_GravityView{
 	
-	public static final float
-		DEFAULT_SPEED_Y = 20,
-		DEFAULT_SPEED_X = DEFAULT_SPEED_Y;
-	
 	//TODO Enemies that dodge (move away) from nearby friendly's bullets ? 
 	public static int numSpawn=0,numRemoved=0;
 	private int score;

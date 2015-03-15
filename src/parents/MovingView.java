@@ -21,6 +21,10 @@ import com.jtronlabs.to_the_moon.MainActivity;
  */
 public abstract class MovingView extends ImageView implements MovingViewInterface{
 
+	public static final float
+		DEFAULT_SPEED_Y = 20,
+		DEFAULT_SPEED_X = DEFAULT_SPEED_Y; //Gravity looks good at about 20 DPI. This can be overridden in a child class
+	
 	public static final int HOW_OFTEN_TO_MOVE=100;
 	private float speedX,speedY;
 	
