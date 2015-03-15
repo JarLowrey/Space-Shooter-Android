@@ -2,12 +2,12 @@ package background_objects;
 
 import interfaces.GameActivityInterface;
 import levels.LevelSystem;
-import parents.Moving_GravityView;
+import parents.MovingView;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
-public class BackgroundView extends Moving_GravityView{
+public class BackgroundView extends MovingView{
 
 	public BackgroundView(Context context, float movingSpeedY,
 			float movingSpeedX, int width, int height, int imageId) {
@@ -23,6 +23,6 @@ public class BackgroundView extends Moving_GravityView{
 	@Override
 	public void removeGameObject(){
 		LevelSystem.backgroundViews.remove(this);
-		super.removeGameObject();
+		super.deaultCleanupOnRemoval();
 	}
 }

@@ -9,7 +9,7 @@ import bullets.BulletView;
 
 public interface Shooter extends Projectile{
 	
-	public static final float DEFAULT_BULLET_SPEED_Y = 17;
+	public static final float DEFAULT_BULLET_SPEED_Y = 27;
 			
 	public void removeAllGuns();
 	public void addGun(Gun newGun);

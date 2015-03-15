@@ -1,6 +1,5 @@
 package parents;
 
-import interfaces.Gravity;
 import support.ConditionalHandler;
 import support.KillableRunnable;
 import android.content.Context;
@@ -11,17 +10,20 @@ import android.content.Context;
  * @author JAMES LOWREY
  *
  */
-public abstract class Projectile_GravityView extends Moving_ProjectileView implements Gravity{
+public abstract class Projectile_GravityView extends Moving_ProjectileView {
 
+	public static int NO_THRESHOLD=Integer.MAX_VALUE;
+	
 	private int gravityThreshold;
 	private boolean hasReachedGravityThreshold;
+	
 	
 	public Projectile_GravityView(Context context,float movingSpeedY,float movingSpeedX,int projectileDamage,
 			int projectileHealth,int width,int height,int imageId){
 		super(context, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth, width, height, imageId);
 
 		hasReachedGravityThreshold=false;
-		gravityThreshold=Gravity.NO_THRESHOLD;
+		gravityThreshold=NO_THRESHOLD;
 
 		reassignMoveRunnable( new KillableRunnable(){
 	    	@Override
@@ -54,14 +56,7 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView imple
 		super.restartThreads();
 	}
 
-
-	@Override
 	public boolean hasReachedGravityThreshold() {
 		return hasReachedGravityThreshold;
-	}
-	
-	@Override
-	public int getThreshold() {
-		return gravityThreshold;
 	}
 }

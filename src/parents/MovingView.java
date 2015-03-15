@@ -6,6 +6,7 @@ import support.ConditionalHandler;
 import support.KillableRunnable;
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -142,21 +143,41 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 //			}
 		}
 	}
-	
+
+	/**
+	 * 
+	 * @param newSpeed
+	 * 		Speed in DPI units
+	 */
 	public void setSpeedX(float newSpeed){
-		speedX=newSpeed;
+		speedX = newSpeed*MainActivity.getScreenDens();
 	}
+	/**
+	 * 
+	 * @param newSpeed
+	 * 		Speed in DPI units
+	 */
 	public float getSpeedX(){
-		return speedX;
+		return speedX/MainActivity.getScreenDens();
+	}
+	/**
+	 * 
+	 * @param newSpeed
+	 * 		Speed in DPI units
+	 */
+	public void setSpeedY(float newSpeed){
+		speedY = newSpeed*MainActivity.getScreenDens();
+	}
+	/**
+	 * 
+	 * @return 
+	 * 		Speed in DPI units
+	 */
+	public float getSpeedY(){
+		return speedY/MainActivity.getScreenDens();
 	}
 	public boolean isRemoved(){
 		return isRemoved;
-	}
-	public void setSpeedY(float newSpeed){
-		speedY=newSpeed;
-	}
-	public float getSpeedY(){
-		return speedY;
 	}
 	public abstract void removeGameObject();
 	 

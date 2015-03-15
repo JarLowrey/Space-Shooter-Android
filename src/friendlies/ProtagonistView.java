@@ -149,6 +149,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		case UPGRADE_DEFENCE:
 			final int defence = gameState.getInt(GameActivity.STATE_DEFENCE_LEVEL, 0);
 			editor.putInt(GameActivity.STATE_DEFENCE_LEVEL, defence+1);
+			applyDefenceUpgradeToProtagonist();
 			break;
 		case UPGRADE_BULLET_FREQ:
 			final int gunFreq = gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
@@ -178,7 +179,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
 		
 		createGunSet(freq,dmg,getGunLevel());
-		applyDefenceUpgradeToProtagonist();
 	}
 
 	public float getShootingDelay(){

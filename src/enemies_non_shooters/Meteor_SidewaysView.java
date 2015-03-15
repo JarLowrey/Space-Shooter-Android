@@ -6,8 +6,8 @@ import com.jtronlabs.to_the_moon.MainActivity;
 
 public class Meteor_SidewaysView extends Gravity_MeteorView{
 	
-	public final static float DEFAULT_SPEED_Y=7*MainActivity.getScreenDens(),
-			DEFAULT_SPEED_X=(float) (1.7*MainActivity.getScreenDens());
+	public final static float
+			DEFAULT_SPEED_X=2;
 	
 	public Meteor_SidewaysView(Context context) {
 		super(context);

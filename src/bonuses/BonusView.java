@@ -2,14 +2,14 @@ package bonuses;
 
 import interfaces.Shooter;
 import levels.LevelSystem;
-import parents.Moving_GravityView;
+import parents.MovingView;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
 
-public abstract class BonusView extends Moving_GravityView {
+public abstract class BonusView extends MovingView {
 
-	public final static int DEFAULT_SPEED_Y=4;
+	public final static int DEFAULT_SPEED_Y=6;
 	
 	public BonusView(Context context,float positionX,float positionY) {
 		super(context,DEFAULT_SPEED_Y,0,(int) context.getResources().getDimension(R.dimen.bonus_background_len),
@@ -28,7 +28,7 @@ public abstract class BonusView extends Moving_GravityView {
 	@Override
 	public void removeGameObject(){		
 		LevelSystem.bonuses.remove(this);
-		super.removeGameObject();
+		super.deaultCleanupOnRemoval();
 	}
 	
 	public static void displayRandomBonusView(Context context,float positionX,float positionY){
