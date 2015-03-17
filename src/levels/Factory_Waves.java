@@ -8,13 +8,13 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import enemies.Shooting_ArrayMovingView;
 import enemies.Shooting_DiagonalMovingView;
 import enemies.Shooting_HorizontalMovement;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_RectangleView;
+import enemies_orbiters.Orbiter_Rectangle_Array;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_tracking.Shooting_TrackingView;
 import enemies_tracking.Tracking_AcceleratingView;
@@ -112,7 +112,7 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 	final KillableRunnable refreshArrayShooters = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			Shooting_ArrayMovingView.refreshSimpleShooterArray(ctx);
+			Orbiter_Rectangle_Array.refreshSimpleShooterArray(ctx);
 			
 		}
 	};

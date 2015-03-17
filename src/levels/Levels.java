@@ -53,11 +53,11 @@ public class Levels extends Factory_Bosses{
 	private KillableRunnable levels[][] ={
 
 			//TEST LEVEL
-//			{
-//				boss1,
-//				doNothing,
-//				doNothing
-//			},
+			{
+				refreshArrayShooters,
+				refreshArrayShooters,
+				refreshArrayShooters
+			},
 			
 			
 			{

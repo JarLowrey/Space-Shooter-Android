@@ -15,7 +15,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
 			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2);
 	
-	public final static int DEFAULT_ORBIT_LENGTH=25,
+	public final static int DEFAULT_ORBIT_LENGTH = 6,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_rectangle;
 	
 	private int currentSideOfRectangle,orbitDist;
@@ -45,48 +45,55 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	}
 	
 	private void init(){
-
 		currentSideOfRectangle=0;
 		
 		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
 		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
-		howManyTimesMoved=(int) (orbitDist *3.0/4);
+		howManyTimesMoved=0;//(int) ((3.0/4)*orbitDist);
 	}
 
 
 	@Override
 	protected void reachedGravityPosition() {
+		this.assignRectangularMoveRunnable(DEFAULT_SPEED_X,DEFAULT_SPEED_Y);
+	}
+	
+	protected void assignRectangularMoveRunnable(final float spdX,final float spdY){
+		
+		this.setSpeedX(DEFAULT_SPEED_X);
+		this.setSpeedY(0);
 		
 		reassignMoveRunnable( new KillableRunnable() {
 			@Override
-			public void doWork() {					
-					//change side
-					if (howManyTimesMoved % orbitDist == 0) {
-						currentSideOfRectangle = (currentSideOfRectangle + 1) % 4;
-						
-						switch (currentSideOfRectangle) {
-							case 0:
-								Orbiter_RectangleView.this.setSpeedY(0);
-								Orbiter_RectangleView.this.setSpeedX(DEFAULT_SPEED_X);
-								break;
-							case 1:
-								Orbiter_RectangleView.this.setSpeedX(0);
-								Orbiter_RectangleView.this.setSpeedY( - DEFAULT_SPEED_Y);
-								break;
-							case 2:
-								Orbiter_RectangleView.this.setSpeedY(0);
-								Orbiter_RectangleView.this.setSpeedX( - DEFAULT_SPEED_X);
-								break;
-							case 3:
-								Orbiter_RectangleView.this.setSpeedX(0);
-								Orbiter_RectangleView.this.setSpeedY(DEFAULT_SPEED_Y);
-								break;
-						}
-					}
-					howManyTimesMoved++;
+			public void doWork() {
+				howManyTimesMoved = (howManyTimesMoved+1) % orbitDist;
+			
+				//change side
+				if (howManyTimesMoved == 0) {
+					currentSideOfRectangle = (currentSideOfRectangle + 1) % 4;
 					
-					move();
-					ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
+					switch (currentSideOfRectangle) {
+						case 0://right  
+							Orbiter_RectangleView.this.setSpeedY(0);
+							Orbiter_RectangleView.this.setSpeedX(spdX);
+							break;
+						case 1://down
+							Orbiter_RectangleView.this.setSpeedX(0);
+							Orbiter_RectangleView.this.setSpeedY(spdY);
+							break;
+						case 2://left
+							Orbiter_RectangleView.this.setSpeedY(0);
+							Orbiter_RectangleView.this.setSpeedX( - spdX);
+							break;
+						case 3://up
+							Orbiter_RectangleView.this.setSpeedX(0);
+							Orbiter_RectangleView.this.setSpeedY( - spdY);
+							break;
+					}
+				}
+				
+				move();
+				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
 			}
 		});
 	}

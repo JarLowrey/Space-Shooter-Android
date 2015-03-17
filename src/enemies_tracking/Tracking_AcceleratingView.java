@@ -8,12 +8,10 @@ import android.content.Context;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import friendlies.ProtagonistView;
-
 public class Tracking_AcceleratingView extends Shooting_TrackingView{
-
-	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/15,
-			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
+	
+	public static final int 
+			DEFAULT_SCORE=150,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker;
 	
 	public Tracking_AcceleratingView(Context context,Moving_ProjectileView trackMe) {

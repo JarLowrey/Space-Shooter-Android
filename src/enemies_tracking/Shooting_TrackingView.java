@@ -18,8 +18,8 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 			DEFAULT_BULLET_FREQ=10000;
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
-			DEFAULT_SCORE=50,
-			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*3,
+			DEFAULT_SCORE=100,
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE  * 2.5),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker;
 	
 	private Moving_ProjectileView viewToTrack;
