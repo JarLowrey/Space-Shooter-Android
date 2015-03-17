@@ -12,11 +12,13 @@ import com.jtronlabs.to_the_moon.R;
 
 public class Orbiter_RectangleView extends Shooting_OrbiterView implements MovingViewInterface {
 
-	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
-			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2);
+	public static final float DEFAULT_SPEED_Y = 10,
+			DEFAULT_SPEED_X = DEFAULT_SPEED_Y;
 	
-	public final static int DEFAULT_ORBIT_LENGTH = 6,
-			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_rectangle;
+	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
+			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2),
+			DEFAULT_ORBIT_LENGTH = 6,
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_pause_and_shoot;
 	
 	private int currentSideOfRectangle,orbitDist;
 
@@ -49,7 +51,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 		
 		//default to begin orbit at top of rectangle, 3/4 of way through (thus top middle, moving right)
 		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
-		howManyTimesMoved=0;//(int) ((3.0/4)*orbitDist);
+		howManyTimesMoved=0;//(int) (.75*orbitDist);
 	}
 
 
@@ -60,7 +62,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	
 	protected void assignRectangularMoveRunnable(final float spdX,final float spdY){
 		
-		this.setSpeedX(DEFAULT_SPEED_X);
+		this.setSpeedX(spdX);//start moving right
 		this.setSpeedY(0);
 		
 		reassignMoveRunnable( new KillableRunnable() {

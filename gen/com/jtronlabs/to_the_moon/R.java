@@ -16,7 +16,6 @@ public final class R {
         public static final int rocket_launch_title_screen=0x7f040004;
         public static final int spin_earth=0x7f040005;
         public static final int spin_moon=0x7f040006;
-        public static final int stars=0x7f040007;
     }
     public static final class array {
         public static final int gun_descriptions=0x7f080001;
@@ -43,81 +42,83 @@ public final class R {
         public static final int yellow=0x7f0a0001;
     }
     public static final class dimen {
-        public static final int activity_margin_large=0x7f060025;
-        public static final int activity_margin_med=0x7f060024;
-        public static final int activity_margin_small=0x7f060023;
-        public static final int activity_margin_xlarge=0x7f060026;
+        public static final int activity_margin_large=0x7f060027;
+        public static final int activity_margin_med=0x7f060026;
+        public static final int activity_margin_small=0x7f060025;
+        public static final int activity_margin_xlarge=0x7f060028;
         /**  Default screen margins, per the Android Design guidelines. 
          */
-        public static final int activity_margin_xsmall=0x7f060022;
-        public static final int activity_margin_xxlarge=0x7f060027;
-        public static final int ad_banner_margin=0x7f060038;
+        public static final int activity_margin_xsmall=0x7f060024;
+        public static final int activity_margin_xxlarge=0x7f060029;
+        public static final int ad_banner_margin=0x7f06003a;
         /**   <item name="resource_multiplier_weight" format="float" type="dimen">1.5</item>
     
  MovingView-Bonus, enemies, friendlies 
          */
         public static final int bonus_background_len=0x7f060000;
         public static final int bonus_img_len=0x7f060001;
-        public static final int boss1_height=0x7f060019;
+        public static final int boss1_height=0x7f06001b;
         /**  Bosses 
          */
-        public static final int boss1_width=0x7f060018;
-        public static final int boss2_height=0x7f06001b;
-        public static final int boss2_width=0x7f06001a;
-        public static final int btn_large_len=0x7f06002e;
-        public static final int btn_move_len=0x7f06002f;
-        public static final int btn_shoot_width=0x7f060030;
-        public static final int cloud_height=0x7f060017;
+        public static final int boss1_width=0x7f06001a;
+        public static final int boss2_height=0x7f06001d;
+        public static final int boss2_width=0x7f06001c;
+        public static final int btn_large_len=0x7f060030;
+        public static final int btn_move_len=0x7f060031;
+        public static final int btn_shoot_width=0x7f060032;
+        public static final int cloud_height=0x7f060019;
         /**  Background items 
          */
-        public static final int cloud_width=0x7f060016;
-        public static final int control_panel_height=0x7f060031;
-        public static final int exhaust_height=0x7f060012;
-        public static final int exhaust_width=0x7f060013;
-        public static final int ic_large=0x7f060034;
-        public static final int ic_med=0x7f060033;
-        public static final int ic_small=0x7f060032;
+        public static final int cloud_width=0x7f060018;
+        public static final int control_panel_height=0x7f060033;
+        public static final int exhaust_height=0x7f060014;
+        public static final int exhaust_width=0x7f060015;
+        public static final int ic_large=0x7f060036;
+        public static final int ic_med=0x7f060035;
+        public static final int ic_small=0x7f060034;
         /**  ETC 
          */
-        public static final int intro_text_view_width=0x7f06002d;
-        public static final int laser_long_height=0x7f06001f;
-        public static final int laser_long_width=0x7f06001e;
-        public static final int laser_short_height=0x7f06001d;
+        public static final int intro_text_view_width=0x7f06002f;
+        public static final int laser_long_height=0x7f060021;
+        public static final int laser_long_width=0x7f060020;
+        public static final int laser_short_height=0x7f06001f;
         /**  BULLETS 
          */
-        public static final int laser_short_width=0x7f06001c;
-        public static final int meteor_giant_length=0x7f060011;
-        public static final int meteor_length=0x7f060010;
-        public static final int missile_one_height=0x7f060021;
-        public static final int missile_one_width=0x7f060020;
+        public static final int laser_short_width=0x7f06001e;
+        public static final int meteor_giant_length=0x7f060013;
+        public static final int meteor_length=0x7f060012;
+        public static final int missile_one_height=0x7f060023;
+        public static final int missile_one_width=0x7f060022;
         /**  Game Layout  
          */
-        public static final int moon_length=0x7f060028;
+        public static final int moon_length=0x7f06002a;
         public static final int ship_array_shooter_height=0x7f060002;
         public static final int ship_array_shooter_width=0x7f060003;
-        public static final int ship_diagonal_height=0x7f060004;
-        public static final int ship_diagonal_width=0x7f060005;
-        public static final int ship_orbit_circular_height=0x7f06000b;
-        public static final int ship_orbit_circular_width=0x7f06000a;
-        public static final int ship_orbit_horizontal_height=0x7f06000f;
-        public static final int ship_orbit_horizontal_width=0x7f06000e;
-        public static final int ship_orbit_rectangular_height=0x7f060009;
-        public static final int ship_orbit_rectangular_width=0x7f060008;
-        public static final int ship_orbit_triangular_height=0x7f06000d;
-        public static final int ship_orbit_triangular_width=0x7f06000c;
-        public static final int ship_protagonist_game_height=0x7f060014;
-        public static final int ship_protagonist_game_width=0x7f060015;
-        public static final int ship_tracker_height=0x7f060006;
-        public static final int ship_tracker_width=0x7f060007;
-        public static final int store_btn_margin_vertical=0x7f06002c;
-        public static final int store_btn_next_level_len=0x7f06002b;
+        public static final int ship_diagonal_height=0x7f060006;
+        public static final int ship_diagonal_width=0x7f060007;
+        public static final int ship_orbit_circular_height=0x7f06000d;
+        public static final int ship_orbit_circular_width=0x7f06000c;
+        public static final int ship_orbit_horizontal_height=0x7f060011;
+        public static final int ship_orbit_horizontal_width=0x7f060010;
+        public static final int ship_orbit_rectangular_height=0x7f06000b;
+        public static final int ship_orbit_rectangular_width=0x7f06000a;
+        public static final int ship_orbit_triangular_height=0x7f06000f;
+        public static final int ship_orbit_triangular_width=0x7f06000e;
+        public static final int ship_pause_and_shoot_height=0x7f060004;
+        public static final int ship_pause_and_shoot_width=0x7f060005;
+        public static final int ship_protagonist_game_height=0x7f060016;
+        public static final int ship_protagonist_game_width=0x7f060017;
+        public static final int ship_tracker_height=0x7f060008;
+        public static final int ship_tracker_width=0x7f060009;
+        public static final int store_btn_margin_vertical=0x7f06002e;
+        public static final int store_btn_next_level_len=0x7f06002d;
         /**  Store Layout 
          */
-        public static final int store_item_len=0x7f06002a;
-        public static final int sun_length=0x7f060029;
-        public static final int title_canvas_height=0x7f060035;
-        public static final int title_outline_size=0x7f060037;
-        public static final int title_size=0x7f060036;
+        public static final int store_item_len=0x7f06002c;
+        public static final int sun_length=0x7f06002b;
+        public static final int title_canvas_height=0x7f060037;
+        public static final int title_outline_size=0x7f060039;
+        public static final int title_size=0x7f060038;
     }
     public static final class drawable {
         public static final int arrow_move=0x7f020000;
@@ -161,58 +162,19 @@ public final class R {
         public static final int ship_enemy_boss2=0x7f020026;
         public static final int ship_enemy_boss3=0x7f020027;
         public static final int ship_enemy_boss4=0x7f020028;
-        public static final int ship_enemy_diagonal_full_screen=0x7f020029;
-        public static final int ship_enemy_orbiter_circle=0x7f02002a;
-        public static final int ship_enemy_orbiter_horizontal_line=0x7f02002b;
-        public static final int ship_enemy_orbiter_rectangle=0x7f02002c;
+        public static final int ship_enemy_boss5=0x7f020029;
+        public static final int ship_enemy_diagonal_full_screen=0x7f02002a;
+        public static final int ship_enemy_orbiter_circle=0x7f02002b;
+        public static final int ship_enemy_orbiter_horizontal_line=0x7f02002c;
         public static final int ship_enemy_orbiter_triangle=0x7f02002d;
-        public static final int ship_enemy_tracker=0x7f02002e;
-        public static final int ship_protagonist=0x7f02002f;
-        public static final int ship_protgonist_exhaust=0x7f020030;
-        public static final int stars_1=0x7f020031;
-        public static final int stars_10=0x7f020032;
-        public static final int stars_11=0x7f020033;
-        public static final int stars_12=0x7f020034;
-        public static final int stars_13=0x7f020035;
-        public static final int stars_14=0x7f020036;
-        public static final int stars_15=0x7f020037;
-        public static final int stars_16=0x7f020038;
-        public static final int stars_17=0x7f020039;
-        public static final int stars_18=0x7f02003a;
-        public static final int stars_19=0x7f02003b;
-        public static final int stars_2=0x7f02003c;
-        public static final int stars_20=0x7f02003d;
-        public static final int stars_21=0x7f02003e;
-        public static final int stars_22=0x7f02003f;
-        public static final int stars_23=0x7f020040;
-        public static final int stars_24=0x7f020041;
-        public static final int stars_25=0x7f020042;
-        public static final int stars_26=0x7f020043;
-        public static final int stars_27=0x7f020044;
-        public static final int stars_28=0x7f020045;
-        public static final int stars_29=0x7f020046;
-        public static final int stars_3=0x7f020047;
-        public static final int stars_30=0x7f020048;
-        public static final int stars_31=0x7f020049;
-        public static final int stars_32=0x7f02004a;
-        public static final int stars_33=0x7f02004b;
-        public static final int stars_34=0x7f02004c;
-        public static final int stars_35=0x7f02004d;
-        public static final int stars_36=0x7f02004e;
-        public static final int stars_37=0x7f02004f;
-        public static final int stars_38=0x7f020050;
-        public static final int stars_39=0x7f020051;
-        public static final int stars_4=0x7f020052;
-        public static final int stars_40=0x7f020053;
-        public static final int stars_5=0x7f020054;
-        public static final int stars_6=0x7f020055;
-        public static final int stars_7=0x7f020056;
-        public static final int stars_8=0x7f020057;
-        public static final int stars_9=0x7f020058;
-        public static final int sun=0x7f020059;
-        public static final int upgrade_gun=0x7f02005a;
-        public static final int view_damaged=0x7f02005b;
-        public static final int white_center_red_outline=0x7f02005c;
+        public static final int ship_enemy_pause_and_shoot=0x7f02002e;
+        public static final int ship_enemy_tracker=0x7f02002f;
+        public static final int ship_protagonist=0x7f020030;
+        public static final int ship_protgonist_exhaust=0x7f020031;
+        public static final int sun=0x7f020032;
+        public static final int upgrade_gun=0x7f020033;
+        public static final int view_damaged=0x7f020034;
+        public static final int white_center_red_outline=0x7f020035;
     }
     public static final class id {
         public static final int activity_main=0x7f0c0017;

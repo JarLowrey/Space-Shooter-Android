@@ -9,7 +9,8 @@
         android:id="@+id/animating_image_view_main_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@anim/stars"/>
+        android:background="@color/black"
+        />
      
     <ImageView
         android:id="@+id/moon"

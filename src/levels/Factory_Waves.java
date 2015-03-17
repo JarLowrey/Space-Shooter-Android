@@ -10,6 +10,7 @@ import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_DiagonalMovingView;
 import enemies.Shooting_HorizontalMovement;
+import enemies.Shooting_PauseAndMove;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
@@ -106,20 +107,22 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 		}
 	};
 	
-	//array shooters
-	
 	//array shooter waves
 	final KillableRunnable refreshArrayShooters = new KillableRunnable(){
 		@Override
 		public void doWork() {
 			Orbiter_Rectangle_Array.refreshSimpleShooterArray(ctx);
-			
 		}
 	};
-
-	//diagonal Waves
-	
-	//dive bombers	
+	final KillableRunnable refreshArrayShootersStrong = new KillableRunnable(){
+		@Override
+		public void doWork() {
+			Orbiter_Rectangle_Array.refreshSimpleShooterArray(ctx,
+					(int)(1.2 * Orbiter_Rectangle_Array.DEFAULT_NUM_ROWS),
+					(int)(1.2 * Orbiter_Rectangle_Array.DEFAULT_NUM_COLS),
+					true);			
+		}
+	};
 	
 	//diagonal shooter waves
 	final KillableRunnable diagonalColumns = new KillableRunnable(){
@@ -141,16 +144,22 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 	final KillableRunnable trackingEnemy = new KillableRunnable(){
 		@Override
 		public void doWork() {
-//			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
 			spawnTrackingEnemyOverTime(4,DEFAULT_WAVE_DURATION/4,Shooting_TrackingView.class);
 		}
 	};
 	final KillableRunnable trackingAcceleratingEnemy = new KillableRunnable(){
 		@Override
 		public void doWork() {
-//			spawnTrackingAttackerWave(4,DEFAULT_WAVE_DURATION/4);
 			spawnTrackingEnemyOverTime(4,DEFAULT_WAVE_DURATION/4,Tracking_AcceleratingView.class);
 			
+		}
+	};
+	
+	//shooters
+	final KillableRunnable pauseAndShoot = new KillableRunnable(){
+		@Override
+		public void doWork(){
+			spawnDefaultEnemyWithContextOnly(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class);
 		}
 	};
 	
@@ -294,6 +303,29 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 				try {
 					Class [] constructorArgs = new Class[] {Context.class,Moving_ProjectileView.class};
 					c.getDeclaredConstructor(constructorArgs).newInstance(ctx,((GameActivityInterface)ctx).getProtagonist());
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+				numSpawned++;
+				
+				if(numSpawned<numEnemies){
+					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
+				}
+			}
+		};
+		
+		spawningHandler.post(r);
+	}
+	
+	public final void spawnDefaultEnemyWithContextOnly(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
+		KillableRunnable r = new KillableRunnable(){
+			private int numSpawned=0;
+			
+			@Override
+			public void doWork() {
+				try {
+					Class [] constructorArgs = new Class[] {Context.class};
+					c.getDeclaredConstructor(constructorArgs).newInstance(ctx);
 				} catch (Exception e){
 					e.printStackTrace();
 				}

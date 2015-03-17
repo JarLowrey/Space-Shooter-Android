@@ -44,7 +44,8 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			this.startShooting();
 		} 
  
-		public abstract float getShootingFreq();
+		protected abstract float getShootingFreq();
+		
 		/**
 		 * To be called on implementation of onRemoveGameObject
 		 * NEW BEHAVIOR = drop references to guns and bullets

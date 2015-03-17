@@ -35,7 +35,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_width),
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_height), 
-				DEFAULT_BACKGROUND);
+				DEFAULT_BACKGROUND); 
 		
 		init((int)context.getResources().getDimension(R.dimen.ship_diagonal_width));		
 	}

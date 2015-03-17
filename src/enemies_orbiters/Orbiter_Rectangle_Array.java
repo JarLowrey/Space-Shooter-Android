@@ -82,7 +82,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		final float shipXInterval = MainActivity.getWidthPixels()/ numCols;//divide the screen into number of columns
 		final float myColPos = myPosition % numCols;//find this ships column
 		float xPos = shipXInterval * myColPos ;//x position is columInterval * this ships column. Here some left margin is also added
-		if (staggered && myRowPixel % 2 == 1) {//stagger
+		if (staggered && myRow % 2 == 1) {//stagger
 			xPos += staggeredMargin / 2;
 		}
 		this.setX(xPos);
@@ -152,7 +152,6 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			for (int i = 0; i < allSimpleShooters.size(); i++) {
 				final Orbiter_Rectangle_Array enemy =  allSimpleShooters.get(i);
 				enemy.assignRectangularMoveRunnable(Orbiter_Rectangle_Array.DEFAULT_SPEED_X,Orbiter_Rectangle_Array.DEFAULT_SPEED_Y);
-				enemy.setSpeedX(Orbiter_Rectangle_Array.DEFAULT_SPEED_X);
 			}
 		}
 	}

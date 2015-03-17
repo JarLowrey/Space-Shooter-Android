@@ -30,8 +30,8 @@ public class Shooting_HorizontalMovement extends Enemy_ShooterView{
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_width),
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_height), 
 				DEFAULT_BACKGROUND);
-
-		this.setThreshold((int) MainActivity.getHeightPixels()/3);
+		
+		init( (int)context.getResources().getDimension(R.dimen.ship_diagonal_width));
 	}
 	
 	public Shooting_HorizontalMovement(Context context, int scoreForKilling,
@@ -43,6 +43,11 @@ public class Shooting_HorizontalMovement extends Enemy_ShooterView{
 				projectileDamage, projectileHealth, probSpawnBeneficialObject, width,
 				height, imageId);
 
+		init(width);
+	}
+	
+	private void init(int width){
+		this.setX((float) (MainActivity.getWidthPixels()/2-width/2.0) );
 		this.setThreshold((int) MainActivity.getHeightPixels()/3);
 	}
 	

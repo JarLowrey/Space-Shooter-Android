@@ -39,7 +39,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 				0, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, width, height, imageId);
 
 		//defeault orbit location
-		orbitX=orbitPixelX;
+		orbitX=orbitPixelX-width/2;
 		orbitY=orbitPixelY;
 		
 		this.setX(orbitX);

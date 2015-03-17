@@ -88,7 +88,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
 					ProtagonistView.DEFAULT_BULLET_DAMAGE*30,
 					100,
-					Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH,
+					Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH*5,
 					Orbiter_RectangleView.DEFAULT_ORBIT_X,
 					Orbiter_RectangleView.DEFAULT_ORBIT_Y,
 					(int) ctx.getResources().getDimension(R.dimen.boss2_width),

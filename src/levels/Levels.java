@@ -1,9 +1,7 @@
 package levels;
 
 import support.KillableRunnable;
-import support.SpawnDefaultEnemyRunnable;
 import android.content.Context;
-import enemies_non_shooters.Meteor_SidewaysView;
 
 public class Levels extends Factory_Bosses{
 		
@@ -52,25 +50,25 @@ public class Levels extends Factory_Bosses{
 	//levels defined in terms of 5second  waves
 	private KillableRunnable levels[][] ={
 
-			//TEST LEVEL
-			{
-				refreshArrayShooters,
-				refreshArrayShooters,
-				refreshArrayShooters
+		//TEST LEVEL
+			{refreshArrayShootersStrong,
+				meteorSidewaysForWholeLevel,
+				meteorShowersThatForceUserToMiddle,
+				boss3
 			},
-			
-			
+		
+		
 			{
-//				new SpawnDefaultEnemyRunnable( ( 6*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
-//				new SpawnDefaultEnemyRunnable( ( 5*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
+//					new SpawnDefaultEnemyRunnable( ( 6*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
+//					new SpawnDefaultEnemyRunnable( ( 5*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
 				meteorSidewaysForWholeLevel,			
 				meteorSidewaysForWholeLevel,
 				meteorShowersThatForceUserToMiddle,
 				meteorShowersThatForceUserToLeft,
 				meteorShowersThatForceUserToRight,
 				meteorShowersThatForceUserToLeft
-				},
-					
+			},
+				
 			{
 				meteorSidewaysForWholeLevel,			
 				meteorSidewaysForWholeLevel,
@@ -83,28 +81,28 @@ public class Levels extends Factory_Bosses{
 				meteorShowerLong,
 				meteorsOnlyGiants,
 				meteorsOnlyGiants
-				},
-					
+			},
+				
 			{
 				meteorSidewaysForWholeLevel,			
 				meteorShowersThatForceUserToMiddle,
 				meteorShowersThatForceUserToMiddle,
 				meteorShowersThatForceUserToMiddle,
-//				diagonalFullScreen,
-//				diagonalFullScreen,
+				diagonalFullScreen,
+				diagonalFullScreen,
 				diagonalColumns,
 				diagonalColumns
-				},
-					
+			},
+				
 			{
-//				meteorSidewaysForWholeLevel,			
+				meteorSidewaysForWholeLevel,			
 				meteorShowersThatForceUserToMiddle,
 				refreshArrayShooters,
 				doNothing,
 				doNothing,
 				doNothing,
-				},
-				
+			},
+			
 			{
 				meteorSidewaysForWholeLevel,			
 				meteorShowersThatForceUserToMiddle,
@@ -115,8 +113,8 @@ public class Levels extends Factory_Bosses{
 				doNothing,
 				diagonalFullScreen,
 				diagonalColumns
-				},
-					
+			},
+				
 			{
 				meteorSidewaysForWholeLevel,			
 				meteorSidewaysThisWave,
@@ -132,8 +130,8 @@ public class Levels extends Factory_Bosses{
 				doNothing,
 				doNothing,
 				trackingEnemy
-				},
-				
+			},
+			
 			{
 				meteorSidewaysForWholeLevel,			
 				meteorShowersThatForceUserToRight,	
@@ -150,8 +148,8 @@ public class Levels extends Factory_Bosses{
 				trackingEnemy,
 				doNothing,
 				trackingEnemy
-				},
-					
+			},
+				
 			{
 				meteorSidewaysForWholeLevel,					
 				boss1,
@@ -164,8 +162,8 @@ public class Levels extends Factory_Bosses{
 				boss1,
 				trackingAcceleratingEnemy,
 				trackingAcceleratingEnemy
-				},
-				
+			},
+			
 			{
 				meteorSidewaysForWholeLevel,					
 				boss1,
@@ -179,8 +177,46 @@ public class Levels extends Factory_Bosses{
 				doNothing,
 				meteorShowersThatForceUserToMiddle,
 				boss2
-				}
-			};
+			},
+			
+			{
+				pauseAndShoot,
+				pauseAndShoot,
+				pauseAndShoot,
+				trackingEnemy,
+				doNothing,
+				pauseAndShoot,
+				pauseAndShoot,
+				pauseAndShoot,
+				trackingAcceleratingEnemy,
+				trackingAcceleratingEnemy,
+				pauseAndShoot,
+				pauseAndShoot,
+				trackingAcceleratingEnemy
+			},
+			
+			{
+				boss2,
+				meteorSidewaysForWholeLevel,
+				pauseAndShoot,
+				pauseAndShoot,
+				doNothing,
+				doNothing,
+				doNothing,
+				boss1,
+				boss1,
+				trackingEnemy,
+				trackingEnemy,
+				doNothing,
+				refreshArrayShootersStrong
+			},
+			
+			{
+				meteorSidewaysForWholeLevel,
+				meteorShowersThatForceUserToMiddle,
+				boss3
+			}
+		};
 	
 	
 }
