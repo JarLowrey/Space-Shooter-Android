@@ -16,6 +16,7 @@ public final class R {
         public static final int rocket_launch_title_screen=0x7f040004;
         public static final int spin_earth=0x7f040005;
         public static final int spin_moon=0x7f040006;
+        public static final int stars=0x7f040007;
     }
     public static final class array {
         public static final int gun_descriptions=0x7f080001;
@@ -171,10 +172,50 @@ public final class R {
         public static final int ship_enemy_tracker=0x7f02002f;
         public static final int ship_protagonist=0x7f020030;
         public static final int ship_protgonist_exhaust=0x7f020031;
-        public static final int sun=0x7f020032;
-        public static final int upgrade_gun=0x7f020033;
-        public static final int view_damaged=0x7f020034;
-        public static final int white_center_red_outline=0x7f020035;
+        public static final int stars_1=0x7f020032;
+        public static final int stars_10=0x7f020033;
+        public static final int stars_11=0x7f020034;
+        public static final int stars_12=0x7f020035;
+        public static final int stars_13=0x7f020036;
+        public static final int stars_14=0x7f020037;
+        public static final int stars_15=0x7f020038;
+        public static final int stars_16=0x7f020039;
+        public static final int stars_17=0x7f02003a;
+        public static final int stars_18=0x7f02003b;
+        public static final int stars_19=0x7f02003c;
+        public static final int stars_2=0x7f02003d;
+        public static final int stars_20=0x7f02003e;
+        public static final int stars_21=0x7f02003f;
+        public static final int stars_22=0x7f020040;
+        public static final int stars_23=0x7f020041;
+        public static final int stars_24=0x7f020042;
+        public static final int stars_25=0x7f020043;
+        public static final int stars_26=0x7f020044;
+        public static final int stars_27=0x7f020045;
+        public static final int stars_28=0x7f020046;
+        public static final int stars_29=0x7f020047;
+        public static final int stars_3=0x7f020048;
+        public static final int stars_30=0x7f020049;
+        public static final int stars_31=0x7f02004a;
+        public static final int stars_32=0x7f02004b;
+        public static final int stars_33=0x7f02004c;
+        public static final int stars_34=0x7f02004d;
+        public static final int stars_35=0x7f02004e;
+        public static final int stars_36=0x7f02004f;
+        public static final int stars_37=0x7f020050;
+        public static final int stars_38=0x7f020051;
+        public static final int stars_39=0x7f020052;
+        public static final int stars_4=0x7f020053;
+        public static final int stars_40=0x7f020054;
+        public static final int stars_5=0x7f020055;
+        public static final int stars_6=0x7f020056;
+        public static final int stars_7=0x7f020057;
+        public static final int stars_8=0x7f020058;
+        public static final int stars_9=0x7f020059;
+        public static final int sun=0x7f02005a;
+        public static final int upgrade_gun=0x7f02005b;
+        public static final int view_damaged=0x7f02005c;
+        public static final int white_center_red_outline=0x7f02005d;
     }
     public static final class id {
         public static final int activity_main=0x7f0c0017;
