@@ -34,11 +34,12 @@ public abstract class Factory_Bosses extends Factory_Waves
 	final KillableRunnable boss1 = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			Shooting_HorizontalMovement enemy = new Shooting_HorizontalMovement(ctx,1000,
+			Shooting_HorizontalMovement enemy = new Shooting_HorizontalMovement(ctx,
+					1000,//score
 					Shooting_HorizontalMovement.DEFAULT_SPEED_Y,
 					Shooting_HorizontalMovement.DEFAULT_COLLISION_DAMAGE,
 					ProtagonistView.DEFAULT_BULLET_DAMAGE*10,
-					50,
+					50,//probability of good drop on death
 					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss1_height),
 					R.drawable.ship_enemy_boss1);
@@ -160,7 +161,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 		@Override
 		public void doWork() {
 			spawnGiantMeteorWave(2,DEFAULT_WAVE_DURATION/2);//spawn for entire wave
-			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
+//			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
 			
 		}
 	};

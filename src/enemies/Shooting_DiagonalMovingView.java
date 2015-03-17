@@ -12,7 +12,7 @@ import friendlies.ProtagonistView;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
-	public final static int DEFAULT_SCORE=50,
+	public final static int DEFAULT_SCORE=75,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*3,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,

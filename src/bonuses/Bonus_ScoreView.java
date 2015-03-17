@@ -25,6 +25,6 @@ public class Bonus_ScoreView extends BonusView implements MovingViewInterface{
 	}
 	
 	public void applyBenefit(Shooter theBenefitter){
-		((GameActivityInterface) this.getContext()).incrementScore(500);
+		((GameActivityInterface) this.getContext()).incrementScore(1000);
 	}
 }

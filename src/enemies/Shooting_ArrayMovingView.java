@@ -3,6 +3,7 @@ package enemies;
 import java.util.ArrayList;
 
 import parents.MovingView;
+import support.ConditionalHandler;
 import support.KillableRunnable;
 import android.content.Context;
 import android.os.Handler;
@@ -16,7 +17,7 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 
 	public final static int DEFAULT_NUM_ROWS=4,//5
 			DEFAULT_NUM_COLS=5, //6
-			DEFAULT_SCORE=30,
+			DEFAULT_SCORE = 50,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter,
 			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
 			DEFAULT_BULLET_FREQ_INTERVAL=1500;
@@ -24,6 +25,8 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 	public final static boolean DEFAULT_STAGGERED=true;
 	
 	public final static float 
+			DEFAULT_SPEED_Y = 10,
+			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .05,
 			LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
 
@@ -150,8 +153,8 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 			
 
 			for (int i = 0; i < allSimpleShooters.size(); i++) {
-				final int i_copy=i;
-				allSimpleShooters.get(i).reassignMoveRunnable(new KillableRunnable(){
+				final Shooting_ArrayMovingView enemy =  allSimpleShooters.get(i);
+				enemy.reassignMoveRunnable(new KillableRunnable(){
 					int timesMove = 0;
 					int curPos = 0;
 					@Override
@@ -161,31 +164,29 @@ public class Shooting_ArrayMovingView extends Enemy_ShooterView {
 							curPos = (curPos + 1) % 4;
 							timesMove=0;
 		
-							for (int i = 0; i < allSimpleShooters.size(); i++) {
-								switch (curPos) {
-								case 0:
-									allSimpleShooters.get(i_copy).setSpeedY(0);
-									allSimpleShooters.get(i_copy).setSpeedX(DEFAULT_SPEED_X);
-									break;
-								case 1:
-									allSimpleShooters.get(i_copy).setSpeedX(0);
-									allSimpleShooters.get(i_copy).setSpeedY( - DEFAULT_SPEED_Y);
-									break;
-								case 2:
-									allSimpleShooters.get(i_copy).setSpeedY(0);
-									allSimpleShooters.get(i_copy).setSpeedX( - DEFAULT_SPEED_X);
-									break;
-								case 3:
-									allSimpleShooters.get(i_copy).setSpeedX(0);
-									allSimpleShooters.get(i_copy).setSpeedY(DEFAULT_SPEED_Y);
-									break;
-								}
+							switch (curPos) {
+							case 0:
+								enemy.setSpeedY(0);
+								enemy.setSpeedX(DEFAULT_SPEED_X);
+								break;
+							case 1:
+								enemy.setSpeedX(0);
+								enemy.setSpeedY( - DEFAULT_SPEED_Y);
+								break;
+							case 2:
+								enemy.setSpeedY(0);
+								enemy.setSpeedX( - DEFAULT_SPEED_X);
+								break;
+							case 3:
+								enemy.setSpeedX(0);
+								enemy.setSpeedY(DEFAULT_SPEED_Y);
+								break;
 							}
 						}
 						timesMove++;
 						
-						allSimpleShooters.get(i_copy).move();
-						allSimpleShooters.get(i_copy).postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
+						enemy.move();
+						ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE, enemy);
 					}	
 				});
 			}
