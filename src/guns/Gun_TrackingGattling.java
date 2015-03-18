@@ -27,14 +27,14 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 		shootTowardsMe = shootingAtMe;
 		originalBulletFreq=bulletFrequency;
 		cutoffTotalShots=numGattlingShots;
-		currentNumShots=0;
+		currentNumShots= 1;
 	}
 	
-	public boolean shoot(){
+	public boolean shoot(){ 
 		
-		if(currentNumShots>cutoffTotalShots){
+		if(currentNumShots >= cutoffTotalShots){
 			bulletFreq=originalBulletFreq;
-			currentNumShots=0;
+			currentNumShots=1;
 		}else{
 			bulletFreq=400;
 			currentNumShots++;

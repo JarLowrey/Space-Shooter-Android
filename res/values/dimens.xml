@@ -47,6 +47,12 @@
 	    <dimen name="boss1_height">80dp</dimen>
 	    <dimen name="boss2_width">80dp</dimen>
 	    <dimen name="boss2_height">102dp</dimen>
+	    <dimen name="boss3_width">75dp</dimen>
+	    <dimen name="boss3_height">92.287dp</dimen>
+	    <dimen name="boss4_width">80dp</dimen>
+	    <dimen name="boss4_height">98.507dp</dimen>
+	    <dimen name="boss5_width">95dp</dimen>
+	    <dimen name="boss5_height">71.25dp</dimen>
     
     <!-- BULLETS -->
 	    <dimen name="laser_short_width">5dp</dimen>

@@ -51,10 +51,10 @@ public class Levels extends Factory_Bosses{
 	private KillableRunnable levels[][] ={
 
 		//TEST LEVEL
-			{refreshArrayShootersStrong,
-				meteorSidewaysForWholeLevel,
-				meteorShowersThatForceUserToMiddle,
-				boss3
+			{
+				boss4,
+				doNothing,
+				doNothing
 			},
 		
 		
@@ -210,12 +210,21 @@ public class Levels extends Factory_Bosses{
 				doNothing,
 				refreshArrayShootersStrong
 			},
-			
+
 			{
-				meteorSidewaysForWholeLevel,
-				meteorShowersThatForceUserToMiddle,
-				boss3
-			}
+				refreshArrayShootersStrong,
+				trackingAcceleratingEnemy,
+				trackingAcceleratingEnemy,
+				trackingAcceleratingEnemy,
+				doNothing,
+				doNothing,
+				doNothing,
+				doNothing,
+				boss3,
+				doNothing,
+				pauseAndShoot,
+				pauseAndShoot,
+			},
 		};
 	
 	
