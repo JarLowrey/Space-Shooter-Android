@@ -27,7 +27,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				50000,
 				DEFAULT_SPEED_Y,
 				ProtagonistView.DEFAULT_HEALTH*1000,
-				ProtagonistView.DEFAULT_BULLET_DAMAGE*200,
+				ProtagonistView.DEFAULT_BULLET_DAMAGE*250,
 				0,
 				(int)context.getResources().getDimension(R.dimen.boss5_width),
 				(int)context.getResources().getDimension(R.dimen.boss5_height),

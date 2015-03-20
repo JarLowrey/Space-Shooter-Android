@@ -12,6 +12,7 @@ import bullets.Bullet_Tracking_Missile;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import enemies.Enemy_ShooterView;
 import enemies.HorizontalMovement_FinalBoss;
 import enemies.Shooting_HorizontalMovementView;
 import enemies_non_shooters.Gravity_MeteorView;
@@ -41,7 +42,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 					1000,//score
 					Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 					Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
-					ProtagonistView.DEFAULT_BULLET_DAMAGE*10,
+					ProtagonistView.DEFAULT_BULLET_DAMAGE*20,
 					50,//probability of good drop on death
 					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss1_height),
@@ -49,11 +50,11 @@ public abstract class Factory_Bosses extends Factory_Waves
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
-					2000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, (int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE*1.5),50) );
+					2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, (int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE*1.5),50) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5) );
+					2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95) );
+					2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95) );
 			
 			enemy.startShooting();
 		}
@@ -65,7 +66,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 			Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,1500,
 					Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 					Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
-					ProtagonistView.DEFAULT_BULLET_DAMAGE*20,
+					ProtagonistView.DEFAULT_BULLET_DAMAGE*30,
 					75,
 					(int) ctx.getResources().getDimension(R.dimen.boss2_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss2_height),
@@ -73,11 +74,11 @@ public abstract class Factory_Bosses extends Factory_Waves
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5));
+					1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5));
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,50));
+					1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,50));
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95));
+					1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95));
 			
 			enemy.startShooting();
 		}
@@ -89,7 +90,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 			Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
 					Orbiter_RectangleView.DEFAULT_SPEED_Y,
 					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
-					ProtagonistView.DEFAULT_BULLET_DAMAGE*50,
+					ProtagonistView.DEFAULT_BULLET_DAMAGE*60,
 					100,
 					Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH*5,
 					Orbiter_RectangleView.DEFAULT_ORBIT_X,
@@ -132,7 +133,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 			Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,20000,
 					Orbiter_RectangleView.DEFAULT_SPEED_Y,
 					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
-					ProtagonistView.DEFAULT_BULLET_DAMAGE*60,
+					ProtagonistView.DEFAULT_BULLET_DAMAGE*90,
 					100,
 					(int) ctx.getResources().getDimension(R.dimen.boss4_width),
 					(int) ctx.getResources().getDimension(R.dimen.boss4_height),
