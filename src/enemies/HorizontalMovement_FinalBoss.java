@@ -39,48 +39,81 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		removeAllGuns();
 		
 		//Laser volleys
-		addGun(new Gun_SingleShotStraight(getContext(), this,
-				new Bullet_Basic_LaserLong(),
-				8000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-				0));
-		addGun(new Gun_SingleShotStraight(getContext(), this,
-				new Bullet_Basic_LaserLong(),
-				8000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-				25));
-		addGun(new Gun_SingleShotStraight(getContext(), this,
-				new Bullet_Basic_LaserLong(),
-				8000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-				50));
-		addGun(new Gun_SingleShotStraight(getContext(), this,
-				new Bullet_Basic_LaserLong(),
-				8000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-				75));
-		addGun(new Gun_SingleShotStraight(getContext(), this,
-				new Bullet_Basic_LaserLong(),
-				8000, 
-				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-				100));
+			//8sec volley
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					8000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					0));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					8000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					25));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					8000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					50));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					8000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					75));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					8000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					100));
+
+			//17sec volley
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					17000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					0));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					17000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					25));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					17000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					50));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					17000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					75));
+			addGun(new Gun_SingleShotStraight(getContext(), this,
+					new Bullet_Basic_LaserLong(),
+					17000, 
+					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
+					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+					100));
 		
 		//Gattling lasers
 		this.addGun(new Gun_TrackingGattling(getContext(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
 				new Bullet_Tracking_LaserShort(( (GameActivityInterface)getContext() ).getProtagonist(), this),
-				5000, 
+				6000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 				50,
 				4 ));
 		this.addGun(new Gun_TrackingGattling(getContext(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
 				new Bullet_Tracking_LaserShort(( (GameActivityInterface)getContext() ).getProtagonist(), this),
-				5000, 
+				6000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 				70,
@@ -101,6 +134,15 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
 				(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
 				30));
+	}
+	
+	@Override
+	public boolean takeDamage(int amountOfDamage){
+		boolean isKilled = super.takeDamage(amountOfDamage);
+		
+		//at certain health values, change guns/speed/abilites, spawn enemies, ... ?
+		
+		return isKilled;
 	}
 	
 	@Override

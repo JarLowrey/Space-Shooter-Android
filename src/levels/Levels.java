@@ -50,12 +50,10 @@ public class Levels extends Factory_Bosses{
 	//levels defined in terms of 5second  waves
 	private KillableRunnable levels[][] ={
 
-		//TEST LEVEL
-			{
-				boss5,
-				doNothing,
-				doNothing
-			},
+		//TEST LEVEL (comment out on release)
+//			{
+//				
+//			},
 		
 		
 			{
@@ -243,7 +241,6 @@ public class Levels extends Factory_Bosses{
 				pauseAndShoot
 			},
 			
-
 			{
 				meteorsGiantAndSideways,
 				meteorsGiantAndSideways,
@@ -304,7 +301,29 @@ public class Levels extends Factory_Bosses{
 			},
 			
 			{
-				
+				boss1,
+				doNothing,
+				doNothing,
+				boss2,
+				doNothing,
+				doNothing,
+				doNothing,
+				doNothing,
+				boss3,
+				doNothing,
+				doNothing,
+				doNothing,
+				doNothing,
+				doNothing,
+				doNothing,
+				boss4,
+				doNothing,
+			},
+			
+			{
+				boss5,
+				doNothing,
+				doNothing
 			}
 		};
 	
