@@ -12,7 +12,8 @@ import com.jtronlabs.to_the_moon.R;
 public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface {
 	
 	public static final int DEFAULT_ANGULAR_VELOCITY=2, 
-			MAX_ANGULAR_VELOCITY = 30, MAX_RADIUS=200,
+			MAX_ANGULAR_VELOCITY = 30, 
+			MAX_RADIUS=200,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
 	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels());
 	
@@ -48,6 +49,11 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		angularVelocity=angVelocity;
 		
 		init(width,height);
+	}
+
+	@Override
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
 	}
 	
 	private void init(int width,int height){

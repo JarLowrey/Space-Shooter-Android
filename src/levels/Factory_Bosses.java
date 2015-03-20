@@ -12,7 +12,8 @@ import bullets.Bullet_Tracking_Missile;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
-import enemies.Shooting_HorizontalMovement;
+import enemies.HorizontalMovement_FinalBoss;
+import enemies.Shooting_HorizontalMovementView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_RectangleView;
@@ -36,10 +37,10 @@ public abstract class Factory_Bosses extends Factory_Waves
 	final KillableRunnable boss1 = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			Shooting_HorizontalMovement enemy = new Shooting_HorizontalMovement(ctx,
+			Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,
 					1000,//score
-					Shooting_HorizontalMovement.DEFAULT_SPEED_Y,
-					Shooting_HorizontalMovement.DEFAULT_COLLISION_DAMAGE,
+					Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
+					Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 					ProtagonistView.DEFAULT_BULLET_DAMAGE*10,
 					50,//probability of good drop on death
 					(int) ctx.getResources().getDimension(R.dimen.boss1_width),
@@ -48,11 +49,11 @@ public abstract class Factory_Bosses extends Factory_Waves
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_Missile(),
-					2000, Shooting_HorizontalMovement.DEFAULT_BULLET_SPEED_Y, (int) (Shooting_HorizontalMovement.DEFAULT_BULLET_DAMAGE*1.5),50) );
+					2000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, (int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE*1.5),50) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Shooting_HorizontalMovement.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovement.DEFAULT_BULLET_DAMAGE,5) );
+					2000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5) );
 			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic_LaserShort(),
-					2000, Shooting_HorizontalMovement.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovement.DEFAULT_BULLET_DAMAGE,95) );
+					2000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95) );
 			
 			enemy.startShooting();
 		}
@@ -61,9 +62,9 @@ public abstract class Factory_Bosses extends Factory_Waves
 	final KillableRunnable boss2 = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			Shooting_HorizontalMovement enemy = new Shooting_HorizontalMovement(ctx,1500,
-					Shooting_HorizontalMovement.DEFAULT_SPEED_Y,
-					Shooting_HorizontalMovement.DEFAULT_COLLISION_DAMAGE,
+			Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,1500,
+					Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
+					Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 					ProtagonistView.DEFAULT_BULLET_DAMAGE*20,
 					75,
 					(int) ctx.getResources().getDimension(R.dimen.boss2_width),
@@ -72,11 +73,11 @@ public abstract class Factory_Bosses extends Factory_Waves
 			
 			enemy.removeAllGuns();
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Shooting_HorizontalMovement.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovement.DEFAULT_BULLET_DAMAGE,5));
+					1000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5));
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Shooting_HorizontalMovement.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovement.DEFAULT_BULLET_DAMAGE,50));
+					1000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,50));
 			enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic_LaserShort(),
-					1000, Shooting_HorizontalMovement.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovement.DEFAULT_BULLET_DAMAGE,95));
+					1000, Shooting_HorizontalMovementView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95));
 			
 			enemy.startShooting();
 		}
@@ -128,7 +129,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 	final KillableRunnable boss4 = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			Shooting_HorizontalMovement enemy = new Shooting_HorizontalMovement(ctx,20000,
+			Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,20000,
 					Orbiter_RectangleView.DEFAULT_SPEED_Y,
 					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
 					ProtagonistView.DEFAULT_BULLET_DAMAGE*60,
@@ -179,54 +180,9 @@ public abstract class Factory_Bosses extends Factory_Waves
 	final KillableRunnable boss5 = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			Shooting_HorizontalMovement enemy = new Shooting_HorizontalMovement(ctx,20000,
-					Orbiter_RectangleView.DEFAULT_SPEED_Y,
-					Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
-					ProtagonistView.DEFAULT_BULLET_DAMAGE*100,
-					100,
-					(int) ctx.getResources().getDimension(R.dimen.boss5_width),
-					(int) ctx.getResources().getDimension(R.dimen.boss5_height),
-					R.drawable.ship_enemy_boss4);
-			
-			enemy.removeAllGuns();
-			enemy.addGun(new Gun_SingleShotStraight(ctx, enemy,
-					new Bullet_Basic_LaserLong(),
-					750, 
-					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-					50));
-			
-			enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
-					new Bullet_Tracking_LaserShort(getInteractivityInterface().getProtagonist(), enemy),
-					5000, 
-					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-					5,
-					Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS / 2));
-			enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
-					new Bullet_Tracking_LaserShort(getInteractivityInterface().getProtagonist(), enemy),
-					5000, 
-					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
-					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-					95,
-					Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS / 2));
-			
-			enemy.addGun(new Gun_SingleShotStraight(ctx,enemy,
-					new Bullet_Tracking_Missile( getInteractivityInterface().getProtagonist(), enemy),
-					4000, 
-					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
-					(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
-					20));
-			enemy.addGun(new Gun_SingleShotStraight(ctx,enemy,
-					new Bullet_Tracking_Missile( getInteractivityInterface().getProtagonist(), enemy),
-					4000, 
-					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
-					(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
-					80));
-			
-			enemy.startShooting();	
+			new HorizontalMovement_FinalBoss(ctx);
 		}
-	};  
+	}; 
 
 	//giant meteors
 	public final void spawnGiantMeteor(){
@@ -272,7 +228,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 		}
 	};
 	
-	final KillableRunnable meteorsOnlyGiants = new KillableRunnable(){
+	final KillableRunnable meteorsGiant = new KillableRunnable(){
 		@Override
 		public void doWork() {
 			spawnGiantMeteorWave(4,DEFAULT_WAVE_DURATION/4);

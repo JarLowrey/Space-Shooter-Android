@@ -52,7 +52,7 @@ public class Levels extends Factory_Bosses{
 
 		//TEST LEVEL
 			{
-				boss4,
+				boss5,
 				doNothing,
 				doNothing
 			},
@@ -79,8 +79,8 @@ public class Levels extends Factory_Bosses{
 				meteorsGiantAndSideways,
 				meteorsGiantAndSideways,
 				meteorShowerLong,
-				meteorsOnlyGiants,
-				meteorsOnlyGiants
+				meteorsGiant,
+				meteorsGiant
 			},
 				
 			{
@@ -183,11 +183,24 @@ public class Levels extends Factory_Bosses{
 				pauseAndShoot,
 				pauseAndShoot,
 				pauseAndShoot,
-				trackingEnemy,
 				doNothing,
 				pauseAndShoot,
 				pauseAndShoot,
 				pauseAndShoot,
+				doNothing,
+				pauseAndShoot,
+				pauseAndShoot,
+			},
+			
+			{
+				pauseAndShoot,
+				pauseAndShoot,
+				diagonalFullScreen,
+				trackingEnemy,
+				doNothing,
+				pauseAndShoot,
+				diagonalFullScreen,
+				diagonalColumns,
 				trackingAcceleratingEnemy,
 				trackingAcceleratingEnemy,
 				pauseAndShoot,
@@ -208,11 +221,11 @@ public class Levels extends Factory_Bosses{
 				trackingEnemy,
 				trackingEnemy,
 				doNothing,
-				refreshArrayShootersStrong
+				refreshArrayShootersStaggered
 			},
 
 			{
-				refreshArrayShootersStrong,
+				refreshArrayShootersStaggered,
 				trackingAcceleratingEnemy,
 				trackingAcceleratingEnemy,
 				trackingAcceleratingEnemy,
@@ -222,9 +235,77 @@ public class Levels extends Factory_Bosses{
 				doNothing,
 				boss3,
 				doNothing,
+				doNothing,
 				pauseAndShoot,
-				pauseAndShoot,
+				rect,
+				rect,
+				doNothing,
+				pauseAndShoot
 			},
+			
+
+			{
+				meteorsGiantAndSideways,
+				meteorsGiantAndSideways,
+				meteorsGiantAndSideways,
+				doNothing,
+				boss4,
+				doNothing,
+				doNothing,
+				trackingAcceleratingEnemy,
+				doNothing,
+				trackingAcceleratingEnemy,
+				doNothing,
+				trackingAcceleratingEnemy,
+				doNothing,
+				trackingAcceleratingEnemy
+			},
+			
+			{
+				refreshArrayShootersStaggered,
+				doNothing,
+				doNothing,
+				trackingAcceleratingEnemy,
+				boss1,
+				boss1,
+				diagonalFullScreen,
+				diagonalFullScreen,
+				pauseAndShoot,
+				pauseAndShoot,
+				pauseAndShoot,
+				boss1
+			},
+			
+			{
+				rect,
+				rect,
+				rect,
+				pauseAndShoot,
+				pauseAndShoot,
+				doNothing,
+				doNothing,
+				doNothing,
+				pauseAndShoot,
+				tri,
+				tri,
+				tri,
+				doNothing,
+				doNothing,
+				rect,
+				rect,
+				doNothing,
+				circlesThreeOrbiters,
+				doNothing,
+				doNothing,
+				circlesTwoOrbiters,
+				doNothing,
+				doNothing,
+				circlesOneOrbiters				
+			},
+			
+			{
+				
+			}
 		};
 	
 	

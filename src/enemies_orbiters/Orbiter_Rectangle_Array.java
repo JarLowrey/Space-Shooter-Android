@@ -16,8 +16,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			DEFAULT_NUM_COLS=5, //6
 			DEFAULT_SCORE = 50,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter,
-			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*2,
-			DEFAULT_BULLET_FREQ_INTERVAL=1500;
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*2.5);
 	
 	public final static boolean DEFAULT_STAGGERED=true;
 	
@@ -50,6 +49,11 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		init();
 	}
 
+	@Override
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
+	}
+	
 	public Orbiter_Rectangle_Array(Context context,int score,float speedY,int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitLength,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {

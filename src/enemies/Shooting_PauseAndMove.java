@@ -54,7 +54,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		amtOfTimeToPause= (long) (freq*3.2);
 		this.setThreshold((int) (MainActivity.getHeightPixels()/6 + Math.random() * MainActivity.getHeightPixels()/2.7));
 
-		//add a default gun
+		//override default gun
 		this.removeAllGuns();
 		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),
 				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);

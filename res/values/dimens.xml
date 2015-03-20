@@ -24,8 +24,8 @@
 	    <dimen name="ship_orbit_rectangular_height">34dp</dimen>
 	    <dimen name="ship_orbit_circular_width">45dp</dimen>
 	    <dimen name="ship_orbit_circular_height">40dp</dimen>
-	    <dimen name="ship_orbit_triangular_width">58.064dp</dimen>
-	    <dimen name="ship_orbit_triangular_height">45dp</dimen>
+	    <dimen name="ship_orbit_triangular_width">45dp</dimen>
+	    <dimen name="ship_orbit_triangular_height">34.875dp</dimen>
 	    <dimen name="ship_orbit_horizontal_width">41dp</dimen>
 	    <dimen name="ship_orbit_horizontal_height">50dp</dimen>
 	    
@@ -51,8 +51,8 @@
 	    <dimen name="boss3_height">92.287dp</dimen>
 	    <dimen name="boss4_width">80dp</dimen>
 	    <dimen name="boss4_height">98.507dp</dimen>
-	    <dimen name="boss5_width">95dp</dimen>
-	    <dimen name="boss5_height">71.25dp</dimen>
+	    <dimen name="boss5_width">88dp</dimen>
+	    <dimen name="boss5_height">95.9846dp</dimen>
     
     <!-- BULLETS -->
 	    <dimen name="laser_short_width">5dp</dimen>

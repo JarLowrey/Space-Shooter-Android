@@ -172,7 +172,7 @@ public final class R {
         public static final int ship_enemy_boss5=0x7f020029;
         public static final int ship_enemy_diagonal_full_screen=0x7f02002a;
         public static final int ship_enemy_orbiter_circle=0x7f02002b;
-        public static final int ship_enemy_orbiter_horizontal_line=0x7f02002c;
+        public static final int ship_enemy_orbiter_rectangle=0x7f02002c;
         public static final int ship_enemy_orbiter_triangle=0x7f02002d;
         public static final int ship_enemy_pause_and_shoot=0x7f02002e;
         public static final int ship_enemy_tracker=0x7f02002f;

@@ -11,7 +11,8 @@ public  class Gun_AngledDualShot extends Gun {
 	private static final float DEFAULT_ANGLE=40;
 	
 	public Gun_AngledDualShot(Context context,
-			Shooter theShooter,Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
+			Shooter theShooter,Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,
+			int positionOnShooterAsAPercentage) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 	}
 	public boolean shoot(){

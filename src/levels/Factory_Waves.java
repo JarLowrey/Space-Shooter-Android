@@ -9,7 +9,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies.Shooting_DiagonalMovingView;
-import enemies.Shooting_HorizontalMovement;
+import enemies.Shooting_HorizontalMovementView;
 import enemies.Shooting_PauseAndMove;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
@@ -114,7 +114,7 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			Orbiter_Rectangle_Array.refreshSimpleShooterArray(ctx);
 		}
 	};
-	final KillableRunnable refreshArrayShootersStrong = new KillableRunnable(){
+	final KillableRunnable refreshArrayShootersStaggered = new KillableRunnable(){
 		@Override
 		public void doWork() {
 			Orbiter_Rectangle_Array.refreshSimpleShooterArray(ctx,
@@ -168,6 +168,20 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 		@Override
 		public void doWork() {
 			spawnCircularOrbiterWave(6,500,3);
+			
+		} 
+	};
+	final KillableRunnable circlesTwoOrbiters = new KillableRunnable(){
+		@Override
+		public void doWork() {
+			spawnCircularOrbiterWave(6,500,2);
+			
+		} 
+	};
+	final KillableRunnable circlesOneOrbiters = new KillableRunnable(){
+		@Override
+		public void doWork() {
+			spawnCircularOrbiterWave(9,500,1);
 			
 		} 
 	};
@@ -368,9 +382,9 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			public void doWork() {
 				final int currentShip = numSpawned % numCols ;
 				final int width  = (int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width);
-				final int radius= (int)( MainActivity.getWidthPixels()/numCols-width ) / 2;
+				final int radius= (int)( MainActivity.getWidthPixels()/numCols - width ) / 2;
 				final double height = ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height);	
-				final int orbitX= ( width/2 ) * (2*currentShip) + radius * (2*currentShip +1);
+				final int orbitX= ( width/2 ) * (2*currentShip+1) + radius * (2*currentShip +1);
 				final int orbitY=Orbiter_CircleView.DEFAULT_ORBIT_Y;
 				new Orbiter_CircleView(ctx,Orbiter_CircleView.DEFAULT_SCORE,Orbiter_CircleView.DEFAULT_SPEED_Y,
 						Orbiter_CircleView.DEFAULT_COLLISION_DAMAGE,
@@ -397,14 +411,14 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 	public final KillableRunnable rect = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			spawnRectangularOrbiterWave(5,1000);
+			spawnRectangularOrbiterWave(5,DEFAULT_WAVE_DURATION/5);
 		}
 	};
 
 	public final KillableRunnable tri = new KillableRunnable(){
 		@Override
 		public void doWork() {
-			spawnTriangularOrbiterWave(5,1000);
+			spawnTriangularOrbiterWave(5,DEFAULT_WAVE_DURATION/5);
 		}
 	};
 	
@@ -417,7 +431,12 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			
 			@Override
 			public void doWork() {
-				new Orbiter_RectangleView(ctx);
+				Orbiter_RectangleView r = new Orbiter_RectangleView(ctx);
+
+				int x = (int) (Math.random() * (MainActivity.getWidthPixels() - r.defaultOrbitLengthX() ));
+				int y = (int) (Math.random() * (MainActivity.getHeightPixels()/2 - r.defaultOrbitLengthY()));
+				r.setX(x);
+				r.setThreshold(y);
 				numSpawned++;
 				
 				if(numSpawned<totalNumShips){
@@ -435,34 +454,38 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 			
 			@Override
 			public void doWork() {
-				new Orbiter_TriangleView(ctx);
-					numSpawned++;
-					
-					if(numSpawned<totalNumShips ){
-						spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
-					}
+				Orbiter_TriangleView t = new Orbiter_TriangleView(ctx);
+				int x = (int) (Math.random() * (MainActivity.getWidthPixels() - t.orbitLengthX() ));
+				int y = (int) (Math.random() * (MainActivity.getHeightPixels()/2 - t.orbitLengthY()));
+				t.setX(x);
+				t.setThreshold(y);
+				numSpawned++;
+				
+				if(numSpawned<totalNumShips ){
+					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
+				}
 			}
 		};
 
 		spawningHandler.post(r);
 	}
-	
-	public final void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		KillableRunnable r = new KillableRunnable(){
-			private int numSpawned=0;
-			
-			@Override
-			public void doWork() {
-				new Shooting_HorizontalMovement(ctx);
-					numSpawned++;
-					
-					if(numSpawned<totalNumShips ){
-						spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
-					}
-			}
-		};
-
-		spawningHandler.post(r);
-	}
+//	
+//	public final void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
+//		KillableRunnable r = new KillableRunnable(){
+//			private int numSpawned=0;
+//			
+//			@Override
+//			public void doWork() {
+//				new Shooting_HorizontalMovementView(ctx);
+//					numSpawned++;
+//					
+//					if(numSpawned<totalNumShips ){
+//						spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
+//					}
+//			}
+//		};
+//
+//		spawningHandler.post(r);
+//	}
 
 }

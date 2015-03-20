@@ -9,6 +9,9 @@ import friendlies.ProtagonistView;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
+	public static final float DEFAULT_SPEED_Y = 10,
+			DEFAULT_SPEED_X = DEFAULT_SPEED_Y;
+	
 	public final static int DEFAULT_SCORE=100, 
 			DEFAULT_ORBIT_Y = (int) (MainActivity.getHeightPixels()/3);
 	

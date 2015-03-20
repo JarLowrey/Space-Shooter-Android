@@ -11,14 +11,11 @@ import com.jtronlabs.to_the_moon.R;
 
 
 public class Orbiter_RectangleView extends Shooting_OrbiterView implements MovingViewInterface {
-
-	public static final float DEFAULT_SPEED_Y = 10,
-			DEFAULT_SPEED_X = DEFAULT_SPEED_Y;
 	
 	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
 			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2),
 			DEFAULT_ORBIT_LENGTH = 6,
-			DEFAULT_BACKGROUND=R.drawable.ship_enemy_pause_and_shoot;
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_rectangle;
 	
 	private int currentSideOfRectangle,orbitDist;
 
@@ -98,5 +95,12 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
 			}
 		});
+	}
+
+	public int defaultOrbitLengthX(){
+		return (int) ( orbitDist*DEFAULT_SPEED_X * MainActivity.getScreenDens() );
+	}
+	public int defaultOrbitLengthY(){
+		return (int) (orbitDist*DEFAULT_SPEED_Y  * MainActivity.getScreenDens() );
 	}
 }
