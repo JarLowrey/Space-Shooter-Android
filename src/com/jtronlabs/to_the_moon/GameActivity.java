@@ -482,7 +482,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	@Override
 	public void incrementScore(int score){
-		levelCreator.setResources(levelCreator.getResourceCount()+score);
+		//load resource multiplier 
+		SharedPreferences gameState = this.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		int resourceMultiplier = (int) (1.5 * gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0) + 1 );//1.5*lvl+1
+		
+		levelCreator.setResources(levelCreator.getResourceCount()+score * resourceMultiplier);		
 	}
 
 	@Override
