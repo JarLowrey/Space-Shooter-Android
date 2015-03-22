@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import background_objects.BackgroundView;
 import background_objects.Bird;
 import background_objects.Clouds;
@@ -47,6 +48,7 @@ public class LevelSystem extends Levels{
 	 * DEFAULT_WAVE_DURATION seconds. Start Collision detection
 	 */
 	public void resumeLevel() {
+		Log.d("lowrey","level resumed!!!");
 		// conditionalHandler = new ConditionalHandler(this);//must be reset
 		// every time level is resumed for previous wave spawnings to stop
 		createBackgroundEffects();
@@ -70,7 +72,6 @@ public class LevelSystem extends Levels{
 	 * every Game Object from the activity
 	 */
 	public void pauseLevel() {
-		gameDetector.stopDetecting();
 		// clean up - kill Views & associated threads, stop all spawning &
 		// background threads
 		for (int i = backgroundViews.size() - 1; i >= 0; i--) {
@@ -100,9 +101,6 @@ public class LevelSystem extends Levels{
 	 * bullets)
 	 */
 	public void endLevel() {
-		gameDetector.stopDetecting();
-		// conditionalHandler.stopSpawningWaves();
-
 		// set new level
 		incrementLevel();
 		setWave(0);
@@ -161,7 +159,7 @@ public class LevelSystem extends Levels{
 				b.setY((float) (MainActivity.getHeightPixels() * Math.random()));
 			}
 
-			spawningHandler.post(clouds);
+			spawningHandler.post( clouds() );
 			// this.conditionalHandler.postIfLevelResumed(clouds);
 		}
 		if (getLevel() >= backgroundColors.length) {
@@ -173,21 +171,23 @@ public class LevelSystem extends Levels{
 		}
 	}
 
-	KillableRunnable clouds = new KillableRunnable() {
-		@Override
-		public void doWork() {
-			if (Math.random() < .5) {
+	private KillableRunnable clouds(){
+		return new KillableRunnable() {
+			@Override
+			public void doWork() {
+				if (Math.random() < .5) {
+					new Bird(ctx);
+				}
+				if (Math.random() < .5) {
+					new Clouds(ctx);
+				}
 				new Bird(ctx);
-			}
-			if (Math.random() < .5) {
 				new Clouds(ctx);
+	
+				spawningHandler.postDelayed(this, 4000 * (getLevel() + 1));
+				// conditionalHandler.postIfLevelResumed(this, 4000*(getLevel()+1));
 			}
-			new Bird(ctx);
-			new Clouds(ctx);
-
-			spawningHandler.postDelayed(this, 4000 * (getLevel() + 1));
-			// conditionalHandler.postIfLevelResumed(this, 4000*(getLevel()+1));
-		}
-	};
+		};
+	}
 
 }

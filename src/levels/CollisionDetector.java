@@ -4,6 +4,7 @@ import interfaces.Shooter;
 import parents.MovingView;
 import support.KillableRunnable;
 import android.os.Handler;
+import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -17,27 +18,6 @@ public class CollisionDetector {
 		levelingSystem=aLevelSystem;
 	}
 	private Handler gameHandler = new Handler();
-    private KillableRunnable collisionDetectionRunnable = new KillableRunnable() { 
-        @Override
-        public void doWork() {
-//        	Log.d("lowrey","enemiesNo="+LevelSystem.enemies.size() +" enemy bulletsNo=" +
-//        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
-        	
-        	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
-        			(! levelingSystem.areLevelWavesCompleted()
-        			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0  || LevelSystem.bonuses.size() != 0) ){
-        		
-        		detectAnyFriendlyHasCollidedWithAnyEnemy();
-        		detectAnyFriendlyHasHitAnyEnemyBullet();
-        		detectAnyFriendlyHasHitAnyBonus();
-        		detectAnyEnemyHasHitAnyFriendlyBullets();
-        		
-	            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
-        	}else {
-    			levelingSystem.endLevel();	
-        	}
-        } 
-    };
 
 	//it is possible for enemy to be removed after beginning a for(enemies) loop, but before calling enemies.get(i)
 	//in that case, just catch the error and don't worry about it, it was already processed
@@ -115,10 +95,27 @@ public class CollisionDetector {
     
     public void startDetecting(){
 //    	collisionDetectionRunnable.revive();
-    	gameHandler.post(collisionDetectionRunnable);
-    }
-    public void stopDetecting(){
-//    	collisionDetectionRunnable.kill();
-    	gameHandler.removeCallbacks(collisionDetectionRunnable);
+    	gameHandler.post( new KillableRunnable() { 
+    		        @Override
+    		        public void doWork() {
+    		        	Log.d("lowrey","enemiesNo="+LevelSystem.enemies.size() +" enemy bulletsNo=" +
+    		        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
+    		        	
+    		        	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
+    		        			(! levelingSystem.areLevelWavesCompleted()
+    		        			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0  || LevelSystem.bonuses.size() != 0) ){
+    		        		
+    		        		detectAnyFriendlyHasCollidedWithAnyEnemy();
+    		        		detectAnyFriendlyHasHitAnyEnemyBullet();
+    		        		detectAnyFriendlyHasHitAnyBonus();
+    		        		detectAnyEnemyHasHitAnyFriendlyBullets();
+    		        		
+    			            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
+    		        	}else {
+    		    			levelingSystem.endLevel();	
+    		        	}
+    		        } 
+    		    }
+    	);
     }
 }

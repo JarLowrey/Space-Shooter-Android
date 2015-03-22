@@ -16,7 +16,7 @@ public abstract class AttributesOfLevels {
 	public AttributesOfLevels(Context context) {
 		ctx=context;
 		spawningHandler = new Handler();
-	}
+	} 
 	
 
 	public static final int DEFAULT_WAVE_DURATION=5000;
@@ -55,6 +55,13 @@ public abstract class AttributesOfLevels {
 	//Resources
 	public void setResources(int scoreValue){
 		resourceNo=scoreValue;
+	}
+	public void incrementScore(int scoreValue){
+		//load resource multiplier 
+		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		int resourceMultiplier = (int) ( gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0) + 1 );
+		
+		setResources(getResourceCount()+scoreValue * resourceMultiplier);
 	}
 	public int getResourceCount(){
 		return resourceNo;
