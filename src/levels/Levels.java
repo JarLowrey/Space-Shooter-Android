@@ -4,20 +4,30 @@ import support.KillableRunnable;
 import android.content.Context;
 
 public class Levels extends Factory_Bosses{
-		
+	
+	private int numLevels;
+	private int[] wavesInEachLevel;
+	
 	public Levels(Context context) {
 		super(context);
+		
+		KillableRunnable[][] lvls = levels();
+		numLevels = lvls.length;
+		wavesInEachLevel = new int[numLevels];
+		for(int i=0;i<lvls.length;i++){
+			wavesInEachLevel[i] = lvls[i].length;
+		}
 	}
 
 	public int getMaxLevel() {
-		return levels.length - 1;
+		return numLevels;
 	}
 	public int getCurrentLevelLengthMilliseconds(){
-		return levels[getLevel()].length*DEFAULT_WAVE_DURATION;
+		return wavesInEachLevel[getLevel()]*DEFAULT_WAVE_DURATION;
 	}
 	public int getNumWavesInLevel(int level){
-		if(level>=0 && level<levels.length){
-			return levels[level].length;			
+		if(level>=0 && level<numLevels){
+			return wavesInEachLevel[level];			
 		}else{
 			return 0;		
 		}
@@ -25,19 +35,21 @@ public class Levels extends Factory_Bosses{
 	
 	@Override
 	public boolean areLevelWavesCompleted(){
-		return getWave()==levels[getLevel()].length;
+		return getWave() == wavesInEachLevel[ getLevel() ]; 
 	}
 	
 	/**
 	 * DOES NOT WORK. When exit activity and re-enter quickly
 	 */
 	public void startLevelSpawning(){
+		final KillableRunnable[][] lvls = levels();
 		
 		spawningHandler.post(new KillableRunnable() {
 			@Override
 			public void doWork() {
 				if (!areLevelWavesCompleted()) {//check isKilled() to ensure Runnable cannot progress
-					spawningHandler.post(levels[getLevel()][getWave()]);
+					KillableRunnable r = lvls[getLevel()][getWave()];
+					spawningHandler.post( r );
 					incrementWave();
 					spawningHandler.postDelayed(this,DEFAULT_WAVE_DURATION);
 				}
@@ -46,27 +58,23 @@ public class Levels extends Factory_Bosses{
 		});
 	}
 	 
-	
-	//levels defined in terms of 5second  waves
-	private KillableRunnable levels[][] ={
 
-		//TEST LEVEL (comment out on release)
-//			{
-//				
-//			},
-		
-		
+	private KillableRunnable[] level_1(){
+		KillableRunnable[] r =
 			{
-//					new SpawnDefaultEnemyRunnable( ( 6*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
-//					new SpawnDefaultEnemyRunnable( ( 5*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
+//				new SpawnDefaultEnemyRunnable( ( 6*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
+//				new SpawnDefaultEnemyRunnable( ( 5*DEFAULT_WAVE_DURATION ) /2000 ,2000,Meteor_SidewaysView.class,spawningHandler,ctx),
 				meteorSidewaysForWholeLevel(),			
 				meteorSidewaysForWholeLevel(),
 				meteorShowersThatForceUserToMiddle(),
 				meteorShowersThatForceUserToLeft(),
 				meteorShowersThatForceUserToRight(),
 				meteorShowersThatForceUserToLeft()
-			}, 
-				
+			};
+		return r;
+	}
+	private KillableRunnable[] level_2(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),			
 				meteorSidewaysForWholeLevel(),
@@ -79,8 +87,11 @@ public class Levels extends Factory_Bosses{
 				meteorShowerLong(),
 				meteorsGiant(),
 				meteorsGiant()
-			},
-				
+			};
+		return r;
+	}
+	private KillableRunnable[] level_3(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),			
 				meteorShowersThatForceUserToMiddle(),
@@ -90,8 +101,11 @@ public class Levels extends Factory_Bosses{
 				diagonalFullScreen(),
 				diagonalColumns(),
 				diagonalColumns()
-			},
-				
+			};
+		return r;
+	}
+	private KillableRunnable[] level_4(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),			
 				meteorShowersThatForceUserToMiddle(),
@@ -99,8 +113,11 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				doNothing(),
 				doNothing(),
-			},
-			
+			};
+		return r;
+	}
+	private KillableRunnable[] level_5(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),			
 				meteorShowersThatForceUserToMiddle(),
@@ -111,8 +128,11 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				diagonalFullScreen(),
 				diagonalColumns()
-			},
-				
+			};
+		return r;
+	}
+	private KillableRunnable[] level_6(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),			
 				meteorSidewaysThisWave(),
@@ -128,8 +148,11 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				doNothing(),
 				trackingEnemy()
-			},
-			
+			};
+		return r;
+	}
+	private KillableRunnable[] level_7(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),			
 				meteorShowersThatForceUserToRight(),	
@@ -146,8 +169,11 @@ public class Levels extends Factory_Bosses{
 				trackingEnemy(),
 				doNothing(),
 				trackingEnemy()
-			},
-				
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_8(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),					
 				boss1(),
@@ -160,8 +186,11 @@ public class Levels extends Factory_Bosses{
 				boss1(),
 				trackingAcceleratingEnemy(),
 				trackingAcceleratingEnemy()
-			},
-			
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_9(){
+		KillableRunnable[] r =
 			{
 				meteorSidewaysForWholeLevel(),					
 				boss1(),
@@ -175,8 +204,11 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				meteorShowersThatForceUserToMiddle(),
 				boss2()
-			},
-			
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_10(){
+		KillableRunnable[] r =
 			{
 				pauseAndShoot(),
 				pauseAndShoot(),
@@ -187,9 +219,12 @@ public class Levels extends Factory_Bosses{
 				pauseAndShoot(),
 				doNothing(),
 				pauseAndShoot(),
-				pauseAndShoot(),
-			},
-			
+				pauseAndShoot()
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_11(){
+		KillableRunnable[] r =
 			{
 				pauseAndShoot(),
 				pauseAndShoot(),
@@ -204,24 +239,30 @@ public class Levels extends Factory_Bosses{
 				pauseAndShoot(),
 				pauseAndShoot(),
 				trackingAcceleratingEnemy()
-			},
-			
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_12(){
+		KillableRunnable[] r =
 			{
-				boss2(),
-				meteorSidewaysForWholeLevel(),
 				pauseAndShoot(),
 				pauseAndShoot(),
-				doNothing(),
-				doNothing(),
-				doNothing(),
-				boss1(),
-				boss1(),
-				trackingAcceleratingEnemy(),
+				diagonalFullScreen(),
 				trackingAcceleratingEnemy(),
 				doNothing(),
-				refreshArrayShootersStaggered()
-			},
-
+				pauseAndShoot(),
+				diagonalFullScreen(),
+				diagonalColumns(),
+				trackingAcceleratingEnemy(),
+				trackingAcceleratingEnemy(),
+				pauseAndShoot(),
+				pauseAndShoot(),
+				trackingAcceleratingEnemy()
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_13(){
+		KillableRunnable[] r =
 			{
 				refreshArrayShootersStaggered(),
 				trackingAcceleratingEnemy(),
@@ -238,8 +279,11 @@ public class Levels extends Factory_Bosses{
 				rect(),
 				doNothing(),
 				pauseAndShoot()
-			},
-			
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_14(){
+		KillableRunnable[] r =
 			{
 				meteorsGiantAndSideways(),
 				meteorsGiantAndSideways(),
@@ -257,8 +301,11 @@ public class Levels extends Factory_Bosses{
 				trackingAcceleratingEnemy(),
 				doNothing(),
 				trackingAcceleratingEnemy()
-			},
-			
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_15(){
+		KillableRunnable[] r =
 			{
 				refreshArrayShootersStaggered(),
 				doNothing(),
@@ -272,8 +319,11 @@ public class Levels extends Factory_Bosses{
 				pauseAndShoot(),
 				pauseAndShoot(),
 				boss1()
-			},
-			
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_16(){
+		KillableRunnable[] r =
 			{
 				rect(),
 				rect(),
@@ -296,9 +346,12 @@ public class Levels extends Factory_Bosses{
 				circlesTwoOrbiters(),
 				doNothing(),
 				doNothing(),
-				circlesOneOrbiters()			
-			},
-			
+				circlesOneOrbiters()	
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_17(){
+		KillableRunnable[] r =
 			{
 				boss1(),
 				boss1(),
@@ -317,15 +370,44 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				doNothing(),
 				boss4(),
-				doNothing(),
-			},
-			
+				doNothing()	
+			};
+		return r;		
+	}
+	private KillableRunnable[] level_18(){
+		KillableRunnable[] r =
 			{
 				boss5(),
 				doNothing(),
 				doNothing()
-			}
+			};
+		return r;		
+	}
+	
+	public KillableRunnable[][] levels(){
+		KillableRunnable[][] r = {
+
+				level_1(),
+				level_2(),
+				level_3(),
+				level_4(),
+				level_5(),
+				level_6(),
+				level_7(),
+				level_8(),
+				level_9(),
+				level_10(),
+				level_11(),
+				level_12(),
+				level_13(),
+				level_14(),
+				level_15(),
+				level_16(),
+				level_17(),
+				level_18()
 		};
+		return r;
+	}
 	
 	
 }
