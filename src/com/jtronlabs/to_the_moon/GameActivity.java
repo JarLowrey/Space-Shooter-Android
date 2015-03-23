@@ -313,13 +313,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				case R.id.btn_shoot:					
 					protagonist.stopShooting();	
 					
-
-					KillableRunnable canShootAgainRunnable = new KillableRunnable(){//only one of these should ever be posted at a time
-						@Override
-						public void doWork() {	canBeginShooting=true;beginShootingRunnablePosted=false;	}	};
-					
 					if( ! beginShootingRunnablePosted){
-						protagonist.postDelayed(canShootAgainRunnable,(long)ProtagonistView.DEFAULT_BULLET_FREQ);
+						protagonist.postDelayed(new KillableRunnable(){
+							@Override
+							public void doWork() {	
+								canBeginShooting=true;beginShootingRunnablePosted=false;	
+							}	
+						},(long)ProtagonistView.DEFAULT_BULLET_FREQ);
 						beginShootingRunnablePosted=true;
 					}
 					

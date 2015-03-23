@@ -37,7 +37,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		myGame=interactWithGame;
 		
-		this.post(exhaustRunnable);
+		this.post(exhaustRunnable());
 
 		//apply upgrades
 		final float freq = getShootingDelay();
@@ -56,29 +56,32 @@ public class ProtagonistView extends Friendly_ShooterView{
 	 
 	private int count = 0;
     
-	KillableRunnable exhaustRunnable = new KillableRunnable(){
-    	 @Override
-         public void doWork() {
-				GameActivityInterface screen = (GameActivityInterface) getContext();
-				if( ( count* ProtagonistView.HOW_OFTEN_TO_MOVE )  <EXHAUST_VISIBLE_TIME){
-					screen.getExhaust().setVisibility(View.VISIBLE);					
-		    		 //position the exhaust
-					final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
-					final float averageRocketsX= (2 * ProtagonistView.this.getX()+ProtagonistView.this.getWidth() )/2;//find average of rocket's left and right x pos
-					final float x = averageRocketsX-screen.getExhaust().getLayoutParams().width /2;//fire's new X pos should set the middle of fire to middle of rocket
-					screen.getExhaust().setY(y);
-					screen.getExhaust().setX(x);
-					count++;
-
-					ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE / 2,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
-				
-				}else{
-					count=0;
-					screen.getExhaust().setVisibility(View.GONE);					
-					ConditionalHandler.postIfAlive(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()),ProtagonistView.this);//repost this to a random time in the future
-				}
-         }
-    };
+	private KillableRunnable exhaustRunnable(){
+		final long howOftenExhaustMoves = (ProtagonistView.HOW_OFTEN_TO_MOVE/2);
+		return new KillableRunnable(){
+	    	 @Override
+	         public void doWork() {
+					GameActivityInterface screen = (GameActivityInterface) getContext();
+					if( ( count* howOftenExhaustMoves)  < EXHAUST_VISIBLE_TIME){
+						screen.getExhaust().setVisibility(View.VISIBLE);					
+			    		 //position the exhaust
+						final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
+						final float averageRocketsX= (2 * ProtagonistView.this.getX()+ProtagonistView.this.getWidth() )/2;//find average of rocket's left and right x pos
+						final float x = averageRocketsX-screen.getExhaust().getLayoutParams().width /2;//fire's new X pos should set the middle of fire to middle of rocket
+						screen.getExhaust().setY(y);
+						screen.getExhaust().setX(x);
+						count++;
+	
+						ConditionalHandler.postIfAlive(this,howOftenExhaustMoves,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
+					
+					}else{
+						count=0;
+						screen.getExhaust().setVisibility(View.GONE);					
+						ConditionalHandler.postIfAlive(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()),ProtagonistView.this);//repost this to a random time in the future
+					}
+	         }
+	    };
+	}
 	
 	@Override
 	public void heal(int howMuchHealed){
@@ -119,7 +122,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	@Override
 	public void restartThreads(){
-		this.post(exhaustRunnable);
+		this.post(exhaustRunnable());
 		super.restartThreads();
 	}
 	
