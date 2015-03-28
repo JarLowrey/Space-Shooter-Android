@@ -2,6 +2,7 @@ package enemies;
  
 import support.KillableRunnable;
 import android.content.Context;
+import android.util.Log;
 import bullets.Bullet_Basic_LaserLong;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -14,7 +15,7 @@ import guns.Gun_SingleShotStraight;
 public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	public static int DEFAULT_BACKGROUND = R.drawable.ship_enemy_pause_and_shoot,
-			DEFAULT_HEALTH=ProtagonistView.UPGRADE_BULLET_DAMAGE*5,
+			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*5,
 			DEFAULT_SCORE=100;
 	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
@@ -23,7 +24,8 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	public Shooting_PauseAndMove (Context context) {
 		super(context,DEFAULT_SCORE,
-				DEFAULT_SPEED_Y,0,
+				DEFAULT_SPEED_Y,
+				0,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
@@ -31,6 +33,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 				(int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_height), 
 				DEFAULT_BACKGROUND);
 
+		Log.d("lowrey","health = "+this.getHealth());
 		init( (int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_width) );
 	}
 	

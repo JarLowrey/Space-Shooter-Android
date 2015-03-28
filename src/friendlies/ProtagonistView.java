@@ -45,9 +45,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 		createGunSet(freq,dmg,getGunLevel());
 		applyDefenceUpgradeToProtagonist();
 		this.killMoveRunnable();
-//		addGun(new Gun_AngledDualShot(context, this, new Bullet_Basic_LaserLong(), 
-//				freq, Friendly_ShooterView.DEFAULT_BULLET_SPEED_Y, dmg, 50
-//				));
+		addGun(new Gun_AngledDualShot(context, this, new Bullet_Basic_LaserLong(), 
+				freq, Friendly_ShooterView.DEFAULT_BULLET_SPEED_Y, dmg, 50
+				));
 	}
 	
 	
