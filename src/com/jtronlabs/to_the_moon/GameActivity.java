@@ -315,7 +315,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					
 					if( ! beginShootingRunnablePosted){
 						protagonist.postDelayed(new KillableRunnable(){
-							@Override
+							@Override 
 							public void doWork() {	
 								canBeginShooting=true;beginShootingRunnablePosted=false;	
 							}	

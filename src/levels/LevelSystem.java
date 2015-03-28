@@ -132,7 +132,7 @@ public class LevelSystem extends Levels{
 		//check if user has lost game, beaten game, or beaten the level. 
 		if(getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
 			getInteractivityInterface().lostGame();
-		}else if( getLevel() > getMaxLevel() ){
+		}else if( getLevel() == getMaxLevel() ){
 			getInteractivityInterface().beatGame();
 		}else{
 			getInteractivityInterface().openStore();
