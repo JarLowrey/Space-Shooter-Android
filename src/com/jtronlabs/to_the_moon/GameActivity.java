@@ -4,16 +4,22 @@ import friendlies.ProtagonistView;
 import interfaces.GameActivityInterface;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import levels.LevelSystem;
 import support.KillableRunnable;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -159,25 +165,31 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void lostGame(){
-		KillableRunnable.killAll();
-		levelCreator.pauseLevel();
-		resetSavedVariables();
+		gameOver();
 		
 		healthBar.setProgress(0);
 		
-		//TESTING
-		finish();
-		Toast.makeText(this, "you suck...", Toast.LENGTH_LONG).show();
+		TextView title = (TextView)findViewById(R.id.gameOverTitle);
+		title.setText("GAME OVER");
 	}
 	
 	public void beatGame(){
+		gameOver();
+
+		TextView title = (TextView)findViewById(R.id.gameOverTitle);
+		title.setText("WINNER");
+	}
+	
+	private void gameOver(){
 		KillableRunnable.killAll();
 		levelCreator.pauseLevel();
 		resetSavedVariables();
 		
-		//TESTING
-		Toast.makeText(this, "winner winner chicken dinner", Toast.LENGTH_LONG).show();
-		finish();
+		RelativeLayout gameOverLayout = (RelativeLayout)findViewById(R.id.gameOverWindow);
+		gameOverLayout.setVisibility(View.VISIBLE);
+		
+		gameLayout.setVisibility(View.GONE);
+		storeLayout.setVisibility(View.GONE);
 	}
 	
 	/**
@@ -367,10 +379,52 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					break;
 			}
 			break;
+		case R.id.gameOverAccept:
+			finish();
+			break;
+		case R.id.gameOverShare:
+			final String[] sharingTargets = {"face","twit","whats","chat","sms","mms","plus","email","gmail"};
+			
+			List<Intent> targetedShareIntents = new ArrayList<Intent>();
+			for(int i=0;i<sharingTargets.length;i++){
+				Intent thisShareIntent = getShareIntent(this,sharingTargets[i]);
+				if(thisShareIntent != null){targetedShareIntents.add(thisShareIntent);}
+			}
+			Intent chooser = Intent.createChooser(targetedShareIntents.remove(0), "Share via");
+			chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+			this.startActivity(chooser);
+	
+			break;
 		}
 		return false;//do not consume event, allow buttons to receive the touch as well
 	}
-	
+	private Intent getShareIntent(Context ctx,String type){
+		boolean found = false;
+		Intent share = new Intent(android.content.Intent.ACTION_SEND);
+		share.setType("text/plain");
+		// gets the list of intents that can be loaded.
+		List<ResolveInfo> resInfo = ctx.getPackageManager().queryIntentActivities(share, 0);
+		System.out.println("resinfo: " + resInfo);
+		if (!resInfo.isEmpty()){
+			for (ResolveInfo info : resInfo) {
+				if (info.activityInfo.packageName.toLowerCase().contains(type) ||
+						info.activityInfo.name.toLowerCase().contains(type) ) {
+					if(!type.equals("mms")){
+						share.putExtra(Intent.EXTRA_SUBJECT, this.getResources().getString(R.string.app_name) );
+					}
+					share.putExtra(Intent.EXTRA_TEXT, "I beat " + this.getResources().getString(R.string.app_name)+ "!!");
+					found = true;
+					share.setPackage(info.activityInfo.packageName);
+					break;
+				}
+			}
+			if (!found)
+				return null;
+			return share;
+			}
+		return null;
+		}
+
 	private void confirmUpgradeDialog(final int whichUpgrade){
 		String msg="";
 		int cost=0;

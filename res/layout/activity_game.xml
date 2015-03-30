@@ -285,5 +285,147 @@
 		    android:text="Next Level" />
 	    
 	    </RelativeLayout>
+	    
+   
+		<!-- GAME OVER SCREEN -->
+			<RelativeLayout
+				android:id="@+id/gameOverWindow"
+				android:visibility="gone"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+			>
+			<!-- GAME OVER title -->
+				<TextView
+					style="@style/VeryLargeText"
+					android:id="@+id/gameOverTitle"
+					android:textColor="@color/light_blue"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"
+					android:layout_above="@+id/gameOverMiddleContent"
+					android:paddingBottom="30dp"
+					android:text="GAME OVER"
+				/>
+			<!-- The middle screen shows score, best, and average response -->
+			<!-- 
+				<RelativeLayout
+					android:id="@+id/gameOverMiddleContent"
+					android:background="@drawable/gameover_background"
+					android:layout_centerInParent="true"
+					android:layout_width="@dimen/game_over_dialog_width"
+					android:layout_height="@dimen/game_over_dialog_height"
+					>
+					<ImageView
+						android:layout_marginLeft="15dp"
+						android:id="@+id/gameoverMedal"
+						android:layout_width="@dimen/medal_len"
+						android:layout_height="@dimen/medal_len"
+						android:layout_alignParentLeft="true"
+						android:layout_centerVertical="true"/>
+					<RelativeLayout
+						android:id="@+id/gameOverViewsOnRight"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_marginRight="20dp"
+						android:layout_marginTop="20dp"
+						android:layout_marginBottom="20dp">
+						<RelativeLayout
+							android:id="@+id/gameoverCurrentScore"
+							android:layout_alignParentLeft="true"
+							android:layout_alignParentTop="true"
+							android:layout_width="@dimen/game_over_score_width"
+							android:layout_height="wrap_content"
+						>
+						<TextView
+							style="@style/GameText"
+							android:id="@+id/gameOverCurrentScoreTitle"
+							android:textColor="@color/light_yellow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="SCORE"
+						/>
+						<TextView
+							android:id="@+id/gameOverCurrentScoreValue"
+							style="@style/GameText"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_alignRight="@+id/gameOverCurrentScoreTitle"
+							android:layout_below="@+id/gameOverCurrentScoreTitle"
+							android:text="1" />
+						</RelativeLayout>
+						<RelativeLayout
+							android:id="@+id/gameoverBestScore"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_alignParentRight="true"
+							android:layout_alignParentTop="true"
+							>
+						<TextView
+							style="@style/GameText"
+							android:id="@+id/gameOverBestScoreTitle"
+							android:textColor="@color/light_yellow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_alignParentRight="true"
+							android:text="BEST"
+							/>
+						<TextView
+							android:id="@+id/gameOverBestScoreValue"
+							style="@style/GameText"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_alignParentRight="true"
+							android:layout_below="@+id/gameOverBestScoreTitle"
+							android:text="2" />
+					</RelativeLayout>
+					<RelativeLayout
+						android:layout_width="@dimen/game_over_response_time_width"
+						android:layout_height="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentBottom="true">
+					<TextView
+						android:id="@+id/gameOverAvgTimeTitle"
+						android:textColor="@color/light_yellow"
+						style="@style/GameText"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:text="AVG RESPONSE" />
+					<TextView
+						android:id="@+id/gameOverAvgTimeValue"
+						style="@style/GameText"
+						android:layout_width="wrap_content"
+						android:layout_below="@+id/gameOverAvgTimeTitle"
+						android:layout_alignParentRight="true"
+						android:text="#.##"/>
+					</RelativeLayout>
+				</RelativeLayout>
+			</RelativeLayout>
+			-->
+					<!-- share/exit buttons -->
+					<RelativeLayout
+						android:id="@+id/gameOverViewsOnBottom"
+						android:layout_width="@dimen/game_over_btns_width"
+						android:layout_height="wrap_content"
+						android:layout_centerHorizontal="true"
+						android:layout_marginTop="30dp"
+						android:layout_below="@+id/gameOverMiddleContent" >
+					<Button
+						android:id="@+id/gameOverAccept"
+						android:layout_width="@dimen/ic_med"
+						android:layout_height="@dimen/ic_med"
+						android:layout_alignParentLeft="true"
+						android:background="@drawable/ic_action_accept" />
+					<Button
+						android:id="@+id/gameOverShare"
+						android:layout_width="@dimen/ic_med"
+						android:layout_height="@dimen/ic_med"
+						android:layout_alignParentRight="true"
+						android:background="@drawable/ic_share" />
+			</RelativeLayout>
+	</RelativeLayout>  
+<!-- End of Game over screen -->
+
 
 </RelativeLayout>

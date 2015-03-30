@@ -99,4 +99,11 @@
 	    <dimen name="title_outline_size">3dp</dimen>
 	    
 	    <dimen name="ad_banner_margin">130dp</dimen>
+	    
+	    
+		<dimen name="game_over_score_width">140dp</dimen>
+		<dimen name="game_over_response_time_width">180dp</dimen>
+		<dimen name="game_over_btns_width">210dp</dimen>
+		<dimen name="game_over_dialog_width">290dp</dimen>
+		<dimen name="game_over_dialog_height">220dp</dimen>
 </resources>
