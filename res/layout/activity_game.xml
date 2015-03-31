@@ -307,7 +307,6 @@
 					android:text="GAME OVER"
 				/>
 			<!-- The middle screen shows score, best, and average response -->
-			<!-- 
 				<RelativeLayout
 					android:id="@+id/gameOverMiddleContent"
 					android:background="@drawable/gameover_background"
@@ -315,6 +314,7 @@
 					android:layout_width="@dimen/game_over_dialog_width"
 					android:layout_height="@dimen/game_over_dialog_height"
 					>
+	        <!-- 
 					<ImageView
 						android:layout_marginLeft="15dp"
 						android:id="@+id/gameoverMedal"
@@ -401,8 +401,8 @@
 						android:text="#.##"/>
 					</RelativeLayout>
 				</RelativeLayout>
-			</RelativeLayout>
 			-->
+			</RelativeLayout>
 					<!-- share/exit buttons -->
 					<RelativeLayout
 						android:id="@+id/gameOverViewsOnBottom"
@@ -411,18 +411,20 @@
 						android:layout_centerHorizontal="true"
 						android:layout_marginTop="30dp"
 						android:layout_below="@+id/gameOverMiddleContent" >
-					<Button
+					<ImageButton
 						android:id="@+id/gameOverAccept"
 						android:layout_width="@dimen/ic_med"
 						android:layout_height="@dimen/ic_med"
 						android:layout_alignParentLeft="true"
-						android:background="@drawable/ic_action_accept" />
-					<Button
+						android:background="@drawable/ic_white_background"
+						android:src="@drawable/ic_action_accept" />
+					<ImageButton
 						android:id="@+id/gameOverShare"
 						android:layout_width="@dimen/ic_med"
 						android:layout_height="@dimen/ic_med"
 						android:layout_alignParentRight="true"
-						android:background="@drawable/ic_share" />
+						android:background="@drawable/ic_white_background"
+						android:src="@drawable/ic_share" />
 			</RelativeLayout>
 	</RelativeLayout>  
 <!-- End of Game over screen -->

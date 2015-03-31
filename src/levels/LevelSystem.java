@@ -133,7 +133,7 @@ public class LevelSystem extends Levels{
 		if(getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
 			getInteractivityInterface().lostGame();
 		}else if( getLevel() == getMaxLevel() ){
-			getInteractivityInterface().beatGame();
+			getInteractivityInterface().beatGame(); 
 		}else{
 			getInteractivityInterface().openStore();
 		}

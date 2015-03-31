@@ -101,6 +101,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		btnPurchaseFriend= (ImageButton)findViewById(R.id.btn_purchase_friend); 
 		btnNextLevel= (ImageButton)findViewById(R.id.start_next_level); 
 		
+		//Set up misc views and listeners
+		Button accept = (Button)findViewById(R.id.gameOverAccept);
+		accept.setOnTouchListener(this);
+		Button share = (Button)findViewById(R.id.gameOverShare);
+		share.setOnTouchListener(this);
+		
 		btnIncBulletDmg.setOnTouchListener(this); 
 		btnIncBulletVerticalSpeed.setOnTouchListener(this); 
 		btnIncBulletFreq.setOnTouchListener(this); 
@@ -377,23 +383,23 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					     .show();
 					}
 					break;
-			}
-			break;
-		case R.id.gameOverAccept:
-			finish();
-			break;
-		case R.id.gameOverShare:
-			final String[] sharingTargets = {"face","twit","whats","chat","sms","mms","plus","email","gmail"};
+				case R.id.gameOverAccept:
+					finish();
+					break;
+				case R.id.gameOverShare:
+					final String[] sharingTargets = {"face","twit","whats","chat","sms","mms","plus","email","gmail"};
+					
+					List<Intent> targetedShareIntents = new ArrayList<Intent>();
+					for(int i=0;i<sharingTargets.length;i++){
+						Intent thisShareIntent = getShareIntent(this,sharingTargets[i]);
+						if(thisShareIntent != null){targetedShareIntents.add(thisShareIntent);}
+					}
+					Intent chooser = Intent.createChooser(targetedShareIntents.remove(0), "Share via");
+					chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+					this.startActivity(chooser);
 			
-			List<Intent> targetedShareIntents = new ArrayList<Intent>();
-			for(int i=0;i<sharingTargets.length;i++){
-				Intent thisShareIntent = getShareIntent(this,sharingTargets[i]);
-				if(thisShareIntent != null){targetedShareIntents.add(thisShareIntent);}
+					break;
 			}
-			Intent chooser = Intent.createChooser(targetedShareIntents.remove(0), "Share via");
-			chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
-			this.startActivity(chooser);
-	
 			break;
 		}
 		return false;//do not consume event, allow buttons to receive the touch as well
@@ -404,7 +410,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		share.setType("text/plain");
 		// gets the list of intents that can be loaded.
 		List<ResolveInfo> resInfo = ctx.getPackageManager().queryIntentActivities(share, 0);
-		System.out.println("resinfo: " + resInfo);
+//		System.out.println("resinfo: " + resInfo);
 		if (!resInfo.isEmpty()){
 			for (ResolveInfo info : resInfo) {
 				if (info.activityInfo.packageName.toLowerCase().contains(type) ||
