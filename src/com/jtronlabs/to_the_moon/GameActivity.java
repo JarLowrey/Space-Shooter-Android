@@ -102,9 +102,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		btnNextLevel= (ImageButton)findViewById(R.id.start_next_level); 
 		
 		//Set up misc views and listeners
-		Button accept = (Button)findViewById(R.id.gameOverAccept);
+		ImageButton accept = (ImageButton)findViewById(R.id.gameOverAccept);
 		accept.setOnTouchListener(this);
-		Button share = (Button)findViewById(R.id.gameOverShare);
+		ImageButton share = (ImageButton)findViewById(R.id.gameOverShare);
 		share.setOnTouchListener(this);
 		
 		btnIncBulletDmg.setOnTouchListener(this); 
