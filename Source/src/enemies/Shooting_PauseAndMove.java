@@ -15,7 +15,7 @@ import guns.Gun_SingleShotStraight;
 public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	public static int DEFAULT_BACKGROUND = R.drawable.ship_enemy_pause_and_shoot,
-			DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*5,
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*4.5),
 			DEFAULT_SCORE=100;
 	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
