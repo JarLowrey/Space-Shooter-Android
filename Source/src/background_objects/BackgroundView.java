@@ -26,3 +26,4 @@ public class BackgroundView extends MovingView{
 		super.deaultCleanupOnRemoval();
 	}
 }
+ 
