@@ -93,7 +93,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCount = (TextView)findViewById(R.id.level_count);
 		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
 		btnIncBulletDmg= (ImageButton)findViewById(R.id.btn_inc_bullet_dmg); 
-		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_defence); 
+		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_defence);  
 		btnIncBulletFreq= (ImageButton)findViewById(R.id.btn_inc_bullet_freq); 
 		btnIncScoreWeight= (ImageButton)findViewById(R.id.btn_inc_score_weight); 
 		btnNewGun= (ImageButton)findViewById(R.id.btn_new_gun); 
