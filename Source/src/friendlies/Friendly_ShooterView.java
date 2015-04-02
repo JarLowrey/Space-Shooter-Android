@@ -75,7 +75,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			break;
 		case 4:
 			this.addGun( new Gun_AngledDualShot(getContext(), this, new Bullet_Basic_LaserShort(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
-			this.addGun( new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
+			this.addGun( new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_Missile(),freq,DEFAULT_BULLET_SPEED_Y,dmg*2,50) );
 			break;
 		}
 	}
