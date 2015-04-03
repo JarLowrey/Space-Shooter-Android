@@ -13,7 +13,7 @@ public interface GameActivityInterface {
 	public void incrementScore(int score);
 	public ProtagonistView getProtagonist();
 	
-	public void changeGameBackground(int newBackgroundId);
+//	public void changeGameBackground(int newBackgroundId); 
 	public void removeView(ImageView view);
 	public void addToForeground(ImageView view);
 	public void addToBackground(ImageView view);

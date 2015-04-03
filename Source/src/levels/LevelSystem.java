@@ -51,7 +51,7 @@ public class LevelSystem extends Levels{
 		Log.d("lowrey","level resumed!!!");
 		// conditionalHandler = new ConditionalHandler(this);//must be reset
 		// every time level is resumed for previous wave spawnings to stop
-		createBackgroundEffects();
+//		createBackgroundEffects();
 
 		/*
 		 * Waves are a series of runnables. each runnable increments progress in
@@ -138,56 +138,51 @@ public class LevelSystem extends Levels{
 			getInteractivityInterface().openStore();
 		}
 	}
-
-	//
-	// public ConditionalHandler getConditionalHandler(){
-	// return this.conditionalHandler;
-	// }
-
-	// Background Animations and effects
-	private final int[] backgroundColors = { R.color.blue, R.color.dark_blue,
-			R.color.very_dark_blue };
-
-	private void createBackgroundEffects() {
-		if (getLevel() < 3) {
-			new Sun(ctx);
-
-			for (int i = 0; i < 12 / (getLevel() + 1); i++) {
-				Clouds a = new Clouds(ctx);
-				Clouds b = new Clouds(ctx);
-				a.setY((float) (MainActivity.getHeightPixels() * Math.random()));
-				b.setY((float) (MainActivity.getHeightPixels() * Math.random()));
-			}
-
-			spawningHandler.post( clouds() );
-			// this.conditionalHandler.postIfLevelResumed(clouds);
-		}
-		if (getLevel() >= backgroundColors.length) {
-			this.getInteractivityInterface()
-					.changeGameBackground(R.color.black);
-		} else {
-			this.getInteractivityInterface().changeGameBackground(
-					backgroundColors[getLevel()]);
-		}
-	}
-
-	private KillableRunnable clouds(){
-		return new KillableRunnable() {
-			@Override
-			public void doWork() {
-				if (Math.random() < .5) {
-					new Bird(ctx);
-				}
-				if (Math.random() < .5) {
-					new Clouds(ctx);
-				}
-				new Bird(ctx);
-				new Clouds(ctx);
-	
-				spawningHandler.postDelayed(this, 4000 * (getLevel() + 1));
-				// conditionalHandler.postIfLevelResumed(this, 4000*(getLevel()+1));
-			}
-		};
-	}
+//	
+//	// Background Animations and effects
+//	private final int[] backgroundColors = { R.color.blue, R.color.dark_blue,
+//			R.color.very_dark_blue };
+//
+//	private void createBackgroundEffects() {
+//		if (getLevel() < 3) {
+//			new Sun(ctx);
+//
+//			for (int i = 0; i < 12 / (getLevel() + 1); i++) {
+//				Clouds a = new Clouds(ctx);
+//				Clouds b = new Clouds(ctx);
+//				a.setY((float) (MainActivity.getHeightPixels() * Math.random()));
+//				b.setY((float) (MainActivity.getHeightPixels() * Math.random()));
+//			}
+//
+//			spawningHandler.post( clouds() );
+//			// this.conditionalHandler.postIfLevelResumed(clouds);
+//		}
+////		if (getLevel() >= backgroundColors.length) {
+////			this.getInteractivityInterface()
+////					.changeGameBackground(R.color.black);
+////		} else {
+////			this.getInteractivityInterface().changeGameBackground(
+////					backgroundColors[getLevel()]);
+////		}
+//	}
+//
+//	private KillableRunnable clouds(){
+//		return new KillableRunnable() {
+//			@Override
+//			public void doWork() {
+//				if (Math.random() < .5) {
+//					new Bird(ctx);
+//				}
+//				if (Math.random() < .5) {
+//					new Clouds(ctx);
+//				}
+//				new Bird(ctx);
+//				new Clouds(ctx);
+//	
+//				spawningHandler.postDelayed(this, 4000 * (getLevel() + 1));
+//				// conditionalHandler.postIfLevelResumed(this, 4000*(getLevel()+1));
+//			}
+//		};
+//	}
 
 }

@@ -22,7 +22,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="44dp"
-        android:background="@drawable/btn_blue"
+        android:background="@drawable/btn_gray"
         android:text="Next" />
 
 </RelativeLayout>

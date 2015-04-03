@@ -6,7 +6,7 @@ import android.content.Context;
 public class Levels extends Factory_Bosses{
 	
 	private int numLevels;
-	private int[] wavesInEachLevel;
+	private int[] wavesInEachLevel; 
 	
 	public Levels(Context context) {
 		super(context);

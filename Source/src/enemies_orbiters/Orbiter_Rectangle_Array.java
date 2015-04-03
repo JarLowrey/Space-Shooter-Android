@@ -16,7 +16,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			DEFAULT_NUM_COLS=5, //6
 			DEFAULT_SCORE = 50,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter,
-			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*2.5);
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*2.2);
 	
 	public final static boolean DEFAULT_STAGGERED=false;
 	
@@ -31,7 +31,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 	
 	// Constantly move all instances of this class in a square shape
 	private static boolean staggered = false;
-	private static int numRows,
+	private static int numRows, 
 			numCols;
 
 	private int myPosition;

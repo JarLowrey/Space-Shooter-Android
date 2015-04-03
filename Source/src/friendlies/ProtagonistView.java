@@ -42,7 +42,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		//apply upgrades
 		final float freq = getShootingDelay();
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
-		createGunSet(freq,dmg,getGunLevel());
+		createGunSet(freq,dmg,getGunLevel()); 
 		applyDefenceUpgradeToProtagonist();
 		this.killMoveRunnable();
 //		addGun(new Gun_AngledDualShot(context, this, new Bullet_Basic_LaserLong(), 

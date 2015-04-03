@@ -49,8 +49,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //			STATE_WAVE="wave";
 	
 //	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown;
-	private ImageButton btnMove;
-	private Button btnShoot;
+	private ImageButton btnMove,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
 	private TextView resourceCount,healthCount,levelCount;
@@ -58,11 +57,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public ProtagonistView protagonist;
 	public ImageView rocketExhaust;
 	private RelativeLayout gameLayout,storeLayout;
-
-	//MODEL
+   
+	//MODEL     
 	private LevelSystem levelCreator;
 	
-	@Override
+	@Override       
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
@@ -74,7 +73,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //		btnMoveUp = (Button)findViewById(R.id.btn_move_up);
 //		btnMoveDown = (Button)findViewById(R.id.btn_move_down);
 	    btnMove = (ImageButton)findViewById(R.id.btn_move);
-		btnShoot = (Button)findViewById(R.id.btn_shoot);
+		btnShoot = (ImageButton)findViewById(R.id.btn_shoot);
 //		btnMoveUp.setOnTouchListener(this);
 //		btnMoveDown.setOnTouchListener(this);
 //		btnMoveLeft.setOnTouchListener(this);
@@ -527,10 +526,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		healthBar.setMax(max);
 		healthBar.setProgress(progress);
 	}
-	@Override
-	public void changeGameBackground(int newBackgroundId) {
-		this.gameLayout.setBackgroundResource(newBackgroundId);
-	}
+//	@Override
+//	public void changeGameBackground(int newBackgroundId) {
+//		this.gameLayout.setBackgroundResource(newBackgroundId);
+//	}
 	@Override
 	public ImageView getExhaust(){
 		return this.rocketExhaust;

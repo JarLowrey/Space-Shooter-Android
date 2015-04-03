@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/star_standalone"
     tools:context="${relativePackage}.${activityClass}" >
     
     
@@ -28,76 +29,39 @@
 	        android:layout_height="@dimen/control_panel_height"
 	        android:background="@drawable/control_panel_background"
 		    android:layout_alignParentBottom="true" >
-	       				
-			<Button
-			    android:id="@+id/btn_shoot"
-			    android:layout_width="@dimen/btn_shoot_width"
-			    android:layout_height="@dimen/btn_large_len"
-			    android:visibility="visible"
-				android:layout_centerVertical="true"
-				android:layout_alignParentRight="true"
-				android:layout_marginRight="@dimen/activity_margin_large"
-			    android:background="@drawable/btn_red" />
-			
+	       	
 		    <ProgressBar
 		        android:id="@+id/health_bar"
 		        style="?android:attr/progressBarStyleHorizontal"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 				android:layout_alignParentTop="true" />
-				
-		    <ImageButton 
-			    android:id="@+id/btn_move"
-			    android:src="@drawable/arrow_move"
-				android:layout_below="@+id/health_bar"
-			    android:layout_width="100dp"
-			    android:layout_height="100dp"
-				android:layout_centerVertical="true"
-				android:layout_marginLeft="@dimen/activity_margin_large"
-			    android:background="@drawable/btn_red"    />
-		    <!-- 
-		    <RelativeLayout
-		        android:id="@+id/move_btns"
-				android:layout_below="@+id/health_bar"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-				android:layout_marginLeft="@dimen/activity_margin_small">
-				
-					<Button
-					    android:id="@+id/btn_move_left"
-					    android:layout_width="@dimen/btn_move_len"
-					    android:layout_height="@dimen/btn_move_len"
-						android:layout_centerVertical="true"			
-						android:layout_alignParentLeft="true"
-					    android:background="@drawable/btn_red" />
-				
-					<Button
-					    android:id="@+id/btn_move_right"
-					    android:layout_width="@dimen/btn_move_len"
-					    android:layout_height="@dimen/btn_move_len"
-						android:layout_centerVertical="true"			    
-						android:layout_toRightOf="@+id/btn_move_up"
-					    android:background="@drawable/btn_red" />
-					
-					
-					<Button
-					    android:id="@+id/btn_move_up"
-					    android:layout_width="@dimen/btn_move_len"
-					    android:layout_height="@dimen/btn_move_len"
-						android:layout_toRightOf="@+id/btn_move_left"
-					    android:background="@drawable/btn_red" />
-					
-					
-					<Button
-					    android:id="@+id/btn_move_down"
-					    android:layout_width="@dimen/btn_move_len"
-					    android:layout_height="@dimen/btn_move_len"
-						android:layout_toRightOf="@+id/btn_move_left"
-						android:layout_alignParentBottom="true"
-					    android:background="@drawable/btn_red" />
-					</RelativeLayout>
-   		-->
 		    
+		    <RelativeLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_centerVertical="true"
+		        android:paddingTop="@dimen/activity_margin_small"
+		        android:paddingLeft="@dimen/activity_margin_med"
+		        android:paddingRight="@dimen/activity_margin_med">
+			    
+				<ImageButton
+				    android:id="@+id/btn_shoot"
+				    android:layout_width="@dimen/btn_shoot_width"
+				    android:layout_height="@dimen/btn_large_len"
+					android:layout_alignParentRight="true"
+		  			android:scaleType="fitCenter"  
+		  			android:adjustViewBounds="true"  
+					android:src="@drawable/lightning"
+				    android:background="@drawable/btn_gray" />
+					
+			    <ImageButton 
+				    android:id="@+id/btn_move"
+					android:layout_alignParentLeft="true"
+				    android:layout_width="100dp"
+				    android:layout_height="@dimen/btn_large_len"
+				    android:background="@drawable/btn_gray"    />
+		    </RelativeLayout>
    		</RelativeLayout>
     </RelativeLayout>
     
@@ -107,7 +71,6 @@
    <RelativeLayout
         android:id="@+id/store_layout"
         android:layout_width="match_parent"
-        android:background="@color/black"
         android:layout_height="match_parent"
         android:visibility="gone">
         
