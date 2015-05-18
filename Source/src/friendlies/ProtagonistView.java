@@ -1,16 +1,14 @@
 package friendlies;
 
 import guns.Gun;
-import guns.Gun_AngledDualShot;
 import interfaces.GameActivityInterface;
-import interfaces.Shooter;
 import support.ConditionalHandler;
 import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
-import bullets.Bullet_Basic_LaserLong;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -42,7 +40,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		//apply upgrades
 		final float freq = getShootingDelay();
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
-		createGunSet(freq,dmg,getGunLevel()); 
+		createGunSet(freq,dmg,getGunLevel());
 		applyDefenceUpgradeToProtagonist();
 		this.killMoveRunnable();
 //		addGun(new Gun_AngledDualShot(context, this, new Bullet_Basic_LaserLong(), 

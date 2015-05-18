@@ -35,6 +35,8 @@ import android.widget.Toast;
 public class GameActivity extends Activity implements OnTouchListener, GameActivityInterface{
 
 	private static int offscreenBottom;
+
+	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
 	
 	public static final String GAME_STATE_PREFS = "GameStatePrefs",
 			STATE_HEALTH="health",
@@ -151,6 +153,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public void onResume(){
 		super.onResume(); 
 		
+		//allow shooting to begin after resuming from any pause
+		canBeginShooting=true;
+		beginShootingRunnablePosted=false;
+		
 		//I have NO IDEA why, but enemies can exist onResume(). These enemies are gone onPause(), and all debugging has failed thus 
 		//far. Simple workaround is to remove these misplaced enemies
 		for(int i=levelCreator.enemies.size()-1;i>=0;i--){
@@ -245,8 +251,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
 		
 	}
-
-	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
 	/**
 	 * 
 	 * @param left
