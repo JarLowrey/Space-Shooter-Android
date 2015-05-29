@@ -1,5 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
+import friendlies.AllyView;
 import friendlies.ProtagonistView;
 import interfaces.GameActivityInterface;
 
@@ -24,7 +25,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -57,6 +57,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private TextView resourceCount,healthCount,levelCount;
 	private ProgressBar healthBar;
 	public ProtagonistView protagonist;
+	private AllyView ally;
 	public ImageView rocketExhaust;
 	private RelativeLayout gameLayout,storeLayout;
    
@@ -162,11 +163,18 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		for(int i=levelCreator.enemies.size()-1;i>=0;i--){
 			levelCreator.enemies.get(i).removeGameObject();
 		}
-
 				
 		levelCreator.loadScoreAndWaveAndLevel();//need to reload variables first thing
-		recreateFriendlies();			
 		
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		
+		//create protagonist View & restore his state
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		protagonist.setY( protagonistPosition );
+		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
+		
+		//don't open the store up on the initial level
 		if(levelCreator.getLevel()==0){
 			levelCreator.resumeLevel();
 		}else{
@@ -193,7 +201,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	
 	private void gameOver(){
 		KillableRunnable.killAll();
-		levelCreator.pauseLevel();
+		levelCreator.pauseLevel(); 
 		resetSavedVariables();
 		
 		RelativeLayout gameOverLayout = (RelativeLayout)findViewById(R.id.gameOverWindow);
@@ -223,7 +231,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		editor.putInt(STATE_LEVEL, 0);		//reset level properties
 		
 		editor.commit();
-	}
+	} 
 	
 	public void openStore(){
 		gameLayout.setVisibility(View.GONE);
@@ -232,6 +240,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCount.setText("Days In Space : "+ levelCreator.getLevel() );
 		final int health =  (int) ((protagonist.getHealth()+0.0) /protagonist.getMaxHealth() * 100);
 		healthCount.setText("Hull : "+ health +"%");
+		
+		//ally needs to be removed at end of each level so it can be recreated at beginning of the next level
+		if(ally != null){
+			ally.removeGameObject();
+			ally = null;
+		}
 	}
 	
 	private void closeStoreAndResumeLevel(){
@@ -239,18 +253,16 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		gameLayout.setVisibility(View.VISIBLE);
 
 		levelCreator.resumeLevel();
+		
+		//create ally if needed		
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		int friend_lvl = gameState.getInt(STATE_FRIEND_LEVEL,0);
+		if(friend_lvl > 0 && ( ally==null || ally.isRemoved() ) ){
+			new AllyView(GameActivity.this, protagonist, friend_lvl);
+		}
+		Log.d("lowrey","friend level = "+friend_lvl);
 	}
 	
-	private void recreateFriendlies(){
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
-		
-		//create protagonist View & restore his state
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
-		protagonist.setY( protagonistPosition );
-		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
-		
-	}
 	/**
 	 * 
 	 * @param left
@@ -291,18 +303,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				final float[] percentXY_2 = percentXYAwayFromMidPoint(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
 				protagonist.beginMoving(percentXY_2[0],percentXY_2[1]);
 				break;
-//				case R.id.btn_move_left:
-//					protagonist.beginMoving(Moving_ProjectileView.LEFT);
-//					break;  
-//				case R.id.btn_move_right:
-//					protagonist.beginMoving(Moving_ProjectileView.RIGHT);
-//					break;
-//				case R.id.btn_move_up:
-//					protagonist.beginMoving(Moving_ProjectileView.UP);
-//					break;
-//				case R.id.btn_move_down:
-//					protagonist.beginMoving(Moving_ProjectileView.DOWN);
-//					break;
 				case R.id.btn_shoot:
 						
 					if(canBeginShooting){
@@ -319,32 +319,20 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			case R.id.btn_move:
 				protagonist.stopMoving();
 				break;
-//				case R.id.btn_move_left:
-//						protagonist.stopMoving();
-//					break; 
-//				case R.id.btn_move_right:
-//						protagonist.stopMoving();
-//					break;
-//				case R.id.btn_move_up:
-//					protagonist.stopMoving();
-//					break; 
-//				case R.id.btn_move_down:
-//					protagonist.stopMoving();
-//					break;
-				case R.id.btn_shoot:					
-					protagonist.stopShooting();	
-					
-					if( ! beginShootingRunnablePosted){
-						protagonist.postDelayed(new KillableRunnable(){
-							@Override 
-							public void doWork() {	
-								canBeginShooting=true;beginShootingRunnablePosted=false;	
-							}	
-						},(long)ProtagonistView.DEFAULT_BULLET_FREQ);
-						beginShootingRunnablePosted=true;
-					}
-					
-					break;
+			case R.id.btn_shoot:					
+				protagonist.stopShooting();	
+				
+				if( ! beginShootingRunnablePosted){
+					protagonist.postDelayed(new KillableRunnable(){
+						@Override 
+						public void doWork() {	
+							canBeginShooting=true;beginShootingRunnablePosted=false;	
+						}	
+					},(long)ProtagonistView.DEFAULT_BULLET_FREQ);
+					beginShootingRunnablePosted=true;
+				}
+				
+				break;
 				case R.id.btn_heal:
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_HEAL);
 					break;

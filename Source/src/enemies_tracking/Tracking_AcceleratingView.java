@@ -18,24 +18,25 @@ public class Tracking_AcceleratingView extends Shooting_TrackingView{
 		super(context, trackMe );
 		init();
 	}
-
-	public Tracking_AcceleratingView(Context context,Moving_ProjectileView trackMe, int scoreForKilling,
-			float projectileSpeedY, float projectileSpeedX,
-			int projectileDamage, int projectileHealth,
-			float probSpawnBeneficialObject, int width, int height, int imageId) {
-		super(context, trackMe,
-				scoreForKilling, 
-				projectileSpeedY, projectileSpeedX,
-				projectileDamage,
-				projectileHealth, 
-				probSpawnBeneficialObject, 
-				width,height, 
-				imageId);
-		init();
-	}
+//
+//	public Tracking_AcceleratingView(Context context,Moving_ProjectileView trackMe, int scoreForKilling,
+//			float projectileSpeedY, float projectileSpeedX,
+//			int projectileDamage, int projectileHealth,
+//			float probSpawnBeneficialObject, int width, int height, int imageId) {
+//		super(context, trackMe,
+//				scoreForKilling, 
+//				projectileSpeedY, projectileSpeedX,
+//				projectileDamage,
+//				projectileHealth, 
+//				probSpawnBeneficialObject, 
+//				width,height, 
+//				imageId);
+//		init();
+//	}
 	
 	
 	private void init(){
+		
 		reassignMoveRunnable( new KillableRunnable(){
 			@Override
 			public void doWork() {

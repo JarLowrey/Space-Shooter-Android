@@ -5,7 +5,7 @@
     <integer name="inc_bullet_damage_base_cost">400</integer>
     <integer name="inc_bullet_frequency_base_cost">400</integer>
     <integer name="score_multiplier_base_cost">100000</integer>
-    <integer name="friend_base_cost">80000</integer>
+    <integer name="friend_base_cost">100</integer>
     
     
     

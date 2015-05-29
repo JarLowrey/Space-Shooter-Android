@@ -1,6 +1,5 @@
 package friendlies;
 
-import enemies_orbiters.Orbiter_RectangleView;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_SingleShotStraight;
@@ -20,8 +19,8 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 
 	public static final float DEFAULT_BULLET_SPEED_Y = 27;
 	
-	public final static float DEFAULT_SPEED_Y=11,
-			DEFAULT_SPEED_X=11;
+	public final static float DEFAULT_SPEED_Y=17,
+			DEFAULT_SPEED_X=17;
 	public final static int DEFAULT_COLLISION_DAMAGE=Integer.MAX_VALUE, 
 			DEFAULT_HEALTH=10000,
 			DEFAULT_BULLET_DAMAGE=DEFAULT_HEALTH/20, 

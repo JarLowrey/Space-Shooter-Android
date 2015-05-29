@@ -166,7 +166,7 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 		return new KillableRunnable(){
 			@Override
 			public void doWork() {
-				spawnTrackingEnemyOverTime(4,DEFAULT_WAVE_DURATION/4,Shooting_TrackingView.class);
+				spawnTrackingEnemyOverTime(3,DEFAULT_WAVE_DURATION/3,Shooting_TrackingView.class);
 			}
 		};
 	}

@@ -36,22 +36,22 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 
 		init(trackMe);
 	}
-
-	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe, int scoreForKilling,
-			float projectileSpeedY, float projectileSpeedX,
-			int projectileDamage, int projectileHealth,
-			float probSpawnBeneficialObject, int width, int height, int imageId) {
-		super(context, 
-				scoreForKilling, 
-				projectileSpeedY, projectileSpeedX,
-				projectileDamage,
-				projectileHealth, 
-				probSpawnBeneficialObject, 
-				width,height, 
-				imageId);
-
-		init(trackMe);
-	}
+//
+//	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe, int scoreForKilling,
+//			float projectileSpeedY, float projectileSpeedX,
+//			int projectileDamage, int projectileHealth,
+//			float probSpawnBeneficialObject, int width, int height, int imageId) {
+//		super(context, 
+//				scoreForKilling, 
+//				projectileSpeedY, projectileSpeedX,
+//				projectileDamage,
+//				projectileHealth, 
+//				probSpawnBeneficialObject, 
+//				width,height, 
+//				imageId);
+//
+//		init(trackMe);
+//	}
 	
 	private void init(Moving_ProjectileView trackMe){
 		viewToTrack=trackMe;
@@ -73,10 +73,14 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		final int trackPoint =(int) ( viewToTrack.getX()*2 + viewToTrack.getWidth() )/2;
 		final int myPos = (int)( Shooting_TrackingView.this.getX()*2 + Shooting_TrackingView.this.getWidth() )/2;
 		final int diff = trackPoint - myPos;
-		float speedX=Math.abs( Shooting_TrackingView.this.getSpeedX() );
+		float speedX = DEFAULT_SPEED_X;
+		
 		//set X direction
-		if(diff!=0){
-			speedX  *= diff/Math.abs(diff);//multiply by sign of diff
+		final float pixelDistanceDelta = 5 * MainActivity.getScreenDens();
+		if(Math.abs(diff) > pixelDistanceDelta){
+			speedX  *= diff/Math.abs(diff);//multiply by sign of diff 
+		}else{
+			speedX = 0;
 		}
 		return speedX;	
 	}

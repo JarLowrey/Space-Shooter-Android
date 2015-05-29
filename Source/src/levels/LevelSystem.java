@@ -1,24 +1,22 @@
 package levels;
 
+import interfaces.GameActivityInterface;
+
 import java.util.ArrayList;
 
-import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import background_objects.BackgroundView;
-import background_objects.Bird;
-import background_objects.Clouds;
-import background_objects.Sun;
 import bonuses.BonusView;
 import bullets.BulletView;
 
 import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
 
 import enemies.EnemyView;
+import friendlies.AllyView;
 import friendlies.FriendlyView;
+import friendlies.ProtagonistView;
 
 public class LevelSystem extends Levels{
 
