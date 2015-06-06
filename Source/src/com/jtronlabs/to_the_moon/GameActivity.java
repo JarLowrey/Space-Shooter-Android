@@ -505,7 +505,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		        		
 		        		//update Views in the store
 		        		levelCreator.setResources(levelCreator.getResourceCount()-costCopy);
-		        		levelCreator.saveResourceCount();
+		        		levelCreator.saveResourceCount();  
 		    			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getResourceCount()));
 		    			setHealthBars(protagonist.getMaxHealth(),protagonist.getHealth() );
 		    			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();       			
