@@ -61,7 +61,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			
 			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks		
 		}
-		@Override 
+		@Override   
 		public boolean takeDamage(int howMuchDamage){ 
 			boolean isDead = super.takeDamage(howMuchDamage);
 			

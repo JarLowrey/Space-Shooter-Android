@@ -547,7 +547,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public void setScore(int score) {
 		levelCreator.setResources(score);		
 	}
-	 
+	  
 	@Override
 	public void incrementScore(int amountToIncrementScore){
 		//load resource multiplier 

@@ -43,4 +43,13 @@
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity">MainActivity</string>
     <string name="title_activity_intro">IntroActivity</string>
+    
+    <string name="credits">Programmer/Designer :: James Lowrey
+							Part2Art.com was an invaluable resource for the symmetrical ship images. 
+							Part2Art was created by Aral and many of the images I used were created by the user ---
+							Lots of images, sounds, and other resources were taken from sharing websites. I\'d specifically like to thank the following for their communities and the users for their contributions.
+							OpenGameArt.org :: 
+							Pixabay.com :: 
+							Freesounds.asdasd :: 
+							And lastly I\'d like to thank my friend Arin --- for her input on issues of design</string>
 </resources>

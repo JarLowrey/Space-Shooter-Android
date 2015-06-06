@@ -27,31 +27,87 @@
         android:id="@+id/rocket_main"
         android:layout_width="@dimen/ship_protagonist_game_width"
         android:layout_height="@dimen/ship_protagonist_game_height"
-		android:layout_below="@+id/playBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/activity_margin_large"
-        android:src="@drawable/ship_protagonist" />
-    <!-- 
-    <ImageView
-        android:id="@+id/earth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="-225dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/earth" />
-    -->
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ship_protagonist" />
     
     <ImageButton
         android:id="@+id/playBtn"
         android:layout_width="@dimen/btn_large_len"
         android:layout_height="@dimen/btn_large_len"
-       	android:layout_alignParentBottom="true"
+		android:layout_above="@+id/settings_btn"
        	android:layout_marginBottom="@dimen/activity_margin_large"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_action_play"
         android:background="@drawable/btn_gray" >
     </ImageButton>
+    
+    
+    <ImageButton
+        android:id="@+id/settings_btn"
+        android:layout_width="@dimen/btn_med_len"
+        android:layout_height="@dimen/btn_med_len"
+       	android:layout_alignParentBottom="true"
+       	android:layout_alignParentLeft="true"
+       	android:layout_marginBottom="@dimen/activity_margin_small"
+       	android:layout_marginLeft="@dimen/activity_margin_small"
+        android:src="@drawable/ic_action_play"
+        android:background="@drawable/btn_gray_and_red" >
+    </ImageButton>
+    
+    <RelativeLayout
+        android:id="@+id/other_settings_buttons_wrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/settings_btn"
+        android:layout_alignTop="@+id/settings_btn"
+        android:layout_alignBaseline="@+id/settings_btn"
+        android:layout_marginLeft="@dimen/activity_margin_small"
+        	>
+	        
+	    <ImageButton
+	        android:id="@+id/toggle_intro"
+	        android:layout_width="@dimen/btn_med_len"
+	        android:layout_height="@dimen/btn_med_len"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/ic_action_play"
+	        android:background="@drawable/btn_gray" >
+	    </ImageButton>
+	    
+	    <ImageButton
+	        android:id="@+id/toggle_vibration"
+	        android:layout_width="@dimen/btn_med_len"
+	        android:layout_height="@dimen/btn_med_len"
+	        android:layout_marginLeft="@dimen/activity_margin_small"
+	        android:src="@drawable/ic_action_play"
+	        android:layout_toRightOf="@+id/toggle_intro"
+	        android:layout_alignTop="@+id/toggle_intro"
+	        android:background="@drawable/btn_gray" >
+	    </ImageButton>
+	    
+	    <ImageButton
+	        android:id="@+id/toggle_sound"
+	        android:layout_width="@dimen/btn_med_len"
+	        android:layout_height="@dimen/btn_med_len"
+	        android:layout_marginLeft="@dimen/activity_margin_small"
+	        android:src="@drawable/ic_action_play"
+	        android:layout_toRightOf="@+id/toggle_vibration"
+	        android:layout_alignTop="@+id/toggle_intro"
+	        android:background="@drawable/btn_gray" >
+	    </ImageButton>
+        
+	    <ImageButton
+	        android:id="@+id/show_credits"
+	        android:layout_width="@dimen/btn_med_len"
+	        android:layout_height="@dimen/btn_med_len"
+	        android:layout_marginLeft="@dimen/activity_margin_small"
+	        android:src="@drawable/ic_action_play"
+	        android:layout_toRightOf="@+id/toggle_sound"
+	        android:layout_alignTop="@+id/toggle_intro"
+	        android:background="@drawable/btn_gray" >
+	    </ImageButton>
+    </RelativeLayout>
 
     <support.DrawTextView
         android:id="@+id/title"

@@ -38,7 +38,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 	 * If has fallen off screen, increment level score by this.score/3. I did this to help at lower levels and to give a benefit for dodging
 	 */
 	@Override
-	public void removeGameObject(){		
+	public void removeGameObject(){		        
 		//add this enemy's score to the player's score
 		if(this.getHealth()<=0){//died
 			((GameActivityInterface)this.getContext()).incrementScore((int) (this.getScoreForKilling()));
@@ -48,7 +48,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 				final float yAvg = (2 * this.getY()+this.getHeight())/2;
 				BonusView.displayRandomBonusView(this.getContext(),xAvg,yAvg);
 			}
-		}
+		} 
 		else {//fallen offscreen
 			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
 		}
