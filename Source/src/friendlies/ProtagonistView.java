@@ -18,9 +18,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_DEFENCE=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
-
-	public final static float DEFAULT_SPEED_Y=20,
-			DEFAULT_SPEED_X=20;
 	
 	SharedPreferences gameState;
 	GameActivityInterface myGame;
@@ -28,7 +25,8 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
-				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
+				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),
+				R.drawable.ship_protagonist);
 
 		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
 

@@ -6,8 +6,11 @@ import parents.Moving_ProjectileView;
 import support.ConditionalHandler;
 import support.KillableRunnable;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import bullets.Bullet_Basic_LaserLong;
 
+import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
@@ -15,10 +18,14 @@ public class AllyView extends Friendly_ShooterView{
 	
 	ProtagonistView trackMe;
 	
+	private static final int FIRST_LEVEL = 1, SECOND_LEVEL = 2;
+	
 	public AllyView(Context context,ProtagonistView viewToTrack, int levelOfAlly) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
-				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),R.drawable.ship_protagonist);
+				( ProtagonistView.DEFAULT_HEALTH/4 ) * allyLevel(context),
+				allyPictureAndDimensions(context)[1], 
+				allyPictureAndDimensions(context)[2],
+				allyPictureAndDimensions(context)[0]);
 		
 		//set this runnable to track the protagonist
 		trackMe = viewToTrack;
@@ -59,12 +66,12 @@ public class AllyView extends Friendly_ShooterView{
 		});
 
 		//apply upgrades
-		//createGunSet(DEFAULT_BULLET_FREQ,(int) (DEFAULT_BULLET_DAMAGE+BULLET_DAMAGE_WEIGHT*levelOfAlly),levelOfAlly);
+		//higher level = gun shoots faster and hits harder
 		addGun(new Gun_SingleShotStraight(getContext(), this,
 				new Bullet_Basic_LaserLong(),
-				1000, 
+				3000 / allyLevel(context), 
 				DEFAULT_BULLET_SPEED_Y, 
-				DEFAULT_BULLET_DAMAGE,
+				( DEFAULT_BULLET_DAMAGE / 2 ) * allyLevel(context) ,
 				50)
 			);
 		startShooting();
@@ -73,6 +80,47 @@ public class AllyView extends Friendly_ShooterView{
 
 		((GameActivityInterface)context).removeView(this);
 		((GameActivityInterface)context).addToBackground(this);
-	} 
+	}
+	 
+
+	@Override 
+	public boolean takeDamage(int howMuchDamage){ 
+		boolean isDead = super.takeDamage(howMuchDamage);
+		
+		if(isDead){
+			final long vibrationPattern[] = {0,100,100};
+			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibrationPattern);
+		}
+		
+		return isDead;
+	}
+	
+	private static int allyLevel(Context ctx){
+		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		return gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0);
+	}
+	
+	private static int[] allyPictureAndDimensions(Context context){
+		int[] retVal = new int[3];
+		switch( allyLevel(context) ){
+		case FIRST_LEVEL:
+			retVal[0] = R.drawable.ship_ally_0;
+			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_width);
+			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_height);
+			break;
+		case SECOND_LEVEL:
+			retVal[0] = R.drawable.ship_ally_1;
+			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_1_game_width);
+			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_1_game_height);
+			break;
+		default://maximum level
+			retVal[0] = R.drawable.ship_ally_2;
+			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_2_game_width);
+			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_2_game_height);
+			break;
+		}
+		Log.d("lowrey","ally lvl = "+allyLevel(context));
+		return retVal;
+	}
 	
 }

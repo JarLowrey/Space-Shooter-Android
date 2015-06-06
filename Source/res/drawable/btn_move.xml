@@ -2,6 +2,7 @@
 <!--  Source: http://www.dibbus.com/2011/02/gradient-buttons-for-android/ -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 
     <item android:state_pressed="true" >
         <shape>
             <solid android:color="@color/light_blue" />
@@ -12,6 +13,7 @@
                 android:radius="50dp" />
         </shape>
     </item>
+    -->
     <item>
         <shape>
             <solid android:color="@color/blue" />

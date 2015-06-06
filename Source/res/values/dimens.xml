@@ -32,10 +32,17 @@
 	    <dimen name="meteor_length">30dp</dimen>
 	    <dimen name="meteor_giant_length">80dp</dimen>
 	    
+	    <!-- Friendlies -->
 	    <dimen name="exhaust_height">40dp</dimen>
 	    <dimen name="exhaust_width">25dp</dimen>
 	    <dimen name="ship_protagonist_game_height">40dp</dimen>
 	    <dimen name="ship_protagonist_game_width">40dp</dimen>
+	    <dimen name="ship_ally_0_game_width">32dp</dimen>
+	    <dimen name="ship_ally_0_game_height">39dp</dimen>
+	    <dimen name="ship_ally_1_game_width">34dp</dimen>
+	    <dimen name="ship_ally_1_game_height">42.28dp</dimen>
+	    <dimen name="ship_ally_2_game_width">36dp</dimen>
+	    <dimen name="ship_ally_2_game_height">43.02dp</dimen>
 	    
     <!-- Background items -->
 	    <dimen name="cloud_width">130dp</dimen>
