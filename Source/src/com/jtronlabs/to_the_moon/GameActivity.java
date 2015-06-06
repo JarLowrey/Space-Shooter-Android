@@ -240,12 +240,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCount.setText("Days In Space : "+ levelCreator.getLevel() );
 		final int health =  (int) ((protagonist.getHealth()+0.0) /protagonist.getMaxHealth() * 100);
 		healthCount.setText("Hull : "+ health +"%");
-		
-		//ally needs to be removed at end of each level so it can be recreated at beginning of the next level
-		if(ally != null){
-			ally.removeGameObject();
-			ally = null;
-		}
 	}
 	
 	private void closeStoreAndResumeLevel(){
@@ -257,10 +251,16 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//create ally if needed		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		int friend_lvl = gameState.getInt(STATE_FRIEND_LEVEL,0);
-		if(friend_lvl > 0 && ( ally==null || ally.isRemoved() ) ){
-			new AllyView(GameActivity.this, protagonist, friend_lvl);
+		if( friend_lvl > 0 ){
+
+			//if ally already exists, remove it and refresh it (so has full health)
+			if(ally != null){
+				ally.removeGameObject();
+				ally = null;
+			}
+			
+			ally = new AllyView(GameActivity.this, protagonist, friend_lvl);
 		}
-		Log.d("lowrey","friend level = "+friend_lvl);
 	}
 	
 	/**
