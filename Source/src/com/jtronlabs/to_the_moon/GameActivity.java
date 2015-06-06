@@ -553,11 +553,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//load resource multiplier 
 		SharedPreferences gameState = this.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		final int resourceMultiplierLevel = gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0) ;
+
+		final int newScore = levelCreator.getResourceCount() +(int) ( amountToIncrementScore * ( resourceMultiplierLevel * 0.2 + 1 ));
+		levelCreator.setResources(newScore);
 		
-		final int scoreIncrement = (int) ( amountToIncrementScore * ( resourceMultiplierLevel * 0.2 + 1 ));
-		levelCreator.setResources(levelCreator.getResourceCount() + scoreIncrement);
-		
-		scoreInGame.setText(levelCreator.getResourceCount() + scoreIncrement+"");
+		scoreInGame.setText(newScore+"");
 	}
 
 	@Override
