@@ -4,6 +4,7 @@ import guns.Gun;
 import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
 import support.KillableRunnable;
+import support.MediaController;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
@@ -110,8 +111,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
 			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
 		}else{
-	        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-	        vibrator.vibrate(100);
+			MediaController.vibrate(getContext(), 100);
 		}
 		return isDead;
 	}

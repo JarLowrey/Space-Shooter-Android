@@ -4,9 +4,8 @@ import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
 import support.ConditionalHandler;
 import support.KillableRunnable;
+import support.MediaController;
 import android.content.Context;
-import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -199,8 +198,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	protected void createExplosion(int width,int height,int explosionImgId,long[] vibrationPattern){
 		if(vibrationPattern!=null){
 			 //vibrate the phone  
-	        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-	        vibrator.vibrate(vibrationPattern, -1);
+			MediaController.vibrate(getContext(), vibrationPattern);
 		}
 
 		final ImageView exp = new ImageView(getContext());

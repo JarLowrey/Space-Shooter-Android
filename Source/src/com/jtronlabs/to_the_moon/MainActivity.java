@@ -2,10 +2,12 @@ package com.jtronlabs.to_the_moon;
 
 import support.DrawTextView;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,13 +17,20 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
 
 
 public class MainActivity extends Activity implements OnClickListener{
 
+	public static final String GAME_SETTING_PREFS = "GameSettingPrefs",
+			INTRO_PREF="introOn",
+			VIBRATE_PREF="vibrateOn",
+			SOUND_PREF="soundOn";
 	private static float screenDens,widthPixels,heightPixels;
+	private ImageButton vibrate, sound, intro, credits;
 	
 //	AnimationDrawable animation;
 	@Override
@@ -30,6 +39,19 @@ public class MainActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_main);
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
 		
+	    //set up settings buttons
+	    ImageButton settings = (ImageButton)findViewById(R.id.settings_btn);
+	    settings.setOnClickListener(this);
+	    vibrate = (ImageButton)findViewById(R.id.toggle_vibration);
+	    vibrate.setOnClickListener(this);
+	    sound = (ImageButton)findViewById(R.id.toggle_sound);
+	    sound.setOnClickListener(this);
+	    intro = (ImageButton)findViewById(R.id.toggle_intro);
+	    intro.setOnClickListener(this);
+	    credits = (ImageButton)findViewById(R.id.show_credits);
+	    credits.setOnClickListener(this);
+	    
+		updateColorOfSettingsButtons();
 
 		//find screen density and width/height of screen in pixels
 		DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -77,17 +99,88 @@ public class MainActivity extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
-		Intent i;
+		SharedPreferences gameSettings = getSharedPreferences(GAME_SETTING_PREFS, 0);
+		SharedPreferences.Editor editor = gameSettings.edit();
+
 		switch(v.getId()){
 			case R.id.playBtn: 
-				i= new Intent(this, GameActivity.class);
+				boolean showIntro = gameSettings.getBoolean(INTRO_PREF, true);
+				Intent i;
+				if(showIntro){
+					i= new Intent(this, IntroActivity.class);
+				}else{
+					i= new Intent(this, GameActivity.class);
+				}
 				startActivity(i);
-//				i= new Intent(this, IntroActivity.class);
-//				startActivity(i);
+				break; 
+			case R.id.settings_btn:
+				RelativeLayout settingsWrap = (RelativeLayout)findViewById(R.id.other_settings_buttons_wrap);
+				if(View.GONE == settingsWrap.getVisibility() ){
+					settingsWrap.setVisibility(View.VISIBLE);
+				}else{
+					settingsWrap.setVisibility(View.GONE);					
+				}
+				break;
+			case R.id.toggle_intro:
+				boolean showIntroEdit = gameSettings.getBoolean(INTRO_PREF, true);
+				editor.putBoolean(INTRO_PREF, !showIntroEdit);
+				
+				String introState = (!showIntroEdit) ? "on" : "off" ;
+    			Toast.makeText(getApplicationContext(),"Intro is turned "+introState, Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.toggle_sound:
+				boolean soundEdit = gameSettings.getBoolean(SOUND_PREF, true);
+				editor.putBoolean(SOUND_PREF, !soundEdit);
+				
+				String soundState = (!soundEdit) ? "on" : "off" ;
+    			Toast.makeText(getApplicationContext(),"Sound is turned "+soundState, Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.toggle_vibration:
+				boolean vibrateEdit = gameSettings.getBoolean(VIBRATE_PREF, true);
+				editor.putBoolean(VIBRATE_PREF, !vibrateEdit);
+				
+				String vibrateState = (!vibrateEdit) ? "on" : "off" ;
+    			Toast.makeText(getApplicationContext(),"Vibration is turned "+vibrateState, Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.show_credits:
+				new AlertDialog.Builder(this)
+				    .setTitle("Credits")
+				    .setMessage(this.getResources().getString(R.string.credits))
+				    .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
+				        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
+				     })
+				     .show();
 				break;
 		}
+		editor.commit();
+
+		updateColorOfSettingsButtons();
 	}
 
+	private void updateColorOfSettingsButtons(){
+		SharedPreferences gameState = getSharedPreferences(GAME_SETTING_PREFS, 0);
+		boolean vibrateState = gameState.getBoolean(VIBRATE_PREF, true);
+		boolean soundState = gameState.getBoolean(SOUND_PREF, true);
+		boolean introState = gameState.getBoolean(INTRO_PREF, true);
+		
+		if(vibrateState){
+			vibrate.setBackgroundColor(getResources().getColor(R.color.light_green));
+		}else{
+			vibrate.setBackgroundColor(getResources().getColor(R.color.light_red));
+		}
+		
+		if(soundState){
+			sound.setBackgroundColor(getResources().getColor(R.color.light_green));
+		}else{
+			sound.setBackgroundColor(getResources().getColor(R.color.light_red));
+		}
+
+		if(introState){
+			intro.setBackgroundColor(getResources().getColor(R.color.light_green));
+		}else{
+			intro.setBackgroundColor(getResources().getColor(R.color.light_red));
+		}
+	}
 	public static float getScreenDens(){
 		return screenDens;
 	}
