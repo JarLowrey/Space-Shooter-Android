@@ -26,17 +26,17 @@
     <string name="upgrade_bullet_damage">Increase bullet damage</string>
     <string name="upgrade_bullet_frequency">Increase firing rate</string>
     <string name="upgrade_heal">Fully repair craft</string>
-    <string name="upgrade_score_multiplier_create">Create drones to help gather space debris. Increases rate of resource retrieval.</string>
-    <string name="upgrade_score_multiplier_improve">Improve drone\'s gathering capabilities</string>
+    <string name="upgrade_score_multiplier">Improve ability to gather space debris. Increases rate of resource retrieval.</string>
     <string name="upgrade_buy_friend">Other ships were also sent on this mission. Unfortunately our homing beacon was destoyed on launch. Repair beacon and try to signal a ship.</string>
+    <string name="upgrade_friend_level">Increase the freqeuncy of the beacon\'s signal to attract stronger allies.</string>
     
     
     <string-array name="gun_descriptions">
 	    <item>The ship\'s main blaster was damaged on launch. It wouldn\'t take much to fix it up.</item>
-	    <item>There\'s room for another gun here &#8230;</item>
-	    <item>We may be able to discover how to readjust the phase annihilator to increase the size of the lasers</item>
-	    <item>The guns could be tilted outwards, but some major structural changes would need to be made</item>
-	    <item>These aliens have been dropping a stockpile of missiles, we just need a way to launch them</item>
+	    <item>There\'s room for another gun here&#8230; Though we\'d have to reroute some power from the main blaster.</item>
+	    <item>An upgrade to the phase annihilator would bring both lazers up to full power.</item>
+	    <item>The guns could be tilted outwards, but some major structural changes would need to be made.</item>
+	    <item>These aliens have been dropping a stockpile of missiles, we just need a way to launch them.</item>
     </string-array>
 	
 	

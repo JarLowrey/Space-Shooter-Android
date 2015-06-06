@@ -82,12 +82,12 @@ public class ProtagonistView extends Friendly_ShooterView{
 	@Override
 	public void heal(int howMuchHealed){
 		super.heal(howMuchHealed);
-		myGame.setHealthBar(this.getMaxHealth(),this.getHealth());
+		myGame.setHealthBars(this.getMaxHealth(),this.getHealth());
 	}
 	@Override
 	public void setHealth(int healthValue){
 		super.setHealth(healthValue);
-		myGame.setHealthBar(this.getMaxHealth(),this.getHealth());
+		myGame.setHealthBars(this.getMaxHealth(),this.getHealth());
 	}
 	
 
@@ -102,7 +102,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	@Override 
 	public boolean takeDamage(int howMuchDamage){ 
 		boolean isDead = super.takeDamage(howMuchDamage);
-		myGame.setHealthBar(this.getMaxHealth(),this.getHealth());
+		myGame.setHealthBars(this.getMaxHealth(),this.getHealth());
 		
 		if(isDead){
 			final long vibratePat[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};

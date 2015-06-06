@@ -21,7 +21,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
 	
 	private long amtOfTimeToPause; 
-	
+	 
 	public Shooting_PauseAndMove (Context context) {
 		super(context,DEFAULT_SCORE,
 				DEFAULT_SPEED_Y,

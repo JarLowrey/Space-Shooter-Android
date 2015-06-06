@@ -54,8 +54,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private ImageButton btnMove,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
-	private TextView resourceCount,healthCount,levelCount;
-	private ProgressBar healthBar;
+	private TextView resourceCount,levelCount,scoreInGame;
+	private ProgressBar healthBar,healthBarStore;
 	public ProtagonistView protagonist;
 	private AllyView ally;
 	public ImageView rocketExhaust;
@@ -83,15 +83,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //		btnMoveRight.setOnTouchListener(this); 
 		btnMove.setOnTouchListener(this);
 		btnShoot.setOnTouchListener(this);
+		scoreInGame = (TextView)findViewById(R.id.score_in_game);
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
-		healthBar.setMax((int) ProtagonistView.DEFAULT_HEALTH);
-		healthBar.setProgress(healthBar.getMax());
+		healthBarStore = (ProgressBar)findViewById(R.id.health_bar_store);//technically this is in store
+		setHealthBars((int) ProtagonistView.DEFAULT_HEALTH,(int) ProtagonistView.DEFAULT_HEALTH);
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
 		
 		//set up Store View and listeners
 		resourceCount = (TextView)findViewById(R.id.resource_count);
-		healthCount = (TextView)findViewById(R.id.health_count);
 		levelCount = (TextView)findViewById(R.id.level_count);
 		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
 		btnIncBulletDmg= (ImageButton)findViewById(R.id.btn_inc_bullet_dmg); 
@@ -139,6 +139,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
     public void onPause() {
         super.onPause();
         
+        scoreInGame.setVisibility(View.GONE);
+        
         KillableRunnable.killAll();
 		levelCreator.pauseLevel();
 		
@@ -153,6 +155,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
 	public void onResume(){
 		super.onResume(); 
+		
+        scoreInGame.setVisibility(View.VISIBLE);
 		
 		//allow shooting to begin after resuming from any pause
 		canBeginShooting=true;
@@ -173,6 +177,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
 		protagonist.setY( protagonistPosition );
 		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
+		
+
+		scoreInGame.setText(levelCreator.getResourceCount()+"");
 		
 		//don't open the store up on the initial level
 		if(levelCreator.getLevel()==0){
@@ -238,8 +245,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		storeLayout.setVisibility(View.VISIBLE);
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getResourceCount()));
 		levelCount.setText("Days In Space : "+ levelCreator.getLevel() );
-		final int health =  (int) ((protagonist.getHealth()+0.0) /protagonist.getMaxHealth() * 100);
-		healthCount.setText("Hull : "+ health +"%");
+		setHealthBars(protagonist.getMaxHealth(),protagonist.getHealth() ); 	
 	}
 	
 	private void closeStoreAndResumeLevel(){
@@ -261,6 +267,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			
 			ally = new AllyView(GameActivity.this, protagonist, friend_lvl);
 		}
+		
+		scoreInGame.setText(levelCreator.getResourceCount()+"");
 	}
 	
 	/**
@@ -426,6 +434,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		String msg="";
 		int cost=0;
 		boolean maxLevelItem=false;
+
+		SharedPreferences gameState = this.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		
 		try{
 			switch(whichUpgrade){
@@ -449,12 +459,17 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()+1];
 				break;
 			case ProtagonistView.UPGRADE_FRIEND:
-				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
-				msg=this.getResources().getString(R.string.upgrade_buy_friend);
+				int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
+				cost = friendLvl * this.getResources().getInteger(R.integer.friend_base_cost) ;
+				if(friendLvl < 1){
+					msg=this.getResources().getString(R.string.upgrade_buy_friend);					
+				}else{
+					msg=this.getResources().getString(R.string.upgrade_friend_level);					
+				}
 				break;
 			case ProtagonistView.UPGRADE_SCORE_MULTIPLIER:
 				cost = this.getResources().getInteger(R.integer.score_multiplier_base_cost) ;
-				msg=this.getResources().getString(R.string.upgrade_score_multiplier_create);
+				msg=this.getResources().getString(R.string.upgrade_score_multiplier);
 				break;
 			case ProtagonistView.UPGRADE_HEAL:
 				if(protagonist.getHealth()==protagonist.getMaxHealth()){
@@ -492,8 +507,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		        		levelCreator.setResources(levelCreator.getResourceCount()-costCopy);
 		        		levelCreator.saveResourceCount();
 		    			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getResourceCount()));
-		    			final int health =  (int) ((protagonist.getHealth()+0.0) /protagonist.getMaxHealth() * 100);//in case health was purchased
-		    			healthCount.setText("Hull : "+ health +"%");	 
+		    			setHealthBars(protagonist.getMaxHealth(),protagonist.getHealth() );
 		    			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();       			
 	        		}else{
 	        			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
@@ -514,9 +528,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		return this.protagonist;
 	}
 	@Override
-	public void setHealthBar(int max, int progress){
+	public void setHealthBars(int max, int progress){
 		healthBar.setMax(max);
 		healthBar.setProgress(progress);
+		healthBarStore.setMax(max);
+		healthBarStore.setProgress(progress);
 	}
 //	@Override
 //	public void changeGameBackground(int newBackgroundId) {
@@ -531,13 +547,17 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public void setScore(int score) {
 		levelCreator.setResources(score);		
 	}
+	 
 	@Override
-	public void incrementScore(int score){
+	public void incrementScore(int amountToIncrementScore){
 		//load resource multiplier 
 		SharedPreferences gameState = this.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-		int resourceMultiplier = (int) ( gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0) + 1 );
+		final int resourceMultiplierLevel = gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0) ;
 		
-		levelCreator.setResources(levelCreator.getResourceCount()+score * resourceMultiplier);		
+		final int scoreIncrement = (int) ( amountToIncrementScore * ( resourceMultiplierLevel * 0.2 + 1 ));
+		levelCreator.setResources(levelCreator.getResourceCount() + scoreIncrement);
+		
+		scoreInGame.setText(levelCreator.getResourceCount() + scoreIncrement+"");
 	}
 
 	@Override

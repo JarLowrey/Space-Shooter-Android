@@ -8,9 +8,9 @@ public interface GameActivityInterface {
 	public void openStore();
 	public void lostGame();
 	public void beatGame();
-	public void setHealthBar(int max,int progress);
+	public void setHealthBars(int max,int progress);
 	public void setScore(int score);
-	public void incrementScore(int score);
+	public void incrementScore(int score); 
 	public ProtagonistView getProtagonist();
 	
 //	public void changeGameBackground(int newBackgroundId); 

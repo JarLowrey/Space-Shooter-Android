@@ -8,18 +8,18 @@ import interfaces.Shooter;
  * this ensures resources are not commited to an instance that has been removed from game.
  * Why? Handler.removeCallbacks(null) only removes pending messages. If  the Runnable has begun then it will get through,
  * and since all these game runnables have Handler.postDelayed(this,delayInMillisec) at the end, it will continue to execute
- * 
+ *   
  * The same goes for the leveling system
- * 
+ *  
  */
-public class ConditionalHandler {
+public class ConditionalHandler {  
 	
 	// handler for Game Objects (removeable Views). View must be not removed
 	/**
 	 * Post Runnable r after a delay 
 	 * @param r
 	 * @param delayInMilliseconds
-	 * @param theViewToPostTo
+	 * @param theViewToPostTo 
 	 */
 	public static void postIfAlive(Runnable r,long delayInMilliseconds,MovingViewInterface theViewToPostTo){
 		if( ! theViewToPostTo.isRemoved()){

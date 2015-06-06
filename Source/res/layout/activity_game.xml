@@ -15,6 +15,16 @@
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+      
+        <TextView
+            android:id="@+id/score_in_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin_small"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
         
 	    <ImageView
 	        android:id="@+id/rocket_exhaust"
@@ -73,23 +83,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
+	  	
+	    <ProgressBar
+	        android:id="@+id/health_bar_store"
+	        style="?android:attr/progressBarStyleHorizontal"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+			android:layout_alignParentTop="true" />
         
         <TextView
-            android:id="@+id/explanation"
+            android:id="@+id/level_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_above="@+id/btn_inc_defence"
-            android:layout_marginBottom="@dimen/activity_margin_large"
-            android:gravity="center"
-            android:text="We&apos;ve found refuge for the night. Scrap salvaged throughout the day can be used for repairs and upgrades." />
-        
+			android:layout_below="@+id/health_bar_store"
+			android:layout_centerHorizontal="true"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+	    
 		<RelativeLayout
 		    android:id="@+id/resource_layout"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-            android:layout_above="@+id/explanation"
+            android:layout_below="@+id/level_count"
 		    android:layout_centerHorizontal="true"
 		    >
 	        <TextView
@@ -111,21 +126,17 @@
 		</RelativeLayout>
 		
         <TextView
-            android:id="@+id/health_count"
+            android:id="@+id/explanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/resource_layout"
-            android:text="100%"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <TextView
-            android:id="@+id/level_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-			android:layout_above="@+id/resource_layout"
-			android:layout_centerHorizontal="true"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/resource_layout"
+            android:layout_marginRight="@dimen/activity_margin_small"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:gravity="center"
+            android:text="We&apos;ve found refuge for the night. Scrap salvaged throughout the day can be used for repairs and upgrades." />
+		   
 		<ImageButton
 		    android:id="@+id/btn_inc_bullet_dmg"
 		    style="?android:attr/buttonStyleSmall"

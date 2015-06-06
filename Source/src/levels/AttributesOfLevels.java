@@ -14,7 +14,7 @@ public abstract class AttributesOfLevels {
 	Handler spawningHandler;
 
 	public AttributesOfLevels(Context context) {
-		ctx=context;
+		ctx=context; 
 		spawningHandler = new Handler();
 	} 
 	
