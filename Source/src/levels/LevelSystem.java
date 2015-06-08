@@ -106,9 +106,15 @@ public class LevelSystem extends Levels{
 		// Save variables
 		SharedPreferences gameState = ctx.getSharedPreferences(
 				GameActivity.GAME_STATE_PREFS, 0);
+		//find how much score was incremented this level to know how much to add to total score
+		final int scoreBeforeLevel = gameState.getInt(GameActivity.STATE_RESOURCES, 0);
+		final int newTotalScore = gameState.getInt(GameActivity.STATE_TOTAL_RESOURCES, 0) +
+				(getResourceCount() - scoreBeforeLevel);
+		
 		SharedPreferences.Editor editor = gameState.edit();
 
-		editor.putInt(GameActivity.STATE_RESOURCES, this.getResourceCount());
+		editor.putInt(GameActivity.STATE_TOTAL_RESOURCES, newTotalScore);
+		editor.putInt(GameActivity.STATE_RESOURCES, this.getResourceCount());//current running score is kept trak thru getResourceCount
 		editor.putInt(GameActivity.STATE_LEVEL, this.getLevel());
 		editor.putInt(GameActivity.STATE_HEALTH, this
 				.getInteractivityInterface().getProtagonist().getHealth());

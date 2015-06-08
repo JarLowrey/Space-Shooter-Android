@@ -41,6 +41,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public static final String GAME_STATE_PREFS = "GameStatePrefs",
 			STATE_HEALTH="health",
 			STATE_RESOURCES="resources",
+			STATE_TOTAL_RESOURCES="totalResources",
 			STATE_GUN_CONFIG="gunConfig",
 			STATE_BULLET_FREQ_LEVEL="bulletFreqLevel",
 			STATE_BULLET_DAMAGE_LEVEL="bulletDamageLevel",
@@ -191,31 +192,42 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void lostGame(){
-		gameOver();
+		gameOver("GAME OVER","All is lost...God help us.");
 		
 		healthBar.setProgress(0);
 		
-		TextView title = (TextView)findViewById(R.id.gameOverTitle);
-		title.setText("GAME OVER");
+		ImageView gameOverMoon = (ImageView)findViewById(R.id.gameOverMoon);
+		gameOverMoon.setVisibility(View.GONE);		
 	}
 	
 	public void beatGame(){
-		gameOver();
-
-		TextView title = (TextView)findViewById(R.id.gameOverTitle);
-		title.setText("WINNER");
+		gameOver("WINNER","The planet has been saved. Good job soldier");
+		
+		ImageView gameOverMoon = (ImageView)findViewById(R.id.gameOverMoon);
+		gameOverMoon.setVisibility(View.VISIBLE);
 	}
 	
-	private void gameOver(){
+	private void gameOver(String title,String msg){
 		KillableRunnable.killAll();
 		levelCreator.pauseLevel(); 
 		resetSavedVariables();
 		
-		RelativeLayout gameOverLayout = (RelativeLayout)findViewById(R.id.gameOverWindow);
-		gameOverLayout.setVisibility(View.VISIBLE);
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		
-		gameLayout.setVisibility(View.GONE);
+		//set text
+		RelativeLayout gameOverLayout = (RelativeLayout)findViewById(R.id.gameOverWindow);
+		TextView messsageView = (TextView)findViewById(R.id.gameOverMessage);
+		messsageView.setText(msg);
+		TextView titleView = (TextView)findViewById(R.id.gameOverTitle);
+		titleView.setText(title);
+		TextView daysPassedView = (TextView)findViewById(R.id.num_days_passed);
+		daysPassedView.setText("" + levelCreator.getLevel() );
+		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
+		finalScoreView.setText("" + gameState.getInt(STATE_TOTAL_RESOURCES, 0) );
+		
+		gameOverLayout.setVisibility(View.VISIBLE);
 		storeLayout.setVisibility(View.GONE);
+		gameLayout.setVisibility(View.GONE);
 	}
 	
 	/**
@@ -227,6 +239,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		editor.putInt(STATE_HEALTH,ProtagonistView.DEFAULT_HEALTH);	//protagonist properties
 		
+		editor.putInt(STATE_TOTAL_RESOURCES, 0);
 		editor.putInt(STATE_RESOURCES, 0);//store upgrades	
 		editor.putInt(STATE_DEFENCE_LEVEL, 0);
 		editor.putInt(STATE_GUN_CONFIG, -1);
@@ -460,7 +473,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				break;
 			case ProtagonistView.UPGRADE_FRIEND:
 				int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
-				cost = friendLvl * this.getResources().getInteger(R.integer.friend_base_cost) ;
+				cost = ( friendLvl +1 ) * this.getResources().getInteger(R.integer.friend_base_cost) ;
 				if(friendLvl < 1){
 					msg=this.getResources().getString(R.string.upgrade_buy_friend);					
 				}else{
@@ -555,6 +568,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		final int resourceMultiplierLevel = gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0) ;
 
 		final int newScore = levelCreator.getResourceCount() +(int) ( amountToIncrementScore * ( resourceMultiplierLevel * 0.2 + 1 ));
+		
 		levelCreator.setResources(newScore);
 		
 		scoreInGame.setText(newScore+"");

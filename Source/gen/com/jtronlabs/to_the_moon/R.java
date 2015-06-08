@@ -206,8 +206,8 @@ public final class R {
         public static final int white_center_red_outline=0x7f02003d;
     }
     public static final class id {
-        public static final int activity_main=0x7f0c001e;
-        public static final int animating_main_menu_list=0x7f0c0029;
+        public static final int activity_main=0x7f0c0022;
+        public static final int animating_main_menu_list=0x7f0c002d;
         public static final int btn_heal=0x7f0c0010;
         public static final int btn_inc_bullet_dmg=0x7f0c000e;
         public static final int btn_inc_bullet_freq=0x7f0c0012;
@@ -219,35 +219,39 @@ public final class R {
         public static final int btn_shoot=0x7f0c0005;
         public static final int control_panel=0x7f0c0003;
         public static final int explanation=0x7f0c000d;
-        public static final int gameOverAccept=0x7f0c001a;
+        public static final int gameOverAccept=0x7f0c001e;
+        public static final int gameOverMessage=0x7f0c001c;
         public static final int gameOverMiddleContent=0x7f0c0018;
-        public static final int gameOverShare=0x7f0c001b;
+        public static final int gameOverMoon=0x7f0c0019;
+        public static final int gameOverShare=0x7f0c001f;
         public static final int gameOverTitle=0x7f0c0017;
-        public static final int gameOverViewsOnBottom=0x7f0c0019;
+        public static final int gameOverViewsOnBottom=0x7f0c001d;
         public static final int gameOverWindow=0x7f0c0016;
         public static final int gameplay_layout=0x7f0c0000;
         public static final int health_bar=0x7f0c0004;
         public static final int health_bar_store=0x7f0c0008;
-        public static final int intro_btn_next=0x7f0c001d;
-        public static final int intro_text=0x7f0c001c;
+        public static final int intro_btn_next=0x7f0c0021;
+        public static final int intro_text=0x7f0c0020;
         public static final int level_count=0x7f0c0009;
-        public static final int moon=0x7f0c001f;
-        public static final int other_settings_buttons_wrap=0x7f0c0023;
-        public static final int playBtn=0x7f0c0021;
+        public static final int moon=0x7f0c0023;
+        public static final int num_days_passed=0x7f0c001b;
+        public static final int other_settings_buttons_wrap=0x7f0c0027;
+        public static final int playBtn=0x7f0c0025;
         public static final int resource_count=0x7f0c000b;
         public static final int resource_layout=0x7f0c000a;
         public static final int resources_img=0x7f0c000c;
         public static final int rocket_exhaust=0x7f0c0002;
-        public static final int rocket_main=0x7f0c0020;
+        public static final int rocket_main=0x7f0c0024;
         public static final int score_in_game=0x7f0c0001;
-        public static final int settings_btn=0x7f0c0022;
-        public static final int show_credits=0x7f0c0027;
+        public static final int settings_btn=0x7f0c0026;
+        public static final int show_credits=0x7f0c002b;
         public static final int start_next_level=0x7f0c0015;
         public static final int store_layout=0x7f0c0007;
-        public static final int title=0x7f0c0028;
-        public static final int toggle_intro=0x7f0c0024;
-        public static final int toggle_sound=0x7f0c0026;
-        public static final int toggle_vibration=0x7f0c0025;
+        public static final int title=0x7f0c002c;
+        public static final int toggle_intro=0x7f0c0028;
+        public static final int toggle_sound=0x7f0c002a;
+        public static final int toggle_vibration=0x7f0c0029;
+        public static final int total_score=0x7f0c001a;
     }
     public static final class integer {
         public static final int friend_base_cost=0x7f070005;
