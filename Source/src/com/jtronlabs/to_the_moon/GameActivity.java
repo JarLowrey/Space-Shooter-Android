@@ -201,7 +201,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void beatGame(){
-		gameOver("WINNER","The planet has been saved. Good job soldier");
+		gameOver("WINNER","Great job soldier!");
 		
 		ImageView gameOverMoon = (ImageView)findViewById(R.id.gameOverMoon);
 		gameOverMoon.setVisibility(View.VISIBLE);

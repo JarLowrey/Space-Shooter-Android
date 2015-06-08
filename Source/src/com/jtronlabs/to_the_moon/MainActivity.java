@@ -1,6 +1,8 @@
 package com.jtronlabs.to_the_moon;
 
+import levels.LevelSystem;
 import support.DrawTextView;
+import support.KillableRunnable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import enemies_orbiters.Orbiter_Rectangle_Array;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
 
@@ -94,7 +97,27 @@ public class MainActivity extends Activity implements OnClickListener{
 //		ImageView imgView = (ImageView) findViewById(R.id.animating_image_view_main_menu);
 //		AnimationDrawable animation = (AnimationDrawable) imgView.getBackground();
 //	    animation.start();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+
+		//cleanup the enemies
+		for (int i = LevelSystem.enemyBullets.size() - 1; i >= 0; i--) {
+			LevelSystem.enemyBullets.get(i).removeGameObject();
+		}
+		for (int i = LevelSystem.enemies.size() - 1; i >= 0; i--) {
+			LevelSystem.enemies.get(i).removeGameObject();
+		}
+		KillableRunnable.killAll();
+	}
+
+	@Override
+	public void onResume(){
+		super.onResume();
 		
+		Orbiter_Rectangle_Array.refreshSimpleShooterArray(this);//for an interesting background, show some enemies
 	}
 	
 	@Override
@@ -105,13 +128,15 @@ public class MainActivity extends Activity implements OnClickListener{
 		switch(v.getId()){
 			case R.id.playBtn: 
 				boolean showIntro = gameSettings.getBoolean(INTRO_PREF, true);
-				Intent i;
+				Intent nextIntent;
 				if(showIntro){
-					i= new Intent(this, IntroActivity.class);
+					nextIntent= new Intent(this, IntroActivity.class);
 				}else{
-					i= new Intent(this, GameActivity.class);
+					nextIntent= new Intent(this, GameActivity.class);
 				}
-				startActivity(i);
+				
+				//startNext intent
+				startActivity(nextIntent);
 				break; 
 			case R.id.settings_btn:
 				RelativeLayout settingsWrap = (RelativeLayout)findViewById(R.id.other_settings_buttons_wrap);
