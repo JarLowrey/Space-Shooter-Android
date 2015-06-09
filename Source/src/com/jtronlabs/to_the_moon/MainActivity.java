@@ -98,28 +98,28 @@ public class MainActivity extends Activity implements OnClickListener{
 //		AnimationDrawable animation = (AnimationDrawable) imgView.getBackground();
 //	    animation.start();
 	}
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-
-		//cleanup the enemies
-		for (int i = LevelSystem.enemyBullets.size() - 1; i >= 0; i--) {
-			LevelSystem.enemyBullets.get(i).removeGameObject();
-		}
-		for (int i = LevelSystem.enemies.size() - 1; i >= 0; i--) {
-			LevelSystem.enemies.get(i).removeGameObject();
-		}
-		KillableRunnable.killAll();
-	}
-
-	@Override
-	public void onResume(){
-		super.onResume();
-		
-		Orbiter_Rectangle_Array.refreshSimpleShooterArray(this);//for an interesting background, show some enemies
-	}
-	
+//	
+//	@Override
+//	public void onPause(){
+//		super.onPause();
+//
+//		//cleanup the enemies
+//		for (int i = LevelSystem.enemyBullets.size() - 1; i >= 0; i--) {
+//			LevelSystem.enemyBullets.get(i).removeGameObject();
+//		}
+//		for (int i = LevelSystem.enemies.size() - 1; i >= 0; i--) {
+//			LevelSystem.enemies.get(i).removeGameObject();
+//		}
+//		KillableRunnable.killAll();
+//	}
+//
+//	@Override
+//	public void onResume(){
+//		super.onResume();
+//		
+//		Orbiter_Rectangle_Array.refreshSimpleShooterArray(this);//for an interesting background, show some enemies
+//	}
+//	 
 	@Override
 	public void onClick(View v) {
 		SharedPreferences gameSettings = getSharedPreferences(GAME_SETTING_PREFS, 0);
@@ -129,7 +129,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			case R.id.playBtn: 
 				boolean showIntro = gameSettings.getBoolean(INTRO_PREF, true);
 				Intent nextIntent;
-				if(showIntro){
+
+				SharedPreferences gameState = getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+				final int currLevel = gameState.getInt(GameActivity.STATE_LEVEL, 0);
+				
+				if(showIntro && currLevel==0){
 					nextIntent= new Intent(this, IntroActivity.class);
 				}else{
 					nextIntent= new Intent(this, GameActivity.class);

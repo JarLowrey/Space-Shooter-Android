@@ -280,6 +280,15 @@
 					android:paddingBottom="30dp"
 					android:text="GAME OVER"
 				/>
+				
+			    <ImageView 
+			        android:id="@+id/gameOverMoon"
+			        android:layout_width="100dp"
+			        android:layout_height="100dp"
+			        android:src="@drawable/moon"
+			        android:layout_above="@+id/gameOverTitle"
+			        android:layout_centerHorizontal="true"
+			        />
 			<!-- The middle screen shows score, best, and average response -->
 				<RelativeLayout
 					android:id="@+id/gameOverMiddleContent"
@@ -288,15 +297,6 @@
 					android:layout_width="@dimen/game_over_dialog_width"
 					android:layout_height="@dimen/game_over_dialog_height"
 					>
-	        
-				    <ImageView 
-				        android:id="@+id/gameOverMoon"
-				        android:layout_width="100dp"
-				        android:layout_height="100dp"
-				        android:src="@drawable/moon"
-				        android:layout_alignParentRight="true"
-				        android:layout_alignParentTop="true"
-				        />
 				    
 				    <TextView 
 						android:id="@+id/total_score"
@@ -304,7 +304,8 @@
 						android:layout_width="wrap_content"
 						android:layout_alignParentLeft="true"
 						android:layout_alignParentTop="true"
-						android:layout_margin="@dimen/activity_margin_small"
+						android:layout_marginTop="@dimen/activity_margin_small"
+						android:layout_marginLeft="@dimen/activity_margin_small"
 						style="@style/VeryLargeText"
 						android:textColor="@android:color/white"
 						android:text="0"
@@ -314,19 +315,20 @@
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
 						style="@style/GameText"
-						android:layout_toRightOf="@+id/total_score"
-						android:layout_alignTop="@+id/total_score"
+						android:layout_alignParentRight="true"
+						android:layout_marginRight="@dimen/activity_margin_xsmall"
+						android:layout_alignBottom="@+id/total_score"
 						android:textColor="@android:color/white"
-						android:text="total score"
+						android:text="score"
 				        />
 				    
 				    <TextView 
 						android:id="@+id/num_days_passed"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
-						android:layout_alignParentLeft="true"
-						android:layout_alignParentTop="true"
-						android:layout_margin="@dimen/activity_margin_small"
+						android:layout_below="@+id/total_score"
+						android:layout_alignLeft="@+id/total_score"
+						android:layout_marginTop="@dimen/activity_margin_med"
 						style="@style/VeryLargeText"
 						android:textColor="@android:color/white"
 						android:text="0"
@@ -336,20 +338,21 @@
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
 						style="@style/GameText"
-						android:layout_toRightOf="@+id/num_days_passed"
-						android:layout_alignTop="@+id/num_days_passed"
+						android:layout_alignParentRight="true"
+						android:layout_marginRight="@dimen/activity_margin_xsmall"
+						android:layout_alignBottom="@+id/num_days_passed"
 						android:textColor="@android:color/white"
-						android:text="days since you've left Earth\n"
+						android:text="days"
 				        />
 					
 				    <TextView 
 				        android:id="@+id/gameOverMessage"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
-						style="@style/GameText"
 						android:layout_alignParentBottom="true"
 						android:layout_centerHorizontal="true"
 						android:layout_marginBottom="@dimen/activity_margin_xsmall"
+						android:gravity="center"
 						android:textColor="@android:color/white"
 						android:text="0"
 				        />

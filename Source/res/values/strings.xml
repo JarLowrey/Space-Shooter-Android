@@ -44,17 +44,17 @@
     <string name="title_activity">MainActivity</string>
     <string name="title_activity_intro">IntroActivity</string>
     
-    <string name="credits">Programmer/Designer \n
-        						\t James Lowrey \n
-							Most ship images were taken from Part2Art.com.\n 
+    <string name="credits">Programmer/Designer\n
+        						\tJames Lowrey\n
+							Most ship images were taken from Part2Art.com.\n
 							Part2Art was created by Aral and many of the images used were created by the user ---\n
 							Lots of the other images, sounds, and resources were taken from the following websites and users.\n
-								\t OpenGameArt.org \n
-									\t\t
-								\t Pixabay.com \n
-									\t\t
-								\t Freesounds.asdasd  \n 
-									\t\t
+								\tOpenGameArt.org\n
+									\t\tasd\n
+								\tPixabay.com\n
+									\t\tasd\n
+								\tFreesounds.asdasd\n 
+									\t\tasd\n
 							Arin --- for her help with some of the design.\n
 							And thank you for playing!\n</string>
 </resources>

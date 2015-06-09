@@ -61,9 +61,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private AllyView ally;
 	public ImageView rocketExhaust;
 	private RelativeLayout gameLayout,storeLayout;
+	
+
+	private boolean beatGame;//these variables are only used to create the sharing message after the game has been beaten/lost.
+	private int scoreAtGameOver,levelAtGameOver;
    
 	//MODEL     
-	private LevelSystem levelCreator;
+	private LevelSystem levelCreator;    
 	
 	@Override       
 	protected void onCreate(Bundle savedInstanceState) {
@@ -191,8 +195,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 	}
 	
-	public void lostGame(){
-		gameOver("GAME OVER","All is lost...God help us.");
+	public void lostGame(){ 
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel();   
+		gameOver("GAME OVER","All is lost...",levelCreator.getLevel()-1,score );
+		
+		//set the variables used for the sharing message
+		beatGame=false;
+		scoreAtGameOver=score;
+		levelAtGameOver=levelCreator.getLevel()-1;
 		
 		healthBar.setProgress(0);
 		
@@ -201,18 +212,23 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void beatGame(){
-		gameOver("WINNER","Great job soldier!");
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0) + levelCreator.scoreGainedThisLevel();
+		gameOver("WINNER","The Moon is saved, and so is our home! Great job soldier!",levelCreator.getLevel(),score);
+
+		//set the variables used for the sharing message
+		beatGame=true;
+		scoreAtGameOver=score;
+		levelAtGameOver=levelCreator.getLevel();
 		
 		ImageView gameOverMoon = (ImageView)findViewById(R.id.gameOverMoon);
 		gameOverMoon.setVisibility(View.VISIBLE);
 	}
 	
-	private void gameOver(String title,String msg){
+	private void gameOver(String title,String msg,int level, int score){
 		KillableRunnable.killAll();
 		levelCreator.pauseLevel(); 
 		resetSavedVariables();
-		
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		
 		//set text
 		RelativeLayout gameOverLayout = (RelativeLayout)findViewById(R.id.gameOverWindow);
@@ -221,9 +237,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		TextView titleView = (TextView)findViewById(R.id.gameOverTitle);
 		titleView.setText(title);
 		TextView daysPassedView = (TextView)findViewById(R.id.num_days_passed);
-		daysPassedView.setText("" + levelCreator.getLevel() );
+		daysPassedView.setText("" + level );
 		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
-		finalScoreView.setText("" + gameState.getInt(STATE_TOTAL_RESOURCES, 0) );
+		finalScoreView.setText("" + score );
 		
 		gameOverLayout.setVisibility(View.VISIBLE);
 		storeLayout.setVisibility(View.GONE);
@@ -416,6 +432,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}
 		return false;//do not consume event, allow buttons to receive the touch as well
 	}
+	
 	private Intent getShareIntent(Context ctx,String type){
 		boolean found = false;
 		Intent share = new Intent(android.content.Intent.ACTION_SEND);
@@ -430,7 +447,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					if(!type.equals("mms")){
 						share.putExtra(Intent.EXTRA_SUBJECT, this.getResources().getString(R.string.app_name) );
 					}
-					share.putExtra(Intent.EXTRA_TEXT, "I beat " + this.getResources().getString(R.string.app_name)+ "!!");
+					String msg;
+					if(beatGame){
+						msg = "I beat \"" + this.getResources().getString(R.string.app_name)+"\" ! ";
+					}else{
+						msg = "Check out \""+this.getResources().getString(R.string.app_name)+"\" on the Google Play Store. I made it to day "+levelAtGameOver+"! ";
+					}
+					msg+="I got "+scoreAtGameOver+" points!";
+					
+					share.putExtra(Intent.EXTRA_TEXT, msg);
 					found = true;
 					share.setPackage(info.activityInfo.packageName);
 					break;
