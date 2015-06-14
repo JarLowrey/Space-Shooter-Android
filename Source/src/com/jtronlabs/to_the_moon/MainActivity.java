@@ -191,21 +191,21 @@ public class MainActivity extends Activity implements OnClickListener{
 		boolean introState = gameState.getBoolean(INTRO_PREF, true);
 		
 		if(vibrateState){
-			vibrate.setBackgroundColor(getResources().getColor(R.color.light_green));
+			vibrate.setBackgroundResource(R.drawable.btn_green);
 		}else{
-			vibrate.setBackgroundColor(getResources().getColor(R.color.light_red));
+			vibrate.setBackgroundResource(R.drawable.btn_red);
 		}
 		
 		if(soundState){
-			sound.setBackgroundColor(getResources().getColor(R.color.light_green));
+			sound.setBackgroundResource(R.drawable.btn_green);
 		}else{
-			sound.setBackgroundColor(getResources().getColor(R.color.light_red));
+			sound.setBackgroundResource(R.drawable.btn_red);
 		}
 
 		if(introState){
-			intro.setBackgroundColor(getResources().getColor(R.color.light_green));
+			intro.setBackgroundResource(R.drawable.btn_green);
 		}else{
-			intro.setBackgroundColor(getResources().getColor(R.color.light_red));
+			intro.setBackgroundResource(R.drawable.btn_red);
 		}
 	}
 	public static float getScreenDens(){

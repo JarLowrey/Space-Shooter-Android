@@ -12,7 +12,7 @@ import interfaces.Shooter;
  * The same goes for the leveling system
  *  
  */
-public class ConditionalHandler {  
+public class ConditionalHandler {    
 	
 	// handler for Game Objects (removeable Views). View must be not removed
 	/**

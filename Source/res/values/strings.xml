@@ -13,7 +13,7 @@
     <color name="dark_green">#00FF00</color>
     <color name="dark_red">#960303</color>
     <color name="red">#f50000</color>
-    <color name="light_red">#FF2659</color>
+    <color name="light_red">#FF4242</color>
     <color name="light_blue">#00D5FF</color>
     <color name="blue">#003BFF</color>
     <color name="dark_blue">#012290</color>
@@ -44,19 +44,33 @@
     <string name="title_activity">MainActivity</string>
     <string name="title_activity_intro">IntroActivity</string>
     
-    <string name="credits">Programmer/Designer\n
-        						\tJames Lowrey\n
-							Most ship images were taken from Part2Art.com.\n
-							Part2Art was created by Aral and many of the images used were created by the user ---\n
-							Lots of the other images, sounds, and resources were taken from the following websites and users.\n
-								\tOpenGameArt.org\n
-									\t\tasd\n
-								\tPixabay.com\n
-									\t\tasd\n
-								\tFreesound.org\n 
-									\t\joshuaempyre LittleRobotSoundFactory ReadeOnly lavik89 suntemple  Celticvalkyria rap2h\n
-							Arin --- for her help with some of the design.\n
-							And thank you for playing!\n</string>
+    <string name="credits">
+        					<b>Programmer and Designer</b>\n
+        						\t\t James Lowrey (JTronLabs)\n
+							<b>Part2Art.com and Arral.com</b> \n
+									\t\t Skorpio \n
+							<b>OpenGameArt.org</b>\n
+									\t\t Skorpio \n
+									\t\t Tummyache \n
+									\t\t fluffrabbit \n
+							<b>Pixabay.com</b>\n
+									\t\t Nemo \n
+									\t\t OpenIcons \n
+									\t\t OpenClipartVectors \n
+							<b>Freesound.org</b>\n 
+									\t\t oshuaempyre \n
+									\t\t LittleRobotSoundFactory \n
+									\t\t ReadeOnly \n
+									\t\t lavik89 \n
+									\t\t suntemple \n
+									\t\t Celticvalkyria \n
+									\t\t rap2h\n
+							<b>Licenses</b>\n
+								\t\t CC-BY-SA 3.0 \n
+								\t\t CC BY 3.0 \n
+							Arin Carver for her help with some of the design.\n
+							And thank you for playing!\n
+						 </string>
 
 	<!-- Sounds
 	http://www.freesound.org/people/lavik89/sounds/168984/

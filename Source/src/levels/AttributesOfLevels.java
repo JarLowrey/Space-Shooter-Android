@@ -65,7 +65,7 @@ public abstract class AttributesOfLevels {
 //	}
 	public int getResourceCount(){
 		return resourceNo;
-	}
+	}  
 
 	// persistent storage
 	public void saveResourceCount(){

@@ -15,7 +15,7 @@ public class Bonus_HealView extends BonusView implements MovingViewInterface{
 	
 	public Bonus_HealView(Context context,float positionX,float positionY) {
 		super(context,positionX,positionY);	
-
+ 
 		//set image size
 		Drawable dr = this.getResources().getDrawable(R.drawable.heal);
 		Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();

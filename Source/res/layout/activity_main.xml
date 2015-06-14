@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/settings_btn"
-        android:layout_alignTop="@+id/settings_btn"
+        android:layout_alignBottom="@+id/settings_btn"
         android:layout_alignBaseline="@+id/settings_btn"
         android:layout_marginLeft="@dimen/activity_margin_small"
         	>
@@ -70,8 +70,9 @@
 	        android:id="@+id/toggle_intro"
 	        android:layout_width="@dimen/btn_med_len"
 	        android:layout_height="@dimen/btn_med_len"
-	        android:layout_alignParentTop="true"
-	        android:layout_alignParentLeft="true"
+	        android:layout_marginBottom="@dimen/activity_margin_small"
+	        android:layout_alignLeft="@+id/show_credits"
+	        android:layout_above="@+id/toggle_vibration"
 	        android:src="@drawable/ic_info_outline_white_24dp"
 	        android:background="@drawable/btn_gray" >
 	    </ImageButton>
@@ -80,10 +81,10 @@
 	        android:id="@+id/toggle_vibration"
 	        android:layout_width="@dimen/btn_med_len"
 	        android:layout_height="@dimen/btn_med_len"
-	        android:layout_marginLeft="@dimen/activity_margin_small"
+	        android:layout_marginBottom="@dimen/activity_margin_small"
 	        android:src="@drawable/ic_vibration_white_24dp"
-	        android:layout_toRightOf="@+id/toggle_intro"
-	        android:layout_alignTop="@+id/toggle_intro"
+	        android:layout_alignLeft="@+id/show_credits"
+	        android:layout_above="@+id/toggle_sound"
 	        android:background="@drawable/btn_gray" >
 	    </ImageButton>
 	    
@@ -91,10 +92,10 @@
 	        android:id="@+id/toggle_sound"
 	        android:layout_width="@dimen/btn_med_len"
 	        android:layout_height="@dimen/btn_med_len"
-	        android:layout_marginLeft="@dimen/activity_margin_small"
+	        android:layout_marginBottom="@dimen/activity_margin_small"
 	        android:src="@drawable/ic_music_note_white_24dp"
-	        android:layout_toRightOf="@+id/toggle_vibration"
-	        android:layout_alignTop="@+id/toggle_intro"
+	        android:layout_alignLeft="@+id/show_credits"
+	        android:layout_above="@+id/show_credits"
 	        android:background="@drawable/btn_gray" >
 	    </ImageButton>
         
@@ -102,10 +103,9 @@
 	        android:id="@+id/show_credits"
 	        android:layout_width="@dimen/btn_med_len"
 	        android:layout_height="@dimen/btn_med_len"
-	        android:layout_marginLeft="@dimen/activity_margin_small"
+	        android:layout_marginBottom="@dimen/activity_margin_small"
 	        android:src="@drawable/ic_help_outline_white_24dp"
-	        android:layout_toRightOf="@+id/toggle_sound"
-	        android:layout_alignTop="@+id/toggle_intro"
+	        android:layout_alignParentBottom="true"
 	        android:background="@drawable/btn_gray" >
 	    </ImageButton>
     </RelativeLayout>

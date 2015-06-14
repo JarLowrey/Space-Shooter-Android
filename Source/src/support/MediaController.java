@@ -86,7 +86,7 @@ public class MediaController {
 		        soundNonLoopingMediaPlayer.start();
 			}
 		}
-    }
+    } 
     
     private static SoundPool soundEffects;//sound pool should be used for effects that are called a lot, like shooting
     public static int SOUND_BONUS,SOUND_COINS,SOUND_EXPLOSION1,SOUND_FRIENDLY_HIT,SOUND_LASER_SHOOT2;
@@ -95,7 +95,7 @@ public class MediaController {
      * Play a common sound effect
      * @param c		the context
      * @param soundEffect	given int from this class used to determine sound effect id
-     */
+     */ 
     public static void playSoundEffect(Context c, int soundEffect){
     	if(soundEffects == null){
     		soundEffects = new SoundPool(20, AudioManager.STREAM_MUSIC,0);
@@ -114,7 +114,7 @@ public class MediaController {
 		}
 		
 		if(soundEffect != SOUND_BONUS && soundEffect != SOUND_COINS && soundEffect != SOUND_EXPLOSION1 && soundEffect != SOUND_FRIENDLY_HIT && soundEffect!=SOUND_LASER_SHOOT2){
-			Log.d("lowrey","Sound Effect not found");
+			Log.d("lowrey","Sound Effect not found!!!");
 		}
     }
     

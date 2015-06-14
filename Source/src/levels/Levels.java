@@ -379,14 +379,14 @@ public class Levels extends Factory_Bosses{
 			{
 				boss5(),
 				doNothing(),
-				doNothing()
+				doNothing() 
 			};
 		return r;		
-	}
+	}    
 	
 	public KillableRunnable[][] levels(){
 		KillableRunnable[][] r = {
-
+   
 				level_1(), 
 				level_2(),
 				level_3(),
@@ -397,9 +397,9 @@ public class Levels extends Factory_Bosses{
 				level_8(),
 				level_9(),
 				level_10(),
-				level_11(),
+				level_11(), 
 				level_12(),
-				level_13(),
+				level_13(), 
 				level_14(),
 				level_15(),
 				level_16(),
