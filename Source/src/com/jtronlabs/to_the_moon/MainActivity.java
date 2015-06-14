@@ -1,8 +1,7 @@
 package com.jtronlabs.to_the_moon;
 
-import levels.LevelSystem;
 import support.DrawTextView;
-import support.KillableRunnable;
+import support.MediaController;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,7 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import enemies_orbiters.Orbiter_Rectangle_Array;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
 
@@ -98,28 +96,21 @@ public class MainActivity extends Activity implements OnClickListener{
 //		AnimationDrawable animation = (AnimationDrawable) imgView.getBackground();
 //	    animation.start();
 	}
-//	
-//	@Override
-//	public void onPause(){
-//		super.onPause();
-//
-//		//cleanup the enemies
-//		for (int i = LevelSystem.enemyBullets.size() - 1; i >= 0; i--) {
-//			LevelSystem.enemyBullets.get(i).removeGameObject();
-//		}
-//		for (int i = LevelSystem.enemies.size() - 1; i >= 0; i--) {
-//			LevelSystem.enemies.get(i).removeGameObject();
-//		}
-//		KillableRunnable.killAll();
-//	}
-//
-//	@Override
-//	public void onResume(){
-//		super.onResume();
-//		
-//		Orbiter_Rectangle_Array.refreshSimpleShooterArray(this);//for an interesting background, show some enemies
-//	}
-//	 
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+
+		MediaController.stopLoopingSound();
+	}
+
+	@Override
+	public void onResume(){
+		super.onResume();
+
+		MediaController.playSoundClip(this, R.raw.background_intro, true);
+	}
+	 
 	@Override
 	public void onClick(View v) {
 		SharedPreferences gameSettings = getSharedPreferences(GAME_SETTING_PREFS, 0);
@@ -137,6 +128,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					nextIntent= new Intent(this, IntroActivity.class);
 				}else{
 					nextIntent= new Intent(this, GameActivity.class);
+					MediaController.stopLoopingSound();
 				}
 				
 				//startNext intent
@@ -160,9 +152,15 @@ public class MainActivity extends Activity implements OnClickListener{
 			case R.id.toggle_sound:
 				boolean soundEdit = gameSettings.getBoolean(SOUND_PREF, true);
 				editor.putBoolean(SOUND_PREF, !soundEdit);
+				editor.commit();
 				
-				String soundState = (!soundEdit) ? "on" : "off" ;
-    			Toast.makeText(getApplicationContext(),"Sound is turned "+soundState, Toast.LENGTH_SHORT).show();
+    			if(soundEdit){
+        			Toast.makeText(getApplicationContext(),"Sound is turned off", Toast.LENGTH_SHORT).show();
+    				MediaController.stopLoopingSound();
+    			}else{
+        			Toast.makeText(getApplicationContext(),"Sound is turned on", Toast.LENGTH_SHORT).show();
+    				MediaController.playSoundClip(this, R.raw.background_intro, true);
+    			}
 				break;
 			case R.id.toggle_vibration:
 				boolean vibrateEdit = gameSettings.getBoolean(VIBRATE_PREF, true);

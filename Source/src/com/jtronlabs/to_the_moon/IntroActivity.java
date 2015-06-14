@@ -92,6 +92,5 @@ public class IntroActivity extends Activity implements OnClickListener{
 			}
 			break;
 		}
-		
 	}
 }

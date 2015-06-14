@@ -272,7 +272,17 @@ public final class R {
         public static final int activity_main=0x7f030002;
     }
     public static final class raw {
-        public static final int roboto_condensed_bold=0x7f050000;
+        public static final int background_intro=0x7f050000;
+        public static final int background_playing_game=0x7f050001;
+        public static final int background_store=0x7f050002;
+        public static final int bonus=0x7f050003;
+        public static final int coins=0x7f050004;
+        public static final int explosion1=0x7f050005;
+        public static final int jingle_lose=0x7f050006;
+        public static final int jingle_win=0x7f050007;
+        public static final int laser_shoot=0x7f050008;
+        public static final int protagonist_hit=0x7f050009;
+        public static final int roboto_condensed_bold=0x7f05000a;
     }
     public static final class string {
         public static final int app_name=0x7f090000;

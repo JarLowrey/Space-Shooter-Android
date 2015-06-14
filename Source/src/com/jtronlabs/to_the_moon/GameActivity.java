@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import levels.LevelSystem;
 import support.KillableRunnable;
+import support.MediaController;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -154,12 +155,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//level attributes are saved in the levelSystem
 		//gameover() resets variables in method
 		
+		MediaController.stopLoopingSound();
+		MediaController.stopNonLoopingShortSound();
+		
 		Log.d("lowrey","num enemies on pause = "+levelCreator.enemies.size());
     }
 	
 	@Override
 	public void onResume(){
-		super.onResume(); 
+		super.onResume();
 		
         scoreInGame.setVisibility(View.VISIBLE);
 		
@@ -189,6 +193,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//don't open the store up on the initial level
 		if(levelCreator.getLevel()==0){
 			levelCreator.resumeLevel();
+			MediaController.playSoundClip(this, R.raw.background_playing_game, true);
 		}else{
 			openStore();
 		}
@@ -270,6 +275,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	} 
 	
 	public void openStore(){
+		MediaController.stopLoopingSound();
+		MediaController.playSoundClip(this, R.raw.background_store, true);
+		
 		gameLayout.setVisibility(View.GONE);
 		storeLayout.setVisibility(View.VISIBLE);
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getResourceCount()));
@@ -278,6 +286,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	private void closeStoreAndResumeLevel(){
+		MediaController.stopLoopingSound();
+		MediaController.playSoundClip(this, R.raw.background_playing_game, true);
+		
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 
