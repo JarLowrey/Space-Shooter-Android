@@ -2,11 +2,13 @@ package guns;
    
 import interfaces.Shooter;
 import parents.Moving_ProjectileView;
+import support.MediaController;
 import android.content.Context;
 import bullets.Bullet;
 import bullets.BulletView;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 
 public class Gun_TrackingGattling extends Gun_Tracking {
@@ -31,6 +33,8 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 	}
 	
 	public boolean shoot(){ 
+		MediaController.playSoundEffect(ctx, MediaController.SOUND_LASER_SHOOT2);
+		
 		
 		if(currentNumShots >= cutoffTotalShots){
 			bulletFreq=originalBulletFreq;

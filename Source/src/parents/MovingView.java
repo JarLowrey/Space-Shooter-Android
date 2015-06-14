@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 /**
  * 
@@ -196,6 +197,8 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	}
 	
 	protected void createExplosion(int width,int height,int explosionImgId,long[] vibrationPattern){
+		MediaController.playSoundEffect(getContext(), MediaController.SOUND_EXPLOSION1);
+		
 		if(vibrationPattern!=null){
 			 //vibrate the phone  
 			MediaController.vibrate(getContext(), vibrationPattern);

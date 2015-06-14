@@ -156,7 +156,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//gameover() resets variables in method
 		
 		MediaController.stopLoopingSound();
-		MediaController.stopNonLoopingShortSound();
+		MediaController.stopNonLoopingSound();
 		
 		Log.d("lowrey","num enemies on pause = "+levelCreator.enemies.size());
     }
@@ -192,8 +192,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		//don't open the store up on the initial level
 		if(levelCreator.getLevel()==0){
-			levelCreator.resumeLevel();
-			MediaController.playSoundClip(this, R.raw.background_playing_game, true);
+			levelCreator.resumeLevel(this);
 		}else{
 			openStore();
 		}
@@ -201,6 +200,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void lostGame(){ 
+		MediaController.playSoundClip(this, R.raw.jingle_lose, false);
+		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel();   
 		gameOver("GAME OVER","All is lost...",levelCreator.getLevel()-1,score );
@@ -217,6 +218,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void beatGame(){
+		MediaController.playSoundClip(this, R.raw.jingle_win, false);
+		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0) + levelCreator.scoreGainedThisLevel();
 		gameOver("WINNER","The Moon is saved, and so is our home! Great job soldier!",levelCreator.getLevel(),score);
@@ -285,14 +288,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		setHealthBars(protagonist.getMaxHealth(),protagonist.getHealth() ); 	
 	}
 	
-	private void closeStoreAndResumeLevel(){
-		MediaController.stopLoopingSound();
-		MediaController.playSoundClip(this, R.raw.background_playing_game, true);
-		
+	private void closeStoreAndResumeLevel(){		
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 
-		levelCreator.resumeLevel();
+		levelCreator.resumeLevel(this);
 		
 		//create ally if needed		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
@@ -550,6 +550,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	        public void onClick(DialogInterface dialog, int which) { 
 	        	if(!maxLevelItemCopy){
 	        		if(costCopy<=levelCreator.getResourceCount()){
+	        			MediaController.playSoundEffect(GameActivity.this, MediaController.SOUND_COINS);
 		        		protagonist.applyUpgrade(whichUpgrade);
 		        		
 		        		//update Views in the store

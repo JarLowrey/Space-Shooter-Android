@@ -3,11 +3,13 @@ package guns;
 import interfaces.Shooter;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
+import support.MediaController;
 
 import android.content.Context;
 import bullets.Bullet;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 public abstract class Gun_Tracking extends Gun{
 

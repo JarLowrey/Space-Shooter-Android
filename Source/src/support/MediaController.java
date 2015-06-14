@@ -2,10 +2,13 @@ package support;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Vibrator;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 public class MediaController {
 	
@@ -33,10 +36,12 @@ public class MediaController {
 	}
 	
 	
-	private static MediaPlayer soundNonLoopingMediaPlayer,soundLoopingMediaPlayer;
-    public static boolean donePlayingNonLoopingSoundClip=true,currentlyPlayingLoopingSound=false;
+	private static MediaPlayer soundNonLoopingMediaPlayer,//reference to MP is kept, sound can be stopped and known if playing
+		soundLoopingMediaPlayer;
+    public static boolean donePlayingNonLoopingSoundClip=true,
+    		currentlyPlayingLoopingSound=false;
 
-    public static void stopNonLoopingShortSound() {
+    public static void stopNonLoopingSound() {
         if (soundNonLoopingMediaPlayer != null) {
             soundNonLoopingMediaPlayer.release();
             soundNonLoopingMediaPlayer = null;
@@ -65,14 +70,14 @@ public class MediaController {
 		        soundLoopingMediaPlayer.setLooping(true);
 		        soundLoopingMediaPlayer.start();
 			}else{
-		    	stopNonLoopingShortSound();
+		    	stopNonLoopingSound();
 		        donePlayingNonLoopingSoundClip=false;
 		
 		        soundNonLoopingMediaPlayer = MediaPlayer.create(c, rid);
 		        soundNonLoopingMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 		            @Override
 		            public void onCompletion(MediaPlayer mediaPlayer) {
-		            	stopNonLoopingShortSound();
+		            	stopNonLoopingSound();
 		                donePlayingNonLoopingSoundClip=true;
 		            }
 		        });
@@ -80,6 +85,26 @@ public class MediaController {
 		        soundNonLoopingMediaPlayer.start();
 			}
 		}
+    }
+    
+    private static SoundPool soundEffects;//sound pool should be used for effects that are called a lot, like shooting
+    public static int SOUND_BONUS,SOUND_COINS,SOUND_EXPLOSION1,SOUND_FRIENDLY_HIT,SOUND_LASER_SHOOT2;
+    
+    /**
+     * Play a common sound effect
+     * @param c		the context
+     * @param soundEffect	given int from this class used to determine sound effect id
+     */
+    public static void playSoundEffect(Context c, int soundEffect){
+    	if(soundEffects == null){
+    		soundEffects = new SoundPool(20, AudioManager.STREAM_MUSIC,0);
+    		SOUND_BONUS = soundEffects.load(c, R.raw.bonus, 1);
+    		SOUND_COINS = soundEffects.load(c, R.raw.coins, 1);
+    		SOUND_EXPLOSION1 = soundEffects.load(c, R.raw.explosion1, 1);
+    		SOUND_FRIENDLY_HIT = soundEffects.load(c, R.raw.friendly_hit, 1);
+    		SOUND_LASER_SHOOT2 = soundEffects.load(c, R.raw.laser_shoot2, 1);
+    	}
+    	soundEffects.play(soundEffect,1,1, 1,0,1);
     }
     
 }

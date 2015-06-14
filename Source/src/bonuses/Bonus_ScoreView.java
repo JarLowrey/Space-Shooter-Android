@@ -1,5 +1,6 @@
 package bonuses;
 
+import support.MediaController;
 import interfaces.MovingViewInterface;
 import interfaces.Shooter;
 import android.content.Context;
@@ -25,6 +26,8 @@ public class Bonus_ScoreView extends BonusView implements MovingViewInterface{
 	}
 	
 	public void applyBenefit(Shooter theBenefitter){
+		MediaController.playSoundEffect(getContext(), MediaController.SOUND_BONUS);
+		
 		((GameActivityInterface) this.getContext()).incrementScore(1000);
 	}
 }

@@ -1,5 +1,8 @@
 package guns;
   
+import com.jtronlabs.to_the_moon.R;
+
+import support.MediaController;
 import interfaces.Shooter;
 import android.content.Context;
 import bullets.Bullet;
@@ -15,7 +18,10 @@ public  class Gun_AngledDualShot extends Gun {
 			int positionOnShooterAsAPercentage) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 	}
+	
 	public boolean shoot(){
+		MediaController.playSoundEffect(ctx,MediaController.SOUND_LASER_SHOOT2);
+		
 		//travel horizontally at a speed such that the bullets will move in DEFAULT_ANGLE direction
 		float bulletSpeedX = (float) (bulletSpeedY * Math.tan(Math.toRadians(DEFAULT_ANGLE)));
 

@@ -1,9 +1,8 @@
 package levels;
 
-import interfaces.GameActivityInterface;
-
 import java.util.ArrayList;
 
+import support.MediaController;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -12,11 +11,10 @@ import bonuses.BonusView;
 import bullets.BulletView;
 
 import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.to_the_moon.R;
 
 import enemies.EnemyView;
-import friendlies.AllyView;
 import friendlies.FriendlyView;
-import friendlies.ProtagonistView;
 
 public class LevelSystem extends Levels{
 
@@ -45,8 +43,12 @@ public class LevelSystem extends Levels{
 	 * resources and level Number, set Wave to 0. Set waves to spawn every
 	 * DEFAULT_WAVE_DURATION seconds. Start Collision detection
 	 */
-	public void resumeLevel() {
+	public void resumeLevel(Context c) {
 		Log.d("lowrey","level resumed!!!");
+
+		MediaController.stopLoopingSound();
+		MediaController.playSoundClip(ctx, R.raw.background_playing_game,true);
+		
 		// conditionalHandler = new ConditionalHandler(this);//must be reset
 		// every time level is resumed for previous wave spawnings to stop
 //		createBackgroundEffects();

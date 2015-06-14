@@ -2,8 +2,10 @@ package friendlies;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.to_the_moon.R;
 
 import parents.Moving_ProjectileView;
+import support.MediaController;
 import levels.LevelSystem;
 import android.content.Context;
 
@@ -25,4 +27,9 @@ public class FriendlyView extends Moving_ProjectileView{
 		deaultCleanupOnRemoval();//needs to be called last for all pending callbacks to 'this' to be removed
 	}
  
+	@Override
+	public boolean takeDamage(int howMuchDamage){
+		MediaController.playSoundEffect(getContext(), MediaController.SOUND_FRIENDLY_HIT);
+		return super.takeDamage(howMuchDamage);
+	}
 }
