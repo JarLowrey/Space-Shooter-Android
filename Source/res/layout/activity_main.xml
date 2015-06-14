@@ -51,7 +51,7 @@
        	android:layout_alignParentLeft="true"
        	android:layout_marginBottom="@dimen/activity_margin_small"
        	android:layout_marginLeft="@dimen/activity_margin_small"
-        android:src="@drawable/ic_action_play"
+        android:src="@drawable/ic_settings_white_24dp"
         android:background="@drawable/btn_gray_and_red" >
     </ImageButton>
     
@@ -72,7 +72,7 @@
 	        android:layout_height="@dimen/btn_med_len"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
-	        android:src="@drawable/ic_action_play"
+	        android:src="@drawable/ic_info_outline_white_24dp"
 	        android:background="@drawable/btn_gray" >
 	    </ImageButton>
 	    
@@ -81,7 +81,7 @@
 	        android:layout_width="@dimen/btn_med_len"
 	        android:layout_height="@dimen/btn_med_len"
 	        android:layout_marginLeft="@dimen/activity_margin_small"
-	        android:src="@drawable/ic_action_play"
+	        android:src="@drawable/ic_vibration_white_24dp"
 	        android:layout_toRightOf="@+id/toggle_intro"
 	        android:layout_alignTop="@+id/toggle_intro"
 	        android:background="@drawable/btn_gray" >
@@ -92,7 +92,7 @@
 	        android:layout_width="@dimen/btn_med_len"
 	        android:layout_height="@dimen/btn_med_len"
 	        android:layout_marginLeft="@dimen/activity_margin_small"
-	        android:src="@drawable/ic_action_play"
+	        android:src="@drawable/ic_music_note_white_24dp"
 	        android:layout_toRightOf="@+id/toggle_vibration"
 	        android:layout_alignTop="@+id/toggle_intro"
 	        android:background="@drawable/btn_gray" >
@@ -103,7 +103,7 @@
 	        android:layout_width="@dimen/btn_med_len"
 	        android:layout_height="@dimen/btn_med_len"
 	        android:layout_marginLeft="@dimen/activity_margin_small"
-	        android:src="@drawable/ic_action_play"
+	        android:src="@drawable/ic_help_outline_white_24dp"
 	        android:layout_toRightOf="@+id/toggle_sound"
 	        android:layout_alignTop="@+id/toggle_intro"
 	        android:background="@drawable/btn_gray" >

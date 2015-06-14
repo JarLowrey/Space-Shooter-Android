@@ -98,7 +98,7 @@ public abstract class Factory_Waves extends AttributesOfLevels{
 				spawnMeteorShower(numMeteors,400,false);
 				
 			}
-		};
+		}; 
 	}
 	final KillableRunnable meteorShowersThatForceUserToRight(){
 		return new KillableRunnable(){
