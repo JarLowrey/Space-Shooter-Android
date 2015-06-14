@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Vibrator;
+import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -104,7 +105,17 @@ public class MediaController {
     		SOUND_FRIENDLY_HIT = soundEffects.load(c, R.raw.friendly_hit, 1);
     		SOUND_LASER_SHOOT2 = soundEffects.load(c, R.raw.laser_shoot2, 1);
     	}
-    	soundEffects.play(soundEffect,1,1, 1,0,1);
+
+		SharedPreferences gameState = c.getSharedPreferences(MainActivity.GAME_SETTING_PREFS, 0);
+		final boolean soundIsOn = gameState.getBoolean(MainActivity.SOUND_PREF, true);
+		
+		if(soundIsOn){
+			soundEffects.play(soundEffect,1,1, 1,0,1);
+		}
+		
+		if(soundEffect != SOUND_BONUS && soundEffect != SOUND_COINS && soundEffect != SOUND_EXPLOSION1 && soundEffect != SOUND_FRIENDLY_HIT && soundEffect!=SOUND_LASER_SHOOT2){
+			Log.d("lowrey","Sound Effect not found");
+		}
     }
     
 }
