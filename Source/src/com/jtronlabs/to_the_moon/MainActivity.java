@@ -199,10 +199,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		}else{
 			vibrate.setBackgroundResource(R.drawable.btn_red);
 		}
-		
+		 
 		if(soundState){
-			sound.setBackgroundResource(R.drawable.btn_green);
-		}else{
+			sound.setBackgroundResource(R.drawable.btn_green); 
+		}else{  
 			sound.setBackgroundResource(R.drawable.btn_red);
 		}
 
@@ -211,13 +211,13 @@ public class MainActivity extends Activity implements OnClickListener{
 		}else{
 			intro.setBackgroundResource(R.drawable.btn_red);
 		}
-	}
+	} 
 	public static float getScreenDens(){
 		return screenDens;
 	}
 	public static float getWidthPixels(){
 		return widthPixels;
-	}
+	} 
 	public static float getHeightPixels(){
 		return heightPixels;
 	}
