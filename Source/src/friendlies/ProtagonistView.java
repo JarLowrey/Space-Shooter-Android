@@ -189,7 +189,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public float getShootingDelay(){
 		return DEFAULT_BULLET_FREQ - getBulletBulletFreqLevel() * BULLET_FREQ_WEIGHT;
 	}
-	public int getGunLevel(){
+	public int getGunLevel(){ 
 		return gameState.getInt(GameActivity.STATE_GUN_CONFIG,-1);
 	}
 	public int getBulletDamageLevel(){
@@ -205,8 +205,8 @@ public class ProtagonistView extends Friendly_ShooterView{
 		this.setHealth(DEFAULT_HEALTH+ (DEFAULT_HEALTH/10) *getDefenceLevel() );
 	}
 	
-	@Override
-	public void removeGameObject(){
+	@Override 
+	public void removeGameObject(){ 
 		super.removeGameObject();
 		
 		if(this.getHealth()>0){//if not dead, then game is paused. Save needed Attributes

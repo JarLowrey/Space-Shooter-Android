@@ -138,16 +138,16 @@ public class LevelSystem extends Levels{
 			getInteractivityInterface().beatGame(); 
 		}else{
 			getInteractivityInterface().openStore();
-		}
+		} 
 	}
-	
+	 
 	public int scoreGainedThisLevel(){
 		SharedPreferences gameState = ctx.getSharedPreferences(
 				GameActivity.GAME_STATE_PREFS, 0);
 		//find how much score was incremented this level to know how much to add to total score
 		final int scoreBeforeLevel = gameState.getInt(GameActivity.STATE_RESOURCES, 0);
 		return (getResourceCount() - scoreBeforeLevel);		
-	}
+	}    
 //	
 //	// Background Animations and effects
 //	private final int[] backgroundColors = { R.color.blue, R.color.dark_blue,
