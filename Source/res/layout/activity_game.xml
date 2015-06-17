@@ -63,14 +63,14 @@
 		  			android:scaleType="fitCenter"  
 		  			android:adjustViewBounds="true"  
 					android:src="@drawable/lightning"
-				    android:background="@drawable/btn_gray" />
+				    android:background="@drawable/btn_gray_no_highlight" />
 					
 			    <ImageButton 
 				    android:id="@+id/btn_move"
 					android:layout_alignParentLeft="true"
 				    android:layout_width="100dp"
 				    android:layout_height="@dimen/btn_large_len"
-				    android:background="@drawable/btn_gray"    />
+				    android:background="@drawable/btn_gray_no_highlight"    />
 		    </RelativeLayout>
    		</RelativeLayout>
     </RelativeLayout>

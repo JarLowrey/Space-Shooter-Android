@@ -376,7 +376,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 						public void doWork() {	
 							canBeginShooting=true;beginShootingRunnablePosted=false;	
 						}	
-					},(long)ProtagonistView.DEFAULT_BULLET_FREQ);
+					},(long)protagonist.getShootingDelay() );
 					beginShootingRunnablePosted=true;
 				}
 				
