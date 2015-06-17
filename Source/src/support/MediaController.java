@@ -73,7 +73,7 @@ public class MediaController {
 			}else{
 		    	stopNonLoopingSound();
 		        donePlayingNonLoopingSoundClip=false;
-		
+		 
 		        soundNonLoopingMediaPlayer = MediaPlayer.create(c, rid);
 		        soundNonLoopingMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 		            @Override
@@ -89,7 +89,8 @@ public class MediaController {
     } 
     
     private static SoundPool soundEffects;//sound pool should be used for effects that are called a lot, like shooting
-    public static int SOUND_BONUS,SOUND_COINS,SOUND_EXPLOSION1,SOUND_FRIENDLY_HIT,SOUND_LASER_SHOOT2;
+    public static int SOUND_BONUS,SOUND_COINS,SOUND_EXPLOSION1,SOUND_FRIENDLY_HIT,SOUND_LASER_SHOOT2,
+    	SOUND_ROCKET_LAUNCH;
     
     /**
      * Play a common sound effect
@@ -104,6 +105,7 @@ public class MediaController {
     		SOUND_EXPLOSION1 = soundEffects.load(c, R.raw.explosion1, 1);
     		SOUND_FRIENDLY_HIT = soundEffects.load(c, R.raw.friendly_hit, 1);
     		SOUND_LASER_SHOOT2 = soundEffects.load(c, R.raw.laser_shoot2, 1);
+    		SOUND_ROCKET_LAUNCH = soundEffects.load(c, R.raw.rocket_launch,1);
     	}
 
 		SharedPreferences gameState = c.getSharedPreferences(MainActivity.GAME_SETTING_PREFS, 0);

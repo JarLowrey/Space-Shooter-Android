@@ -22,7 +22,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	SharedPreferences gameState;
 	GameActivityInterface myGame;
-	
+	 
 	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
@@ -34,7 +34,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		myGame=interactWithGame;
 		
-		this.post(exhaustRunnable());
+		this.post(showExhaustRunnable());
 
 		//apply upgrades
 		final float freq = getShootingDelay();
@@ -53,29 +53,36 @@ public class ProtagonistView extends Friendly_ShooterView{
 	 
 	private int count = 0;
     
-	private KillableRunnable exhaustRunnable(){
+	private KillableRunnable showExhaustRunnable(){
 		final long howOftenExhaustMoves = (ProtagonistView.HOW_OFTEN_TO_MOVE/2);
 		return new KillableRunnable(){
+			private boolean hasPlayedSound = false;
+			
 	    	 @Override
-	         public void doWork() {
-					GameActivityInterface screen = (GameActivityInterface) getContext();
-					if( ( count* howOftenExhaustMoves)  < EXHAUST_VISIBLE_TIME){
-						screen.getExhaust().setVisibility(View.VISIBLE);					
-			    		 //position the exhaust
-						final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
-						final float averageRocketsX= (2 * ProtagonistView.this.getX()+ProtagonistView.this.getWidth() )/2;//find average of rocket's left and right x pos
-						final float x = averageRocketsX-screen.getExhaust().getLayoutParams().width /2;//fire's new X pos should set the middle of fire to middle of rocket
-						screen.getExhaust().setY(y);
-						screen.getExhaust().setX(x);
-						count++;
-	
-						ConditionalHandler.postIfAlive(this,howOftenExhaustMoves,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
-					
-					}else{
-						count=0;
-						screen.getExhaust().setVisibility(View.GONE);					
-						ConditionalHandler.postIfAlive(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()),ProtagonistView.this);//repost this to a random time in the future
-					}
+	         public void doWork() {	  
+	    		if( ! hasPlayedSound){ //need to check if already played to prevent playing every movement of exhaust
+	    			MediaController.playSoundEffect(getContext(), MediaController.SOUND_ROCKET_LAUNCH);
+	    			hasPlayedSound = true; 
+	    		}
+    		 	GameActivityInterface screen = (GameActivityInterface) getContext();
+				if( ( count* howOftenExhaustMoves)  < EXHAUST_VISIBLE_TIME){
+					screen.getExhaust().setVisibility(View.VISIBLE);					
+		    		 //position the exhaust
+					final float y=ProtagonistView.this.getY()+ProtagonistView.this.getHeight(); //set the fire's Y pos to behind rocket
+					final float averageRocketsX= (2 * ProtagonistView.this.getX()+ProtagonistView.this.getWidth() )/2;//find average of rocket's left and right x pos
+					final float x = averageRocketsX-screen.getExhaust().getLayoutParams().width /2;//fire's new X pos should set the middle of fire to middle of rocket
+					screen.getExhaust().setY(y);
+					screen.getExhaust().setX(x);
+					count++; 
+
+					ConditionalHandler.postIfAlive(this,howOftenExhaustMoves,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
+				
+				}else{		    		
+	    			hasPlayedSound = false;
+					count=0;
+					screen.getExhaust().setVisibility(View.GONE);					
+					ConditionalHandler.postIfAlive(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()),ProtagonistView.this);//repost this to a random time in the future
+				}
 	         }
 	    };
 	}
@@ -118,7 +125,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	@Override
 	public void restartThreads(){
-		this.post(exhaustRunnable());
+		this.post(showExhaustRunnable());
 		super.restartThreads();
 	}
 	

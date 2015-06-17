@@ -292,6 +292,7 @@ public final class R {
         public static final int jingle_win=0x7f050008;
         public static final int laser_shoot2=0x7f050009;
         public static final int roboto_condensed_bold=0x7f05000a;
+        public static final int rocket_launch=0x7f05000b;
     }
     public static final class string {
         public static final int app_name=0x7f090000;
