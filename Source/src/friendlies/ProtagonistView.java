@@ -1,15 +1,15 @@
 package friendlies;
 
 import guns.Gun;
+import guns.Gun_AngledDualShot;
 import interfaces.GameActivityInterface;
 import support.ConditionalHandler;
 import support.KillableRunnable;
 import support.MediaController;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
+import bullets.Bullet_Basic_LaserLong;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -41,9 +41,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 		final int dmg = (int) (DEFAULT_BULLET_DAMAGE + getBulletDamageLevel() * BULLET_DAMAGE_WEIGHT);
 		createGunSet(freq,dmg,getGunLevel());
 		applyDefenceUpgradeToProtagonist();
-		this.killMoveRunnable();
-//		addGun(new Gun_AngledDualShot(context, this, new Bullet_Basic_LaserLong(), 
-//				freq, Friendly_ShooterView.DEFAULT_BULLET_SPEED_Y, dmg, 50
+		this.killMoveRunnable();//stop him from automatically moving at spawn
+//		addGun(new Gun_AngledDualShot(context, this, new Bullet_Basic_LaserLong(), //for debugging
+//				freq, Friendly_ShooterView.DEFAULT_BULLET_SPEED_Y, dmg*3, 50
 //				));
 	}
 	
@@ -103,7 +103,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	@Override 
 	public boolean takeDamage(int howMuchDamage){ 
 		boolean isDead = super.takeDamage(howMuchDamage);
-		myGame.setHealthBars(this.getMaxHealth(),this.getHealth());
+		myGame.setHealthBars(this.getMaxHealth(),this.getHealth());//must set health bars after taking damage
 		
 		if(isDead){
 			final long vibratePat[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};

@@ -14,7 +14,7 @@ import com.jtronlabs.to_the_moon.R;
 public class Gun_TrackingGattling extends Gun_Tracking {
 
 	public static float MAX_X_SPEED=15*MainActivity.getScreenDens();
-	public static int DEFAULT_NUM_GATTLING_SHOTS=10;
+	public static int DEFAULT_NUM_GATTLING_SHOTS=8;
 	
 	private int currentNumShots,cutoffTotalShots;
 	private float originalBulletFreq;

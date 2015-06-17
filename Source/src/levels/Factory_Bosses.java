@@ -92,14 +92,24 @@ public abstract class Factory_Bosses extends Factory_Waves
 		return new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
-						Orbiter_RectangleView.DEFAULT_SPEED_Y,
-						Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+//				Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
+//						Orbiter_RectangleView.DEFAULT_SPEED_Y,
+//						Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
+//						ProtagonistView.DEFAULT_BULLET_DAMAGE*60,
+//						100,
+//						Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH*5,
+//						Orbiter_RectangleView.DEFAULT_ORBIT_X,
+//						Orbiter_RectangleView.DEFAULT_ORBIT_Y,
+//						(int) ctx.getResources().getDimension(R.dimen.boss3_width),
+//						(int) ctx.getResources().getDimension(R.dimen.boss3_height),
+//						R.drawable.ship_enemy_boss3);
+				
+
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,5000,
+						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
+						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE*60,
 						100,
-						Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH*5,
-						Orbiter_RectangleView.DEFAULT_ORBIT_X,
-						Orbiter_RectangleView.DEFAULT_ORBIT_Y,
 						(int) ctx.getResources().getDimension(R.dimen.boss3_width),
 						(int) ctx.getResources().getDimension(R.dimen.boss3_height),
 						R.drawable.ship_enemy_boss3);

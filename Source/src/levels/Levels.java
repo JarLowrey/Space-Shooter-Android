@@ -266,26 +266,26 @@ public class Levels extends Factory_Bosses{
 			{
 				refreshArrayShootersStaggered(),
 				trackingAcceleratingEnemy(),
+				doNothing(),
+				doNothing(),
+				doNothing(),
+				doNothing(),
 				trackingAcceleratingEnemy(),
 				trackingAcceleratingEnemy(),
 				doNothing(),
-				doNothing(),
-				doNothing(),
-				doNothing(),
+				doNothing(), 
 				boss3(),
 				doNothing(),
 				doNothing(),
 				pauseAndShoot(),
-				rect(),
-				doNothing(),
-				pauseAndShoot()
+				doNothing()
 			};
 		return r;		
 	}
 	private KillableRunnable[] level_14(){
 		KillableRunnable[] r =
 			{
-				meteorsGiantAndSideways(),
+				meteorsGiantAndSideways(), 
 				meteorsGiantAndSideways(),
 				meteorsGiantAndSideways(),
 				doNothing(),
@@ -332,8 +332,6 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				doNothing(),
 				doNothing(),
-				pauseAndShoot(),
-				tri(),
 				tri(),
 				tri(),
 				doNothing(),
@@ -346,7 +344,8 @@ public class Levels extends Factory_Bosses{
 				circlesTwoOrbiters(),
 				doNothing(),
 				doNothing(),
-				circlesOneOrbiters()	
+				circlesOneOrbiters(),
+				tri()
 			};
 		return r;		
 	}
