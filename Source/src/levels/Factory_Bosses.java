@@ -113,7 +113,7 @@ public abstract class Factory_Bosses extends Factory_Waves
 						(int) ctx.getResources().getDimension(R.dimen.boss3_width),
 						(int) ctx.getResources().getDimension(R.dimen.boss3_height),
 						R.drawable.ship_enemy_boss3);
-				
+				 
 				enemy.removeAllGuns();
 				enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Basic_LaserShort(),

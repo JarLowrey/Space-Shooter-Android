@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"    
+    android:background="@drawable/star_standalone"    
+    tools:context="${packageName}.${activityClass}">
+    
+    <TextView
+        android:id="@+id/introText"
+        style="@style/VeryLargeText"
+        android:background="@drawable/intro_background"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" 
+	    android:padding="@dimen/activity_margin_small"
+	    android:layout_centerInParent="true"
+	    android:text="JTronLabs"        
+        />
+    
+    <ImageView
+        android:id="@+id/introLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/introText"
+        android:src="@drawable/j_tron_labs_logo"
+	    android:layout_width="@dimen/logo_len"
+	    android:layout_height="@dimen/logo_len" 
+        />
+    
+
+</RelativeLayout>

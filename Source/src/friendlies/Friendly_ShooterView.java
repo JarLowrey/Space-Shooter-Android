@@ -46,7 +46,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		
 		isShooting=false;
 		myGuns= new ArrayList<Gun>();
-		myBullets = new ArrayList<BulletView>();
+		myBullets = new ArrayList<BulletView>();   
 	}
 	
 

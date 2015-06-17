@@ -90,6 +90,9 @@
 	    <dimen name="store_btn_margin_vertical">40dp</dimen>
     
     <!-- ETC -->
+    
+	    <dimen name="logo_len">75dp</dimen>
+	    
 	    <dimen name="intro_text_view_width">300dp</dimen>
 	    <dimen name="off_screen">-100dp</dimen>
 	    

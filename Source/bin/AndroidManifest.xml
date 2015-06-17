@@ -19,20 +19,27 @@
             android:name="com.jtronlabs.to_the_moon.MainActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.jtronlabs.to_the_moon.GameActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        
+        <activity
+            android:name="com.jtronlabs.to_the_moon.AppIntroActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
-            android:name="com.jtronlabs.to_the_moon.GameActivity"
-            android:label="@string/title_activity_game"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
-        <activity
-            android:name="com.jtronlabs.to_the_moon.IntroActivity"
-            android:label="@string/title_activity_intro"
+            android:name="com.jtronlabs.to_the_moon.GameIntroActivity"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>

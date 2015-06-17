@@ -125,7 +125,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				final int currLevel = gameState.getInt(GameActivity.STATE_LEVEL, 0);
 				
 				if(showIntro && currLevel==0){
-					nextIntent= new Intent(this, IntroActivity.class);
+					nextIntent= new Intent(this, GameIntroActivity.class);
 				}else{
 					nextIntent= new Intent(this, GameActivity.class);
 					MediaController.stopLoopingSound();

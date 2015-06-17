@@ -39,11 +39,11 @@
 	    <item>These aliens have been dropping a stockpile of missiles, we just need a way to launch them.</item>
     </string-array>
 	
-	
+	<!-- 
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity">MainActivity</string>
     <string name="title_activity_intro">IntroActivity</string>
-    
+    -->
     <string name="credits">
         					<b>Programmer and Designer</b>\n
         						\t\t James Lowrey (JTronLabs)\n
