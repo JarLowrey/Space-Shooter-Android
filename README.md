@@ -1,17 +1,18 @@
 To The Moon
 
 Todo 
-Change App name
-JTronLabs intro activity
-Balance sound intensities?
-new icon for healing in store
-main menu redesign
-guns occasionally come out of sync
-tap to shoot 
+
+1. Change App name
+2. JTronLabs intro activity
+3. Balance sound intensities?
+4. new icon for healing in store
+5. main menu redesign
+6. guns occasionally come out of sync
 
 Eventual Improvements
-Stats - accuracy, enemies killed, times played
-infinite mode - access the store and semi-randomly generate enemies
-explosive mode - start with best stuff, no store, see how far you can go
-longer/better story mode
-Moving particle background
+
+1. Stats - accuracy, enemies killed, times played
+1. infinite mode - access the store and semi-randomly generate enemies
+1. explosive mode - start with best stuff, no store, see how far you can go
+1. longer/better story mode
+1. Moving particle background
