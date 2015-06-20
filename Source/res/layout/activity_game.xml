@@ -58,7 +58,7 @@
 				<ImageButton
 				    android:id="@+id/btn_shoot"
 				    android:layout_width="@dimen/btn_shoot_width"
-				    android:layout_height="@dimen/btn_large_len"
+				    android:layout_height="@dimen/btn_xlarge_len"
 					android:layout_alignParentRight="true"
 		  			android:scaleType="fitCenter"  
 		  			android:adjustViewBounds="true"  
@@ -69,7 +69,7 @@
 				    android:id="@+id/btn_move"
 					android:layout_alignParentLeft="true"
 				    android:layout_width="100dp"
-				    android:layout_height="@dimen/btn_large_len"
+				    android:layout_height="@dimen/btn_xlarge_len"
 				    android:background="@drawable/btn_gray_no_highlight"    />
 		    </RelativeLayout>
    		</RelativeLayout>

@@ -50,7 +50,7 @@ public final class R {
          */
         public static final int activity_margin_xsmall=0x7f060030;
         public static final int activity_margin_xxlarge=0x7f060035;
-        public static final int ad_banner_margin=0x7f060048;
+        public static final int ad_banner_margin=0x7f060049;
         /**   <item name="resource_multiplier_weight" format="float" type="dimen">1.5</item>
     
  MovingView-Bonus, enemies, friendlies 
@@ -69,26 +69,27 @@ public final class R {
         public static final int boss4_width=0x7f060026;
         public static final int boss5_height=0x7f060029;
         public static final int boss5_width=0x7f060028;
-        public static final int btn_large_len=0x7f06003e;
-        public static final int btn_med_len=0x7f06003f;
-        public static final int btn_shoot_width=0x7f060040;
+        public static final int btn_large_len=0x7f06003f;
+        public static final int btn_med_len=0x7f060040;
+        public static final int btn_shoot_width=0x7f060041;
+        public static final int btn_xlarge_len=0x7f06003e;
         public static final int cloud_height=0x7f06001f;
         /**  Background items 
          */
         public static final int cloud_width=0x7f06001e;
-        public static final int control_panel_height=0x7f060041;
+        public static final int control_panel_height=0x7f060042;
         /**  Friendlies 
          */
         public static final int exhaust_height=0x7f060014;
         public static final int exhaust_width=0x7f060015;
-        public static final int game_over_btns_width=0x7f06004b;
-        public static final int game_over_dialog_height=0x7f06004d;
-        public static final int game_over_dialog_width=0x7f06004c;
-        public static final int game_over_response_time_width=0x7f06004a;
-        public static final int game_over_score_width=0x7f060049;
-        public static final int ic_large=0x7f060044;
-        public static final int ic_med=0x7f060043;
-        public static final int ic_small=0x7f060042;
+        public static final int game_over_btns_width=0x7f06004c;
+        public static final int game_over_dialog_height=0x7f06004e;
+        public static final int game_over_dialog_width=0x7f06004d;
+        public static final int game_over_response_time_width=0x7f06004b;
+        public static final int game_over_score_width=0x7f06004a;
+        public static final int ic_large=0x7f060045;
+        public static final int ic_med=0x7f060044;
+        public static final int ic_small=0x7f060043;
         public static final int intro_text_view_width=0x7f06003c;
         public static final int laser_long_height=0x7f06002d;
         public static final int laser_long_width=0x7f06002c;
@@ -137,9 +138,9 @@ public final class R {
          */
         public static final int store_item_len=0x7f060038;
         public static final int sun_length=0x7f060037;
-        public static final int title_canvas_height=0x7f060045;
-        public static final int title_outline_size=0x7f060047;
-        public static final int title_size=0x7f060046;
+        public static final int title_canvas_height=0x7f060046;
+        public static final int title_outline_size=0x7f060048;
+        public static final int title_size=0x7f060047;
     }
     public static final class drawable {
         public static final int btn_gray=0x7f020000;
