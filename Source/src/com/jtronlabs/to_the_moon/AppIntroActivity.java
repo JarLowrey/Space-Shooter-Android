@@ -9,7 +9,7 @@ import android.os.CountDownTimer;
 
 
 public class AppIntroActivity extends Activity{
- 
+     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState); 

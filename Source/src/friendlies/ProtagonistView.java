@@ -22,7 +22,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	
 	SharedPreferences gameState;
 	GameActivityInterface myGame;
-	 
+	
 	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 

@@ -21,8 +21,9 @@
         android:layout_height="@dimen/moon_length"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/activity_margin_small"
         android:src="@drawable/moon" />
-    
+    <!-- 
     <ImageView
         android:id="@+id/rocket_main"
         android:layout_width="@dimen/ship_protagonist_game_width"
@@ -30,41 +31,55 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ship_protagonist" />
+    -->
     
-    <ImageButton
-        android:id="@+id/playBtn"
-        android:layout_width="@dimen/btn_large_len"
-        android:layout_height="@dimen/btn_large_len"
-		android:layout_above="@+id/settings_btn"
-       	android:layout_marginBottom="@dimen/activity_margin_large"
+    
+    <RelativeLayout
+        android:id="@+id/play_and_settings"
+        android:layout_width="225dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_action_play"
-        android:background="@drawable/btn_gray" >
-    </ImageButton>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="@dimen/activity_margin_xxlarge"
+       	>
+	    
+	    <ImageButton
+	        android:id="@+id/playBtn"
+	        android:layout_width="@dimen/btn_large_len"
+	        android:layout_height="@dimen/btn_large_len"
+	       	android:layout_alignParentRight="true"
+	        android:src="@drawable/ic_action_play"
+	        android:background="@drawable/btn_gray" >
+	    </ImageButton>
+	    
+	    <ImageButton
+	        android:id="@+id/settings_btn"
+	        android:layout_width="@dimen/btn_large_len"
+	        android:layout_height="@dimen/btn_large_len"
+	       	android:layout_alignParentLeft="true"
+	        android:src="@drawable/ic_settings_white_24dp"
+	        android:background="@drawable/btn_gray_and_red" >
+	    </ImageButton>
     
+    </RelativeLayout>
     
-    <ImageButton
-        android:id="@+id/settings_btn"
-        android:layout_width="@dimen/btn_med_len"
-        android:layout_height="@dimen/btn_med_len"
-       	android:layout_alignParentBottom="true"
-       	android:layout_alignParentLeft="true"
-       	android:layout_marginBottom="@dimen/activity_margin_small"
-       	android:layout_marginLeft="@dimen/activity_margin_small"
-        android:src="@drawable/ic_settings_white_24dp"
-        android:background="@drawable/btn_gray_and_red" >
-    </ImageButton>
+     
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="300dp"
+        android:layout_height="175dp"
+		android:layout_below="@+id/moon"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="@dimen/activity_margin_med"
+        android:src="@drawable/title" />
     
     <RelativeLayout
         android:id="@+id/other_settings_buttons_wrap"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/settings_btn"
-        android:layout_alignBottom="@+id/settings_btn"
-        android:layout_alignBaseline="@+id/settings_btn"
-        android:layout_marginLeft="@dimen/activity_margin_small"
-        	>
+        android:layout_centerInParent="true"
+       	>
 	        
 	    <ImageButton
 	        android:id="@+id/toggle_intro"
@@ -109,13 +124,5 @@
 	        android:background="@drawable/btn_gray" >
 	    </ImageButton>
     </RelativeLayout>
-
-    <support.DrawTextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_canvas_height"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/moon"
-        android:visibility="visible" />
-
+	
 </RelativeLayout>

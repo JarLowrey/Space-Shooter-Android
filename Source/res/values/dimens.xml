@@ -96,7 +96,7 @@
 	    <dimen name="intro_text_view_width">300dp</dimen>
 	    <dimen name="off_screen">-100dp</dimen>
 	    
-	    <dimen name="btn_large_len">100dp</dimen>
+	    <dimen name="btn_large_len">75dp</dimen>
 	    <dimen name="btn_med_len">50dp</dimen>
 	    <dimen name="btn_shoot_width">60dp</dimen>
 	    <dimen name="control_panel_height">150dp</dimen>

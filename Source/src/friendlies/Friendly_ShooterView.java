@@ -58,8 +58,8 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		this.removeAllGuns();
 		
 		switch(gunLevel){
-		case -1:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg/3,50) );
+		case -1: 
+			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg/2,50) );
 			break;
 		case 0:
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );

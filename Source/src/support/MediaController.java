@@ -91,7 +91,7 @@ public class MediaController {
     private static SoundPool soundEffects;//sound pool should be used for effects that are called a lot, like shooting
     public static int SOUND_BONUS,SOUND_COINS,SOUND_EXPLOSION1,SOUND_FRIENDLY_HIT,SOUND_LASER_SHOOT2,
     	SOUND_ROCKET_LAUNCH;
-    
+        
     /**
      * Play a common sound effect
      * @param c		the context

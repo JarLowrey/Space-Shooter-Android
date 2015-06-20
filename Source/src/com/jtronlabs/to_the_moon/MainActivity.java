@@ -1,6 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
-import support.DrawTextView;
+import support.KillableRunnable;
 import support.MediaController;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,38 +22,38 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
- //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android
-
+ //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android 
+ 
 
 public class MainActivity extends Activity implements OnClickListener{
 
 	public static final String GAME_SETTING_PREFS = "GameSettingPrefs",
-			INTRO_PREF="introOn",
+	 		INTRO_PREF="introOn",
 			VIBRATE_PREF="vibrateOn",
 			SOUND_PREF="soundOn";
 	private static float screenDens,widthPixels,heightPixels;
 	private ImageButton vibrate, sound, intro, credits;
-	
-//	AnimationDrawable animation;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+	  
+//	AnimationDrawable animation; 
+	@Override 
+	protected void onCreate(Bundle savedInstanceState) {      
+		super.onCreate(savedInstanceState); 
+		setContentView(R.layout.activity_main); 
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
 		
 	    //set up settings buttons
-	    ImageButton settings = (ImageButton)findViewById(R.id.settings_btn);
+	    ImageButton settings = (ImageButton)findViewById(R.id.settings_btn); 
 	    settings.setOnClickListener(this);
 	    vibrate = (ImageButton)findViewById(R.id.toggle_vibration);
-	    vibrate.setOnClickListener(this);
-	    sound = (ImageButton)findViewById(R.id.toggle_sound);
+	    vibrate.setOnClickListener(this); 
+	    sound = (ImageButton)findViewById(R.id.toggle_sound);  
 	    sound.setOnClickListener(this);
 	    intro = (ImageButton)findViewById(R.id.toggle_intro);
 	    intro.setOnClickListener(this);
 	    credits = (ImageButton)findViewById(R.id.show_credits);
 	    credits.setOnClickListener(this);
-	    
-		updateColorOfSettingsButtons();
+	     
+		updateColorOfSettingsButtons(); 
 
 		//find screen density and width/height of screen in pixels
 		DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -61,40 +62,44 @@ public class MainActivity extends Activity implements OnClickListener{
 	    screenDens = displayMetrics.density;
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
-	    
-	    
-//		//HACK to make stars appear as tiles in X direction only
-//		BitmapDrawable TileMe = (BitmapDrawable)getResources().getDrawable(R.drawable.level4);
-//		TileMe.setTileModeX(Shader.TileMode.REPEAT);
-//		ImageView stars = (ImageView)findViewById(R.id.stars);
-//		stars.setBackgroundDrawable(TileMe);
-	    
+	     
 		// moon spinning animation
-		Animation moonSpin=AnimationUtils.loadAnimation(this,R.anim.spin_moon);
 		ImageView moon= (ImageView)findViewById(R.id.moon);
-		moon.startAnimation(moonSpin);
-		// earth spinning animation 
-//		Animation earthSpin=AnimationUtils.loadAnimation(this,R.anim.spin_earth);
-//		ImageView earth= (ImageView)findViewById(R.id.earth);
-//		earth.startAnimation(earthSpin);
+		moon.startAnimation( AnimationUtils.loadAnimation(this,R.anim.spin_moon) );
 		
 		//set up buttons
 		ImageButton playBtn = (ImageButton)findViewById(R.id.playBtn);
 		playBtn.setOnClickListener(this);
-
-		//draw title words
-	    DrawTextView titlePanel = (DrawTextView)findViewById(R.id.title);
-	    titlePanel.drawText("To The Moon!");
 	    
 	    //launch the rocket
-		ImageView rocket= (ImageView)findViewById(R.id.rocket_main);
-	    Animation rocketLaunch=AnimationUtils.loadAnimation(this,R.anim.rocket_launch_title_screen);
-		rocket.startAnimation(rocketLaunch);
-
-		//create background animation
-//		ImageView imgView = (ImageView) findViewById(R.id.animating_image_view_main_menu);
-//		AnimationDrawable animation = (AnimationDrawable) imgView.getBackground();
-//	    animation.start();
+//		ImageView rocket= (ImageView)findViewById(R.id.rocket_main);
+//	    Animation rocketLaunch=AnimationUtils.loadAnimation(this,R.anim.rocket_launch_title_screen);
+//		rocket.startAnimation(rocketLaunch);
+		 
+		//spawn meteors randomly to fall
+//		final ImageView meteors[] = new ImageView[15];
+//		Handler spawn = new Handler();
+//		for(int i=0;i<meteors.length;i++){
+//			final int i_copy = i;
+//			KillableRunnable metSpawn = new KillableRunnable(){
+//				@Override
+//				public void doWork() {
+//					meteors[i_copy] = new ImageView(MainActivity.this);
+//					meteors[i_copy].setLayoutParams(new RelativeLayout.LayoutParams(
+//							(int)MainActivity.this.getResources().getDimension(R.dimen.meteor_length),
+//							(int)MainActivity.this.getResources().getDimension(R.dimen.meteor_length)));
+//					meteors[i_copy].setBackgroundResource(R.drawable.meteor);
+//					meteors[i_copy].setY(-MainActivity.this.getResources().getDimension(R.dimen.meteor_length) / 2 );
+//					meteors[i_copy].setX((float) (Math.random() * (getWidthPixels() - MainActivity.this.getResources().getDimension(R.dimen.meteor_length))) );
+//					
+//					RelativeLayout tmp = (RelativeLayout)findViewById(R.id.activity_main);
+//					tmp.addView(meteors[i_copy],0);
+//					 
+//					meteors[i_copy].startAnimation( AnimationUtils.loadAnimation(MainActivity.this,R.anim.meteor_fall) );
+//				}
+//			};
+//			spawn.postDelayed(metSpawn, (long) (Math.random() * 10000));
+//		}		
 	}
 	
 	@Override
