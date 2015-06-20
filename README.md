@@ -1,10 +1,5 @@
 To The Moon
 
-Todo 
-
-1. Change App name
-5. main menu redesign
-
 Eventual Improvements
 
 6. guns occasionally come out of sync
