@@ -6,7 +6,6 @@ import support.MediaController;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import background_objects.BackgroundView;
 import bonuses.BonusView;
 import bullets.BulletView;
 
@@ -18,8 +17,6 @@ import friendlies.FriendlyView;
 
 public class LevelSystem extends Levels{
 
-
-	public static ArrayList<BackgroundView> backgroundViews = new ArrayList<BackgroundView>();
 	public static ArrayList<BulletView> friendlyBullets = new ArrayList<BulletView>();
 	public static ArrayList<BulletView> enemyBullets = new ArrayList<BulletView>();
 	public static ArrayList<FriendlyView> friendlies = new ArrayList<FriendlyView>();
@@ -27,8 +24,8 @@ public class LevelSystem extends Levels{
 	public static ArrayList<BonusView> bonuses = new ArrayList<BonusView>();
 
 	private static CollisionDetector gameDetector;
-
-	/**
+      
+	/**     
 	 * 
 	 * @param context
 	 *            MUST IMPLEMENT InteractiveGameInterface.java
@@ -74,9 +71,6 @@ public class LevelSystem extends Levels{
 	public void pauseLevel() {
 		// clean up - kill Views & associated threads, stop all spawning &
 		// background threads
-		for (int i = backgroundViews.size() - 1; i >= 0; i--) {
-			backgroundViews.get(i).removeGameObject();
-		}
 		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
 			friendlyBullets.get(i).removeGameObject();
 		}
@@ -124,9 +118,6 @@ public class LevelSystem extends Levels{
 		 clean up the screen. enemies, enemy bullets, and bonuses must all already be removed for
 		 level to end (see collision detector)
 		 */
-		for (int i = backgroundViews.size() - 1; i >= 0; i--) {
-			backgroundViews.get(i).removeGameObject();
-		}
 		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
 			friendlyBullets.get(i).removeGameObject();
 		}

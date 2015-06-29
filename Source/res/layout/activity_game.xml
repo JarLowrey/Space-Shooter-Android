@@ -254,8 +254,8 @@
 		    android:layout_height="@dimen/store_btn_next_level_len"
 		    android:layout_centerHorizontal="true"
         	android:background="@drawable/btn_gray"
-        	android:layout_alignParentBottom="true"
-		    android:layout_marginBottom="@dimen/activity_margin_med"
+        	android:layout_marginTop="@dimen/activity_margin_small"
+			android:layout_below="@+id/btn_purchase_friend"
 		    android:text="Next Level" />
 	    
 	    </RelativeLayout>
@@ -280,15 +280,6 @@
 					android:paddingBottom="30dp"
 					android:text="GAME OVER"
 				/>
-				
-			    <ImageView 
-			        android:id="@+id/gameOverMoon"
-			        android:layout_width="100dp"
-			        android:layout_height="100dp"
-			        android:src="@drawable/moon"
-			        android:layout_above="@+id/gameOverTitle"
-			        android:layout_centerHorizontal="true"
-			        />
 			<!-- The middle screen shows score, best, and average response -->
 				<RelativeLayout
 					android:id="@+id/gameOverMiddleContent"
@@ -298,51 +289,78 @@
 					android:layout_height="@dimen/game_over_dialog_height"
 					>
 				    
+				    <LinearLayout
+				        android:layout_height="wrap_content"
+						android:layout_width="wrap_content"	
+						android:layout_alignTop="@+id/score_title"
+						android:layout_marginLeft="@dimen/activity_margin_med"
+						android:gravity="center"
+						android:orientation="vertical"
+				        >
+					    <TextView 
+							android:id="@+id/medal_title"
+					        android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							style="@style/GameText"
+							android:textColor="@android:color/white"
+							android:text="MEDAL"
+					        />
+					    
+					    <ImageView
+							android:id="@+id/medal_image"
+					        android:layout_height="@dimen/medal_length"
+							android:layout_width="@dimen/medal_length"
+							android:layout_marginTop="@dimen/activity_margin_med"        
+					        />
+				        
+				        
+				        
+				    </LinearLayout>
+				    
 				    <TextView 
 						android:id="@+id/total_score"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
-						android:layout_alignParentLeft="true"
-						android:layout_alignParentTop="true"
-						android:layout_marginTop="@dimen/activity_margin_small"
-						android:layout_marginLeft="@dimen/activity_margin_small"
+						android:layout_below="@+id/score_title"
+						android:layout_alignRight="@+id/days_title"
 						style="@style/VeryLargeText"
 						android:textColor="@android:color/white"
 						android:text="0"
 				        />
 				    
 				    <TextView 
+				        android:id="@+id/score_title"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
 						style="@style/GameText"
 						android:layout_alignParentRight="true"
-						android:layout_marginRight="@dimen/activity_margin_xsmall"
-						android:layout_alignBottom="@+id/total_score"
+						android:layout_alignParentTop="true"
+						android:layout_margin="@dimen/activity_margin_xsmall"
 						android:textColor="@android:color/white"
-						android:text="score"
+						android:text="SCORE"
 				        />
 				    
 				    <TextView 
 						android:id="@+id/num_days_passed"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
-						android:layout_below="@+id/total_score"
-						android:layout_alignLeft="@+id/total_score"
-						android:layout_marginTop="@dimen/activity_margin_med"
+						android:layout_below="@+id/days_title"
+						android:layout_alignRight="@+id/days_title"
 						style="@style/VeryLargeText"
 						android:textColor="@android:color/white"
 						android:text="0"
 				        />
 				    
 				    <TextView  
+				        android:id="@+id/days_title"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
 						style="@style/GameText"
 						android:layout_alignParentRight="true"
-						android:layout_marginRight="@dimen/activity_margin_xsmall"
-						android:layout_alignBottom="@+id/num_days_passed"
+						android:layout_below="@+id/total_score"
+						android:layout_margin="@dimen/activity_margin_xsmall"
 						android:textColor="@android:color/white"
-						android:text="days"
+						android:text="DAYS"
 				        />
 					
 				    <TextView 
@@ -354,7 +372,7 @@
 						android:layout_marginBottom="@dimen/activity_margin_xsmall"
 						android:gravity="center"
 						android:textColor="@android:color/white"
-						android:text="0"
+						android:text=""
 				        />
 			</RelativeLayout>
 			

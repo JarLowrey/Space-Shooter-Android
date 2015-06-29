@@ -1,6 +1,5 @@
 package com.jtronlabs.to_the_moon;
 
-import support.KillableRunnable;
 import support.MediaController;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,17 +9,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
  //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android 
  
@@ -33,7 +34,8 @@ public class MainActivity extends Activity implements OnClickListener{
 			SOUND_PREF="soundOn";
 	private static float screenDens,widthPixels,heightPixels;
 	private ImageButton vibrate, sound, intro, credits;
-	  
+	private AdView adView;
+	   
 //	AnimationDrawable animation; 
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {       
@@ -66,46 +68,45 @@ public class MainActivity extends Activity implements OnClickListener{
 		// moon spinning animation
 		ImageView moon= (ImageView)findViewById(R.id.moon);
 		moon.startAnimation( AnimationUtils.loadAnimation(this,R.anim.spin_moon) );
-		
+		 
 		//set up buttons
 		ImageButton playBtn = (ImageButton)findViewById(R.id.playBtn);
 		playBtn.setOnClickListener(this);
 	    
-	    //launch the rocket
-//		ImageView rocket= (ImageView)findViewById(R.id.rocket_main);
-//	    Animation rocketLaunch=AnimationUtils.loadAnimation(this,R.anim.rocket_launch_title_screen);
-//		rocket.startAnimation(rocketLaunch);
-		 
-		//spawn meteors randomly to fall
-//		final ImageView meteors[] = new ImageView[15];
-//		Handler spawn = new Handler();
-//		for(int i=0;i<meteors.length;i++){
-//			final int i_copy = i;
-//			KillableRunnable metSpawn = new KillableRunnable(){
-//				@Override
-//				public void doWork() {
-//					meteors[i_copy] = new ImageView(MainActivity.this);
-//					meteors[i_copy].setLayoutParams(new RelativeLayout.LayoutParams(
-//							(int)MainActivity.this.getResources().getDimension(R.dimen.meteor_length),
-//							(int)MainActivity.this.getResources().getDimension(R.dimen.meteor_length)));
-//					meteors[i_copy].setBackgroundResource(R.drawable.meteor);
-//					meteors[i_copy].setY(-MainActivity.this.getResources().getDimension(R.dimen.meteor_length) / 2 );
-//					meteors[i_copy].setX((float) (Math.random() * (getWidthPixels() - MainActivity.this.getResources().getDimension(R.dimen.meteor_length))) );
-//					
-//					RelativeLayout tmp = (RelativeLayout)findViewById(R.id.activity_main);
-//					tmp.addView(meteors[i_copy],0);
-//					 
-//					meteors[i_copy].startAnimation( AnimationUtils.loadAnimation(MainActivity.this,R.anim.meteor_fall) );
-//				}
-//			};
-//			spawn.postDelayed(metSpawn, (long) (Math.random() * 10000));
-//		}		
+		createAdView();
 	}
 	
+	private void createAdView(){		
+		//Create and plate the Banner Ad in activity_main.xml
+		adView = new AdView(this);
+		adView.setAdUnitId("ca-app-pub-1314947069846070/4608411941");
+		adView.setAdSize(AdSize.BANNER);
+
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+			    RelativeLayout.LayoutParams.WRAP_CONTENT, 
+			    RelativeLayout.LayoutParams.WRAP_CONTENT); 
+		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		adView.setLayoutParams(params);
+		
+		RelativeLayout background = (RelativeLayout)findViewById(R.id.activity_main);
+		background.addView(adView);
+		
+		// Request for Ads
+		AdRequest adRequest = new AdRequest.Builder()
+			.addTestDevice("CC5F2C72DF2B356BBF0DA198")
+			.build(); 
+ 
+		// Load ad request into Adview
+		adView.loadAd(adRequest);	
+	}
+	
+	 
 	@Override
 	public void onPause(){
 		super.onPause();
 
+		adView.pause();
 		MediaController.stopLoopingSound();
 	}
 
@@ -113,16 +114,22 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onResume(){
 		super.onResume();
 
+		adView.resume();
 		MediaController.playSoundClip(this, R.raw.background_intro, true);
 	}
+
+    @Override
+    public void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
+    }
 	 
 	@Override
 	public void onClick(View v) {
 		SharedPreferences gameSettings = getSharedPreferences(GAME_SETTING_PREFS, 0);
 		SharedPreferences.Editor editor = gameSettings.edit();
 
-		switch(v.getId()){
-			case R.id.playBtn: 
+		if(v.getId() == R.id.playBtn){
 				boolean showIntro = gameSettings.getBoolean(INTRO_PREF, true);
 				Intent nextIntent;
 
@@ -138,23 +145,20 @@ public class MainActivity extends Activity implements OnClickListener{
 				
 				//startNext intent
 				startActivity(nextIntent);
-				break; 
-			case R.id.settings_btn:
+		}else if(v.getId() == R.id.settings_btn){
 				RelativeLayout settingsWrap = (RelativeLayout)findViewById(R.id.other_settings_buttons_wrap);
 				if(View.GONE == settingsWrap.getVisibility() ){
 					settingsWrap.setVisibility(View.VISIBLE);
 				}else{
 					settingsWrap.setVisibility(View.GONE);					
 				}
-				break;
-			case R.id.toggle_intro:
+		}else if(v.getId() == R.id.toggle_intro){
 				boolean showIntroEdit = gameSettings.getBoolean(INTRO_PREF, true);
 				editor.putBoolean(INTRO_PREF, !showIntroEdit);
 				
 				String introState = (!showIntroEdit) ? "on" : "off" ;
     			Toast.makeText(getApplicationContext(),"Intro is turned "+introState, Toast.LENGTH_SHORT).show();
-				break;
-			case R.id.toggle_sound:
+		}else if(v.getId() == R.id.toggle_sound){
 				boolean soundEdit = gameSettings.getBoolean(SOUND_PREF, true);
 				editor.putBoolean(SOUND_PREF, !soundEdit);
 				editor.commit();
@@ -166,15 +170,13 @@ public class MainActivity extends Activity implements OnClickListener{
         			Toast.makeText(getApplicationContext(),"Sound is turned on", Toast.LENGTH_SHORT).show();
     				MediaController.playSoundClip(this, R.raw.background_intro, true);
     			}
-				break;
-			case R.id.toggle_vibration:
+		}else if(v.getId() == R.id.toggle_vibration){
 				boolean vibrateEdit = gameSettings.getBoolean(VIBRATE_PREF, true);
 				editor.putBoolean(VIBRATE_PREF, !vibrateEdit);
 				
 				String vibrateState = (!vibrateEdit) ? "on" : "off" ;
     			Toast.makeText(getApplicationContext(),"Vibration is turned "+vibrateState, Toast.LENGTH_SHORT).show();
-				break;
-			case R.id.show_credits:
+		}else if(v.getId() == R.id.show_credits){
 				new AlertDialog.Builder(this)
 				    .setTitle("Credits")
 				    .setMessage(this.getResources().getString(R.string.credits))
@@ -182,8 +184,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 				     })
 				     .show();
-				break;
-		}
+		} 
 		editor.commit();
 
 		updateColorOfSettingsButtons();

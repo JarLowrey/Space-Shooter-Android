@@ -67,8 +67,7 @@ public class GameIntroActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View arg0) {
-		switch(arg0.getId()){
-		case R.id.intro_btn_next: 
+		if(arg0.getId() == R.id.intro_btn_next){
 			if(allCharsDisplayed){
 				if(posInArray==(introText.length-1)){//start game
 					Log.d("lowrey","wtf");
@@ -90,7 +89,7 @@ public class GameIntroActivity extends Activity implements OnClickListener{
 				text.setText(introText[posInArray]);
 				allCharsDisplayed=true;
 			}
-			break;
 		}
+		
 	}
 }

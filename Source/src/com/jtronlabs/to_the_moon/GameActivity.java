@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 import levels.LevelSystem;
 import support.KillableRunnable;
 import support.MediaController;
@@ -62,8 +66,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private AllyView ally;
 	public ImageView rocketExhaust;
 	private RelativeLayout gameLayout,storeLayout;
+	private AdView adView;
 	
-
 	private boolean beatGame;//these variables are only used to create the sharing message after the game has been beaten/lost.
 	private int scoreAtGameOver,levelAtGameOver;
    
@@ -132,6 +136,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCreator = new LevelSystem(this);
 		
 		//onResume() is called after onCreate, so needed setup is done there
+		
+		createAdViewInStore();
 	}
 	
 	public static int getBottomScreen(){
@@ -158,7 +164,14 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.stopLoopingSound();
 		MediaController.stopNonLoopingSound();
 		
+		adView.pause();
 		Log.d("lowrey","num enemies on pause = "+levelCreator.enemies.size());
+    }
+
+    @Override
+    public void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
     }
 	
 	@Override
@@ -189,6 +202,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 
 		scoreInGame.setText(levelCreator.getResourceCount()+"");
+		adView.resume();
 		
 		//don't open the store up on the initial level
 		if(levelCreator.getLevel()==0){
@@ -196,45 +210,41 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}else{
 			openStore();
 		}
-		
 	}
 	
-	public void lostGame(){ 
-		MediaController.playSoundClip(this, R.raw.jingle_lose, false);
-		
+	public void lostGame(){ 		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel();   
-		gameOver("GAME OVER","All is lost...",levelCreator.getLevel()-1,score );
+		gameOver("GAME OVER","",levelCreator.getLevel()-1,score );
+
+		MediaController.playSoundClip(this, R.raw.jingle_lose, false);
 		
 		//set the variables used for the sharing message
 		beatGame=false;
 		scoreAtGameOver=score;
 		levelAtGameOver=levelCreator.getLevel()-1;
 		
-		healthBar.setProgress(0);
-		
-		ImageView gameOverMoon = (ImageView)findViewById(R.id.gameOverMoon);
-		gameOverMoon.setVisibility(View.GONE);		
+		healthBar.setProgress(0);	
 	}
 	
-	public void beatGame(){
-		MediaController.playSoundClip(this, R.raw.jingle_win, false);
-		
+	public void beatGame(){		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0) + levelCreator.scoreGainedThisLevel();
-		gameOver("WINNER","The Moon is saved, and so is our home! Great job soldier!",levelCreator.getLevel(),score);
+//		gameOver("WINNER","The Moon is saved, and so is our home! Great job soldier!",levelCreator.getLevel(),score);
+		gameOver("WINNER","",levelCreator.getLevel(),score);
 
+		MediaController.playSoundClip(this, R.raw.jingle_win, false);
+		
 		//set the variables used for the sharing message
 		beatGame=true;
 		scoreAtGameOver=score;
 		levelAtGameOver=levelCreator.getLevel();
-		
-		ImageView gameOverMoon = (ImageView)findViewById(R.id.gameOverMoon);
-		gameOverMoon.setVisibility(View.VISIBLE);
 	}
 	
 	private void gameOver(String title,String msg,int level, int score){
-		KillableRunnable.killAll();
+		MediaController.stopLoopingSound();
+		
+		KillableRunnable.killAll(); 
 		levelCreator.pauseLevel(); 
 		resetSavedVariables();
 		
@@ -248,6 +258,20 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		daysPassedView.setText("" + level );
 		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
 		finalScoreView.setText("" + score );
+		 
+		//set images
+		ImageView medal = (ImageView)findViewById(R.id.medal_image);
+		if(level < levelCreator.getMaxLevel() /2 ){
+			medal.setImageResource(R.drawable.medal_bronze);
+		}else if(level < levelCreator.getMaxLevel() ){
+			medal.setImageResource(R.drawable.medal_silver);			
+		}else{
+			medal.setImageResource(R.drawable.medal_gold);
+		}
+		
+		//show adView
+		storeLayout.removeView(adView);
+		gameOverLayout.addView(adView);
 		
 		gameOverLayout.setVisibility(View.VISIBLE);
 		storeLayout.setVisibility(View.GONE);
@@ -336,38 +360,27 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		switch(event.getAction()){
-		case MotionEvent.ACTION_MOVE:
-			switch(v.getId()){
-				case R.id.btn_move:
+		if(event.getAction() == MotionEvent.ACTION_MOVE){
+			if(v.getId() == R.id.btn_move){
 					final float[] percentXY = percentXYAwayFromMidPoint(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
 					protagonist.beginMoving(percentXY[0],percentXY[1]);
-					break;
 			}
-			break;
-		case MotionEvent.ACTION_DOWN:
-			switch(v.getId()){
-			case R.id.btn_move:
+		}else if(event.getAction() == MotionEvent.ACTION_DOWN){
+			if(v.getId() == R.id.btn_move){
 				final float[] percentXY_2 = percentXYAwayFromMidPoint(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
 				protagonist.beginMoving(percentXY_2[0],percentXY_2[1]);
-				break;
-				case R.id.btn_shoot:
-						
+			}else if(v.getId() == R.id.btn_shoot){
 					if(canBeginShooting){
 						protagonist.startShooting();
 						//force a delay after finishing shooting before user can shoot again. This is to try and fix an infinite shooting bug
 					}	
 					canBeginShooting=false;
-					break;
 			}
-			break;
-		case MotionEvent.ACTION_UP:
+		}else if(event.getAction() == MotionEvent.ACTION_UP){
 //			v.performClick();//why is this needed?
-			switch(v.getId()){
-			case R.id.btn_move:
+			if(v.getId() == R.id.btn_move){
 				protagonist.stopMoving();
-				break;
-			case R.id.btn_shoot:					
+			}else if(v.getId() == R.id.btn_shoot){		
 				protagonist.stopShooting();	
 				
 				if( ! beginShootingRunnablePosted){
@@ -379,30 +392,21 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					},(long)protagonist.getShootingDelay() );
 					beginShootingRunnablePosted=true;
 				}
-				
-				break;
-				case R.id.btn_heal:
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_HEAL);
-					break;
-				case R.id.btn_inc_bullet_dmg:
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_DAMAGE);					
-					break;
-				case R.id.btn_inc_bullet_freq:
+			}else if(v.getId() == R.id.btn_heal){
+				confirmUpgradeDialog(ProtagonistView.UPGRADE_HEAL);
+			}else if(v.getId() == R.id.btn_inc_bullet_dmg){
+				confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_DAMAGE);	
+			}else if(v.getId() == R.id.btn_inc_bullet_freq){
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_FREQ);
-					break;
-				case R.id.btn_inc_defence:
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_DEFENCE);					
-					break;
-				case R.id.btn_inc_score_weight:
+			}else if(v.getId() == R.id.btn_inc_defence){
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_DEFENCE);
+			}else if(v.getId() == R.id.btn_inc_score_weight){
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_SCORE_MULTIPLIER);
-					break;
-				case R.id.btn_new_gun:
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_GUN);					
-					break;
-				case R.id.btn_purchase_friend:
+			}else if(v.getId() == R.id.btn_new_gun){
+					confirmUpgradeDialog(ProtagonistView.UPGRADE_GUN);	
+			}else if(v.getId() == R.id.btn_purchase_friend){
 					confirmUpgradeDialog(ProtagonistView.UPGRADE_FRIEND);
-					break;
-				case R.id.start_next_level: 
+			}else if(v.getId() == R.id.start_next_level){
 					if(protagonist.getGunLevel() < 0){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
@@ -421,13 +425,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //					    .setIcon(android.R.drawable.ic_dialog_alert)
 					     .show();
 					}
-					break;
-				case R.id.gameOverAccept:
+			}else if(v.getId() == R.id.gameOverAccept){
 					finish();
-					break;
-				case R.id.gameOverShare:
+			}else if(v.getId() == R.id.gameOverShare){
 					final String[] sharingTargets = {"face","twit","whats","chat","sms","mms","plus","email","gmail"};
-					
+					  
 					List<Intent> targetedShareIntents = new ArrayList<Intent>();
 					for(int i=0;i<sharingTargets.length;i++){
 						Intent thisShareIntent = getShareIntent(this,sharingTargets[i]);
@@ -436,10 +438,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					Intent chooser = Intent.createChooser(targetedShareIntents.remove(0), "Share via");
 					chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
 					this.startActivity(chooser);
-			
-					break;
 			}
-			break;
 		}
 		return false;//do not consume event, allow buttons to receive the touch as well
 	}
@@ -628,5 +627,30 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//and thus the view needs to be removed from its parent before it can be re-added
 		gameLayout.removeView(view);
 		gameLayout.addView(view,0);
+	}
+	
+
+	private void createAdViewInStore(){		
+		//Create and plate the Banner Ad in activity_main.xml
+		adView = new AdView(this);
+		adView.setAdUnitId("ca-app-pub-1314947069846070/4608411941");
+		adView.setAdSize(AdSize.BANNER);
+
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+			    RelativeLayout.LayoutParams.WRAP_CONTENT, 
+			    RelativeLayout.LayoutParams.WRAP_CONTENT); 
+		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		adView.setLayoutParams(params);
+		
+		storeLayout.addView(adView);
+		
+		// Request for Ads
+		AdRequest adRequest = new AdRequest.Builder()
+			.addTestDevice("CC5F2C72DF2B356BBF0DA198")
+			.build(); 
+ 
+		// Load ad request into Adview
+		adView.loadAd(adRequest);	
 	}
 }

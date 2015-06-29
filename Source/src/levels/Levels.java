@@ -386,7 +386,7 @@ public class Levels extends Factory_Bosses{
 	public KillableRunnable[][] levels(){
 		KillableRunnable[][] r = {
    
-				level_1(), 
+				level_1(),
 				level_2(),
 				level_3(),
 				level_4(),

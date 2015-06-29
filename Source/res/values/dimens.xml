@@ -86,11 +86,11 @@
     <!-- Store Layout -->
 
 	    <dimen name="store_item_len">60dp</dimen>
-	    <dimen name="store_btn_next_level_len">100dp</dimen>
+	    <dimen name="store_btn_next_level_len">90dp</dimen>
 	    <dimen name="store_btn_margin_vertical">40dp</dimen>
     
     <!-- ETC -->
-    
+    	<dimen name="medal_length">60dp</dimen>
 	    <dimen name="logo_len">75dp</dimen>
 	    
 	    <dimen name="intro_text_view_width">300dp</dimen>
