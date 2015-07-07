@@ -29,7 +29,7 @@ public class Gravity_MeteorView extends EnemyView{
 		public void doWork() { 
 			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
 			Gravity_MeteorView.this.setRotation(currentRotation);
-			ConditionalHandler.postIfAlive(this,MovingView.HOW_OFTEN_TO_MOVE,Gravity_MeteorView.this);
+			ConditionalHandler.postIfAlive(this,2*MovingView.HOW_OFTEN_TO_MOVE,Gravity_MeteorView.this);
 		} 
 	};
 	
@@ -43,7 +43,8 @@ public class Gravity_MeteorView extends EnemyView{
 				
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
-		ConditionalHandler.postIfAlive(rotateRunnable, this);
+		//ConditionalHandler.postIfAlive(rotateRunnable, this);
+		this.setRotation((float) (Math.random() * 360));
 		
 		//spawn anywhere in X on screen
 		float xRand = (float) ((MainActivity.getWidthPixels()-context.getResources().getDimension(R.dimen.meteor_length))*Math.random());
