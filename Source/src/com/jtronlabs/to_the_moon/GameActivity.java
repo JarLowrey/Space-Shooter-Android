@@ -228,6 +228,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	public void beatGame(){		
+		//save fact that user has beaten the game
+		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
+		SharedPreferences.Editor editor = gameMeta.edit();
+		editor.putBoolean(MainActivity.USER_HAS_BEATEN_GAME, true);
+		editor.commit();
+		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0) + levelCreator.scoreGainedThisLevel();
 //		gameOver("WINNER","The Moon is saved, and so is our home! Great job soldier!",levelCreator.getLevel(),score);
