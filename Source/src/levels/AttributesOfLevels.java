@@ -51,6 +51,13 @@ public abstract class AttributesOfLevels {
 	protected void incrementLevel(){
 		setLevel(getLevel()+1);
 	}
+	/**
+	 * Find current state of game difficulty
+	 * @return
+	 */
+	protected int difficulty(){
+		return getLevel() / 5;
+	}
 	
 	//Resources
 	public void setResources(int scoreValue){

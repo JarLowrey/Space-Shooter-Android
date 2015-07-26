@@ -43,8 +43,8 @@ public class Gravity_MeteorView extends EnemyView{
 				
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
-		//ConditionalHandler.postIfAlive(rotateRunnable, this);
-		this.setRotation((float) (Math.random() * 360));
+		ConditionalHandler.postIfAlive(rotateRunnable, this);
+		//this.setRotation((float) (Math.random() * 360));
 		
 		//spawn anywhere in X on screen
 		float xRand = (float) ((MainActivity.getWidthPixels()-context.getResources().getDimension(R.dimen.meteor_length))*Math.random());

@@ -24,7 +24,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	
 	private Moving_ProjectileView viewToTrack;
 	
-	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe) {
+	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe,final int difficulty) {
 		super(context, DEFAULT_SCORE, 
 				DEFAULT_SPEED_Y, DEFAULT_SPEED_X,
 				DEFAULT_COLLISION_DAMAGE,
@@ -34,41 +34,36 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 				(int)context.getResources().getDimension(R.dimen.ship_tracker_height), 
 				DEFAULT_BACKGROUND);
 
-		init(trackMe);
-	}
-//
-//	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe, int scoreForKilling,
-//			float projectileSpeedY, float projectileSpeedX,
-//			int projectileDamage, int projectileHealth,
-//			float probSpawnBeneficialObject, int width, int height, int imageId) {
-//		super(context, 
-//				scoreForKilling, 
-//				projectileSpeedY, projectileSpeedX,
-//				projectileDamage,
-//				projectileHealth, 
-//				probSpawnBeneficialObject, 
-//				width,height, 
-//				imageId);
-//
-//		init(trackMe);
-//	}
-	
-	private void init(Moving_ProjectileView trackMe){
+		//set up the enemy to track the given MovingView
 		viewToTrack=trackMe;
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
-
-		reassignMoveRunnable( new KillableRunnable(){
-			@Override
-			public void doWork() {
-				Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
-				
-				move();				
-				ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
-			}
-		});
 		
+		
+		if(difficulty>0){//the tracking view accelerates as it moves down the screen
+			reassignMoveRunnable( new KillableRunnable(){
+				@Override
+				public void doWork() {
+					Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
+					Shooting_TrackingView.this.setSpeedY(
+							(float) (Shooting_TrackingView.this.getSpeedY()+0.2*difficulty*MainActivity.getScreenDens()));
+					
+					move();				
+					ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
+				}
+			});
+		}else{//tracking view maintains constant downward speed
+			reassignMoveRunnable( new KillableRunnable(){
+				@Override
+				public void doWork() {
+					Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
+					
+					move();				
+					ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
+				}
+			});
+		}
 	}
-
+	
 	protected float getTrackingSpeedX(){
 		final int trackPoint =(int) ( viewToTrack.getX()*2 + viewToTrack.getWidth() )/2;
 		final int myPos = (int)( Shooting_TrackingView.this.getX()*2 + Shooting_TrackingView.this.getWidth() )/2;

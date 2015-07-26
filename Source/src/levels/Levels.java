@@ -1,5 +1,6 @@
 package levels;
 
+import enemies.Shooting_PauseAndMove;
 import support.KillableRunnable;
 import android.content.Context;
 
@@ -11,7 +12,7 @@ public class Levels extends Factory_Bosses{
 	public Levels(Context context) {
 		super(context);
 		
-		KillableRunnable[][] lvls = levels();
+		KillableRunnable[][] lvls = scriptedLevels();
 		numLevels = lvls.length;
 		wavesInEachLevel = new int[numLevels];
 		for(int i=0;i<lvls.length;i++){
@@ -38,18 +39,19 @@ public class Levels extends Factory_Bosses{
 		return getWave() == wavesInEachLevel[ getLevel() ]; 
 	}
 	
-	/**
-	 * DOES NOT WORK. When exit activity and re-enter quickly
-	 */
 	public void startLevelSpawning(){
-		final KillableRunnable[][] lvls = levels();
+		final KillableRunnable[][] lvls = scriptedLevels();
 		
 		spawningHandler.post(new KillableRunnable() {
 			@Override
 			public void doWork() {
-				if (!areLevelWavesCompleted()) {//check isKilled() to ensure Runnable cannot progress
-					KillableRunnable r = lvls[getLevel()][getWave()];
-					spawningHandler.post( r );
+				if (!areLevelWavesCompleted()) {
+					if(getLevel()<lvls.length){
+						KillableRunnable r = lvls[getLevel()][getWave()];
+						spawningHandler.post( r );
+					}else{
+						
+					}
 					incrementWave();
 					spawningHandler.postDelayed(this,DEFAULT_WAVE_DURATION);
 				}
@@ -180,12 +182,12 @@ public class Levels extends Factory_Bosses{
 				meteorsGiantAndSideways(),
 				meteorsGiantAndSideways(),
 				meteorShowersThatForceUserToMiddle(),
-				trackingAcceleratingEnemy(),
-				trackingAcceleratingEnemy(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
+				trackingEnemy(),
+				trackingEnemy(),
 				boss1(),
-				trackingAcceleratingEnemy(),
-				trackingAcceleratingEnemy()
+				trackingEnemy(),
+				trackingEnemy()
 			};
 		return r;		
 	}
@@ -198,8 +200,8 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				doNothing(),
 				meteorShowersThatForceUserToMiddle(),
-				trackingAcceleratingEnemy(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
+				trackingEnemy(),
 				doNothing(),
 				doNothing(),
 				meteorShowersThatForceUserToMiddle(),
@@ -210,74 +212,75 @@ public class Levels extends Factory_Bosses{
 	private KillableRunnable[] level_10(){
 		KillableRunnable[] r =
 			{
-				pauseAndShoot(),
-				pauseAndShoot(),
-				pauseAndShoot(),
+
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				doNothing(),
-				pauseAndShoot(),
-				pauseAndShoot(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				doNothing(),
-				pauseAndShoot(),
-				pauseAndShoot()
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class)
 			};
 		return r;		
 	}
 	private KillableRunnable[] level_11(){
 		KillableRunnable[] r =
 			{
-				pauseAndShoot(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				diagonalFullScreen(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
 				doNothing(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				diagonalFullScreen(),
 				diagonalColumns(),
-				trackingAcceleratingEnemy(),
-				trackingAcceleratingEnemy(),
-				pauseAndShoot(),
-				pauseAndShoot(),
-				trackingAcceleratingEnemy()
+				trackingEnemy(),
+				trackingEnemy(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				trackingEnemy()
 			};
 		return r;		
 	}
 	private KillableRunnable[] level_12(){
 		KillableRunnable[] r =
 			{
-				pauseAndShoot(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				diagonalFullScreen(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
 				doNothing(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				diagonalFullScreen(),
 				diagonalColumns(),
-				trackingAcceleratingEnemy(),
-				trackingAcceleratingEnemy(),
-				pauseAndShoot(),
-				pauseAndShoot(),
-				trackingAcceleratingEnemy()
+				trackingEnemy(),
+				trackingEnemy(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				trackingEnemy()
 			};
 		return r;		
 	}
 	private KillableRunnable[] level_13(){
 		KillableRunnable[] r =
 			{
-				refreshArrayShootersStaggered(),
-				trackingAcceleratingEnemy(),
+				refreshArrayShooters(),
+				trackingEnemy(),
 				doNothing(),
 				doNothing(),
 				doNothing(),
 				doNothing(),
-				trackingAcceleratingEnemy(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
+				trackingEnemy(),
 				doNothing(),
 				doNothing(), 
 				boss3(),
 				doNothing(),
 				doNothing(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				doNothing()
 			};
 		return r;		
@@ -294,30 +297,30 @@ public class Levels extends Factory_Bosses{
 				doNothing(),
 				rect(),
 				rect(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
 				doNothing(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
 				doNothing(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
 				doNothing(),
-				trackingAcceleratingEnemy()
+				trackingEnemy()
 			};
 		return r;		
 	}
 	private KillableRunnable[] level_15(){
 		KillableRunnable[] r =
 			{
-				refreshArrayShootersStaggered(),
+				refreshArrayShooters(),
 				doNothing(),
 				doNothing(),
-				trackingAcceleratingEnemy(),
+				trackingEnemy(),
 				boss1(),
 				boss1(),
 				diagonalFullScreen(),
 				diagonalFullScreen(),
-				pauseAndShoot(),
-				pauseAndShoot(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				boss1()
 			};
 		return r;		
@@ -327,8 +330,8 @@ public class Levels extends Factory_Bosses{
 			{
 				rect(),
 				rect(),
-				pauseAndShoot(),
-				pauseAndShoot(),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
+				spawnEnemyWithDefaultConstructorParameters(5,DEFAULT_WAVE_DURATION/5,Shooting_PauseAndMove.class),
 				doNothing(),
 				doNothing(),
 				doNothing(),
@@ -383,7 +386,7 @@ public class Levels extends Factory_Bosses{
 		return r;		
 	}    
 	
-	public KillableRunnable[][] levels(){
+	public KillableRunnable[][] scriptedLevels(){
 		KillableRunnable[][] r = {
    
 				level_1(),

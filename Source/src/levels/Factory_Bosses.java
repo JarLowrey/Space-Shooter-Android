@@ -28,7 +28,7 @@ import guns.Gun_TrackingSingle;
  * @author JAMES LOWREY
  *
  */
-public abstract class Factory_Bosses extends Factory_Waves
+public abstract class Factory_Bosses extends Factory_ScriptedWaves
 {
 	
 	public Factory_Bosses(Context context){

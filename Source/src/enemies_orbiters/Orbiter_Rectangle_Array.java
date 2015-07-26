@@ -30,13 +30,12 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 	private static boolean[] occupiedPositions;
 	
 	// Constantly move all instances of this class in a square shape
-	private static boolean staggered = false;
 	private static int numRows, 
 			numCols;
 
 	private int myPosition;
 	
-	public Orbiter_Rectangle_Array(Context context) {
+	public Orbiter_Rectangle_Array(Context context, int difficulty) {
 		super(context);
 		
 		//change default background (parent has its own default background
@@ -45,26 +44,9 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		params.width = (int)context.getResources().getDimension(R.dimen.ship_array_shooter_width);
 		this.setLayoutParams(params);
 		this.setImageResource(DEFAULT_BACKGROUND);
-		this.setHealth(DEFAULT_HEALTH);
-		init();
-	}
+		this.setHealth((int) (DEFAULT_HEALTH + 1.2*difficulty));
 
-	@Override
-	public float getShootingFreq(){
-		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
-	}
-	
-	public Orbiter_Rectangle_Array(Context context,int score,float speedY,int collisionDamage, 
-			int health,float probSpawnBeneficialObjecyUponDeath,
-			int orbitLength,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
-		super(context, score,speedY,
-				collisionDamage, health,
-				 probSpawnBeneficialObjecyUponDeath, orbitLength,orbitPixelX, orbitPixelY, width, height, imageId);
-		
-		init();
-	}
-	
-	private void init(){
+
 		//find an open spot for this shooter to go
 		for(int i=0;i<occupiedPositions.length;i++){
 			if( ! occupiedPositions[i] ){
@@ -86,39 +68,19 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		final float shipXInterval = MainActivity.getWidthPixels()/ numCols;//divide the screen into number of columns
 		final float myColPos = myPosition % numCols;//find this ships column
 		float xPos = shipXInterval * myColPos ;//x position is columInterval * this ships column. Here some left margin is also added
-		if (staggered && myRow % 2 == 1) {//stagger
+		if (difficulty > 2 && myRow % 2 == 1) {//stagger the ship positions
 			xPos += staggeredMargin / 2;
 		}
 		this.setX(xPos);
 
 		allSimpleShooters.add(this);
 	}
-	
 
-	
-	/**
-	 * Can only spawn an array if all shooters from previous array are dead
-	 * @param ctx
-	 * @param numberRows
-	 * @param numberCols
-	 * @param isStaggered
-	 */
-	public static void refreshSimpleShooterArray(Context ctx,int numberRows,int numberCols,boolean isStaggered){
-		if(allSimpleShooters==null || allSimpleShooters.size()==0){
-			numRows=numberRows;
-			numCols=numberCols;
-			staggered=isStaggered;
-			
-			occupiedPositions = new boolean[getMaxNumShips()];
-			allSimpleShooters = new ArrayList<Orbiter_Rectangle_Array>();
-			
-			for(int i=allSimpleShooters.size();i<getMaxNumShips();i++){
-				new Orbiter_Rectangle_Array(ctx);
-			}
-			
-		}
-		
+	@Override
+	public float getShootingFreq(){
+		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
+
 	/**
 	 * Use defaults
 	 * Can only spawn an array if all shooters from previous array are dead
@@ -127,8 +89,19 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 	 * @param numberCols
 	 * @param isStaggered
 	 */
-	public static void refreshSimpleShooterArray(Context ctx){
-		refreshSimpleShooterArray(ctx,DEFAULT_NUM_ROWS,DEFAULT_NUM_COLS,DEFAULT_STAGGERED);
+	public static void refreshSimpleShooterArray(Context ctx, int difficulty){
+		if(allSimpleShooters==null || allSimpleShooters.size()==0){
+			numRows=DEFAULT_NUM_ROWS;
+			numCols=DEFAULT_NUM_COLS;
+			
+			occupiedPositions = new boolean[getMaxNumShips()];
+			allSimpleShooters = new ArrayList<Orbiter_Rectangle_Array>();
+			
+			for(int i=allSimpleShooters.size();i<getMaxNumShips();i++){
+				new Orbiter_Rectangle_Array(ctx,difficulty);
+			}
+			
+		}
 	}
 	
 
