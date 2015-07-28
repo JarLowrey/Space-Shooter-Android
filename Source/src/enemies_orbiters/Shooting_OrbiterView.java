@@ -22,15 +22,21 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	protected int howManyTimesMoved;
 	protected int orbitY,orbitX;
 	
-	public Shooting_OrbiterView(Context context,int scoreForKilling, 
+	public Shooting_OrbiterView(Context context, int difficulty,
+			int scoreForKilling, 
 			int width,int height,int imageId) {
-		super(context, scoreForKilling, DEFAULT_SPEED_Y,
-				0, DEFAULT_COLLISION_DAMAGE, DEFAULT_HEALTH,
-				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, width, height, imageId);
+		super(context, 
+				scoreForKilling, 
+				DEFAULT_SPEED_Y,
+				0, 
+				(int) scaledValue(DEFAULT_COLLISION_DAMAGE,difficulty,SMALL_SCALING), 
+				(int) scaledValue(DEFAULT_HEALTH,difficulty,SMALL_SCALING),
+				(int) scaledValue(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,difficulty,SMALL_SCALING), 
+				width, height, imageId);
 
-		//defeault orbit location
-		orbitX=(int) (MainActivity.getWidthPixels()/2-width/2);
-		orbitY=DEFAULT_ORBIT_Y;
+		//attempt to randomly place ships on screen so they do not run off of screen (currently they do run off screen a bit)
+		orbitX=(int) (Math.random() *  (MainActivity.getWidthPixels()-width- 2 * orbitLengthX() ) + orbitLengthX() );
+		orbitY=(int) (Math.random() *  (MainActivity.getHeightPixels()/2-height- 2 * orbitLengthY() ) + orbitLengthY() );
 		
 		this.setX(orbitX);
 		
@@ -38,8 +44,14 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	public Shooting_OrbiterView(Context context,int scoreForKilling,float speedY,int collisionDamage, 
 			int health, 
 			float probSpawnBeneficialObjecyUponDeath,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
-		super(context, scoreForKilling, speedY,
-				0, collisionDamage, health,probSpawnBeneficialObjecyUponDeath, width, height, imageId);
+		super(context, 
+				scoreForKilling, 
+				speedY,
+				0, 
+				collisionDamage, 
+				health,
+				probSpawnBeneficialObjecyUponDeath, 
+				width, height, imageId);
 
 		//defeault orbit location
 		orbitX=orbitPixelX-width/2;
@@ -47,6 +59,15 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		
 		this.setX(orbitX);
 		
+	}
+	
+	private void init(){
+
+		//set entity's position
+		int x = (int) (Math.random() * (MainActivity.getWidthPixels() - orbitLengthX() ));
+		int y = (int) (Math.random() * (MainActivity.getHeightPixels()/2 - orbitLengthY()));
+		setX(x);
+		setThreshold(y);
 	}
 	public void restartThreads(){
 		super.restartThreads();
@@ -56,4 +77,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	public float getShootingFreq(){
 		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
+	
+	protected abstract int orbitLengthX();
+	protected abstract int orbitLengthY();
 }

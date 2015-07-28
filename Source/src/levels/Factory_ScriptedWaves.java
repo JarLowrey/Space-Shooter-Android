@@ -175,6 +175,19 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		);
 	}
 	
+	/**
+	 * Spawn entities that take a Context and difficulty (int) parameter in their constructor.
+	 * Supported classes are
+	 *  Orbiter_CircleView Orbiter_Circle_SwitchDirectionOnHitView Orbiter_Circle_IncSpeedOnHitView
+	 * Orbiter_RectangleView Orbiter_TriangleView 
+	 * Gravity_MeteorView Meteor_SidewaysView
+	 * Shooting_DiagonalMovingView
+	 * Shooting_PauseAndMove
+	 * @param numEnemies
+	 * @param millisecondsBetweenEachSpawn
+	 * @param c
+	 * @return
+	 */
 	public final KillableRunnable spawnEnemyWithDefaultConstructorArguments(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
 		return new KillableRunnable(){
 			private int numSpawned=0;
@@ -246,88 +259,4 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		});
 	}
 	
-	
-	
-	public final KillableRunnable rect(){
-		return new KillableRunnable(){
-			@Override
-			public void doWork() {
-				spawnRectangularOrbiterWave(5,DEFAULT_WAVE_DURATION/5);
-			}
-		};
-	}
-	public final KillableRunnable tri(){
-		return new KillableRunnable(){
-			@Override
-			public void doWork() {
-				spawnTriangularOrbiterWave(5,DEFAULT_WAVE_DURATION/5);
-			}
-		};
-	}
-	
-	
-	public final void spawnRectangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		
-		KillableRunnable r  = new KillableRunnable(){
-			private int numSpawned=0;
-			
-			@Override
-			public void doWork() {
-				Orbiter_RectangleView r = new Orbiter_RectangleView(ctx);
-
-				int x = (int) (Math.random() * (MainActivity.getWidthPixels() - r.defaultOrbitLengthX() ));
-				int y = (int) (Math.random() * (MainActivity.getHeightPixels()/2 - r.defaultOrbitLengthY()));
-				r.setX(x);
-				r.setThreshold(y);
-				numSpawned++;
-				
-				if(numSpawned<totalNumShips){
-					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
-				}
-			}
-		};
-
-		spawningHandler.post(r);
-	}
-	
-	public final void spawnTriangularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-		KillableRunnable r = new KillableRunnable(){
-			private int numSpawned=0;
-			
-			@Override
-			public void doWork() {
-				Orbiter_TriangleView t = new Orbiter_TriangleView(ctx);
-				int x = (int) (Math.random() * (MainActivity.getWidthPixels() - t.orbitLengthX() ));
-				int y = (int) (Math.random() * (MainActivity.getHeightPixels()/2 - t.orbitLengthY()));
-				t.setX(x);
-				t.setThreshold(y);
-				numSpawned++;
-				
-				if(numSpawned<totalNumShips ){
-					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
-				}
-			}
-		};
-
-		spawningHandler.post(r);
-	}
-//	
-//	public final void spawnHorizontalOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn){
-//		KillableRunnable r = new KillableRunnable(){
-//			private int numSpawned=0;
-//			
-//			@Override
-//			public void doWork() {
-//				new Shooting_HorizontalMovementView(ctx);
-//					numSpawned++;
-//					
-//					if(numSpawned<totalNumShips ){
-//						spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
-//					}
-//			}
-//		};
-//
-//		spawningHandler.post(r);
-//	}
-
 }

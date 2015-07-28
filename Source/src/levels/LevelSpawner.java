@@ -3,9 +3,11 @@ package levels;
 import support.KillableRunnable;
 import android.content.Context;
 import android.util.Log;
-import enemies.Shooting_PauseAndMove;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
+import enemies_orbiters.Orbiter_CircleView;
+import enemies_orbiters.Orbiter_RectangleView;
+import enemies_orbiters.Orbiter_TriangleView;
 
 public class LevelSpawner extends Factory_Bosses{
 	
@@ -20,7 +22,14 @@ public class LevelSpawner extends Factory_Bosses{
 	}
 	
 	private void initScoreNeededToEndLevel(){
-		scoreNeededToEndLevel = (int) (1000 * getLevel() + 1000 * Math.random() * getLevel() );
+		if(getLevel()!=0){
+			scoreNeededToEndLevel = (int) (1000 * getLevel() + 1000 * Math.random() * getLevel() );
+		}else{
+			scoreNeededToEndLevel = 500;
+		}
+	}
+	private boolean canSpawnMoreEnemies(){
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/10;
 	}
 	
 	public void startLevelSpawning(){
@@ -30,12 +39,14 @@ public class LevelSpawner extends Factory_Bosses{
 			@Override
 			public void doWork() {
 				if ( !isLevelFinishedSpawning() ) {
-					spawningHandler.post( meteors() );
+//					spawningHandler.post( meteors() );
 					
-//					KillableRunnable r = spawnEnemyWithDefaultConstructorParameters(3, 500, Shooting_PauseAndMove.class);
-//					spawningHandler.post( r );
-					
-					
+					if( canSpawnMoreEnemies() ){
+						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments(2, 1000, Orbiter_RectangleView.class) );
+						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments(2, 1000, Orbiter_CircleView.class) );
+						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments(2, 1000, Orbiter_TriangleView.class) );
+						
+					}
 					spawningHandler.postDelayed(this,DEFAULT_WAVE_DURATION);
 				}
 			}
@@ -47,6 +58,7 @@ public class LevelSpawner extends Factory_Bosses{
 	public boolean isLevelFinishedSpawning() {
 		return scoreGainedThisLevel() > scoreNeededToEndLevel;
 	}
+	
 	
 	/**
 	 * Meteors are an integral part of the game, as they provide a background, constant enemy and movement. This is a special method
@@ -64,4 +76,6 @@ public class LevelSpawner extends Factory_Bosses{
 //			return doNothing();
 //		}
 	}
+	
+	
 }

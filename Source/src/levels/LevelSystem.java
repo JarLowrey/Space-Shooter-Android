@@ -63,6 +63,14 @@ public class LevelSystem extends LevelSpawner{
 
 		gameDetector.startDetecting();
 	}
+	
+	public static int totalSumOfLivingEnemiesScore(){
+		int sum = 0;
+		for(EnemyView enemy : enemies){
+			sum += enemy.getScoreForKilling();
+		}
+		return sum;
+	}
 
 	/**
 	 * flag level as paused, stop collision detector and level spawner. Remove

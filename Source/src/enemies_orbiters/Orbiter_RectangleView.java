@@ -19,8 +19,9 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	
 	private int currentSideOfRectangle,orbitDist;
 
-	public Orbiter_RectangleView(Context context) {
-		super(context, DEFAULT_SCORE, 
+	public Orbiter_RectangleView(Context context,int difficulty) {
+		super(context,difficulty, 
+				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_rectangular_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_rectangular_height), 
 				DEFAULT_BACKGROUND);
@@ -97,10 +98,10 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 		});
 	}
 
-	public int defaultOrbitLengthX(){
+	public int orbitLengthX(){
 		return (int) ( orbitDist*DEFAULT_SPEED_X * MainActivity.getScreenDens() );
 	}
-	public int defaultOrbitLengthY(){
+	public int orbitLengthY(){
 		return (int) (orbitDist*DEFAULT_SPEED_Y  * MainActivity.getScreenDens() );
 	}
 }

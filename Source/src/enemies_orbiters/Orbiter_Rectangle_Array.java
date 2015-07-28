@@ -36,7 +36,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 	private int myPosition;
 	
 	public Orbiter_Rectangle_Array(Context context, int difficulty) {
-		super(context);
+		super(context,difficulty);
 		
 		//change default background (parent has its own default background
 		ViewGroup.LayoutParams params = this.getLayoutParams();

@@ -21,8 +21,9 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	
 	private int currentSideOfTriangle, orbitDist;
 	
-	public Orbiter_TriangleView(Context context) {
-		super(context, DEFAULT_SCORE, 
+	public Orbiter_TriangleView(Context context,int difficulty) {
+		super(context, difficulty, 
+				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_triangular_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_triangular_height), 
 				DEFAULT_BACKGROUND);
@@ -52,7 +53,6 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
 		
-
 		//override default gun
 		float freq= getShootingFreq();
 		this.removeAllGuns();
@@ -100,9 +100,9 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		}); 
 	}
 	public int orbitLengthX(){
-		return (int) ( orbitDist*DEFAULT_SPEED_X * MainActivity.getScreenDens() );
+		return (int) ( orbitDist * DEFAULT_SPEED_X * MainActivity.getScreenDens() );
 	}
 	public int orbitLengthY(){
-		return (int) (orbitDist*DEFAULT_SPEED_Y  * MainActivity.getScreenDens() );
+		return (int) (orbitDist * DEFAULT_SPEED_Y  * MainActivity.getScreenDens() );
 	}
 }

@@ -21,15 +21,16 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	private int angularVelocity;
 	private double radius;
 
-	public Orbiter_CircleView(Context context) {
-		super(context,DEFAULT_SCORE, 
+	public Orbiter_CircleView(Context context,int difficulty) {
+		super(context,difficulty,
+				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_height), 
 				DEFAULT_BACKGROUND);
 
 		final int width=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
 		final int height=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
-		radius=(MAX_RADIUS-width)/2;
+		radius = Math.random() * ( MainActivity.getWidthPixels()-width) / 2 ;
 		angularVelocity=DEFAULT_ANGULAR_VELOCITY;
 		
 		init(width,height);
@@ -95,6 +96,16 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_CircleView.this);
 			}
 		});
+	}
+
+	@Override
+	protected int orbitLengthX() {
+		return (int) radius;
+	}
+
+	@Override
+	protected int orbitLengthY() {
+		return (int) radius;
 	}
 
 }

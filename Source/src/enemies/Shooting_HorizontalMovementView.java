@@ -30,7 +30,7 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 				height, imageId);
 
 		init(width);
-	} 
+	}
 	
 	private void init(int width){
 		this.setX((float) (MainActivity.getWidthPixels()/2 - width/2.0) );
