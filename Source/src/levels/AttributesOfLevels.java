@@ -19,7 +19,7 @@ public abstract class AttributesOfLevels {
 	} 
 	
 
-	public static final int DEFAULT_WAVE_DURATION=2000;
+	public static final int LEVEL_SPAWNER_WAIT=1000;
 	
 	public abstract boolean isLevelFinishedSpawning();
 	public abstract int getMaxLevel();

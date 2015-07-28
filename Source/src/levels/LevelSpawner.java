@@ -10,13 +10,18 @@ import enemies_non_shooters.Meteor_SidewaysView;
 public class LevelSpawner extends Factory_Bosses{
 	
 	private int scoreNeededToEndLevel;
-	public final static Class[] 
-			DIFFICULTY_ZERO_ENEMIES = {Shooting_DiagonalMovingView.class},
-			DIFFICULTY_ONE_ENEMIES = {},
-			DIFFICULTY_TWO_ENEMIES = {},
-			DIFFICULTY_THREE_ENEMIES = {},
-			DIFFICULTY_FOUR_ENEMIES = {},
-			DIFFICULTY_FIVE_ENEMIES = {};
+	public final KillableRunnable[] 
+			DIFFICULTY_ZERO_SPAWNS = {
+				spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
+				meteorShowersThatForceUserToLeft(),
+				meteorShowersThatForceUserToRight(),
+				meteorShowersThatForceUserToMiddle()
+			},
+			DIFFICULTY_ONE_SPAWNS = {},
+			DIFFICULTY_TWO_SPAWNS = {},
+			DIFFICULTY_THREE_SPAWNS = {},
+			DIFFICULTY_FOUR_SPAWNS = {},
+			DIFFICULTY_FIVE_SPAWNS = {};
 	
 	public LevelSpawner(Context context) {
 		super(context);
@@ -43,10 +48,10 @@ public class LevelSpawner extends Factory_Bosses{
 					spawningHandler.post( backgroundMeteors() );
 					
 					if( canSpawnMoreEnemies() ){
-						Class nextEnemy = null;
+						KillableRunnable nextSpawn = doNothing();
 						switch(difficulty()){
 						case 0:
-							nextEnemy = DIFFICULTY_ZERO_ENEMIES[(int) (Math.random() * DIFFICULTY_ZERO_ENEMIES.length)];
+							nextSpawn = DIFFICULTY_ZERO_SPAWNS[(int) (Math.random() * DIFFICULTY_ZERO_SPAWNS.length)];
 							break;
 						case 1:
 							
@@ -64,9 +69,9 @@ public class LevelSpawner extends Factory_Bosses{
 							
 							break;
 						}
-						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments( 3 , nextEnemy) );	//TODO change number of enemies spawned to be semi random and reflective of progress					
+						spawningHandler.post( nextSpawn );	//TODO change number of enemies spawned to be semi random and reflective of progress					
 					}
-					spawningHandler.postDelayed(this,DEFAULT_WAVE_DURATION);
+					spawningHandler.postDelayed(this,LEVEL_SPAWNER_WAIT);
 				}
 			}
 			
@@ -87,10 +92,10 @@ public class LevelSpawner extends Factory_Bosses{
 	private KillableRunnable backgroundMeteors(){
 		//TODO Change meteors to conditionally spawn
 //		if( true ){
-		Log.d("lowrey",""+DEFAULT_WAVE_DURATION/500);
+		Log.d("lowrey",""+LEVEL_SPAWNER_WAIT/500);
 			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
 			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
-			return spawnEnemyWithDefaultConstructorArguments( 2,1000, meteor );
+			return spawnEnemiesWithDefaultConstructorArguments( 2,1000, meteor );
 //		}else{
 //			return doNothing();
 //		}

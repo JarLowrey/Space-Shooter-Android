@@ -61,7 +61,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			public void doWork() {
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 				numMeteors-=4;
-				spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
+				spawnMeteorShower(numMeteors,400,true);
 				
 			}
 		};
@@ -72,7 +72,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			public void doWork() {
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 				numMeteors-=4;
-				spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,false);
+				spawnMeteorShower(numMeteors,400,false);
 				
 			}
 		};
@@ -90,7 +90,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	//tracking waves
 	final KillableRunnable trackingEnemy(){
 		final int numEnemies = 4;
-		final int millisecondsBetweenEachSpawn = DEFAULT_WAVE_DURATION/4;
+		final int millisecondsBetweenEachSpawn = LEVEL_SPAWNER_WAIT/4;
 		
 		return new KillableRunnable(){
 			private int numSpawned=0;
@@ -136,7 +136,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		};
 	}
 	//spawn enemies over a set period
-	public final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
+	private final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 		spawningHandler.post(
 				new KillableRunnable(){
 				
@@ -188,18 +188,13 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	 * @param c
 	 * @return
 	 */
-	public final KillableRunnable spawnEnemyWithDefaultConstructorArguments(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
+	public final KillableRunnable spawnEnemiesWithDefaultConstructorArguments(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
 		return new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
 			public void doWork() {
-				try {
-					Class [] constructorArgs = new Class[] {Context.class,int.class}; //get constructor with list of arguments
-					c.getDeclaredConstructor(constructorArgs).newInstance(ctx,difficulty()); //instantiate the passed class with parameters
-				} catch (Exception e){
-					e.printStackTrace();
-				}
+				spawnDefaultEnemy(c);
 				numSpawned++;
 				
 				if(numSpawned<numEnemies){
@@ -208,8 +203,24 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			}
 		};
 	}
-	public final KillableRunnable spawnEnemyWithDefaultConstructorArguments(final int numEnemies,final Class c){
-		return spawnEnemyWithDefaultConstructorArguments(numEnemies, DEFAULT_WAVE_DURATION/numEnemies, c);
+	public final KillableRunnable spawnEnemiesWithDefaultConstructorArguments(final int numEnemies,final Class c){
+		return spawnEnemiesWithDefaultConstructorArguments(numEnemies, LEVEL_SPAWNER_WAIT/numEnemies, c);
+	}
+	public final KillableRunnable spawnEnemyWithDefaultConstructorArugments(final Class c){
+		return new KillableRunnable(){
+			@Override
+			public void doWork(){
+				spawnDefaultEnemy(c);
+			}
+		};
+	}
+	private void spawnDefaultEnemy(Class c){
+		try {
+			Class [] constructorArgs = new Class[] {Context.class,int.class}; //get constructor with list of arguments
+			c.getDeclaredConstructor(constructorArgs).newInstance(ctx,difficulty()); //instantiate the passed class with parameters
+		} catch (Exception e){
+			e.printStackTrace();
+		}		
 	}
 	
 	//orbiters
