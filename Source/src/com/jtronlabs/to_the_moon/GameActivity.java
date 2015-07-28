@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
 import levels.LevelSystem;
 import support.KillableRunnable;
 import support.MediaController;
@@ -36,6 +32,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 public class GameActivity extends Activity implements OnTouchListener, GameActivityInterface{
 
@@ -190,7 +190,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			levelCreator.enemies.get(i).removeGameObject();
 		}
 				
-		levelCreator.loadScoreAndWaveAndLevel();//need to reload variables first thing
+		levelCreator.loadScoreAndLevel();//need to reload variables first thing
 		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		

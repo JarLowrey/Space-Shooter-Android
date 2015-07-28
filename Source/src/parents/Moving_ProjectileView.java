@@ -15,6 +15,8 @@ import com.jtronlabs.to_the_moon.R;
  */
 public abstract class Moving_ProjectileView extends MovingView implements Projectile{
 
+	final protected static double XXSMALL_SCALING=1.01,SMALL_SCALING=1.2, MED_SCALING=1.5, LARGE_SCALING=2;
+	
 	float speedX;
 	int damage, health,maxHealth;
 	
@@ -91,5 +93,20 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 	@Override
 	public void removeGameObject() {
 		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
+	}
+	
+	/**
+	 * Helper method to easily scale values
+	 * @param defaultValue
+	 * @param difficultyLvl
+	 * @param scalingFactor
+	 * @return
+	 */
+	protected static double scaledValue(double defaultValue, int difficultyLvl, double scalingFactor){
+		if(difficultyLvl == 0){
+			return defaultValue;
+		}else{
+			return defaultValue * ( difficultyLvl * scalingFactor );
+		}
 	}
 }

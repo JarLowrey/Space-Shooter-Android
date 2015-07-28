@@ -44,7 +44,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		params.width = (int)context.getResources().getDimension(R.dimen.ship_array_shooter_width);
 		this.setLayoutParams(params);
 		this.setImageResource(DEFAULT_BACKGROUND);
-		this.setHealth((int) (DEFAULT_HEALTH + 1.2*difficulty));
+		this.setHealth( (int) scaledValue(DEFAULT_HEALTH,difficulty,SMALL_SCALING) );
 
 
 		//find an open spot for this shooter to go

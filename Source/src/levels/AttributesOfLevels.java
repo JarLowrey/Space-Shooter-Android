@@ -19,23 +19,11 @@ public abstract class AttributesOfLevels {
 	} 
 	
 
-	public static final int DEFAULT_WAVE_DURATION=5000;
+	public static final int DEFAULT_WAVE_DURATION=2000;
 	
-	public abstract int getCurrentLevelLengthMilliseconds();
-	public abstract int getNumWavesInLevel(int level);
-	public abstract boolean areLevelWavesCompleted();
+	public abstract boolean isLevelFinishedSpawning();
 	public abstract int getMaxLevel();
 	
-	//Waves
-	public int getWave(){
-		return waveNo;
-	}
-	public void setWave(int wave){
-		waveNo=wave;
-	}
-	protected void incrementWave(){
-		setWave(getWave()+1);		
-	}
 	
 	public GameActivityInterface getInteractivityInterface(){
 		return (GameActivityInterface)ctx;
@@ -86,11 +74,23 @@ public abstract class AttributesOfLevels {
 	/**
 	 * Load saved level and resources from memory. Set wave to 0
 	 */
-	public void loadScoreAndWaveAndLevel(){
+	public void loadScoreAndLevel(){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		setResources(gameState.getInt(GameActivity.STATE_RESOURCES,0));
 		setLevel(gameState.getInt(GameActivity.STATE_LEVEL,0));
 //		setWave(gameState.getInt(GameActivity.STATE_WAVE,0));
-		setWave(0);
 	}
+	
+
+	/**
+	 * TODO BADLY NEEDS TO BE OPTIMIZED (DO NOT ACCESS SLOW MEMEORY)
+	 * @return
+	 */
+	public int scoreGainedThisLevel(){
+		SharedPreferences gameState = ctx.getSharedPreferences(
+				GameActivity.GAME_STATE_PREFS, 0);
+		//find how much score was incremented this level to know how much to add to total score
+		final int scoreBeforeLevel = gameState.getInt(GameActivity.STATE_RESOURCES, 0);
+		return (getResourceCount() - scoreBeforeLevel);		
+	}    
 }

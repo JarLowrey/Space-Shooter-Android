@@ -102,7 +102,7 @@ public class CollisionDetector {
 //    		        			LevelSystem.enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
     		        	
     		        	if( levelingSystem.getInteractivityInterface().getProtagonist().getHealth() > 0 &&
-    		        			(! levelingSystem.areLevelWavesCompleted()
+    		        			(! levelingSystem.isLevelFinishedSpawning()
     		        			|| LevelSystem.enemies.size() !=0 || LevelSystem.enemyBullets.size() != 0  || LevelSystem.bonuses.size() != 0) ){
     		        		
     		        		detectAnyFriendlyHasCollidedWithAnyEnemy();

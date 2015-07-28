@@ -22,30 +22,19 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	private long amtOfTimeToPause; 
 	 
-	public Shooting_PauseAndMove (Context context) {
-		super(context,DEFAULT_SCORE,
-				DEFAULT_SPEED_Y,
-				0,
-				DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH,
-				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
+	public Shooting_PauseAndMove (Context context,int difficulty) {
+		super(context,
+				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING) ,
+				(float) scaledValue(DEFAULT_SPEED_Y,difficulty,XXSMALL_SCALING),
+				 0,
+				(int) scaledValue(DEFAULT_COLLISION_DAMAGE,difficulty,SMALL_SCALING),
+				(int) scaledValue(DEFAULT_HEALTH,difficulty,SMALL_SCALING),
+				(int) scaledValue(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,difficulty,SMALL_SCALING), 
 				(int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_width),
 				(int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_height), 
 				DEFAULT_BACKGROUND);
 
-		Log.d("lowrey","health = "+this.getHealth());
 		init( (int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_width) );
-	}
-	
-	public Shooting_PauseAndMove(Context context, int scoreForKilling,
-			float projectileSpeedY,
-			int projectileDamage, int projectileHealth,
-			float probSpawnBeneficialObject, int width, int height, int imageId) {
-		super(context, scoreForKilling, projectileSpeedY, 0,
-				projectileDamage, projectileHealth, probSpawnBeneficialObject, width,
-				height, imageId);
-		
-		init(width);
 	}
 	
 	private void init(int width){

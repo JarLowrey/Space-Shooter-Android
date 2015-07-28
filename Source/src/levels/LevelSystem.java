@@ -15,7 +15,7 @@ import com.jtronlabs.to_the_moon.R;
 import enemies.EnemyView;
 import friendlies.FriendlyView;
 
-public class LevelSystem extends Levels{
+public class LevelSystem extends LevelSpawner{
 
 	public static ArrayList<BulletView> friendlyBullets = new ArrayList<BulletView>();
 	public static ArrayList<BulletView> enemyBullets = new ArrayList<BulletView>();
@@ -97,7 +97,6 @@ public class LevelSystem extends Levels{
 	public void endLevel() {
 		// set new level
 		incrementLevel();
-		setWave(0);
 
 		// Save variables
 		SharedPreferences gameState = ctx.getSharedPreferences(
@@ -131,59 +130,5 @@ public class LevelSystem extends Levels{
 			getInteractivityInterface().openStore();
 		} 
 	}
-	 
-	public int scoreGainedThisLevel(){
-		SharedPreferences gameState = ctx.getSharedPreferences(
-				GameActivity.GAME_STATE_PREFS, 0);
-		//find how much score was incremented this level to know how much to add to total score
-		final int scoreBeforeLevel = gameState.getInt(GameActivity.STATE_RESOURCES, 0);
-		return (getResourceCount() - scoreBeforeLevel);		
-	}    
-//	
-//	// Background Animations and effects
-//	private final int[] backgroundColors = { R.color.blue, R.color.dark_blue,
-//			R.color.very_dark_blue };
-//
-//	private void createBackgroundEffects() {
-//		if (getLevel() < 3) {
-//			new Sun(ctx);
-//
-//			for (int i = 0; i < 12 / (getLevel() + 1); i++) {
-//				Clouds a = new Clouds(ctx);
-//				Clouds b = new Clouds(ctx);
-//				a.setY((float) (MainActivity.getHeightPixels() * Math.random()));
-//				b.setY((float) (MainActivity.getHeightPixels() * Math.random()));
-//			}
-//
-//			spawningHandler.post( clouds() );
-//			// this.conditionalHandler.postIfLevelResumed(clouds);
-//		}
-////		if (getLevel() >= backgroundColors.length) {
-////			this.getInteractivityInterface()
-////					.changeGameBackground(R.color.black);
-////		} else {
-////			this.getInteractivityInterface().changeGameBackground(
-////					backgroundColors[getLevel()]);
-////		}
-//	}
-//
-//	private KillableRunnable clouds(){
-//		return new KillableRunnable() {
-//			@Override
-//			public void doWork() {
-//				if (Math.random() < .5) {
-//					new Bird(ctx);
-//				}
-//				if (Math.random() < .5) {
-//					new Clouds(ctx);
-//				}
-//				new Bird(ctx);
-//				new Clouds(ctx);
-//	
-//				spawningHandler.postDelayed(this, 4000 * (getLevel() + 1));
-//				// conditionalHandler.postIfLevelResumed(this, 4000*(getLevel()+1));
-//			}
-//		};
-//	}
 
 }

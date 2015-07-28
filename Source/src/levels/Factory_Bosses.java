@@ -206,7 +206,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 
 	//giant meteors
 	public final void spawnGiantMeteor(){
-		Gravity_MeteorView enemy = new Meteor_SidewaysView(ctx);
+		Gravity_MeteorView enemy = new Meteor_SidewaysView(ctx,difficulty() );
 		
 		//change width and height. set X and Y positions
 		final int width = (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
