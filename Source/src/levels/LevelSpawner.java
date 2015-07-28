@@ -3,15 +3,20 @@ package levels;
 import support.KillableRunnable;
 import android.content.Context;
 import android.util.Log;
+import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
-import enemies_orbiters.Orbiter_CircleView;
-import enemies_orbiters.Orbiter_RectangleView;
-import enemies_orbiters.Orbiter_TriangleView;
 
 public class LevelSpawner extends Factory_Bosses{
 	
 	private int scoreNeededToEndLevel;
+	public final static Class[] 
+			DIFFICULTY_ZERO_ENEMIES = {Shooting_DiagonalMovingView.class},
+			DIFFICULTY_ONE_ENEMIES = {},
+			DIFFICULTY_TWO_ENEMIES = {},
+			DIFFICULTY_THREE_ENEMIES = {},
+			DIFFICULTY_FOUR_ENEMIES = {},
+			DIFFICULTY_FIVE_ENEMIES = {};
 	
 	public LevelSpawner(Context context) {
 		super(context);
@@ -22,11 +27,7 @@ public class LevelSpawner extends Factory_Bosses{
 	}
 	
 	private void initScoreNeededToEndLevel(){
-		if(getLevel()!=0){
-			scoreNeededToEndLevel = (int) (1000 * getLevel() + 1000 * Math.random() * getLevel() );
-		}else{
-			scoreNeededToEndLevel = 500;
-		}
+		scoreNeededToEndLevel = (int) (500 + 500 * Math.random() * getLevel() );
 	}
 	private boolean canSpawnMoreEnemies(){
 		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/10;
@@ -39,13 +40,31 @@ public class LevelSpawner extends Factory_Bosses{
 			@Override
 			public void doWork() {
 				if ( !isLevelFinishedSpawning() ) {
-//					spawningHandler.post( meteors() );
+					spawningHandler.post( backgroundMeteors() );
 					
 					if( canSpawnMoreEnemies() ){
-						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments(2, 1000, Orbiter_RectangleView.class) );
-						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments(2, 1000, Orbiter_CircleView.class) );
-						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments(2, 1000, Orbiter_TriangleView.class) );
-						
+						Class nextEnemy = null;
+						switch(difficulty()){
+						case 0:
+							nextEnemy = DIFFICULTY_ZERO_ENEMIES[(int) (Math.random() * DIFFICULTY_ZERO_ENEMIES.length)];
+							break;
+						case 1:
+							
+							break;
+						case 2:
+							
+							break;
+						case 3:
+							
+							break;
+						case 4: 
+							
+							break;
+						default:
+							
+							break;
+						}
+						spawningHandler.post( spawnEnemyWithDefaultConstructorArguments( 3 , nextEnemy) );	//TODO change number of enemies spawned to be semi random and reflective of progress					
 					}
 					spawningHandler.postDelayed(this,DEFAULT_WAVE_DURATION);
 				}
@@ -65,13 +84,13 @@ public class LevelSpawner extends Factory_Bosses{
 	 * that returns a KillableRunnable to spawn Meteors if so desired (which is typically the case).
 	 * @return
 	 */
-	private KillableRunnable meteors(){
+	private KillableRunnable backgroundMeteors(){
 		//TODO Change meteors to conditionally spawn
 //		if( true ){
 		Log.d("lowrey",""+DEFAULT_WAVE_DURATION/500);
 			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
 			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
-			return spawnEnemyWithDefaultConstructorArguments( 4,500, meteor );
+			return spawnEnemyWithDefaultConstructorArguments( 2,1000, meteor );
 //		}else{
 //			return doNothing();
 //		}

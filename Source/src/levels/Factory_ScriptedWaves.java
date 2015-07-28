@@ -179,10 +179,10 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	 * Spawn entities that take a Context and difficulty (int) parameter in their constructor.
 	 * Supported classes are
 	 *  Orbiter_CircleView Orbiter_Circle_SwitchDirectionOnHitView Orbiter_Circle_IncSpeedOnHitView
-	 * Orbiter_RectangleView Orbiter_TriangleView 
-	 * Gravity_MeteorView Meteor_SidewaysView
-	 * Shooting_DiagonalMovingView
-	 * Shooting_PauseAndMove
+	 *  Orbiter_RectangleView Orbiter_TriangleView 
+	 *  Gravity_MeteorView Meteor_SidewaysView
+	 *  Shooting_DiagonalMovingView
+	 *  Shooting_PauseAndMove
 	 * @param numEnemies
 	 * @param millisecondsBetweenEachSpawn
 	 * @param c
@@ -207,6 +207,9 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				}
 			}
 		};
+	}
+	public final KillableRunnable spawnEnemyWithDefaultConstructorArguments(final int numEnemies,final Class c){
+		return spawnEnemyWithDefaultConstructorArguments(numEnemies, DEFAULT_WAVE_DURATION/numEnemies, c);
 	}
 	
 	//orbiters
