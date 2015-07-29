@@ -1,6 +1,6 @@
 package interfaces;
 
-import support.KillableRunnable;
+import helpers.KillableRunnable;
 import android.view.ViewParent;
 
 /**

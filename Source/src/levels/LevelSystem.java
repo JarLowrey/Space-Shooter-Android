@@ -1,8 +1,9 @@
 package levels;
 
+import helpers.MediaController;
+
 import java.util.ArrayList;
 
-import support.MediaController;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;

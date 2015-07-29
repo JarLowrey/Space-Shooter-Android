@@ -2,7 +2,7 @@ package guns;
   
 import com.jtronlabs.to_the_moon.R;
 
-import support.MediaController;
+import helpers.MediaController;
 import interfaces.Shooter;
 import android.content.Context;
 import bullets.Bullet;

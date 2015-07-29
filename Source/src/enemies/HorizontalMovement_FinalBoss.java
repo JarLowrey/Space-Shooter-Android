@@ -1,8 +1,8 @@
 package enemies;
 
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Tracking_LaserShort;

@@ -1,8 +1,8 @@
 package enemies_non_shooters;
 
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import parents.MovingView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;

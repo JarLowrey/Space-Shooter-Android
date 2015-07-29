@@ -2,10 +2,10 @@ package enemies_orbiters;
 
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 import bullets.Bullet_Basic_LaserLong;
 

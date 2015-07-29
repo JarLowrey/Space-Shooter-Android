@@ -2,6 +2,8 @@ package com.jtronlabs.to_the_moon;
 
 import friendlies.AllyView;
 import friendlies.ProtagonistView;
+import helpers.KillableRunnable;
+import helpers.MediaController;
 import interfaces.GameActivityInterface;
 
 import java.text.NumberFormat;
@@ -10,8 +12,6 @@ import java.util.List;
 import java.util.Locale;
 
 import levels.LevelSystem;
-import support.KillableRunnable;
-import support.MediaController;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

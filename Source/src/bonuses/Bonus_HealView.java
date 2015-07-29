@@ -1,8 +1,8 @@
 package bonuses;
  
+import helpers.MediaController;
 import interfaces.MovingViewInterface;
 import interfaces.Shooter;
-import support.MediaController;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;

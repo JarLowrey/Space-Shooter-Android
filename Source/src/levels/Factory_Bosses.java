@@ -1,7 +1,5 @@
 package levels;
 
-import support.KillableRunnable;
-import support.SpawnableWave;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserLong;
@@ -23,6 +21,8 @@ import friendlies.ProtagonistView;
 import guns.Gun_SingleShotStraight;
 import guns.Gun_TrackingGattling;
 import guns.Gun_TrackingSingle;
+import helpers.KillableRunnable;
+import helpers.SpawnableWave;
 
 /**
  * Create a default enemy using EnemyFactory class, then overwrite position, speed, damage size, background, guns, bullets, etc To make a boss
@@ -61,7 +61,18 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();
 			}
 		};
-		return new SpawnableWave(r,5000 - difficulty() * 1000);
+
+		int probabilityWeight = 0;
+		if(difficulty() > 1){
+			probabilityWeight = 10 + difficulty() * 6;
+			probabilityWeight = Math.max(probabilityWeight, 30);
+		}
+
+		if(getLevel()==6){
+			probabilityWeight = 1000000;
+		}
+		
+		return new SpawnableWave(r,5000 - difficulty() * 1000,probabilityWeight);
 	}
 	
 	final SpawnableWave boss2(){
@@ -88,7 +99,17 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();
 			}
 		};
-		return new SpawnableWave(r,15000 - difficulty() * 3000);
+		
+		int probabilityWeight = 0;
+		if(difficulty() > 2){
+			probabilityWeight = 10 + difficulty() * 2;
+			probabilityWeight = Math.max(probabilityWeight, 20);
+		}
+		if(getLevel()==15){
+			probabilityWeight = 1000000;
+		}
+		
+		return new SpawnableWave(r,15000 - difficulty() * 3000,probabilityWeight);
 	}
 	
 	final SpawnableWave boss3(){
@@ -130,7 +151,17 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();	
 			}
 		};
-		return new SpawnableWave(r,20000 - difficulty() * 4000);
+
+		int probabilityWeight = 0;
+		if(difficulty() > 3){
+			probabilityWeight = 10 + difficulty() ;
+			probabilityWeight = Math.max(probabilityWeight, 15);
+		}
+		if(getLevel()==20){
+			probabilityWeight = 1000000;
+		}
+		
+		return new SpawnableWave(r,20000 - difficulty() * 4000,probabilityWeight);
 	}
 	
 	final SpawnableWave boss4(){ 
@@ -185,7 +216,17 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();	
 			}
 		};  
-		return new SpawnableWave(r,25000 - difficulty() * 5000);
+		
+		int probabilityWeight = 0;
+		if(difficulty() > 4){
+			probabilityWeight = 5 + difficulty() ;
+			probabilityWeight = Math.max(probabilityWeight, 10);
+		}
+		if(getLevel()==25){
+			probabilityWeight = 1000000;
+		}
+		
+		return new SpawnableWave(r,25000 - difficulty() * 5000,probabilityWeight);
 	}
 	final SpawnableWave boss5(){ 
 		KillableRunnable r = new KillableRunnable(){
@@ -194,7 +235,13 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				new HorizontalMovement_FinalBoss(ctx);
 			}
 		}; 
-		return new SpawnableWave(r,100000000);
+		
+		int probabilityWeight = 0;
+		if(getLevel() == getMaxLevel()-1){
+			probabilityWeight = 1000000;
+		}
+		
+		return new SpawnableWave(r,100000000,probabilityWeight);
 	}
 
 	public final SpawnableWave spawnGiantMeteor(){
@@ -216,7 +263,16 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.setScoreValue(100);
 			}
 		};
-		return new SpawnableWave(r,2000);
+		
+		int probabilityWeight = 5;
+		if(difficulty() > 0){
+			probabilityWeight = 20 ;
+		}
+		if(getLevel()==5){
+			probabilityWeight = 50;
+		}
+		
+		return new SpawnableWave(r,2000,probabilityWeight);
 	}
 	
 }

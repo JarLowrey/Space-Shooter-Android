@@ -1,7 +1,7 @@
 package levels;
 
-import support.KillableRunnable;
-import support.SpawnableWave;
+import helpers.KillableRunnable;
+import helpers.SpawnableWave;
 import android.content.Context;
 import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
@@ -12,33 +12,14 @@ public class LevelSpawner extends Factory_Bosses{
 	private int scoreNeededToEndLevel;
 	private long timeUntilCanSpawnNextWave = 0,
 		timeSinceSpawnedLastWave = 0;
-	public final SpawnableWave[][] 
-			DIFFICULTY_SPAWNS = {
-				{
-					spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
-					meteorShowersThatForceUserToLeft(),
-					meteorShowersThatForceUserToRight(),
-					meteorShowersThatForceUserToMiddle(),
-					spawnGiantMeteor()
-				},
-				{
-					spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
-					meteorShowersThatForceUserToLeft(),
-					meteorShowersThatForceUserToRight(),
-					meteorShowersThatForceUserToMiddle(),
-					spawnGiantMeteor(),
-					
-					refreshArrayShooters(),
-					trackingEnemy()					
-				}
-			};
+	public SpawnableWave[] allSpawnableWaves;
 	
 	public LevelSpawner(Context context) {
 		super(context);
 	}
 
 	public int getMaxLevel() {
-		return 10;
+		return 20;
 	}
 	
 	private void initScoreNeededToEndLevel(){
@@ -49,11 +30,12 @@ public class LevelSpawner extends Factory_Bosses{
 				timeSinceSpawnedLastWave >= timeUntilCanSpawnNextWave;
 	}
 	private boolean canSpawnMeteors(){
-		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/5;
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/3;
 	}
 	
 	public void startLevelSpawning(){
 		initScoreNeededToEndLevel();
+		reinitializeAllSpawnableWaves();
 		
 		spawningHandler.post(new KillableRunnable() {
 			@Override
@@ -64,10 +46,9 @@ public class LevelSpawner extends Factory_Bosses{
 					spawningHandler.post( backgroundMeteors().runnableToSpawn() );
 					
 					if( canSpawnMoreEnemies() ){						
-						SpawnableWave nextSpawn = DIFFICULTY_SPAWNS[difficulty()]
-								[(int) (Math.random() * DIFFICULTY_SPAWNS[difficulty()].length)];
+						SpawnableWave nextSpawn = SpawnableWave.getRandomWaveUsingWeightedProbabilities();
 						
-						spawningHandler.post( nextSpawn.runnableToSpawn() );	//TODO change number of enemies spawned to be semi random and reflective of progress					
+						spawningHandler.post( nextSpawn.runnableToSpawn() );				
 
 						//reset the spawn timers
 						timeUntilCanSpawnNextWave = nextSpawn.howLongUntilCanSpawnAgain();
@@ -79,6 +60,28 @@ public class LevelSpawner extends Factory_Bosses{
 			}
 			
 		});
+	}
+	
+	/**
+	 * SpawnableWave objects need to be reinitialized at beginning of every level.
+	 * This is due to the fact their probability weighting is a function of level, and as such changes
+	 * as levels increment.
+	 */
+	private void reinitializeAllSpawnableWaves(){
+		int diagonalMoverProbabilityWeight = 30-difficulty()*2;
+		diagonalMoverProbabilityWeight = Math.min(diagonalMoverProbabilityWeight, 10);
+		
+		final SpawnableWave[] ALL_WAVES = {
+			spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class,diagonalMoverProbabilityWeight),
+			meteorShowersThatForceUserToLeft(),
+			meteorShowersThatForceUserToRight(),
+			meteorShowersThatForceUserToMiddle(),
+			spawnGiantMeteor(),
+			
+			refreshArrayShooters(),
+			trackingEnemy()					
+		};
+		SpawnableWave.initializeSpawnableWaves(ALL_WAVES);
 	}
 
 	@Override
@@ -96,7 +99,7 @@ public class LevelSpawner extends Factory_Bosses{
 		if( canSpawnMeteors() ){
 			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
 			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
-			return spawnEnemiesWithDefaultConstructorArguments( 2,1000, meteor );
+			return spawnEnemyWithDefaultConstructorArugments(meteor,0 );//probability weight does not matter here
 		}else{
 			return doNothing();
 		}

@@ -26,12 +26,12 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .05,
 			LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
 
-	public static ArrayList<Orbiter_Rectangle_Array> allSimpleShooters;
+	public static ArrayList<Orbiter_Rectangle_Array> allSimpleShooters = new ArrayList<Orbiter_Rectangle_Array>();
 	private static boolean[] occupiedPositions;
 	
 	// Constantly move all instances of this class in a square shape
-	private static int numRows, 
-			numCols;
+	private static int numRows = DEFAULT_NUM_ROWS, 
+			numCols = DEFAULT_NUM_COLS;
 
 	private int myPosition;
 	

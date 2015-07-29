@@ -1,10 +1,10 @@
 package parents;
 
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
+import helpers.MediaController;
 import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
-import support.ConditionalHandler;
-import support.KillableRunnable;
-import support.MediaController;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;

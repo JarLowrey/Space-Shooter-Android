@@ -1,8 +1,8 @@
 package guns;
   
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import interfaces.Shooter;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 import bullets.Bullet;
 

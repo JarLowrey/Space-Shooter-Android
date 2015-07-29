@@ -1,6 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
-import support.MediaController;
+import helpers.MediaController;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

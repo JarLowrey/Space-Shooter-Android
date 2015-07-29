@@ -1,6 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
-import support.KillableRunnable;
+import helpers.KillableRunnable;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;

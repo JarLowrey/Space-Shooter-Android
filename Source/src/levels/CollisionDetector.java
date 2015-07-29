@@ -1,8 +1,8 @@
 package levels;
 
+import helpers.KillableRunnable;
 import interfaces.Shooter;
 import parents.MovingView;
-import support.KillableRunnable;
 import android.os.Handler;
 import android.util.Log;
 import bonuses.BonusView;

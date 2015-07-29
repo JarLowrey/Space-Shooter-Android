@@ -1,10 +1,10 @@
 package friendlies;
 
 import guns.Gun_SingleShotStraight;
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;

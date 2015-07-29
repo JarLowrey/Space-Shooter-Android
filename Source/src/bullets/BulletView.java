@@ -1,10 +1,10 @@
 package bullets;
   
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import interfaces.Shooter;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;

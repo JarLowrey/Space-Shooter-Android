@@ -2,10 +2,10 @@ package friendlies;
 
 import guns.Gun;
 import guns.Gun_AngledDualShot;
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
+import helpers.MediaController;
 import interfaces.GameActivityInterface;
-import support.ConditionalHandler;
-import support.KillableRunnable;
-import support.MediaController;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;

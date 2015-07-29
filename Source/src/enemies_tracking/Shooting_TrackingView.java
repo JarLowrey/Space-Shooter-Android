@@ -1,8 +1,8 @@
 package enemies_tracking;
 
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import parents.Moving_ProjectileView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;

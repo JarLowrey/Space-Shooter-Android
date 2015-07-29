@@ -1,6 +1,5 @@
 package enemies;
  
-import support.KillableRunnable;
 import android.content.Context;
 import android.util.Log;
 import bullets.Bullet_Basic_LaserLong;
@@ -11,6 +10,7 @@ import com.jtronlabs.to_the_moon.R;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
+import helpers.KillableRunnable;
 
 public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	

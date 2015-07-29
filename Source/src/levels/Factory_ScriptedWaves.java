@@ -1,8 +1,8 @@
 package levels;
 
+import helpers.KillableRunnable;
+import helpers.SpawnableWave;
 import interfaces.GameActivityInterface;
-import support.KillableRunnable;
-import support.SpawnableWave;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -33,7 +33,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			@Override
 			public void doWork() {}
 		};
-		return new SpawnableWave(r,0 );
+		return new SpawnableWave(r,0,0);//probability weight of 0, as it should not be randomly used in levelSpawning
 	}
 
 	//meteor showers
@@ -50,7 +50,10 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				
 			}
 		}; 
-		return new SpawnableWave(r,5000 );
+		
+		final int probabilityWeight = (int) (10 - 1.5*difficulty());
+		
+		return new SpawnableWave(r,5000,probabilityWeight);
 	}
 	final SpawnableWave meteorShowersThatForceUserToRight(){
 		KillableRunnable r = new KillableRunnable(){
@@ -62,7 +65,10 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				
 			}
 		};
-		return new SpawnableWave(r,5000 );
+		
+		final int probabilityWeight = (int) (10 - 1.5*difficulty());
+		
+		return new SpawnableWave(r,5000,probabilityWeight );
 	}
 	final SpawnableWave meteorShowersThatForceUserToLeft(){
 		KillableRunnable r = new KillableRunnable(){
@@ -74,8 +80,10 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				
 			}
 		};
+
+		final int probabilityWeight = (int) (10 - 1.5*difficulty());
 		
-		return new SpawnableWave(r,5000 );
+		return new SpawnableWave(r,5000,probabilityWeight );
 	}	
 	//array shooter waves
 	final SpawnableWave refreshArrayShooters(){
@@ -87,8 +95,17 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			}
 		};
 		
-		return new SpawnableWave(r,8000/(difficulty()+1) );
+		int probabilityWeight = 0;
+		if(Orbiter_Rectangle_Array.allSimpleShooters.size() < Orbiter_Rectangle_Array.getMaxNumShips()/4){//only refresh if a few left
+			if(difficulty() > 0){
+				probabilityWeight = 30-difficulty()*3;
+				probabilityWeight = Math.max(probabilityWeight, 5);//always have non-zero probability
+			}
+		}
+		
+		return new SpawnableWave(r,8000/(difficulty()+1),probabilityWeight );
 	}
+	
 	//tracking waves
 	final SpawnableWave trackingEnemy(){
 		final int numEnemies = 4;
@@ -107,36 +124,33 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				}
 			}
 		};
-		return new SpawnableWave(r,600);
+		
+		int probabilityWeight = 0;
+		if(difficulty() > 0){
+			probabilityWeight = 20+difficulty()*2;
+			probabilityWeight = Math.min(probabilityWeight, 40);//limit max weight
+		}
+		
+		return new SpawnableWave(r,600,probabilityWeight);
 	}
 	
 	//circular orbiters
-	final KillableRunnable circlesThreeOrbiters(){
-		return new KillableRunnable(){
+	final SpawnableWave lotsOfCircles(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				spawnCircularOrbiterWave(6,500,3);
-				
-			} 
-		};
-	}
-	final KillableRunnable circlesTwoOrbiters(){
-		return new KillableRunnable(){
-			@Override
-			public void doWork() {
 				spawnCircularOrbiterWave(6,500,2);
-				
-			} 
-		};
-	}
-	final KillableRunnable circlesOneOrbiters(){
-		return new KillableRunnable(){
-			@Override
-			public void doWork() {
 				spawnCircularOrbiterWave(9,500,1);
-				
 			} 
 		};
+		
+		int probabilityWeight = 0;
+		if(getLevel() == 10){
+			probabilityWeight = 10000;
+		}
+		
+		return new SpawnableWave(r,15000,probabilityWeight);
 	}
 	//spawn enemies over a set period
 	private final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
@@ -177,47 +191,47 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			}
 		);
 	}
-	
-	/**
-	 * Spawn entities that take a Context and difficulty (int) parameter in their constructor.
-	 * Supported classes are
-	 *  Orbiter_CircleView Orbiter_Circle_SwitchDirectionOnHitView Orbiter_Circle_IncSpeedOnHitView
-	 *  Orbiter_RectangleView Orbiter_TriangleView 
-	 *  Gravity_MeteorView Meteor_SidewaysView
-	 *  Shooting_DiagonalMovingView
-	 *  Shooting_PauseAndMove
-	 * @param numEnemies
-	 * @param millisecondsBetweenEachSpawn
-	 * @param c
-	 * @return
-	 */
-	public final SpawnableWave spawnEnemiesWithDefaultConstructorArguments(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
-		KillableRunnable r = new KillableRunnable(){
-			private int numSpawned=0;
-			
-			@Override
-			public void doWork() {
-				spawnDefaultEnemy(c);
-				numSpawned++;
-				
-				if(numSpawned<numEnemies){
-					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
-				}
-			}
-		};
-		return new SpawnableWave(r,0 );
-	}
-	public final SpawnableWave spawnEnemiesWithDefaultConstructorArguments(final int numEnemies,final Class c){
-		return spawnEnemiesWithDefaultConstructorArguments(numEnemies, WAVE_SPAWNER_WAIT/numEnemies, c);
-	}
-	public final SpawnableWave spawnEnemyWithDefaultConstructorArugments(final Class c){
+//	
+//	/**
+//	 * Spawn entities that take a Context and difficulty (int) parameter in their constructor.
+//	 * Supported classes are
+//	 *  Orbiter_CircleView Orbiter_Circle_SwitchDirectionOnHitView Orbiter_Circle_IncSpeedOnHitView
+//	 *  Orbiter_RectangleView Orbiter_TriangleView 
+//	 *  Gravity_MeteorView Meteor_SidewaysView
+//	 *  Shooting_DiagonalMovingView
+//	 *  Shooting_PauseAndMove
+//	 * @param numEnemies
+//	 * @param millisecondsBetweenEachSpawn
+//	 * @param c
+//	 * @return
+//	 */
+//	public final SpawnableWave spawnEnemiesWithDefaultConstructorArguments(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
+//		KillableRunnable r = new KillableRunnable(){
+//			private int numSpawned=0;
+//			
+//			@Override
+//			public void doWork() {
+//				spawnDefaultEnemy(c);
+//				numSpawned++;
+//				
+//				if(numSpawned<numEnemies){
+//					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
+//				}
+//			}
+//		};
+//		return new SpawnableWave(r,0,probabilityWeight );
+//	}
+//	public final SpawnableWave spawnEnemiesWithDefaultConstructorArguments(final int numEnemies,final Class c){
+//		return spawnEnemiesWithDefaultConstructorArguments(numEnemies, WAVE_SPAWNER_WAIT/numEnemies, c);
+//	}
+	public final SpawnableWave spawnEnemyWithDefaultConstructorArugments(final Class c,int probabilityWeight){
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork(){
 				spawnDefaultEnemy(c);
 			}
 		};
-		return new SpawnableWave(r,0 );
+		return new SpawnableWave(r,0,probabilityWeight );
 	}
 	private void spawnDefaultEnemy(Class c){
 		try {
@@ -231,24 +245,6 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	//orbiters
 	public final void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn,final int numCols){
 		
-//		KillableRunnable r = new KillableRunnable(){
-//			private int numSpawned=0;
-//			final double width  = ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width);
-//			final double height = ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height);	
-//			final double rTemp= (int)( MainActivity.getWidthPixels()/numCols-width ) / 2;
-//			final double radius = (rTemp > Orbiter_CircleView.MAX_RADIUS) ? Orbiter_CircleView.MAX_RADIUS : rTemp;	
-//			final int numColsPossible = (int) (MainActivity.getWidthPixels() / (width*2 + radius*2));
-//			final int numRowsPossible = (int) ((MainActivity.getHeightPixels() - Orbiter_CircleView.DEFAULT_ORBIT_Y) / (height*2 + radius*2));
-//
-//			
-//			@Override
-//			public void doWork() {				
-//				if(numSpawned<numRowsPossible*numColsPossible){
-//					final int myRow = numSpawned / numColsPossible;
-//					final int myCol = numSpawned % numColsPossible ;
-//					final double orbitX= ( width/2 ) * (2*myCol) + radius * (2*myCol +1);
-//					final double orbitY = (height/2)* (2*myRow) + radius *(2*myRow+1) + Orbiter_CircleView.DEFAULT_ORBIT_Y;
-//					
 		spawningHandler.post(
 		new KillableRunnable(){
 			private int numSpawned=0;

@@ -1,9 +1,9 @@
 package bullets;
 
+import helpers.ConditionalHandler;
+import helpers.KillableRunnable;
 import interfaces.Shooter;
 import parents.MovingView;
-import support.ConditionalHandler;
-import support.KillableRunnable;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
