@@ -3,7 +3,6 @@ package levels;
 import support.KillableRunnable;
 import support.SpawnableWave;
 import android.content.Context;
-import android.util.Log;
 import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
@@ -11,21 +10,23 @@ import enemies_non_shooters.Meteor_SidewaysView;
 public class LevelSpawner extends Factory_Bosses{
 	
 	private int scoreNeededToEndLevel;
-	private long timeUntilCanSpawnNextWave,
-		timeSinceSpawnedLastWave;
+	private long timeUntilCanSpawnNextWave = 0,
+		timeSinceSpawnedLastWave = 0;
 	public final SpawnableWave[][] 
 			DIFFICULTY_SPAWNS = {
 				{
 					spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
 					meteorShowersThatForceUserToLeft(),
 					meteorShowersThatForceUserToRight(),
-					meteorShowersThatForceUserToMiddle()
+					meteorShowersThatForceUserToMiddle(),
+					spawnGiantMeteor()
 				},
 				{
 					spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
 					meteorShowersThatForceUserToLeft(),
 					meteorShowersThatForceUserToRight(),
 					meteorShowersThatForceUserToMiddle(),
+					spawnGiantMeteor(),
 					
 					refreshArrayShooters(),
 					trackingEnemy()					
@@ -66,10 +67,11 @@ public class LevelSpawner extends Factory_Bosses{
 						SpawnableWave nextSpawn = DIFFICULTY_SPAWNS[difficulty()]
 								[(int) (Math.random() * DIFFICULTY_SPAWNS[difficulty()].length)];
 						
+						spawningHandler.post( nextSpawn.runnableToSpawn() );	//TODO change number of enemies spawned to be semi random and reflective of progress					
+
+						//reset the spawn timers
 						timeUntilCanSpawnNextWave = nextSpawn.howLongUntilCanSpawnAgain();
 						timeSinceSpawnedLastWave = 0;
-						
-						spawningHandler.post( nextSpawn.runnableToSpawn() );	//TODO change number of enemies spawned to be semi random and reflective of progress					
 					}
 					
 					spawningHandler.postDelayed(this,WAVE_SPAWNER_WAIT);

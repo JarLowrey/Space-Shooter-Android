@@ -23,9 +23,7 @@ import enemies_tracking.Shooting_TrackingView;
  */
 
 public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
-	
-//	ConditionalHandler conditionalHandler;
-	
+		
 	public Factory_ScriptedWaves(Context context) { 
 		super(context);
 	}
@@ -94,7 +92,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	//tracking waves
 	final SpawnableWave trackingEnemy(){
 		final int numEnemies = 4;
-		final int millisecondsBetweenEachSpawn = WAVE_SPAWNER_WAIT/4;
+		final int millisecondsBetweenEachSpawn = 800;
 		
 		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;

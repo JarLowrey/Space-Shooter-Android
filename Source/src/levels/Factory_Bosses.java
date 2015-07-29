@@ -1,6 +1,7 @@
 package levels;
 
 import support.KillableRunnable;
+import support.SpawnableWave;
 import android.content.Context;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic_LaserLong;
@@ -35,8 +36,8 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		super(context);
 	} 
 	
-	final KillableRunnable boss1(){
-		return new KillableRunnable(){
+	final SpawnableWave boss1(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,
@@ -60,10 +61,11 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();
 			}
 		};
+		return new SpawnableWave(r,5000 - difficulty() * 1000);
 	}
 	
-	final KillableRunnable boss2(){
-		return new KillableRunnable(){
+	final SpawnableWave boss2(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,1500,
@@ -86,25 +88,13 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();
 			}
 		};
+		return new SpawnableWave(r,15000 - difficulty() * 3000);
 	}
 	
-	final KillableRunnable boss3(){
-		return new KillableRunnable(){
+	final SpawnableWave boss3(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-//				Orbiter_RectangleView enemy = new Orbiter_RectangleView(ctx,5000,
-//						Orbiter_RectangleView.DEFAULT_SPEED_Y,
-//						Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
-//						ProtagonistView.DEFAULT_BULLET_DAMAGE*60,
-//						100,
-//						Orbiter_RectangleView.DEFAULT_ORBIT_LENGTH*5,
-//						Orbiter_RectangleView.DEFAULT_ORBIT_X,
-//						Orbiter_RectangleView.DEFAULT_ORBIT_Y,
-//						(int) ctx.getResources().getDimension(R.dimen.boss3_width),
-//						(int) ctx.getResources().getDimension(R.dimen.boss3_height),
-//						R.drawable.ship_enemy_boss3);
-				
-
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,5000,
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
@@ -138,12 +128,13 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						50));
 				
 				enemy.startShooting();	
-		}
-	};
+			}
+		};
+		return new SpawnableWave(r,20000 - difficulty() * 4000);
 	}
 	
-	final KillableRunnable boss4(){ 
-		return new KillableRunnable(){
+	final SpawnableWave boss4(){ 
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,20000,
@@ -194,67 +185,38 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();	
 			}
 		};  
+		return new SpawnableWave(r,25000 - difficulty() * 5000);
 	}
-	final KillableRunnable boss5(){ 
-		return new KillableRunnable(){
+	final SpawnableWave boss5(){ 
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				new HorizontalMovement_FinalBoss(ctx);
 			}
 		}; 
+		return new SpawnableWave(r,100000000);
 	}
 
-	//giant meteors
-	public final void spawnGiantMeteor(){
-		Gravity_MeteorView enemy = new Meteor_SidewaysView(ctx,difficulty() );
-		
-		//change width and height. set X and Y positions
-		final int width = (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
-		final int height= (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
-		
-		enemy.setLayoutParams(new LayoutParams(width,height));
-		enemy.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
-		
-		//make more powerful
-		enemy.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );
-		enemy.heal((int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*3.5));
-		enemy.setScoreValue(100);
-	}
-	
-	public final void spawnGiantMeteorWave(final int numMeteors, final int millisecondsBetweenEachMeteor){
-		spawningHandler.post(
-			new KillableRunnable(){
-				private int numSpawned=0;
-				
-				@Override
-				public void doWork() {
-					spawnGiantMeteor();
-					
-					numSpawned++;
-					if(numSpawned<numMeteors){
-						spawningHandler.postDelayed(this, millisecondsBetweenEachMeteor);
-					}
-				}
-			});
-	}
-	
-	final KillableRunnable meteorsGiantAndSideways(){ 
-		return new KillableRunnable(){
+	public final SpawnableWave spawnGiantMeteor(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				spawnGiantMeteorWave(2,WAVE_SPAWNER_WAIT/2);//spawn for entire wave
-	//			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
+				Gravity_MeteorView enemy = new Meteor_SidewaysView(ctx,difficulty() );
 				
+				//change width and height. set X and Y positions
+				final int width = (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
+				final int height= (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
+				
+				enemy.setLayoutParams(new LayoutParams(width,height));
+				enemy.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
+				
+				//make more powerful
+				enemy.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );
+				enemy.heal((int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*3.5));
+				enemy.setScoreValue(100);
 			}
 		};
+		return new SpawnableWave(r,2000);
 	}
 	
-	final KillableRunnable meteorsGiant(){
-		return new KillableRunnable(){
-			@Override
-			public void doWork() {
-				spawnGiantMeteorWave(4,WAVE_SPAWNER_WAIT/4);
-			}
-		};
-	}
 }
