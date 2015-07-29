@@ -38,24 +38,25 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		viewToTrack=trackMe;
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
 		
+		//tracking view maintains constant downward speed
+		reassignMoveRunnable( new KillableRunnable(){
+			@Override
+			public void doWork() {
+				Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
+				
+				move();				
+				ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
+			}
+		});
 		
-		if(difficulty>0){//the tracking view accelerates as it moves down the screen
+		
+		if(Math.random()< 0.5 && difficulty>1){//the tracking view accelerates as it moves down the screen
 			reassignMoveRunnable( new KillableRunnable(){
 				@Override
 				public void doWork() {
 					Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
 					Shooting_TrackingView.this.setSpeedY(
 							(float) (Shooting_TrackingView.this.getSpeedY()+0.2*difficulty*MainActivity.getScreenDens()));
-					
-					move();				
-					ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
-				}
-			});
-		}else{//tracking view maintains constant downward speed
-			reassignMoveRunnable( new KillableRunnable(){
-				@Override
-				public void doWork() {
-					Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
 					
 					move();				
 					ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);

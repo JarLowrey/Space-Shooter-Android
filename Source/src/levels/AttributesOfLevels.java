@@ -9,7 +9,7 @@ import com.jtronlabs.to_the_moon.GameActivity;
 
 public abstract class AttributesOfLevels {
 	protected Context ctx;
-	private int waveNo,resourceNo,levelNo;
+	private int resourceNo,levelNo;
 	
 	Handler spawningHandler;
 
@@ -19,7 +19,7 @@ public abstract class AttributesOfLevels {
 	} 
 	
 
-	public static final int LEVEL_SPAWNER_WAIT=1000;
+	public static final int WAVE_SPAWNER_WAIT = 1000;
 	
 	public abstract boolean isLevelFinishedSpawning();
 	public abstract int getMaxLevel();

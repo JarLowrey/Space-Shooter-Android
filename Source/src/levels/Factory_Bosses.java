@@ -242,7 +242,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		return new KillableRunnable(){
 			@Override
 			public void doWork() {
-				spawnGiantMeteorWave(2,LEVEL_SPAWNER_WAIT/2);//spawn for entire wave
+				spawnGiantMeteorWave(2,WAVE_SPAWNER_WAIT/2);//spawn for entire wave
 	//			spawnSidewaysMeteorsWave(10,DEFAULT_WAVE_DURATION/10);//spawn for entire wave
 				
 			}
@@ -253,7 +253,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		return new KillableRunnable(){
 			@Override
 			public void doWork() {
-				spawnGiantMeteorWave(4,LEVEL_SPAWNER_WAIT/4);
+				spawnGiantMeteorWave(4,WAVE_SPAWNER_WAIT/4);
 			}
 		};
 	}

@@ -1,6 +1,7 @@
 package levels;
 
 import support.KillableRunnable;
+import support.SpawnableWave;
 import android.content.Context;
 import android.util.Log;
 import enemies.Shooting_DiagonalMovingView;
@@ -10,18 +11,26 @@ import enemies_non_shooters.Meteor_SidewaysView;
 public class LevelSpawner extends Factory_Bosses{
 	
 	private int scoreNeededToEndLevel;
-	public final KillableRunnable[] 
-			DIFFICULTY_ZERO_SPAWNS = {
-				spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
-				meteorShowersThatForceUserToLeft(),
-				meteorShowersThatForceUserToRight(),
-				meteorShowersThatForceUserToMiddle()
-			},
-			DIFFICULTY_ONE_SPAWNS = {},
-			DIFFICULTY_TWO_SPAWNS = {},
-			DIFFICULTY_THREE_SPAWNS = {},
-			DIFFICULTY_FOUR_SPAWNS = {},
-			DIFFICULTY_FIVE_SPAWNS = {};
+	private long timeUntilCanSpawnNextWave,
+		timeSinceSpawnedLastWave;
+	public final SpawnableWave[][] 
+			DIFFICULTY_SPAWNS = {
+				{
+					spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
+					meteorShowersThatForceUserToLeft(),
+					meteorShowersThatForceUserToRight(),
+					meteorShowersThatForceUserToMiddle()
+				},
+				{
+					spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class),
+					meteorShowersThatForceUserToLeft(),
+					meteorShowersThatForceUserToRight(),
+					meteorShowersThatForceUserToMiddle(),
+					
+					refreshArrayShooters(),
+					trackingEnemy()					
+				}
+			};
 	
 	public LevelSpawner(Context context) {
 		super(context);
@@ -35,43 +44,35 @@ public class LevelSpawner extends Factory_Bosses{
 		scoreNeededToEndLevel = (int) (500 + 500 * Math.random() * getLevel() );
 	}
 	private boolean canSpawnMoreEnemies(){
-		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/10;
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/6 && 
+				timeSinceSpawnedLastWave >= timeUntilCanSpawnNextWave;
+	}
+	private boolean canSpawnMeteors(){
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/5;
 	}
 	
 	public void startLevelSpawning(){
 		initScoreNeededToEndLevel();
-
+		
 		spawningHandler.post(new KillableRunnable() {
 			@Override
 			public void doWork() {
+				timeSinceSpawnedLastWave += WAVE_SPAWNER_WAIT;
+				
 				if ( !isLevelFinishedSpawning() ) {
-					spawningHandler.post( backgroundMeteors() );
+					spawningHandler.post( backgroundMeteors().runnableToSpawn() );
 					
-					if( canSpawnMoreEnemies() ){
-						KillableRunnable nextSpawn = doNothing();
-						switch(difficulty()){
-						case 0:
-							nextSpawn = DIFFICULTY_ZERO_SPAWNS[(int) (Math.random() * DIFFICULTY_ZERO_SPAWNS.length)];
-							break;
-						case 1:
-							
-							break;
-						case 2:
-							
-							break;
-						case 3:
-							
-							break;
-						case 4: 
-							
-							break;
-						default:
-							
-							break;
-						}
-						spawningHandler.post( nextSpawn );	//TODO change number of enemies spawned to be semi random and reflective of progress					
+					if( canSpawnMoreEnemies() ){						
+						SpawnableWave nextSpawn = DIFFICULTY_SPAWNS[difficulty()]
+								[(int) (Math.random() * DIFFICULTY_SPAWNS[difficulty()].length)];
+						
+						timeUntilCanSpawnNextWave = nextSpawn.howLongUntilCanSpawnAgain();
+						timeSinceSpawnedLastWave = 0;
+						
+						spawningHandler.post( nextSpawn.runnableToSpawn() );	//TODO change number of enemies spawned to be semi random and reflective of progress					
 					}
-					spawningHandler.postDelayed(this,LEVEL_SPAWNER_WAIT);
+					
+					spawningHandler.postDelayed(this,WAVE_SPAWNER_WAIT);
 				}
 			}
 			
@@ -87,18 +88,16 @@ public class LevelSpawner extends Factory_Bosses{
 	/**
 	 * Meteors are an integral part of the game, as they provide a background, constant enemy and movement. This is a special method
 	 * that returns a KillableRunnable to spawn Meteors if so desired (which is typically the case).
-	 * @return
+	 * @return 
 	 */
-	private KillableRunnable backgroundMeteors(){
-		//TODO Change meteors to conditionally spawn
-//		if( true ){
-		Log.d("lowrey",""+LEVEL_SPAWNER_WAIT/500);
+	private SpawnableWave backgroundMeteors(){
+		if( canSpawnMeteors() ){
 			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
 			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
 			return spawnEnemiesWithDefaultConstructorArguments( 2,1000, meteor );
-//		}else{
-//			return doNothing();
-//		}
+		}else{
+			return doNothing();
+		}
 	}
 	
 	

@@ -2,17 +2,15 @@ package levels;
 
 import interfaces.GameActivityInterface;
 import support.KillableRunnable;
+import support.SpawnableWave;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies_non_shooters.Gravity_MeteorView;
-import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
-import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_Rectangle_Array;
-import enemies_orbiters.Orbiter_TriangleView;
 import enemies_tracking.Shooting_TrackingView;
 
 /** 
@@ -32,31 +30,32 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		super(context);
 	}
 			
-	final  KillableRunnable doNothing(){
-		return new KillableRunnable(){
+	final  SpawnableWave doNothing(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {}
 		};
+		return new SpawnableWave(r,0 );
 	}
 
 	//meteor showers
-	final KillableRunnable meteorShowersThatForceUserToMiddle(){
-		return new KillableRunnable(){//this does not last a whole wave, which is fine.
+	final SpawnableWave meteorShowersThatForceUserToMiddle(){
+		KillableRunnable r = new KillableRunnable(){//this does not last a whole wave, which is fine.
 			@Override
 			public void doWork() {
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
 				numMeteors/=2;
 				numMeteors-=2;
-		//			spawnMeteorShower(numMeteors,DEFAULT_WAVE_DURATION/numMeteors,true);
 				
 				spawnMeteorShower(numMeteors,400,true);
 				spawnMeteorShower(numMeteors,400,false);
 				
 			}
 		}; 
+		return new SpawnableWave(r,5000 );
 	}
-	final KillableRunnable meteorShowersThatForceUserToRight(){
-		return new KillableRunnable(){
+	final SpawnableWave meteorShowersThatForceUserToRight(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
@@ -65,9 +64,10 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				
 			}
 		};
+		return new SpawnableWave(r,5000 );
 	}
-	final KillableRunnable meteorShowersThatForceUserToLeft(){
-		return new KillableRunnable(){
+	final SpawnableWave meteorShowersThatForceUserToLeft(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
@@ -76,23 +76,27 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				
 			}
 		};
+		
+		return new SpawnableWave(r,5000 );
 	}	
 	//array shooter waves
-	final KillableRunnable refreshArrayShooters(){
-		return new KillableRunnable(){
+	final SpawnableWave refreshArrayShooters(){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
 				Orbiter_Rectangle_Array.refreshSimpleShooterArray(ctx,
 						difficulty() );
 			}
 		};
+		
+		return new SpawnableWave(r,8000/(difficulty()+1) );
 	}
 	//tracking waves
-	final KillableRunnable trackingEnemy(){
+	final SpawnableWave trackingEnemy(){
 		final int numEnemies = 4;
-		final int millisecondsBetweenEachSpawn = LEVEL_SPAWNER_WAIT/4;
+		final int millisecondsBetweenEachSpawn = WAVE_SPAWNER_WAIT/4;
 		
-		return new KillableRunnable(){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -105,6 +109,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				}
 			}
 		};
+		return new SpawnableWave(r,600);
 	}
 	
 	//circular orbiters
@@ -188,8 +193,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	 * @param c
 	 * @return
 	 */
-	public final KillableRunnable spawnEnemiesWithDefaultConstructorArguments(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
-		return new KillableRunnable(){
+	public final SpawnableWave spawnEnemiesWithDefaultConstructorArguments(final int numEnemies, final int millisecondsBetweenEachSpawn,final Class c){
+		KillableRunnable r = new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -202,17 +207,19 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				}
 			}
 		};
+		return new SpawnableWave(r,0 );
 	}
-	public final KillableRunnable spawnEnemiesWithDefaultConstructorArguments(final int numEnemies,final Class c){
-		return spawnEnemiesWithDefaultConstructorArguments(numEnemies, LEVEL_SPAWNER_WAIT/numEnemies, c);
+	public final SpawnableWave spawnEnemiesWithDefaultConstructorArguments(final int numEnemies,final Class c){
+		return spawnEnemiesWithDefaultConstructorArguments(numEnemies, WAVE_SPAWNER_WAIT/numEnemies, c);
 	}
-	public final KillableRunnable spawnEnemyWithDefaultConstructorArugments(final Class c){
-		return new KillableRunnable(){
+	public final SpawnableWave spawnEnemyWithDefaultConstructorArugments(final Class c){
+		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork(){
 				spawnDefaultEnemy(c);
 			}
 		};
+		return new SpawnableWave(r,0 );
 	}
 	private void spawnDefaultEnemy(Class c){
 		try {
