@@ -72,14 +72,21 @@ public class LevelSpawner extends Factory_Bosses{
 		diagonalMoverProbabilityWeight = Math.min(diagonalMoverProbabilityWeight, 10);
 		
 		final SpawnableWave[] ALL_WAVES = {
-			spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class,diagonalMoverProbabilityWeight),
 			meteorShowersThatForceUserToLeft(),
 			meteorShowersThatForceUserToRight(),
 			meteorShowersThatForceUserToMiddle(),
 			spawnGiantMeteor(),
 			
 			refreshArrayShooters(),
-			trackingEnemy()					
+			trackingEnemy(),
+			
+			spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class,diagonalMoverProbabilityWeight),
+
+			boss1(),
+			boss2(),
+			boss3(),
+			boss4(),
+			boss5()
 		};
 		SpawnableWave.initializeSpawnableWaves(ALL_WAVES);
 	}

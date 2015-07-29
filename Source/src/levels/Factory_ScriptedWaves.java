@@ -4,6 +4,7 @@ import helpers.KillableRunnable;
 import helpers.SpawnableWave;
 import interfaces.GameActivityInterface;
 import android.content.Context;
+import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
