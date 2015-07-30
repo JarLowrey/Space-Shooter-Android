@@ -16,6 +16,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 	private int score;
 	private double probSpawnBeneficialObject;
 	
+	
 	public EnemyView(Context context,int scoreForKilling,float projectileSpeedY,
 			float projectileSpeedX, 
 			int projectileDamage,int projectileHealth,float probSpawnBeneficialObjectUponDeath,int width,int height,int imageId) {

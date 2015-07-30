@@ -83,8 +83,6 @@ public class LevelSpawner extends Factory_Bosses{
 	 * as levels increment.
 	 */
 	private void reinitializeAllSpawnableWaves(){
-		int diagonalMoverProbabilityWeight = 30-difficulty()*2;
-		diagonalMoverProbabilityWeight = Math.min(diagonalMoverProbabilityWeight, 10);
 		
 		final SpawnableWave[] ALL_WAVES = {
 			meteorShowersThatForceUserToLeft(),
@@ -95,7 +93,7 @@ public class LevelSpawner extends Factory_Bosses{
 			refreshArrayShooters(),
 			trackingEnemy(),
 			
-			spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class,diagonalMoverProbabilityWeight),
+			spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class,Shooting_DiagonalMovingView.getSpawningProbabilityWeight(getLevel())),
 
 			boss1(),
 			boss2(),
@@ -103,6 +101,7 @@ public class LevelSpawner extends Factory_Bosses{
 			boss4(),
 			boss5()
 		};
+		
 		SpawnableWave.initializeSpawnableWaves(ALL_WAVES);
 	}
 

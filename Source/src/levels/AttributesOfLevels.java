@@ -13,7 +13,12 @@ import com.jtronlabs.to_the_moon.GameActivity;
 public abstract class AttributesOfLevels {
 	protected Context ctx;
 	private int resourceNo,levelNo;
-	private final static int NUM_LVLS_TILL_DIFFICULTY_CHANGE = 5;
+	
+	public final static int LEVELS_BEGINNER = 5,//0-5
+			LEVELS_LOW = 12,//6-12
+			LEVELS_MED = 60,//13-60
+			LEVELS_HIGH = 100;//61-100
+			//and beyond!
 	
 	protected ArrayList<Integer> levelsWihSpecialEnemies = new ArrayList<Integer>();
 	
@@ -44,16 +49,6 @@ public abstract class AttributesOfLevels {
 	}
 	protected void incrementLevel(){
 		setLevel(getLevel()+1);
-	}
-	/**
-	 * Find current state of game difficulty
-	 * @return
-	 */
-	protected int difficulty(){
-		return getLevel() / NUM_LVLS_TILL_DIFFICULTY_CHANGE;
-	}
-	protected int secondaryDifficulty(){
-		return getLevel() % NUM_LVLS_TILL_DIFFICULTY_CHANGE;
 	}
 	
 	//Resources

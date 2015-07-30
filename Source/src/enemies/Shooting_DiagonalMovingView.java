@@ -1,5 +1,6 @@
 package enemies;
 
+import levels.AttributesOfLevels;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import parents.Moving_ProjectileView;
@@ -26,14 +27,14 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	protected double leftThreshold,rightThreshold;
 	
-	public Shooting_DiagonalMovingView(Context context, int difficulty) {
+	public Shooting_DiagonalMovingView(Context context, int level) {
 		super(context,
-				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING) ,
-				(float) scaledValue(DEFAULT_SPEED_Y,difficulty,XXSMALL_SCALING),
-				(float) scaledValue(DEFAULT_SPEED_X,difficulty,XXSMALL_SCALING),
-				(int) scaledValue(DEFAULT_COLLISION_DAMAGE,difficulty,SMALL_SCALING),
-				(int) scaledValue(DEFAULT_HEALTH,difficulty,SMALL_SCALING),
-				(int) scaledValue(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,difficulty,SMALL_SCALING), 
+				scaleScore(level),
+				scaleSpeedY(level),
+				scaleSpeedX(level),
+				scaleCollisionDamage(level),
+				scaleHealth(level),
+				scaleBeneficialObjectOnDeath(level), 
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_width),
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_height), 
 				DEFAULT_BACKGROUND); 
@@ -105,4 +106,113 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	public void reachedGravityPosition() {
 		removeGameObject();
 	}
+
+	public static int getSpawningProbabilityWeight(int level) {
+		int probabilityWeight = 30-(level/5)*2;
+		probabilityWeight = Math.min(probabilityWeight, 10);
+		
+		return probabilityWeight;
+	}
+	
+	//SCALING METHODS 
+	private static int scaleHealth(int level){
+		int value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_BEGINNER){
+			value = DEFAULT_HEALTH;
+		}else if(level < AttributesOfLevels.LEVELS_LOW) {
+			value = (int) (DEFAULT_HEALTH * ( (level/5) * SMALL_SCALING ));
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (int) (DEFAULT_HEALTH * ( (level/7) * SMALL_SCALING ));			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (int) (DEFAULT_HEALTH * ( (level/9) * SMALL_SCALING ));			
+		}else{
+			value = (int) (DEFAULT_HEALTH * ( (level/12) * SMALL_SCALING ));			
+		}
+		
+		return value;
+	}
+	
+	private static int scaleScore(int level){
+		int value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_BEGINNER){
+			value = DEFAULT_SCORE;
+		}else if(level < AttributesOfLevels.LEVELS_LOW) {
+			value = (int) (DEFAULT_SCORE * ( (level/5) * SMALL_SCALING ));
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (int) (DEFAULT_SCORE * ( (level/7) * SMALL_SCALING ));			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (int) (DEFAULT_SCORE * ( (level/9) * SMALL_SCALING ));			
+		}else{
+			value = (int) (DEFAULT_SCORE * ( (level/12) * SMALL_SCALING ));			
+		}
+		
+		return value;
+	}
+	
+	private static float scaleSpeedY(int level){
+		float value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_MED){
+			value = DEFAULT_SPEED_Y;
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (float) (DEFAULT_SPEED_Y * 1.05);		
+		}else{
+			value = (float) (DEFAULT_SPEED_Y * 1.1);	
+		}
+		
+		return value;
+	}
+	
+	private static float scaleSpeedX(int level){
+		float value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_MED){
+			value = DEFAULT_SPEED_X;
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (float) (DEFAULT_SPEED_X * 1.05);		
+		}else{
+			value = (float) (DEFAULT_SPEED_X * 1.1);	
+		}
+		
+		return value;
+	}
+	
+
+	private static int scaleCollisionDamage(int level){
+		int value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_LOW){
+			value = DEFAULT_COLLISION_DAMAGE;
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (int) (DEFAULT_COLLISION_DAMAGE * 1.5);			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (int) (DEFAULT_COLLISION_DAMAGE * 2.5);			
+		}else{
+			value = (int) (DEFAULT_COLLISION_DAMAGE * 4);			
+		}
+		
+		return value;
+	}
+	
+
+	private static float scaleBeneficialObjectOnDeath(int level){
+		float value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_BEGINNER){
+			value = DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH;
+		}else if(level < AttributesOfLevels.LEVELS_LOW) {
+			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .95 );
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .85);			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .7);			
+		}else{
+			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .5);			
+		}
+		
+		return value;
+	}
+	
 }

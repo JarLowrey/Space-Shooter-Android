@@ -96,4 +96,14 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		removeGameObject();
 	}
 
+	
+
+	public static int getSpawningProbabilityWeight(int level) {
+		int probabilityWeight = 0;
+		if((level/5) > 0){
+			probabilityWeight = 20+(level/5)*2;
+			probabilityWeight = Math.min(probabilityWeight, 40);//limit max weight
+		}
+		return probabilityWeight;
+	}
 }

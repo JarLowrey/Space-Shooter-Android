@@ -72,4 +72,17 @@ public class Gravity_MeteorView extends EnemyView{
 		}
 		return speedY;
 	}
+
+	public static int getSpawningProbabilityWeightOfMeteorShowers(int level) {
+		int probabilityWeight = Math.max(1, (int) (5 - (level/5)) );
+		return probabilityWeight;
+	}
+
+	public static int getSpawningProbabilityWeightOfGiantMeteors(int level) {
+		int probabilityWeight = 5;
+		if( (level/5) > 0){
+			probabilityWeight = 20 ;
+		}
+		return probabilityWeight;
+	}
 }

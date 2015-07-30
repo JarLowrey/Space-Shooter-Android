@@ -63,13 +63,13 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};
 
 		int probabilityWeight = 0;
-		if(difficulty() > 1){
-			probabilityWeight = 10 + difficulty() * 6;
-			probabilityWeight = Math.max(probabilityWeight, 30);
+		if( (getLevel()/5) > 1){
+			probabilityWeight = 10 + (getLevel()/5) *6 ;
+			probabilityWeight = Math.min(probabilityWeight, 30);
 		}
 
 		
-		return new SpawnableWave(r,5000 - difficulty() * 1000,probabilityWeight);
+		return new SpawnableWave(r,5000 - (getLevel()/5) * 1000,probabilityWeight);
 	}
 	
 	final SpawnableWave boss2(){
@@ -98,12 +98,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};
 		
 		int probabilityWeight = 0;
-		if(difficulty() > 2){
-			probabilityWeight = 10 + difficulty() * 2;
-			probabilityWeight = Math.max(probabilityWeight, 20);
+		if( (getLevel()/5) > 2){
+			probabilityWeight = 5 + (getLevel()/5)*2 ;
+			probabilityWeight = Math.min(probabilityWeight, 20);
 		}
 		
-		return new SpawnableWave(r,15000 - difficulty() * 3000,probabilityWeight);
+		return new SpawnableWave(r,15000 - (getLevel()/5) * 3000,probabilityWeight);
 	}
 	
 	final SpawnableWave boss3(){
@@ -147,12 +147,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};
 
 		int probabilityWeight = 0;
-		if(difficulty() > 3){
-			probabilityWeight = 10 + difficulty() ;
-			probabilityWeight = Math.max(probabilityWeight, 15);
+		if( (getLevel()/5) > 3){
+			probabilityWeight = 10 + (getLevel()/5) ;
+			probabilityWeight = Math.min(probabilityWeight, 15);
 		}
 		
-		return new SpawnableWave(r,20000 - difficulty() * 4000,probabilityWeight);
+		return new SpawnableWave(r,20000 - (getLevel()/5) * 4000,probabilityWeight);
 	}
 	
 	final SpawnableWave boss4(){ 
@@ -209,12 +209,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};  
 		
 		int probabilityWeight = 0;
-		if(difficulty() > 4){
-			probabilityWeight = 5 + difficulty() ;
-			probabilityWeight = Math.max(probabilityWeight, 10);
+		if( (getLevel()/5) > 4){
+			probabilityWeight = 5 + (getLevel()/5) ;
+			probabilityWeight = Math.min(probabilityWeight, 10);
 		}
 		
-		return new SpawnableWave(r,25000 - difficulty() * 5000,probabilityWeight);
+		return new SpawnableWave(r,25000 - (getLevel()%5) * 5000,probabilityWeight);
 	}
 	final SpawnableWave boss5(){ 
 		KillableRunnable r = new KillableRunnable(){
@@ -233,7 +233,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Gravity_MeteorView enemy = new Meteor_SidewaysView(ctx,difficulty() );
+				Gravity_MeteorView enemy = new Meteor_SidewaysView(ctx,getLevel() );
 				
 				//change width and height. set X and Y positions
 				final int width = (int)ctx.getResources().getDimension(R.dimen.meteor_giant_length);
@@ -249,12 +249,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			}
 		};
 		
-		int probabilityWeight = 5;
-		if(difficulty() > 0){
-			probabilityWeight = 20 ;
-		}
-		
-		return new SpawnableWave(r,2000,probabilityWeight);
+		return new SpawnableWave(r,2000,Gravity_MeteorView.getSpawningProbabilityWeightOfGiantMeteors(getLevel()));
 	}
 	
 }

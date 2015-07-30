@@ -132,4 +132,17 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			}
 		}
 	}
+	
+
+	public static int getSpawningProbabilityWeight(int level) {
+		int probabilityWeight = 0;
+		if(Orbiter_Rectangle_Array.allSimpleShooters.size() < Orbiter_Rectangle_Array.getMaxNumShips()/4){//only refresh if a few left
+			if( (level/5) > 0){
+				probabilityWeight = 30-(level/5) * 3;
+				probabilityWeight = Math.max(probabilityWeight, 5);//always have non-zero probability
+			}
+		}
+		
+		return probabilityWeight;
+	}
 }
