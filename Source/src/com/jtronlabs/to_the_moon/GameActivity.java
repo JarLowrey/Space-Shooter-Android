@@ -653,7 +653,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		// Request for Ads
 		AdRequest adRequest = new AdRequest.Builder()
-			.addTestDevice("CC5F2C72DF2B356BBF0DA198")
+			.addTestDevice("FFAA2B4ECD49CBF2A0AB7F9D447410D7")
 			.build(); 
  
 		// Load ad request into Adview

@@ -2,6 +2,7 @@ package levels;
 
 import helpers.KillableRunnable;
 import helpers.SpawnableWave;
+import helpers.SpecialSpawnableLevel;
 import android.content.Context;
 import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
@@ -16,10 +17,18 @@ public class LevelSpawner extends Factory_Bosses{
 	
 	public LevelSpawner(Context context) {
 		super(context);
+		
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss5(), getMaxLevel()-1);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss4(), 19);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss3(), 14);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss2(), 9);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss1(), 4);
+
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(lotsOfCircles(), 2);
 	}
 
 	public int getMaxLevel() {
-		return 20;
+		return 75;
 	}
 	
 	private void initScoreNeededToEndLevel(){
@@ -36,6 +45,12 @@ public class LevelSpawner extends Factory_Bosses{
 	public void startLevelSpawning(){
 		initScoreNeededToEndLevel();
 		reinitializeAllSpawnableWaves();
+		
+		//spawn any special enemies at the beginning of the level
+		spawningHandler.post( 
+				SpecialSpawnableLevel.specialSpawnableForThisLevel( 
+						getLevel()).runnableToSpawn()
+				);
 		
 		spawningHandler.post(new KillableRunnable() {
 			@Override

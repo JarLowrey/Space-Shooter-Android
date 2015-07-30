@@ -68,9 +68,6 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			probabilityWeight = Math.max(probabilityWeight, 30);
 		}
 
-		if(getLevel()==6){
-			probabilityWeight = 1000000;
-		}
 		
 		return new SpawnableWave(r,5000 - difficulty() * 1000,probabilityWeight);
 	}
@@ -104,9 +101,6 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		if(difficulty() > 2){
 			probabilityWeight = 10 + difficulty() * 2;
 			probabilityWeight = Math.max(probabilityWeight, 20);
-		}
-		if(getLevel()==15){
-			probabilityWeight = 1000000;
 		}
 		
 		return new SpawnableWave(r,15000 - difficulty() * 3000,probabilityWeight);
@@ -156,9 +150,6 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		if(difficulty() > 3){
 			probabilityWeight = 10 + difficulty() ;
 			probabilityWeight = Math.max(probabilityWeight, 15);
-		}
-		if(getLevel()==20){
-			probabilityWeight = 1000000;
 		}
 		
 		return new SpawnableWave(r,20000 - difficulty() * 4000,probabilityWeight);
@@ -222,9 +213,6 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			probabilityWeight = 5 + difficulty() ;
 			probabilityWeight = Math.max(probabilityWeight, 10);
 		}
-		if(getLevel()==25){
-			probabilityWeight = 1000000;
-		}
 		
 		return new SpawnableWave(r,25000 - difficulty() * 5000,probabilityWeight);
 	}
@@ -237,9 +225,6 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		}; 
 		
 		int probabilityWeight = 0;
-		if(getLevel() == getMaxLevel()-1){
-			probabilityWeight = 1000000;
-		}
 		
 		return new SpawnableWave(r,100000000,probabilityWeight);
 	}
@@ -267,9 +252,6 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		int probabilityWeight = 5;
 		if(difficulty() > 0){
 			probabilityWeight = 20 ;
-		}
-		if(getLevel()==5){
-			probabilityWeight = 50;
 		}
 		
 		return new SpawnableWave(r,2000,probabilityWeight);

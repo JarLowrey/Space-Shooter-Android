@@ -4,7 +4,6 @@ import helpers.KillableRunnable;
 import helpers.SpawnableWave;
 import interfaces.GameActivityInterface;
 import android.content.Context;
-import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -29,7 +28,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		super(context);
 	}
 			
-	final  SpawnableWave doNothing(){
+	public final static SpawnableWave doNothing(){
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {}
@@ -51,8 +50,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				
 			}
 		}; 
-		
-		final int probabilityWeight = (int) (10 - 1.5*difficulty());
+
+		final int probabilityWeight = Math.max(1, (int) (5 - difficulty()) );
 		
 		return new SpawnableWave(r,5000,probabilityWeight);
 	}
@@ -66,8 +65,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				
 			}
 		};
-		
-		final int probabilityWeight = (int) (10 - 1.5*difficulty());
+
+		final int probabilityWeight = Math.max(1, (int) (5 - difficulty()) );
 		
 		return new SpawnableWave(r,5000,probabilityWeight );
 	}
@@ -82,7 +81,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			}
 		};
 
-		final int probabilityWeight = (int) (10 - 1.5*difficulty());
+		final int probabilityWeight = Math.max(1, (int) (5 - difficulty()) );
 		
 		return new SpawnableWave(r,5000,probabilityWeight );
 	}	
@@ -147,9 +146,6 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		};
 		
 		int probabilityWeight = 0;
-		if(getLevel() == 10){
-			probabilityWeight = 10000;
-		}
 		
 		return new SpawnableWave(r,15000,probabilityWeight);
 	}

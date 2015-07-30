@@ -36,7 +36,7 @@ public class Gravity_MeteorView extends EnemyView{
 	public Gravity_MeteorView(Context context,int difficulty) {
 		super(context,
 				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING) , 
-				(float) scaledValue(DEFAULT_SPEED_Y,difficulty,XXSMALL_SCALING), 
+				gravitySpeedY(difficulty), 
 				DEFAULT_SPEED_X,
 				DEFAULT_COLLISION_DAMAGE, 
 				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
@@ -63,5 +63,13 @@ public class Gravity_MeteorView extends EnemyView{
 	@Override
 	public void reachedGravityPosition() {
 		removeGameObject();
+	}
+	
+	private static float gravitySpeedY(int difficulty){
+		float speedY = DEFAULT_SPEED_Y;
+		if (difficulty>0 && difficulty%2 == 0){
+			speedY *= XXSMALL_SCALING;
+		}
+		return speedY;
 	}
 }

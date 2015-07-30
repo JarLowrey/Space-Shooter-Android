@@ -15,7 +15,7 @@ import com.jtronlabs.to_the_moon.R;
  */
 public abstract class Moving_ProjectileView extends MovingView implements Projectile{
 
-	final protected static double XXSMALL_SCALING=1.01,SMALL_SCALING=1.2, MED_SCALING=1.5, LARGE_SCALING=2;
+	final protected static double XXSMALL_SCALING=1.005,SMALL_SCALING=1.2, MED_SCALING=1.5, LARGE_SCALING=2;
 	
 	float speedX;
 	int damage, health,maxHealth;

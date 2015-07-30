@@ -1,6 +1,9 @@
 package levels;
 
 import interfaces.GameActivityInterface;
+
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -10,6 +13,9 @@ import com.jtronlabs.to_the_moon.GameActivity;
 public abstract class AttributesOfLevels {
 	protected Context ctx;
 	private int resourceNo,levelNo;
+	private final static int NUM_LVLS_TILL_DIFFICULTY_CHANGE = 5;
+	
+	protected ArrayList<Integer> levelsWihSpecialEnemies = new ArrayList<Integer>();
 	
 	Handler spawningHandler;
 
@@ -44,20 +50,17 @@ public abstract class AttributesOfLevels {
 	 * @return
 	 */
 	protected int difficulty(){
-		return getLevel() / 5;
+		return getLevel() / NUM_LVLS_TILL_DIFFICULTY_CHANGE;
+	}
+	protected int secondaryDifficulty(){
+		return getLevel() % NUM_LVLS_TILL_DIFFICULTY_CHANGE;
 	}
 	
 	//Resources
 	public void setResources(int scoreValue){
 		resourceNo=scoreValue;
 	}
-//	public void incrementScore(int scoreValue){
-//		//load resource multiplier 
-//		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-//		int resourceMultiplier = (int) ( gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0) + 1 );
-//		
-//		setResources(getResourceCount()+scoreValue * resourceMultiplier);
-//	}
+	
 	public int getResourceCount(){
 		return resourceNo;
 	}  
