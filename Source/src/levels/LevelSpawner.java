@@ -14,17 +14,17 @@ public class LevelSpawner extends Factory_Bosses{
 	private long timeUntilCanSpawnNextWave = 0,
 		timeSinceSpawnedLastWave = 0;
 	public SpawnableWave[] allSpawnableWaves;
-	
+	 
 	public LevelSpawner(Context context) {
 		super(context);
 		
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss5(), getMaxLevel()-1);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss4(), 19);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss4(), 24);
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss3(), 14);
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss2(), 9);
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss1(), 4);
 
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(lotsOfCircles(), 2);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(lotsOfCircles(), 19);
 	}
 
 	public int getMaxLevel() {
