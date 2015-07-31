@@ -55,12 +55,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic(
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 						2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5) );
 				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic(
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 						2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95) );
 				
 				enemy.startShooting();
@@ -97,17 +97,17 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 						1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5));
 				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 						1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,50));
 				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 						1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95));
 				
 				enemy.startShooting();
@@ -144,7 +144,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						new Bullet_Basic(
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.laser_rectangular_enemy),
+								R.drawable.bullet_laser_rectangular_enemy),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -154,7 +154,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						new Bullet_Basic(
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.laser_rectangular_enemy),
+								R.drawable.bullet_laser_rectangular_enemy),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -205,7 +205,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						new Bullet_Basic(
 								(int)ctx.getResources().getDimension(R.dimen.laser_long_width), 
 								(int)ctx.getResources().getDimension(R.dimen.laser_long_height), 
-								R.drawable.laser_rectangular_enemy),
+								R.drawable.bullet_laser_rectangular_enemy),
 						750, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -215,7 +215,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						new Bullet_Tracking(getInteractivityInterface().getProtagonist(), enemy,
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.laser_rectangular_enemy),
+								R.drawable.bullet_laser_rectangular_enemy),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -225,7 +225,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						new Bullet_Tracking(getInteractivityInterface().getProtagonist(), enemy,
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
 								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.laser_rectangular_enemy),
+								R.drawable.bullet_laser_rectangular_enemy),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,

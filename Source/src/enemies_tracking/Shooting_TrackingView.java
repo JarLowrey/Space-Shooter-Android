@@ -76,7 +76,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 				(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-				R.drawable.laser_rectangular_enemy),
+				R.drawable.bullet_laser_rectangular_enemy),
 				bulletFreq, 
 				DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);

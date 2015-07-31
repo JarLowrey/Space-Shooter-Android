@@ -75,7 +75,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.laser_short_width), 
 				(int)getContext().getResources().getDimension(R.dimen.laser_short_height), 
-				R.drawable.laser_rectangular_enemy),
+				R.drawable.bullet_laser_rectangular_enemy),
 				bulletFreq, 
 				DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);

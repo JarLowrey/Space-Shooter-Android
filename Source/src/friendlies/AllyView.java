@@ -71,7 +71,7 @@ public class AllyView extends Friendly_ShooterView{
 				new Bullet_Basic(
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-						R.drawable.laser_rectangular_friendly),
+						R.drawable.bullet_laser_rectangular_friendly),
 				3000 / allyLevel(context), 
 				DEFAULT_BULLET_SPEED_Y, 
 				( DEFAULT_BULLET_DAMAGE / 2 ) * allyLevel(context) ,

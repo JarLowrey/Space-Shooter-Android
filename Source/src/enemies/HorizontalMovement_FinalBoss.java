@@ -44,7 +44,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -53,7 +53,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -62,7 +62,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -71,7 +71,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -80,7 +80,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -91,7 +91,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -100,7 +100,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -109,7 +109,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -118,7 +118,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -127,7 +127,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-							R.drawable.laser_rectangular_enemy),
+							R.drawable.bullet_laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -138,7 +138,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				new Bullet_Tracking(( (GameActivityInterface)getContext() ).getProtagonist(), this,
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 				6000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -148,7 +148,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				new Bullet_Basic(
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 				6000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -160,7 +160,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				new Bullet_Basic(
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-						R.drawable.laser_rectangular_enemy),
+						R.drawable.bullet_laser_rectangular_enemy),
 				1000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
 				(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),

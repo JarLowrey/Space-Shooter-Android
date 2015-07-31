@@ -61,49 +61,49 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg/2,50) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg/2,50) );
 			break;
 		case 0:
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
 			break;
 		case 1:
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,(int) (dmg*.6),20) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,(int) (dmg*.6),20) );
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,(int) (dmg*.6),80) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,(int) (dmg*.6),80) );
 			break;
 		case 2:
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,20) );
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,80) );
 			break;
 		case 3:
 			this.addGun(new Gun_AngledDualShot(getContext(),this,new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50));
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50));
 			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
 			break;
 		case 4:
 			this.addGun( new Gun_AngledDualShot(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.laser_short_width), 
 					(int)getContext().getResources().getDimension(R.dimen.laser_short_height), 
-					R.drawable.laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
+					R.drawable.bullet_laser_rectangular_friendly),freq,DEFAULT_BULLET_SPEED_Y,dmg,50) );
 			this.addGun( new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.missile_one_width), 
 					(int)getContext().getResources().getDimension(R.dimen.missile_one_height), 
