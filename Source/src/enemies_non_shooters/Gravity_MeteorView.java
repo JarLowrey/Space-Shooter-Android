@@ -79,10 +79,10 @@ public class Gravity_MeteorView extends EnemyView{
 	public static int getSpawningProbabilityWeightOfMeteorShowers(int level) {
 		//start at 1/3 giant meteor, decrease a little every 5 levels until equal to 1/5 giant meteor
 		//NOTE: Since there are 3 types of meteor waves (left, right, middle) the probability of any wave is 3x any individual weight
-		int probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 3.0 - 
-				(level/5) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/10.0);
+		int probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3.0 - 
+				(level/5) * AttributesOfLevels.STANDARD_PROB_WEIGHT/10.0);
 		
-		probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 5);
+		probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT / 5);
 		
 		return probabilityWeight;
 	}
@@ -91,10 +91,10 @@ public class Gravity_MeteorView extends EnemyView{
 		//ITS THE GIANT METEOR! The standard for spawning probability weights
 		//start at 1x giant meteor, decrease a little every 5 levels until equal to 1/3x of original giant meteor weight
 		
-		int probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR  - 
-				(level/5) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/5.0);
+		int probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT  - 
+				(level/5) * AttributesOfLevels.STANDARD_PROB_WEIGHT/5.0);
 		
-		probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 3);
+		probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT / 3);
 
 		
 		return probabilityWeight;

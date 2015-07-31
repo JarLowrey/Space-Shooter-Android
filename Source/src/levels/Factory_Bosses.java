@@ -18,6 +18,7 @@ import enemies.Shooting_HorizontalMovementView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_RectangleView;
+import enemies_orbiters.Orbiter_Rectangle_Array;
 import friendlies.ProtagonistView;
 
 /**
@@ -53,31 +54,22 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						R.drawable.bullet_missile_one),
 						2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, (int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE*1.5),50) );
 				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic(
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.bullet_laser_rectangular_enemy),
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+						R.drawable.bullet_laser_rectangular_red),
 						2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5) );
 				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy, new Bullet_Basic(
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.bullet_laser_rectangular_enemy),
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+						R.drawable.bullet_laser_rectangular_red),
 						2000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95) );
 				
 				enemy.startShooting();
 			}
 		};
-
-		int probabilityWeight = 0;
-		if( getLevel() > FIRST_LEVEL_BOSS1_APPEARS){
-			//start at 1/10 giant meteor, increase a little every 10 levels until equal to 1/4 * giant meteor
-			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 10.0 + 
-					(getLevel()/10) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/20.0);
-			
-			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 4.0);
-		}
-
 		
-		return new SpawnableWave(r,5000 - (getLevel()/5) * 1000,probabilityWeight);
+		return new SpawnableWave(r,5000 - (getLevel()/5) * 1000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss1(getLevel()) );
 	}
 	
 	final SpawnableWave boss2(){
@@ -95,35 +87,27 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				
 				enemy.removeAllGuns();
 				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.bullet_laser_rectangular_enemy),
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+						R.drawable.bullet_laser_rectangular_red),
 						1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5));
 				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.bullet_laser_rectangular_enemy),
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+						R.drawable.bullet_laser_rectangular_red),
 						1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,50));
 				enemy.addGun(new Gun_TrackingSingle(ctx,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-						(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-						R.drawable.bullet_laser_rectangular_enemy),
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+						(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+						R.drawable.bullet_laser_rectangular_red),
 						1000, Enemy_ShooterView.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95));
 				
 				enemy.startShooting();
 			}
 		};
 		
-		int probabilityWeight = 0;
-		if( getLevel() > FIRST_LEVEL_BOSS2_APPEARS){
-			//start at 1/20 giant meteor, increase a little every 16 levels until equal to 1/9 * giant meteor
-			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 20.0 + 
-					(getLevel()/16) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/35.0);
-			
-			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 9.0);
-		}
-		
-		return new SpawnableWave(r,15000 - (getLevel()/5) * 3000,probabilityWeight);
+		return new SpawnableWave(r,15000 - (getLevel()/5) * 3000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss2(getLevel()) );
 	}
 	
 	final SpawnableWave boss3(){
@@ -142,9 +126,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.removeAllGuns();
 				enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Basic(
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.bullet_laser_rectangular_enemy),
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+								R.drawable.bullet_laser_rectangular_red),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -152,9 +136,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
 				enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Basic(
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.bullet_laser_rectangular_enemy),
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+								R.drawable.bullet_laser_rectangular_red),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -174,17 +158,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();	
 			}
 		};
-
-		int probabilityWeight = 0;
-		if( getLevel() > FIRST_LEVEL_BOSS3_APPEARS){
-			//start at 1/30 giant meteor, increase a little every 20 levels until equal to 1/9 * giant meteor
-			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 30.0 + 
-					(getLevel()/20) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/24.0);
-			
-			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 9.0);
-		}
 		
-		return new SpawnableWave(r,20000 - (getLevel()/5) * 4000,probabilityWeight);
+		return new SpawnableWave(r,20000 - (getLevel()/5) * 4000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss3(getLevel()) );
 	}
 	
 	final SpawnableWave boss4(){ 
@@ -203,9 +179,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.removeAllGuns();
 				enemy.addGun(new Gun_SingleShotStraight(ctx, enemy,
 						new Bullet_Basic(
-								(int)ctx.getResources().getDimension(R.dimen.laser_long_width), 
-								(int)ctx.getResources().getDimension(R.dimen.laser_long_height), 
-								R.drawable.bullet_laser_rectangular_enemy),
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_long_width), 
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_long_height), 
+								R.drawable.bullet_laser_rectangular_red),
 						750, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -213,9 +189,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				
 				enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Tracking(getInteractivityInterface().getProtagonist(), enemy,
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.bullet_laser_rectangular_enemy),
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+								R.drawable.bullet_laser_rectangular_red),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -223,9 +199,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS / 2));
 				enemy.addGun(new Gun_TrackingGattling(ctx,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Tracking(getInteractivityInterface().getProtagonist(), enemy,
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_width), 
-								(int)ctx.getResources().getDimension(R.dimen.laser_short_height), 
-								R.drawable.bullet_laser_rectangular_enemy),
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_width), 
+								(int)ctx.getResources().getDimension(R.dimen.bullet_laser_short_height), 
+								R.drawable.bullet_laser_rectangular_red),
 						5000, 
 						Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -255,16 +231,8 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			}
 		};  
 		
-		int probabilityWeight = 0;
-		if( getLevel() > FIRST_LEVEL_BOSS4_APPEARS){
-			//start at 1/50 giant meteor, increase a little every 25 levels until equal to 1/15 * giant meteor
-			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 50.0 + 
-					(getLevel()/25) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/40.0);
-			
-			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 15.0);
-		}
-		
-		return new SpawnableWave(r,25000 - (getLevel()%5) * 5000,probabilityWeight);
+		return new SpawnableWave(r,25000 - (getLevel()%5) * 5000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss4(getLevel()) );
 	}
 
 	public final SpawnableWave spawnGiantMeteor(){

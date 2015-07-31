@@ -26,7 +26,7 @@ public class BulletView extends Moving_ProjectileView{
 	
 		//set instance variables
 		theOneWhoShotMe=shooter;
-		
+		 
 		//position bullet behind shooter
 		ViewGroup parent = (ViewGroup)theOneWhoShotMe.getParent();
 		if(parent!=null){

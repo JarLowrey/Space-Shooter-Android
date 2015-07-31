@@ -124,7 +124,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				spawnDefaultEnemy(c);
 			}
 		};
-		return new SpawnableWave(r,1000,probabilityWeight );
+		return new SpawnableWave(r,1050,probabilityWeight );
 	}
 	private void spawnDefaultEnemy(Class c){
 		try {

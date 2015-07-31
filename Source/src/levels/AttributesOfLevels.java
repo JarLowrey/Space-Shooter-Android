@@ -14,7 +14,7 @@ public abstract class AttributesOfLevels {
 	protected Context ctx;
 	private int resourceNo,levelNo;
 	
-	public static final int WEIGHT_PROBABILITY_GIANT_METEOR = 100;
+	public static final int STANDARD_PROB_WEIGHT = 1000;
 	
 	public final static int LEVELS_BEGINNER = 5,//0-5
 			LEVELS_LOW = 12,//6-12
@@ -23,10 +23,10 @@ public abstract class AttributesOfLevels {
 			//and beyond!
 	
 	public static final int FIRST_LEVEL_BOSS1_APPEARS = 4,
-			FIRST_LEVEL_BOSS2_APPEARS = 9,
-			FIRST_LEVEL_BOSS3_APPEARS = 14,
-			FIRST_LEVEL_BOSS4_APPEARS = 24,
-			FIRST_LEVEL_BOSS5_APPEARS = 49;
+			FIRST_LEVEL_BOSS2_APPEARS = 14,
+			FIRST_LEVEL_BOSS3_APPEARS = 29,
+			FIRST_LEVEL_BOSS4_APPEARS = 49,
+			FIRST_LEVEL_BOSS5_APPEARS = 94;
 	
 	protected ArrayList<Integer> levelsWihSpecialEnemies = new ArrayList<Integer>();
 	

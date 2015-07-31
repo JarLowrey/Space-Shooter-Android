@@ -82,9 +82,9 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		//add guns
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 3 * DEFAULT_BULLET_FREQ * Math.random());
 		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.laser_short_width), 
-				(int)getContext().getResources().getDimension(R.dimen.laser_short_height), 
-				R.drawable.bullet_laser_rectangular_enemy),
+				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_short_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_short_height), 
+				R.drawable.bullet_laser_rectangular_red),
 				bulletFreq, 
 				DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);

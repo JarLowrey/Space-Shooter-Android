@@ -49,14 +49,14 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		//override default gun
 		this.removeAllGuns();
 		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-				R.drawable.bullet_laser_rectangular_enemy),
+				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+				R.drawable.bullet_laser_rectangular_red),
 				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
 		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-				R.drawable.bullet_laser_rectangular_enemy),
+				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+				R.drawable.bullet_laser_rectangular_red),
 				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
 		this.addGun(g1);
 		this.addGun(g2);
@@ -79,10 +79,10 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 
 	public static int getSpawningProbabilityWeight(int level) {
 		//start at 1/2 giant meteor, increase a little every 5 levels until equal to 2x giant meteor
-		int probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 3 + 
-				(level/5) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/2);
+		int probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3 + 
+				(level/5) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
 		
-		probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR);
+		probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.STANDARD_PROB_WEIGHT);
 		
 		return probabilityWeight;
 	}

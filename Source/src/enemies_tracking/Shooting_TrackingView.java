@@ -19,10 +19,10 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 
 	public static final float
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .02,
-			DEFAULT_BULLET_FREQ=1000;
+			DEFAULT_BULLET_FREQ=850;
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
-			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/30,
+			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/55,
 			DEFAULT_SCORE=100,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE  * 2.5),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker;
@@ -74,9 +74,9 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		//add guns
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
 		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-				R.drawable.bullet_laser_rectangular_enemy),
+				(int)getContext().getResources().getDimension(R.dimen.bullet_small_round_length), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_small_round_length), 
+				R.drawable.bullet_laser_round_red),
 				bulletFreq, 
 				DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);
@@ -116,10 +116,10 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		//start at 1.5x giant meteor, increase a little every 20 levels until equal to 2x giant meteor		
 		int probabilityWeight = 0;
 		if( level > AttributesOfLevels.LEVELS_BEGINNER ){
-			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR * 1.5 + 
-				(level/20) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/3);
+			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT * 1.5 + 
+				(level/20) * AttributesOfLevels.STANDARD_PROB_WEIGHT/3);
 		
-			probabilityWeight = Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR * 2);
+			probabilityWeight = Math.min(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT * 2);
 		}
 		return probabilityWeight;
 	}

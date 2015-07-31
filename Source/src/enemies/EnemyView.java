@@ -98,7 +98,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 		return value;
 	}
 	
-	protected static int scaleScore(int level,int defaultScore){
+	public static int scaleScore(int level,int defaultScore){
 		int value = 0;
 		
 		if(level < AttributesOfLevels.LEVELS_LOW) {

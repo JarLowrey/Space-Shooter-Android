@@ -2,10 +2,13 @@ package enemies;
 
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
+import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.MainActivity;
+
+import enemies_orbiters.Orbiter_Rectangle_Array;
 
 public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 
@@ -59,5 +62,39 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			}
 		});
 	}
+	
+	public static int getSpawningProbabilityWeightForBoss1(int level) {
+		int probabilityWeight = 0;
+		
+		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS1_APPEARS){
+			//start at 1/3 rectangular array, increase a little every 10 levels until equal to 1/2 * rectangular array
+			probabilityWeight = (int) (Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) / 3 + 
+					(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/20.0);
+			
+			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT / 4.0);
+		}
+		
+		return probabilityWeight;
+	}
 
+	public static int getSpawningProbabilityWeightForBoss2(int level) {	
+		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS2_APPEARS){
+			return getSpawningProbabilityWeightForBoss1(level) / 10;
+		}
+		return 0;
+	}
+
+	public static int getSpawningProbabilityWeightForBoss3(int level) {		
+		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS3_APPEARS){
+			return getSpawningProbabilityWeightForBoss1(level) / 15;
+		}
+		return 0;
+	}
+
+	public static int getSpawningProbabilityWeightForBoss4(int level) {	
+		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS3_APPEARS){
+			return getSpawningProbabilityWeightForBoss1(level) / 20;
+		}
+		return 0;
+	}
 }

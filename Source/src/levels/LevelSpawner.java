@@ -4,6 +4,7 @@ import helpers.KillableRunnable;
 import helpers.SpawnableWave;
 import helpers.SpecialSpawnableLevel;
 import android.content.Context;
+import enemies.EnemyView;
 import enemies.HorizontalMovement_FinalBoss;
 import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
@@ -37,29 +38,89 @@ public class LevelSpawner extends Factory_Bosses{
 	}
 	
 	private void initScoreNeededToEndLevel(){
+
+		/*  score needed is in terms of how many diagonal moving views are killed in 1 level
+			score  scales as the diagonal moving views (and all other enemies) scale score.
+			Each class of levels has a different scaling factor, ie every level will have 2-20x more diagonals in a level.
+			Algorithm: Include the previous measure and then increase by the marginal amount. Return relevant amount.
+		*/
+		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
+		
+		final int begLevels = referenceScore*3 + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) * 2;
+		final int lowLevels = begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 4;
+		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 8;
+		final int highLevels = medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * 12;
+		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) * 20;
+		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
-			scoreNeededToEndLevel = (int) (500 + 500 * Math.random() * getLevel() );
+			scoreNeededToEndLevel = begLevels;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_LOW) {
-			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (int) (600 * Math.random() * (getLevel()-LEVELS_BEGINNER) );
-		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){
-			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (LEVELS_LOW-LEVELS_BEGINNER) * 600 
-					+ (int) (800 * Math.random() * (getLevel()-LEVELS_LOW) );	
-		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){
-			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (LEVELS_LOW-LEVELS_BEGINNER) * 600 
-					+(LEVELS_MED - LEVELS_LOW) * 800 +
-					+ (int) (900 * Math.random() * (getLevel()-LEVELS_MED) );	
+			scoreNeededToEndLevel = lowLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){	
+			scoreNeededToEndLevel = medLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){	
+			scoreNeededToEndLevel = highLevels;
 		}else{
-			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (LEVELS_LOW-LEVELS_BEGINNER) * 600 
-					+(LEVELS_MED - LEVELS_LOW) * 800 + (LEVELS_HIGH-LEVELS_MED) * 900 +
-					+ (int) (1000 * Math.random() * (getLevel()-LEVELS_HIGH) );	
+			scoreNeededToEndLevel = allOtherLevels;
 		}
 	}
 	private boolean canSpawnMoreEnemies(){
-		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/6 && 
+		/*  score needed is in terms of how many diagonal moving views can be on screen at one time.
+			must scale score as the diagonal moving views (and all other enemies) scale score.
+			Each class of levels has a different scaling factor, ie every 2-20 levels the # on screen increases.
+			Algorithm: Include the previous measure and then increase by the marginal amount. Return relevant amount.
+		*/
+		int scoreNeededToSpawnMoreEnemies = 0;
+		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
+		
+		final int begLevels = referenceScore + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) / 2;
+		final int lowLevels = begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 4;
+		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 8;
+		final int highLevels = medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 12;
+		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 20;
+		
+		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
+			scoreNeededToSpawnMoreEnemies = begLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_LOW) {
+			scoreNeededToSpawnMoreEnemies = lowLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){	
+			scoreNeededToSpawnMoreEnemies = medLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){	
+			scoreNeededToSpawnMoreEnemies = highLevels;
+		}else{
+			scoreNeededToSpawnMoreEnemies = allOtherLevels;
+		}
+
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToSpawnMoreEnemies && 
 				timeSinceSpawnedLastWave >= timeUntilCanSpawnNextWave;
 	}
 	private boolean canSpawnMeteors(){
-		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/3;
+		/*  
+			algorithm is the same as canSpawnMoreEnemies(), but a little more lax. Thus score can be higher than that algorithm.
+			In other words, at any point in the level the score required to spawn more meteors is high than it is to spawn more enemies
+		*/
+		int scoreNeededToSpawnMoreEnemies = 0;
+		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
+		
+		final int begLevels = referenceScore * 2 + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) ;
+		final int lowLevels = begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 2;
+		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 4;
+		final int highLevels = medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 10;
+		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 15;
+		
+		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
+			scoreNeededToSpawnMoreEnemies = begLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_LOW) {
+			scoreNeededToSpawnMoreEnemies = lowLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){	
+			scoreNeededToSpawnMoreEnemies = medLevels;
+		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){	
+			scoreNeededToSpawnMoreEnemies = highLevels;
+		}else{
+			scoreNeededToSpawnMoreEnemies = allOtherLevels;
+		}
+	
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToSpawnMoreEnemies;
 	}
 	
 	public void startLevelSpawning(){

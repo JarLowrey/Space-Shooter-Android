@@ -69,9 +69,9 @@ public class AllyView extends Friendly_ShooterView{
 		//higher level = gun shoots faster and hits harder
 		addGun(new Gun_SingleShotStraight(getContext(), this,
 				new Bullet_Basic(
-						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
-						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
-						R.drawable.bullet_laser_rectangular_friendly),
+						(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+						R.drawable.bullet_laser_rectangular_green),
 				3000 / allyLevel(context), 
 				DEFAULT_BULLET_SPEED_Y, 
 				( DEFAULT_BULLET_DAMAGE / 2 ) * allyLevel(context) ,

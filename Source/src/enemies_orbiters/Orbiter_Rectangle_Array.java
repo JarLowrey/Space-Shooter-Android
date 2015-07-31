@@ -130,10 +130,10 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			//start at 1/4 giant meteor, decrease a little every 10 levels until equal to 1/8 giant meteor
 			//NOTE: This has a relatively low probability as it spawns so many enemies that last for a long time and take up a lot of the screen
 			if(level > AttributesOfLevels.LEVELS_BEGINNER){
-				probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 4.0 - 
-						(level/10) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/10.0);
+				probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3.0 - 
+						(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/10.0);
 				
-				probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 8);
+				probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT / 7);
 			}
 		}
 		

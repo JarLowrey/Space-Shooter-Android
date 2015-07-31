@@ -523,7 +523,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				}
 				break;
 			case ProtagonistView.UPGRADE_SCORE_MULTIPLIER:
-				cost = this.getResources().getInteger(R.integer.score_multiplier_base_cost) ;
+				cost = (int) (this.getResources().getInteger(R.integer.score_multiplier_base_cost) * 
+					Math.pow(5, gameState.getInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0))) ;
 				msg=this.getResources().getString(R.string.upgrade_score_multiplier);
 				break;
 			case ProtagonistView.UPGRADE_HEAL:
