@@ -6,14 +6,14 @@ import com.jtronlabs.to_the_moon.R;
 import helpers.MediaController;
 import interfaces.Shooter;
 import android.content.Context;
-import bullets.Bullet;
+import bullets.Bullet_Interface;
 import bullets.BulletView;
 
 
 public class Gun_SingleShotStraight extends Gun {
 	
 	public Gun_SingleShotStraight(Context context,Shooter theShooter,
-			Bullet bulletType,
+			Bullet_Interface bulletType,
 			float bulletFrequency,
 			float bulletSpeedVertical,
 			int bulletDmg,

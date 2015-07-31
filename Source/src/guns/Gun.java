@@ -4,7 +4,7 @@ import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
 import android.content.Context;
-import bullets.Bullet;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
@@ -24,7 +24,7 @@ public abstract class Gun {
 	public abstract boolean shoot();	
 	
 	Shooter shooter;
-	Bullet myBulletType;
+	Bullet_Interface myBulletType;
 	Context ctx;
 	
 
@@ -39,7 +39,7 @@ public abstract class Gun {
 		  		}
 			};
 	
-	public Gun(Context context,Shooter theShooter,Bullet bulletType,
+	public Gun(Context context,Shooter theShooter,Bullet_Interface bulletType,
 			float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
 		ctx=context;
 		
@@ -63,11 +63,11 @@ public abstract class Gun {
 		shooter.removeCallbacks(shootingRunnable);
 	}
 	
-	public Bullet getBulletType(){
+	public Bullet_Interface getBulletType(){
 		return myBulletType;
 	}
 	
-	public void setBulletType(Bullet newBullet){
+	public void setBulletType(Bullet_Interface newBullet){
 		myBulletType= newBullet;
 	}
 	

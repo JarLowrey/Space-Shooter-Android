@@ -28,9 +28,9 @@ public class LevelSpawner extends Factory_Bosses{
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss3(), FIRST_LEVEL_BOSS3_APPEARS);
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss2(), FIRST_LEVEL_BOSS2_APPEARS);
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss1(), FIRST_LEVEL_BOSS1_APPEARS);
-
+ 
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(lotsOfCircles(), 19);
-	}
+	} 
 
 	public int getMaxLevel() {
 		return 75;

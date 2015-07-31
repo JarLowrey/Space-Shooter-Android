@@ -89,7 +89,14 @@ public class Gravity_MeteorView extends EnemyView{
 
 	public static int getSpawningProbabilityWeightOfGiantMeteors(int level) {
 		//ITS THE GIANT METEOR! The standard for spawning probability weights
-		int probabilityWeight = AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR ; 
+		//start at 1x giant meteor, decrease a little every 5 levels until equal to 1/3x of original giant meteor weight
+		
+		int probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR  - 
+				(level/5) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/5.0);
+		
+		probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 3);
+
+		
 		return probabilityWeight;
 	}
 }

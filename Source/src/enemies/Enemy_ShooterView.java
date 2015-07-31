@@ -2,14 +2,12 @@ package enemies;
 
 import friendlies.ProtagonistView;
 import guns.Gun;
-import guns.Gun_SingleShotStraight;
 import interfaces.Shooter;
 
 import java.util.ArrayList;
 
 import android.content.Context;
 import bullets.BulletView;
-import bullets.Bullet_Basic_LaserShort;
 
 import com.jtronlabs.to_the_moon.R;
 

@@ -147,7 +147,7 @@
 		    android:layout_alignBottom="@+id/btn_new_gun"
 		    android:layout_toLeftOf="@+id/btn_heal"
 		    
-		    android:src="@drawable/bullet_damage"
+		    android:src="@drawable/bullet_inc_damage"
   			android:scaleType="fitCenter"  
   			android:adjustViewBounds="true"  
 		    android:background="@drawable/white_center_red_outline"
@@ -204,7 +204,7 @@
 
 		<ImageButton
 		    android:id="@+id/btn_inc_bullet_freq"
-		    android:src="@drawable/bullet_freq"
+		    android:src="@drawable/bullet_inc_freq"
 		    style="?android:attr/buttonStyleSmall"
 		    android:layout_width="@dimen/store_item_len"
 		    android:layout_height="@dimen/store_item_len"

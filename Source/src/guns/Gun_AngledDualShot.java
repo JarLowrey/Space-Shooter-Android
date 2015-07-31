@@ -5,7 +5,7 @@ import com.jtronlabs.to_the_moon.R;
 import helpers.MediaController;
 import interfaces.Shooter;
 import android.content.Context;
-import bullets.Bullet;
+import bullets.Bullet_Interface;
 import bullets.BulletView;
 
 
@@ -14,7 +14,7 @@ public  class Gun_AngledDualShot extends Gun {
 	private static final float DEFAULT_ANGLE=(float) 12.5;
 	
 	public Gun_AngledDualShot(Context context,
-			Shooter theShooter,Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,
+			Shooter theShooter,Bullet_Interface bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,
 			int positionOnShooterAsAPercentage) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 	}

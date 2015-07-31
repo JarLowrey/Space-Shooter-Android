@@ -6,14 +6,14 @@ import levels.LevelSystem;
 import parents.Moving_ProjectileView;
 
 import android.content.Context;
-import bullets.Bullet;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 public abstract class Gun_Tracking extends Gun{
 
-	public Gun_Tracking(Context context, Shooter theShooter, Bullet bulletType,
+	public Gun_Tracking(Context context, Shooter theShooter, Bullet_Interface bulletType,
 			float bulletFrequency, float bulletSpeedVertical,
 			int bulletDmg, int positionOnShooterAsAPercentage) {
 		super(context, theShooter, bulletType, bulletFrequency, bulletSpeedVertical,

@@ -4,7 +4,7 @@ import helpers.MediaController;
 import interfaces.Shooter;
 import parents.Moving_ProjectileView;
 import android.content.Context;
-import bullets.Bullet;
+import bullets.Bullet_Interface;
 import bullets.BulletView;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -17,14 +17,14 @@ public  class Gun_TrackingSingle extends Gun_Tracking {
 	private Moving_ProjectileView shootTowardsMe;
 	
 	public Gun_TrackingSingle(Context context, Moving_ProjectileView shootingAtMe,
-			Shooter theShooter,Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
+			Shooter theShooter,Bullet_Interface bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 		
 		shootTowardsMe = shootingAtMe;
 	}
 
 	public Gun_TrackingSingle(Context context,
-			Shooter theShooter,Bullet bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
+			Shooter theShooter,Bullet_Interface bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
 		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 		
 		shootTowardsMe=null;

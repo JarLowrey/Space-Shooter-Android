@@ -1,7 +1,6 @@
 package friendlies;
 
 import guns.Gun;
-import guns.Gun_AngledDualShot;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import helpers.MediaController;
@@ -9,7 +8,6 @@ import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
-import bullets.Bullet_Basic_LaserLong;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;

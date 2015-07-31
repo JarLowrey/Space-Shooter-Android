@@ -10,7 +10,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
   
 
 // 					NOT WORKING			
-public abstract class Bullet_Tracking extends Bullet{
+public class Bullet_Tracking extends Bullet_Interface{
 
 	public static final float MAX_TRACKING_SPEED=5*MainActivity.getScreenDens();
 	public static final float DEFAULT_TRACKING_SPEED=4*MainActivity.getScreenDens();
@@ -18,36 +18,37 @@ public abstract class Bullet_Tracking extends Bullet{
 	private float trackingSpeed;
 	private MovingView viewTracking;
 	
-	
-	public Bullet_Tracking(float trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
 
-		init(viewToTrack,shooterWithTrackingBullets);
+	int width, height, backgroundId;
+	
+	public Bullet_Tracking(float trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets,
+			int bulletWidth, int bulletHeight, int bulletBackgroundId){
+		width = bulletWidth;
+		height = bulletHeight;
+		backgroundId = bulletBackgroundId;
+
+		viewTracking=viewToTrack;
 		
 		final float trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
 		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED : trackSpeedDPI;
 	}
 	
-	public Bullet_Tracking(MovingView viewToTrack,Shooter shooterWithTrackingBullets) {
-		init(viewToTrack,shooterWithTrackingBullets);
-	}
-	
-	private void init(MovingView viewToTrack,Shooter shooterWithTrackingBullets){
-		trackingSpeed = DEFAULT_TRACKING_SPEED;
+	public Bullet_Tracking(MovingView viewToTrack,Shooter shooterWithTrackingBullets,
+			int bulletWidth, int bulletHeight, int bulletBackgroundId){
+		width = bulletWidth;
+		height = bulletHeight;
+		backgroundId = bulletBackgroundId;
+
 		viewTracking=viewToTrack;
 	}
 
-
-	public abstract BulletView getTrackingBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage);
-	
-
 	public BulletView getBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage){
-		BulletView b = getTrackingBullet( context, shooter, bulletSpeedY, bulletDamage);
+		BulletView b = new BulletView(context,shooter, bulletSpeedY, bulletDamage,width,height,backgroundId);
 		setToTrackingBullet(b);
 		return b;
 	}
 	
 	private void setToTrackingBullet(final BulletView b){
-		
 		b.reassignMoveRunnable( new KillableRunnable(){
 			@Override
 			public void doWork() {

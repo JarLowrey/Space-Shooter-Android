@@ -5,9 +5,8 @@ import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import android.content.Context;
-import bullets.Bullet_Basic_LaserLong;
-import bullets.Bullet_Tracking_LaserShort;
-import bullets.Bullet_Tracking_Missile;
+import bullets.Bullet_Basic;
+import bullets.Bullet_Tracking;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -42,31 +41,46 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		//Laser volleys
 			//8sec volley
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					0));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					25));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					50));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					75));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					8000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -74,31 +88,46 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 
 			//17sec volley
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					0));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					25));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					50));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					75));
 			addGun(new Gun_SingleShotStraight(getContext(), this,
-					new Bullet_Basic_LaserLong(),
+					new Bullet_Basic(
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+							R.drawable.laser_rectangular_enemy),
 					17000, 
 					Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -106,14 +135,20 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		
 		//Gattling lasers
 		this.addGun(new Gun_TrackingGattling(getContext(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
-				new Bullet_Tracking_LaserShort(( (GameActivityInterface)getContext() ).getProtagonist(), this),
+				new Bullet_Tracking(( (GameActivityInterface)getContext() ).getProtagonist(), this,
+						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+						R.drawable.laser_rectangular_enemy),
 				6000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 				50,
 				4 ));
 		this.addGun(new Gun_TrackingGattling(getContext(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
-				new Bullet_Tracking_LaserShort(( (GameActivityInterface)getContext() ).getProtagonist(), this),
+				new Bullet_Basic(
+						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+						R.drawable.laser_rectangular_enemy),
 				6000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y, 
 				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
@@ -122,7 +157,10 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		
 		//angled
 		this.addGun(new Gun_AngledDualShot(getContext(),this,
-				new Bullet_Basic_LaserLong(),
+				new Bullet_Basic(
+						(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+						R.drawable.laser_rectangular_enemy),
 				1000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
 				(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
@@ -130,7 +168,10 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		
 		//missiles
 		this.addGun(new Gun_SingleShotStraight(getContext(),this,
-				new Bullet_Tracking_Missile( ( (GameActivityInterface)getContext() ).getProtagonist(), this),
+				new Bullet_Tracking( ( (GameActivityInterface)getContext() ).getProtagonist(), this, 
+						(int)getContext().getResources().getDimension(R.dimen.missile_one_width), 
+						(int)getContext().getResources().getDimension(R.dimen.missile_one_height), 
+						R.drawable.bullet_missile_one),
 				3000, 
 				Orbiter_RectangleView.DEFAULT_BULLET_SPEED_Y/2, 
 				(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),

@@ -2,9 +2,7 @@ package enemies;
  
 import levels.AttributesOfLevels;
 import android.content.Context;
-import android.util.Log;
-import bullets.Bullet_Basic_LaserLong;
-import bullets.Bullet_Basic_LaserShort;
+import bullets.Bullet_Basic;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -50,9 +48,15 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 
 		//override default gun
 		this.removeAllGuns();
-		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),
+		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+				(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+				R.drawable.laser_rectangular_enemy),
 				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
-		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),
+		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+				(int)getContext().getResources().getDimension(R.dimen.laser_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.laser_long_height), 
+				R.drawable.laser_rectangular_enemy),
 				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
 		this.addGun(g1);
 		this.addGun(g2);
