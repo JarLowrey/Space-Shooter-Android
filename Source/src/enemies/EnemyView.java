@@ -1,13 +1,11 @@
 package enemies;
 
 import interfaces.GameActivityInterface;
+import levels.AttributesOfLevels;
 import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.content.Context;
-import android.content.SharedPreferences;
 import bonuses.BonusView;
-
-import com.jtronlabs.to_the_moon.GameActivity;
 
 public abstract class EnemyView extends Projectile_GravityView{
 	
@@ -17,17 +15,27 @@ public abstract class EnemyView extends Projectile_GravityView{
 	private double probSpawnBeneficialObject;
 	
 	
-	public EnemyView(Context context,int scoreForKilling,float projectileSpeedY,
+	public EnemyView(Context context,
+			int level,
+			int scoreForKilling,
+			float projectileSpeedY,
 			float projectileSpeedX, 
-			int projectileDamage,int projectileHealth,float probSpawnBeneficialObjectUponDeath,int width,int height,int imageId) {
-		super( context, projectileSpeedY, projectileSpeedX, 
-				 projectileDamage, projectileHealth, width, height, imageId);
+			int projectileDamage,
+			int projectileHealth,
+			float probSpawnBeneficialObjectUponDeath,
+			int width,int height,int imageId) {
+		super( context,
+				scaleSpeedY(level,projectileSpeedY),
+				scaleSpeedX(level,projectileSpeedX),
+				scaleCollisionDamage(level,projectileDamage),
+				scaleHealth(level,projectileHealth),
+				width, height, imageId);
 		
 		this.setY( - this.getHeight() /2 );//start all enemies 3/4 way offscreen
 		
 		numSpawn++;
-		score=scoreForKilling;
-		probSpawnBeneficialObject= probSpawnBeneficialObjectUponDeath;
+		score=scaleScore(level, scoreForKilling);
+		probSpawnBeneficialObject= scaleProbabilitySpawnBeneficialObjectOnDeath(level,probSpawnBeneficialObjectUponDeath);
 		LevelSystem.enemies.add(this);
 	}
 	
@@ -70,5 +78,103 @@ public abstract class EnemyView extends Projectile_GravityView{
 	}
 	public void setScoreValue(int newScore){
 		score=newScore;
+	}
+	
+
+	//SCALING METHODS - every enemy automatically scales base stats, can be overwritten in the individual enemy's class
+	protected static int scaleHealth(int level,int defaultHealth){
+		int value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_LOW) {
+			value = defaultHealth;
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (int) (defaultHealth * 1.4 );			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (int) (defaultHealth * 2 );			
+		}else{
+			value = (int) (defaultHealth * 3 );			
+		}
+		
+		return value;
+	}
+	
+	protected static int scaleScore(int level,int defaultScore){
+		int value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_LOW) {
+			value = defaultScore;
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (int) (defaultScore * 1.4 );			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (int) (defaultScore * 1.9 );			
+		}else{
+			value = (int) (defaultScore * 2.5 );			
+		}
+		
+		return value;
+	}
+	
+	protected static float scaleSpeedY(int level, float defaultSpeedY){
+		float value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_MED){
+			value = defaultSpeedY;
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (float) (defaultSpeedY * 1.05);		
+		}else{
+			value = (float) (defaultSpeedY * 1.1);	
+		}
+		 
+		return value;
+	}
+	
+	protected static float scaleSpeedX(int level,float defaultSpeedX){
+		float value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_MED){
+			value = defaultSpeedX;
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (float) (defaultSpeedX * 1.05);		
+		}else{
+			value = (float) (defaultSpeedX * 1.1);	
+		}
+		
+		return value;
+	}
+	
+
+	protected static int scaleCollisionDamage(int level,int defaultCollisionDamage){
+		int value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_LOW){
+			value = defaultCollisionDamage;
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (int) (defaultCollisionDamage * 1.4);			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (int) (defaultCollisionDamage * 2.1);			
+		}else{
+			value = (int) (defaultCollisionDamage * 3);			
+		}
+		
+		return value;
+	}
+	
+
+	protected static float scaleProbabilitySpawnBeneficialObjectOnDeath(int level, float defaultProbSpawnBeneficialObjectOnDeath){
+		float value = 0;
+		
+		if(level < AttributesOfLevels.LEVELS_BEGINNER){
+			value = defaultProbSpawnBeneficialObjectOnDeath;
+		}else if(level < AttributesOfLevels.LEVELS_LOW) {
+			value = (float) (defaultProbSpawnBeneficialObjectOnDeath * .95 );
+		}else if(level < AttributesOfLevels.LEVELS_MED){
+			value = (float) (defaultProbSpawnBeneficialObjectOnDeath * .85);			
+		}else if(level < AttributesOfLevels.LEVELS_HIGH){
+			value = (float) (defaultProbSpawnBeneficialObjectOnDeath * .7);			
+		}else{
+			value = (float) (defaultProbSpawnBeneficialObjectOnDeath * .5);			
+		}
+		
+		return value;
 	}
 }

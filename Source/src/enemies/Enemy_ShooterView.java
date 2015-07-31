@@ -17,7 +17,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 
 	public static final float DEFAULT_BULLET_SPEED_Y = 20;
 
-		public static final float DEFAULT_BULLET_FREQ=2000;
+		public static final float DEFAULT_BULLET_FREQ=1500;
 		
 		public static final int DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/15,
 				DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10;
@@ -28,24 +28,15 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 		private boolean isShooting=true;
 		
-		public Enemy_ShooterView(Context context,int scoreForKilling, float projectileSpeedY,float projectileSpeedX, 
+		public Enemy_ShooterView(Context context,int level,int scoreForKilling, float projectileSpeedY,float projectileSpeedX, 
 				int projectileDamage,int projectileHealth,float probSpawnBeneficialObject,int width,int height,int imageId) {
-			super(context,scoreForKilling,projectileSpeedY,projectileSpeedX,
+			super(context,level,scoreForKilling,projectileSpeedY,projectileSpeedX,
 					projectileDamage,projectileHealth,probSpawnBeneficialObject, width, height, imageId);
 
 			myGuns= new ArrayList<Gun>();
 			myBullets = new ArrayList<BulletView>();
-			
-
-			//add a default gun
-			Gun defaultGun = new Gun_SingleShotStraight(context, this, new Bullet_Basic_LaserShort(),
-					getShootingFreq(), DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,50);
-			this.addGun(defaultGun);
-			this.startShooting();
 		} 
- 
-		protected abstract float getShootingFreq();
-		
+ 		
 		/**
 		 * To be called on implementation of onRemoveGameObject
 		 * NEW BEHAVIOR = drop references to guns and bullets

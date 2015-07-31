@@ -21,9 +21,9 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	private int angularVelocity;
 	private double radius;
 
-	public Orbiter_CircleView(Context context,int difficulty) {
-		super(context,difficulty,
-				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING), 
+	public Orbiter_CircleView(Context context,int level) {
+		super(context,level,
+				DEFAULT_SCORE, 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_height), 
 				DEFAULT_BACKGROUND);
@@ -36,12 +36,12 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		init(width,height);
 	}
 	
-	public Orbiter_CircleView(Context context,int score,float speedY, 
+	public Orbiter_CircleView(Context context,int level,int score,float speedY, 
 			int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,
 			int circularRadius,int angVelocity) {
-		super(context, score,speedY,
+		super(context, level,score,speedY,
 				collisionDamage, health,
 				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
 		
@@ -52,11 +52,6 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		init(width,height);
 	}
 
-	@Override
-	public float getShootingFreq(){
-		return (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
-	}
-	
 	private void init(int width,int height){
 		currentDegree=270;
 		

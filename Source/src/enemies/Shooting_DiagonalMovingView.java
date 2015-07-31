@@ -1,10 +1,13 @@
 package enemies;
 
 import levels.AttributesOfLevels;
+import guns.Gun;
+import guns.Gun_SingleShotStraight;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import parents.Moving_ProjectileView;
 import android.content.Context;
+import bullets.Bullet_Basic_LaserShort;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -22,19 +25,17 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			DEFAULT_SPEED_Y=12,
 			DEFAULT_SPEED_X=DEFAULT_SPEED_Y,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
-	public final static double DEFAULT_BULLET_SPEED_Y=10,
-			DEFAULT_BULLET_DAMAGE=10;
 	
 	protected double leftThreshold,rightThreshold;
 	
 	public Shooting_DiagonalMovingView(Context context, int level) {
-		super(context,
-				scaleScore(level),
-				scaleSpeedY(level),
-				scaleSpeedX(level),
-				scaleCollisionDamage(level),
-				scaleHealth(level),
-				scaleBeneficialObjectOnDeath(level), 
+		super(context,level,
+				DEFAULT_SCORE,
+				DEFAULT_SPEED_Y,
+				DEFAULT_SPEED_X,
+				DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,
+				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_width),
 				(int)context.getResources().getDimension(R.dimen.ship_diagonal_height), 
 				DEFAULT_BACKGROUND); 
@@ -69,6 +70,14 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		leftThreshold=0;//far left of screen
 		rightThreshold=MainActivity.getWidthPixels()-this.getWidth();//far right of screen
 
+		//add guns
+		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 1.1 * DEFAULT_BULLET_FREQ * Math.random());
+		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserShort(),
+				bulletFreq, 
+				DEFAULT_BULLET_SPEED_Y, 
+				DEFAULT_BULLET_DAMAGE,50);
+		this.addGun(defaultGun);
+		this.startShooting();
 
 		reassignMoveRunnable( new KillableRunnable(){
 			@Override
@@ -98,121 +107,18 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	}
 
 	@Override
-	public float getShootingFreq(){
-		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
-	}
-
-	@Override
 	public void reachedGravityPosition() {
 		removeGameObject();
 	}
 
 	public static int getSpawningProbabilityWeight(int level) {
-		int probabilityWeight = 30-(level/5)*2;
-		probabilityWeight = Math.min(probabilityWeight, 10);
+		//start at 2x giant meteor, increate a little every 12 levels until equal to 4 * giant meteor
+		int probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR * 2 + 
+				(level/12) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR * 1.3);
+		
+		probabilityWeight = Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR * 4);
 		
 		return probabilityWeight;
-	}
-	
-	//SCALING METHODS 
-	private static int scaleHealth(int level){
-		int value = 0;
-		
-		if(level < AttributesOfLevels.LEVELS_BEGINNER){
-			value = DEFAULT_HEALTH;
-		}else if(level < AttributesOfLevels.LEVELS_LOW) {
-			value = (int) (DEFAULT_HEALTH * ( (level/5) * SMALL_SCALING ));
-		}else if(level < AttributesOfLevels.LEVELS_MED){
-			value = (int) (DEFAULT_HEALTH * ( (level/7) * SMALL_SCALING ));			
-		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (int) (DEFAULT_HEALTH * ( (level/9) * SMALL_SCALING ));			
-		}else{
-			value = (int) (DEFAULT_HEALTH * ( (level/12) * SMALL_SCALING ));			
-		}
-		
-		return value;
-	}
-	
-	private static int scaleScore(int level){
-		int value = 0;
-		
-		if(level < AttributesOfLevels.LEVELS_BEGINNER){
-			value = DEFAULT_SCORE;
-		}else if(level < AttributesOfLevels.LEVELS_LOW) {
-			value = (int) (DEFAULT_SCORE * ( (level/5) * SMALL_SCALING ));
-		}else if(level < AttributesOfLevels.LEVELS_MED){
-			value = (int) (DEFAULT_SCORE * ( (level/7) * SMALL_SCALING ));			
-		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (int) (DEFAULT_SCORE * ( (level/9) * SMALL_SCALING ));			
-		}else{
-			value = (int) (DEFAULT_SCORE * ( (level/12) * SMALL_SCALING ));			
-		}
-		
-		return value;
-	}
-	
-	private static float scaleSpeedY(int level){
-		float value = 0;
-		
-		if(level < AttributesOfLevels.LEVELS_MED){
-			value = DEFAULT_SPEED_Y;
-		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (float) (DEFAULT_SPEED_Y * 1.05);		
-		}else{
-			value = (float) (DEFAULT_SPEED_Y * 1.1);	
-		}
-		
-		return value;
-	}
-	
-	private static float scaleSpeedX(int level){
-		float value = 0;
-		
-		if(level < AttributesOfLevels.LEVELS_MED){
-			value = DEFAULT_SPEED_X;
-		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (float) (DEFAULT_SPEED_X * 1.05);		
-		}else{
-			value = (float) (DEFAULT_SPEED_X * 1.1);	
-		}
-		
-		return value;
-	}
-	
-
-	private static int scaleCollisionDamage(int level){
-		int value = 0;
-		
-		if(level < AttributesOfLevels.LEVELS_LOW){
-			value = DEFAULT_COLLISION_DAMAGE;
-		}else if(level < AttributesOfLevels.LEVELS_MED){
-			value = (int) (DEFAULT_COLLISION_DAMAGE * 1.5);			
-		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (int) (DEFAULT_COLLISION_DAMAGE * 2.5);			
-		}else{
-			value = (int) (DEFAULT_COLLISION_DAMAGE * 4);			
-		}
-		
-		return value;
-	}
-	
-
-	private static float scaleBeneficialObjectOnDeath(int level){
-		float value = 0;
-		
-		if(level < AttributesOfLevels.LEVELS_BEGINNER){
-			value = DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH;
-		}else if(level < AttributesOfLevels.LEVELS_LOW) {
-			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .95 );
-		}else if(level < AttributesOfLevels.LEVELS_MED){
-			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .85);			
-		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .7);			
-		}else{
-			value = (float) (DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH * .5);			
-		}
-		
-		return value;
 	}
 	
 }

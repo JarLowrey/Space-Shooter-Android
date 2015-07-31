@@ -527,11 +527,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				msg=this.getResources().getString(R.string.upgrade_score_multiplier);
 				break;
 			case ProtagonistView.UPGRADE_HEAL:
-				if(protagonist.getHealth()==protagonist.getMaxHealth()){
+				if(protagonist.getHealth() == protagonist.getMaxHealth()){
 					maxLevelItem=true;
 					msg="Ship fully healed";
 				}else{
-					cost = 	this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel()) ;
+					cost = 	(int) (( (double)protagonist.getHealth() ) / protagonist.getMaxHealth() * 
+							this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel())) ;
 					msg=this.getResources().getString(R.string.upgrade_heal);					
 				}
 				break;

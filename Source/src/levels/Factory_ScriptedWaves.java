@@ -95,7 +95,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	
 	//tracking waves
 	final SpawnableWave trackingEnemy(){
-		final int numEnemies = 4;
+		final int numEnemies = 3;
 		final int millisecondsBetweenEachSpawn = 800;
 		
 		KillableRunnable r = new KillableRunnable(){
@@ -203,7 +203,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				final double height = ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height);	
 				final int orbitX= ( width/2 ) * (2*currentShip+1) + radius * (2*currentShip +1);
 				final int orbitY=Orbiter_CircleView.DEFAULT_ORBIT_Y;
-				new Orbiter_CircleView(ctx,Orbiter_CircleView.DEFAULT_SCORE,Orbiter_CircleView.DEFAULT_SPEED_Y,
+				new Orbiter_CircleView(ctx,getLevel(),
+						Orbiter_CircleView.DEFAULT_SCORE,Orbiter_CircleView.DEFAULT_SPEED_Y,
 						Orbiter_CircleView.DEFAULT_COLLISION_DAMAGE,
 						Orbiter_CircleView.DEFAULT_HEALTH,Orbiter_CircleView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
 						(int)orbitX,(int)orbitY,

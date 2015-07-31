@@ -3,6 +3,7 @@ package enemies;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
+import levels.AttributesOfLevels;
 import android.content.Context;
 import bullets.Bullet_Basic_LaserLong;
 import bullets.Bullet_Tracking_LaserShort;
@@ -22,8 +23,8 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 	private boolean isInvisible;
 	public static int DEFAULT_SPEED_X = 10;
 		
-	public HorizontalMovement_FinalBoss(Context context) {
-		super(context,
+	public HorizontalMovement_FinalBoss(Context context,int level) {
+		super(context,level,
 				50000,
 				DEFAULT_SPEED_Y,
 				ProtagonistView.DEFAULT_HEALTH*1000,
@@ -168,6 +169,18 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				}
 			}
 		});
+	}
+	
+
+	public static int getSpawningProbabilityWeight(int level) {
+		//start at 1/100 giant meteor, increase a little every 30 levels until equal to 1/90 giant meteor
+		int probabilityWeight = 0;
+		if(level > AttributesOfLevels.FIRST_LEVEL_BOSS5_APPEARS){
+			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/100.0 + 
+					(level/30)*(AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/100.0) ) ;
+			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 90.0);
+		}
+		return probabilityWeight;
 	}
 
 }

@@ -21,9 +21,9 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	
 	private int currentSideOfTriangle, orbitDist;
 	
-	public Orbiter_TriangleView(Context context,int difficulty) {
-		super(context, difficulty, 
-				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING), 
+	public Orbiter_TriangleView(Context context,int level) {
+		super(context, level, 
+				DEFAULT_SCORE, 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_triangular_width), 
 				(int)context.getResources().getDimension(R.dimen.ship_orbit_triangular_height), 
 				DEFAULT_BACKGROUND);
@@ -34,10 +34,10 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	}
 	
 
-	public Orbiter_TriangleView(Context context,int score,float speedY,int collisionDamage, 
+	public Orbiter_TriangleView(Context context,int level,int score,float speedY,int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitLength, int orbitPixelX, int orbitPixelY,int width,int height,int imageId) {
-		super(context, score,speedY,
+		super(context, level,score,speedY,
 				collisionDamage, health, probSpawnBeneficialObjecyUponDeath, 
 				orbitPixelX, orbitPixelY, width, height, imageId);
 		
@@ -53,8 +53,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
 		
-		//override default gun
-		float freq= getShootingFreq();
+		float freq = (float) (DEFAULT_BULLET_FREQ + 3 * DEFAULT_BULLET_FREQ * Math.random());
 		this.removeAllGuns();
 		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserLong(),
 				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
@@ -72,30 +71,30 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		reassignMoveRunnable( new KillableRunnable(){
 			@Override
 			public void doWork() {
-						//change side
-						if (howManyTimesMoved % orbitDist == 0) {
-							currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
+				//change side
+				if (howManyTimesMoved % orbitDist == 0) {
+					currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
 
-							//triangle is equilateral
-							switch (currentSideOfTriangle) {
-							case 0:
-								Orbiter_TriangleView.this.setSpeedY(0);
-								Orbiter_TriangleView.this.setSpeedX( - DEFAULT_SPEED_X * 2);
-								break;
-							case 1:
-								Orbiter_TriangleView.this.setSpeedY(DEFAULT_SPEED_Y);
-								Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
-								break;
-							case 2:
-								Orbiter_TriangleView.this.setSpeedY( - DEFAULT_SPEED_Y);
-								Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
-								break;
-							}
-						}
-						howManyTimesMoved++;
-						
-						move();
-						ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_TriangleView.this);
+					//triangle is equilateral
+					switch (currentSideOfTriangle) {
+					case 0:
+						Orbiter_TriangleView.this.setSpeedY(0);
+						Orbiter_TriangleView.this.setSpeedX( - DEFAULT_SPEED_X * 2);
+						break;
+					case 1:
+						Orbiter_TriangleView.this.setSpeedY(DEFAULT_SPEED_Y);
+						Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
+						break;
+					case 2:
+						Orbiter_TriangleView.this.setSpeedY( - DEFAULT_SPEED_Y);
+						Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
+						break;
+					}
+				}
+				howManyTimesMoved++;
+				
+				move();
+				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_TriangleView.this);
 			}
 		}); 
 	}

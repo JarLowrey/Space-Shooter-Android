@@ -1,8 +1,10 @@
 package enemies;
  
+import levels.AttributesOfLevels;
 import android.content.Context;
 import android.util.Log;
 import bullets.Bullet_Basic_LaserLong;
+import bullets.Bullet_Basic_LaserShort;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -22,14 +24,14 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	private long amtOfTimeToPause; 
 	 
-	public Shooting_PauseAndMove (Context context,int difficulty) {
-		super(context,
-				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING) ,
-				(float) scaledValue(DEFAULT_SPEED_Y,difficulty,XXSMALL_SCALING),
-				 0,
-				(int) scaledValue(DEFAULT_COLLISION_DAMAGE,difficulty,SMALL_SCALING),
-				(int) scaledValue(DEFAULT_HEALTH,difficulty,SMALL_SCALING),
-				(int) scaledValue(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,difficulty,SMALL_SCALING), 
+	public Shooting_PauseAndMove (Context context,int level) {
+		super(context,level,
+				DEFAULT_SCORE,
+				DEFAULT_SPEED_Y,
+				DEFAULT_SPEED_X,
+				DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,
+				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
 				(int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_width),
 				(int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_height), 
 				DEFAULT_BACKGROUND);
@@ -42,7 +44,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		float xRand = (float) ((MainActivity.getWidthPixels()-width)*Math.random());
 		this.setX(xRand);
 		
-		float freq = getShootingFreq();
+		float freq = (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 		amtOfTimeToPause= (long) (freq*3.2);
 		this.setThreshold((int) (MainActivity.getHeightPixels()/6 + Math.random() * MainActivity.getHeightPixels()/2.7));
 
@@ -56,11 +58,6 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		this.addGun(g2);
 		this.startShooting();
 	}
-	
-	@Override
-	public float getShootingFreq(){
-		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
-	}
 
 	@Override
 	public void reachedGravityPosition() {
@@ -73,6 +70,17 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 				reviveMoveRunnable();
 			}
 		},this.amtOfTimeToPause);
+	}
+	
+
+	public static int getSpawningProbabilityWeight(int level) {
+		//start at 1/2 giant meteor, increase a little every 5 levels until equal to 2x giant meteor
+		int probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 3 + 
+				(level/5) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/2);
+		
+		probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR);
+		
+		return probabilityWeight;
 	}
 
 }

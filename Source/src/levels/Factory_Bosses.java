@@ -40,7 +40,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,getLevel(),
 						1000,//score
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
@@ -63,9 +63,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};
 
 		int probabilityWeight = 0;
-		if( (getLevel()/5) > 1){
-			probabilityWeight = 10 + (getLevel()/5) *6 ;
-			probabilityWeight = Math.min(probabilityWeight, 30);
+		if( getLevel() > FIRST_LEVEL_BOSS1_APPEARS){
+			//start at 1/10 giant meteor, increase a little every 10 levels until equal to 1/4 * giant meteor
+			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 10.0 + 
+					(getLevel()/10) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/20.0);
+			
+			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 4.0);
 		}
 
 		
@@ -76,7 +79,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,1500,
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,1500,getLevel(),
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE*30,
@@ -98,9 +101,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};
 		
 		int probabilityWeight = 0;
-		if( (getLevel()/5) > 2){
-			probabilityWeight = 5 + (getLevel()/5)*2 ;
-			probabilityWeight = Math.min(probabilityWeight, 20);
+		if( getLevel() > FIRST_LEVEL_BOSS2_APPEARS){
+			//start at 1/20 giant meteor, increase a little every 16 levels until equal to 1/9 * giant meteor
+			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 20.0 + 
+					(getLevel()/16) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/35.0);
+			
+			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 9.0);
 		}
 		
 		return new SpawnableWave(r,15000 - (getLevel()/5) * 3000,probabilityWeight);
@@ -110,7 +116,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,5000,
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,5000,getLevel(),
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE*60,
@@ -147,9 +153,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};
 
 		int probabilityWeight = 0;
-		if( (getLevel()/5) > 3){
-			probabilityWeight = 10 + (getLevel()/5) ;
-			probabilityWeight = Math.min(probabilityWeight, 15);
+		if( getLevel() > FIRST_LEVEL_BOSS3_APPEARS){
+			//start at 1/30 giant meteor, increase a little every 20 levels until equal to 1/9 * giant meteor
+			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 30.0 + 
+					(getLevel()/20) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/24.0);
+			
+			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 9.0);
 		}
 		
 		return new SpawnableWave(r,20000 - (getLevel()/5) * 4000,probabilityWeight);
@@ -159,7 +168,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,20000,
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,20000,getLevel(),
 						Orbiter_RectangleView.DEFAULT_SPEED_Y,
 						Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE*90,
@@ -209,24 +218,15 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		};  
 		
 		int probabilityWeight = 0;
-		if( (getLevel()/5) > 4){
-			probabilityWeight = 5 + (getLevel()/5) ;
-			probabilityWeight = Math.min(probabilityWeight, 10);
+		if( getLevel() > FIRST_LEVEL_BOSS4_APPEARS){
+			//start at 1/50 giant meteor, increase a little every 25 levels until equal to 1/15 * giant meteor
+			probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 50.0 + 
+					(getLevel()/25) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/40.0);
+			
+			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 15.0);
 		}
 		
 		return new SpawnableWave(r,25000 - (getLevel()%5) * 5000,probabilityWeight);
-	}
-	final SpawnableWave boss5(){ 
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork() {
-				new HorizontalMovement_FinalBoss(ctx);
-			}
-		}; 
-		
-		int probabilityWeight = 0;
-		
-		return new SpawnableWave(r,100000000,probabilityWeight);
 	}
 
 	public final SpawnableWave spawnGiantMeteor(){

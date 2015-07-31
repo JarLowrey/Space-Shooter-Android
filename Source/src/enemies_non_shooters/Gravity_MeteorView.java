@@ -1,5 +1,6 @@
 package enemies_non_shooters;
 
+import levels.AttributesOfLevels;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import parents.MovingView;
@@ -33,10 +34,10 @@ public class Gravity_MeteorView extends EnemyView{
 		} 
 	};
 	
-	public Gravity_MeteorView(Context context,int difficulty) {
-		super(context,
-				(int) scaledValue(DEFAULT_SCORE,difficulty,SMALL_SCALING) , 
-				gravitySpeedY(difficulty), 
+	public Gravity_MeteorView(Context context,int level) {
+		super(context,level,
+				DEFAULT_SCORE , 
+				DEFAULT_SPEED_Y, 
 				DEFAULT_SPEED_X,
 				DEFAULT_COLLISION_DAMAGE, 
 				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
@@ -46,8 +47,10 @@ public class Gravity_MeteorView extends EnemyView{
 				
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
-		ConditionalHandler.postIfAlive(rotateRunnable, this);
-		//this.setRotation((float) (Math.random() * 360));
+		//ConditionalHandler.postIfAlive(rotateRunnable, this);
+		this.setRotation((float) (Math.random() * 360));
+		
+		this.setSpeedY(gravitySpeedMultiplier(level,DEFAULT_SPEED_Y));
 
 		//spawn in middle 9/10 X of screen
 		final float xRand = (float) ( MainActivity.getWidthPixels()* .8 *Math.random() + MainActivity.getWidthPixels()*.1);
@@ -65,24 +68,28 @@ public class Gravity_MeteorView extends EnemyView{
 		removeGameObject();
 	}
 	
-	private static float gravitySpeedY(int difficulty){
-		float speedY = DEFAULT_SPEED_Y;
-		if (difficulty>0 && difficulty%2 == 0){
-			speedY *= XXSMALL_SCALING;
+	protected static float gravitySpeedMultiplier(int level,float defaultSpeed){
+		float speed = defaultSpeed;
+		if (level > AttributesOfLevels.LEVELS_LOW && (level/5)%2 == 0){
+			speed *= 1.05;
 		}
-		return speedY;
+		return speed;
 	}
 
 	public static int getSpawningProbabilityWeightOfMeteorShowers(int level) {
-		int probabilityWeight = Math.max(1, (int) (5 - (level/5)) );
+		//start at 1/3 giant meteor, decrease a little every 5 levels until equal to 1/5 giant meteor
+		//NOTE: Since there are 3 types of meteor waves (left, right, middle) the probability of any wave is 3x any individual weight
+		int probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 3.0 - 
+				(level/5) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/10.0);
+		
+		probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 5);
+		
 		return probabilityWeight;
 	}
 
 	public static int getSpawningProbabilityWeightOfGiantMeteors(int level) {
-		int probabilityWeight = 5;
-		if( (level/5) > 0){
-			probabilityWeight = 20 ;
-		}
+		//ITS THE GIANT METEOR! The standard for spawning probability weights
+		int probabilityWeight = AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR ; 
 		return probabilityWeight;
 	}
 }

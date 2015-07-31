@@ -7,10 +7,10 @@ import android.content.Context;
 public class Orbiter_Circle_SwitchDirectionOnHitView extends Orbiter_CircleView implements MovingViewInterface {
 	
 
-	public Orbiter_Circle_SwitchDirectionOnHitView(Context context,int score,float speedY,int collisionDamage, 
+	public Orbiter_Circle_SwitchDirectionOnHitView(Context context,int level,int score,float speedY,int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,int circleRadius,int angularVelocityInDegrees) {
-		super( context, score, speedY, collisionDamage, 
+		super( context, level,score, speedY, collisionDamage, 
 				 health, probSpawnBeneficialObjecyUponDeath,
 				 orbitPixelX, orbitPixelY, width, height, imageId,circleRadius, angularVelocityInDegrees);
 	}

@@ -4,6 +4,7 @@ import helpers.KillableRunnable;
 import helpers.SpawnableWave;
 import helpers.SpecialSpawnableLevel;
 import android.content.Context;
+import enemies.HorizontalMovement_FinalBoss;
 import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
@@ -18,11 +19,15 @@ public class LevelSpawner extends Factory_Bosses{
 	public LevelSpawner(Context context) {
 		super(context);
 		
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss5(), getMaxLevel()-1);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss4(), 24);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss3(), 14);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss2(), 9);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss1(), 4);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(
+				spawnEnemyWithDefaultConstructorArugments(
+						HorizontalMovement_FinalBoss.class,
+						HorizontalMovement_FinalBoss.getSpawningProbabilityWeight(getLevel()) )
+				, FIRST_LEVEL_BOSS5_APPEARS);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss4(), FIRST_LEVEL_BOSS4_APPEARS);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss3(), FIRST_LEVEL_BOSS3_APPEARS);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss2(), FIRST_LEVEL_BOSS2_APPEARS);
+		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss1(), FIRST_LEVEL_BOSS1_APPEARS);
 
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(lotsOfCircles(), 19);
 	}
@@ -32,7 +37,22 @@ public class LevelSpawner extends Factory_Bosses{
 	}
 	
 	private void initScoreNeededToEndLevel(){
-		scoreNeededToEndLevel = (int) (500 + 500 * Math.random() * getLevel() );
+		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
+			scoreNeededToEndLevel = (int) (500 + 500 * Math.random() * getLevel() );
+		}else if(getLevel() < AttributesOfLevels.LEVELS_LOW) {
+			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (int) (600 * Math.random() * (getLevel()-LEVELS_BEGINNER) );
+		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){
+			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (LEVELS_LOW-LEVELS_BEGINNER) * 600 
+					+ (int) (800 * Math.random() * (getLevel()-LEVELS_LOW) );	
+		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){
+			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (LEVELS_LOW-LEVELS_BEGINNER) * 600 
+					+(LEVELS_MED - LEVELS_LOW) * 800 +
+					+ (int) (900 * Math.random() * (getLevel()-LEVELS_MED) );	
+		}else{
+			scoreNeededToEndLevel = LEVELS_BEGINNER * 500 + (LEVELS_LOW-LEVELS_BEGINNER) * 600 
+					+(LEVELS_MED - LEVELS_LOW) * 800 + (LEVELS_HIGH-LEVELS_MED) * 900 +
+					+ (int) (1000 * Math.random() * (getLevel()-LEVELS_HIGH) );	
+		}
 	}
 	private boolean canSpawnMoreEnemies(){
 		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToEndLevel/6 && 
@@ -99,7 +119,7 @@ public class LevelSpawner extends Factory_Bosses{
 			boss2(),
 			boss3(),
 			boss4(),
-			boss5()
+			spawnEnemyWithDefaultConstructorArugments(HorizontalMovement_FinalBoss.class,HorizontalMovement_FinalBoss.getSpawningProbabilityWeight(getLevel()) )
 		};
 		
 		SpawnableWave.initializeSpawnableWaves(ALL_WAVES);

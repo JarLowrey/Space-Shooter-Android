@@ -20,12 +20,15 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	
-	public Shooting_HorizontalMovementView(Context context, int scoreForKilling,
+	public Shooting_HorizontalMovementView(Context context, 
+			int level,
+			int scoreForKilling,
 			float projectileSpeedY,
 			int projectileDamage, int projectileHealth,
 			float probSpawnBeneficialObject, 
 			int width, int height, int imageId) {
-		super(context, scoreForKilling, projectileSpeedY,0,
+		super(context, level,
+				scoreForKilling, projectileSpeedY,0,
 				projectileDamage, projectileHealth, probSpawnBeneficialObject, width,
 				height, imageId);
 
@@ -35,11 +38,6 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	private void init(int width){
 		this.setX((float) (MainActivity.getWidthPixels()/2 - width/2.0) );
 		this.setThreshold((int) MainActivity.getHeightPixels()/3);
-	}
-	
-	@Override
-	protected float getShootingFreq(){
-		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
 
 	@Override

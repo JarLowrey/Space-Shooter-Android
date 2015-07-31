@@ -1,11 +1,14 @@
 package enemies_orbiters;
 
 import android.content.Context;
+import bullets.Bullet_Basic_LaserShort;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
 import enemies.Enemy_ShooterView;
 import friendlies.ProtagonistView;
+import guns.Gun;
+import guns.Gun_SingleShotStraight;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
@@ -22,16 +25,17 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	protected int howManyTimesMoved;
 	protected int orbitY,orbitX;
 	
-	public Shooting_OrbiterView(Context context, int difficulty,
+	public Shooting_OrbiterView(Context context, 
+			int level,
 			int scoreForKilling, 
 			int width,int height,int imageId) {
-		super(context, 
+		super(context, level,
 				scoreForKilling, 
 				DEFAULT_SPEED_Y,
 				0, 
-				(int) scaledValue(DEFAULT_COLLISION_DAMAGE,difficulty,SMALL_SCALING), 
-				(int) scaledValue(DEFAULT_HEALTH,difficulty,SMALL_SCALING),
-				(int) scaledValue(DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,difficulty,SMALL_SCALING), 
+				DEFAULT_COLLISION_DAMAGE, 
+				DEFAULT_HEALTH,
+				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
 				width, height, imageId);
 
 		//attempt to randomly place ships on screen so they do not run off of screen (currently they do run off screen a bit)
@@ -40,11 +44,17 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		
 		this.setX(orbitX);
 		
+		init();
 	}
-	public Shooting_OrbiterView(Context context,int scoreForKilling,float speedY,int collisionDamage, 
+	public Shooting_OrbiterView(Context context,int level,
+			int scoreForKilling,
+			float speedY,
+			int collisionDamage, 
 			int health, 
-			float probSpawnBeneficialObjecyUponDeath,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
-		super(context, 
+			float probSpawnBeneficialObjecyUponDeath,
+			int orbitPixelX,int orbitPixelY,
+			int width,int height,int imageId) {
+		super(context, level,
 				scoreForKilling, 
 				speedY,
 				0, 
@@ -59,23 +69,26 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		
 		this.setX(orbitX);
 		
+		init();
 	}
 	
 	private void init(){
 
 		//set entity's position
-		int x = (int) (Math.random() * (MainActivity.getWidthPixels() - orbitLengthX() ));
-		int y = (int) (Math.random() * (MainActivity.getHeightPixels()/2 - orbitLengthY()));
-		setX(x);
+		int y = (int) -(getHeight()/2);
 		setThreshold(y);
+		
+		//add guns
+		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 3 * DEFAULT_BULLET_FREQ * Math.random());
+		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic_LaserShort(),
+				bulletFreq, 
+				DEFAULT_BULLET_SPEED_Y, 
+				DEFAULT_BULLET_DAMAGE,50);
+		this.addGun(defaultGun);
+		this.startShooting();
 	}
 	public void restartThreads(){
 		super.restartThreads();
-	}
-
-	@Override
-	public float getShootingFreq(){
-		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 	}
 	
 	protected abstract int orbitLengthX();

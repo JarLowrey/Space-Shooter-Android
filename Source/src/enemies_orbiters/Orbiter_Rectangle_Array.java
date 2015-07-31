@@ -2,6 +2,8 @@ package enemies_orbiters;
 
 import java.util.ArrayList;
 
+import levels.AttributesOfLevels;
+
 import android.content.Context;
 import android.view.ViewGroup;
 
@@ -18,8 +20,6 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 1.9);
 	
-	public final static boolean DEFAULT_STAGGERED=false;
-	
 	public final static float 
 			DEFAULT_SPEED_Y = 10,
 			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,
@@ -35,8 +35,8 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 
 	private int myPosition;
 	
-	public Orbiter_Rectangle_Array(Context context, int difficulty) {
-		super(context,difficulty);
+	public Orbiter_Rectangle_Array(Context context, int level) {
+		super(context,level);
 		
 		//change default background (parent has its own default background
 		ViewGroup.LayoutParams params = this.getLayoutParams();
@@ -44,7 +44,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		params.width = (int)context.getResources().getDimension(R.dimen.ship_array_shooter_width);
 		this.setLayoutParams(params);
 		this.setImageResource(DEFAULT_BACKGROUND);
-		this.setHealth( (int) scaledValue(DEFAULT_HEALTH,difficulty,SMALL_SCALING) );
+		this.setHealth( scaleHealth(level, DEFAULT_HEALTH) );
 
 
 		//find an open spot for this shooter to go
@@ -64,32 +64,21 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		this.setThreshold((int) (lowestPointOnScreen - myRowPixel - heightPadding));
 
 		// set col destination
-		final float staggeredMargin = getContext().getResources().getDimension(R.dimen.activity_margin_med);
 		final float shipXInterval = MainActivity.getWidthPixels()/ numCols;//divide the screen into number of columns
 		final float myColPos = myPosition % numCols;//find this ships column
 		float xPos = shipXInterval * myColPos ;//x position is columInterval * this ships column. Here some left margin is also added
-		if (difficulty > 2 && myRow % 2 == 1) {//stagger the ship positions
-			xPos += staggeredMargin / 2;
+		if(level > AttributesOfLevels.LEVELS_LOW){//stagger the ship positions
+			final float staggeredMargin = getContext().getResources().getDimension(R.dimen.activity_margin_med);
+			if (myRow % 2 == 1) {
+				xPos += staggeredMargin / 2;
+			}
 		}
 		this.setX(xPos);
 
 		allSimpleShooters.add(this);
 	}
 
-	@Override
-	public float getShootingFreq(){
-		return (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
-	}
-
-	/**
-	 * Use defaults
-	 * Can only spawn an array if all shooters from previous array are dead
-	 * @param ctx
-	 * @param numberRows
-	 * @param numberCols
-	 * @param isStaggered
-	 */
-	public static void refreshSimpleShooterArray(Context ctx, int difficulty){
+	public static void refreshSimpleShooterArray(Context ctx, int level){
 		if(allSimpleShooters==null || allSimpleShooters.size()==0){
 			numRows=DEFAULT_NUM_ROWS;
 			numCols=DEFAULT_NUM_COLS;
@@ -98,7 +87,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			allSimpleShooters = new ArrayList<Orbiter_Rectangle_Array>();
 			
 			for(int i=allSimpleShooters.size();i<getMaxNumShips();i++){
-				new Orbiter_Rectangle_Array(ctx,difficulty);
+				new Orbiter_Rectangle_Array(ctx,level);
 			}
 			
 		}
@@ -136,10 +125,15 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
+		
 		if(Orbiter_Rectangle_Array.allSimpleShooters.size() < Orbiter_Rectangle_Array.getMaxNumShips()/4){//only refresh if a few left
-			if( (level/5) > 0){
-				probabilityWeight = 30-(level/5) * 3;
-				probabilityWeight = Math.max(probabilityWeight, 5);//always have non-zero probability
+			//start at 1/4 giant meteor, decrease a little every 10 levels until equal to 1/8 giant meteor
+			//NOTE: This has a relatively low probability as it spawns so many enemies that last for a long time and take up a lot of the screen
+			if(level > AttributesOfLevels.LEVELS_BEGINNER){
+				probabilityWeight = (int) (AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 4.0 - 
+						(level/10) * AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR/10.0);
+				
+				probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.WEIGHT_PROBABILITY_GIANT_METEOR / 8);
 			}
 		}
 		
