@@ -64,9 +64,9 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 		
 		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS1_APPEARS){
 			probabilityWeight = (int) (Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) / 2 + 
-					(level/10) * Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level)/2.0);
+					(level/10) * Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) / 10);
 			
-			probabilityWeight = (int) Math.min(probabilityWeight, Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) * 2 );
+			probabilityWeight = (int) Math.min(probabilityWeight, Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) * .9 );
 		}
 		
 		return probabilityWeight;
@@ -74,21 +74,21 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 
 	public static int getSpawningProbabilityWeightForBoss2(int level) {	
 		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS2_APPEARS){
-			return getSpawningProbabilityWeightForBoss1(level) / 7;
+			return getSpawningProbabilityWeightForBoss1(level) / 5;
 		}
 		return 0;
 	}
 
 	public static int getSpawningProbabilityWeightForBoss3(int level) {		
 		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS3_APPEARS){
-			return getSpawningProbabilityWeightForBoss1(level) / 15;
+			return getSpawningProbabilityWeightForBoss1(level) / 10;
 		}
 		return 0;
 	}
 
 	public static int getSpawningProbabilityWeightForBoss4(int level) {	
 		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS4_APPEARS){
-			return getSpawningProbabilityWeightForBoss1(level) / 20;
+			return getSpawningProbabilityWeightForBoss1(level) / 15;
 		}
 		return 0;
 	}

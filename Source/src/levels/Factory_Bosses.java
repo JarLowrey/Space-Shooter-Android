@@ -37,7 +37,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			@Override
 			public void doWork() {
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,getLevel(),
-						1000,//score
+						900,//score
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE * 43,
@@ -75,7 +75,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,1500,getLevel(),
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(ctx,
+						1600,
+						getLevel(),
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE * 64,

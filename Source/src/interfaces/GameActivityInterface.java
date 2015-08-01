@@ -8,12 +8,12 @@ public interface GameActivityInterface {
 	public void openStore();
 	public void lostGame();
 	public void beatGame();
-	public void setHealthBars(int max,int progress);
+	public void setHealthBars();
 	public void setScore(int score);
 	public void incrementScore(int score); 
 	public ProtagonistView getProtagonist();
 	
-//	public void changeGameBackground(int newBackgroundId); 
+	public void resetResourcesTextView();
 	public void removeView(ImageView view);
 	public void addToForeground(ImageView view);
 	public void addToBackground(ImageView view);

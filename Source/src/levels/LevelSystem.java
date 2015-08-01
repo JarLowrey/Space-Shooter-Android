@@ -121,17 +121,21 @@ public class LevelSystem extends LevelSpawner{
 
 		editor.commit();
 
-		/* kill Views. Friendly still needed and enemies already removed. Thus
-		 remove friendly bullets and background objects to
-		 clean up the screen. enemies, enemy bullets, and bonuses must all already be removed for
-		 level to end (see collision detector)
+		boolean lostGame = getInteractivityInterface().getProtagonist().getHealth() <= 0;//check this before protagonist is removed
+		
+		/* kill Views. Level won't end until enemies, enemyBullets, and bonuses are already removed (see collision detector). 
+		 * Thus just remove friendlies and friendly bullets and whatever else to
+		 * clean up the screen.
 		 */
 		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
 			friendlyBullets.get(i).removeGameObject();
 		}
+		for (int i = friendlies.size() - 1; i >= 0; i--) {
+			friendlies.get(i).removeGameObject();
+		}
 
 		//check if user has lost game, beaten game, or beaten the level. 
-		if(getInteractivityInterface().getProtagonist().getHealth() <= 0 ){
+		if( lostGame ){
 			getInteractivityInterface().lostGame();
 		}else if( getLevel() == getMaxLevel() ){
 			getInteractivityInterface().beatGame(); 

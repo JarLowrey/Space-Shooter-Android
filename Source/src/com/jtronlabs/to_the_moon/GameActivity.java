@@ -1,10 +1,10 @@
 package com.jtronlabs.to_the_moon;
 
-import enemies.EnemyView;
 import friendlies.AllyView;
 import friendlies.ProtagonistView;
 import helpers.KillableRunnable;
 import helpers.MediaController;
+import helpers.StoreUpgradeHandler;
 import interfaces.GameActivityInterface;
 
 import java.text.NumberFormat;
@@ -98,7 +98,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBarStore = (ProgressBar)findViewById(R.id.health_bar_store);//technically this is in store
-		setHealthBars((int) ProtagonistView.DEFAULT_HEALTH,(int) ProtagonistView.DEFAULT_HEALTH);
+		setHealthBars();
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
 		
 		//set up Store View and listeners
@@ -192,21 +192,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}
 				
 		levelCreator.loadScoreAndLevel();//need to reload variables first thing
-		
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
-		
-		//create protagonist View & restore his state
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
-		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
-		protagonist.setY( protagonistPosition );
-		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
-		
 
 		scoreInGame.setText(levelCreator.getResourceCount()+"");
 		adView.resume();
 		
 		//don't open the store up on the initial level
 		if(levelCreator.getLevel()==0){
+			createNewProtagonistView();
 			levelCreator.resumeLevel(this);
 		}else{
 			openStore();
@@ -308,7 +300,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		editor.commit();
 	} 
 	
-	public void openStore(){
+	public void openStore(){		
 		MediaController.stopLoopingSound();
 		MediaController.playSoundClip(this, R.raw.background_store, true);
 		
@@ -316,13 +308,14 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		storeLayout.setVisibility(View.VISIBLE);
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getResourceCount()));
 		levelCount.setText("Days In Space : "+ levelCreator.getLevel() );
-		setHealthBars(protagonist.getMaxHealth(),protagonist.getHealth() ); 	
+		setHealthBars( ); 	
 	}
 	
 	private void closeStoreAndResumeLevel(){		
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 
+		createNewProtagonistView();
 		levelCreator.resumeLevel(this);
 		
 		//create ally if needed		
@@ -396,25 +389,25 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 						public void doWork() {	
 							canBeginShooting=true;beginShootingRunnablePosted=false;	
 						}	
-					},(long)protagonist.getShootingDelay() );
+					},(long)ProtagonistView.getShootingDelay(this) );
 					beginShootingRunnablePosted=true;
 				}
 			}else if(v.getId() == R.id.btn_heal){
-				confirmUpgradeDialog(ProtagonistView.UPGRADE_HEAL); 
+				StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_HEAL, this, levelCreator); 
 			}else if(v.getId() == R.id.btn_inc_bullet_dmg){
-				confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_DAMAGE);	
+				StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_BULLET_DAMAGE, this, levelCreator);	
 			}else if(v.getId() == R.id.btn_inc_bullet_freq){
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_FREQ);
+					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_BULLET_FREQ, this, levelCreator);
 			}else if(v.getId() == R.id.btn_inc_defence){
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_DEFENCE);
+					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_DEFENCE, this, levelCreator);
 			}else if(v.getId() == R.id.btn_inc_score_weight){
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_SCORE_MULTIPLIER);
+					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_SCORE_MULTIPLIER, this, levelCreator);
 			}else if(v.getId() == R.id.btn_new_gun){
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_GUN);	
+					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_GUN, this, levelCreator);	
 			}else if(v.getId() == R.id.btn_purchase_friend){
-					confirmUpgradeDialog(ProtagonistView.UPGRADE_FRIEND);
+					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_FRIEND, this, levelCreator);
 			}else if(v.getId() == R.id.start_next_level){
-					if(protagonist.getGunLevel() < 0){
+					if(StoreUpgradeHandler.getGunLevel(this) < 0){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
 							new AlertDialog.Builder(this)
@@ -484,123 +477,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			}
 		return null;
 		}
-
-	private void confirmUpgradeDialog(final int whichUpgrade){
-		String msg="",title="";
-		int cost=0;
-		boolean maxLevelItem=false;
-		final String maxMsg = "Maximum upgrade attained";
-
-		SharedPreferences gameState = this.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-	
-		switch(whichUpgrade){
-		case ProtagonistView.UPGRADE_BULLET_DAMAGE:
-			title = "Damage";
-			cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) 
-					* Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
-			msg = this.getResources().getString(R.string.upgrade_bullet_damage);
-			final int damageScalingFactor = protagonist.getBulletDamage()/ProtagonistView.DEFAULT_BULLET_DAMAGE;
-			if( damageScalingFactor == EnemyView.MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR){
-				msg = maxMsg;
-				maxLevelItem = true;
-			}
-			break;
-		case ProtagonistView.UPGRADE_DEFENCE:
-			title = "Defence";
-			cost = (int) (this.getResources().getInteger(R.integer.inc_defence_base_cost) 
-					* Math.pow((protagonist.getDefenceLevel()+1),2)) ;
-			msg=this.getResources().getString(R.string.upgrade_defence);
-			break;
-		case ProtagonistView.UPGRADE_BULLET_FREQ:
-			title = "Fire Rate";
-			cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) 
-					* Math.pow((protagonist.getBulletBulletFreqLevel()+1),2)) ;
-			msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
-			if(protagonist.getShootingDelay() == ProtagonistView.MIN_SHOOTING_FREQ){
-				msg = maxMsg;
-				maxLevelItem = true;
-			}
-			break;
-		case ProtagonistView.UPGRADE_GUN:
-			title = "Ship Blaster";
-			cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()+1] ;
-			msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()+1];
-			break;
-		case ProtagonistView.UPGRADE_FRIEND:
-			title = "Ally";
-			int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
-			if(friendLvl < AllyView.MAX_ALLY_LEVEL){
-				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
-				if(friendLvl < 1){
-					msg=this.getResources().getString(R.string.upgrade_buy_friend);					
-				}else{
-					msg=this.getResources().getString(R.string.upgrade_friend_level);					
-				}
-			}else{
-				maxLevelItem=true;
-				msg = maxMsg;
-			}
-			break;
-		case ProtagonistView.UPGRADE_SCORE_MULTIPLIER:
-			title = "Resources";
-			cost = (int) (this.getResources().getInteger(R.integer.score_multiplier_base_cost) * 
-				Math.pow(5, gameState.getInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0))) ;
-			msg=this.getResources().getString(R.string.upgrade_score_multiplier);
-			break;
-		case ProtagonistView.UPGRADE_HEAL:
-			title = "Repair";
-			if(protagonist.getHealth() == protagonist.getMaxHealth()){
-				maxLevelItem=true;
-				msg="Ship fully repaired";
-			}else{
-				final double proportionHealthLeft = ((double)(protagonist.getMaxHealth() - protagonist.getHealth() ) ) / protagonist.getMaxHealth();
-				cost = 	(int) ( proportionHealthLeft * 
-						this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel())) ;
-				cost = Math.min(cost, getResources().getInteger(R.integer.heal_max_cost));
-				msg = this.getResources().getString(R.string.upgrade_heal);					
-			}
-			break;
-		}
-		if(!maxLevelItem){
-			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
-		}
-		
-		AlertDialog.Builder confirmStoreChoice = new AlertDialog.Builder(this)
-				    .setTitle( title ) 
-				    .setMessage( msg );
-		
-		if(maxLevelItem){
-			confirmStoreChoice.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
-		     });
-		}else{
-			final int costCopy=cost;
-			
-			confirmStoreChoice.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
-		     })
-		    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int which) { 
-	        		if(costCopy<=levelCreator.getResourceCount()){
-	        			MediaController.playSoundEffect(GameActivity.this, MediaController.SOUND_COINS);
-		        		protagonist.applyUpgrade(whichUpgrade);
-		        		
-		        		//update Views in the store
-		        		levelCreator.setResources(levelCreator.getResourceCount()-costCopy);
-		        		levelCreator.saveResourceCount();  
-		    			resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getResourceCount()));
-		    			setHealthBars(protagonist.getMaxHealth(),protagonist.getHealth() );
-		    			Toast.makeText(getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();       			
-	        		}else{
-	        			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
-	        		}
-	        		dialog.cancel();
-		        }
-		     });
-			
-		}
-	    confirmStoreChoice.show();
-	}
 	
 	
 	@Override
@@ -608,7 +484,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		return this.protagonist;
 	}
 	@Override
-	public void setHealthBars(int max, int progress){
+	public void setHealthBars(){
+		final int max = ProtagonistView.getProtagonistMaxHealth(this);
+		final int progress = (protagonist == null || protagonist.isRemoved()) ? ProtagonistView.getProtagonistCurrentHealth(this) 
+				: protagonist.getHealth();
+		
 		healthBar.setMax(max);
 		healthBar.setProgress(progress);
 		healthBarStore.setMax(max);
@@ -682,5 +562,20 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
  
 		// Load ad request into Adview
 		adView.loadAd(adRequest);	
+	}
+	
+	private void createNewProtagonistView(){
+		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		
+		//create protagonist View & restore his state
+		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		protagonist.setY( protagonistPosition );
+		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
+	}
+
+	@Override
+	public void resetResourcesTextView() {
+		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getResourceCount()));		
 	}
 }
