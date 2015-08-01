@@ -47,8 +47,8 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		public boolean takeDamage(int howMuchDamage){ 
 			boolean isDead = super.takeDamage(howMuchDamage);
 			
-			if(isDead){
-				final long vibrationPattern[] = {0,25};
+			if(isDead){ 
+				final long vibrationPattern[] = {0,40};
 				createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibrationPattern);
 			}
 			
