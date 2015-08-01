@@ -1,5 +1,6 @@
 package com.jtronlabs.to_the_moon;
 
+import enemies.EnemyView;
 import friendlies.AllyView;
 import friendlies.ProtagonistView;
 import helpers.KillableRunnable;
@@ -497,7 +498,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			title = "Damage";
 			cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) 
 					* Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
-			msg=this.getResources().getString(R.string.upgrade_bullet_damage);
+			msg = this.getResources().getString(R.string.upgrade_bullet_damage);
+			final int damageScalingFactor = protagonist.getBulletDamage()/ProtagonistView.DEFAULT_BULLET_DAMAGE;
+			if( damageScalingFactor == EnemyView.MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR){
+				msg = maxMsg;
+				maxLevelItem = true;
+			}
 			break;
 		case ProtagonistView.UPGRADE_DEFENCE:
 			title = "Defence";
@@ -541,7 +547,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			title = "Repair";
 			if(protagonist.getHealth() == protagonist.getMaxHealth()){
 				maxLevelItem=true;
-				msg="Ship fully healed";
+				msg="Ship fully repaired";
 			}else{
 				cost = 	(int) (( (double)protagonist.getHealth() ) / protagonist.getMaxHealth() * 
 						this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel())) ;

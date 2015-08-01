@@ -1,5 +1,6 @@
 package friendlies;
 
+import enemies.EnemyView;
 import guns.Gun;
 import guns.Gun_AngledDualShot;
 import guns.Gun_SingleShotStraight;
@@ -196,6 +197,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 		final float freq = DEFAULT_BULLET_FREQ - getBulletBulletFreqLevel() * BULLET_FREQ_UPGRADE_WEIGHT;
 		return Math.max(freq, MIN_SHOOTING_FREQ);
 	}
+	public int getBulletDamage(){
+		final int dmg =  (int) (DEFAULT_BULLET_DAMAGE * 1.25 * getBulletDamageLevel() );
+		return Math.min(dmg, DEFAULT_BULLET_DAMAGE * EnemyView.MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR);
+	}
+	
 	public int getGunLevel(){ 
 		return gameState.getInt(GameActivity.STATE_GUN_CONFIG,-1);
 	}
@@ -235,7 +241,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public void createProtagonistGunSet(){
 		this.removeAllGuns();
 
-		final int dmg = (int) (DEFAULT_BULLET_DAMAGE * Math.pow(1.25, getBulletDamageLevel() ) );
+		final int dmg = getBulletDamage();
 		final float freq = getShootingDelay();
 		final float bulletSpeed = Bullet_Interface.DEFAULT_BULLET_SPEED_Y * BULLET_SPEED_MULTIPLIER;
 		

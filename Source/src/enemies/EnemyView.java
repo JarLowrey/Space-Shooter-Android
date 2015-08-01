@@ -9,7 +9,8 @@ import bonuses.BonusView;
 
 public abstract class EnemyView extends Projectile_GravityView{
 	
-	//TODO Enemies that dodge (move away) from nearby friendly's bullets ? 
+	//TODO Enemies that dodge (move away) from nearby friendly's bullets ?
+	public static final int MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR = 3;
 	public static int numSpawn=0,numRemoved=0;
 	private int score;
 	private double probSpawnBeneficialObject;
@@ -88,11 +89,11 @@ public abstract class EnemyView extends Projectile_GravityView{
 		if(level < AttributesOfLevels.LEVELS_LOW) {
 			value = defaultHealth;
 		}else if(level < AttributesOfLevels.LEVELS_MED){
-			value = (int) (defaultHealth * 1.4 );			
+			value = (int) (defaultHealth * MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR/2.1 );			
 		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (int) (defaultHealth * 2 );			
+			value = (int) (defaultHealth * MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR/1.3 );			
 		}else{
-			value = (int) (defaultHealth * 3 );			
+			value = (int) (defaultHealth * MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR * 1.3 );			
 		}
 		
 		return value;

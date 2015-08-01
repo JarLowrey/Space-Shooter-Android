@@ -88,7 +88,7 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	}
 
 	public static int getSpawningProbabilityWeightForBoss4(int level) {	
-		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS3_APPEARS){
+		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS4_APPEARS){
 			return getSpawningProbabilityWeightForBoss1(level) / 20;
 		}
 		return 0;
