@@ -69,7 +69,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private RelativeLayout gameLayout,storeLayout;
 	private AdView adView;
 	
-	private boolean beatGame;//these variables are only used to create the sharing message after the game has been beaten/lost.
+	private boolean beatGame,
+		isGameOver ;
 	private int scoreAtGameOver,levelAtGameOver;
    
 	//MODEL     
@@ -135,6 +136,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		//set up the game
 		levelCreator = new LevelSystem(this);
+		isGameOver = false;
 		
 		//onResume() is called after onCreate, so needed setup is done there
 		
@@ -197,7 +199,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		adView.resume();
 		
 		//don't open the store up on the initial level
-		if(levelCreator.getLevel()==0){
+		if(isGameOver){
+			/*
+			 * do nothing. Game over layout should be up. If game is left open on GameOverLayout the onDestroy() method may be
+			 * called, thus resetting everything and leading to onCreate being called again. isGameOver will be set to false and
+			 * this if statement will be skipped.
+			*/
+		}else if(levelCreator.getLevel()==0){
 			createNewProtagonistView();
 			levelCreator.resumeLevel(this);
 		}else{
@@ -241,11 +249,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	private void gameOver(String title,String msg,int level, int score){
+		isGameOver = true;
 		MediaController.stopLoopingSound();
 		
 		KillableRunnable.killAll(); 
 		levelCreator.pauseLevel(); 
-		resetSavedVariables();
+		gameOverAndResetSavedVariables();
 		
 		//set text
 		RelativeLayout gameOverLayout = (RelativeLayout)findViewById(R.id.gameOverWindow);
@@ -280,7 +289,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	/**
 	 * All persistent variables set to default values
 	 */
-	private void resetSavedVariables(){
+	private void gameOverAndResetSavedVariables(){
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 		
