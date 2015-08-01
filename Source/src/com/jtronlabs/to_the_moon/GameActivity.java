@@ -216,7 +216,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public void lostGame(){ 		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel();   
-		gameOver("GAME OVER","",levelCreator.getLevel()-1,score );
+		gameOver("GAME OVER","WELL DONE EARTHLING",levelCreator.getLevel()-1,score );
 
 		MediaController.playSoundClip(this, R.raw.jingle_lose, false);
 		
