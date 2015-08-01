@@ -549,7 +549,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				maxLevelItem=true;
 				msg="Ship fully repaired";
 			}else{
-				cost = 	(int) (( (double)protagonist.getHealth() ) / protagonist.getMaxHealth() * 
+				final double proportionHealthLeft = ((double)(protagonist.getMaxHealth() - protagonist.getHealth() ) ) / protagonist.getMaxHealth();
+				cost = 	(int) ( proportionHealthLeft * 
 						this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel())) ;
 				cost = Math.min(cost, getResources().getInteger(R.integer.heal_max_cost));
 				msg = this.getResources().getString(R.string.upgrade_heal);					
