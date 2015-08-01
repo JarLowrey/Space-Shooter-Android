@@ -67,7 +67,7 @@ public class CollisionDetector {
 //		    		try{
 			    		BonusView bonus = LevelSystem.bonuses.get(i);
 			    		if( /*! bonus.isRemoved() &&*/ friendly.RectToRectCollisionDetection(bonus)){//game object could be removed in previous loop iteration
-			    			bonus.applyBenefit(friendlyShooter);
+			    			bonus.applyBenefit();
 			    			bonus.removeGameObject();
 			    		}
 //		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}

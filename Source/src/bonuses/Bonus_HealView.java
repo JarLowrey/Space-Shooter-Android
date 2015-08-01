@@ -1,8 +1,9 @@
 package bonuses;
  
+import friendlies.ProtagonistView;
 import helpers.MediaController;
+import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
-import interfaces.Shooter;
 import android.content.Context;
 
 import com.jtronlabs.to_the_moon.R;
@@ -15,15 +16,17 @@ public class Bonus_HealView extends BonusView implements MovingViewInterface{
 		this.setImageResource(R.drawable.heal);
 	}
 	
-	public void applyBenefit(Shooter theBenefitter){
+	public void applyBenefit(){
 		MediaController.playSoundEffect(getContext(), MediaController.SOUND_BONUS);
 		
-		final int amtToHeal = theBenefitter.getMaxHealth()/6;
+		ProtagonistView protag = ((GameActivityInterface) this.getContext()).getProtagonist();
 		
-		if(theBenefitter.getHealth()+amtToHeal<theBenefitter.getMaxHealth()){
-			theBenefitter.heal(amtToHeal);
+		final int amtToHeal = protag.getMaxHealth()/6;
+		
+		if(protag.getHealth()+amtToHeal<protag.getMaxHealth()){
+			protag.heal(amtToHeal);
 		}else{
-			theBenefitter.heal(theBenefitter.getMaxHealth()-theBenefitter.getHealth());
+			protag.heal(protag.getMaxHealth()-protag.getHealth());
 		}
 			
 	}

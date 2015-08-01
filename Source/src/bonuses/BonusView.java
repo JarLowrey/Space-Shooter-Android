@@ -21,7 +21,11 @@ public abstract class BonusView extends MovingView {
 		//add to collision detector
 		LevelSystem.bonuses.add(this);
 	}
-	public abstract void applyBenefit(Shooter theBenefitter);
+	
+	/**
+	 * Bonus has been picked up by protagonist or his ally. Apply benefit to protagonist.
+	 */
+	public abstract void applyBenefit();
 	
 	@Override
 	public void removeGameObject(){		

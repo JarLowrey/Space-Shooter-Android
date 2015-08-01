@@ -12,7 +12,7 @@ public class Bonus_InvincibleShieldView extends BonusView implements MovingViewI
 //		this.setImageResource(R.drawable.XXXXXXXXX);
 	}
 	
-	public void applyBenefit(Shooter theBenefitter){
+	public void applyBenefit(){
 		//TODO add a shield image around the protagonist
 		//TODO neglect the next X shots of damage that hit the player
 	}

@@ -16,7 +16,7 @@ public class Bonus_ScoreView extends BonusView implements MovingViewInterface{
 		this.setImageResource(R.drawable.resources);
 	}
 	
-	public void applyBenefit(Shooter theBenefitter){
+	public void applyBenefit(){
 		MediaController.playSoundEffect(getContext(), MediaController.SOUND_BONUS);
 		
 		((GameActivityInterface) this.getContext()).incrementScore(1000);
