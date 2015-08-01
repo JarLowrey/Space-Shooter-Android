@@ -1,14 +1,10 @@
 package enemies_orbiters;
 
-import guns.Gun;
-import guns.Gun_SingleShotStraight;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
 import android.content.Context;
-import bullets.Bullet_Basic;
-import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -53,22 +49,6 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
 		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
-		
-		float freq = (float) (DEFAULT_BULLET_FREQ + 3 * DEFAULT_BULLET_FREQ * Math.random());
-		this.removeAllGuns();
-		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-				R.drawable.bullet_laser_rectangular_red),
-				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
-		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-				R.drawable.bullet_laser_rectangular_red),
-				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
-		this.addGun(g1);
-		this.addGun(g2);
-		this.startShooting();
 	}
 
 

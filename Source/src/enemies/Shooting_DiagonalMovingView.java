@@ -118,7 +118,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	public static int getSpawningProbabilityWeight(int level) {
 		//start at 2x giant meteor, increate a little every 12 levels until equal to 4 * giant meteor
 		int probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT * 2 + 
-				(level/12) * AttributesOfLevels.STANDARD_PROB_WEIGHT / 2);
+				(level/8) * AttributesOfLevels.STANDARD_PROB_WEIGHT / 2);
 		
 		probabilityWeight = Math.min(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT *3);
 		

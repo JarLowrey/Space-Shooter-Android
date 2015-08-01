@@ -16,7 +16,7 @@ public class SpawnableWave {
 		r = runnableToSpawn;
 		time = howLongUntilCanSpawnAgain;
 		spawningWeight= spawningProbabilityWeight;
-	}
+	} 
 	
 	public static void initializeSpawnableWaves(SpawnableWave[] allSpawnableWaves){
 		allWaves = new ArrayList<SpawnableWave>(Arrays.asList(allSpawnableWaves));

@@ -27,7 +27,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		super(context,level,
 				DEFAULT_SCORE,
 				DEFAULT_SPEED_Y,
-				DEFAULT_SPEED_X,
+				0,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
@@ -81,7 +81,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		int probabilityWeight = 0;
 		if(level > AttributesOfLevels.LEVELS_LOW){
 			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3 + 
-					(level/5) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
+					(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
 			
 			probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.STANDARD_PROB_WEIGHT);
 		}

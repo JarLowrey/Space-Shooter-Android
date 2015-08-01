@@ -19,14 +19,16 @@
 	    <dimen name="ship_tracker_height">32dp</dimen>
 	    <dimen name="ship_tracker_width">36.7057dp</dimen>
 	    
-	    <dimen name="ship_orbit_rectangular_width">40dp</dimen>
-	    <dimen name="ship_orbit_rectangular_height">34dp</dimen>
+	    <dimen name="ship_orbit_rectangular_width">44dp</dimen>
+	    <dimen name="ship_orbit_rectangular_height">37.4dp</dimen>
 	    <dimen name="ship_orbit_circular_width">45dp</dimen>
 	    <dimen name="ship_orbit_circular_height">40dp</dimen>
-	    <dimen name="ship_orbit_triangular_width">45dp</dimen>
-	    <dimen name="ship_orbit_triangular_height">34.875dp</dimen>
+	    <dimen name="ship_orbit_triangular_width">49.5dp</dimen>
+	    <dimen name="ship_orbit_triangular_height">38.3625dp</dimen>
+	    <!-- 
 	    <dimen name="ship_orbit_horizontal_width">41dp</dimen>
 	    <dimen name="ship_orbit_horizontal_height">50dp</dimen>
+	    -->
 	    
 	    <dimen name="meteor_length">27dp</dimen>
 	    <dimen name="meteor_giant_length">76dp</dimen>

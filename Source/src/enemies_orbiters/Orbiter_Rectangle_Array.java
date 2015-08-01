@@ -3,14 +3,18 @@ package enemies_orbiters;
 import java.util.ArrayList;
 
 import levels.AttributesOfLevels;
-
 import android.content.Context;
 import android.view.ViewGroup;
+import bullets.Bullet_Basic;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import enemies.Enemy_ShooterView;
 import friendlies.ProtagonistView;
+import guns.Gun;
+import guns.Gun_SingleShotStraight;
 
 public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 
@@ -18,7 +22,8 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			DEFAULT_NUM_COLS=5, //6
 			DEFAULT_SCORE = 50,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_array_shooter,
-			DEFAULT_HEALTH=(int) ( ProtagonistView.DEFAULT_BULLET_DAMAGE * 3.5 );
+			DEFAULT_HEALTH=(int) ( ProtagonistView.DEFAULT_BULLET_DAMAGE * 3.5 ),
+			DEFAULT_BULLET_DAMAGE = Enemy_ShooterView.DEFAULT_BULLET_DAMAGE;
 	
 	public final static float 
 			DEFAULT_SPEED_Y = 10,
@@ -76,6 +81,20 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		this.setX(xPos);
 
 		allSimpleShooters.add(this);
+		
+		//add guns
+		removeAllGuns();
+		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ*1.5 + 3 * DEFAULT_BULLET_FREQ * Math.random());
+		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, 
+				new Bullet_Basic(
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
+				R.drawable.bullet_laser_round_red),
+				bulletFreq, 
+				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+				DEFAULT_BULLET_DAMAGE,50);
+		this.addGun(defaultGun);
+		this.startShooting();
 	}
 
 	public static void refreshSimpleShooterArray(Context ctx, int level){

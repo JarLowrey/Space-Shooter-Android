@@ -3,6 +3,7 @@ package enemies_orbiters;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
+import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 
@@ -11,9 +12,10 @@ import com.jtronlabs.to_the_moon.R;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface {
 	
-	public static final int DEFAULT_ANGULAR_VELOCITY=2, 
+	public static final int DEFAULT_ANGULAR_VELOCITY=3, 
 			MAX_ANGULAR_VELOCITY = 30, 
-			MAX_RADIUS=200,
+			MAX_RADIUS = (int) (100  * MainActivity.getScreenDens()),
+			MIN_RADIUS = (int) (20  * MainActivity.getScreenDens()),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
 	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels());
 	
@@ -31,6 +33,8 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		final int width=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
 		final int height=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
 		radius = Math.random() * ( MainActivity.getWidthPixels()-width) / 2 ;
+		radius = Math.max(radius,MIN_RADIUS);
+		radius = Math.min(radius,MAX_RADIUS);
 		angularVelocity=DEFAULT_ANGULAR_VELOCITY;
 		
 		init(width,height);
@@ -57,13 +61,12 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		
 		//ensure radius and angular velocity are within bounds
 		if(Math.abs(angularVelocity)>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
-		final int maxRadiusX = (int) (MainActivity.getWidthPixels()/2 - width/2 );
-		final int maxRadiusY = (int) (MainActivity.getHeightPixels()/2 - height/2 );//this could still hit protagonist, needs to be further limited or not worried about (as X will always be smaller than Y)
-		final int maxRadius = (maxRadiusX>maxRadiusY) ? maxRadiusY : maxRadiusX;//choose the smaller of the x and y
-		if(Math.abs(radius)>maxRadius){radius = maxRadius;}
+		radius = Math.max(radius,MIN_RADIUS);
+		radius = Math.min(radius,MAX_RADIUS);		
 		howManyTimesMoved=0; 
 		
-		this.setThreshold((int) (orbitY - radius));//begin orbit at top of circle
+		//begin orbit at top of circle
+		this.setThreshold((int) (orbitY - radius));
 		this.setX(orbitX-width/2);
 	}
 	
@@ -103,4 +106,13 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		return (int) radius;
 	}
 
+	public static int getSpawningProbabilityWeight(int level) {
+		int probabilityWeight = 0;
+		
+		if(level > AttributesOfLevels.FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR){
+			probabilityWeight = Shooting_OrbiterView.getSpawningProbabilityWeight(level);
+		}
+		
+		return probabilityWeight;
+	}
 }
