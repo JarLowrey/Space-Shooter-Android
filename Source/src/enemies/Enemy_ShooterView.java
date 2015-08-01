@@ -39,12 +39,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		 */
 		@Override
 		public void removeGameObject(){
-			stopShooting();			
-			myBullets=new ArrayList<BulletView>();
-			for(Gun gun : myGuns){
-				gun.destroyGun();
-			}
-			myGuns=new ArrayList<Gun>();
+			removeAllGuns();
 			
 			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks		
 		}
@@ -53,7 +48,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			boolean isDead = super.takeDamage(howMuchDamage);
 			
 			if(isDead){
-				final long vibrationPattern[] = {0,50};
+				final long vibrationPattern[] = {0,25};
 				createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibrationPattern);
 			}
 			

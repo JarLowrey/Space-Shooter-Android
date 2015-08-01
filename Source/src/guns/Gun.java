@@ -95,12 +95,5 @@ public abstract class Gun {
 		bulletDamage = newDamage;
 	}
 	
-	public void destroyGun(){//what needs to be done to kill the guns?
-//		myBulletType.removeBulletType();
-//		ctx=null;
-//		shooter=null;
-//		myBulletType=null;
-//		
-	}
 
 }

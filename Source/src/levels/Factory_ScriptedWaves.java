@@ -24,6 +24,8 @@ import enemies_tracking.Shooting_TrackingView;
 
 public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		
+	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 5000;
+	
 	public Factory_ScriptedWaves(Context context) { 
 		super(context);
 	}
@@ -51,7 +53,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			}
 		}; 
 
-		return new SpawnableWave(r,5000,Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
+		return new SpawnableWave(r,WAIT_TIME_AFTER_METEOR_WAVE / 2,// half as tall as the other 2 meteor waves
+				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
 	}
 	final SpawnableWave meteorShowersThatForceUserToRight(){
 		KillableRunnable r = new KillableRunnable(){
@@ -64,7 +67,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			}
 		};
 
-		return new SpawnableWave(r,5000,Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
+		return new SpawnableWave(r,WAIT_TIME_AFTER_METEOR_WAVE,
+				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
 	}
 	final SpawnableWave meteorShowersThatForceUserToLeft(){
 		KillableRunnable r = new KillableRunnable(){
@@ -77,7 +81,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			}
 		};
 
-		return new SpawnableWave(r,5000,Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
+		return new SpawnableWave(r,WAIT_TIME_AFTER_METEOR_WAVE,
+				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
 	}	
 	//array shooter waves
 	final SpawnableWave refreshArrayShooters(){

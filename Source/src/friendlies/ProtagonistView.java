@@ -1,8 +1,6 @@
 package friendlies;
 
 import guns.Gun;
-import guns.Gun_AngledDualShot;
-import guns.Gun_SingleShotStraight;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import helpers.MediaController;
@@ -11,8 +9,6 @@ import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
-import bullets.Bullet_Basic;
-import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -48,7 +44,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		restartThreads();
 
 		//apply upgrades
-		createProtagonistGunSet();
+		StoreUpgradeHandler.createProtagonistGunSet(this);
 		this.setHealth( getProtagonistMaxHealth(getContext()) );
 		this.killMoveRunnable();//stop him from automatically moving at spawn
 	}
@@ -141,7 +137,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
 			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
 		}else{
-			MediaController.vibrate(getContext(), 100);
+			MediaController.vibrate(getContext(), 130);
 		}
 		return isDead;
 	}
@@ -178,73 +174,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 		super.removeGameObject();
 		
 		exhaustRunnable.kill();
-	}
-	
-	/**
-	 * define the different levels of guns protagonist may have and their damage, frequency, speed, etc
-	 */
-	
-	public void createProtagonistGunSet(){
-		this.removeAllGuns();
-
-		final int dmg = getBulletDamage(getContext());
-		final float freq = getShootingDelay(getContext());
-		final float bulletSpeed = Bullet_Interface.DEFAULT_BULLET_SPEED_Y * BULLET_SPEED_MULTIPLIER;
-		
-		switch(StoreUpgradeHandler.getGunLevel(getContext())){
-		case -1: //only appears on first level
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,(int)(dmg*0.8),50) );
-			break;
-		case 0:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,dmg,50) );
-			break;
-		case 1:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,(int) (dmg*.6),20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,(int) (dmg*.6),80) );
-			break;
-		case 2:
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,dmg,20) );
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,dmg,80) );
-			break;
-		case 3:
-			this.addGun(new Gun_AngledDualShot(getContext(),this,new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,dmg,50));
-			this.addGun(new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,dmg,50) );
-			break;
-		case 4:
-			this.addGun( new Gun_AngledDualShot(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,dmg,50) );
-			this.addGun( new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-					(int)getContext().getResources().getDimension(R.dimen.bullet_missile_one_width), 
-					(int)getContext().getResources().getDimension(R.dimen.bullet_missile_one_height), 
-					R.drawable.bullet_missile_one),freq,bulletSpeed,dmg*2,50) );
-			break;
-		}
 	}
 
 }

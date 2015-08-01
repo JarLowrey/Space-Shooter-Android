@@ -15,8 +15,8 @@
         <item>4000</item>
         <item>10000</item>
         <item>20000</item>
-        <item>40000</item>
-        <item>80000</item>
+        <item>35000</item>
+        <item>55000</item>
     </integer-array>
     
 	<!-- gun costs can be found in friendly shooter's costToUpgradeGun function -->

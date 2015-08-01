@@ -56,7 +56,7 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 				move();
 				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE, Shooting_HorizontalMovementView.this);
 			}
-		});
+		}); 
 	}
 	
 	public static int getSpawningProbabilityWeightForBoss1(int level) {
