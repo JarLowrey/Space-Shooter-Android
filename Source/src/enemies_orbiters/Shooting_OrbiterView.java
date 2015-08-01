@@ -8,6 +8,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies.Enemy_ShooterView;
+import enemies.Shooting_PauseAndMove;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
@@ -17,7 +18,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	public static final float DEFAULT_SPEED_Y = 10,
 			DEFAULT_SPEED_X = DEFAULT_SPEED_Y;
 	
-	public final static int DEFAULT_SCORE=100, 
+	public final static int DEFAULT_SCORE=130, 
 			DEFAULT_ORBIT_Y = (int) (MainActivity.getHeightPixels()/3);
 	
 	public final static float 
@@ -99,4 +100,9 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
 	protected abstract int orbitLengthX();
 	protected abstract int orbitLengthY();
+	
+
+	public static int getSpawningProbabilityWeight(int level) {
+		return (int) (Shooting_PauseAndMove.getSpawningProbabilityWeight(level) * 0.9);
+	}
 }

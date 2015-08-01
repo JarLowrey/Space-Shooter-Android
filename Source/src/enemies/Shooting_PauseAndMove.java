@@ -17,7 +17,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	public static int DEFAULT_BACKGROUND = R.drawable.ship_enemy_pause_and_shoot,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 8.5),
-			DEFAULT_SCORE=100;
+			DEFAULT_SCORE=130;
 	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
 	
@@ -77,14 +77,14 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		},this.amtOfTimeToPause);
 	}
 	
-
 	public static int getSpawningProbabilityWeight(int level) {
-		//start at 1/2 giant meteor, increase a little every 5 levels until equal to 2x giant meteor
-		int probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3 + 
-				(level/5) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
-		
-		probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.STANDARD_PROB_WEIGHT);
-		
+		int probabilityWeight = 0;
+		if(level > AttributesOfLevels.LEVELS_LOW){
+			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3 + 
+					(level/5) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
+			
+			probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.STANDARD_PROB_WEIGHT);
+		}
 		return probabilityWeight;
 	}
 

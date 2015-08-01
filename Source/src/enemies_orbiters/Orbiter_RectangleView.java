@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import levels.AttributesOfLevels;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
