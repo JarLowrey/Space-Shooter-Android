@@ -26,6 +26,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		DEFAULT_SPEED_X = DEFAULT_SPEED_Y; //Gravity looks good at about 20 DPI. This can be overridden in a child class
 	
 	public static final int HOW_OFTEN_TO_MOVE=100;
+	
 	private float speedX,speedY;
 	
 	boolean isRemoved;

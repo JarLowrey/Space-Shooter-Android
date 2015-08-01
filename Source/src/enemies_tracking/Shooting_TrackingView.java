@@ -8,6 +8,7 @@ import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import bullets.Bullet_Basic;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -19,12 +20,13 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 
 	public static final float
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .02,
-			DEFAULT_BULLET_FREQ=850;
+			DEFAULT_BULLET_FREQ=850,
+			DEFAULT_SPEED_X = 16;
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/55,
 			DEFAULT_SCORE=100,
-			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE  * 2.5),
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE  * 5),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker;
 	
 	private Moving_ProjectileView viewToTrack;
@@ -69,16 +71,16 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 				}
 			});
 		}
-		
+		   
 
 		//add guns
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
 		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_small_round_length), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_small_round_length), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 				R.drawable.bullet_laser_round_red),
 				bulletFreq, 
-				DEFAULT_BULLET_SPEED_Y, 
+				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);
 		this.addGun(defaultGun);
 		this.startShooting();

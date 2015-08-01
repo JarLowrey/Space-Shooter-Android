@@ -8,12 +8,8 @@ import android.content.Context;
 
 public class Bullet_Basic extends Bullet_Interface{
 	
-	int width, height, backgroundId;
-	
 	public Bullet_Basic(int bulletWidth, int bulletHeight, int bulletBackgroundId){
-		width = bulletWidth;
-		height = bulletHeight;
-		backgroundId = bulletBackgroundId;
+		super(bulletWidth,bulletHeight,bulletBackgroundId);
 	}
 	
 	//no threads needed for a non fancy bullet

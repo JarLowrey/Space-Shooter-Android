@@ -16,7 +16,7 @@ public class Gravity_MeteorView extends EnemyView{
 	
 	public final static int DEFAULT_SCORE=20,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/25, 
-			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE),
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 2),
 			DEFAULT_BACKGROUND=R.drawable.meteor,
 			DEFAULT_ROTATION_SPEED=7;
 	public final static float 
@@ -50,7 +50,10 @@ public class Gravity_MeteorView extends EnemyView{
 		//ConditionalHandler.postIfAlive(rotateRunnable, this);
 		this.setRotation((float) (Math.random() * 360));
 		
+		//reset scaled stats. Meteors are special
 		this.setSpeedY(gravitySpeedMultiplier(level,DEFAULT_SPEED_Y));
+		this.setHealth(DEFAULT_HEALTH);
+		this.setScoreValue(DEFAULT_SCORE);
 
 		//spawn in middle 9/10 X of screen
 		final float xRand = (float) ( MainActivity.getWidthPixels()* .8 *Math.random() + MainActivity.getWidthPixels()*.1);

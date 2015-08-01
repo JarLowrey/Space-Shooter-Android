@@ -1,13 +1,8 @@
 package friendlies;
 
 import helpers.MediaController;
-
-import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
-
-import parents.Moving_ProjectileView;
 import levels.LevelSystem;
+import parents.Moving_ProjectileView;
 import android.content.Context;
 
 public class FriendlyView extends Moving_ProjectileView{

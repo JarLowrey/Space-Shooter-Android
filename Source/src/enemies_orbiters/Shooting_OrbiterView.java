@@ -2,6 +2,7 @@ package enemies_orbiters;
 
 import android.content.Context;
 import bullets.Bullet_Basic;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -21,7 +22,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
 	public final static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
-	public final static int	DEFAULT_HEALTH=ProtagonistView.DEFAULT_BULLET_DAMAGE*8;
+	public final static int	DEFAULT_HEALTH = ProtagonistView.DEFAULT_BULLET_DAMAGE * 12;
 	
 	protected int howManyTimesMoved;
 	protected int orbitY,orbitX;
@@ -80,13 +81,14 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		setThreshold(y);
 		
 		//add guns
-		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 3 * DEFAULT_BULLET_FREQ * Math.random());
-		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_short_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_short_height), 
-				R.drawable.bullet_laser_rectangular_red),
+		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ*1.5 + 3.5 * DEFAULT_BULLET_FREQ * Math.random());
+		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, 
+				new Bullet_Basic(
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
+				R.drawable.bullet_laser_round_red),
 				bulletFreq, 
-				DEFAULT_BULLET_SPEED_Y, 
+				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);
 		this.addGun(defaultGun);
 		this.startShooting();

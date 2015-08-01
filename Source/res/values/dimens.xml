@@ -13,12 +13,11 @@
 	    <dimen name="ship_pause_and_shoot_height">40dp</dimen>
 	    <dimen name="ship_pause_and_shoot_width">50.833dp</dimen>
 	    
-	    <dimen name="ship_diagonal_height">30dp</dimen>
-	    <dimen name="ship_diagonal_width">47.7272dp</dimen>
+	    <dimen name="ship_diagonal_height">33dp</dimen>
+	    <dimen name="ship_diagonal_width">52.5dp</dimen>
 	    
 	    <dimen name="ship_tracker_height">32dp</dimen>
 	    <dimen name="ship_tracker_width">36.7057dp</dimen>
-	    
 	    
 	    <dimen name="ship_orbit_rectangular_width">40dp</dimen>
 	    <dimen name="ship_orbit_rectangular_height">34dp</dimen>
@@ -29,8 +28,8 @@
 	    <dimen name="ship_orbit_horizontal_width">41dp</dimen>
 	    <dimen name="ship_orbit_horizontal_height">50dp</dimen>
 	    
-	    <dimen name="meteor_length">30dp</dimen>
-	    <dimen name="meteor_giant_length">80dp</dimen>
+	    <dimen name="meteor_length">27dp</dimen>
+	    <dimen name="meteor_giant_length">76dp</dimen>
 	    
 	    <!-- Friendlies -->
 	    <dimen name="exhaust_height">40dp</dimen>
@@ -62,13 +61,16 @@
 	    <dimen name="boss5_height">95.9846dp</dimen>
     
     <!-- BULLETS -->
-	    <dimen name="bullet_laser_short_width">4.5dp</dimen>
-	    <dimen name="bullet_laser_short_height">15dp</dimen>    
-	    <dimen name="bullet_laser_long_width">3.1dp</dimen>
-	    <dimen name="bullet_laser_long_height">16dp</dimen>   
-	    <dimen name="bullet_small_round_length">5dp</dimen>
-	    <dimen name="missile_one_width">10dp</dimen>
-	    <dimen name="missile_one_height">16.15dp</dimen>
+	    <dimen name="bullet_rec_short_width">4.5dp</dimen>
+	    <dimen name="bullet_rec_short_height">15dp</dimen>    
+	    <dimen name="bullet_rec_long_width">3.3dp</dimen>
+	    <dimen name="bullet_rec_long_height">15dp</dimen>
+	    <dimen name="bullet_round_xsmall_length">4dp</dimen>
+	    <dimen name="bullet_round_small_length">5.2dp</dimen>
+	    <dimen name="bullet_round_med_length">7dp</dimen>
+	    <dimen name="bullet_round_large_length">10dp</dimen>
+	    <dimen name="bullet_missile_one_width">10dp</dimen>
+	    <dimen name="bullet_missile_one_height">16.15dp</dimen>
     
     
     <!-- Default screen margins, per the Android Design guidelines. -->

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import bullets.Bullet_Basic;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -69,11 +70,11 @@ public class AllyView extends Friendly_ShooterView{
 		//higher level = gun shoots faster and hits harder
 		addGun(new Gun_SingleShotStraight(getContext(), this,
 				new Bullet_Basic(
-						(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
-						(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 						R.drawable.bullet_laser_rectangular_green),
 				3000 / allyLevel(context), 
-				DEFAULT_BULLET_SPEED_Y, 
+				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 				( DEFAULT_BULLET_DAMAGE / 2 ) * allyLevel(context) ,
 				50)
 			);

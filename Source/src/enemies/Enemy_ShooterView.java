@@ -13,12 +13,10 @@ import com.jtronlabs.to_the_moon.R;
 
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 
-	public static final float DEFAULT_BULLET_SPEED_Y = 20;
-
 		public static final float DEFAULT_BULLET_FREQ=1500;
 		
 		public static final int DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/15,
-				DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10;
+				DEFAULT_COLLISION_DAMAGE = ProtagonistView.DEFAULT_HEALTH/12;
 				
 		//myGun needs to be set in a specific View's class
 		private ArrayList<Gun> myGuns;

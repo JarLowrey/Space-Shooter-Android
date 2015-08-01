@@ -11,7 +11,7 @@ import enemies.EnemyView;
 import friendlies.FriendlyView;
 
 public class CollisionDetector {
-	
+
 	private LevelSystem levelingSystem;
 	
 	public CollisionDetector(LevelSystem aLevelSystem){
@@ -110,7 +110,12 @@ public class CollisionDetector {
     		        		detectAnyFriendlyHasHitAnyBonus();
     		        		detectAnyEnemyHasHitAnyFriendlyBullets();
     		        		
-    			            gameHandler.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
+    		        		/*
+	    		        		Check for collisions a little bit faster than anything can move. Experimentally this
+	    		        		formula has resulted in few missed collisions.
+	    		        		Small things moving fast are the trouble causers (Bullets).
+    		        		*/
+    			            gameHandler.postDelayed(this, (long) (MovingView.HOW_OFTEN_TO_MOVE * 0.65));
     		        	}else {
     		    			levelingSystem.endLevel();	
     		        	}

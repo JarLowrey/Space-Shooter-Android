@@ -15,10 +15,6 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	public final static int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/4),
 			DEFAULT_ANGLE = 30;
 
-	public final static int DEFAULT_SCORE=100,
-			DEFAULT_COLLISION_DAMAGE=20, 
-			DEFAULT_HEALTH=300,
-			DEFAULT_BULLET_FREQ_INTERVAL=1000;
 	public final static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
@@ -67,11 +63,11 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 		int probabilityWeight = 0;
 		
 		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS1_APPEARS){
-			//start at 1/3 rectangular array, increase a little every 10 levels until equal to 1/2 * rectangular array
-			probabilityWeight = (int) (Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) / 3 + 
+			//start at 1/4 rectangular array, increase a little every 10 levels until equal to 1/3 * rectangular array
+			probabilityWeight = (int) (Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) / 4 + 
 					(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/20.0);
 			
-			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT / 4.0);
+			probabilityWeight = (int) Math.min(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT / 3.0);
 		}
 		
 		return probabilityWeight;

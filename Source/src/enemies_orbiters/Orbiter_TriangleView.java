@@ -8,6 +8,7 @@ import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import bullets.Bullet_Basic;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -56,15 +57,15 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		float freq = (float) (DEFAULT_BULLET_FREQ + 3 * DEFAULT_BULLET_FREQ * Math.random());
 		this.removeAllGuns();
 		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),
-				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
+				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
 		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),
-				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
+				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
 		this.addGun(g1);
 		this.addGun(g2);
 		this.startShooting();

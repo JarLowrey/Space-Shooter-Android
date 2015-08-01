@@ -3,6 +3,7 @@ package enemies;
 import levels.AttributesOfLevels;
 import android.content.Context;
 import bullets.Bullet_Basic;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -15,7 +16,7 @@ import helpers.KillableRunnable;
 public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	public static int DEFAULT_BACKGROUND = R.drawable.ship_enemy_pause_and_shoot,
-			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE*4.5),
+			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 8.5),
 			DEFAULT_SCORE=100;
 	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
@@ -49,15 +50,15 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		//override default gun
 		this.removeAllGuns();
 		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),
-				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
+				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
 		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_laser_long_height), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),
-				freq, DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
+				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
 		this.addGun(g1);
 		this.addGun(g2);
 		this.startShooting();

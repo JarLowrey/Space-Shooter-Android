@@ -18,14 +18,9 @@ public class Bullet_Tracking extends Bullet_Interface{
 	private float trackingSpeed;
 	private MovingView viewTracking;
 	
-
-	int width, height, backgroundId;
-	
 	public Bullet_Tracking(float trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets,
 			int bulletWidth, int bulletHeight, int bulletBackgroundId){
-		width = bulletWidth;
-		height = bulletHeight;
-		backgroundId = bulletBackgroundId;
+		super(bulletWidth,bulletHeight,bulletBackgroundId);
 
 		viewTracking=viewToTrack;
 		
@@ -35,9 +30,7 @@ public class Bullet_Tracking extends Bullet_Interface{
 	
 	public Bullet_Tracking(MovingView viewToTrack,Shooter shooterWithTrackingBullets,
 			int bulletWidth, int bulletHeight, int bulletBackgroundId){
-		width = bulletWidth;
-		height = bulletHeight;
-		backgroundId = bulletBackgroundId;
+		super(bulletWidth,bulletHeight,bulletBackgroundId);
 
 		viewTracking=viewToTrack;
 	}

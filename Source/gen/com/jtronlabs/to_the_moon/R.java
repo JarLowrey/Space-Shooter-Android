@@ -460,15 +460,15 @@ containing a value of this type.
         public static final int yellow=0x7f090018;
     }
     public static final class dimen {
-        public static final int activity_margin_large=0x7f0b0034;
-        public static final int activity_margin_med=0x7f0b0033;
-        public static final int activity_margin_small=0x7f0b0032;
-        public static final int activity_margin_xlarge=0x7f0b0035;
+        public static final int activity_margin_large=0x7f0b0037;
+        public static final int activity_margin_med=0x7f0b0036;
+        public static final int activity_margin_small=0x7f0b0035;
+        public static final int activity_margin_xlarge=0x7f0b0038;
         /**  Default screen margins, per the Android Design guidelines. 
          */
-        public static final int activity_margin_xsmall=0x7f0b0031;
-        public static final int activity_margin_xxlarge=0x7f0b0036;
-        public static final int ad_banner_margin=0x7f0b004b;
+        public static final int activity_margin_xsmall=0x7f0b0034;
+        public static final int activity_margin_xxlarge=0x7f0b0039;
+        public static final int ad_banner_margin=0x7f0b004e;
         /**   <item name="resource_multiplier_weight" format="float" type="dimen">1.5</item>
     
  MovingView-Bonus, enemies, friendlies 
@@ -487,47 +487,50 @@ containing a value of this type.
         public static final int boss4_width=0x7f0b0026;
         public static final int boss5_height=0x7f0b0029;
         public static final int boss5_width=0x7f0b0028;
-        public static final int btn_large_len=0x7f0b0041;
-        public static final int btn_med_len=0x7f0b0042;
-        public static final int btn_shoot_width=0x7f0b0043;
-        public static final int btn_xlarge_len=0x7f0b0040;
-        public static final int bullet_laser_long_height=0x7f0b002d;
-        public static final int bullet_laser_long_width=0x7f0b002c;
-        public static final int bullet_laser_short_height=0x7f0b002b;
+        public static final int btn_large_len=0x7f0b0044;
+        public static final int btn_med_len=0x7f0b0045;
+        public static final int btn_shoot_width=0x7f0b0046;
+        public static final int btn_xlarge_len=0x7f0b0043;
+        public static final int bullet_missile_one_height=0x7f0b0033;
+        public static final int bullet_missile_one_width=0x7f0b0032;
+        public static final int bullet_rec_long_height=0x7f0b002d;
+        public static final int bullet_rec_long_width=0x7f0b002c;
+        public static final int bullet_rec_short_height=0x7f0b002b;
         /**  BULLETS 
          */
-        public static final int bullet_laser_short_width=0x7f0b002a;
-        public static final int bullet_small_round_length=0x7f0b002e;
+        public static final int bullet_rec_short_width=0x7f0b002a;
+        public static final int bullet_round_large_length=0x7f0b0031;
+        public static final int bullet_round_med_length=0x7f0b0030;
+        public static final int bullet_round_small_length=0x7f0b002f;
+        public static final int bullet_round_xsmall_length=0x7f0b002e;
         public static final int cloud_height=0x7f0b001f;
         /**  Background items 
          */
         public static final int cloud_width=0x7f0b001e;
-        public static final int control_panel_height=0x7f0b0044;
+        public static final int control_panel_height=0x7f0b0047;
         /**  Friendlies 
          */
         public static final int exhaust_height=0x7f0b0014;
         public static final int exhaust_width=0x7f0b0015;
-        public static final int game_over_btns_width=0x7f0b004e;
-        public static final int game_over_dialog_height=0x7f0b0050;
-        public static final int game_over_dialog_width=0x7f0b004f;
-        public static final int game_over_response_time_width=0x7f0b004d;
-        public static final int game_over_score_width=0x7f0b004c;
-        public static final int ic_large=0x7f0b0047;
-        public static final int ic_med=0x7f0b0046;
-        public static final int ic_small=0x7f0b0045;
-        public static final int intro_text_view_width=0x7f0b003e;
-        public static final int logo_len=0x7f0b003d;
+        public static final int game_over_btns_width=0x7f0b0051;
+        public static final int game_over_dialog_height=0x7f0b0053;
+        public static final int game_over_dialog_width=0x7f0b0052;
+        public static final int game_over_response_time_width=0x7f0b0050;
+        public static final int game_over_score_width=0x7f0b004f;
+        public static final int ic_large=0x7f0b004a;
+        public static final int ic_med=0x7f0b0049;
+        public static final int ic_small=0x7f0b0048;
+        public static final int intro_text_view_width=0x7f0b0041;
+        public static final int logo_len=0x7f0b0040;
         /**  ETC 
          */
-        public static final int medal_length=0x7f0b003c;
+        public static final int medal_length=0x7f0b003f;
         public static final int meteor_giant_length=0x7f0b0013;
         public static final int meteor_length=0x7f0b0012;
-        public static final int missile_one_height=0x7f0b0030;
-        public static final int missile_one_width=0x7f0b002f;
         /**  Game Layout  
          */
-        public static final int moon_length=0x7f0b0037;
-        public static final int off_screen=0x7f0b003f;
+        public static final int moon_length=0x7f0b003a;
+        public static final int off_screen=0x7f0b0042;
         public static final int ship_ally_0_game_height=0x7f0b0019;
         public static final int ship_ally_0_game_width=0x7f0b0018;
         public static final int ship_ally_1_game_height=0x7f0b001b;
@@ -552,15 +555,15 @@ containing a value of this type.
         public static final int ship_protagonist_game_width=0x7f0b0017;
         public static final int ship_tracker_height=0x7f0b0008;
         public static final int ship_tracker_width=0x7f0b0009;
-        public static final int store_btn_margin_vertical=0x7f0b003b;
-        public static final int store_btn_next_level_len=0x7f0b003a;
+        public static final int store_btn_margin_vertical=0x7f0b003e;
+        public static final int store_btn_next_level_len=0x7f0b003d;
         /**  Store Layout 
          */
-        public static final int store_item_len=0x7f0b0039;
-        public static final int sun_length=0x7f0b0038;
-        public static final int title_canvas_height=0x7f0b0048;
-        public static final int title_outline_size=0x7f0b004a;
-        public static final int title_size=0x7f0b0049;
+        public static final int store_item_len=0x7f0b003c;
+        public static final int sun_length=0x7f0b003b;
+        public static final int title_canvas_height=0x7f0b004b;
+        public static final int title_outline_size=0x7f0b004d;
+        public static final int title_size=0x7f0b004c;
     }
     public static final class drawable {
         public static final int btn_gray=0x7f020000;
@@ -742,13 +745,14 @@ containing a value of this type.
         public static final int wrap_content=0x7f080011;
     }
     public static final class integer {
-        public static final int friend_base_cost=0x7f0a0006;
+        public static final int friend_base_cost=0x7f0a0007;
         public static final int google_play_services_version=0x7f0a0000;
         public static final int heal_base_cost=0x7f0a0001;
-        public static final int inc_bullet_damage_base_cost=0x7f0a0003;
-        public static final int inc_bullet_frequency_base_cost=0x7f0a0004;
-        public static final int inc_defence_base_cost=0x7f0a0002;
-        public static final int score_multiplier_base_cost=0x7f0a0005;
+        public static final int heal_max_cost=0x7f0a0002;
+        public static final int inc_bullet_damage_base_cost=0x7f0a0004;
+        public static final int inc_bullet_frequency_base_cost=0x7f0a0005;
+        public static final int inc_defence_base_cost=0x7f0a0003;
+        public static final int score_multiplier_base_cost=0x7f0a0006;
     }
     public static final class layout {
         public static final int activity_app_intro=0x7f030000;

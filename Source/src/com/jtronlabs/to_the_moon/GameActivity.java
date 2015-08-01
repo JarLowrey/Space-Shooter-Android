@@ -399,7 +399,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					beginShootingRunnablePosted=true;
 				}
 			}else if(v.getId() == R.id.btn_heal){
-				confirmUpgradeDialog(ProtagonistView.UPGRADE_HEAL);
+				confirmUpgradeDialog(ProtagonistView.UPGRADE_HEAL); 
 			}else if(v.getId() == R.id.btn_inc_bullet_dmg){
 				confirmUpgradeDialog(ProtagonistView.UPGRADE_BULLET_DAMAGE);	
 			}else if(v.getId() == R.id.btn_inc_bullet_freq){
@@ -485,78 +485,91 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}
 
 	private void confirmUpgradeDialog(final int whichUpgrade){
-		String msg="";
+		String msg="",title="";
 		int cost=0;
 		boolean maxLevelItem=false;
+		final String maxMsg = "Maximum upgrade attained";
 
 		SharedPreferences gameState = this.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-		
-		try{
-			switch(whichUpgrade){
-			case ProtagonistView.UPGRADE_BULLET_DAMAGE:
-				cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) 
-						* Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
-				msg=this.getResources().getString(R.string.upgrade_bullet_damage);
-				break;
-			case ProtagonistView.UPGRADE_DEFENCE:
-				cost = (int) (this.getResources().getInteger(R.integer.inc_defence_base_cost) 
-						* Math.pow((protagonist.getDefenceLevel()+1),2)) ;
-				msg=this.getResources().getString(R.string.upgrade_defence);
-				break;
-			case ProtagonistView.UPGRADE_BULLET_FREQ:
-				cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) 
-						* Math.pow((protagonist.getBulletBulletFreqLevel()+1),2)) ;
-				msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
-				break;
-			case ProtagonistView.UPGRADE_GUN:
-				cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()+1] ;
-				msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()+1];
-				break;
-			case ProtagonistView.UPGRADE_FRIEND:
-				int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
+	
+		switch(whichUpgrade){
+		case ProtagonistView.UPGRADE_BULLET_DAMAGE:
+			title = "Damage";
+			cost = 	(int) (this.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) 
+					* Math.pow((protagonist.getBulletDamageLevel()+1),2)) ;
+			msg=this.getResources().getString(R.string.upgrade_bullet_damage);
+			break;
+		case ProtagonistView.UPGRADE_DEFENCE:
+			title = "Defence";
+			cost = (int) (this.getResources().getInteger(R.integer.inc_defence_base_cost) 
+					* Math.pow((protagonist.getDefenceLevel()+1),2)) ;
+			msg=this.getResources().getString(R.string.upgrade_defence);
+			break;
+		case ProtagonistView.UPGRADE_BULLET_FREQ:
+			title = "Fire Rate";
+			cost = (int) (this.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) 
+					* Math.pow((protagonist.getBulletBulletFreqLevel()+1),2)) ;
+			msg=this.getResources().getString(R.string.upgrade_bullet_frequency);
+			if(protagonist.getShootingDelay() == ProtagonistView.MIN_SHOOTING_FREQ){
+				msg = maxMsg;
+				maxLevelItem = true;
+			}
+			break;
+		case ProtagonistView.UPGRADE_GUN:
+			title = "Ship Blaster";
+			cost = this.getResources().getIntArray(R.array.gun_upgrade_costs)[protagonist.getGunLevel()+1] ;
+			msg = this.getResources().getStringArray(R.array.gun_descriptions)[protagonist.getGunLevel()+1];
+			break;
+		case ProtagonistView.UPGRADE_FRIEND:
+			title = "Ally";
+			int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
 //				cost = ( friendLvl +1 ) * this.getResources().getInteger(R.integer.friend_base_cost) ;
-				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
-				if(friendLvl < 1){
-					msg=this.getResources().getString(R.string.upgrade_buy_friend);					
-				}else{
-					msg=this.getResources().getString(R.string.upgrade_friend_level);					
-				}
-				break;
-			case ProtagonistView.UPGRADE_SCORE_MULTIPLIER:
-				cost = (int) (this.getResources().getInteger(R.integer.score_multiplier_base_cost) * 
-					Math.pow(5, gameState.getInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0))) ;
-				msg=this.getResources().getString(R.string.upgrade_score_multiplier);
-				break;
-			case ProtagonistView.UPGRADE_HEAL:
-				if(protagonist.getHealth() == protagonist.getMaxHealth()){
-					maxLevelItem=true;
-					msg="Ship fully healed";
-				}else{
-					cost = 	(int) (( (double)protagonist.getHealth() ) / protagonist.getMaxHealth() * 
-							this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel())) ;
-					msg=this.getResources().getString(R.string.upgrade_heal);					
-				}
-				break;
+			cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
+			if(friendLvl < 1){
+				msg=this.getResources().getString(R.string.upgrade_buy_friend);					
+			}else{
+				msg=this.getResources().getString(R.string.upgrade_friend_level);					
 			}
-			if(!maxLevelItem){
-				msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
+			break;
+		case ProtagonistView.UPGRADE_SCORE_MULTIPLIER:
+			title = "Resources";
+			cost = (int) (this.getResources().getInteger(R.integer.score_multiplier_base_cost) * 
+				Math.pow(5, gameState.getInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0))) ;
+			msg=this.getResources().getString(R.string.upgrade_score_multiplier);
+			break;
+		case ProtagonistView.UPGRADE_HEAL:
+			title = "Repair";
+			if(protagonist.getHealth() == protagonist.getMaxHealth()){
+				maxLevelItem=true;
+				msg="Ship fully healed";
+			}else{
+				cost = 	(int) (( (double)protagonist.getHealth() ) / protagonist.getMaxHealth() * 
+						this.getResources().getInteger(R.integer.heal_base_cost) * (this.levelCreator.getLevel())) ;
+				cost = Math.min(cost, getResources().getInteger(R.integer.heal_max_cost));
+				msg = this.getResources().getString(R.string.upgrade_heal);					
 			}
-		}catch(IndexOutOfBoundsException e){//upgrade is past set bounds of the arrays.xml value
-			msg="Maximum upgrade attained";
-			maxLevelItem=true;
+			break;
 		}
-		final int costCopy=cost;
-		final boolean maxLevelItemCopy = maxLevelItem;
+		if(!maxLevelItem){
+			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
+		}
 		
-		new AlertDialog.Builder(this)
-	    .setTitle("Upgrade")
-	    .setMessage(msg)
-	    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
-	     })
-	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	        	if(!maxLevelItemCopy){
+		AlertDialog.Builder confirmStoreChoice = new AlertDialog.Builder(this)
+				    .setTitle( title ) 
+				    .setMessage( msg );
+		
+		if(maxLevelItem){
+			confirmStoreChoice.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
+		     });
+		}else{
+			final int costCopy=cost;
+			
+			confirmStoreChoice.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
+		     })
+		    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
 	        		if(costCopy<=levelCreator.getResourceCount()){
 	        			MediaController.playSoundEffect(GameActivity.this, MediaController.SOUND_COINS);
 		        		protagonist.applyUpgrade(whichUpgrade);
@@ -570,14 +583,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	        		}else{
 	        			Toast.makeText(getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
 	        		}
-	        		dialog.cancel(); 
-        		}else{
-        			dialog.cancel();
-        		}
-	        }
-	     })
-//	    .setIcon(android.R.drawable.ic_dialog_alert)
-	     .show();
+	        		dialog.cancel();
+		        }
+		     });
+			
+		}
+	    confirmStoreChoice.show();
 	}
 	
 	
