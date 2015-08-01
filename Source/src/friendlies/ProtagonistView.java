@@ -25,7 +25,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_DEFENCE=1,UPGRADE_BULLET_FREQ=3,
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7,
 			BULLET_FREQ_UPGRADE_WEIGHT=15,
-			DEFAULT_BULLET_FREQ = 350;
+			DEFAULT_BULLET_FREQ = 350,
+			DEFAULT_HEALTH=10000,
+			DEFAULT_BULLET_DAMAGE = DEFAULT_HEALTH; //All enemy health is defined with respect to Protagonist's default bullet damage
 	public final static int MIN_SHOOTING_FREQ = 150;
 	
 	SharedPreferences gameState;

@@ -7,7 +7,6 @@ import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -17,13 +16,20 @@ import com.jtronlabs.to_the_moon.R;
 
 public class AllyView extends Friendly_ShooterView{
 	
+	public static int MAX_ALLY_LEVEL = 7, 
+			DEFAULT_BULLET_FREQ = 1250;
+	
 	ProtagonistView trackMe;
 	
-	private static final int FIRST_LEVEL = 1, SECOND_LEVEL = 2;
-	
+	/**
+	 * First 4 levels upgrade health. Next 4 levels upgrade gun damage.
+	 * @param context
+	 * @param viewToTrack
+	 * @param levelOfAlly
+	 */
 	public AllyView(Context context,ProtagonistView viewToTrack, int levelOfAlly) {
 		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
-				( ProtagonistView.DEFAULT_HEALTH/4 ) * allyLevel(context),
+				allyHealth(context),
 				allyPictureAndDimensions(context)[1], 
 				allyPictureAndDimensions(context)[2],
 				allyPictureAndDimensions(context)[0]);
@@ -36,29 +42,30 @@ public class AllyView extends Friendly_ShooterView{
 		reassignMoveRunnable( new KillableRunnable(){
 			@Override
 			public void doWork() {
-				final float pixelDistanceDelta = 7 * MainActivity.getScreenDens();
+				final double pixelDistanceDelta = 3.5 * MainActivity.getScreenDens();
 				
-				//keep it simple. Always move the ally on the left side of protagonist
-				if( (AllyView.this.getX()+AllyView.this.getWidth() ) < trackMe.getX()){//right side of ally is left of left side of protagonist
-					AllyView.this.setSpeedX(Math.abs(DEFAULT_SPEED_X));
-//				}else if( AllyOneView.this.getX() > ( trackMe.getWidth() + trackMe.getX() ) ){//left side of ally is right of right side of protagonist
-//					AllyOneView.this.setSpeedX( - Math.abs(DEFAULT_SPEED_X));
-//				}else{
-//					AllyOneView.this.setSpeedX(0);					
-//				}
-				}else if ( (AllyView.this.getX()+AllyView.this.getWidth() ) >
-						trackMe.getX()+ pixelDistanceDelta ) {
-					AllyView.this.setSpeedX( - Math.abs(DEFAULT_SPEED_X));
+				//Ally tracks X midpoint of Protagonist
+				final float allyMidPointX = (AllyView.this.getX()+AllyView.this.getWidth() + AllyView.this.getX())/2;
+				final float protagonistMidPointX = (trackMe.getX()+trackMe.getWidth() + trackMe.getX())/2;
+				
+				if( allyMidPointX < protagonistMidPointX - pixelDistanceDelta){
+					AllyView.this.setSpeedX(Math.abs(DEFAULT_SPEED_X));//move right
+				}else if ( allyMidPointX > protagonistMidPointX + pixelDistanceDelta) {
+					AllyView.this.setSpeedX( - Math.abs(DEFAULT_SPEED_X));//move left
 				}else{
-					AllyView.this.setSpeedX( 0 );
+					AllyView.this.setSpeedX( 0 );//dont move
 				}
 				
-				//move the ally up/down to stay on same vertical plane
-				float yDiff = AllyView.this.getY() - trackMe.getY();
-				if( Math.abs( yDiff ) > pixelDistanceDelta ){
-					AllyView.this.setSpeedY(DEFAULT_SPEED_Y * -1 * ( yDiff / Math.abs(yDiff) ) );//move in the direction to close the gap bewtween ships
+				//Ally tracks top of Protagonist. Botttom of Ally desires to be at top of protagonist
+				final float allyBottom = AllyView.this.getY()+AllyView.this.getHeight();
+				final float protagonistTop = trackMe.getY();
+				
+				if( allyBottom < protagonistTop - pixelDistanceDelta){
+					AllyView.this.setSpeedY(Math.abs(DEFAULT_SPEED_Y));//move up
+				}else if ( allyBottom > protagonistTop + pixelDistanceDelta) {
+					AllyView.this.setSpeedY( - Math.abs(DEFAULT_SPEED_Y));//move down
 				}else{
-					AllyView.this.setSpeedY(0);
+					AllyView.this.setSpeedY( 0 );//dont move
 				}
 				
 				move();
@@ -66,22 +73,22 @@ public class AllyView extends Friendly_ShooterView{
 			}
 		});
 
-		//apply upgrades
-		//higher level = gun shoots faster and hits harder
+		//apply gun upgrades
+		final int bulletSize = (int) ( (allyLevel(context) >= 5) ? getContext().getResources().getDimension(R.dimen.bullet_round_med_length) :
+			getContext().getResources().getDimension(R.dimen.bullet_round_small_length));// level 6+ use med bullet, and 6- use small bullet
 		addGun(new Gun_SingleShotStraight(getContext(), this,
 				new Bullet_Basic(
-						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
-						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-						R.drawable.bullet_laser_rectangular_green),
-				3000 / allyLevel(context), 
+						bulletSize, 
+						bulletSize, 
+						R.drawable.bullet_laser_round_green),
+				DEFAULT_BULLET_FREQ, 
 				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-				( DEFAULT_BULLET_DAMAGE / 2 ) * allyLevel(context) ,
+				( ProtagonistView.DEFAULT_BULLET_DAMAGE / 2 ) * Math.max(1, (allyLevel(context)-3) ) , //scale dmg 4 times, starting at level 4. Before that just use default damage
 				50)
 			);
 		startShooting();
 		
-		//remove this guy from foreground and add to background - behind the protagonist
-
+		//remove the ally from foreground and add to background - behind the protagonist
 		((GameActivityInterface)context).removeView(this);
 		((GameActivityInterface)context).addToBackground(this);
 	}
@@ -104,26 +111,35 @@ public class AllyView extends Friendly_ShooterView{
 		return gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0);
 	}
 	
+	private static int allyHealth(Context ctx){
+		return Math.min( ( ProtagonistView.DEFAULT_HEALTH/4 ) * (allyLevel(ctx)+1), ProtagonistView.DEFAULT_HEALTH );
+	}
+	
 	private static int[] allyPictureAndDimensions(Context context){
 		int[] retVal = new int[3];
-		switch( allyLevel(context) ){
-		case FIRST_LEVEL:
-			retVal[0] = R.drawable.ship_ally_0;
-			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_width);
-			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_height);
-			break;
-		case SECOND_LEVEL:
-			retVal[0] = R.drawable.ship_ally_1;
-			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_1_game_width);
-			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_1_game_height);
-			break;
-		default://maximum level
-			retVal[0] = R.drawable.ship_ally_2;
-			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_2_game_width);
-			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_2_game_height);
-			break;
-		}
-		Log.d("lowrey","ally lvl = "+allyLevel(context));
+//		switch( allyLevel(context) ){
+//		case FIRST_LEVEL:
+//			retVal[0] = R.drawable.ship_ally_0;
+//			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_width);
+//			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_height);
+//			break;
+//		case SECOND_LEVEL:
+//			retVal[0] = R.drawable.ship_ally_1;
+//			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_1_game_width);
+//			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_1_game_height);
+//			break;
+//		default://maximum level
+//			retVal[0] = R.drawable.ship_ally_2;
+//			retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_2_game_width);
+//			retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_2_game_height);
+//			break;
+//		}
+		
+		//always have the ally be ship_0 (for now)
+		retVal[0] = R.drawable.ship_ally_0;
+		retVal[1] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_width);
+		retVal[2] = (int)context.getResources().getDimension(R.dimen.ship_ally_0_game_height);
+		
 		return retVal;
 	}
 	

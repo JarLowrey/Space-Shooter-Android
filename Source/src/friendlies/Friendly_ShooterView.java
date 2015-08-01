@@ -8,17 +8,12 @@ import java.util.ArrayList;
 import android.content.Context;
 import bullets.BulletView;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
 
 	public final static float DEFAULT_SPEED_Y=20,
 			DEFAULT_SPEED_X=20;
 	
-	public final static int DEFAULT_COLLISION_DAMAGE=Integer.MAX_VALUE, 
-			DEFAULT_HEALTH=10000,
-			DEFAULT_BULLET_DAMAGE = DEFAULT_HEALTH, //All enemy health is defined with respect to Protagonist's default bullet damage
-			DEFAULT_BULLET_FREQ=850;   
+	public final static int DEFAULT_COLLISION_DAMAGE=Integer.MAX_VALUE;
 
 	
 	//myGun needs to be set in a specific View's class

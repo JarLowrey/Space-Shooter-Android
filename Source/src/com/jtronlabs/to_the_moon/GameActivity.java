@@ -529,12 +529,16 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		case ProtagonistView.UPGRADE_FRIEND:
 			title = "Ally";
 			int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
-//				cost = ( friendLvl +1 ) * this.getResources().getInteger(R.integer.friend_base_cost) ;
-			cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
-			if(friendLvl < 1){
-				msg=this.getResources().getString(R.string.upgrade_buy_friend);					
+			if(friendLvl < AllyView.MAX_ALLY_LEVEL){
+				cost = this.getResources().getInteger(R.integer.friend_base_cost) ;
+				if(friendLvl < 1){
+					msg=this.getResources().getString(R.string.upgrade_buy_friend);					
+				}else{
+					msg=this.getResources().getString(R.string.upgrade_friend_level);					
+				}
 			}else{
-				msg=this.getResources().getString(R.string.upgrade_friend_level);					
+				maxLevelItem=true;
+				msg = maxMsg;
 			}
 			break;
 		case ProtagonistView.UPGRADE_SCORE_MULTIPLIER:

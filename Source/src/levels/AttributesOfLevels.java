@@ -52,11 +52,8 @@ public abstract class AttributesOfLevels {
 	public  int getLevel(){
 		return levelNo;
 	}
-	protected void setLevel(int level){
-		levelNo=level;
-	}
 	protected void incrementLevel(){
-		setLevel(getLevel()+1);
+		levelNo++;
 	}
 	
 	//Resources
@@ -83,7 +80,7 @@ public abstract class AttributesOfLevels {
 	public void loadScoreAndLevel(){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		setResources(gameState.getInt(GameActivity.STATE_RESOURCES,0));
-		setLevel(gameState.getInt(GameActivity.STATE_LEVEL,0));
+		levelNo = gameState.getInt(GameActivity.STATE_LEVEL,0);
 //		setWave(gameState.getInt(GameActivity.STATE_WAVE,0));
 	}
 	
