@@ -1,7 +1,5 @@
 package helpers;
 
-import guns.Gun_AngledDualShot;
-import guns.Gun_SingleShotStraight;
 import interfaces.GameActivityInterface;
 
 import java.text.NumberFormat;
@@ -22,6 +20,8 @@ import com.jtronlabs.to_the_moon.R;
 import enemies.EnemyView;
 import friendlies.AllyView;
 import friendlies.ProtagonistView;
+import guns.Gun_AngledDualShot;
+import guns.Gun_SingleShotStraight;
 
 public class StoreUpgradeHandler {
 
@@ -66,8 +66,14 @@ public class StoreUpgradeHandler {
 			break;
 		case UPGRADE_GUN:
 			title = "Ship Blaster";
-			cost = ctx.getResources().getIntArray(R.array.gun_upgrade_costs)[getGunLevel(ctx)+1] ;
-			msg = ctx.getResources().getStringArray(R.array.gun_descriptions)[getGunLevel(ctx)+1];
+			final int gunlvl = getGunLevel(ctx);
+			if(gunlvl < maxGunLevel(ctx)-1 ){
+				cost = ctx.getResources().getIntArray(R.array.gun_upgrade_costs)[gunlvl+1];
+				msg = ctx.getResources().getStringArray(R.array.gun_descriptions)[gunlvl+1];
+			}else{
+				msg = maxMsg;
+				maxLevelItem = true;				
+			}
 			break;
 		case UPGRADE_FRIEND:
 			title = "Ally";
@@ -198,7 +204,7 @@ public class StoreUpgradeHandler {
 		final float bulletSpeed = Bullet_Interface.DEFAULT_BULLET_SPEED_Y * ProtagonistView.BULLET_SPEED_MULTIPLIER;
 		
 		switch(StoreUpgradeHandler.getGunLevel(protag.getContext())){
-		case -1: //only appears on first level
+		case -1: //only appears on first level, combined strength of bullets = 0.8x bullet
 			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
@@ -214,64 +220,84 @@ public class StoreUpgradeHandler {
 					dmg,
 					50) );
 			break;
-		case 1: //combined strength of bullets = 1.2x bullet
+		case 1: //combined strength of bullets = 1.1x bullet
 			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					(int) (dmg*.6),
+					(int) (dmg*.55),
 					20) );
 			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					(int) (dmg*.6),
+					(int) (dmg*.55),
 					80) );
 			break;
-		case 2: //combined strength of bullets = 1.4x bullet
+		case 2: //combined strength of bullets = 1.2x bullet
 			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					(int) (dmg*.2),
+					(int) (dmg*.4),
 					20) );
 			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					dmg,
+					(int) (dmg*.4),
 					50) );
 			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					(int) (dmg*.2),
+					(int) (dmg*.4),
 					80) );
 			break;
-		case 3: //combined strength of bullets = 1.4x bullet
+		case 3: //combined strength of bullets = 1.3x bullet
 			protag.addGun(new Gun_AngledDualShot(protag.getContext(),protag,new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					(int) (dmg*.3),
+					(int) (dmg*.433333),
 					50));
 			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,dmg,50) );
-			break;
-		case 4: //combined strength of bullets = 1.8x bullet
-			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					(int) (dmg*.9),
+					(int) (dmg*.433333),
+					50) );
+			break;
+		case 4: //combined strength of bullets = 1.4x bullet
+			protag.addGun( new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					(int) (dmg*.2),
+					20) );
+			protag.addGun(new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(		//twice as powerful, half as fast
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
+					R.drawable.bullet_laser_round_green),
+					(float) (freq * 2),
+					bulletSpeed,
+					(int) (dmg * 2),
 					50) );
 			protag.addGun( new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic(
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
-					(int) (dmg*.9),
+					(int) (dmg*.2),
+					80) );
+			break;
+		case 5: //combined strength of bullets = 1.5x bullet
+			protag.addGun( new Gun_SingleShotStraight(protag.getContext(), protag, new Bullet_Basic( //3x as powerful, half as fast
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
+					R.drawable.bullet_laser_round_green),
+					freq * 2,
+					bulletSpeed,
+					dmg * 3,
 					50) );
 			break;
 		}
@@ -281,6 +307,10 @@ public class StoreUpgradeHandler {
 	public static int getGunLevel(Context ctx){ 
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		return gameState.getInt(GameActivity.STATE_GUN_CONFIG,-1);
+	}
+	public static int maxGunLevel(Context ctx){
+		return Math.min( ctx.getResources().getStringArray(R.array.gun_descriptions).length, //these arrays should be the same length, but just in case here's a check
+				ctx.getResources().getIntArray(R.array.gun_upgrade_costs).length );
 	}
 	public static int getBulletDamageLevel(Context ctx){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);

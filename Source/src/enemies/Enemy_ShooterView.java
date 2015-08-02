@@ -18,7 +18,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		public static final int DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/17,
 				DEFAULT_COLLISION_DAMAGE = ProtagonistView.DEFAULT_HEALTH/12;
 				
-		//myGun needs to be set in a specific View's class
+		//myGun needs to be set in a specific View's class 
 		private ArrayList<Gun> myGuns;
 		private ArrayList<BulletView> myBullets;
 		
