@@ -18,8 +18,8 @@ public abstract class AttributesOfLevels {
 	
 	public final static int LEVELS_BEGINNER = 5,//0-5
 			LEVELS_LOW = 12,//6-12
-			LEVELS_MED = 60,//13-60
-			LEVELS_HIGH = 100;//61-100
+			LEVELS_MED = 40,//13-40
+			LEVELS_HIGH = 60;//41-60
 			//and beyond!
 	
 	public static final int FIRST_LEVEL_BOSS1_APPEARS = 4,
@@ -41,9 +41,7 @@ public abstract class AttributesOfLevels {
 
 	public static final int WAVE_SPAWNER_WAIT = 1000;
 	
-	public abstract boolean isLevelFinishedSpawning();
-	public abstract int getMaxLevel();
-	
+	public abstract boolean isLevelFinishedSpawning();	
 	
 	public GameActivityInterface getInteractivityInterface(){
 		return (GameActivityInterface)ctx;

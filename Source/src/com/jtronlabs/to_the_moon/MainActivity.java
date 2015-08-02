@@ -33,7 +33,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			VIBRATE_PREF="vibrateOn",
 			SOUND_PREF="soundOn";
 	public static final String GAME_META_DATA_PREFS = "GameMetaData",
-			USER_HAS_BEATEN_GAME = "userHasBeatenGame";
+			USER_HAS_GOTTEN_FAR_IN_GAME = "userHasGottenFarInGame";
 	private static float screenDens,widthPixels,heightPixels;
 	private ImageButton vibrate, sound, intro, credits;
 	private AdView adView;

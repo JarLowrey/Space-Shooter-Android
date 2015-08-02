@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import levels.AttributesOfLevels;
 import levels.LevelSystem;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -69,8 +70,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private RelativeLayout gameLayout,storeLayout;
 	private AdView adView;
 	
-	private boolean beatGame,
-		isGameOver ;
+	private boolean isGameOver ;
 	private int scoreAtGameOver,levelAtGameOver;
    
 	//MODEL     
@@ -213,42 +213,31 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}
 	}
 	
-	public void lostGame(){ 		
+	public void gameOver(){
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
+		
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel();   
-		gameOver("GAME OVER","WELL DONE EARTHLING",levelCreator.getLevel()-1,score );
-
-		MediaController.playSoundClip(this, R.raw.jingle_lose, false);
+		final String title = "GAME OVER";
+		final String msg = "WELL DONE EARTHLING";
+		
+		if( levelCreator.getLevel() < AttributesOfLevels.LEVELS_HIGH){
+			//save that user has gotten far, he is not a beginner
+			SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
+			SharedPreferences.Editor editor = gameMeta.edit();
+			editor.putBoolean(MainActivity.USER_HAS_GOTTEN_FAR_IN_GAME, true);
+			editor.commit();
+			
+			MediaController.playSoundClip(this, R.raw.jingle_lose, false);
+		}else{
+			MediaController.playSoundClip(this, R.raw.jingle_win, false);			
+		}
 		
 		//set the variables used for the sharing message
-		beatGame=false;
 		scoreAtGameOver=score;
 		levelAtGameOver=levelCreator.getLevel()-1;
 		
 		healthBar.setProgress(0);	
-	}
-	
-	public void beatGame(){		
-		//save fact that user has beaten the game
-		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
-		SharedPreferences.Editor editor = gameMeta.edit();
-		editor.putBoolean(MainActivity.USER_HAS_BEATEN_GAME, true);
-		editor.commit();
 		
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
-		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0) + levelCreator.scoreGainedThisLevel();
-//		gameOver("WINNER","The Moon is saved, and so is our home! Great job soldier!",levelCreator.getLevel(),score);
-		gameOver("WINNER","",levelCreator.getLevel(),score);
-
-		MediaController.playSoundClip(this, R.raw.jingle_win, false);
-		
-		//set the variables used for the sharing message
-		beatGame=true;
-		scoreAtGameOver=score;
-		levelAtGameOver=levelCreator.getLevel();
-	}
-	
-	private void gameOver(String title,String msg,int level, int score){
 		isGameOver = true;
 		MediaController.stopLoopingSound();
 		
@@ -263,15 +252,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		TextView titleView = (TextView)findViewById(R.id.gameOverTitle);
 		titleView.setText(title);
 		TextView daysPassedView = (TextView)findViewById(R.id.num_days_passed);
-		daysPassedView.setText("" + level );
+		daysPassedView.setText("" + levelCreator.getLevel() );
 		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
 		finalScoreView.setText("" + score );
 		 
 		//set images
 		ImageView medal = (ImageView)findViewById(R.id.medal_image);
-		if(level < levelCreator.getMaxLevel() /2 ){
+		if(levelCreator.getLevel() < AttributesOfLevels.LEVELS_LOW  ){
 			medal.setImageResource(R.drawable.medal_bronze);
-		}else if(level < levelCreator.getMaxLevel() ){
+		}else if(levelCreator.getLevel() < AttributesOfLevels.LEVELS_HIGH ){
 			medal.setImageResource(R.drawable.medal_silver);			
 		}else{
 			medal.setImageResource(R.drawable.medal_gold);
@@ -466,13 +455,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					if(!type.equals("mms")){
 						share.putExtra(Intent.EXTRA_SUBJECT, this.getResources().getString(R.string.app_name) );
 					}
-					String msg;
-					if(beatGame){
-						msg = "I beat \"" + this.getResources().getString(R.string.app_name)+"\" ! ";
-					}else{
-						msg = "Check out \""+this.getResources().getString(R.string.app_name)+"\" on the Google Play Store. I made it to day "+levelAtGameOver+"! ";
-					}
-					msg+="I got "+scoreAtGameOver+" points!";
+					String msg = "Check out \""+this.getResources().getString(R.string.app_name)+"\" on the Google Play Store. I made it to day "+levelAtGameOver+
+							" and I got "+scoreAtGameOver+" points! ";
 					
 					share.putExtra(Intent.EXTRA_TEXT, msg);
 					found = true;

@@ -12,6 +12,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies.Enemy_ShooterView;
+import enemies.Shooting_DiagonalMovingView;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
@@ -49,7 +50,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		params.width = (int)context.getResources().getDimension(R.dimen.ship_array_shooter_width);
 		this.setLayoutParams(params);
 		this.setImageResource(DEFAULT_BACKGROUND);
-		this.setHealth( scaleHealth(level, DEFAULT_HEALTH) );
+		this.setHealth( scaleHealth(level, getDefaultHealth(level) ) );
 
 
 		//find an open spot for this shooter to go
@@ -141,18 +142,25 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		}
 	}
 	
+	private static int getDefaultHealth(int level){
+		if( level < AttributesOfLevels.LEVELS_MED){
+			return DEFAULT_HEALTH;
+		}else{
+			return (int) (DEFAULT_HEALTH * 1.7);
+		}
+	}
+	
 
 	public static int getSpawningProbabilityWeight(int level) {
+		//NOTE: This has a relatively low probability as it spawns so many enemies that last for a long time and take up a lot of the screen
 		int probabilityWeight = 0;
 		
-		if(Orbiter_Rectangle_Array.allSimpleShooters.size() < Orbiter_Rectangle_Array.getMaxNumShips()/4){//only refresh if a few left
-			//start at 1/4 giant meteor, decrease a little every 10 levels until equal to 1/8 giant meteor
-			//NOTE: This has a relatively low probability as it spawns so many enemies that last for a long time and take up a lot of the screen
-			if(level > AttributesOfLevels.LEVELS_BEGINNER){
-				probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3.0 - 
-						(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/10.0);
-				
-				probabilityWeight = Math.max(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT / 7);
+		if(Orbiter_Rectangle_Array.allSimpleShooters.size() < Orbiter_Rectangle_Array.getMaxNumShips()/4 
+				&& level > AttributesOfLevels.LEVELS_BEGINNER){//only refresh-able if a few left
+			if(level < AttributesOfLevels.LEVELS_MED ){
+				probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 9;
+			}else {
+				probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 7;
 			}
 		}
 		

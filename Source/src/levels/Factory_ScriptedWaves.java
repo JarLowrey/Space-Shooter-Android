@@ -24,7 +24,7 @@ import enemies_tracking.Shooting_TrackingView;
 
 public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		
-	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 5000;
+	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 4500;
 	
 	public Factory_ScriptedWaves(Context context) { 
 		super(context);

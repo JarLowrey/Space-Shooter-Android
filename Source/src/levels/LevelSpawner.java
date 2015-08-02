@@ -37,10 +37,6 @@ public class LevelSpawner extends Factory_Bosses{
 		SpecialSpawnableLevel.addSpecialSpawnableLevel(lotsOfCircles(), FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR);
 	} 
 
-	public int getMaxLevel() {
-		return 150;
-	}
-
 	public void startLevelSpawning(){
 		initScoreNeededToEndLevel();
 		reinitializeAllSpawnableWaves();

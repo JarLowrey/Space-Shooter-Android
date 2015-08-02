@@ -121,7 +121,7 @@ public class LevelSystem extends LevelSpawner{
 
 		editor.commit();
 
-		boolean lostGame = getInteractivityInterface().getProtagonist().getHealth() <= 0;//check this before protagonist is removed
+		boolean protagonistDied = getInteractivityInterface().getProtagonist().getHealth() <= 0;//check this before protagonist is removed
 		
 		/* kill Views. Level won't end until enemies, enemyBullets, and bonuses are already removed (see collision detector). 
 		 * Thus just remove friendlies and friendly bullets and whatever else to
@@ -135,10 +135,8 @@ public class LevelSystem extends LevelSpawner{
 		}
 
 		//check if user has lost game, beaten game, or beaten the level. 
-		if( lostGame ){
-			getInteractivityInterface().lostGame();
-		}else if( getLevel() == getMaxLevel() ){
-			getInteractivityInterface().beatGame(); 
+		if( protagonistDied ){
+			getInteractivityInterface().gameOver();
 		}else{
 			getInteractivityInterface().openStore();
 		} 
