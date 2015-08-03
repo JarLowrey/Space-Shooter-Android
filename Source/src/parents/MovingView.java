@@ -59,7 +59,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	
 	@Override
 	public void reassignMoveRunnable(KillableRunnable r){
-		moveRunnable.kill();;
+		if(moveRunnable!= null){moveRunnable.kill();}
 		moveRunnable = r;
 		this.post(r);
 	}
@@ -68,6 +68,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	public void killMoveRunnable(){
 		if(moveRunnable!=null){
 			moveRunnable.kill();
+			moveRunnable = null;
 		}
 	}
 	@Override 
@@ -189,10 +190,10 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	/**
 	 * To be called on every implementation of removeGameObject();
 	 */
-	protected void deaultCleanupOnRemoval(){
+	protected void defaultCleanupOnRemoval(){
 		isRemoved=true;
 		this.removeCallbacks(null);	
-
+		killMoveRunnable();
 
 		((GameActivityInterface)getContext()).removeView(this);
 	}

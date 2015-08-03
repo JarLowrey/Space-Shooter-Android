@@ -97,6 +97,7 @@
     <!-- ETC -->
     	<dimen name="medal_length">60dp</dimen>
 	    <dimen name="logo_len">75dp</dimen>
+	    <dimen name="star_len">2dp</dimen>
 	    
 	    <dimen name="intro_text_view_width">300dp</dimen>
 	    <dimen name="off_screen">-100dp</dimen>

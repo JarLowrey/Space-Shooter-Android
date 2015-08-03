@@ -1,6 +1,5 @@
 package bonuses;
 
-import interfaces.Shooter;
 import levels.LevelSystem;
 import parents.MovingView;
 import android.content.Context;
@@ -30,7 +29,7 @@ public abstract class BonusView extends MovingView {
 	@Override
 	public void removeGameObject(){		
 		LevelSystem.bonuses.remove(this);
-		super.deaultCleanupOnRemoval();
+		super.defaultCleanupOnRemoval();
 	}
 	
 	public static void displayRandomBonusView(Context context,float positionX,float positionY){

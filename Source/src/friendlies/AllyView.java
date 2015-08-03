@@ -89,7 +89,6 @@ public class AllyView extends Friendly_ShooterView{
 		startShooting();
 		
 		//remove the ally from foreground and add to background - behind the protagonist
-		((GameActivityInterface)context).removeView(this);
 		((GameActivityInterface)context).addToBackground(this);
 	}
 	 

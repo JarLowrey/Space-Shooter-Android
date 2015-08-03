@@ -34,6 +34,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import backgroundViews.ParticleBackgroundAnimation;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -75,6 +76,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
    
 	//MODEL     
 	private LevelSystem levelCreator;    
+	private ParticleBackgroundAnimation stars_creator = new ParticleBackgroundAnimation(this);;
 	
 	@Override       
 	protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +155,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
     public void onPause() {
         super.onPause();
+        stars_creator.stopSpawningStars();
         
         scoreInGame.setVisibility(View.GONE);
         
@@ -180,6 +183,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
 	public void onResume(){
 		super.onResume();
+		
+		stars_creator.startSpawningStars();
 		
         scoreInGame.setVisibility(View.VISIBLE);
 		

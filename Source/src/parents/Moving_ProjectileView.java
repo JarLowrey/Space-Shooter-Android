@@ -90,6 +90,6 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 	}
 	@Override
 	public void removeGameObject() {
-		this.deaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
+		this.defaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 }
