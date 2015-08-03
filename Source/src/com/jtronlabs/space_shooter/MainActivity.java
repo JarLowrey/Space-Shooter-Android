@@ -80,7 +80,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	    
 		createAdView();
 		
-		stars_creator = new ParticleBackgroundAnimation((RelativeLayout)findViewById(R.id.activity_main));
+		stars_creator = new ParticleBackgroundAnimation((RelativeLayout)findViewById(R.id.activity_main),
+				(int) (1.5*ParticleBackgroundAnimation.DEFAULT_NUM_STARS));
 	}
 	
 	private void createAdView(){		

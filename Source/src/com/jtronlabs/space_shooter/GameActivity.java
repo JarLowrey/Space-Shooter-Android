@@ -141,8 +141,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		isGameOver = false;
 		
 		//onResume() is called after onCreate, so needed setup is done there
-		stars_creator_game = new ParticleBackgroundAnimation(gameLayout);
-		stars_creator_store = new ParticleBackgroundAnimation(storeLayout);
+		stars_creator_game = new ParticleBackgroundAnimation(gameLayout,ParticleBackgroundAnimation.DEFAULT_NUM_STARS);
+		stars_creator_store = new ParticleBackgroundAnimation(storeLayout,
+				(int) (1.5*ParticleBackgroundAnimation.DEFAULT_NUM_STARS));
 		createAdViewInStore();
 	}
 	
