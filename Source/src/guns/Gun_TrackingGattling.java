@@ -3,12 +3,11 @@ package guns;
 import helpers.MediaController;
 import interfaces.Shooter;
 import parents.Moving_ProjectileView;
-import android.content.Context;
-import bullets.Bullet_Interface;
+import android.widget.RelativeLayout;
 import bullets.BulletView;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
 
 
 public class Gun_TrackingGattling extends Gun_Tracking {
@@ -20,11 +19,11 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 	private float originalBulletFreq;
 	private Moving_ProjectileView shootTowardsMe;
 	
-	public Gun_TrackingGattling(Context context,Moving_ProjectileView shootingAtMe,Shooter theShooter,
+	public Gun_TrackingGattling(RelativeLayout layout,Moving_ProjectileView shootingAtMe,Shooter theShooter,
 			Bullet_Interface bulletType,float bulletFrequency,float bulletSpeedVertical,
 			int bulletDmg,int positionOnShooterAsAPercentage,
 			int numGattlingShots) {
-		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg,positionOnShooterAsAPercentage);
+		super(layout,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg,positionOnShooterAsAPercentage);
 		
 		shootTowardsMe = shootingAtMe;
 		originalBulletFreq=bulletFrequency;
@@ -33,7 +32,7 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 	}
 	
 	public boolean shoot(){ 
-		MediaController.playSoundEffect(ctx, MediaController.SOUND_LASER_SHOOT2);
+		MediaController.playSoundEffect(gameScreen.getContext(), MediaController.SOUND_LASER_SHOOT2);
 		
 		
 		if(currentNumShots >= cutoffTotalShots){
@@ -45,7 +44,7 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 		}
 		
 		//create one bullet at center of shooter
-		BulletView bullet = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
+		BulletView bullet = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);
 
 		bullet.setPositionOnShooterAsAPercentage(this.posOnShooter);
 

@@ -6,6 +6,7 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.BulletView;
 
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
@@ -22,9 +23,9 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	
 	protected boolean isShooting;
 
-	public Friendly_ShooterView(Context context, float projectileSpeedY,float projectileSpeedX, 
+	public Friendly_ShooterView(RelativeLayout layout, float projectileSpeedY,float projectileSpeedX, 
 			int projectileDamage,int projectileHealth,int width,int height,int imageId) {
-		super(context,projectileSpeedY,projectileSpeedX,
+		super(layout,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth, width, height, imageId);
 		
 		isShooting=false;

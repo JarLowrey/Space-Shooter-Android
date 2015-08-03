@@ -3,6 +3,7 @@ package enemies;
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -29,19 +30,19 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
 	protected double leftThreshold,rightThreshold;
 	
-	public Shooting_DiagonalMovingView(Context context, int level) {
-		super(context,level,
+	public Shooting_DiagonalMovingView(RelativeLayout layout, int level) {
+		super(layout,level,
 				DEFAULT_SCORE,
 				DEFAULT_SPEED_Y,
 				DEFAULT_SPEED_X,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
-				(int)context.getResources().getDimension(R.dimen.ship_diagonal_width),
-				(int)context.getResources().getDimension(R.dimen.ship_diagonal_height), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_diagonal_width),
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_diagonal_height), 
 				DEFAULT_BACKGROUND); 
 		
-		int width = (int)context.getResources().getDimension(R.dimen.ship_diagonal_width);
+		int width = (int)getContext().getResources().getDimension(R.dimen.ship_diagonal_width);
 		init(width);
 		
 
@@ -73,7 +74,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 
 		//add guns
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 1.1 * DEFAULT_BULLET_FREQ * Math.random());
-		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_height), 
 				R.drawable.bullet_laser_rectangular_red),

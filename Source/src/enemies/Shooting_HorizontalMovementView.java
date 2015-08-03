@@ -5,6 +5,7 @@ import helpers.KillableRunnable;
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 
@@ -19,14 +20,14 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	
-	public Shooting_HorizontalMovementView(Context context, 
+	public Shooting_HorizontalMovementView(RelativeLayout layout, 
 			int level,
 			int scoreForKilling,
 			float projectileSpeedY,
 			int projectileDamage, int projectileHealth,
 			float probSpawnBeneficialObject, 
 			int width, int height, int imageId) {
-		super(context, level,
+		super(layout, level,
 				scoreForKilling, projectileSpeedY,0,
 				projectileDamage, projectileHealth, probSpawnBeneficialObject, width,
 				height, imageId);

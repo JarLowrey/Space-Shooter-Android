@@ -3,7 +3,7 @@ package guns;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
-import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -25,7 +25,7 @@ public abstract class Gun {
 	
 	Shooter shooter;
 	Bullet_Interface myBulletType;
-	Context ctx;
+	RelativeLayout gameScreen;
 	
 
 	protected float bulletFreq,bulletSpeedY,bulletSpeedX;
@@ -39,9 +39,9 @@ public abstract class Gun {
 		  		}
 			};
 	
-	public Gun(Context context,Shooter theShooter,Bullet_Interface bulletType,
+	public Gun(RelativeLayout layout,Shooter theShooter,Bullet_Interface bulletType,
 			float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
-		ctx=context;
+		gameScreen = layout;
 		
 		posOnShooter=positionOnShooterAsAPercentage;
 		bulletFreq=bulletFrequency;

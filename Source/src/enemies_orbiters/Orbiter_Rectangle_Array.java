@@ -3,8 +3,8 @@ package enemies_orbiters;
 import java.util.ArrayList;
 
 import levels.AttributesOfLevels;
-import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -41,13 +41,13 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 
 	private int myPosition;
 	
-	public Orbiter_Rectangle_Array(Context context, int level) {
-		super(context,level);
+	public Orbiter_Rectangle_Array(RelativeLayout layout, int level) {
+		super(layout,level);
 		
 		//change default background (parent has its own default background
 		ViewGroup.LayoutParams params = this.getLayoutParams();
-		params.height = (int)context.getResources().getDimension(R.dimen.ship_array_shooter_height);
-		params.width = (int)context.getResources().getDimension(R.dimen.ship_array_shooter_width);
+		params.height = (int)getContext().getResources().getDimension(R.dimen.ship_array_shooter_height);
+		params.width = (int)getContext().getResources().getDimension(R.dimen.ship_array_shooter_width);
 		this.setLayoutParams(params);
 		this.setImageResource(DEFAULT_BACKGROUND);
 		this.setHealth( scaleHealth(level, getDefaultHealth(level) ) );
@@ -86,7 +86,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		//add guns
 		removeAllGuns();
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ*1.5 + 3 * DEFAULT_BULLET_FREQ * Math.random());
-		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, 
+		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, 
 				new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
@@ -98,7 +98,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		this.startShooting();
 	}
 
-	public static void refreshSimpleShooterArray(Context ctx, int level){
+	public static void refreshSimpleShooterArray(RelativeLayout layout, int level){
 		if(allSimpleShooters==null || allSimpleShooters.size()==0){
 			numRows=DEFAULT_NUM_ROWS;
 			numCols=DEFAULT_NUM_COLS;
@@ -107,7 +107,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			allSimpleShooters = new ArrayList<Orbiter_Rectangle_Array>();
 			
 			for(int i=allSimpleShooters.size();i<getMaxNumShips();i++){
-				new Orbiter_Rectangle_Array(ctx,level);
+				new Orbiter_Rectangle_Array(layout,level);
 			}
 			
 		}

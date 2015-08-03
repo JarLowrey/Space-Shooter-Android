@@ -5,6 +5,7 @@ import helpers.KillableRunnable;
 import interfaces.Projectile;
 import android.content.Context;
 import android.graphics.Color;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
 
@@ -18,9 +19,9 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 	float speedX;
 	int damage, health,maxHealth;
 	
-	public Moving_ProjectileView(Context context,float movingSpeedY,float movingSpeedX,int projectileDamage,
+	public Moving_ProjectileView(RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
 			int projectileHealth,int width,int height,int imageId) {
-		super(context, movingSpeedY, movingSpeedX, width, height, imageId);	
+		super(layout, movingSpeedY, movingSpeedX, width, height, imageId);	
 
 		damage=projectileDamage;
 		health=projectileHealth;

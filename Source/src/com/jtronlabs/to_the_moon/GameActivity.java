@@ -76,7 +76,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
    
 	//MODEL     
 	private LevelSystem levelCreator;    
-	private ParticleBackgroundAnimation stars_creator = new ParticleBackgroundAnimation(this);;
+	private ParticleBackgroundAnimation stars_creator_game,stars_creator_store;
 	
 	@Override       
 	protected void onCreate(Bundle savedInstanceState) {
@@ -137,11 +137,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		offscreenBottom = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
 		
 		//set up the game
-		levelCreator = new LevelSystem(this);
+		levelCreator = new LevelSystem(gameLayout);
 		isGameOver = false;
 		
 		//onResume() is called after onCreate, so needed setup is done there
-		
+		stars_creator_game = new ParticleBackgroundAnimation(gameLayout);
+		stars_creator_store = new ParticleBackgroundAnimation(storeLayout);
 		createAdViewInStore();
 	}
 	
@@ -155,7 +156,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
     public void onPause() {
         super.onPause();
-        stars_creator.stopSpawningStars();
+        stars_creator_game.stopSpawningStars();
+        stars_creator_store.stopSpawningStars();
+
         
         scoreInGame.setVisibility(View.GONE);
         
@@ -183,8 +186,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
 	public void onResume(){
 		super.onResume();
-		
-		stars_creator.startSpawningStars();
+
+        stars_creator_game.startSpawningStars();
+        stars_creator_store.startSpawningStars();
 		
         scoreInGame.setVisibility(View.VISIBLE);
 		
@@ -332,7 +336,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				ally = null;
 			}
 			
-			ally = new AllyView(GameActivity.this, protagonist, friend_lvl);
+			ally = new AllyView(gameLayout, protagonist, friend_lvl);
 		}
 		
 		scoreInGame.setText(levelCreator.getResourceCount()+"");
@@ -518,24 +522,24 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		scoreInGame.setText(newScore+"");
 	}
-
-	@Override
-	public void removeView(ImageView view) {
-		gameLayout.removeView(view);
-	}
-
-	@Override
-	public void addToForeground(ImageView view) {
-		gameLayout.addView(view,gameLayout.getChildCount()-2);
-	}
-
-	@Override
-	public void addToBackground(ImageView view) {
-		//addToForeground is called in every instantiation of every MovingView. Thus addToBackground is non default,
-		//and thus the view needs to be removed from its parent before it can be re-added
-		gameLayout.removeView(view);
-		gameLayout.addView(view,0);
-	}
+//
+//	@Override
+//	public void removeView(ImageView view) {
+//		gameLayout.removeView(view);
+//	}
+//
+//	@Override
+//	public void addToForeground(ImageView view) {
+//		gameLayout.addView(view,gameLayout.getChildCount()-2);
+//	}
+//
+//	@Override
+//	public void addToBackground(ImageView view) {
+//		//addToForeground is called in every instantiation of every MovingView. Thus addToBackground is non default,
+//		//and thus the view needs to be removed from its parent before it can be re-added
+//		gameLayout.removeView(view);
+//		gameLayout.addView(view,0);
+//	}
 	
 
 	private void createAdViewInStore(){		
@@ -566,7 +570,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		
 		//create protagonist View & restore his state
-		protagonist = new ProtagonistView(GameActivity.this,GameActivity.this);
+		protagonist = new ProtagonistView(gameLayout,GameActivity.this);
 		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
 		protagonist.setY( protagonistPosition );
 		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));

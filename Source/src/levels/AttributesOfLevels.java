@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 
 public abstract class AttributesOfLevels {
-	protected Context ctx;
+	protected RelativeLayout gameScreen;
 	private int resourceNo,levelNo;
 	
 	public static final int STANDARD_PROB_WEIGHT = 1000;
@@ -34,8 +35,8 @@ public abstract class AttributesOfLevels {
 	
 	Handler spawningHandler;
 
-	public AttributesOfLevels(Context context) {
-		ctx=context; 
+	public AttributesOfLevels(RelativeLayout layout) {
+		gameScreen=layout; 
 		spawningHandler = new Handler();
 	} 
 	
@@ -45,7 +46,10 @@ public abstract class AttributesOfLevels {
 	public abstract boolean isLevelFinishedSpawning();	
 	
 	public GameActivityInterface getInteractivityInterface(){
-		return (GameActivityInterface)ctx;
+		return (GameActivityInterface)ctx();
+	}
+	protected Context ctx(){
+		return gameScreen.getContext();
 	}
 	
 	//Levels
@@ -67,7 +71,7 @@ public abstract class AttributesOfLevels {
 
 	// persistent storage
 	public void saveResourceCount(){
-		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		SharedPreferences gameState = ctx().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 		
 		editor.putInt(GameActivity.STATE_RESOURCES, resourceNo);
@@ -78,7 +82,7 @@ public abstract class AttributesOfLevels {
 	 * Load saved level and resources from memory. Set wave to 0
 	 */
 	public void loadScoreAndLevel(){
-		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		SharedPreferences gameState = ctx().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		setResources(gameState.getInt(GameActivity.STATE_RESOURCES,0));
 		levelNo = gameState.getInt(GameActivity.STATE_LEVEL,0);
 //		setWave(gameState.getInt(GameActivity.STATE_WAVE,0));
@@ -90,7 +94,7 @@ public abstract class AttributesOfLevels {
 	 * @return
 	 */
 	public int scoreGainedThisLevel(){
-		SharedPreferences gameState = ctx.getSharedPreferences(
+		SharedPreferences gameState = ctx().getSharedPreferences(
 				GameActivity.GAME_STATE_PREFS, 0);
 		//find how much score was incremented this level to know how much to add to total score
 		final int scoreBeforeLevel = gameState.getInt(GameActivity.STATE_RESOURCES, 0);

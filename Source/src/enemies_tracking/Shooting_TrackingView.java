@@ -8,6 +8,7 @@ import helpers.KillableRunnable;
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -33,20 +34,20 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	
 	private Moving_ProjectileView viewToTrack;
 	
-	public Shooting_TrackingView(Context context,int level) {
-		super(context, level,
+	public Shooting_TrackingView(RelativeLayout layout,int level) {
+		super(layout, level,
 				DEFAULT_SCORE,
 				getDefaultSpeedY(level), 
 				DEFAULT_SPEED_X,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, 
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
-				(int)context.getResources().getDimension(R.dimen.ship_tracker_width),
-				(int)context.getResources().getDimension(R.dimen.ship_tracker_height), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_tracker_width),
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_tracker_height), 
 				DEFAULT_BACKGROUND);
 
 		//set up the enemy to track the given MovingView
-		viewToTrack = ((GameActivityInterface)context).getProtagonist();
+		viewToTrack = ((GameActivityInterface)getContext()).getProtagonist();
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
 		
 		//tracking view maintains constant downward speed
@@ -78,7 +79,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 
 		//add guns
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
-		Gun defaultGun = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 				R.drawable.bullet_laser_round_red),

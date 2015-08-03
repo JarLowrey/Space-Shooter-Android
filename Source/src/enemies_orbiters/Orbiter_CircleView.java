@@ -5,7 +5,7 @@ import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -23,15 +23,15 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	private int angularVelocity;
 	private double radius;
 
-	public Orbiter_CircleView(Context context,int level) {
-		super(context,level,
+	public Orbiter_CircleView(RelativeLayout layout,int level) {
+		super(layout,level,
 				DEFAULT_SCORE, 
-				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width), 
-				(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_height), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_orbit_circular_width), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_orbit_circular_height), 
 				DEFAULT_BACKGROUND);
 
-		final int width=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
-		final int height=(int)context.getResources().getDimension(R.dimen.ship_orbit_circular_width);
+		final int width=(int)layout.getContext().getResources().getDimension(R.dimen.ship_orbit_circular_width);
+		final int height=(int)layout.getContext().getResources().getDimension(R.dimen.ship_orbit_circular_width);
 		radius = Math.random() * ( MainActivity.getWidthPixels()-width) / 2 ;
 		radius = Math.max(radius,MIN_RADIUS);
 		radius = Math.min(radius,MAX_RADIUS);
@@ -40,12 +40,12 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		init(width,height);
 	}
 	
-	public Orbiter_CircleView(Context context,int level,int score,float speedY, 
+	public Orbiter_CircleView(RelativeLayout layout,int level,int score,float speedY, 
 			int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,
 			int circularRadius,int angVelocity) {
-		super(context, level,score,speedY,
+		super(layout, level,score,speedY,
 				collisionDamage, health,
 				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
 		

@@ -1,28 +1,26 @@
 package backgroundViews;
 
-import android.content.Context;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 public class ParticleBackgroundAnimation {
 	
-	private Context ctx;
+	private RelativeLayout screen;
 	private StarView[] myStars;
 	
-	public ParticleBackgroundAnimation(Context context){
-		ctx = context;
+	public ParticleBackgroundAnimation(RelativeLayout layout){
+		screen = layout;
 		
-		myStars = new StarView[25];
+		myStars = new StarView[27];
 	}
 	
 	public void startSpawningStars(){
-		Log.d("lowrey","stars created and began moving");
 		for(int i=0; i < myStars.length;i++){
-			myStars[i] = new StarView(ctx);
+			myStars[i] = new StarView(screen);
 		}
 	}
 	
 	public void stopSpawningStars(){
-		Log.d("lowrey","stars stopped moving and removed");
 		for(int i=0; i < myStars.length;i++){
 			myStars[i].removeGameObject();
 			myStars[i] = null;

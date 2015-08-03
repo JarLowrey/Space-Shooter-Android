@@ -38,6 +38,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	private static float screenDens,widthPixels,heightPixels;
 	private ImageButton vibrate, sound, intro, credits;
 	private AdView adView;
+	
+	private ParticleBackgroundAnimation stars_creator;
 	   
 //	AnimationDrawable animation; 
 	@Override 
@@ -77,6 +79,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		playBtn.setOnClickListener(this);
 	    
 		createAdView();
+		
+		stars_creator = new ParticleBackgroundAnimation((RelativeLayout)findViewById(R.id.activity_main));
 	}
 	
 	private void createAdView(){		
@@ -84,7 +88,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		adView = new AdView(this);
 		adView.setAdUnitId("ca-app-pub-1314947069846070/4608411941");
 		adView.setAdSize(AdSize.BANNER);
-
+ 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 			    RelativeLayout.LayoutParams.WRAP_CONTENT, 
 			    RelativeLayout.LayoutParams.WRAP_CONTENT); 
@@ -109,6 +113,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onPause(){
 		super.onPause();
 
+		stars_creator.stopSpawningStars();
+		
 		adView.pause();
 		MediaController.stopLoopingSound();
 	}
@@ -117,6 +123,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onResume(){
 		super.onResume();
 
+		stars_creator.startSpawningStars(); 
+		
 		adView.resume();
 		MediaController.playSoundClip(this, R.raw.background_intro, true);
 	}

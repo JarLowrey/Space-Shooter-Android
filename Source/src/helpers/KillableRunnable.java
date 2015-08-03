@@ -12,7 +12,7 @@ public abstract class KillableRunnable implements Runnable{
 	private static ArrayList<KillableRunnable> allRunnables = new ArrayList<KillableRunnable>();
 	
 	public KillableRunnable(){
-		allRunnables.add(this);
+		allRunnables.add(this); 
 	}
 	
 	/**

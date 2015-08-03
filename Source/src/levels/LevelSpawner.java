@@ -1,7 +1,8 @@
 package levels;
 
 import helpers.KillableRunnable;
-import android.content.Context;
+import android.util.Log;
+import android.widget.RelativeLayout;
 import enemies.EnemyView;
 import enemies.HorizontalMovement_FinalBoss;
 import enemies.Shooting_DiagonalMovingView;
@@ -20,8 +21,8 @@ public class LevelSpawner extends Factory_Bosses{
 		timeSinceSpawnedLastWave = 0;
 	public SpawnableWave[] allSpawnableWaves;
 	 
-	public LevelSpawner(Context context) {
-		super(context);
+	public LevelSpawner(RelativeLayout layout) {
+		super(layout);
 	} 
 
 	public void startLevelSpawning(){
@@ -203,7 +204,7 @@ public class LevelSpawner extends Factory_Bosses{
 						
 		};
 		SpecialSpawnableLevel.initializeSpecialSpawnableLevels(ALL_SPECIAL_SPAWNABLE_LEVELS);
-	}	
+	}	 
 	
 	/**
 	 * Meteors are an integral part of the game, as they provide a background, constant enemy and movement. This is a special method
@@ -212,6 +213,7 @@ public class LevelSpawner extends Factory_Bosses{
 	 */
 	private SpawnableWave backgroundMeteors(){
 		if( canSpawnMeteors() ){
+			Log.d("lowrey","meteorCreated");
 			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
 			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
 			return spawnEnemyWithDefaultConstructorArugments(meteor,0 );//probability weight does not matter here

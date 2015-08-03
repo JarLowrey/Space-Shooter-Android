@@ -5,6 +5,7 @@ import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import parents.MovingView;
 import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -34,17 +35,17 @@ public class Gravity_MeteorView extends EnemyView{
 		} 
 	};
 	
-	public Gravity_MeteorView(Context context,int level) {
-		super(context,level,
+	public Gravity_MeteorView(RelativeLayout layout,int level) {
+		super(layout,level,
 				DEFAULT_SCORE , 
 				DEFAULT_SPEED_Y, 
 				DEFAULT_SPEED_X,
 				DEFAULT_COLLISION_DAMAGE, 
 				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
-				(int)context.getResources().getDimension(R.dimen.meteor_length),
-				(int)context.getResources().getDimension(R.dimen.meteor_length), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.meteor_length),
+				(int)layout.getContext().getResources().getDimension(R.dimen.meteor_length), 
 				DEFAULT_BACKGROUND);
-				
+	
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
 		//ConditionalHandler.postIfAlive(rotateRunnable, this);

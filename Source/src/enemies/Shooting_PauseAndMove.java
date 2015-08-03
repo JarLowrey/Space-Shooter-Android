@@ -2,6 +2,7 @@ package enemies;
  
 import levels.AttributesOfLevels;
 import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -23,19 +24,19 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	private long amtOfTimeToPause; 
 	 
-	public Shooting_PauseAndMove (Context context,int level) {
-		super(context,level,
+	public Shooting_PauseAndMove (RelativeLayout layout,int level) {
+		super(layout,level,
 				DEFAULT_SCORE,
 				DEFAULT_SPEED_Y,
 				0,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
-				(int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_width),
-				(int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_height), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_width),
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_height), 
 				DEFAULT_BACKGROUND);
 
-		init( (int)context.getResources().getDimension(R.dimen.ship_pause_and_shoot_width) );
+		init( (int)getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_width) );
 	}
 	
 	private void init(int width){
@@ -49,12 +50,12 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 
 		//override default gun
 		this.removeAllGuns();
-		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+		Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),
 				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
-		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+		Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),

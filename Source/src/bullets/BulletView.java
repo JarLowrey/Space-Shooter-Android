@@ -5,9 +5,9 @@ import helpers.KillableRunnable;
 import interfaces.Shooter;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 /**
  * By default, a bullet moves straight and spawns in the middle of its shooter
@@ -20,8 +20,9 @@ public class BulletView extends Moving_ProjectileView{
 			DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE=50;
 	private Shooter theOneWhoShotMe;
 	
-	public BulletView(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage,int width,int height,int imageId) {
-		super(context,bulletSpeedY,
+	public BulletView(RelativeLayout layout,Shooter shooter,float bulletSpeedY,
+			int bulletDamage,int width,int height,int imageId) {
+		super(layout,bulletSpeedY,
 				DEFAULT_HORIZONTAL_SPEED ,bulletDamage,1, width, height, imageId);
 	
 		//set instance variables

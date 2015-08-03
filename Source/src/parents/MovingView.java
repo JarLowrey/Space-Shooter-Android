@@ -28,18 +28,21 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	public static final int HOW_OFTEN_TO_MOVE=100;
 	
 	private float speedX,speedY;
+	private RelativeLayout myLayout;
 	
 	boolean isRemoved;
 	
 	private KillableRunnable moveRunnable;
 	
-	public MovingView(Context context,float movingSpeedY,float movingSpeedX,int width,int height,int imageId) {
-		super(context);
+	public MovingView(RelativeLayout layout,float movingSpeedY,float movingSpeedX,int width,int height,int imageId) {
+		super(layout.getContext());
 
+		myLayout = layout;
+		
 		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
 		this.setImageResource(imageId);
 
-		((GameActivityInterface)context).addToForeground(this);
+		addToForeground(this);
 		
 		moveRunnable = new KillableRunnable(){
 			@Override
@@ -194,8 +197,8 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		isRemoved=true;
 		this.removeCallbacks(null);	
 		killMoveRunnable();
-
-		((GameActivityInterface)getContext()).removeView(this);
+		
+		myLayout.removeView(this);
 	}
 	
 	protected void createExplosion(int width,int height,int explosionImgId,long[] vibrationPattern){
@@ -213,18 +216,33 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		exp.setX(this.getX());
 		exp.setY(this.getY());
 
-		((GameActivityInterface)getContext()).addToForeground(exp);
+		addToForeground(exp);
 		
 		exp.postDelayed(new KillableRunnable(){
 			@Override
 			public void doWork() {
-				((GameActivityInterface)MovingView.this.getContext()).removeView(exp);
+				myLayout.removeView(exp);
 			}
 		},500);	
 	}
 	
 	protected void createExplosion(int width,int height,int explosionId){
 		createExplosion(width,height,explosionId,null);
+	}
+	
+	protected void addToForeground(View view){
+		myLayout.addView(view,myLayout.getChildCount()-2);
+	}
+
+	protected void addToBackground(View view){
+		//addToForeground is called in every instantiation of every MovingView. Thus addToBackground is non default,
+		//and thus the view needs to be removed from its parent before it can be re-added
+		myLayout.removeView(view);
+		myLayout.addView(view,0);
+	}
+	
+	protected RelativeLayout getMyLayout(){
+		return myLayout;
 	}
 		
 }

@@ -1,13 +1,12 @@
 package bonuses;
  
 import interfaces.MovingViewInterface;
-import interfaces.Shooter;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
 public class Bonus_InvincibleShieldView extends BonusView implements MovingViewInterface{
 	
-	public Bonus_InvincibleShieldView(Context context,float positionX,float positionY) {
-		super(context,positionX,positionY);	
+	public Bonus_InvincibleShieldView(RelativeLayout layout,float positionX,float positionY) {
+		super(layout,positionX,positionY);	
 
 //		this.setImageResource(R.drawable.XXXXXXXXX);
 	}

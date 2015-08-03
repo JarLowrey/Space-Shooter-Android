@@ -4,7 +4,7 @@ import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import parents.Moving_ProjectileView;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -19,11 +19,11 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	
 	private int currentSideOfRectangle,orbitDist;
 
-	public Orbiter_RectangleView(Context context,int level) {
-		super(context,level, 
+	public Orbiter_RectangleView(RelativeLayout layout,int level) {
+		super(layout,level, 
 				DEFAULT_SCORE, 
-				(int)context.getResources().getDimension(R.dimen.ship_orbit_rectangular_width), 
-				(int)context.getResources().getDimension(R.dimen.ship_orbit_rectangular_height), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_orbit_rectangular_width), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_orbit_rectangular_height), 
 				DEFAULT_BACKGROUND);
 
 		orbitDist=DEFAULT_ORBIT_LENGTH;
@@ -32,10 +32,10 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	}
 	
 
-	public Orbiter_RectangleView(Context context,int level,int score,float speedY,int collisionDamage, 
+	public Orbiter_RectangleView(RelativeLayout layout,int level,int score,float speedY,int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitLength,int orbitPixelX,int orbitPixelY,int width,int height,int imageId) {
-		super(context, level,score,speedY,
+		super(layout, level,score,speedY,
 				collisionDamage, health,
 				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
 		

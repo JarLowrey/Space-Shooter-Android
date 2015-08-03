@@ -3,6 +3,7 @@ package parents;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import android.content.Context;
+import android.widget.RelativeLayout;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
  * The downward force may be different from the upward speed.
@@ -18,9 +19,9 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 	private boolean hasReachedGravityThreshold;
 	
 	
-	public Projectile_GravityView(Context context,float movingSpeedY,float movingSpeedX,int projectileDamage,
+	public Projectile_GravityView(RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
 			int projectileHealth,int width,int height,int imageId){
-		super(context, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth, width, height, imageId);
+		super(layout, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth, width, height, imageId);
 
 		hasReachedGravityThreshold=false;
 		gravityThreshold=NO_THRESHOLD;

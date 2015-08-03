@@ -5,6 +5,7 @@ import levels.AttributesOfLevels;
 import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.content.Context;
+import android.widget.RelativeLayout;
 import bonuses.BonusView;
 
 public abstract class EnemyView extends Projectile_GravityView{
@@ -16,7 +17,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 	private double probSpawnBeneficialObject;
 	
 	
-	public EnemyView(Context context,
+	public EnemyView(RelativeLayout layout,
 			int level,
 			int scoreForKilling,
 			float projectileSpeedY,
@@ -25,7 +26,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 			int projectileHealth,
 			float probSpawnBeneficialObjectUponDeath,
 			int width,int height,int imageId) {
-		super( context,
+		super( layout,
 				scaleSpeedY(level,projectileSpeedY),
 				scaleSpeedX(level,projectileSpeedX),
 				scaleCollisionDamage(level,projectileDamage),
@@ -56,7 +57,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 			if(Math.random()<probSpawnBeneficialObject){//check for random bonus
 				final float xAvg = (2 * this.getX()+this.getWidth())/2;
 				final float yAvg = (2 * this.getY()+this.getHeight())/2;
-				BonusView.displayRandomBonusView(this.getContext(),xAvg,yAvg);
+				BonusView.displayRandomBonusView(getMyLayout(),xAvg,yAvg);
 			}
 		} 
 		else {//fallen offscreen

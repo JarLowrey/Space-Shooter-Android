@@ -7,6 +7,7 @@ import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -27,12 +28,12 @@ public class AllyView extends Friendly_ShooterView{
 	 * @param viewToTrack
 	 * @param levelOfAlly
 	 */
-	public AllyView(Context context,ProtagonistView viewToTrack, int levelOfAlly) {
-		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
-				allyHealth(context),
-				allyPictureAndDimensions(context)[1], 
-				allyPictureAndDimensions(context)[2],
-				allyPictureAndDimensions(context)[0]);
+	public AllyView(RelativeLayout layout,ProtagonistView viewToTrack, int levelOfAlly) {
+		super(layout,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
+				allyHealth(layout.getContext()),
+				allyPictureAndDimensions(layout.getContext())[1], 
+				allyPictureAndDimensions(layout.getContext())[2],
+				allyPictureAndDimensions(layout.getContext())[0]);
 		
 		//set this runnable to track the protagonist
 		trackMe = viewToTrack;
@@ -74,22 +75,23 @@ public class AllyView extends Friendly_ShooterView{
 		});
 
 		//apply gun upgrades
-		final int bulletSize = (int) ( (allyLevel(context) >= 5) ? getContext().getResources().getDimension(R.dimen.bullet_round_med_length) :
+		final int allyLvl = allyLevel(getContext());
+		final int bulletSize = (int) ( (allyLvl >= 5) ? getContext().getResources().getDimension(R.dimen.bullet_round_med_length) :
 			getContext().getResources().getDimension(R.dimen.bullet_round_small_length));// level 6+ use med bullet, and 6- use small bullet
-		addGun(new Gun_SingleShotStraight(getContext(), this,
+		addGun(new Gun_SingleShotStraight( getMyLayout(), this,
 				new Bullet_Basic(
 						bulletSize, 
 						bulletSize, 
 						R.drawable.bullet_laser_round_green),
 				DEFAULT_BULLET_FREQ, 
 				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-				( ProtagonistView.DEFAULT_BULLET_DAMAGE / 2 ) * Math.max(1, (allyLevel(context)-3) ) , //scale dmg 4 times, starting at level 4. Before that just use default damage
+				( ProtagonistView.DEFAULT_BULLET_DAMAGE / 2 ) * Math.max(1, (allyLvl-3) ) , //scale dmg 4 times, starting at level 4. Before that just use default damage
 				50)
 			);
 		startShooting();
 		
 		//remove the ally from foreground and add to background - behind the protagonist
-		((GameActivityInterface)context).addToBackground(this);
+		addToBackground(this);
 	}
 	 
 

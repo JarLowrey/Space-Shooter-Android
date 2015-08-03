@@ -2,7 +2,7 @@ package levels;
 
 import helpers.KillableRunnable;
 import android.content.Context;
-import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
@@ -25,8 +25,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		
 	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 4500;
 	
-	public Factory_ScriptedWaves(Context context) { 
-		super(context);
+	public Factory_ScriptedWaves(RelativeLayout layout) { 
+		super(layout);
 	}
 			
 	public final static SpawnableWave doNothing(){
@@ -42,7 +42,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		KillableRunnable r = new KillableRunnable(){//this does not last a whole wave, which is fine.
 			@Override
 			public void doWork() {
-				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx().getResources().getDimension(R.dimen.meteor_length));
 				numMeteors/=2;
 				numMeteors-=2;
 				
@@ -59,7 +59,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx().getResources().getDimension(R.dimen.meteor_length));
 				numMeteors-=4;
 				spawnMeteorShower(numMeteors,400,true);
 				
@@ -73,7 +73,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx.getResources().getDimension(R.dimen.meteor_length));
+				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx().getResources().getDimension(R.dimen.meteor_length));
 				numMeteors-=4;
 				spawnMeteorShower(numMeteors,400,false);
 				
@@ -88,7 +88,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Orbiter_Rectangle_Array.refreshSimpleShooterArray(ctx,
+				Orbiter_Rectangle_Array.refreshSimpleShooterArray(gameScreen,
 						getLevel() );
 			}
 		};
@@ -141,8 +141,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	}
 	private void spawnDefaultEnemy(Class c){
 		try {
-			Class [] constructorArgs = new Class[] {Context.class,int.class}; //get constructor with list of arguments
-			c.getDeclaredConstructor(constructorArgs).newInstance(ctx,getLevel()); //instantiate the passed class with parameters
+			Class [] constructorArgs = new Class[] {RelativeLayout.class,int.class}; //get constructor with list of arguments
+			c.getDeclaredConstructor(constructorArgs).newInstance(gameScreen,getLevel()); //instantiate the passed class with parameters
 		} catch (Exception e){
 			e.printStackTrace();
 		}		
@@ -174,7 +174,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				@Override
 				public void doWork() {
 					//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
-					Gravity_MeteorView  met= new Gravity_MeteorView(ctx,getLevel() );
+					Gravity_MeteorView  met= new Gravity_MeteorView(gameScreen,getLevel() );
 					final int width = met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
 					final int numMeteorsPossibleOnScreenAtOnce = (int) (MainActivity.getWidthPixels()/width);
 					final int currentMeteor = numSpawned % numMeteorsPossibleOnScreenAtOnce;
@@ -211,12 +211,12 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			@Override
 			public void doWork() {
 				final int currentShip = numSpawned % numCols ;
-				final int width  = (int)ctx.getResources().getDimension(R.dimen.ship_orbit_circular_width);
+				final int width  = (int)ctx().getResources().getDimension(R.dimen.ship_orbit_circular_width);
 				final int radius= (int)( MainActivity.getWidthPixels()/numCols - width ) / 2;
-				final double height = ctx.getResources().getDimension(R.dimen.ship_orbit_circular_height);	
+				final double height = ctx().getResources().getDimension(R.dimen.ship_orbit_circular_height);	
 				final int orbitX= ( width/2 ) * (2*currentShip+1) + radius * (2*currentShip +1);
 				final int orbitY=Orbiter_CircleView.DEFAULT_ORBIT_Y;
-				new Orbiter_CircleView(ctx,getLevel(),
+				new Orbiter_CircleView(gameScreen,getLevel(),
 						Orbiter_CircleView.DEFAULT_SCORE,Orbiter_CircleView.DEFAULT_SPEED_Y,
 						Orbiter_CircleView.DEFAULT_COLLISION_DAMAGE,
 						Orbiter_CircleView.DEFAULT_HEALTH,Orbiter_CircleView.DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,

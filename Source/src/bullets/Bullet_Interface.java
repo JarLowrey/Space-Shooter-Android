@@ -1,7 +1,7 @@
 package bullets;
 
 import interfaces.Shooter;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
   
 
@@ -22,6 +22,6 @@ public abstract class Bullet_Interface{
 		backgroundId = bulletBackgroundId;
 	}
 	
-	public abstract BulletView getBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage);
+	public abstract BulletView getBullet(RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage);
 	
 }

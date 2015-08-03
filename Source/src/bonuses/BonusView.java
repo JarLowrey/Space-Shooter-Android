@@ -2,15 +2,17 @@ package bonuses;
 
 import levels.LevelSystem;
 import parents.MovingView;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
 
 public abstract class BonusView extends MovingView {
 	
-	public BonusView(Context context,float positionX,float positionY) {
-		super(context,DEFAULT_SPEED_Y,0,(int) context.getResources().getDimension(R.dimen.bonus_background_len),
-				(int)context.getResources().getDimension(R.dimen.bonus_background_len),0);	//children classes will set image resource
+	public BonusView(RelativeLayout layout,float positionX,float positionY) {
+		super(layout,DEFAULT_SPEED_Y,0,
+				(int) layout.getContext().getResources().getDimension(R.dimen.bonus_background_len),
+				(int)layout.getContext().getResources().getDimension(R.dimen.bonus_background_len)
+				,0);	//children classes will set image resource
 		
 		//set background and position
 		this.setBackgroundResource(R.drawable.white_center_red_outline);
@@ -32,13 +34,13 @@ public abstract class BonusView extends MovingView {
 		super.defaultCleanupOnRemoval();
 	}
 	
-	public static void displayRandomBonusView(Context context,float positionX,float positionY){
+	public static void displayRandomBonusView(RelativeLayout layout,float positionX,float positionY){
 		double rand = Math.random();
 		
 		if(rand<.5){
-			new Bonus_ScoreView(context,positionX,positionY);
+			new Bonus_ScoreView(layout,positionX,positionY);
 		}else{
-			new Bonus_HealView(context,positionX,positionY);
+			new Bonus_HealView(layout,positionX,positionY);
 		}
 	}
 }

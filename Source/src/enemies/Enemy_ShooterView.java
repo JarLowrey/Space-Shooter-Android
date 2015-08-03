@@ -7,6 +7,7 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.BulletView;
 
 import com.jtronlabs.to_the_moon.R;
@@ -24,9 +25,9 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 		private boolean isShooting=true;
 		
-		public Enemy_ShooterView(Context context,int level,int scoreForKilling, float projectileSpeedY,float projectileSpeedX, 
+		public Enemy_ShooterView(RelativeLayout layout,int level,int scoreForKilling, float projectileSpeedY,float projectileSpeedX, 
 				int projectileDamage,int projectileHealth,float probSpawnBeneficialObject,int width,int height,int imageId) {
-			super(context,level,scoreForKilling,projectileSpeedY,projectileSpeedX,
+			super(layout,level,scoreForKilling,projectileSpeedY,projectileSpeedX,
 					projectileDamage,projectileHealth,probSpawnBeneficialObject, width, height, imageId);
 
 			myGuns= new ArrayList<Gun>();

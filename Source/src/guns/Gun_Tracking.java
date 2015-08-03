@@ -1,22 +1,19 @@
 package guns;
 
-import helpers.MediaController;
 import interfaces.Shooter;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
-
-import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
 
 public abstract class Gun_Tracking extends Gun{
 
-	public Gun_Tracking(Context context, Shooter theShooter, Bullet_Interface bulletType,
+	public Gun_Tracking(RelativeLayout layout, Shooter theShooter, Bullet_Interface bulletType,
 			float bulletFrequency, float bulletSpeedVertical,
 			int bulletDmg, int positionOnShooterAsAPercentage) {
-		super(context, theShooter, bulletType, bulletFrequency, bulletSpeedVertical,
+		super(layout, theShooter, bulletType, bulletFrequency, bulletSpeedVertical,
 				bulletDmg, positionOnShooterAsAPercentage);
 	}
 

@@ -1,11 +1,9 @@
 package backgroundViews;
 
 import helpers.KillableRunnable;
-import interfaces.GameActivityInterface;
 import parents.MovingView;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
@@ -14,18 +12,16 @@ public class StarView extends MovingView{
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.star;
 	public static final float DEFAULT_SPEED_Y = 5;
 	
-	private final static float FORBIDDEN_ZONE_AT_BOTTOM_OF_SCREEN = (float) (GameActivity.getBottomScreen() * 1.5);
-
 	private int numTimesStarCanMove;
 	
 //	private float alpha;//computationally expensive
 	
-	public StarView(Context context) {
-		super(context, 
+	public StarView(RelativeLayout layout) {
+		super(layout, 
 				(float) (Math.random() * DEFAULT_SPEED_Y) + DEFAULT_SPEED_Y, 
 				0, 
-				(int)context.getResources().getDimension(R.dimen.star_len),
-				(int)context.getResources().getDimension(R.dimen.star_len), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.star_len),
+				(int)layout.getContext().getResources().getDimension(R.dimen.star_len), 
 				DEFAULT_BACKGROUND_ID);
 		
 //		alpha = (float) Math.random();
@@ -33,7 +29,7 @@ public class StarView extends MovingView{
 		
 		setRandomLocation();
 
-		((GameActivityInterface)context).addToBackground(this);
+		addToBackground(this);
 		
 		numTimesStarCanMove = (int) (Math.random() * 25) + 30;
 		final int numTimesStarCanMoveCopy = numTimesStarCanMove;

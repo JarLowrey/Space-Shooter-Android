@@ -3,12 +3,11 @@ package guns;
 import helpers.MediaController;
 import interfaces.Shooter;
 import parents.Moving_ProjectileView;
-import android.content.Context;
-import bullets.Bullet_Interface;
+import android.widget.RelativeLayout;
 import bullets.BulletView;
+import bullets.Bullet_Interface;
 
 import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
 
 public  class Gun_TrackingSingle extends Gun_Tracking {
 	
@@ -16,25 +15,25 @@ public  class Gun_TrackingSingle extends Gun_Tracking {
 	
 	private Moving_ProjectileView shootTowardsMe;
 	
-	public Gun_TrackingSingle(Context context, Moving_ProjectileView shootingAtMe,
+	public Gun_TrackingSingle(RelativeLayout layout, Moving_ProjectileView shootingAtMe,
 			Shooter theShooter,Bullet_Interface bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
-		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
+		super(layout,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 		
 		shootTowardsMe = shootingAtMe;
 	}
 
-	public Gun_TrackingSingle(Context context,
+	public Gun_TrackingSingle(RelativeLayout layout,
 			Shooter theShooter,Bullet_Interface bulletType,float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
-		super(context,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
+		super(layout,theShooter,bulletType, bulletFrequency, bulletSpeedVertical, bulletDmg, positionOnShooterAsAPercentage);
 		
 		shootTowardsMe=null;
 	}
 	
 	public boolean shoot(){		
-		MediaController.playSoundEffect(ctx, MediaController.SOUND_LASER_SHOOT2);
+		MediaController.playSoundEffect(gameScreen.getContext(), MediaController.SOUND_LASER_SHOOT2);
 		
 		//create 2 bullets
-		BulletView bullet = myBulletType.getBullet(ctx, shooter,bulletSpeedY,bulletDamage);
+		BulletView bullet = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);
 		
 		//position bullets on edges of shooter
 		bullet.setPositionOnShooterAsAPercentage(this.posOnShooter);

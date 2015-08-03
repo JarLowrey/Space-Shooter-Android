@@ -1,6 +1,6 @@
 package enemies_orbiters;
 
-import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -9,7 +9,6 @@ import com.jtronlabs.to_the_moon.R;
 
 import enemies.Enemy_ShooterView;
 import enemies.Shooting_PauseAndMove;
-import enemies_tracking.Shooting_TrackingView;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
@@ -29,11 +28,11 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	protected int howManyTimesMoved;
 	protected int orbitY,orbitX;
 	
-	public Shooting_OrbiterView(Context context, 
+	public Shooting_OrbiterView(RelativeLayout layout, 
 			int level,
 			int scoreForKilling, 
 			int width,int height,int imageId) {
-		super(context, level,
+		super(layout, level,
 				scoreForKilling, 
 				DEFAULT_SPEED_Y,
 				0, 
@@ -57,7 +56,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		
 		init();
 	}
-	public Shooting_OrbiterView(Context context,int level,
+	public Shooting_OrbiterView(RelativeLayout layout,int level,
 			int scoreForKilling,
 			float speedY,
 			int collisionDamage, 
@@ -65,7 +64,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,
 			int width,int height,int imageId) {
-		super(context, level,
+		super(layout, level,
 				scoreForKilling, 
 				speedY,
 				0, 
@@ -92,12 +91,12 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		//add guns 
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ*1.5 + 3 * DEFAULT_BULLET_FREQ * Math.random());
 		this.removeAllGuns();
-		Gun g1 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+		Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),
 				bulletFreq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
-		Gun g2 = new Gun_SingleShotStraight(getContext(), this, new Bullet_Basic(
+		Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_rectangular_red),

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.RelativeLayout;
 import bonuses.BonusView;
 import bullets.BulletView;
 
@@ -32,8 +33,8 @@ public class LevelSystem extends LevelSpawner{
 	 * @param context
 	 *            MUST IMPLEMENT InteractiveGameInterface.java
 	 */
-	public LevelSystem(Context context) {
-		super(context);
+	public LevelSystem(RelativeLayout layout) {
+		super(layout);
 		gameDetector = new CollisionDetector(this);
 	}
 
@@ -46,7 +47,7 @@ public class LevelSystem extends LevelSpawner{
 		Log.d("lowrey","level resumed!!!");
 
 		MediaController.stopLoopingSound();
-		MediaController.playSoundClip(ctx, R.raw.background_playing_game,true);
+		MediaController.playSoundClip(ctx(), R.raw.background_playing_game,true);
 		
 		// conditionalHandler = new ConditionalHandler(this);//must be reset
 		// every time level is resumed for previous wave spawnings to stop
@@ -109,8 +110,7 @@ public class LevelSystem extends LevelSpawner{
 		incrementLevel();
 
 		// Save variables
-		SharedPreferences gameState = ctx.getSharedPreferences(
-				GameActivity.GAME_STATE_PREFS, 0);
+		SharedPreferences gameState = ctx().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		
 		SharedPreferences.Editor editor = gameState.edit();
 

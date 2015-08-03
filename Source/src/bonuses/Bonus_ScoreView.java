@@ -3,15 +3,14 @@ package bonuses;
 import helpers.MediaController;
 import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
-import interfaces.Shooter;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.R;
 
 public class Bonus_ScoreView extends BonusView implements MovingViewInterface{
 	
-	public Bonus_ScoreView(Context context,float positionX,float positionY) {
-		super(context,positionX,positionY);	
+	public Bonus_ScoreView(RelativeLayout layout,float positionX,float positionY) {
+		super(layout,positionX,positionY);	
 		
 		this.setImageResource(R.drawable.resources);
 	}

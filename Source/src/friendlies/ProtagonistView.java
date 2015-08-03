@@ -9,6 +9,7 @@ import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.GameActivity;
 import com.jtronlabs.to_the_moon.MainActivity;
@@ -31,13 +32,15 @@ public class ProtagonistView extends Friendly_ShooterView{
 	GameActivityInterface myGame;
 	private KillableRunnable exhaustRunnable;
 	
-	public ProtagonistView(Context context,GameActivityInterface interactWithGame) {
-		super(context,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
-				DEFAULT_HEALTH, (int)context.getResources().getDimension(R.dimen.ship_protagonist_game_width), 
-				(int)context.getResources().getDimension(R.dimen.ship_protagonist_game_height),
+	public ProtagonistView(RelativeLayout layout,GameActivityInterface interactWithGame) {
+		super(layout,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH, 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_height),
 				R.drawable.ship_protagonist);
 
-		this.setX(  MainActivity.getWidthPixels()/2 - context.getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
+		this.setX(  MainActivity.getWidthPixels()/2 - 
+				getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
 
 		myGame=interactWithGame;
 

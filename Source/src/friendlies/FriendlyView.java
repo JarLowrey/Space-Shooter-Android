@@ -4,13 +4,14 @@ import helpers.MediaController;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
 import android.content.Context;
+import android.widget.RelativeLayout;
 
 public class FriendlyView extends Moving_ProjectileView{
 	
-	public FriendlyView(Context context,float projectileSpeedY
+	public FriendlyView(RelativeLayout layout,float projectileSpeedY
 			,float projectileSpeedX, 
 			int projectileDamage,int projectileHealth,int width,int height,int imageId) {
-		super( context, projectileSpeedY,projectileSpeedX, 
+		super( layout, projectileSpeedY,projectileSpeedX, 
 				 projectileDamage, projectileHealth, width, height, imageId);
 		
 		LevelSystem.friendlies.add(this);

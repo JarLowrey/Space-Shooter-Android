@@ -4,7 +4,7 @@ import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
 import parents.MovingView;
-import android.content.Context;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.to_the_moon.MainActivity;
   
@@ -35,8 +35,8 @@ public class Bullet_Tracking extends Bullet_Interface{
 		viewTracking=viewToTrack;
 	}
 
-	public BulletView getBullet(Context context,Shooter shooter,float bulletSpeedY,int bulletDamage){
-		BulletView b = new BulletView(context,shooter, bulletSpeedY, bulletDamage,width,height,backgroundId);
+	public BulletView getBullet(RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage){
+		BulletView b = new BulletView(layout,shooter, bulletSpeedY, bulletDamage,width,height,backgroundId);
 		setToTrackingBullet(b);
 		return b;
 	}

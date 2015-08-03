@@ -5,6 +5,7 @@ import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import android.content.Context;
+import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 import bullets.Bullet_Tracking;
@@ -23,15 +24,15 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 	private boolean isInvisible;
 	public static int DEFAULT_SPEED_X = 10;
 		
-	public HorizontalMovement_FinalBoss(Context context,int level) {
-		super(context,level,
+	public HorizontalMovement_FinalBoss(RelativeLayout layout,int level) {
+		super(layout,level,
 				50000,
 				DEFAULT_SPEED_Y,
 				Integer.MAX_VALUE,
 				ProtagonistView.DEFAULT_BULLET_DAMAGE*530,
 				0,
-				(int)context.getResources().getDimension(R.dimen.boss5_width),
-				(int)context.getResources().getDimension(R.dimen.boss5_height),
+				(int)layout.getContext().getResources().getDimension(R.dimen.boss5_width),
+				(int)layout.getContext().getResources().getDimension(R.dimen.boss5_height),
 				R.drawable.ship_enemy_boss5);
 
 		this.setThreshold((int) MainActivity.getHeightPixels()/4);
@@ -41,7 +42,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		
 		//Laser volleys
 			//8sec volley
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -50,7 +51,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					0));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -59,7 +60,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					25));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -68,7 +69,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					50));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -77,7 +78,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					75));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -88,7 +89,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					100));
 
 			//17sec volley
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -97,7 +98,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					0));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -106,7 +107,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					25));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -115,7 +116,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					50));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -124,7 +125,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 					75));
-			addGun(new Gun_SingleShotStraight(getContext(), this,
+			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -135,7 +136,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					100));
 		
 		//Gattling lasers
-		this.addGun(new Gun_TrackingGattling(getContext(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
+		this.addGun(new Gun_TrackingGattling(getMyLayout(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
 				new Bullet_Tracking(( (GameActivityInterface)getContext() ).getProtagonist(), this,
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -145,7 +146,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
 				50,
 				4 ));
-		this.addGun(new Gun_TrackingGattling(getContext(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
+		this.addGun(new Gun_TrackingGattling(getMyLayout(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
 				new Bullet_Basic(
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -157,7 +158,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				4 ));
 		
 		//angled
-		this.addGun(new Gun_AngledDualShot(getContext(),this,
+		this.addGun(new Gun_AngledDualShot(getMyLayout(),this,
 				new Bullet_Basic(
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -168,7 +169,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				50));
 		
 		//missiles
-		this.addGun(new Gun_SingleShotStraight(getContext(),this,
+		this.addGun(new Gun_SingleShotStraight(getMyLayout(),this,
 				new Bullet_Tracking( ( (GameActivityInterface)getContext() ).getProtagonist(), this, 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_missile_one_width), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_missile_one_height), 

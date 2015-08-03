@@ -13,8 +13,5 @@ public interface GameActivityInterface {
 	public ProtagonistView getProtagonist();
 	
 	public void resetResourcesTextView();
-	public void removeView(ImageView view);
-	public void addToForeground(ImageView view);
-	public void addToBackground(ImageView view);
 	public ImageView getExhaust();
 }
