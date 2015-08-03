@@ -104,7 +104,7 @@ public class MediaController {
     		SOUND_COINS = soundEffects.load(c, R.raw.coins, 1);
     		SOUND_EXPLOSION1 = soundEffects.load(c, R.raw.explosion1, 1);
     		SOUND_FRIENDLY_HIT = soundEffects.load(c, R.raw.friendly_hit, 1);
-    		SOUND_LASER_SHOOT2 = soundEffects.load(c, R.raw.laser_shoot2, 1);
+    		SOUND_LASER_SHOOT2 = soundEffects.load(c, R.raw.laser_shoot, 1);
     		SOUND_ROCKET_LAUNCH = soundEffects.load(c, R.raw.rocket_launch,1);
     	}
 

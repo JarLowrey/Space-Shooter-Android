@@ -26,7 +26,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 			DEFAULT_SPEED_X = 16;
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
-			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/55,
+			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/50,
 			DEFAULT_SCORE=100,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE  * 5),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker;
@@ -35,8 +35,9 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	
 	public Shooting_TrackingView(Context context,int level) {
 		super(context, level,
-				DEFAULT_SCORE, 
-				DEFAULT_SPEED_Y, DEFAULT_SPEED_X,
+				DEFAULT_SCORE,
+				getDefaultSpeedY(level), 
+				DEFAULT_SPEED_X,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, 
 				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
@@ -113,8 +114,14 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	public void reachedGravityPosition() {
 		removeGameObject();
 	}
-
 	
+	private static float getDefaultSpeedY(int level){
+		if(level< AttributesOfLevels.LEVELS_MED){
+			return DEFAULT_SPEED_Y;
+		}else{
+			return (float) (DEFAULT_SPEED_Y * 1.1);
+		}
+	}
 
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
