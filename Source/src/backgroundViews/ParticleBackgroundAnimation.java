@@ -1,6 +1,5 @@
 package backgroundViews;
 
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 public class ParticleBackgroundAnimation {
