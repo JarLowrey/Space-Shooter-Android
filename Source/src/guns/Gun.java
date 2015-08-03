@@ -41,7 +41,7 @@ public abstract class Gun {
 	
 	public Gun(RelativeLayout layout,Shooter theShooter,Bullet_Interface bulletType,
 			float bulletFrequency,float bulletSpeedVertical,int bulletDmg,int positionOnShooterAsAPercentage) {
-		gameScreen = layout;
+		gameScreen = layout; 
 		
 		posOnShooter=positionOnShooterAsAPercentage;
 		bulletFreq=bulletFrequency;
