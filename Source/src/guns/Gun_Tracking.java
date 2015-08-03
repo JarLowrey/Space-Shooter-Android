@@ -6,7 +6,7 @@ import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.space_shooter.MainActivity;
 
 public abstract class Gun_Tracking extends Gun{
 

@@ -1,4 +1,4 @@
-package com.jtronlabs.to_the_moon;
+package com.jtronlabs.space_shooter;
 
 import helpers.MediaController;
 import android.app.Activity;

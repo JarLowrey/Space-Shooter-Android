@@ -1,14 +1,13 @@
 package enemies_non_shooters;
 
-import levels.AttributesOfLevels;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
+import levels.AttributesOfLevels;
 import parents.MovingView;
-import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 import enemies.EnemyView;
 import friendlies.ProtagonistView;

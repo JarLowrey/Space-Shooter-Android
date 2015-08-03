@@ -7,7 +7,7 @@ import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.space_shooter.MainActivity;
 
 import enemies_orbiters.Orbiter_Rectangle_Array;
 

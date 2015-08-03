@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
+import com.jtronlabs.space_shooter.GameActivity;
 
 public abstract class AttributesOfLevels {
 	protected RelativeLayout gameScreen;

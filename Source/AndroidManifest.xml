@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jtronlabs.to_the_moon"
+    package="com.jtronlabs.space_shooter"
     android:versionCode="2"
     android:versionName="1.1" >
 
@@ -18,18 +18,18 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.jtronlabs.to_the_moon.MainActivity"
+            android:name="com.jtronlabs.space_shooter.MainActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.jtronlabs.to_the_moon.GameActivity"
+            android:name="com.jtronlabs.space_shooter.GameActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         
         <activity
-            android:name="com.jtronlabs.to_the_moon.AppIntroActivity"
+            android:name="com.jtronlabs.space_shooter.AppIntroActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -40,7 +40,7 @@
         </activity>
         
         <activity
-            android:name="com.jtronlabs.to_the_moon.GameIntroActivity"
+            android:name="com.jtronlabs.space_shooter.GameIntroActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>

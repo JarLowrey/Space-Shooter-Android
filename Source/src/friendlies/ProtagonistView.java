@@ -11,9 +11,9 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.GameActivity;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 import enemies.EnemyView;
 

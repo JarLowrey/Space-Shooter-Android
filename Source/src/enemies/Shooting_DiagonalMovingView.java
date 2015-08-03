@@ -2,13 +2,12 @@ package enemies;
 
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
-import android.content.Context;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 import friendlies.ProtagonistView;
 import guns.Gun;
@@ -77,7 +76,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_height), 
-				R.drawable.bullet_laser_rectangular_red),
+				R.drawable.bullet_laser_round_red),
 				bulletFreq, 
 				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);

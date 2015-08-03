@@ -1,4 +1,4 @@
-package com.jtronlabs.to_the_moon;
+package com.jtronlabs.space_shooter;
 
 import helpers.KillableRunnable;
 import android.app.Activity;

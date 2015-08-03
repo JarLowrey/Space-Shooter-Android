@@ -3,16 +3,13 @@ package parents;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import helpers.MediaController;
-import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.GameActivity;
+import com.jtronlabs.space_shooter.MainActivity;
 
 /**
  * 
@@ -71,6 +68,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	public void killMoveRunnable(){
 		if(moveRunnable!=null){
 			moveRunnable.kill();
+			//do not set moveRunnable to null else reviveMoveRunnable will not work
 		}
 	}
 	@Override 

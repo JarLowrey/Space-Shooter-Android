@@ -4,8 +4,8 @@ import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 import enemies.Enemy_ShooterView;
 import enemies.Shooting_PauseAndMove;
@@ -94,12 +94,12 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-				R.drawable.bullet_laser_rectangular_red),
+				R.drawable.bullet_laser_round_red),
 				bulletFreq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
 		Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-				R.drawable.bullet_laser_rectangular_red),
+				R.drawable.bullet_laser_round_red),
 				bulletFreq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
 		this.addGun(g1);
 		this.addGun(g2);

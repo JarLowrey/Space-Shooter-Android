@@ -1,11 +1,10 @@
 package levels;
 
 import helpers.KillableRunnable;
-import android.content.Context;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
@@ -150,16 +149,17 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	
 	//SPECIAL SPAWNING WAVES
 	final SpawnableWave lotsOfCircles(){
+		final int CIRCLE_SPAWN_DELAY = 3500;
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				spawnCircularOrbiterWave(6,500,3);
-				spawnCircularOrbiterWave(6,500,2);
-				spawnCircularOrbiterWave(9,500,1);
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(6,500,3),CIRCLE_SPAWN_DELAY);
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(7,500,2),CIRCLE_SPAWN_DELAY);
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(9,500,1),CIRCLE_SPAWN_DELAY);
 			} 
 		};
 		
-		return new SpawnableWave(r,15000,0);
+		return new SpawnableWave(r,(long) (CIRCLE_SPAWN_DELAY * 3.7),0);
 	}
 	
 	
@@ -202,10 +202,8 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		);
 	}
 	
-	private final void spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn,final int numCols){
-		
-		spawningHandler.post(
-		new KillableRunnable(){
+	private final KillableRunnable spawnCircularOrbiterWave(final int totalNumShips, final int millisecondsBetweenEachSpawn,final int numCols){
+		return new KillableRunnable(){
 			private int numSpawned=0;
 			
 			@Override
@@ -231,7 +229,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 					spawningHandler.postDelayed(this,millisecondsBetweenEachSpawn);
 				}
 			}
-		});
+		};
 	}
 	
 }

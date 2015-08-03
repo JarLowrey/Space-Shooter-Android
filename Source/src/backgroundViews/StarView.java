@@ -4,8 +4,8 @@ import helpers.KillableRunnable;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 public class StarView extends MovingView{
 	

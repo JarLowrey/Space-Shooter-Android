@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import bullets.BulletView;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.space_shooter.MainActivity;
 
 
 public class Gun_TrackingGattling extends Gun_Tracking {

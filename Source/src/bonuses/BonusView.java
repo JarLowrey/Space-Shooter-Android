@@ -4,7 +4,7 @@ import levels.LevelSystem;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.R;
 
 public abstract class BonusView extends MovingView {
 	

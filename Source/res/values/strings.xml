@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">To The Moon</string>
+    <string name="app_name">The Njass protocol</string>
     <string name="hello_world">Hello world!</string>
     
     <color name="dark_yellow">#736D22</color>

@@ -6,7 +6,7 @@ import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.R;
 
 public class Bonus_HealView extends BonusView implements MovingViewInterface{
 	

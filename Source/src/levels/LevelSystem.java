@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import bonuses.BonusView;
 import bullets.BulletView;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.GameActivity;
+import com.jtronlabs.space_shooter.R;
 
 import enemies.EnemyView;
 import friendlies.FriendlyView;

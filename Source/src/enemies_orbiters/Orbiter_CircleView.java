@@ -7,8 +7,8 @@ import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface {
 	

@@ -3,7 +3,6 @@ package friendlies;
 import guns.Gun_SingleShotStraight;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
-import interfaces.GameActivityInterface;
 import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,9 +10,9 @@ import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.GameActivity;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 public class AllyView extends Friendly_ShooterView{
 	

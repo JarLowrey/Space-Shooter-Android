@@ -1,19 +1,18 @@
 package enemies_tracking;
 
-import interfaces.GameActivityInterface;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
+import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
-import android.content.Context;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 import enemies.Enemy_ShooterView;
 import enemies.Shooting_DiagonalMovingView;

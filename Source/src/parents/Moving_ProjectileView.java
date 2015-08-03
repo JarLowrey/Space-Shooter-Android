@@ -3,11 +3,10 @@ package parents;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Projectile;
-import android.content.Context;
 import android.graphics.Color;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.R;
 
 /**
  * ImageView object to be placed on screen with gameplay properties such as health, score, speeds, and more

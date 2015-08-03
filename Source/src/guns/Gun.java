@@ -6,7 +6,7 @@ import interfaces.Shooter;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.MainActivity;
+import com.jtronlabs.space_shooter.MainActivity;
 
 
 /**

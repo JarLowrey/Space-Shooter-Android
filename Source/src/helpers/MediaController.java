@@ -8,8 +8,8 @@ import android.media.SoundPool;
 import android.os.Vibrator;
 import android.util.Log;
 
-import com.jtronlabs.to_the_moon.MainActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 public class MediaController {
 	

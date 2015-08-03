@@ -10,14 +10,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
-import com.jtronlabs.to_the_moon.GameActivity;
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.GameActivity;
+import com.jtronlabs.space_shooter.R;
 
 import enemies.EnemyView;
 import friendlies.AllyView;

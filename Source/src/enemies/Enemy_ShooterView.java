@@ -6,11 +6,10 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.widget.RelativeLayout;
 import bullets.BulletView;
 
-import com.jtronlabs.to_the_moon.R;
+import com.jtronlabs.space_shooter.R;
 
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 
