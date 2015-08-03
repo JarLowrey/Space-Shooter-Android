@@ -1,6 +1,7 @@
 package helpers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import levels.Factory_ScriptedWaves;
 
@@ -11,9 +12,8 @@ public class SpecialSpawnableLevel {
 	int level;
 	
 
-	public static void addSpecialSpawnableLevel(SpawnableWave specialWaveToSpawnAtIndicatedLevel, int whichLevel){
-		SpecialSpawnableLevel ssl = new SpecialSpawnableLevel(specialWaveToSpawnAtIndicatedLevel, whichLevel);
-		allSpecialSpawnableLevels.add(ssl);
+	public static void initializeSpecialSpawnableLevels(SpecialSpawnableLevel[] allSpawnableWaves){
+		allSpecialSpawnableLevels = new ArrayList<SpecialSpawnableLevel>(Arrays.asList(allSpawnableWaves));
 	}
 	
 	public static SpawnableWave specialSpawnableForThisLevel(int level){
@@ -26,7 +26,7 @@ public class SpecialSpawnableLevel {
 		return Factory_ScriptedWaves.doNothing();
 	}
 
-	private SpecialSpawnableLevel(SpawnableWave specialWaveToSpawnAtIndicatedLevel, int whichLevel){
+	public SpecialSpawnableLevel(SpawnableWave specialWaveToSpawnAtIndicatedLevel, int whichLevel){
 		level = whichLevel;
 		wave = specialWaveToSpawnAtIndicatedLevel;
 	}

@@ -125,4 +125,14 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		return probabilityWeight;
 	}
 	
+	public static int getSpawningProbabilityWeightForLotsOfDiagonals(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
+			probabilityWeight = getSpawningProbabilityWeight(level) / 11 ;
+		}
+		
+		return probabilityWeight;
+	}
+	
 }

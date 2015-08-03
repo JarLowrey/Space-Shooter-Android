@@ -2,16 +2,16 @@ package levels;
 
 import helpers.KillableRunnable;
 import helpers.SpawnableWave;
-import interfaces.GameActivityInterface;
 import android.content.Context;
+import android.util.Log;
 
 import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
+import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_Rectangle_Array;
-import enemies_tracking.Shooting_TrackingView;
 
 /** 
  * spawn a number of a given enemy over a duration of time
@@ -84,7 +84,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		return new SpawnableWave(r,WAIT_TIME_AFTER_METEOR_WAVE,
 				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
 	}	
-	//array shooter waves
+	//shooter waves
 	final SpawnableWave refreshArrayShooters(){
 		KillableRunnable r = new KillableRunnable(){
 			@Override
@@ -98,28 +98,37 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		return new SpawnableWave(r,8000/((getLevel()/5)+1),Orbiter_Rectangle_Array.getSpawningProbabilityWeight(getLevel()) );
 	}
 	
-	//tracking waves
-	final SpawnableWave trackingEnemy(){
-		final int numEnemies = 3;
-		final int millisecondsBetweenEachSpawn = 800;
+	final SpawnableWave lotsOfDiagonals(){
+		final int DELAY_BTW_DIAGONALS = 1000;
+		final int lvl = getLevel();
 		
+		int numDiagonalEnemies = 0;
+		if(lvl < LEVELS_MED){ //choose how many diagonal enemies spawn
+			numDiagonalEnemies = 5;
+		}else if (lvl < LEVELS_HIGH){
+			numDiagonalEnemies = 8;
+		}else {
+			numDiagonalEnemies = 13;
+		}
+		
+		final int numDiagonalEnemiesCopy = numDiagonalEnemies;
 		KillableRunnable r = new KillableRunnable(){
-			private int numSpawned=0;
-			
 			@Override
-			public void doWork() {
-				new Shooting_TrackingView(ctx,((GameActivityInterface)ctx).getProtagonist(),getLevel() );
-				numSpawned++;
-				
-				if(numSpawned<numEnemies){
-					spawningHandler.postDelayed(this, millisecondsBetweenEachSpawn);
+			public void doWork() {				
+				for(int i = 0; i < numDiagonalEnemiesCopy; i++){
+					spawningHandler.postDelayed(new KillableRunnable(){//spawn a diagonal moving  enemy every DELAY interval
+						@Override
+						public void doWork() {
+							spawnDefaultEnemy(Shooting_DiagonalMovingView.class);
+						}
+					}, DELAY_BTW_DIAGONALS * i);
 				}
 			}
 		};
 		
-		return new SpawnableWave(r,600,Shooting_TrackingView.getSpawningProbabilityWeight(getLevel()));
-	}
-	
+		return new SpawnableWave(r, DELAY_BTW_DIAGONALS*numDiagonalEnemies + 4000, 
+				Shooting_DiagonalMovingView.getSpawningProbabilityWeightForLotsOfDiagonals(lvl) );		
+	}	
 
 	//generic waves
 	public final SpawnableWave spawnEnemyWithDefaultConstructorArugments(final Class c,int probabilityWeight){

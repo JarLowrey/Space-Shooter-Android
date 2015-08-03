@@ -1,5 +1,6 @@
 package enemies_tracking;
 
+import interfaces.GameActivityInterface;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
 import helpers.ConditionalHandler;
@@ -14,6 +15,7 @@ import com.jtronlabs.to_the_moon.MainActivity;
 import com.jtronlabs.to_the_moon.R;
 
 import enemies.Enemy_ShooterView;
+import enemies.Shooting_DiagonalMovingView;
 import friendlies.ProtagonistView;
 
 public class Shooting_TrackingView extends Enemy_ShooterView{
@@ -31,7 +33,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	
 	private Moving_ProjectileView viewToTrack;
 	
-	public Shooting_TrackingView(Context context,Moving_ProjectileView trackMe,int level) {
+	public Shooting_TrackingView(Context context,int level) {
 		super(context, level,
 				DEFAULT_SCORE, 
 				DEFAULT_SPEED_Y, DEFAULT_SPEED_X,
@@ -43,7 +45,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 				DEFAULT_BACKGROUND);
 
 		//set up the enemy to track the given MovingView
-		viewToTrack=trackMe;
+		viewToTrack = ((GameActivityInterface)context).getProtagonist();
 		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
 		
 		//tracking view maintains constant downward speed
@@ -115,13 +117,13 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	
 
 	public static int getSpawningProbabilityWeight(int level) {
-		//start at 1.5x giant meteor, increase a little every 20 levels until equal to 2x giant meteor		
 		int probabilityWeight = 0;
 		if( level > AttributesOfLevels.LEVELS_BEGINNER ){
-			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT * 1.5 + 
-				(level/20) * AttributesOfLevels.STANDARD_PROB_WEIGHT/3);
-		
-			probabilityWeight = Math.min(probabilityWeight, AttributesOfLevels.STANDARD_PROB_WEIGHT * 2);
+			if(level < AttributesOfLevels.LEVELS_MED){
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * .78);
+			}else{
+				probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level);				
+			}
 		}
 		return probabilityWeight;
 	}

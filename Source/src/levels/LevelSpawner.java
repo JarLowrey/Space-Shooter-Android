@@ -13,6 +13,7 @@ import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
+import enemies_tracking.Shooting_TrackingView;
 
 public class LevelSpawner extends Factory_Bosses{
 	
@@ -23,18 +24,6 @@ public class LevelSpawner extends Factory_Bosses{
 	 
 	public LevelSpawner(Context context) {
 		super(context);
-		
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(
-				spawnEnemyWithDefaultConstructorArugments(
-						HorizontalMovement_FinalBoss.class,
-						HorizontalMovement_FinalBoss.getSpawningProbabilityWeight(getLevel()) )
-				, FIRST_LEVEL_BOSS5_APPEARS);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss4(), FIRST_LEVEL_BOSS4_APPEARS);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss3(), FIRST_LEVEL_BOSS3_APPEARS);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss2(), FIRST_LEVEL_BOSS2_APPEARS);
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(boss1(), FIRST_LEVEL_BOSS1_APPEARS);
- 
-		SpecialSpawnableLevel.addSpecialSpawnableLevel(lotsOfCircles(), FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR);
 	} 
 
 	public void startLevelSpawning(){
@@ -171,10 +160,10 @@ public class LevelSpawner extends Factory_Bosses{
 	/**
 	 * SpawnableWave objects need to be reinitialized at beginning of every level.
 	 * This is due to the fact their probability weighting is a function of level, and as such changes
-	 * as levels increment.
+	 * as levels increment. Also, KillableRunnables are destroyed and unusable whenever onPause is called in GameActivity
 	 */
 	private void reinitializeAllSpawnableWaves(){
-		
+		//Add spawnable waves
 		final SpawnableWave[] ALL_WAVES = {
 			meteorShowersThatForceUserToLeft(),
 			meteorShowersThatForceUserToRight(),
@@ -182,8 +171,9 @@ public class LevelSpawner extends Factory_Bosses{
 			spawnGiantMeteor(),
 			
 			refreshArrayShooters(),
-			trackingEnemy(),
-			
+			lotsOfDiagonals(),
+
+			spawnEnemyWithDefaultConstructorArugments(Shooting_TrackingView.class,Shooting_TrackingView.getSpawningProbabilityWeight(getLevel())),
 			spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class,Shooting_DiagonalMovingView.getSpawningProbabilityWeight(getLevel())),
 			spawnEnemyWithDefaultConstructorArugments(Shooting_PauseAndMove.class,Shooting_PauseAndMove.getSpawningProbabilityWeight(getLevel())),
 			spawnEnemyWithDefaultConstructorArugments(Orbiter_CircleView.class,Orbiter_CircleView.getSpawningProbabilityWeight(getLevel())),
@@ -195,9 +185,26 @@ public class LevelSpawner extends Factory_Bosses{
 			boss3(),
 			boss4(),
 			spawnEnemyWithDefaultConstructorArugments(HorizontalMovement_FinalBoss.class,HorizontalMovement_FinalBoss.getSpawningProbabilityWeight(getLevel()) )
-		};
-		
+		};		
 		SpawnableWave.initializeSpawnableWaves(ALL_WAVES);
+		
+		
+		//add special spawnablewaves
+		final SpecialSpawnableLevel[] ALL_SPECIAL_SPAWNABLE_LEVELS = {
+			new SpecialSpawnableLevel(spawnEnemyWithDefaultConstructorArugments(
+					HorizontalMovement_FinalBoss.class,
+					HorizontalMovement_FinalBoss.getSpawningProbabilityWeight(getLevel()) ),
+					FIRST_LEVEL_BOSS5_APPEARS),
+			new SpecialSpawnableLevel(boss4(), FIRST_LEVEL_BOSS4_APPEARS),
+			new SpecialSpawnableLevel(boss3(), FIRST_LEVEL_BOSS3_APPEARS),
+			new SpecialSpawnableLevel(boss2(), FIRST_LEVEL_BOSS2_APPEARS),
+			new SpecialSpawnableLevel(boss1(), FIRST_LEVEL_BOSS1_APPEARS),
+			
+			new SpecialSpawnableLevel(lotsOfDiagonals(), FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR),
+			new SpecialSpawnableLevel(lotsOfCircles(), FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR)
+						
+		};
+		SpecialSpawnableLevel.initializeSpecialSpawnableLevels(ALL_SPECIAL_SPAWNABLE_LEVELS);
 	}	
 	
 	/**

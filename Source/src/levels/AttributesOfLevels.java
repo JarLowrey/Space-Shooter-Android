@@ -23,6 +23,7 @@ public abstract class AttributesOfLevels {
 			//and beyond!
 	
 	public static final int FIRST_LEVEL_BOSS1_APPEARS = 4,
+			FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR = 8,
 			FIRST_LEVEL_BOSS2_APPEARS = 14,
 			FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR = 20,
 			FIRST_LEVEL_BOSS3_APPEARS = 26,

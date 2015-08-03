@@ -4,7 +4,6 @@ import helpers.KillableRunnable;
 import interfaces.Shooter;
 import parents.MovingView;
 import android.os.Handler;
-import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -62,7 +61,6 @@ public class CollisionDetector {
 			
 			//check if friendly has hit a bonus
 			if(friendly instanceof Shooter){
-				Shooter friendlyShooter= (Shooter)LevelSystem.friendlies.get(k);
 		    	for(int i=LevelSystem.bonuses.size()-1;i>=0;i--){
 //		    		try{
 			    		BonusView bonus = LevelSystem.bonuses.get(i);
