@@ -186,9 +186,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
 	public void onResume(){
 		super.onResume();
-
-        stars_creator_game.startSpawningStars();
-        stars_creator_store.startSpawningStars();
 		
         scoreInGame.setVisibility(View.VISIBLE);
 		
@@ -216,6 +213,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			*/
 		}else if(levelCreator.getLevel()==0){
 			createNewProtagonistView();
+			stars_creator_game.startSpawningStars();
 			levelCreator.resumeLevel(this);
 		}else{
 			openStore();
@@ -307,20 +305,27 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		editor.commit();
 	} 
 	
-	public void openStore(){		
-		MediaController.stopLoopingSound();
-		MediaController.playSoundClip(this, R.raw.background_store, true);
-		
+	public void openStore(){
 		gameLayout.setVisibility(View.GONE);
 		storeLayout.setVisibility(View.VISIBLE);
+		
+		stars_creator_game.stopSpawningStars();
+		stars_creator_store.startSpawningStars();
+		
+		MediaController.stopLoopingSound();
+		MediaController.playSoundClip(this, R.raw.background_store, true);
+
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getResourceCount()));
 		levelCount.setText("Days In Space : "+ levelCreator.getLevel() );
-		setHealthBars( ); 	
+		setHealthBars( );
 	}
 	
-	private void closeStoreAndResumeLevel(){		
+	private void closeStoreAndResumeLevel(){	
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
+		
+		stars_creator_store.stopSpawningStars();
+		stars_creator_game.startSpawningStars();
 
 		createNewProtagonistView();
 		levelCreator.resumeLevel(this);

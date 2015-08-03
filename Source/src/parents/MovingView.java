@@ -71,7 +71,6 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	public void killMoveRunnable(){
 		if(moveRunnable!=null){
 			moveRunnable.kill();
-			moveRunnable = null;
 		}
 	}
 	@Override 

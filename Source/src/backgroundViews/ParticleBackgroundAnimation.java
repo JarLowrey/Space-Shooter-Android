@@ -22,7 +22,7 @@ public class ParticleBackgroundAnimation {
 	
 	public void stopSpawningStars(){
 		for(int i=0; i < myStars.length;i++){
-			myStars[i].removeGameObject();
+			if(myStars[i] != null){myStars[i].removeGameObject();}
 			myStars[i] = null;
 		}
 	}
