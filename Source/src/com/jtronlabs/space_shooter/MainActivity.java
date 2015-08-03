@@ -70,9 +70,9 @@ public class MainActivity extends Activity implements OnClickListener{
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
 	     
-		// moon spinning animation
-		ImageView moon= (ImageView)findViewById(R.id.moon);
-		moon.startAnimation( AnimationUtils.loadAnimation(this,R.anim.spin_moon) );
+		// moon spinning animation 
+//		ImageView moon= (ImageView)findViewById(R.id.moon);
+//		moon.startAnimation( AnimationUtils.loadAnimation(this,R.anim.spin_moon) );
 		 
 		//set up buttons
 		ImageButton playBtn = (ImageButton)findViewById(R.id.playBtn);

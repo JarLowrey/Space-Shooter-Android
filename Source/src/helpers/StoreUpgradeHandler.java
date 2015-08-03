@@ -66,7 +66,7 @@ public class StoreUpgradeHandler {
 			}
 			break;
 		case UPGRADE_GUN:
-			title = "Ship Blaster";
+			title = "Ship Blasters";
 			final int gunlvl = getGunLevel(ctx);
 			if(gunlvl < maxGunLevel(ctx)-1 ){
 				cost = ctx.getResources().getIntArray(R.array.gun_upgrade_costs)[gunlvl+1];

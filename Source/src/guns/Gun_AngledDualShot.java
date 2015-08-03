@@ -5,8 +5,7 @@ import interfaces.Shooter;
 import android.widget.RelativeLayout;
 import bullets.BulletView;
 import bullets.Bullet_Interface;
-
-
+ 
 public  class Gun_AngledDualShot extends Gun {
 	
 	private static final float DEFAULT_ANGLE=(float) 12.5;

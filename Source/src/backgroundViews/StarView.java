@@ -56,7 +56,7 @@ public class StarView extends MovingView{
 	 * Stars cannot go off the sides of the screen or beyond the control panel, else they will automatically be removed.
 	 * Need to find a random, safe location
 	 */
-	private void setRandomLocation(){
+	private void setRandomLocation(){ 
 		setX((float) (Math.random() * MainActivity.getWidthPixels()));
 		/*
 		 * GameActivity.offScreenBottom is not set when stars are created. Thus ignore the fact

@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class GameIntroActivity extends Activity implements OnClickListener{
-	
+	 
 	private TextView text;
 	private Button next;
 	private final String[] introText={"Strange things are happening on the moon.",
