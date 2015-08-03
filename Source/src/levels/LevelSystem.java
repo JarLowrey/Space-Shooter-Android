@@ -1,5 +1,6 @@
 package levels;
 
+import helpers.CollisionDetector;
 import helpers.MediaController;
 
 import java.util.ArrayList;

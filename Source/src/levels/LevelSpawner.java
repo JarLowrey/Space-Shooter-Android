@@ -1,8 +1,6 @@
 package levels;
 
 import helpers.KillableRunnable;
-import helpers.SpawnableWave;
-import helpers.SpecialSpawnableLevel;
 import android.content.Context;
 import enemies.EnemyView;
 import enemies.HorizontalMovement_FinalBoss;
