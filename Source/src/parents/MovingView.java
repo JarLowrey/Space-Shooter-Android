@@ -252,5 +252,12 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		this.setX( (float) ((MainActivity.getWidthPixels()-2 * p.width) *Math.random() + p.width/2) );
 		p = null;
 	}
-		
+	
+	public float getMidX(){
+		return (this.getX() * 2 + this.getWidth() )/2;
+	}
+
+	public float getMidY(){
+		return (this.getY() * 2 + this.getHeight() )/2;
+	}
 }
