@@ -227,17 +227,28 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel(); 
 		final int lvl = levelCreator.getLevel() - 1;
 		final String title = "GAME OVER";
-		String msg = "WELL DONE EARTHLING";
+		String msg = this.getResources().getString(R.string.good_job);;
+
+		//set images and msg
+		ImageView medal = (ImageView)findViewById(R.id.medal_image);
+		if(levelCreator.getLevel() < AttributesOfLevels.LEVELS_LOW  ){
+			msg = this.getResources().getString(R.string.need_to_improve);
+			medal.setImageResource(R.drawable.medal_bronze);
+		}else if(levelCreator.getLevel() < AttributesOfLevels.LEVELS_HIGH ){
+			medal.setImageResource(R.drawable.medal_silver);			
+		}else{
+			medal.setImageResource(R.drawable.medal_gold);
+		}
 		
 		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
 		SharedPreferences.Editor editor = gameMeta.edit();
 		if(score > gameMeta.getInt(MainActivity.HIGHEST_SCORE, 0) ){
 			editor.putInt(MainActivity.HIGHEST_SCORE, score);
-			msg = "NEW PERSONAL BEST";
+			msg = this.getResources().getString(R.string.set_new_pb);
 		}
 		if(lvl > gameMeta.getInt(MainActivity.MAX_LEVEL, 0)){
 			editor.putInt(MainActivity.MAX_LEVEL, lvl);			
-			msg = "NEW PERSONAL BEST";
+			msg =  this.getResources().getString(R.string.set_new_pb);
 		}
 		editor.commit();
 		
@@ -270,16 +281,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		daysPassedView.setText("" + lvl );
 		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
 		finalScoreView.setText("" + score );
-		 
-		//set images
-		ImageView medal = (ImageView)findViewById(R.id.medal_image);
-		if(levelCreator.getLevel() < AttributesOfLevels.LEVELS_LOW  ){
-			medal.setImageResource(R.drawable.medal_bronze);
-		}else if(levelCreator.getLevel() < AttributesOfLevels.LEVELS_HIGH ){
-			medal.setImageResource(R.drawable.medal_silver);			
-		}else{
-			medal.setImageResource(R.drawable.medal_gold);
-		}
 		
 		//show adView
 		storeLayout.removeView(adView);
