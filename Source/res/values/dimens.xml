@@ -119,6 +119,7 @@
 	    <dimen name="title_size">60dp</dimen>
 	    <dimen name="title_outline_size">3dp</dimen>
 	    
+	    <dimen name="ad_banner_small_margin">50dp</dimen>
 	    <dimen name="ad_banner_margin">130dp</dimen>
 	    
 	    

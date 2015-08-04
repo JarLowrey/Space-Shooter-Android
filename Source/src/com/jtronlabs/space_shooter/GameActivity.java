@@ -224,25 +224,32 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public void gameOver(){
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		
-		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel();   
+		final int score = gameState.getInt(STATE_TOTAL_RESOURCES, 0)  + levelCreator.scoreGainedThisLevel(); 
+		final int lvl = levelCreator.getLevel() - 1;
 		final String title = "GAME OVER";
-		final String msg = "WELL DONE EARTHLING";
+		String msg = "WELL DONE EARTHLING";
 		
-		if( levelCreator.getLevel() < AttributesOfLevels.LEVELS_HIGH){
-			//save that user has gotten far, he is not a beginner
-			SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
-			SharedPreferences.Editor editor = gameMeta.edit();
-			editor.putBoolean(MainActivity.USER_HAS_GOTTEN_FAR_IN_GAME, true);
-			editor.commit();
-			
+		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
+		SharedPreferences.Editor editor = gameMeta.edit();
+		if(score > gameMeta.getInt(MainActivity.HIGHEST_SCORE, 0) ){
+			editor.putInt(MainActivity.HIGHEST_SCORE, score);
+			msg = "NEW PERSONAL BEST";
+		}
+		if(lvl > gameMeta.getInt(MainActivity.MAX_LEVEL, 0)){
+			editor.putInt(MainActivity.MAX_LEVEL, lvl);			
+			msg = "NEW PERSONAL BEST";
+		}
+		editor.commit();
+		
+		if( levelCreator.getLevel() < AttributesOfLevels.LEVELS_HIGH){			
 			MediaController.playSoundClip(this, R.raw.jingle_lose, false);
 		}else{
-			MediaController.playSoundClip(this, R.raw.jingle_win, false);			
+			MediaController.playSoundClip(this, R.raw.jingle_win, false);
 		}
 		
 		//set the variables used for the sharing message
 		scoreAtGameOver=score;
-		levelAtGameOver=levelCreator.getLevel()-1;
+		levelAtGameOver=lvl;
 		
 		healthBar.setProgress(0);	
 		
@@ -260,7 +267,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		TextView titleView = (TextView)findViewById(R.id.gameOverTitle);
 		titleView.setText(title);
 		TextView daysPassedView = (TextView)findViewById(R.id.num_days_passed);
-		daysPassedView.setText("" + levelCreator.getLevel() );
+		daysPassedView.setText("" + lvl );
 		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
 		finalScoreView.setText("" + score );
 		 

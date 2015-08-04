@@ -13,19 +13,15 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import backgroundViews.ParticleBackgroundAnimation;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-
- //http://stackoverflow.com/questions/15842901/set-animated-gif-as-background-android 
- 
 
 public class MainActivity extends Activity implements OnClickListener{
 
@@ -34,7 +30,8 @@ public class MainActivity extends Activity implements OnClickListener{
 			VIBRATE_PREF="vibrateOn",
 			SOUND_PREF="soundOn";
 	public static final String GAME_META_DATA_PREFS = "GameMetaData",
-			USER_HAS_GOTTEN_FAR_IN_GAME = "userHasGottenFarInGame";
+			HIGHEST_SCORE = "highestScore",
+			MAX_LEVEL = "maxLevel";
 	private static float screenDens,widthPixels,heightPixels;
 	private ImageButton vibrate, sound, intro, credits;
 	private AdView adView;
@@ -47,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.activity_main); 
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
-		
+		 
 	    //set up settings buttons
 	    ImageButton settings = (ImageButton)findViewById(R.id.settings_btn); 
 	    settings.setOnClickListener(this);
@@ -124,7 +121,15 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onResume(){
 		super.onResume();
 
-		stars_creator.startSpawningStars(); 
+		stars_creator.startSpawningStars();
+		
+		//set Textviews here, as the text may have updated since onCreate 
+		//(user plays game, gets new record, and goes back to mainActivity)
+		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
+		TextView score = (TextView)findViewById(R.id.high_score);
+		score.setText(""+gameMeta.getInt(HIGHEST_SCORE, 0));
+		TextView days = (TextView)findViewById(R.id.max_day);
+		days.setText(""+gameMeta.getInt(MAX_LEVEL, 0));
 		
 		adView.resume();
 		MediaController.playSoundClip(this, R.raw.background_intro, true);

@@ -67,7 +67,7 @@
         android:id="@+id/title"
         android:layout_width="300dp"
         android:layout_height="175dp"
-		android:layout_below="@+id/moon"
+        android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="@dimen/activity_margin_med"
         android:src="@drawable/title" />
@@ -77,7 +77,7 @@
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/ad_banner_margin"
+        android:layout_alignBaseline="@+id/play_and_settings"
         android:layout_centerInParent="true"
        	>
 	        
@@ -123,5 +123,53 @@
 	        android:background="@drawable/btn_gray" >
 	    </ImageButton>
     </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/personal_bests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ad_banner_small_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+       	>
+	    
+        <TextView
+        	android:id="@+id/high_score_static_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:paddingRight="@dimen/activity_margin_xlarge"
+            android:text="HIGH SCORE"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+        	android:id="@+id/max_day_static_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/activity_margin_xlarge"
+			android:layout_alignLeft="@+id/high_score_static_text"
+			android:layout_below="@+id/high_score_static_text"
+            android:text="MAX DAYS"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <TextView
+        	android:id="@+id/high_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+        	android:id="@+id/max_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignRight="@+id/high_score"
+			android:layout_below="@+id/high_score"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        
+     </RelativeLayout>
       
 </RelativeLayout>
