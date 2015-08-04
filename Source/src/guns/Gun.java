@@ -27,7 +27,7 @@ public abstract class Gun {
 	Bullet_Interface myBulletType;
 	RelativeLayout gameScreen;
 	
-
+ 
 	protected float bulletFreq,bulletSpeedY,bulletSpeedX;
 	protected int bulletDamage,posOnShooter;
 	

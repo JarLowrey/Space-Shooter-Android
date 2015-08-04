@@ -10,7 +10,8 @@ import bullets.Bullet_Interface;
 
 public class Gun_SingleShotStraight extends Gun {
 	
-	public Gun_SingleShotStraight(RelativeLayout layout,Shooter theShooter,
+	public Gun_SingleShotStraight(RelativeLayout layout,
+			Shooter theShooter,
 			Bullet_Interface bulletType,
 			float bulletFrequency,
 			float bulletSpeedVertical,

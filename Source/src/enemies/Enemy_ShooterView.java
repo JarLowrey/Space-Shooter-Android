@@ -13,7 +13,7 @@ import com.jtronlabs.space_shooter.R;
 
 public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 
-		public static final float DEFAULT_BULLET_FREQ=1200;
+		public static final float DEFAULT_BULLET_FREQ = 1200;
 		
 		public static final int DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/17,
 				DEFAULT_COLLISION_DAMAGE = ProtagonistView.DEFAULT_HEALTH/12;

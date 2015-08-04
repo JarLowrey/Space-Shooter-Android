@@ -7,32 +7,37 @@ import parents.MovingView;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
-  
 
-// 					NOT WORKING			
 public class Bullet_Tracking extends Bullet_Interface{
 
-	public static final float MAX_TRACKING_SPEED=5*MainActivity.getScreenDens();
-	public static final float DEFAULT_TRACKING_SPEED=4*MainActivity.getScreenDens();
+	public static final float MAX_TRACKING_SPEED = 10*MainActivity.getScreenDens();
+	public static final float DEFAULT_TRACKING_SPEED = 4;
 	
 	private float trackingSpeed;
 	private MovingView viewTracking;
 	
-	public Bullet_Tracking(float trackSpeed, MovingView viewToTrack,Shooter shooterWithTrackingBullets,
-			int bulletWidth, int bulletHeight, int bulletBackgroundId){
+	public Bullet_Tracking(float trackSpeed, MovingView viewToTrack,
+			Shooter shooterWithTrackingBullets,
+			int bulletWidth, int bulletHeight, 
+			int bulletBackgroundId){
 		super(bulletWidth,bulletHeight,bulletBackgroundId);
 
-		viewTracking=viewToTrack;
-		
-		final float trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
-		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED : trackSpeedDPI;
+		init(viewToTrack,trackSpeed);
 	}
 	
-	public Bullet_Tracking(MovingView viewToTrack,Shooter shooterWithTrackingBullets,
+	public Bullet_Tracking(MovingView viewToTrack,
+			Shooter shooterWithTrackingBullets,
 			int bulletWidth, int bulletHeight, int bulletBackgroundId){
 		super(bulletWidth,bulletHeight,bulletBackgroundId);
 
+		init(viewToTrack,DEFAULT_TRACKING_SPEED);
+	}
+	
+	private void init(MovingView viewToTrack, float trackSpeed){
 		viewTracking=viewToTrack;
+
+		final float trackSpeedDPI  = trackSpeed*MainActivity.getScreenDens();
+		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED : trackSpeedDPI;
 	}
 
 	public BulletView getBullet(RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage){
@@ -52,9 +57,9 @@ public class Bullet_Tracking extends Bullet_Interface{
 				//if bullet is approximately at tracking destination, don't move it and set rotation to 0
 	    		if( Math.abs(diff) < viewTracking.getWidth()/2 ){
 	    			b.setSpeedX(0);
-	    		}else{
+	    		}else{				
 	    			trackingSpeed = diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
-	    			 
+	    			
 	    			//set speed and move sideways
 	    			b.setSpeedX(trackingSpeed); 
 	    		}
