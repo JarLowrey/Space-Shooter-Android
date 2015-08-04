@@ -7,6 +7,7 @@ import interfaces.MovingViewInterface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.space_shooter.GameActivity;
 import com.jtronlabs.space_shooter.MainActivity;
@@ -244,6 +245,12 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	
 	protected RelativeLayout getMyLayout(){
 		return myLayout;
+	}
+	
+	protected void setRandomXPos(){
+		RelativeLayout.LayoutParams p = (LayoutParams) getLayoutParams();
+		this.setX( (float) ((MainActivity.getWidthPixels()-p.width) *Math.random() + p.width/2) );
+		p = null;
 	}
 		
 }

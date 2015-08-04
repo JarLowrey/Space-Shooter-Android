@@ -37,7 +37,7 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	
 	private void init(int width){
 		this.setX((float) (MainActivity.getWidthPixels()/2 - width/2.0) );
-		this.setThreshold((int) MainActivity.getHeightPixels()/3);
+		this.setGravityThreshold((int) MainActivity.getHeightPixels()/3);
 	}
 
 	@Override

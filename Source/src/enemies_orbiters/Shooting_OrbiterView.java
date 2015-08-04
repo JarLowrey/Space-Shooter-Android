@@ -86,7 +86,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 
 		//set entity's position
 		int y = (int) -(getHeight()/2);
-		setThreshold(y);
+		setGravityThreshold(y);
 		
 		//add guns 
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ*1.5 + 3 * DEFAULT_BULLET_FREQ * Math.random());

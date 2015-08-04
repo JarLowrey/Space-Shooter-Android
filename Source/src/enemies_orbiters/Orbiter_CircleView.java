@@ -66,7 +66,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		howManyTimesMoved=0; 
 		
 		//begin orbit at top of circle
-		this.setThreshold((int) (orbitY - radius));
+		this.setGravityThreshold((int) (orbitY - radius));
 		this.setX(orbitX-width/2);
 	}
 	

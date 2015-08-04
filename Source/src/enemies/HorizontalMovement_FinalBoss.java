@@ -34,7 +34,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				(int)layout.getContext().getResources().getDimension(R.dimen.boss5_height),
 				R.drawable.ship_enemy_boss5);
 
-		this.setThreshold((int) MainActivity.getHeightPixels()/4);
+		this.setGravityThreshold((int) MainActivity.getHeightPixels()/4);
 		
 		//default Gun loadout
 		removeAllGuns();

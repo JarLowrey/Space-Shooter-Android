@@ -56,8 +56,7 @@ public class Gravity_MeteorView extends EnemyView{
 		this.setScoreValue(DEFAULT_SCORE);
 
 		//spawn in middle 9/10 X of screen
-		final float xRand = (float) ( MainActivity.getWidthPixels()* .8 *Math.random() + MainActivity.getWidthPixels()*.1);
-		this.setX(xRand);
+		setRandomXPos();
 	}
 	
 	@Override 

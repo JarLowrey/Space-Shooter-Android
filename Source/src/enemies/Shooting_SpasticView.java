@@ -42,9 +42,9 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	
 	private void init(int width){
 		//spawn in random position of the screen
-		this.setX( (float) ((MainActivity.getWidthPixels()-width) *Math.random() + width/2) );
+		setRandomXPos();
 		this.setSpeedY(DEFAULT_SPEED_Y);
-		this.setThreshold((int) (MainActivity.getHeightPixels()/4));
+		this.setGravityThreshold((int) (MainActivity.getHeightPixels()/4));
 
 		float freq = (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 
@@ -119,12 +119,9 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
-//		if(level > AttributesOfLevels.LEVELS_LOW){
-//			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT *10 + 
-//					(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
-			
-//			probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.STANDARD_PROB_WEIGHT);
-//		}
+		if(level > AttributesOfLevels.LEVELS_LOW){
+			probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 2;			
+		}
 		return probabilityWeight;
 	}
 

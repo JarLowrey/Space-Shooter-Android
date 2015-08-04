@@ -40,12 +40,11 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	private void init(int width){
 		//spawn anywhere in X on screen
-		float xRand = (float) ((MainActivity.getWidthPixels()-width)*Math.random());
-		this.setX(xRand);
+		setRandomXPos();
 		
 		float freq = (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 		amtOfTimeToPause= (long) (freq*3.2);
-		this.setThreshold((int) (MainActivity.getHeightPixels()/6 + Math.random() * MainActivity.getHeightPixels()/2.7));
+		this.setGravityThreshold((int) (MainActivity.getHeightPixels()/6 + Math.random() * MainActivity.getHeightPixels()/2.7));
 
 		//override default gun
 		this.removeAllGuns();
@@ -71,7 +70,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		this.postDelayed(new KillableRunnable(){
 			@Override
 			public void doWork() {
-				setThreshold((int) MainActivity.getHeightPixels()); 
+				setGravityThreshold((int) MainActivity.getHeightPixels()); 
 				reviveMoveRunnable();
 			}
 		},this.amtOfTimeToPause);

@@ -47,7 +47,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 
 		//set up the enemy to track the given MovingView
 		viewToTrack = ((GameActivityInterface)getContext()).getProtagonist();
-		this.setX((float) (MainActivity.getWidthPixels()*Math.random()));
+		setRandomXPos();
 		
 		//tracking view maintains constant downward speed
 		reassignMoveRunnable( new KillableRunnable(){

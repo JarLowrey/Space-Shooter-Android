@@ -45,7 +45,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		init(width);
 		
 
-		//randomly select the new enemy to diagonally traverse the whole screen or to divide a column within the screen
+		//randomly select the new enemy to diagonally traverse one column within the screen
 		if(Math.random() < 0.5){
 			final int DEFAULT_DIVE_BOMBER_COLUMNS = (int)(MainActivity.getWidthPixels() / width) - 1; //standardize column size
 			
@@ -62,12 +62,10 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	}
 	
 	private void init(int width){
-
-		this.setThreshold((int) MainActivity.getHeightPixels()*2);//move Y to offscreen
+		//set full screen diagonal mover
+		this.setGravityThreshold((int) MainActivity.getHeightPixels()*2);//move Y to offscreen
 		if(Math.random()<0.5){this.setSpeedX(this.getSpeedX() * -1);}
-		
-		this.setX((float) ( (MainActivity.getWidthPixels()-width)*Math.random()));
-		
+		setRandomXPos();
 		leftThreshold=0;//far left of screen
 		rightThreshold=MainActivity.getWidthPixels()-this.getWidth();//far right of screen
 
@@ -81,23 +79,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);
 		this.addGun(defaultGun);
-		this.startShooting();
-		
-		
-//		gun that shoots duration bullets
-//		final float bulletFreq = 4000;
-//		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Duration(
-//				(int)getContext().getResources().getDimension(R.dimen.bullet_xskinny_width), 
-//				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-//				R.drawable.bullet_laser_round_red,
-//				2000),
-//				bulletFreq, 
-//				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-//				DEFAULT_BULLET_DAMAGE,50);
-//		this.addGun(defaultGun);
-//		this.startShooting();
-//		
-		
+		this.startShooting();	
 		
 
 		reassignMoveRunnable( new KillableRunnable(){

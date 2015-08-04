@@ -4,7 +4,6 @@ import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import levels.LevelSystem;
 import parents.Projectile_GravityView;
-import android.content.Context;
 import android.widget.RelativeLayout;
 import bonuses.BonusView;
 

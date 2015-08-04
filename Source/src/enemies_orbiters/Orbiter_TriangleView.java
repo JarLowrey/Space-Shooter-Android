@@ -47,7 +47,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		currentSideOfTriangle=0;
 		
 		//default to begin orbit at top of triangle, 1/3 of way through (thus top = moving left. it is not a perfect orbit, but good enough)
-		this.setThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
+		this.setGravityThreshold((int) (orbitY-(orbitDist*Math.abs(this.getSpeedY()) ) / 2 ));
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
 	}
 

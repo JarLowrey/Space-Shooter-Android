@@ -1,13 +1,13 @@
 package levels;
 
 import helpers.KillableRunnable;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import enemies.EnemyView;
 import enemies.HorizontalMovement_FinalBoss;
 import enemies.Shooting_DiagonalMovingView;
-import enemies.Shooting_SpasticView;
+import enemies.Shooting_DurationLaserView;
 import enemies.Shooting_PauseAndMove;
+import enemies.Shooting_SpasticView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
@@ -173,6 +173,7 @@ public class LevelSpawner extends Factory_Bosses{
 			refreshArrayShooters(),
 			lotsOfDiagonals(),
 			
+			spawnEnemyWithDefaultConstructorArugments(Shooting_DurationLaserView.class,Shooting_DurationLaserView.getSpawningProbabilityWeight(getLevel())),
 			spawnEnemyWithDefaultConstructorArugments(Shooting_SpasticView.class,Shooting_SpasticView.getSpawningProbabilityWeight(getLevel())),
 			spawnEnemyWithDefaultConstructorArugments(Shooting_TrackingView.class,Shooting_TrackingView.getSpawningProbabilityWeight(getLevel())),
 			spawnEnemyWithDefaultConstructorArugments(Shooting_DiagonalMovingView.class,Shooting_DiagonalMovingView.getSpawningProbabilityWeight(getLevel())),

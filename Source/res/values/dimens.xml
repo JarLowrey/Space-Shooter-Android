@@ -22,6 +22,9 @@
 	    <dimen name="ship_tracker_height">32dp</dimen>
 	    <dimen name="ship_tracker_width">36.7057dp</dimen>
 	    
+	    <dimen name="ship_enemy_duration_laser_width">37.4dp</dimen>
+	    <dimen name="ship_enemy_duration_laser_height">46.508dp</dimen>
+	    
 	    <dimen name="ship_orbit_rectangular_width">44dp</dimen>
 	    <dimen name="ship_orbit_rectangular_height">37.4dp</dimen>
 	    <dimen name="ship_orbit_circular_width">45dp</dimen>
@@ -43,8 +46,6 @@
 	    <dimen name="ship_protagonist_game_width">40dp</dimen>
 	    <dimen name="ship_ally_0_game_width">32dp</dimen>
 	    <dimen name="ship_ally_0_game_height">39dp</dimen>
-	    <dimen name="ship_ally_1_game_width">34dp</dimen>
-	    <dimen name="ship_ally_1_game_height">42.28dp</dimen>
 	    <dimen name="ship_ally_2_game_width">36dp</dimen>
 	    <dimen name="ship_ally_2_game_height">43.02dp</dimen>
 	    

@@ -67,7 +67,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		final double heightPadding = 5 * MainActivity.getScreenDens() * myRow; 
 		final float lowestPointOnScreen = MainActivity.getHeightPixels()*LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE;//lowest row is at HeightPixels
 		final float myRowPixel = myRow * getContext().getResources().getDimension(R.dimen.ship_array_shooter_height);//, multiply that by heightOfView to get top of row
-		this.setThreshold((int) (lowestPointOnScreen - myRowPixel - heightPadding));
+		this.setGravityThreshold((int) (lowestPointOnScreen - myRowPixel - heightPadding));
 
 		// set col destination
 		final float shipXInterval = MainActivity.getWidthPixels()/ numCols;//divide the screen into number of columns

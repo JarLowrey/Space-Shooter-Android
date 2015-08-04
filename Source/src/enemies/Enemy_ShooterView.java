@@ -21,7 +21,7 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 				
 		//myGun needs to be set in a specific View's class 
 		private ArrayList<Gun> myGuns;
-		private ArrayList<BulletView> myBullets;
+		protected ArrayList<BulletView> myBullets;
 		
 		private boolean isShooting=true;
 		

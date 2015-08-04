@@ -48,7 +48,7 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
      */
     protected abstract void reachedGravityPosition();
     
-	public void setThreshold (int newLowestPositionThreshold){
+	public void setGravityThreshold (int newLowestPositionThreshold){
 		gravityThreshold=newLowestPositionThreshold;
 	}
 	//Interface Methods
