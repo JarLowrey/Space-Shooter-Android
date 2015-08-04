@@ -16,8 +16,8 @@
 	    <dimen name="ship_spastic_height">40dp</dimen>
 	    <dimen name="ship_spastic_width">50.833dp</dimen>
 	    
-	    <dimen name="ship_diagonal_height">40dp</dimen>
-	    <dimen name="ship_diagonal_width">49.892dp</dimen>
+	    <dimen name="ship_diagonal_height">30.242dp</dimen>
+	    <dimen name="ship_diagonal_width">50dp</dimen>
 	    
 	    <dimen name="ship_tracker_height">32dp</dimen>
 	    <dimen name="ship_tracker_width">36.7057dp</dimen>

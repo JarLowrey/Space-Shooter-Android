@@ -9,12 +9,10 @@ import bonuses.BonusView;
 
 public abstract class EnemyView extends Projectile_GravityView{
 	
-	//TODO Enemies that dodge (move away) from nearby friendly's bullets ?
 	public static final int MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR = 3;
 	public static int numSpawn=0,numRemoved=0;
 	private int score;
 	private double probSpawnBeneficialObject;
-	
 	
 	public EnemyView(RelativeLayout layout,
 			int level,
