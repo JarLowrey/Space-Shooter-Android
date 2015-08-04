@@ -26,14 +26,13 @@ import com.google.android.gms.ads.AdView;
 public class MainActivity extends Activity implements OnClickListener{
 
 	public static final String GAME_SETTING_PREFS = "GameSettingPrefs",
-	 		INTRO_PREF="introOn",
 			VIBRATE_PREF="vibrateOn",
 			SOUND_PREF="soundOn";
 	public static final String GAME_META_DATA_PREFS = "GameMetaData",
 			HIGHEST_SCORE = "highestScore",
 			MAX_LEVEL = "maxLevel";
 	private static float screenDens,widthPixels,heightPixels;
-	private ImageButton vibrate, sound, intro, credits;
+	private ImageButton vibrate, sound, credits;
 	private AdView adView;
 	
 	private ParticleBackgroundAnimation stars_creator;
@@ -52,8 +51,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	    vibrate.setOnClickListener(this); 
 	    sound = (ImageButton)findViewById(R.id.toggle_sound);  
 	    sound.setOnClickListener(this);
-	    intro = (ImageButton)findViewById(R.id.toggle_intro);
-	    intro.setOnClickListener(this);
 	    credits = (ImageButton)findViewById(R.id.show_credits);
 	    credits.setOnClickListener(this);
 	     
@@ -147,18 +144,13 @@ public class MainActivity extends Activity implements OnClickListener{
 		SharedPreferences.Editor editor = gameSettings.edit();
 
 		if(v.getId() == R.id.playBtn){
-				boolean showIntro = gameSettings.getBoolean(INTRO_PREF, true);
 				Intent nextIntent;
 
 				SharedPreferences gameState = getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 				final int currLevel = gameState.getInt(GameActivity.STATE_LEVEL, 0);
 				
-				if(showIntro && currLevel==0){
-					nextIntent= new Intent(this, GameIntroActivity.class);
-				}else{
-					nextIntent= new Intent(this, GameActivity.class);
-					MediaController.stopLoopingSound();
-				}
+				nextIntent= new Intent(this, GameActivity.class);
+				MediaController.stopLoopingSound();
 				
 				//startNext intent
 				startActivity(nextIntent);
@@ -169,12 +161,6 @@ public class MainActivity extends Activity implements OnClickListener{
 				}else{
 					settingsWrap.setVisibility(View.GONE);					
 				}
-		}else if(v.getId() == R.id.toggle_intro){
-				boolean showIntroEdit = gameSettings.getBoolean(INTRO_PREF, true);
-				editor.putBoolean(INTRO_PREF, !showIntroEdit);
-				
-				String introState = (!showIntroEdit) ? "on" : "off" ;
-    			Toast.makeText(getApplicationContext(),"Intro is turned "+introState, Toast.LENGTH_SHORT).show();
 		}else if(v.getId() == R.id.toggle_sound){
 				boolean soundEdit = gameSettings.getBoolean(SOUND_PREF, true);
 				editor.putBoolean(SOUND_PREF, !soundEdit);
@@ -211,7 +197,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		SharedPreferences gameState = getSharedPreferences(GAME_SETTING_PREFS, 0);
 		boolean vibrateState = gameState.getBoolean(VIBRATE_PREF, true);
 		boolean soundState = gameState.getBoolean(SOUND_PREF, true);
-		boolean introState = gameState.getBoolean(INTRO_PREF, true);
 		
 		if(vibrateState){
 			vibrate.setBackgroundResource(R.drawable.btn_green);
@@ -223,12 +208,6 @@ public class MainActivity extends Activity implements OnClickListener{
 			sound.setBackgroundResource(R.drawable.btn_green); 
 		}else{  
 			sound.setBackgroundResource(R.drawable.btn_red);
-		}
-
-		if(introState){
-			intro.setBackgroundResource(R.drawable.btn_green);
-		}else{
-			intro.setBackgroundResource(R.drawable.btn_red);
 		}
 	} 
 	public static float getScreenDens(){

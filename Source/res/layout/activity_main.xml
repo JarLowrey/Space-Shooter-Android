@@ -80,17 +80,7 @@
 		android:layout_marginBottom="@dimen/ad_banner_margin"
         android:layout_centerInParent="true"
        	>
-	        
-	    <ImageButton
-	        android:id="@+id/toggle_intro"
-	        android:layout_width="@dimen/btn_med_len"
-	        android:layout_height="@dimen/btn_med_len"
-	        android:layout_marginBottom="@dimen/activity_margin_small"
-	        android:layout_alignLeft="@+id/show_credits"
-	        android:layout_above="@+id/toggle_vibration"
-	        android:src="@drawable/ic_info_outline_white_24dp"
-	        android:background="@drawable/btn_gray" >
-	    </ImageButton>
+	       
 	    
 	    <ImageButton
 	        android:id="@+id/toggle_vibration"
