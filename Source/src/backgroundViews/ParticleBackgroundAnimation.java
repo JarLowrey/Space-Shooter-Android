@@ -13,7 +13,7 @@ public class ParticleBackgroundAnimation {
 		screen = layout;
 		
 		myStars = new StarView[numStars];
-	}
+	} 
 	 
 	public void startSpawningStars(){
 		for(int i=0; i < myStars.length;i++){

@@ -66,7 +66,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			}
 		};
 		
-		return new SpawnableWave(r,5000 - (getLevel()/5) * 1000,
+		return new SpawnableWave(r,3000 - (getLevel()/5) * 1000,
 				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss1(getLevel()) );
 	}
 	
@@ -112,7 +112,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			}
 		};
 		
-		return new SpawnableWave(r,15000 - (getLevel()/5) * 3000,
+		return new SpawnableWave(r,10000,
 				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss2(getLevel()) );
 	}
 	
