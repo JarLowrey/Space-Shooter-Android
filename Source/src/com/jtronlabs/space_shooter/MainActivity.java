@@ -1,5 +1,8 @@
 package com.jtronlabs.space_shooter;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import helpers.MediaController;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -124,9 +127,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		//(user plays game, gets new record, and goes back to mainActivity)
 		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
 		TextView score = (TextView)findViewById(R.id.high_score);
-		score.setText(""+gameMeta.getInt(HIGHEST_SCORE, 0));
+		score.setText( formatInt( gameMeta.getInt(HIGHEST_SCORE, 0)) );
 		TextView days = (TextView)findViewById(R.id.max_day);
-		days.setText(""+gameMeta.getInt(MAX_LEVEL, 0));
+		days.setText(formatInt(gameMeta.getInt(MAX_LEVEL, 0)) );
 		
 		adView.resume();
 		MediaController.playSoundClip(this, R.raw.background_intro, true);
@@ -218,5 +221,9 @@ public class MainActivity extends Activity implements OnClickListener{
 	} 
 	public static float getHeightPixels(){
 		return heightPixels;
+	}
+	
+	public static String formatInt(int anUnformattedInteger){
+		return ""+NumberFormat.getNumberInstance(Locale.US).format( anUnformattedInteger );
 	}
 }

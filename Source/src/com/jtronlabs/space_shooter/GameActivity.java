@@ -202,7 +202,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				
 		levelCreator.loadScoreAndLevel();//need to reload variables first thing
 
-		scoreInGame.setText(levelCreator.getResourceCount()+"");
+		scoreInGame.setText(MainActivity.formatInt(levelCreator.getResourceCount() ) );
 		adView.resume();
 		
 		//don't open the store up on the initial level
@@ -278,9 +278,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		TextView titleView = (TextView)findViewById(R.id.gameOverTitle);
 		titleView.setText(title);
 		TextView daysPassedView = (TextView)findViewById(R.id.num_days_passed);
-		daysPassedView.setText("" + lvl );
+		daysPassedView.setText(MainActivity.formatInt(lvl) );
 		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
-		finalScoreView.setText("" + score );
+		finalScoreView.setText(MainActivity.formatInt(score) );
 		
 		//show adView
 		storeLayout.removeView(adView);
@@ -326,8 +326,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.stopLoopingSound();
 		MediaController.playSoundClip(this, R.raw.background_store, true);
 
-		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getResourceCount()));
-		levelCount.setText("Days In Space : "+ lvl );
+		resourceCount.setText(MainActivity.formatInt(levelCreator.getResourceCount()));
+		levelCount.setText("Days In Space : "+ MainActivity.formatInt(lvl) );
 		setHealthBars( );
 		
 		if(lvl % 15 == 0 && lvl !=0){
@@ -359,7 +359,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			ally = new AllyView(gameLayout, protagonist, friend_lvl);
 		}
 		
-		scoreInGame.setText(levelCreator.getResourceCount()+"");
+		scoreInGame.setText(MainActivity.formatInt( levelCreator.getResourceCount()) );
 	}
 	
 	/**
@@ -540,7 +540,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		levelCreator.setResources(newScore);
 		
-		scoreInGame.setText(newScore+"");
+		scoreInGame.setText(MainActivity.formatInt(newScore));
 	}
 //
 //	@Override
@@ -598,6 +598,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	@Override
 	public void resetResourcesTextView() {
-		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format( levelCreator.getResourceCount()));		
+		resourceCount.setText(MainActivity.formatInt( levelCreator.getResourceCount() ) );		
 	}
+	
 }
