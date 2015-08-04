@@ -66,9 +66,10 @@
 	    <dimen name="boss5_height">95.9846dp</dimen>
     
     <!-- BULLETS -->
-	    <dimen name="bullet_rec_short_width">4.5dp</dimen>
+	    <dimen name="bullet_xskinny_width">2.7dp</dimen>
+	    <dimen name="bullet_skinny_width">4.5dp</dimen>
 	    <dimen name="bullet_rec_short_height">15dp</dimen>    
-	    <dimen name="bullet_rec_long_width">3.3dp</dimen>
+	    <dimen name="bullet_mid_fat_width">3.3dp</dimen>
 	    <dimen name="bullet_rec_long_height">15dp</dimen>
 	    <dimen name="bullet_round_xsmall_length">4dp</dimen>
 	    <dimen name="bullet_round_small_length">5.2dp</dimen>
@@ -119,7 +120,7 @@
 	    <dimen name="title_size">60dp</dimen>
 	    <dimen name="title_outline_size">3dp</dimen>
 	    
-	    <dimen name="ad_banner_small_margin">50dp</dimen>
+	    <dimen name="ad_banner_small_margin">60dp</dimen>
 	    <dimen name="ad_banner_margin">130dp</dimen>
 	    
 	    

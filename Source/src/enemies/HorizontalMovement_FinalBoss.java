@@ -43,7 +43,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 			//8sec volley
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					8000, 
@@ -52,7 +52,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					0));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					8000, 
@@ -61,7 +61,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					25));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					8000, 
@@ -70,7 +70,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					50));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					8000, 
@@ -79,7 +79,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					75));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					8000, 
@@ -90,7 +90,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 			//17sec volley
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					17000, 
@@ -99,7 +99,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					0));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					17000, 
@@ -108,7 +108,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					25));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					17000, 
@@ -117,7 +117,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					50));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					17000, 
@@ -126,7 +126,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					75));
 			addGun(new Gun_SingleShotStraight(getMyLayout(), this,
 					new Bullet_Basic(
-							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+							(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 							(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 							R.drawable.bullet_laser_round_red),
 					17000, 
@@ -137,7 +137,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		//Gattling lasers
 		this.addGun(new Gun_TrackingGattling(getMyLayout(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
 				new Bullet_Tracking(( (GameActivityInterface)getContext() ).getProtagonist(), this,
-						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 						R.drawable.bullet_laser_round_red),
 				6000, 
@@ -147,7 +147,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				4 ));
 		this.addGun(new Gun_TrackingGattling(getMyLayout(),( (GameActivityInterface)getContext() ).getProtagonist(), this,
 				new Bullet_Basic(
-						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 						R.drawable.bullet_laser_round_red),
 				6000, 
@@ -159,7 +159,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 		//angled
 		this.addGun(new Gun_AngledDualShot(getMyLayout(),this,
 				new Bullet_Basic(
-						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+						(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 						R.drawable.bullet_laser_round_red),
 				1000, 

@@ -50,12 +50,12 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		//override default gun
 		this.removeAllGuns();
 		Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_round_red),
 				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
 		Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_round_red),
 				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);

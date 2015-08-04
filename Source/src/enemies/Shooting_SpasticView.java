@@ -120,8 +120,8 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
 //		if(level > AttributesOfLevels.LEVELS_LOW){
-			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT *10 + 
-					(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
+//			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT *10 + 
+//					(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
 			
 //			probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.STANDARD_PROB_WEIGHT);
 //		}

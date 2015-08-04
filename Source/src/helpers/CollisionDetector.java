@@ -1,11 +1,12 @@
 package helpers;
 
-import levels.LevelSystem;
 import interfaces.Shooter;
+import levels.LevelSystem;
 import parents.MovingView;
 import android.os.Handler;
 import bonuses.BonusView;
 import bullets.BulletView;
+import bullets.Bullet_HasDurationView;
 import enemies.EnemyView;
 import friendlies.FriendlyView;
 
@@ -48,7 +49,7 @@ public class CollisionDetector {
 					if( friendly.RectToRectCollisionDetection(bullet)){
 	
 		    			friendly.takeDamage(bullet.getDamage());
-		    			bullet.removeGameObject();
+		    			if (! (bullet instanceof Bullet_HasDurationView) ){bullet.removeGameObject();}
 		    		}
 //	    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 			}
@@ -84,7 +85,7 @@ public class CollisionDetector {
 						if( bullet.RectToRectCollisionDetection(enemy)){
 							
 		        			enemy.takeDamage(bullet.getDamage());
-		        			bullet.removeGameObject();
+		        			if (! (bullet instanceof Bullet_HasDurationView) ){bullet.removeGameObject();}
 		        		}
 //		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 	        	}

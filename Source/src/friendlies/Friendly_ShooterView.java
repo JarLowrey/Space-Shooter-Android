@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.widget.RelativeLayout;
 import bullets.BulletView;
+import bullets.Bullet_HasDurationView;
 
 public abstract class Friendly_ShooterView extends FriendlyView implements Shooter{
 
@@ -36,6 +37,12 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	@Override
 	public void removeGameObject(){		
 		removeAllGuns();
+		
+		for(BulletView b : myBullets){
+			if(b instanceof Bullet_HasDurationView){
+				b.removeGameObject();
+			}
+		}
 		
 		super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks	
 	}

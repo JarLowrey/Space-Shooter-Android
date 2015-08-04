@@ -18,7 +18,7 @@ public class BulletView extends Moving_ProjectileView{
 
 	public static final int DEFAULT_HORIZONTAL_SPEED=0,
 			DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE=50;
-	private Shooter theOneWhoShotMe;
+	protected Shooter theOneWhoShotMe;
 	
 	public BulletView(RelativeLayout layout,Shooter shooter,float bulletSpeedY,
 			int bulletDamage,int width,int height,int imageId) {

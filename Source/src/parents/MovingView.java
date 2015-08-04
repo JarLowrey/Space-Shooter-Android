@@ -59,9 +59,13 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	
 	@Override
 	public void reassignMoveRunnable(KillableRunnable r){
-		if(moveRunnable!= null){moveRunnable.kill();}
-		moveRunnable = r;
-		this.post(r);
+		if(moveRunnable!= null){
+			moveRunnable.kill();
+			moveRunnable = r;
+			this.post(r);
+		}else{
+			moveRunnable = null; //will this cause bugs?
+		}
 	}
 	
 	@Override 

@@ -52,12 +52,12 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						R.drawable.bullet_missile_one),
 						2000, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, (int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE*1.5),50) );
 				enemy.addGun(new Gun_SingleShotStraight(gameScreen, enemy, new Bullet_Basic(
-						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_width), 
+						(int)gameScreen.getResources().getDimension(R.dimen.bullet_skinny_width), 
 						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_height), 
 						R.drawable.bullet_laser_round_red),
 						2000, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,5) );
 				enemy.addGun(new Gun_SingleShotStraight(gameScreen, enemy, new Bullet_Basic(
-						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_width), 
+						(int)gameScreen.getResources().getDimension(R.dimen.bullet_skinny_width), 
 						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_height), 
 						R.drawable.bullet_laser_round_red),
 						2000, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE,95) );
@@ -87,7 +87,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				
 				enemy.removeAllGuns();
 				enemy.addGun(new Gun_TrackingSingle(gameScreen,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
-						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_width), 
+						(int)gameScreen.getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
 						R.drawable.bullet_laser_round_red),
 						1000, Bullet_Interface.DEFAULT_BULLET_SPEED_Y,
@@ -101,7 +101,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 //						(int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE * 0.8),
 //						50));
 				enemy.addGun(new Gun_TrackingSingle(gameScreen,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
-						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_width), 
+						(int)gameScreen.getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
 						R.drawable.bullet_laser_round_red),
 						1000, Bullet_Interface.DEFAULT_BULLET_SPEED_Y,
@@ -133,7 +133,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.removeAllGuns();
 				enemy.addGun(new Gun_TrackingGattling(gameScreen,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Basic(
-								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_width), 
+								(int)gameScreen.getResources().getDimension(R.dimen.bullet_skinny_width), 
 								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_height), 
 								R.drawable.bullet_laser_round_red),
 						5000, 
@@ -143,7 +143,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS));
 				enemy.addGun(new Gun_TrackingGattling(gameScreen,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Basic(
-								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_width), 
+								(int)gameScreen.getResources().getDimension(R.dimen.bullet_skinny_width), 
 								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_height), 
 								R.drawable.bullet_laser_round_red),
 						5000, 
@@ -186,7 +186,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.removeAllGuns();
 				enemy.addGun(new Gun_SingleShotStraight(gameScreen, enemy,
 						new Bullet_Basic(
-								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_width), 
+								(int)gameScreen.getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
 								R.drawable.bullet_laser_round_red),
 						750, 
@@ -196,7 +196,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				
 				enemy.addGun(new Gun_TrackingGattling(gameScreen,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Tracking(getInteractivityInterface().getProtagonist(), enemy,
-								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_width), 
+								(int)gameScreen.getResources().getDimension(R.dimen.bullet_skinny_width), 
 								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_height), 
 								R.drawable.bullet_laser_round_red),
 						5000, 
@@ -206,7 +206,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						Gun_TrackingGattling.DEFAULT_NUM_GATTLING_SHOTS / 2));
 				enemy.addGun(new Gun_TrackingGattling(gameScreen,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Tracking(getInteractivityInterface().getProtagonist(), enemy,
-								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_width), 
+								(int)gameScreen.getResources().getDimension(R.dimen.bullet_skinny_width), 
 								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_short_height), 
 								R.drawable.bullet_laser_round_red),
 						5000, 

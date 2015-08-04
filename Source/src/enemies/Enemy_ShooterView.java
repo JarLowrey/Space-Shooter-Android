@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import android.widget.RelativeLayout;
 import bullets.BulletView;
+import bullets.Bullet_HasDurationView;
 
 import com.jtronlabs.space_shooter.R;
 
@@ -40,6 +41,12 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		@Override
 		public void removeGameObject(){
 			removeAllGuns();
+			
+			for(BulletView b : myBullets){
+				if(b instanceof Bullet_HasDurationView){
+					b.removeGameObject();
+				}
+			}
 			
 			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks		
 		}

@@ -118,7 +118,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 
 	@Override
-	public void onResume(){
+	public void onResume(){ 
 		super.onResume();
 
 		stars_creator.startSpawningStars();
@@ -138,7 +138,7 @@ public class MainActivity extends Activity implements OnClickListener{
     @Override
     public void onDestroy() {
         adView.destroy();
-        super.onDestroy();
+        super.onDestroy(); 
     }
 	 
 	@Override

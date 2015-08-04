@@ -45,4 +45,8 @@ public abstract class KillableRunnable implements Runnable{
 		}
 		allRunnables = new ArrayList<KillableRunnable>();//delete all references to Runnable Objects (so it can be garbage collected)
 	}
+	
+	final public boolean isKilled(){
+		return isKilled;
+	}
 }

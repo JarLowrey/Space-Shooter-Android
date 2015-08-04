@@ -279,7 +279,7 @@ public class StoreUpgradeHandler {
 					(int) (dmg*.2),
 					20) );
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(		//twice as powerful, half as fast
-					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_rec_long_width), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 					R.drawable.bullet_laser_round_green),
 					(float) (freq * 2),

@@ -74,7 +74,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		//add guns
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 1.1 * DEFAULT_BULLET_FREQ * Math.random());
 		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_width), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_height), 
 				R.drawable.bullet_laser_round_red),
 				bulletFreq, 
@@ -82,6 +82,23 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 				DEFAULT_BULLET_DAMAGE,50);
 		this.addGun(defaultGun);
 		this.startShooting();
+		
+		
+//		gun that shoots duration bullets
+//		final float bulletFreq = 4000;
+//		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Duration(
+//				(int)getContext().getResources().getDimension(R.dimen.bullet_xskinny_width), 
+//				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
+//				R.drawable.bullet_laser_round_red,
+//				2000),
+//				bulletFreq, 
+//				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+//				DEFAULT_BULLET_DAMAGE,50);
+//		this.addGun(defaultGun);
+//		this.startShooting();
+//		
+		
+		
 
 		reassignMoveRunnable( new KillableRunnable(){
 			@Override

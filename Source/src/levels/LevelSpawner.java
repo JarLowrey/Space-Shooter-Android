@@ -215,7 +215,6 @@ public class LevelSpawner extends Factory_Bosses{
 	 */
 	private SpawnableWave backgroundMeteors(){
 		if( canSpawnMeteors() ){
-			Log.d("lowrey","meteorCreated");
 			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
 			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
 			return spawnEnemyWithDefaultConstructorArugments(meteor,0 );//probability weight does not matter here
