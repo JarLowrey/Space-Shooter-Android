@@ -17,10 +17,10 @@ public abstract class AttributesOfLevels {
 	
 	public static final int STANDARD_PROB_WEIGHT = 1000;
 	
-	public final static int LEVELS_BEGINNER = 5,//0-5
-			LEVELS_LOW = 12,//6-12
-			LEVELS_MED = 40,//13-40
-			LEVELS_HIGH = 60;//41-60
+	public final static int LEVELS_BEGINNER = 2,//0-2
+			LEVELS_LOW = 10,//3-10
+			LEVELS_MED = 30,//11-30
+			LEVELS_HIGH = 50;//31-50
 			//and beyond!
 	
 	public static final int FIRST_LEVEL_BOSS1_APPEARS = 4,
