@@ -27,8 +27,8 @@ public  class Gun_AngledDualShot extends Gun {
 		BulletView bulletRight = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);
 		
 		//set position on shooter
-		bulletLeft.setPositionOnShooterAsAPercentage(this.posOnShooter);
-		bulletRight.setPositionOnShooterAsAPercentage(this.posOnShooter);
+		bulletLeft.setXPositionOnShooterAsAPercentage(this.posOnShooter);
+		bulletRight.setXPositionOnShooterAsAPercentage(this.posOnShooter);
 		
 		//set bullets speed x to non default value
 		bulletLeft.setSpeedX(bulletSpeedX * -1);

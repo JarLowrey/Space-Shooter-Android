@@ -26,7 +26,7 @@ public class Gun_SingleShotStraight extends Gun {
 		//create one bullet at center of shooter
 		BulletView bulletMid = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);
 
-		bulletMid.setPositionOnShooterAsAPercentage(this.posOnShooter);
+		bulletMid.setXPositionOnShooterAsAPercentage(this.posOnShooter);
 		
 		return false;
 	}

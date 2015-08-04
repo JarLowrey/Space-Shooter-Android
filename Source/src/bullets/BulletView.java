@@ -41,7 +41,7 @@ public class BulletView extends Moving_ProjectileView{
 //			}else{
 //				this.setY(theOneWhoShotMe.getY() - theOneWhoShotMe.getHeight()/2);//middle
 //			}
-			setPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
+			setXPositionOnShooterAsAPercentage(DEFAULT_POSITION_ON_SHOOTER_AS_A_PERCENTAGE);
 	
 	
 			if(theOneWhoShotMe.isFriendly()){
@@ -87,7 +87,7 @@ public class BulletView extends Moving_ProjectileView{
 	 * 
 	 * @param positionOnShooterAsAPercentageOfWidthFromTheLeftSide 100 indicates right side of shoot, 0 is left side, and 50 is middle
 	 */
-	public void setPositionOnShooterAsAPercentage(int positionOnShooterAsAPercentageOfWidthFromTheLeftSide) throws IllegalArgumentException{
+	public void setXPositionOnShooterAsAPercentage(int positionOnShooterAsAPercentageOfWidthFromTheLeftSide) throws IllegalArgumentException{
 		if(positionOnShooterAsAPercentageOfWidthFromTheLeftSide < 0 || positionOnShooterAsAPercentageOfWidthFromTheLeftSide > 100){
 			throw new IllegalArgumentException("Not a valid percentage");
 		}

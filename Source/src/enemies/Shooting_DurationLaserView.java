@@ -42,15 +42,17 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 
 		 //gun that shoots duration bullets
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ * Math.random() + DEFAULT_BULLET_FREQ * .75);
+		final int X_POS_ON_SHOOTER = 50;
 		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Duration(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_xskinny_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_round_red,
-				(long) (bulletFreq / 3)),
+				(long) (bulletFreq / 3),
+				X_POS_ON_SHOOTER),
 			bulletFreq, 
 			Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 			DEFAULT_BULLET_DAMAGE,
-			50);
+			X_POS_ON_SHOOTER);
 		this.addGun(defaultGun);
 		this.startShooting();
 		

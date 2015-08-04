@@ -36,7 +36,7 @@ public  class Gun_TrackingSingle extends Gun_Tracking {
 		BulletView bullet = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);
 		
 		//position bullets on edges of shooter
-		bullet.setPositionOnShooterAsAPercentage(this.posOnShooter);
+		bullet.setXPositionOnShooterAsAPercentage(this.posOnShooter);
 		
 		//set bullet's X speed 
 		bullet.setSpeedX(getTrackingXSpeed(shooter,shootTowardsMe,this.bulletSpeedY));

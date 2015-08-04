@@ -14,14 +14,16 @@ public class Bullet_HasDurationView extends BulletView
 	private static final long INTERVAL = (long)HOW_OFTEN_TO_MOVE / HOW_MANY_TIMES_FASTER_THIS_MOVES_THAN_DEFAULT;
  
 	private long myLifeSpanInMilliseconds;
+	private int positionOnShooterAsPercentage;
 	private KillableRunnable maintainBullet;
 	
 	
 	public Bullet_HasDurationView(RelativeLayout layout, Shooter shooter,
 			float bulletSpeedY, int bulletDamage, int width, int height,
-			int imageId, long lifeSpanInMilliseconds) {
+			int imageId, long lifeSpanInMilliseconds, int positionOnShooterAsAPercentageOfWidthFromTheLeftSide) {
 		super(layout, shooter, bulletSpeedY, bulletDamage, width, height, imageId);
 		
+		positionOnShooterAsPercentage = positionOnShooterAsAPercentageOfWidthFromTheLeftSide;
 		myLifeSpanInMilliseconds = lifeSpanInMilliseconds;
 		
 		this.reassignMoveRunnable(null);//bullet does not move, instead it grows
@@ -35,16 +37,16 @@ public class Bullet_HasDurationView extends BulletView
 				
 				//grow bullet
 				
-				//set alpha if close to dying
-				if(currentLife > myLifeSpanInMilliseconds * .9){
-					Bullet_HasDurationView.this.setAlpha(
-							(float)(Bullet_HasDurationView.this.getAlpha() * .5) );
-				}
+				//computationally expensive and hard to see, not worth it
+//				//set alpha if close to dying
+//				if(currentLife > myLifeSpanInMilliseconds * .9){
+//					Bullet_HasDurationView.this.setAlpha(
+//							(float)(Bullet_HasDurationView.this.getAlpha() * .5) );
+//				}
 				
 				//position bullet on its shooter as the shooter moves
-				final float shooterMidX = ( theOneWhoShotMe.getX() * 2 + theOneWhoShotMe.getWidth() ) / 2;
 				final float shooterMidY = ( theOneWhoShotMe.getY() * 2 + theOneWhoShotMe.getHeight() ) / 2;
-				Bullet_HasDurationView.this.setX(shooterMidX);
+				Bullet_HasDurationView.this.setXPositionOnShooterAsAPercentage(positionOnShooterAsPercentage);
 				Bullet_HasDurationView.this.setY(shooterMidY);
 				
 
