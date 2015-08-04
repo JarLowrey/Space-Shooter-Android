@@ -7,12 +7,14 @@ import helpers.KillableRunnable;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic;
+import bullets.Bullet_Duration;
 import bullets.Bullet_Interface;
 import bullets.Bullet_Tracking;
 
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
+import enemies.Shooting_DurationLaserView;
 import enemies.Shooting_HorizontalMovementView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
@@ -184,15 +186,25 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						R.drawable.ship_enemy_boss4);
 				
 				enemy.removeAllGuns();
-				enemy.addGun(new Gun_SingleShotStraight(gameScreen, enemy,
-						new Bullet_Basic(
-								(int)gameScreen.getResources().getDimension(R.dimen.bullet_mid_fat_width), 
-								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
-								R.drawable.bullet_laser_round_red),
-						750, 
-						Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
-						50));
+				enemy.addGun(new Gun_SingleShotStraight(gameScreen, enemy, new Bullet_Duration(
+						(int)gameScreen.getResources().getDimension(R.dimen.bullet_xskinny_width), 
+						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
+						R.drawable.bullet_laser_round_red,
+						Bullet_Duration.DEFAULT_BULLET_DURATION,
+						50),
+					5000, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					Bullet_Duration.DEFAULT_BULLET_DAMAGE,
+					50));
+//				enemy.addGun(new Gun_SingleShotStraight(gameScreen, enemy,
+//						new Bullet_Basic(
+//								(int)gameScreen.getResources().getDimension(R.dimen.bullet_mid_fat_width), 
+//								(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
+//								R.drawable.bullet_laser_round_red),
+//						750, 
+//						Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+//						Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE,
+//						50));
 				
 				enemy.addGun(new Gun_TrackingGattling(gameScreen,getInteractivityInterface().getProtagonist(), enemy,
 						new Bullet_Tracking(getInteractivityInterface().getProtagonist(), enemy,

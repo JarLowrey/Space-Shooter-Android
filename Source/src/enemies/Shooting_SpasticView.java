@@ -120,15 +120,16 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
 		
-		if(level > AttributesOfLevels.LEVELS_LOW){
+		if(level > AttributesOfLevels.FIRST_LEVEL_SPASTICS_APPEAR){
 			if(level < AttributesOfLevels.LEVELS_MED){
 				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.3);
 			}else if(level < AttributesOfLevels.LEVELS_HIGH){
-				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.6);				
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.5);				
 			}else{
-				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 1.1);				
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * .75);				
 			}
 		}
+		
 		return probabilityWeight;
 	}
 

@@ -249,7 +249,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	
 	protected void setRandomXPos(){
 		RelativeLayout.LayoutParams p = (LayoutParams) getLayoutParams();
-		this.setX( (float) ((MainActivity.getWidthPixels()-p.width) *Math.random() + p.width/2) );
+		this.setX( (float) ((MainActivity.getWidthPixels()-2 * p.width) *Math.random() + p.width/2) );
 		p = null;
 	}
 		

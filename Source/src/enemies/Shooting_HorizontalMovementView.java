@@ -4,7 +4,6 @@ import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
-import android.content.Context;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
@@ -64,10 +63,13 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 		int probabilityWeight = 0;
 		
 		if( level > AttributesOfLevels.FIRST_LEVEL_BOSS1_APPEARS){
-			probabilityWeight = (int) (Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) / 2 + 
-					(level/10) * Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) / 10);
-			
-			probabilityWeight = (int) Math.min(probabilityWeight, Orbiter_Rectangle_Array.getSpawningProbabilityWeight(level) * .9 );
+			if(level < AttributesOfLevels.LEVELS_MED){
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.1);
+			}else if(level < AttributesOfLevels.LEVELS_HIGH){
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.13);				
+			}else{
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.16);				
+			}
 		}
 		
 		return probabilityWeight;
