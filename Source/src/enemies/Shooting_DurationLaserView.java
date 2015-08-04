@@ -18,7 +18,7 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.ship_enemy_duration_laser,
 			DEFAULT_SCORE = 200,
-			DEFAULT_HEALTH = ProtagonistView.DEFAULT_BULLET_DAMAGE * 9,
+			DEFAULT_HEALTH = ProtagonistView.DEFAULT_BULLET_DAMAGE * 12,
 			DEFAULT_BULLET_DAMAGE = ProtagonistView.DEFAULT_HEALTH / 70,
 			DEFAULT_BULLET_FREQ = 3000;
 	
@@ -81,10 +81,16 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
+		
 		if(level > AttributesOfLevels.LEVELS_LOW){
-			probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 2;			
+			if(level < AttributesOfLevels.LEVELS_MED){
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.2);
+			}else if(level < AttributesOfLevels.LEVELS_HIGH){
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.4);				
+			}else{
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * .7);				
+			}
 		}
-		probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 100;
 		return probabilityWeight;
 	}
 }

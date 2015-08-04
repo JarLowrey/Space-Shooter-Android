@@ -78,11 +78,15 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
+		
 		if(level > AttributesOfLevels.LEVELS_LOW){
-			probabilityWeight = (int) (AttributesOfLevels.STANDARD_PROB_WEIGHT / 3 + 
-					(level/10) * AttributesOfLevels.STANDARD_PROB_WEIGHT/2);
-			
-			probabilityWeight = Math.min(probabilityWeight, 2 * AttributesOfLevels.STANDARD_PROB_WEIGHT);
+			if(level < AttributesOfLevels.LEVELS_MED){
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.7);
+			}else if(level < AttributesOfLevels.LEVELS_HIGH){
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 0.9);				
+			}else{
+				probabilityWeight = (int) (Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) * 1.5);				
+			}
 		}
 		return probabilityWeight;
 	}
