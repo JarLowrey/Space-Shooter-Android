@@ -96,40 +96,29 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		return new SpawnableWave(r,8000/((getLevel()/5)+1),Orbiter_Rectangle_Array.getSpawningProbabilityWeight(getLevel()) );
 	}
 	
-	final SpawnableWave lotsOfDiagonals(){
-		final int DELAY_BTW_DIAGONALS = 1000;
-		final int lvl = getLevel();
+	//generic waves
+	public final SpawnableWave spawnLotsOfEnemiesWithDefaultConstructorArguments(final Class c,
+			int probabilityWeight,
+			final int howManyEnemies,
+			final int delayBtwEachEnemy, 
+			int delayAfterSpawningAllEnemies){
 		
-		int numDiagonalEnemies = 0;
-		if(lvl < LEVELS_MED){ //choose how many diagonal enemies spawn
-			numDiagonalEnemies = 5;
-		}else if (lvl < LEVELS_HIGH){
-			numDiagonalEnemies = 8;
-		}else {
-			numDiagonalEnemies = 13;
-		}
-		
-		final int numDiagonalEnemiesCopy = numDiagonalEnemies;
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {				
-				for(int i = 0; i < numDiagonalEnemiesCopy; i++){
+				for(int i = 0; i < howManyEnemies; i++){
 					spawningHandler.postDelayed(new KillableRunnable(){//spawn a diagonal moving  enemy every DELAY interval
 						@Override
 						public void doWork() {
-							spawnDefaultEnemy(Shooting_DiagonalMovingView.class);
+							spawnDefaultEnemy(c);
 						}
-					}, DELAY_BTW_DIAGONALS * i);
+					}, delayBtwEachEnemy * i);
 				}
 			}
 		};
-		
-		return new SpawnableWave(r, DELAY_BTW_DIAGONALS*numDiagonalEnemies + 4000, 
-				Shooting_DiagonalMovingView.getSpawningProbabilityWeightForLotsOfDiagonals(lvl) );		
-	}	
-
-	//generic waves
-	public final SpawnableWave spawnEnemyWithDefaultConstructorArugments(final Class c,int probabilityWeight){
+		return new SpawnableWave(r,delayAfterSpawningAllEnemies + delayBtwEachEnemy * howManyEnemies,probabilityWeight );
+	}
+	public final SpawnableWave spawnEnemyWithDefaultConstructorArguments(final Class c,int probabilityWeight){
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork(){
@@ -149,17 +138,17 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	
 	//SPECIAL SPAWNING WAVES
 	final SpawnableWave lotsOfCircles(){
-		final int CIRCLE_SPAWN_DELAY = 3500;
+		final int CIRCLE_SPAWN_DELAY = 14000;
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				spawningHandler.postDelayed(spawnCircularOrbiterWave(6,500,3),CIRCLE_SPAWN_DELAY);
+				spawningHandler.post(spawnCircularOrbiterWave(6,500,3));
 				spawningHandler.postDelayed(spawnCircularOrbiterWave(7,500,2),CIRCLE_SPAWN_DELAY);
-				spawningHandler.postDelayed(spawnCircularOrbiterWave(9,500,1),CIRCLE_SPAWN_DELAY);
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(9,500,1),CIRCLE_SPAWN_DELAY * 2);
 			} 
 		};
 		
-		return new SpawnableWave(r,(long) (CIRCLE_SPAWN_DELAY * 3.7),0);
+		return new SpawnableWave(r,(long) (CIRCLE_SPAWN_DELAY * 3.5),0);
 	}
 	
 	

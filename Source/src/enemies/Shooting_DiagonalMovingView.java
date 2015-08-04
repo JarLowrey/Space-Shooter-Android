@@ -1,6 +1,7 @@
 package enemies;
 
 import levels.AttributesOfLevels;
+import levels.SpawnableWave;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
@@ -21,7 +22,9 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 6.3),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_diagonal_full_screen,
-			DEFAULT_BULLET_FREQ_INTERVAL=1500;
+			DEFAULT_BULLET_FREQ_INTERVAL=1500,
+			DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 1000,
+			DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 4000;
 	public final static float 
 			DEFAULT_SPEED_Y=12,
 			DEFAULT_SPEED_X=DEFAULT_SPEED_Y,
@@ -134,4 +137,18 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		return probabilityWeight;
 	}
 	
+	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		
+		int numDiagonalEnemies = 0;
+		
+		if(lvl < AttributesOfLevels.LEVELS_MED){ //choose how many diagonal enemies spawn
+			numDiagonalEnemies = 5;
+		}else if (lvl < AttributesOfLevels.LEVELS_HIGH){
+			numDiagonalEnemies = 8;
+		}else {
+			numDiagonalEnemies = 13;
+		}
+		
+		return numDiagonalEnemies;
+		}
+			
 }

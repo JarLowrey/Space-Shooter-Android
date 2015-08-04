@@ -14,8 +14,8 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	
 	public static final int DEFAULT_ANGULAR_VELOCITY=3, 
 			MAX_ANGULAR_VELOCITY = 30, 
-			MAX_RADIUS = (int) (100  * MainActivity.getScreenDens()),
-			MIN_RADIUS = (int) (20  * MainActivity.getScreenDens()),
+			MAX_RADIUS = (int) (140  * MainActivity.getScreenDens()),
+			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens()),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
 	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels());
 	

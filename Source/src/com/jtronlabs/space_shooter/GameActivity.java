@@ -315,6 +315,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	} 
 	
 	public void openStore(){
+		final int lvl = levelCreator.getLevel();
+		
 		gameLayout.setVisibility(View.GONE);
 		storeLayout.setVisibility(View.VISIBLE);
 		
@@ -325,8 +327,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.playSoundClip(this, R.raw.background_store, true);
 
 		resourceCount.setText(""+NumberFormat.getNumberInstance(Locale.US).format(levelCreator.getResourceCount()));
-		levelCount.setText("Days In Space : "+ levelCreator.getLevel() );
+		levelCount.setText("Days In Space : "+ lvl );
 		setHealthBars( );
+		
+		if(lvl % 15 == 0 && lvl !=0){
+			//TODO display interstitial ad
+		}
 	}
 	
 	private void closeStoreAndResumeLevel(){	
