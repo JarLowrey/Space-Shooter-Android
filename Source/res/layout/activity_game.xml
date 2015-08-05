@@ -144,7 +144,7 @@
 			<ImageButton
 			    android:id="@+id/btn_new_gun"
 			    style="?android:attr/buttonStyleSmall"
-			    android:src="@drawable/gun"
+			    android:src="@drawable/upgrade_inc_gun"
 			    android:layout_width="@dimen/store_item_len"
 			    android:layout_height="@dimen/store_item_len"
 	  			android:scaleType="fitCenter"  

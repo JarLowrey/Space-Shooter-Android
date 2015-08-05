@@ -12,7 +12,7 @@ public class GameAlertDialogBuilder extends AlertDialog.Builder{
 	
 	public GameAlertDialogBuilder(Context ctx) {
 		super(ctx);
-	}
+	} 
 	
 	@Override
 	public AlertDialog.Builder setTitle(CharSequence title){
