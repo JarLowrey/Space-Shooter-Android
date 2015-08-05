@@ -6,7 +6,7 @@
 	android:background="@android:color/black" 
     tools:context="${packageName}.${activityClass}">
     
-    <TextView
+    <helpers.GameTextView
         android:id="@+id/introText"
         style="@style/VeryLargeText"
         android:background="@drawable/intro_background"

@@ -12,6 +12,6 @@ public interface GameActivityInterface {
 	public void incrementScore(int score); 
 	public ProtagonistView getProtagonist();
 	
-	public void resetResourcesTextView();
+	public void resetResourcesGameTextView();
 	public ImageView getExhaust();
 }

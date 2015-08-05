@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import bullets.BulletView;
 
 
-public interface Shooter extends Projectile{			
+public interface Shooter extends Projectile{ 			
 	public void removeAllGuns();
 	public void addGun(Gun newGun);
 	public ArrayList<Gun> getAllGuns();

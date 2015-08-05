@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
       
-        <TextView
+        <helpers.GameTextView
             android:id="@+id/score_in_game"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
 	        android:layout_height="wrap_content"
 			android:layout_alignParentTop="true" />
         
-        <TextView
+        <helpers.GameTextView
             android:id="@+id/level_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:layout_below="@+id/level_count"
 		    android:layout_centerHorizontal="true"
 		    >
-	        <TextView
+	        <helpers.GameTextView
 	            android:id="@+id/resource_count"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
 	            android:src="@drawable/resources" />
 		</RelativeLayout>
 		
-        <TextView
+        <helpers.GameTextView
             android:id="@+id/explanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -269,7 +269,7 @@
 				android:layout_height="match_parent"
 			>
 			<!-- GAME OVER title -->
-				<TextView
+				<helpers.GameTextView
 					style="@style/VeryLargeText"
 					android:id="@+id/gameOverTitle"
 					android:textColor="@color/light_blue"
@@ -297,7 +297,7 @@
 						android:gravity="center"
 						android:orientation="vertical"
 				        >
-					    <TextView 
+					    <helpers.GameTextView 
 							android:id="@+id/medal_title"
 					        android:layout_height="wrap_content"
 							android:layout_width="wrap_content"
@@ -317,7 +317,7 @@
 				        
 				    </LinearLayout>
 				    
-				    <TextView 
+				    <helpers.GameTextView 
 						android:id="@+id/total_score"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
@@ -328,7 +328,7 @@
 						android:text="0"
 				        />
 				    
-				    <TextView 
+				    <helpers.GameTextView 
 				        android:id="@+id/score_title"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
@@ -340,7 +340,7 @@
 						android:text="SCORE"
 				        />
 				    
-				    <TextView 
+				    <helpers.GameTextView 
 						android:id="@+id/num_days_passed"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
@@ -351,7 +351,7 @@
 						android:text="0"
 				        />
 				    
-				    <TextView  
+				    <helpers.GameTextView  
 				        android:id="@+id/days_title"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"
@@ -363,7 +363,7 @@
 						android:text="DAYS"
 				        />
 					
-				    <TextView 
+				    <helpers.GameTextView 
 				        android:id="@+id/gameOverMessage"
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"

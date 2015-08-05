@@ -2,6 +2,8 @@ package com.jtronlabs.space_shooter;
 
 import friendlies.AllyView;
 import friendlies.ProtagonistView;
+import helpers.GameAlertDialogBuilder;
+import helpers.GameTextView;
 import helpers.KillableRunnable;
 import helpers.MediaController;
 import helpers.StoreUpgradeHandler;
@@ -13,7 +15,6 @@ import java.util.List;
 import levels.AttributesOfLevels;
 import levels.LevelSystem;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,7 +31,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import backgroundViews.ParticleBackgroundAnimation;
 
@@ -61,7 +61,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private ImageButton btnMove,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
-	private TextView resourceCount,levelCount,scoreInGame;
+	private GameTextView resourceCount,levelCount,scoreInGame;
 	private ProgressBar healthBar,healthBarStore;
 	public ProtagonistView protagonist;
 	private AllyView ally;
@@ -95,7 +95,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //		btnMoveRight.setOnTouchListener(this); 
 		btnMove.setOnTouchListener(this);
 		btnShoot.setOnTouchListener(this);
-		scoreInGame = (TextView)findViewById(R.id.score_in_game);
+		scoreInGame = (GameTextView)findViewById(R.id.score_in_game);
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBarStore = (ProgressBar)findViewById(R.id.health_bar_store);//technically this is in store
@@ -103,8 +103,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
 		
 		//set up Store View and listeners
-		resourceCount = (TextView)findViewById(R.id.resource_count);
-		levelCount = (TextView)findViewById(R.id.level_count);
+		resourceCount = (GameTextView)findViewById(R.id.resource_count);
+		levelCount = (GameTextView)findViewById(R.id.level_count);
 		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
 		btnIncBulletDmg= (ImageButton)findViewById(R.id.btn_inc_bullet_dmg); 
 		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_defence);  
@@ -271,13 +271,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		//set text
 		RelativeLayout gameOverLayout = (RelativeLayout)findViewById(R.id.gameOverWindow);
-		TextView messsageView = (TextView)findViewById(R.id.gameOverMessage);
+		GameTextView messsageView = (GameTextView)findViewById(R.id.gameOverMessage);
 		messsageView.setText(msg);
-		TextView titleView = (TextView)findViewById(R.id.gameOverTitle);
+		GameTextView titleView = (GameTextView)findViewById(R.id.gameOverTitle);
 		titleView.setText(title);
-		TextView daysPassedView = (TextView)findViewById(R.id.num_days_passed);
+		GameTextView daysPassedView = (GameTextView)findViewById(R.id.num_days_passed);
 		daysPassedView.setText(MainActivity.formatInt(lvl) );
-		TextView finalScoreView = (TextView)findViewById(R.id.total_score);
+		GameTextView finalScoreView = (GameTextView)findViewById(R.id.total_score);
 		finalScoreView.setText(MainActivity.formatInt(score) );
 		
 		//show adView
@@ -435,7 +435,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					if(StoreUpgradeHandler.getGunLevel(this) < 0){
 						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
 					}else{
-							new AlertDialog.Builder(this)
+							new GameAlertDialogBuilder(this)
 					    .setTitle("Continue")
 					    .setMessage("Venture out into the void")
 					    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -595,7 +595,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 
 	@Override
-	public void resetResourcesTextView() {
+	public void resetResourcesGameTextView() {
 		resourceCount.setText(MainActivity.formatInt( levelCreator.getResourceCount() ) );		
 	}
 	

@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@android:color/black"
+    tools:context="${relativePackage}.${activityClass}" >
+    
+    <helpers.GameTextView
+        android:id="@+id/game_alert_dialog_builder_title"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="10dp"
+	    android:textSize="30dp"
+        />
+    
+    <helpers.GameTextView
+        android:id="@+id/game_alert_dialog_builder_message"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="5dp"
+	    android:textSize="20dp"
+        />
+    
+    
+    </RelativeLayout>

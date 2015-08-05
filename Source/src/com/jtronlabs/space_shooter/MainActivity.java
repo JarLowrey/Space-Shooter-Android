@@ -1,11 +1,13 @@
 package com.jtronlabs.space_shooter;
 
+import helpers.GameAlertDialogBuilder;
+import helpers.GameTextView;
+import helpers.MediaController;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import helpers.MediaController;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +20,6 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import backgroundViews.ParticleBackgroundAnimation;
 
@@ -123,12 +124,12 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		stars_creator.startSpawningStars();
 		
-		//set Textviews here, as the text may have updated since onCreate 
+		//set GameTextViews here, as the text may have updated since onCreate 
 		//(user plays game, gets new record, and goes back to mainActivity)
 		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
-		TextView score = (TextView)findViewById(R.id.high_score);
+		GameTextView score = (GameTextView)findViewById(R.id.high_score);
 		score.setText( formatInt( gameMeta.getInt(HIGHEST_SCORE, 0)) );
-		TextView days = (TextView)findViewById(R.id.max_day);
+		GameTextView days = (GameTextView)findViewById(R.id.max_day);
 		days.setText(formatInt(gameMeta.getInt(MAX_LEVEL, 0)) );
 		
 		adView.resume();
@@ -183,7 +184,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				String vibrateState = (!vibrateEdit) ? "on" : "off" ;
     			Toast.makeText(getApplicationContext(),"Vibration is turned "+vibrateState, Toast.LENGTH_SHORT).show();
 		}else if(v.getId() == R.id.show_credits){
-				new AlertDialog.Builder(this)
+				new GameAlertDialogBuilder(this)
 				    .setTitle("Credits")
 				    .setMessage(this.getResources().getString(R.string.credits))
 				    .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {

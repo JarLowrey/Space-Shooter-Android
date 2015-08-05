@@ -117,7 +117,7 @@ public class StoreUpgradeHandler {
 			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
 		}
 		
-		AlertDialog.Builder confirmStoreChoice = new AlertDialog.Builder(ctx)
+		AlertDialog.Builder confirmStoreChoice = new GameAlertDialogBuilder(ctx)
 				    .setTitle( title ) 
 				    .setMessage( msg );
 		
@@ -140,7 +140,7 @@ public class StoreUpgradeHandler {
 		        		//update Views in the store
 		        		levelCreator.setResources(levelCreator.getResourceCount()-costCopy);
 		        		levelCreator.saveResourceCount();  
-		        		((GameActivityInterface)ctx).resetResourcesTextView();
+		        		((GameActivityInterface)ctx).resetResourcesGameTextView();
 		    			((GameActivityInterface)ctx).setHealthBars( );
 		    			Toast.makeText(ctx.getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();       			
 	        		}else{
