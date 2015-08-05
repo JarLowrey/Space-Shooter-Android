@@ -137,7 +137,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	}
 	
 	//SPECIAL SPAWNING WAVES
-	final SpawnableWave lotsOfCircles(){
+	final SpawnableWave coordinatedCircularAttack(int level){
 		final int CIRCLE_SPAWN_DELAY = 14000;
 		KillableRunnable r = new KillableRunnable(){
 			@Override
@@ -148,7 +148,12 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			} 
 		};
 		
-		return new SpawnableWave(r,(long) (CIRCLE_SPAWN_DELAY * 3.5),0);
+		int probabilityWeight = 0;
+		if(level > FIRST_LEVEL_COORDINATED_CIRCLE_ORBITERS_ATTACK_APPEARS){
+			probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 30;
+		}
+		
+		return new SpawnableWave(r,(long) (CIRCLE_SPAWN_DELAY * 3.5),probabilityWeight);
 	}
 	
 	

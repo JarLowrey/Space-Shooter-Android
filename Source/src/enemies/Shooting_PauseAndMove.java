@@ -91,4 +91,27 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		return probabilityWeight;
 	}
 
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
+			probabilityWeight = getSpawningProbabilityWeight(level) / 10 ;
+		}
+		
+		return probabilityWeight;
+	}
+	
+	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){			
+		int numEnemies = 0;
+		
+		if(lvl < AttributesOfLevels.LEVELS_MED){ //choose how many diagonal enemies spawn
+			numEnemies = 8;
+		}else if (lvl < AttributesOfLevels.LEVELS_HIGH){
+			numEnemies = 10;
+		}else {
+			numEnemies = 11;
+		}
+		
+		return numEnemies;
+	}
 }

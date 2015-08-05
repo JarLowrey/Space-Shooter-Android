@@ -29,7 +29,9 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/50,
 			DEFAULT_SCORE=100,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE  * 5),
-			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker;
+			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker,
+			DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 1600,
+			DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 3500;
 	
 	private Moving_ProjectileView viewToTrack;
 	
@@ -133,5 +135,31 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 			}
 		}
 		return probabilityWeight;
+	}
+
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
+			probabilityWeight = getSpawningProbabilityWeight(level) / 14 ;
+		}
+		
+		return probabilityWeight;
+	}
+	
+	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		
+		int numEnemies = 0;
+		
+		if(lvl > AttributesOfLevels.FIRST_LEVEL_LOTS_OF_TRACKERS_APPEAR){
+			if(lvl < AttributesOfLevels.LEVELS_LOW){ //choose how many diagonal enemies spawn
+				numEnemies = 5;
+			}else if (lvl < AttributesOfLevels.LEVELS_MED){
+				numEnemies = 8;
+			}else {
+				numEnemies = 10;
+			}
+		}
+		
+		return numEnemies;
 	}
 }

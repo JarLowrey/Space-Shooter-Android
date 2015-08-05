@@ -1,7 +1,6 @@
 package enemies;
 
 import levels.AttributesOfLevels;
-import levels.SpawnableWave;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
@@ -127,7 +126,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		return probabilityWeight;
 	}
 	
-	public static int getSpawningProbabilityWeightForLotsOfDiagonals(int level){
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
 		int probabilityWeight = 0;
 	
 		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
@@ -138,17 +137,17 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	}
 	
 	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		
-		int numDiagonalEnemies = 0;
+		int numEnemies = 0;
 		
 		if(lvl < AttributesOfLevels.LEVELS_MED){ //choose how many diagonal enemies spawn
-			numDiagonalEnemies = 5;
+			numEnemies = 6;
 		}else if (lvl < AttributesOfLevels.LEVELS_HIGH){
-			numDiagonalEnemies = 8;
+			numEnemies = 8;
 		}else {
-			numDiagonalEnemies = 13;
+			numEnemies = 13;
 		}
 		
-		return numDiagonalEnemies;
-		}
+		return numEnemies;
+	}
 			
 }

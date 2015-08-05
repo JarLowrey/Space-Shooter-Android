@@ -10,7 +10,9 @@ import bonuses.BonusView;
 public abstract class EnemyView extends Projectile_GravityView{
 	
 	public static final int MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR = 3;
-	public static int numSpawn=0,numRemoved=0;
+	public static int numSpawn=0,numRemoved=0,
+			DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 500,
+			DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 8000;
 	private int score;
 	private double probSpawnBeneficialObject;
 	

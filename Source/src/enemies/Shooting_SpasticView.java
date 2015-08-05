@@ -4,7 +4,6 @@ import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 import bullets.Bullet_Tracking;
@@ -131,6 +130,33 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 		}
 		
 		return probabilityWeight;
+	}
+	
+
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
+			probabilityWeight = getSpawningProbabilityWeight(level) / 15 ;
+		}
+		
+		return probabilityWeight;
+	}
+	
+	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		
+		int numEnemies = 0;
+		
+		if(lvl > AttributesOfLevels.FIRST_LEVEL_SPASTICS_APPEAR){
+			if(lvl < AttributesOfLevels.LEVELS_LOW){ //choose how many diagonal enemies spawn
+				numEnemies = 4;
+			}else if (lvl < AttributesOfLevels.LEVELS_MED){
+				numEnemies = 5;
+			}else {
+				numEnemies = 6;
+			}
+		}
+		
+		return numEnemies;
 	}
 
 }

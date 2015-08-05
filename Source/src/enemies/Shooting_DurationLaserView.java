@@ -148,4 +148,29 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 		
 		return probabilityWeight;
 	}
+	
+
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
+			probabilityWeight = getSpawningProbabilityWeight(level) / 20 ;
+		}
+		
+		return probabilityWeight;
+	}
+	
+	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		
+		int numEnemies = 0;
+		
+		if(lvl < AttributesOfLevels.LEVELS_MED){ //choose how many diagonal enemies spawn
+			numEnemies = 3;
+		}else if (lvl < AttributesOfLevels.LEVELS_HIGH){
+			numEnemies = 4;
+		}else {
+			numEnemies = 5;
+		}
+		
+		return numEnemies;
+	}
 }

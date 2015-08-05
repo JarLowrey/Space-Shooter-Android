@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
@@ -121,5 +122,20 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		 * so that screen is not inundated with orbiters
 		 */
 		return (int) (Shooting_PauseAndMove.getSpawningProbabilityWeight(level) * 0.75) / 3;
+	}
+	
+
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
+			probabilityWeight = getSpawningProbabilityWeight(level) / (10 * 3) ;
+		}
+		
+		return probabilityWeight;
+	}
+	
+	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		
+		return Shooting_PauseAndMove.getNumEnemiesInLotsOfEnemiesWave(lvl);
 	}
 }
