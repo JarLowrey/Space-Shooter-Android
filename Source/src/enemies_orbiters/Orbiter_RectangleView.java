@@ -1,9 +1,8 @@
 package enemies_orbiters;
 
-import levels.AttributesOfLevels;
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
+import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
@@ -94,7 +93,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 				}
 				
 				move();
-				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_RectangleView.this);
+				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
 		});
 	}

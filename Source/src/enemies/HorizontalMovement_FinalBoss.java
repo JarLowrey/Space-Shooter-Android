@@ -1,6 +1,5 @@
 package enemies;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
@@ -202,12 +201,12 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 					HorizontalMovement_FinalBoss.this.setImageResource(R.drawable.ship_enemy_boss5);
 					
 					isInvisible = false;
-					ConditionalHandler.postIfAlive(this,(long)( 5000+Math.random()*2000 ), HorizontalMovement_FinalBoss.this);
+					postDelayed(this,(long)( 5000+Math.random()*2000 ));
 				}else{
 					HorizontalMovement_FinalBoss.this.setImageResource( 0 );
 					
 					isInvisible = true;
-					ConditionalHandler.postIfAlive(this,(long)( 2000+Math.random() * 2000 ), HorizontalMovement_FinalBoss.this);
+					postDelayed(this,(long)( 2000+Math.random() * 2000 ));
 				}
 			}
 		});

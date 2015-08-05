@@ -1,6 +1,5 @@
 package bullets;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
 import parents.MovingView;
@@ -67,7 +66,7 @@ public class Bullet_Tracking extends Bullet_Interface{
 				b.setBulletRotation();
 				b.move();
 				
-				ConditionalHandler.postIfAlive(this, MovingView.HOW_OFTEN_TO_MOVE,b);
+				b.postDelayed(this, MovingView.HOW_OFTEN_TO_MOVE);
 			}
 		});
 	}

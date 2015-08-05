@@ -1,6 +1,5 @@
 package bullets;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
 import android.widget.RelativeLayout;
@@ -66,7 +65,8 @@ public class Bullet_HasDurationView extends BulletView
 				
 				//remove bullet if its life has run out, continue otherwise
 				if(currentLife < myLifeSpanInMilliseconds){
-					ConditionalHandler.postIfAlive(this, INTERVAL,theOneWhoShotMe);
+//					theOneWhoShotMe.postDelayed(this, INTERVAL);
+					postDelayed(this, INTERVAL);
 				}else{
 					Bullet_HasDurationView.this.removeGameObject();
 				}

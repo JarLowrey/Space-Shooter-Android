@@ -1,6 +1,5 @@
 package enemies_orbiters;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import levels.AttributesOfLevels;
@@ -91,7 +90,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 			
 				howManyTimesMoved++;
 				
-				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Orbiter_CircleView.this);
+				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
 		});
 	}

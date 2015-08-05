@@ -1,14 +1,11 @@
 package enemies;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
-
-import enemies_orbiters.Orbiter_Rectangle_Array;
 
 public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 
@@ -54,7 +51,7 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 				}
 				
 				move();
-				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE, Shooting_HorizontalMovementView.this);
+				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
 		}); 
 	}

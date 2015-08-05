@@ -1,6 +1,5 @@
 package parents;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import helpers.MediaController;
 import interfaces.MovingViewInterface;
@@ -46,7 +45,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 			@Override
 			public void doWork() {
 				move();
-				ConditionalHandler.postIfAlive(this, HOW_OFTEN_TO_MOVE,MovingView.this);
+				postDelayed(this, HOW_OFTEN_TO_MOVE);
 			}
 		};
 
@@ -86,7 +85,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	
 	@Override
 	public void restartThreads(){
-		ConditionalHandler.postIfAlive(moveRunnable, HOW_OFTEN_TO_MOVE,MovingView.this);		
+		postDelayed(moveRunnable, HOW_OFTEN_TO_MOVE);		
 	}
 	
 	public boolean RectToRectCollisionDetection(View two){
@@ -259,5 +258,20 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 
 	public float getMidY(){
 		return (this.getY() * 2 + this.getHeight() )/2;
+	}
+	
+	@Override
+	public boolean post(Runnable r){
+		if( ! isRemoved){
+			return super.post(r);
+		}
+		return true;
+	}
+	@Override
+	public boolean postDelayed(Runnable r,long delay){
+		if( ! isRemoved){
+			return super.postDelayed(r,delay);
+		}
+		return true;
 	}
 }

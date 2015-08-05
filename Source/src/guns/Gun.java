@@ -1,6 +1,5 @@
 package guns;
   
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
 import android.widget.RelativeLayout;
@@ -35,7 +34,7 @@ public abstract class Gun {
 		  	@Override
 		      public void doWork() {
 	  				Gun.this.shoot();
-	  				ConditionalHandler.postDelayedIfShooting(this, (long) bulletFreq,shooter);
+	  				postDelayedIfShooting(this, (long) bulletFreq,shooter);
 		  		}
 			};
 	
@@ -53,10 +52,10 @@ public abstract class Gun {
 	} 
 	
 	public void startShootingImmediately(){
-		ConditionalHandler.postDelayedIfShooting(shootingRunnable,0,shooter);
+		postDelayedIfShooting(shootingRunnable,0,shooter);
 	}
 	public void startShootingDelayed(){
-		ConditionalHandler.postDelayedIfShooting(shootingRunnable,(long)bulletFreq,shooter);	
+		postDelayedIfShooting(shootingRunnable,(long)bulletFreq,shooter);	
 	}
 	
 	public void stopShooting(){
@@ -93,6 +92,12 @@ public abstract class Gun {
 
 	public void setBulletDamage(int newDamage) {
 		bulletDamage = newDamage;
+	}
+	
+	private void postDelayedIfShooting(Runnable r, long delay, Shooter theShooter){
+		if(theShooter.isShooting()){
+			theShooter.postDelayed(r, delay);
+		}
 	}
 	
 

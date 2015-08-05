@@ -1,6 +1,5 @@
 package bullets;
   
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
 import levels.LevelSystem;
@@ -64,7 +63,7 @@ public class BulletView extends Moving_ProjectileView{
 	        public void doWork() {
 				BulletView.this.setBulletRotation();
 				move();
-				ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,BulletView.this);
+				postDelayed(this,HOW_OFTEN_TO_MOVE);
 			}
 		});
 	}

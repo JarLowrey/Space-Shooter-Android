@@ -1,6 +1,5 @@
 package parents;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import android.widget.RelativeLayout;
 /**
@@ -35,7 +34,7 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 
         		//if View is at lowest threshold stop reposting runnable
         		if(!hasReachedGravityThreshold){
-        			ConditionalHandler.postIfAlive(this, HOW_OFTEN_TO_MOVE/2,Projectile_GravityView.this);
+        			postDelayed(this, HOW_OFTEN_TO_MOVE/2);
         		}else{
         			reachedGravityPosition();
         		}

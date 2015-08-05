@@ -1,7 +1,6 @@
 package friendlies;
 
 import guns.Gun;
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import helpers.MediaController;
 import helpers.StoreUpgradeHandler;
@@ -80,13 +79,13 @@ public class ProtagonistView extends Friendly_ShooterView{
 					screen.getExhaust().setX(x);
 					count++; 
 
-					ConditionalHandler.postIfAlive(this,howOftenExhaustMoves,ProtagonistView.this);//repost this runnable so the exhaust will reposition quickly
+					postDelayed(this,howOftenExhaustMoves);//repost this runnable so the exhaust will reposition quickly
 				
 				}else{		    		
 	    			hasPlayedSound = false;
 					count=0;
 					screen.getExhaust().setVisibility(View.GONE);					
-					ConditionalHandler.postIfAlive(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()),ProtagonistView.this);//repost this to a random time in the future
+					postDelayed(this,(long) (EXHAUST_FREQ+ 2 * EXHAUST_FREQ*Math.random()));//repost this to a random time in the future
 				}
 	         }
 	    };
@@ -164,7 +163,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 						(int) MainActivity.getWidthPixels() - ProtagonistView.this.getWidth(),
 						(int)(.4 * MainActivity.getHeightPixels()),
 						(int)(GameActivity.getBottomScreen() - ProtagonistView.this.getHeight()));
-				ConditionalHandler.postIfAlive(this,ProtagonistView.HOW_OFTEN_TO_MOVE,ProtagonistView.this);
+				postDelayed(this,ProtagonistView.HOW_OFTEN_TO_MOVE);
 			}
 		});
 	}

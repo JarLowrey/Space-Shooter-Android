@@ -1,6 +1,5 @@
 package enemies;
  
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
@@ -81,7 +80,7 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 				
 				move();
 				
-				ConditionalHandler.postIfAlive (this, HOW_OFTEN_TO_MOVE,Shooting_SpasticView.this);
+				postDelayed (this, HOW_OFTEN_TO_MOVE);
 			}
 		});
 	}

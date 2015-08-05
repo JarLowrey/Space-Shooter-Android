@@ -2,7 +2,6 @@ package enemies_tracking;
 
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
@@ -58,7 +57,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 				Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
 				
 				move();				
-				ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
+				postDelayed(this,HOW_OFTEN_TO_MOVE);
 			}
 		});
 		
@@ -72,7 +71,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 							(float) (Shooting_TrackingView.this.getSpeedY()+0.3*MainActivity.getScreenDens()));
 					
 					move();				
-					ConditionalHandler.postIfAlive(this,HOW_OFTEN_TO_MOVE,Shooting_TrackingView.this);
+					postDelayed(this,HOW_OFTEN_TO_MOVE);
 				}
 			});
 		}

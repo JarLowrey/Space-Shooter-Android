@@ -1,7 +1,6 @@
 package friendlies;
 
 import guns.Gun_SingleShotStraight;
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import parents.Moving_ProjectileView;
 import android.content.Context;
@@ -69,7 +68,7 @@ public class AllyView extends Friendly_ShooterView{
 				}
 				
 				move();
-				ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,AllyView.this);
+				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
 		});
 

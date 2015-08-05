@@ -1,6 +1,5 @@
 package parents;
 
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.Projectile;
 import android.graphics.Color;
@@ -48,7 +47,7 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 				@Override
 				public void doWork() {Moving_ProjectileView.this.setBackgroundColor(Color.TRANSPARENT);}
 			};
-			ConditionalHandler.postIfAlive(removeDmg,howLongBackgroundIsApplied,this);			
+			postDelayed(removeDmg,howLongBackgroundIsApplied);			
 //			createExplosion();
 		}
 		

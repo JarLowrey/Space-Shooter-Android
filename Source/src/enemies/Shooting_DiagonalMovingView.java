@@ -12,7 +12,6 @@ import com.jtronlabs.space_shooter.R;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
-import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
@@ -102,7 +101,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 					}
 					
 					move();
-					ConditionalHandler.postIfAlive(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE,Shooting_DiagonalMovingView.this);
+					postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
 		});
 	}
