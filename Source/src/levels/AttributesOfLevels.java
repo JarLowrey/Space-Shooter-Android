@@ -20,7 +20,7 @@ public abstract class AttributesOfLevels {
 	public final static int LEVELS_BEGINNER = 2,//0-2
 			LEVELS_LOW = 10,//3-10
 			LEVELS_MED = 30,//11-30
-			LEVELS_HIGH = 50;//31-50
+			LEVELS_HIGH = 50;//31-50 
 			//and beyond!
 	
 	public static final int 

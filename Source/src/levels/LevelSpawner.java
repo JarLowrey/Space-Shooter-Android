@@ -162,7 +162,7 @@ public class LevelSpawner extends Factory_Bosses{
 	private void reinitializeAllSpawnableWaves(){
 		final int lvl = getLevel();
 		
-		//Add spawnable waves
+		//Add spawnable waves. Needs to be done at every level for probability weights to be correct
 		final SpawnableWave[] ALL_WAVES = {
 			//spawnables with some sort of special logic
 			meteorShowersThatForceUserToLeft(),
@@ -220,7 +220,7 @@ public class LevelSpawner extends Factory_Bosses{
 					Orbiter_TriangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
 					Orbiter_TriangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
 					Orbiter_TriangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-					),
+					),   
 					
 			//spawn 1 default enemy
 			spawnEnemyWithDefaultConstructorArguments(Shooting_DurationLaserView.class,
@@ -250,7 +250,7 @@ public class LevelSpawner extends Factory_Bosses{
 		SpawnableWave.initializeSpawnableWaves(ALL_WAVES);
 		
 		
-		//add special spawnablewaves
+		//add special spawnablewaves. Needs to be done after KillableRunnable.killAll() is called
 		final SpecialSpawnableLevel[] ALL_SPECIAL_SPAWNABLE_LEVELS = {
 			//bosses 1-5
 			new SpecialSpawnableLevel(spawnEnemyWithDefaultConstructorArguments(

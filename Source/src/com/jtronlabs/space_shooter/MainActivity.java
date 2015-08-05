@@ -194,7 +194,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 				     })
 				     .show();
-		} 
+		}   
 		editor.commit();
 
 		updateColorOfSettingsButtons();

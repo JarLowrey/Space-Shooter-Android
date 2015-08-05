@@ -147,7 +147,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	
 	public static int getBottomScreen(){
 		return offscreenBottom;
-	}
+	} 
 	/**
 	 * Pause game. Eventually, state will need to be saved to database, as after on pause any
 	 * variables are liable for Android garbage collection!

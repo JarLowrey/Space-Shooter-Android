@@ -54,17 +54,21 @@
     <string name="credits">
         					<b>Programmer and Designer</b>\n
         						\t\t James Lowrey (JTronLabs)\n
+       						\n
 							<b>Part2Art.com and Arral.com</b> \n
 									\t\t Skorpio \n
+							\n
 							<b>OpenGameArt.org</b>\n
 									\t\t Skorpio \n
 									\t\t Tummyache \n
 									\t\t fluffrabbit \n
 									\t\t nexust \n
+							\n
 							<b>Pixabay.com</b>\n
 									\t\t Nemo \n
 									\t\t OpenIcons \n
 									\t\t OpenClipartVectors \n
+							\n
 							<b>Freesound.org</b>\n 
 									\t\t oshuaempyre \n
 									\t\t LittleRobotSoundFactory \n
@@ -74,13 +78,16 @@
 									\t\t Celticvalkyria \n
 									\t\t rap2h\n
 									\t\t inferno \n
+							\n
 							<b>Fonts</b>\n
 									\t\tGrandoplex Productions  \n
-									
-							<b>Licenses</b>\n
+									\t\tMickeyAvenue \n
+							\n
+							<!-- <b>Licenses</b>\n
 								\t\t CC-BY-SA 3.0 \n 
-								\t\t CC BY 3.0 \n
-							Arin Carver for her design input.\n
+								\t\t CC BY 3.0 \n-->
+							Arin Carver for design tips\n
+							\n
 							And thank you for playing!\n
 						 </string>
 
