@@ -31,10 +31,13 @@ public class StoreUpgradeHandler {
 			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
 
 	public static void confirmUpgradeDialog(final int whichUpgrade, final Context ctx, final LevelSystem levelCreator){
-		String msg="",title="";
-		int cost=0;
-		boolean maxLevelItem=false;
-		final String maxMsg = "Maximum upgrade attained";
+		String 			msg="",title="";
+		final int 		playerScore = levelCreator.getResourceCount(),
+						level = levelCreator.getLevel();
+		int 			cost=0;
+		boolean 		maxLevelItem = false, 
+						notEnoughScoreToFullyRepairButUserIsAttempting = false;
+		final String 	maxMsg = "Maximum upgrade attained";
 
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 	
@@ -104,41 +107,49 @@ public class StoreUpgradeHandler {
 				maxLevelItem=true;
 				msg="Ship fully repaired";
 			}else{
-				final double proportionHealthLeft = ((double)(ProtagonistView.getProtagonistMaxHealth(ctx) - 
-						ProtagonistView.getProtagonistCurrentHealth(ctx) ) ) / ProtagonistView.getProtagonistMaxHealth(ctx);
-				cost = 	(int) ( proportionHealthLeft * 
-						ctx.getResources().getInteger(R.integer.heal_base_cost) * (levelCreator.getLevel())) ;
-				cost = Math.min(cost, ctx.getResources().getInteger(R.integer.heal_max_cost));
-				msg = ctx.getResources().getString(R.string.upgrade_heal);					
+				cost = getFullRepairCost(ctx,level);
+				
+				if (playerScore < cost && playerScore != 0)	{ 
+					msg = ctx.getResources().getString(R.string.upgrade_partial_repair); 
+					cost = playerScore;
+					notEnoughScoreToFullyRepairButUserIsAttempting = true;
+				} else if(playerScore == 0){
+					msg = "No repair possible."; 
+					maxLevelItem = true;
+				}else{
+					msg = ctx.getResources().getString(R.string.upgrade_full_repair); 
+				}
 			}
 			break;
 		}
-		if(!maxLevelItem){
+		if(!maxLevelItem){//add cost to message before its displayed
 			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
 		}
-		
 		AlertDialog.Builder confirmStoreChoice = new GameAlertDialogBuilder(ctx)
 				    .setTitle( title ) 
 				    .setMessage( msg );
+		
 		
 		if(maxLevelItem){
 			confirmStoreChoice.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 		     });
-		}else{
-			final int costCopy=cost;
+		}else{			
+			final int costCopy = cost;
+			final boolean repairAttempt = notEnoughScoreToFullyRepairButUserIsAttempting;
 			
 			confirmStoreChoice.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 		     })
 		    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
-	        		if(costCopy<=levelCreator.getResourceCount()){
+	        		if(costCopy <= playerScore || repairAttempt){
 	        			MediaController.playSoundEffect(ctx, MediaController.SOUND_COINS);
-		        		StoreUpgradeHandler.applyUpgrade(whichUpgrade,ctx);
+		        		StoreUpgradeHandler.applyUpgrade(whichUpgrade,ctx,costCopy,level,playerScore);
 		        		
 		        		//update Views in the store
-		        		levelCreator.setResources(levelCreator.getResourceCount()-costCopy);
+		        		int newScore = Math.min(playerScore - costCopy, 0);//if repairAttempt, then don't decrement the full amount
+		        		levelCreator.setResources(newScore);
 		        		levelCreator.saveResourceCount();  
 		        		((GameActivityInterface)ctx).resetResourcesGameTextView();
 		    			((GameActivityInterface)ctx).setHealthBars( );
@@ -155,7 +166,7 @@ public class StoreUpgradeHandler {
 	}
 	
 
-	public static void applyUpgrade(final int whichUpgrade,Context ctx){
+	private static void applyUpgrade(final int whichUpgrade,Context ctx, int cost,int level, int playerScore){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 		
@@ -186,7 +197,13 @@ public class StoreUpgradeHandler {
 			editor.putInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, resourceLvl+1);
 			break;
 		case UPGRADE_HEAL:
-			editor.putInt(GameActivity.STATE_HEALTH, ProtagonistView.getProtagonistMaxHealth(ctx));
+			cost = Math.min(playerScore, cost); //allow user to repair less than the full health bar
+			final int amtToHeal = (int)( ( ( (double)cost ) / getFullRepairCost(ctx,level) ) * 
+					( ProtagonistView.getProtagonistMaxHealth(ctx) - 
+							ProtagonistView.getProtagonistCurrentHealth(ctx) )
+							);
+			final int finalHealth = ProtagonistView.getProtagonistCurrentHealth(ctx) + amtToHeal;
+			editor.putInt(GameActivity.STATE_HEALTH, finalHealth);
 			break;
 		}
 		
@@ -423,4 +440,15 @@ public class StoreUpgradeHandler {
 		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
 	}
 	
+	private static int getFullRepairCost(Context ctx,int level){
+		int cost; 
+		
+		final double proportionHealthLeft = ((double)(ProtagonistView.getProtagonistMaxHealth(ctx) - 
+				ProtagonistView.getProtagonistCurrentHealth(ctx) ) ) / ProtagonistView.getProtagonistMaxHealth(ctx);
+		cost = 	(int) ( proportionHealthLeft * 
+				ctx.getResources().getInteger(R.integer.heal_base_cost) * level) ;
+		cost = Math.min(cost, ctx.getResources().getInteger(R.integer.heal_max_cost));
+		
+		return cost;
+	}
 }

@@ -29,7 +29,8 @@
     <string name="upgrade_defence">Increase shield capacity</string>
     <string name="upgrade_bullet_damage">Increase bullet damage</string>
     <string name="upgrade_bullet_frequency">Increase firing rate</string>
-    <string name="upgrade_heal">Fully repair craft</string>
+    <string name="upgrade_full_repair">Fully repair craft</string>
+    <string name="upgrade_partial_repair">Partially repair craft. Not enough resources for full repair!</string>
     <string name="upgrade_score_multiplier">Improve ability to gather space debris. Increases rate of resource retrieval.</string>
     <string name="upgrade_buy_friend">Other ships were also sent on this mission. Unfortunately our homing beacon was destoyed on launch. Repair beacon and try to signal a ship.</string>
     <string name="upgrade_friend_level">Increase the freqeuncy of the beacon\'s signal to attract stronger allies.</string>
