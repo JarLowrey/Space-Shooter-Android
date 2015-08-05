@@ -148,7 +148,7 @@ public class StoreUpgradeHandler {
 		        		StoreUpgradeHandler.applyUpgrade(whichUpgrade,ctx,costCopy,level,playerScore);
 		        		
 		        		//update Views in the store
-		        		int newScore = Math.min(playerScore - costCopy, 0);//if repairAttempt, then don't decrement the full amount
+		        		int newScore = Math.max(playerScore - costCopy, 0);//if repairAttempt, then don't decrement the full amount
 		        		levelCreator.setResources(newScore);
 		        		levelCreator.saveResourceCount();  
 		        		((GameActivityInterface)ctx).resetResourcesGameTextView();
