@@ -27,10 +27,10 @@ public class GameAlertDialogBuilder extends AlertDialog.Builder{
 	
 	@Override
 	public AlertDialog.Builder setMessage(CharSequence title){				
-		ScrollView scrollPane = new ScrollView( getContext() );
+		ScrollView scrollPane = new ScrollView( getContext());
 		scrollPane.setPadding(PADDING, PADDING, PADDING, PADDING);
 		 
-		GameTextView messageView = new GameTextView(getContext());
+		GameTextView messageView = new GameTextView(getContext(),GameTextView.BIT_FONT_REGULAR);
 		messageView.setTextSize(20);//20dp
 		messageView.setText(title);
 		

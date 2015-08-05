@@ -86,7 +86,6 @@
 	    <dimen name="activity_margin_med">32dp</dimen>
 	    <dimen name="activity_margin_large">45dp</dimen>
 	    <dimen name="activity_margin_xlarge">75dp</dimen>    
-	    <dimen name="activity_margin_xxlarge">100dp</dimen>
 
     <!-- Game Layout  -->
     
@@ -96,8 +95,14 @@
     <!-- Store Layout -->
 
 	    <dimen name="store_item_len">60dp</dimen>
+	    <dimen name="store_purchases_length">300dp</dimen> <!-- 5 * store_item_len -->
 	    <dimen name="store_btn_next_level_len">90dp</dimen>
 	    <dimen name="store_btn_margin_vertical">40dp</dimen>
+	    
+	<!-- Main Activity -->
+
+	    <dimen name="title_padding_from_center">350dp</dimen>
+	    <dimen name="buttons_padding_from_center">180dp</dimen>
     
     <!-- ETC -->
     	<dimen name="medal_length">60dp</dimen>

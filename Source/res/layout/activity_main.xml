@@ -5,41 +5,14 @@
     android:layout_height="match_parent"
 	android:background="@android:color/black"
     tools:context="${relativePackage}.${activityClass}" >
-
-    <!-- 
-    <ImageView
-        android:id="@+id/animating_image_view_main_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        />
-     
-    <ImageView
-        android:id="@+id/moon"
-        android:layout_width="@dimen/moon_length"
-        android:layout_height="@dimen/moon_length"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/activity_margin_small"
-        android:src="@drawable/moon" />
-    
-    <ImageView
-        android:id="@+id/rocket_main"
-        android:layout_width="@dimen/ship_protagonist_game_width"
-        android:layout_height="@dimen/ship_protagonist_game_height"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ship_protagonist" />
-    -->
-    
     
     <RelativeLayout
         android:id="@+id/play_and_settings"
         android:layout_width="225dp"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_marginTop="@dimen/activity_margin_xxlarge"
+		android:layout_centerInParent="true"
+        android:paddingTop="@dimen/buttons_padding_from_center"
        	>
 	    
 	    <ImageButton
@@ -62,15 +35,15 @@
     
     </RelativeLayout>
     
-     
-    <ImageView
+    <TextView
         android:id="@+id/title"
-        android:layout_width="300dp"
-        android:layout_height="175dp"
-        android:layout_alignParentTop="true"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="@dimen/activity_margin_med"
-        android:src="@drawable/title" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:textSize="85dp"
+		android:paddingBottom="@dimen/title_padding_from_center"
+        android:text="JASIG"
+        />
     
     <RelativeLayout
         android:id="@+id/other_settings_buttons_wrap"

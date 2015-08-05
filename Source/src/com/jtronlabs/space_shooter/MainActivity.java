@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import backgroundViews.ParticleBackgroundAnimation;
 
@@ -37,11 +39,10 @@ public class MainActivity extends Activity implements OnClickListener{
 			MAX_LEVEL = "maxLevel";
 	private static float screenDens,widthPixels,heightPixels;
 	private ImageButton vibrate, sound, credits;
-	private AdView adView;
-	
+	private AdView adView;     
+	    
 	private ParticleBackgroundAnimation stars_creator;
-	   
-//	AnimationDrawable animation; 
+	           
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {       
 		super.onCreate(savedInstanceState); 
@@ -57,7 +58,13 @@ public class MainActivity extends Activity implements OnClickListener{
 	    sound.setOnClickListener(this);
 	    credits = (ImageButton)findViewById(R.id.show_credits);
 	    credits.setOnClickListener(this);
-	     
+	    
+	    TextView title = (TextView)findViewById(R.id.title);
+	    Typeface spaceAgeFont = Typeface.createFromAsset(this.getAssets(), GameTextView.SPACE_AGE);
+	    title.setTypeface(spaceAgeFont);
+	    title.setTextSize(140);					//yScale = 140dp
+	    title.setTextScaleX((float) (90.0/150));//xScale = 90dp
+	    
 		updateColorOfSettingsButtons(); 
 
 		//find screen density and width/height of screen in pixels
@@ -67,11 +74,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	    screenDens = displayMetrics.density;
 	    widthPixels = displayMetrics.widthPixels;
 	    heightPixels = displayMetrics.heightPixels;
-	     
-		// moon spinning animation 
-//		ImageView moon= (ImageView)findViewById(R.id.moon);
-//		moon.startAnimation( AnimationUtils.loadAnimation(this,R.anim.spin_moon) );
-		 
+	    
 		//set up buttons
 		ImageButton playBtn = (ImageButton)findViewById(R.id.playBtn);
 		playBtn.setOnClickListener(this);
