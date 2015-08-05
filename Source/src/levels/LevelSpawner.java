@@ -17,7 +17,9 @@ import enemies_tracking.Shooting_TrackingView;
 
 public class LevelSpawner extends Factory_Bosses{
 	
-	private int scoreNeededToEndLevel;
+	private int scoreNeededToEndLevel,
+		scoreThresholdForSpawningMoreMeteors,
+		scoreThresholdForSpawningMoreEnemies;
 	private long timeUntilCanSpawnNextWave = 0,
 		timeSinceSpawnedLastWave = 0;
 	public SpawnableWave[] allSpawnableWaves;
@@ -27,7 +29,7 @@ public class LevelSpawner extends Factory_Bosses{
 	} 
 
 	public void startLevelSpawning(){
-		initScoreNeededToEndLevel();
+		initLevelEndScoreAndSpawningThresholds();
 		reinitializeAllSpawnableWaves();
 		
 		//spawn any special enemies at the beginning of the level
@@ -71,8 +73,7 @@ public class LevelSpawner extends Factory_Bosses{
 	
 	//HELPER METHODS
 
-	private void initScoreNeededToEndLevel(){
-
+	private void initLevelEndScoreAndSpawningThresholds(){
 		/*  score needed is in terms of how many diagonal moving views are killed in 1 level
 			score  scales as the diagonal moving views (and all other enemies) scale score.
 			Each class of levels has a different scaling factor, ie every level will have 2-20x more diagonals in a level.
@@ -97,64 +98,60 @@ public class LevelSpawner extends Factory_Bosses{
 		}else{
 			scoreNeededToEndLevel = allOtherLevels;
 		}
+		
+		initThresholdForSpawningMoreEnemiesAndMeteors();
 	}
+	
 	private boolean canSpawnMoreEnemies(){
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreThresholdForSpawningMoreEnemies && 
+						timeSinceSpawnedLastWave >= timeUntilCanSpawnNextWave;
+	}
+	private boolean canSpawnMoreMeteors(){
+		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreThresholdForSpawningMoreMeteors;		
+	}
+	private void initThresholdForSpawningMoreEnemiesAndMeteors(){
 		/*  score needed is in terms of how many diagonal moving views can be on screen at one time.
 			must scale score as the diagonal moving views (and all other enemies) scale score.
 			Each class of levels has a different scaling factor, ie every 2-20 levels the # on screen increases.
 			Algorithm: Include the previous measure and then increase by the marginal amount. Return relevant amount.
 		*/
-		int scoreNeededToSpawnMoreEnemies = 0;
-		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
+		final int diagScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
+		final int meteorScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
 		
-		final int begLevels = referenceScore * 2 + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) ;
-		final int lowLevels = (int) (begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 1.8);
-		final int medLevels = (int) (lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 2.8);
-		final int highLevels = (int) (medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 4.4);
-		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 8;
+		final int minimumNumEnemies = meteorScore * 5 + diagScore * 2; 								//bare minimum, 5 meteors and 2 diagonal shooters can be on screen.
+		final int begLevels = minimumNumEnemies + diagScore * Math.min(LEVELS_BEGINNER, getLevel() ) ; //by end of beg levels, 4 diagShooters + 5 meteors should be on screen
+		final int lowLevels = (int) (begLevels + diagScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 4);//by end of low levels, 6 diagShooters + 5 meteors should be on screen
+		final int medLevels = (int) (lowLevels + diagScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 6.666);//by end of med levels, 9 diagShooters + 5 meteors should be on screen
+		final int highLevels = (int) (medLevels + diagScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 6.666);//by end of high levels, 12 diagShooters + 5 meteors should be on screen
+		int allOtherLevels = highLevels + diagScore * ( getLevel() - LEVELS_HIGH ) / 8;				//increase takes longer than other levels. 
+		allOtherLevels = Math.min(allOtherLevels, meteorScore * 5 + diagScore * 15);				//MAX: 15 diagShooters + 5 meteors should be on screen
 		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
-			scoreNeededToSpawnMoreEnemies = begLevels;
+			scoreThresholdForSpawningMoreEnemies = begLevels;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_LOW) {
-			scoreNeededToSpawnMoreEnemies = lowLevels;
+			scoreThresholdForSpawningMoreEnemies = lowLevels;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){	
-			scoreNeededToSpawnMoreEnemies = medLevels;
+			scoreThresholdForSpawningMoreEnemies = medLevels;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){	
-			scoreNeededToSpawnMoreEnemies = highLevels;
+			scoreThresholdForSpawningMoreEnemies = highLevels;
 		}else{
-			scoreNeededToSpawnMoreEnemies = allOtherLevels;
+			scoreThresholdForSpawningMoreEnemies = allOtherLevels;
 		}
-
-		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToSpawnMoreEnemies && 
-				timeSinceSpawnedLastWave >= timeUntilCanSpawnNextWave;
+		
+		initThresholdForSpawningMoreMeteors();
 	}
-	private boolean canSpawnMeteors(){ 
-		/*  
-			algorithm is the same as canSpawnMoreEnemies(), but a little more lax. Thus score can be higher than that algorithm.
-			In other words, at any point in the level the score required to spawn more meteors is high than it is to spawn more enemies
-		*/
-		int scoreNeededToSpawnMoreEnemies = 0;
-		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
-		
-		final int begLevels = referenceScore * 2 + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) ;
-		final int lowLevels = (int) (begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 1.2);
-		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 2;
-		final int highLevels = (int) (medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 3.7);
-		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 7;
-		
+	private void initThresholdForSpawningMoreMeteors(){		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
-			scoreNeededToSpawnMoreEnemies = begLevels;
+			scoreThresholdForSpawningMoreMeteors = scoreThresholdForSpawningMoreEnemies * 5;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_LOW) {
-			scoreNeededToSpawnMoreEnemies = lowLevels;
+			scoreThresholdForSpawningMoreMeteors = scoreThresholdForSpawningMoreEnemies * 2;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){	
-			scoreNeededToSpawnMoreEnemies = medLevels;
+			scoreThresholdForSpawningMoreMeteors = (int) (scoreThresholdForSpawningMoreEnemies * 1.5);
 		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){	
-			scoreNeededToSpawnMoreEnemies = highLevels;
+			scoreThresholdForSpawningMoreMeteors = (int) (scoreThresholdForSpawningMoreEnemies * 1.3);
 		}else{
-			scoreNeededToSpawnMoreEnemies = allOtherLevels;
+			scoreThresholdForSpawningMoreMeteors = (int) (scoreThresholdForSpawningMoreEnemies * 1.1);
 		}
-	
-		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToSpawnMoreEnemies;
 	}
 	
 	/**
@@ -342,7 +339,7 @@ public class LevelSpawner extends Factory_Bosses{
 	 * @return 
 	 */
 	private SpawnableWave backgroundMeteors(){
-		if( canSpawnMeteors() ){
+		if( canSpawnMoreMeteors() ){
 			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
 			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
 			return spawnEnemyWithDefaultConstructorArguments(meteor,0 );//probability weight does not matter here
