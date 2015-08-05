@@ -93,7 +93,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						R.drawable.bullet_laser_round_red),
 						1000, Bullet_Interface.DEFAULT_BULLET_SPEED_Y,
 						(int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE * 0.8),
-						20));
+						5));
 //				enemy.addGun(new Gun_TrackingSingle(gameScreen,getInteractivityInterface().getProtagonist(), enemy, new Bullet_Basic(
 //						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_width), 
 //						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
@@ -107,7 +107,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						R.drawable.bullet_laser_round_red),
 						1000, Bullet_Interface.DEFAULT_BULLET_SPEED_Y,
 						(int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE * 0.8),
-						80));
+						95));
 				
 				enemy.startShooting();
 			}

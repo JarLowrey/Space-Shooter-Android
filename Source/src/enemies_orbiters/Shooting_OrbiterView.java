@@ -25,6 +25,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			DEFAULT_HEALTH = ProtagonistView.DEFAULT_BULLET_DAMAGE * 12;
 	
 	private final static double TOP_PORTION_OF_SCREEN = .6;
+	protected final static int HOW_MANY_TIMES_LESS_LIKELY_TO_SPAWN_MANY_ORBITERS = 12;
 	
 	protected int howManyTimesMoved;
 	protected int orbitY,orbitX;
@@ -115,24 +116,16 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	protected abstract int orbitLengthY();
 	
 
-	public static int getSpawningProbabilityWeight(int level) {
-		/*
-		 * little less likely to spawn than a Shooting_PauseAndMove. Since there are currently 3 types of 
-		 * orbiter shooters (not including array orbiter shooters) in levelSpawner, divide weight by 3
-		 * so that screen is not inundated with orbiters
-		 */
-		return (int) (Shooting_PauseAndMove.getSpawningProbabilityWeight(level) * 0.75) / 3;
-	}
-	
-
-	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
-		int probabilityWeight = 0;
-	
-		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
-			probabilityWeight = getSpawningProbabilityWeight(level) / (10 * 3) ;
-		}
+	protected static int orbiterProbWeight(int level) {
+		int numOrbitersAvailable = 0;
 		
-		return probabilityWeight;
+		//maintain a constant spawnProbWeight of all different types of orbiters
+		if(level >= AttributesOfLevels.FIRST_LEVEL_TRIANGLE_ORBITERS_APPEAR){ numOrbitersAvailable++; }
+		if(level >= AttributesOfLevels.FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR){	numOrbitersAvailable++;	}
+		if(level >= AttributesOfLevels.FIRST_LEVEL_RECTANGLE_ORBITERS_APPEAR){	numOrbitersAvailable++;	}
+		if(numOrbitersAvailable == 0){numOrbitersAvailable = 1;}//do not divide by 0
+		
+		return (int) ((Shooting_PauseAndMove.getSpawningProbabilityWeight(level) * 0.75) / (12 * numOrbitersAvailable)) ;
 	}
 	
 	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		

@@ -110,7 +110,18 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		int probabilityWeight = 0;
 		
 		if(level > AttributesOfLevels.FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR){
-			probabilityWeight = Shooting_OrbiterView.getSpawningProbabilityWeight(level);
+			probabilityWeight = orbiterProbWeight(level);
+		}
+		
+		return probabilityWeight;
+	}
+	
+
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR){
+			probabilityWeight = orbiterProbWeight(level) / HOW_MANY_TIMES_LESS_LIKELY_TO_SPAWN_MANY_ORBITERS;
 		}
 		
 		return probabilityWeight;

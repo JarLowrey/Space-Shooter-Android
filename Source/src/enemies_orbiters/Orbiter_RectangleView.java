@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import levels.AttributesOfLevels;
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
@@ -98,6 +99,27 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 		});
 	}
 
+
+	public static int getSpawningProbabilityWeight(int level) {
+		int probabilityWeight = 0;
+		
+		if(level > AttributesOfLevels.FIRST_LEVEL_RECTANGLE_ORBITERS_APPEAR){
+			probabilityWeight = orbiterProbWeight(level);
+		}
+		
+		return probabilityWeight;
+	}
+	
+	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
+		int probabilityWeight = 0;
+	
+		if(level >= AttributesOfLevels.FIRST_LEVEL_RECTANGLE_ORBITERS_APPEAR){
+			probabilityWeight = orbiterProbWeight(level) / HOW_MANY_TIMES_LESS_LIKELY_TO_SPAWN_MANY_ORBITERS;
+		}
+		
+		return probabilityWeight;
+	}
+	
 	public int orbitLengthX(){
 		return (int) ( orbitDist*DEFAULT_SPEED_X * MainActivity.getScreenDens() );
 	}
