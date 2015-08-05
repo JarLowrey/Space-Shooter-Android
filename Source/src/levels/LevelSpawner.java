@@ -306,27 +306,30 @@ public class LevelSpawner extends Factory_Bosses{
 						Shooting_PauseAndMove.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
 						), 
 						FIRST_LEVEL_PAUSE_AND_SHOOT_APPEAR),
-			new SpecialSpawnableLevel(spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_RectangleView.class,
-					Orbiter_RectangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-					Orbiter_RectangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-					Orbiter_RectangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-					Orbiter_RectangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-					),
-					FIRST_LEVEL_RECTANGLE_ORBITERS_APPEAR),
-			new SpecialSpawnableLevel(spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_CircleView.class,
-					Orbiter_CircleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-					Orbiter_CircleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-					Orbiter_CircleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-					Orbiter_CircleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-					),
-					FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR),
-			new SpecialSpawnableLevel(spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_TriangleView.class,
-					Orbiter_TriangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-					Orbiter_TriangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-					Orbiter_TriangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-					Orbiter_TriangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-					),
-					FIRST_LEVEL_TRIANGLE_ORBITERS_APPEAR),
+			new SpecialSpawnableLevel(
+					spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_RectangleView.class,
+						Orbiter_RectangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+						Orbiter_RectangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+						Orbiter_RectangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+						Orbiter_RectangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+						),
+						FIRST_LEVEL_RECTANGLE_ORBITERS_APPEAR),
+			new SpecialSpawnableLevel(
+					spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_CircleView.class,
+						Orbiter_CircleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+						Orbiter_CircleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+						Orbiter_CircleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+						Orbiter_CircleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+						),
+						FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR),
+			new SpecialSpawnableLevel(
+					spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_TriangleView.class,
+						Orbiter_TriangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+						Orbiter_TriangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+						Orbiter_TriangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+						Orbiter_TriangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+						),
+						FIRST_LEVEL_TRIANGLE_ORBITERS_APPEAR),
 			new SpecialSpawnableLevel(coordinatedCircularAttack(lvl), FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR)
 						
 		};

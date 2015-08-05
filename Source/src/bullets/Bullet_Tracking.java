@@ -11,7 +11,7 @@ import com.jtronlabs.space_shooter.MainActivity;
 public class Bullet_Tracking extends Bullet_Interface{
 
 	public static final float MAX_TRACKING_SPEED = 10*MainActivity.getScreenDens();
-	public static final float DEFAULT_TRACKING_SPEED = 4;
+	public static final float DEFAULT_TRACKING_SPEED = 2 * MainActivity.getScreenDens();
 	
 	private float trackingSpeed;
 	private MovingView viewTracking;

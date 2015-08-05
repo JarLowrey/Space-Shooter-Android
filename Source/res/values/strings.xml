@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Jasig</string>
+    <string name="app_name">JASIG</string>
     <string name="hello_world">Hello world!</string>
     
     <string name="set_new_pb">NEW PERSONAL BEST</string>
@@ -75,7 +75,7 @@
 							<b>Licenses</b>\n
 								\t\t CC-BY-SA 3.0 \n 
 								\t\t CC BY 3.0 \n
-							Arin Carver for her help with some of the design.\n
+							Arin Carver for her design input.\n
 							And thank you for playing!\n
 						 </string>
 

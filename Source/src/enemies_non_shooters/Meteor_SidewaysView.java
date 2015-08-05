@@ -1,6 +1,5 @@
 package enemies_non_shooters;
 
-import android.content.Context;
 import android.widget.RelativeLayout;
 
 public class Meteor_SidewaysView extends Gravity_MeteorView{

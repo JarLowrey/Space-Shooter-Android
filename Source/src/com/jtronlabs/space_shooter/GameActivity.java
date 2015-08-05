@@ -7,10 +7,8 @@ import helpers.MediaController;
 import helpers.StoreUpgradeHandler;
 import interfaces.GameActivityInterface;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import levels.AttributesOfLevels;
 import levels.LevelSystem;

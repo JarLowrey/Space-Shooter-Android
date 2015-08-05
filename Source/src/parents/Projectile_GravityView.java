@@ -2,7 +2,6 @@ package parents;
 
 import helpers.ConditionalHandler;
 import helpers.KillableRunnable;
-import android.content.Context;
 import android.widget.RelativeLayout;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 

@@ -5,7 +5,6 @@ import interfaces.Shooter;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.widget.RelativeLayout;
 import bullets.BulletView;
 import bullets.Bullet_HasDurationView;

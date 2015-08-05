@@ -14,7 +14,6 @@ import bullets.Bullet_Tracking;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
-import enemies.Shooting_DurationLaserView;
 import enemies.Shooting_HorizontalMovementView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;

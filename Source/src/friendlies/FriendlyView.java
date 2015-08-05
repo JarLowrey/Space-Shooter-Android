@@ -3,7 +3,6 @@ package friendlies;
 import helpers.MediaController;
 import levels.LevelSystem;
 import parents.Moving_ProjectileView;
-import android.content.Context;
 import android.widget.RelativeLayout;
 
 public class FriendlyView extends Moving_ProjectileView{

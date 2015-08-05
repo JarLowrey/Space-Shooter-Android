@@ -6,7 +6,6 @@ import levels.AttributesOfLevels;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
 import enemies.EnemyView;
