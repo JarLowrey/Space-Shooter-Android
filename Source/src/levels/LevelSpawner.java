@@ -107,11 +107,11 @@ public class LevelSpawner extends Factory_Bosses{
 		int scoreNeededToSpawnMoreEnemies = 0;
 		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
 		
-		final int begLevels = referenceScore + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) / 2;
-		final int lowLevels = begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 4;
-		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 8;
-		final int highLevels = medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 12;
-		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 20;
+		final int begLevels = referenceScore * 2 + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) ;
+		final int lowLevels = (int) (begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 1.8);
+		final int medLevels = (int) (lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 2.8);
+		final int highLevels = (int) (medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 4.4);
+		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 8;
 		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
 			scoreNeededToSpawnMoreEnemies = begLevels;
@@ -137,10 +137,10 @@ public class LevelSpawner extends Factory_Bosses{
 		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
 		
 		final int begLevels = referenceScore * 2 + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) ;
-		final int lowLevels = begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 2;
-		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 4;
-		final int highLevels = medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 10;
-		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 15;
+		final int lowLevels = (int) (begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 1.2);
+		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 2;
+		final int highLevels = (int) (medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 3.7);
+		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) / 7;
 		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
 			scoreNeededToSpawnMoreEnemies = begLevels;

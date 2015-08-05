@@ -128,7 +128,17 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		return (int) ((Shooting_PauseAndMove.getSpawningProbabilityWeight(level) * 0.75) / (12 * numOrbitersAvailable)) ;
 	}
 	
-	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){		
-		return Shooting_PauseAndMove.getNumEnemiesInLotsOfEnemiesWave(lvl);
+	public static int getNumEnemiesInLotsOfEnemiesWave(int lvl){			
+		int numEnemies = 0;
+		
+		if(lvl < AttributesOfLevels.LEVELS_MED){ //choose how many diagonal enemies spawn
+			numEnemies = 6;
+		}else if (lvl < AttributesOfLevels.LEVELS_HIGH){
+			numEnemies = 8;
+		}else {
+			numEnemies = 11;
+		}
+		
+		return numEnemies;
 	}
 }
