@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import bullets.Bullet_Basic;
+import bullets.Bullet_Duration;
 import bullets.Bullet_Interface;
 
 import com.jtronlabs.space_shooter.GameActivity;
@@ -211,7 +212,9 @@ public class StoreUpgradeHandler {
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int)(dmg*0.8),
 					50) );
 			break;
@@ -219,7 +222,9 @@ public class StoreUpgradeHandler {
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					dmg,
 					50) );
 			break;
@@ -227,13 +232,17 @@ public class StoreUpgradeHandler {
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.55),
 					20) );
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_small_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.55),
 					80) );
 			break;
@@ -241,19 +250,25 @@ public class StoreUpgradeHandler {
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.4),
 					20) );
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.4),
 					50) );
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.4),
 					80) );
 			break;
@@ -261,13 +276,17 @@ public class StoreUpgradeHandler {
 			protag.addGun(new Gun_AngledDualShot(layout,protag,new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.433333),
 					50));
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.433333),
 					50) );
 			break;
@@ -275,7 +294,9 @@ public class StoreUpgradeHandler {
 			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.2),
 					20) );
 			protag.addGun(new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(		//twice as powerful, half as fast
@@ -289,12 +310,14 @@ public class StoreUpgradeHandler {
 			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-					R.drawable.bullet_laser_round_green),freq,bulletSpeed,
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
 					(int) (dmg*.2),
 					80) );
 			break;
 		case 5: //combined strength of bullets = 1.5x bullet
-			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic( //3x as powerful, half as fast
+			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic( //3x as powerful, half as fast = 1.5x combined
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
 					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
 					R.drawable.bullet_laser_round_green),
@@ -303,6 +326,78 @@ public class StoreUpgradeHandler {
 					dmg * 3,
 					50) );
 			break;
+		case 6: //combined strength of bullets = 1.6x bullet
+			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
+					(int) (dmg*.3),
+					20) );
+			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic( //2x as powerful, half as fast = 1x combined
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
+					R.drawable.bullet_laser_round_green),
+					freq * 2,
+					bulletSpeed,
+					dmg * 2,
+					50) );
+			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
+					(int) (dmg*.3),
+					80) );
+			break;
+		case 7://combined strength of bullets = 1.6x bullet
+			protag.addGun(new Gun_AngledDualShot(layout,protag,new Bullet_Basic(
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_green),
+					freq,
+					bulletSpeed,
+					(int) (dmg*.3),
+					50));
+			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic( //2x as powerful, half as fast = 1x combined
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
+					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_large_length), 
+					R.drawable.bullet_laser_round_green),
+					freq * 2,
+					bulletSpeed,
+					dmg * 2,
+					50) );
+			break;
+//		case 8:
+//			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
+//					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+//					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+//					R.drawable.bullet_laser_round_green),
+//					freq,
+//					bulletSpeed,
+//					(int) (dmg*.3),
+//					20) );
+//			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Duration(		//TODO get duration bullet working for friendlies
+//					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_xskinny_width), 
+//					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
+//					R.drawable.bullet_laser_round_red,
+//					Bullet_Duration.DEFAULT_BULLET_DURATION,
+//					50),
+//				5000, 
+//				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+//				dmg / 70,
+//				50) );
+//			protag.addGun( new Gun_SingleShotStraight(layout, protag, new Bullet_Basic(
+//					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+//					(int)protag.getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+//					R.drawable.bullet_laser_round_green),
+//					freq,
+//					bulletSpeed,
+//					(int) (dmg*.3),
+//					80) );
+//			break;
 		}
 	}
 

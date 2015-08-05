@@ -128,7 +128,7 @@ public class LevelSpawner extends Factory_Bosses{
 		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreNeededToSpawnMoreEnemies && 
 				timeSinceSpawnedLastWave >= timeUntilCanSpawnNextWave;
 	}
-	private boolean canSpawnMeteors(){
+	private boolean canSpawnMeteors(){ 
 		/*  
 			algorithm is the same as canSpawnMoreEnemies(), but a little more lax. Thus score can be higher than that algorithm.
 			In other words, at any point in the level the score required to spawn more meteors is high than it is to spawn more enemies
