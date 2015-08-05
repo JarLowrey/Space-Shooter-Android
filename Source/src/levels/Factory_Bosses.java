@@ -4,6 +4,7 @@ import guns.Gun_SingleShotStraight;
 import guns.Gun_TrackingGattling;
 import guns.Gun_TrackingSingle;
 import helpers.KillableRunnable;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic;
@@ -36,8 +37,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,getLevel(),
-						900,//score
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
+						getLevel(),
+						600,//score
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE * 43,
@@ -76,8 +78,8 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			@Override
 			public void doWork() {
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
-						3000,
 						getLevel(),
+						2500,
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE * 50,
@@ -122,7 +124,8 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 			@Override
 			public void doWork() {
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
-						5000,getLevel(),
+						getLevel(),
+						5000,
 						Shooting_HorizontalMovementView.DEFAULT_SPEED_Y,
 						Shooting_HorizontalMovementView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE * 128,
@@ -175,7 +178,9 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,20000,getLevel(),
+				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
+						getLevel(),
+						20000,
 						Orbiter_RectangleView.DEFAULT_SPEED_Y,
 						Orbiter_RectangleView.DEFAULT_COLLISION_DAMAGE,
 						ProtagonistView.DEFAULT_BULLET_DAMAGE * 192,
@@ -261,7 +266,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				
 				//change width and height. set X and Y positions
 				final int width = (int)gameScreen.getResources().getDimension(R.dimen.meteor_giant_length);
-				final int height= (int)gameScreen.getResources().getDimension(R.dimen.meteor_giant_length);
+				final int height = (int)gameScreen.getResources().getDimension(R.dimen.meteor_giant_length);
 				
 				enemy.setLayoutParams(new LayoutParams(width,height));
 				enemy.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
