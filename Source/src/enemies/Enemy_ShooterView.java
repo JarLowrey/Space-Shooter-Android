@@ -25,8 +25,10 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 		private boolean isShooting=true;
 		
-		public Enemy_ShooterView(RelativeLayout layout,int level,int scoreForKilling, float projectileSpeedY,float projectileSpeedX, 
-				int projectileDamage,int projectileHealth,float probSpawnBeneficialObject,int width,int height,int imageId) {
+		public Enemy_ShooterView(RelativeLayout layout,int level,int scoreForKilling,
+				float projectileSpeedY,float projectileSpeedX, 
+				int projectileDamage,int projectileHealth,float probSpawnBeneficialObject,
+				int width,int height,int imageId) {
 			super(layout,level,scoreForKilling,projectileSpeedY,projectileSpeedX,
 					projectileDamage,projectileHealth,probSpawnBeneficialObject, width, height, imageId);
 

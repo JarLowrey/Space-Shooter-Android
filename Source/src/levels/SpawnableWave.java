@@ -20,6 +20,10 @@ public class SpawnableWave {
 		spawningWeight= spawningProbabilityWeight;
 	} 
 	
+	/**
+	 * MUST BE AT LEAST ONE ENTRY IN THIS ARRAY. Otherwise getRandomWave will throw an error
+	 * @param allSpawnableWaves
+	 */
 	public static void initializeSpawnableWaves(SpawnableWave[] allSpawnableWaves){
 		allWaves = new ArrayList<SpawnableWave>(Arrays.asList(allSpawnableWaves));
 	}
@@ -43,11 +47,12 @@ public class SpawnableWave {
 		int cumulativeSum = 0;
 		int index = 0;
 		
-		while(cumulativeSum < rand){
+		while(cumulativeSum < rand && index < allWaves.size() ){
 			cumulativeSum += allWaves.get(index).spawningProbabilityWeight();
 			index++;
 		}
-		index = (index>0) ? index - 1: index;//compensate for the last index++
+		index--;//compensate for the last index++
+		index = (index<0) ? index + 1 : index;//compensate for the last index++
 		
 		return allWaves.get(index);
 	}

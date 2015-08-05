@@ -167,87 +167,87 @@ public class LevelSpawner extends Factory_Bosses{
 		
 		//Add spawnable waves
 		final SpawnableWave[] ALL_WAVES = {
-//			//spawnables with some sort of special logic
-//			meteorShowersThatForceUserToLeft(),
-//			meteorShowersThatForceUserToRight(),
-//			meteorShowersThatForceUserToMiddle(),
-//			spawnGiantMeteor(),
-//			refreshArrayShooters(),
-//			coordinatedCircularAttack(lvl),
-//			
-//			//use default spawnable for an enemy >1 times
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_DiagonalMovingView.class,
-//					Shooting_DiagonalMovingView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Shooting_DiagonalMovingView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Shooting_DiagonalMovingView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Shooting_DiagonalMovingView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_TrackingView.class,
-//					Shooting_TrackingView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Shooting_TrackingView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Shooting_TrackingView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Shooting_TrackingView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_SpasticView.class,
-//					Shooting_SpasticView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Shooting_SpasticView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Shooting_SpasticView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Shooting_SpasticView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_PauseAndMove.class,
-//					Shooting_PauseAndMove.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Shooting_PauseAndMove.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Shooting_PauseAndMove.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Shooting_PauseAndMove.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_DurationLaserView.class,
-//					Shooting_DurationLaserView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Shooting_DurationLaserView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Shooting_DurationLaserView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Shooting_DurationLaserView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_RectangleView.class,
-//					Orbiter_RectangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Orbiter_RectangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Orbiter_RectangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Orbiter_RectangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_CircleView.class,
-//					Orbiter_CircleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Orbiter_CircleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Orbiter_CircleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Orbiter_CircleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//			spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_TriangleView.class,
-//					Orbiter_TriangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-//					Orbiter_TriangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-//					Orbiter_TriangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-//					Orbiter_TriangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-//					),
-//					
-//			//spawn 1 default enemy
-//			spawnEnemyWithDefaultConstructorArguments(Shooting_DurationLaserView.class,
-//					Shooting_DurationLaserView.getSpawningProbabilityWeight(lvl)),
-//			spawnEnemyWithDefaultConstructorArguments(Shooting_SpasticView.class,
-//					Shooting_SpasticView.getSpawningProbabilityWeight(lvl)),
-//			spawnEnemyWithDefaultConstructorArguments(Shooting_TrackingView.class,
-//					Shooting_TrackingView.getSpawningProbabilityWeight(lvl)),
-//			spawnEnemyWithDefaultConstructorArguments(Shooting_DiagonalMovingView.class,
-//					Shooting_DiagonalMovingView.getSpawningProbabilityWeight(lvl)),
-//			spawnEnemyWithDefaultConstructorArguments(Shooting_PauseAndMove.class,
-//					Shooting_PauseAndMove.getSpawningProbabilityWeight(lvl)),
-//			spawnEnemyWithDefaultConstructorArguments(Orbiter_CircleView.class,
-//					Orbiter_CircleView.getSpawningProbabilityWeight(lvl)),
-//			spawnEnemyWithDefaultConstructorArguments(Orbiter_TriangleView.class,
-//					Orbiter_TriangleView.getSpawningProbabilityWeight(lvl)),
-//			spawnEnemyWithDefaultConstructorArguments(Orbiter_RectangleView.class,
-//					Orbiter_RectangleView.getSpawningProbabilityWeight(lvl)),
-//
-//			//bosses
-//			boss1(),
+			//spawnables with some sort of special logic
+			meteorShowersThatForceUserToLeft(),
+			meteorShowersThatForceUserToRight(),
+			meteorShowersThatForceUserToMiddle(),
+			spawnGiantMeteor(),
+			refreshArrayShooters(),
+			coordinatedCircularAttack(lvl),
+			
+			//use default spawnable for an enemy >1 times
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_DiagonalMovingView.class,
+					Shooting_DiagonalMovingView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Shooting_DiagonalMovingView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Shooting_DiagonalMovingView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Shooting_DiagonalMovingView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_TrackingView.class,
+					Shooting_TrackingView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Shooting_TrackingView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Shooting_TrackingView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Shooting_TrackingView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_SpasticView.class,
+					Shooting_SpasticView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Shooting_SpasticView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Shooting_SpasticView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Shooting_SpasticView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_PauseAndMove.class,
+					Shooting_PauseAndMove.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Shooting_PauseAndMove.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Shooting_PauseAndMove.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Shooting_PauseAndMove.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Shooting_DurationLaserView.class,
+					Shooting_DurationLaserView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Shooting_DurationLaserView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Shooting_DurationLaserView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Shooting_DurationLaserView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_RectangleView.class,
+					Orbiter_RectangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Orbiter_RectangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Orbiter_RectangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Orbiter_RectangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_CircleView.class,
+					Orbiter_CircleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Orbiter_CircleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Orbiter_CircleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Orbiter_CircleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+			spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_TriangleView.class,
+					Orbiter_TriangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
+					Orbiter_TriangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
+					Orbiter_TriangleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
+					Orbiter_TriangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
+					),
+					
+			//spawn 1 default enemy
+			spawnEnemyWithDefaultConstructorArguments(Shooting_DurationLaserView.class,
+					Shooting_DurationLaserView.getSpawningProbabilityWeight(lvl)),
+			spawnEnemyWithDefaultConstructorArguments(Shooting_SpasticView.class,
+					Shooting_SpasticView.getSpawningProbabilityWeight(lvl)),
+			spawnEnemyWithDefaultConstructorArguments(Shooting_TrackingView.class,
+					Shooting_TrackingView.getSpawningProbabilityWeight(lvl)),
+			spawnEnemyWithDefaultConstructorArguments(Shooting_DiagonalMovingView.class,
+					Shooting_DiagonalMovingView.getSpawningProbabilityWeight(lvl)),
+			spawnEnemyWithDefaultConstructorArguments(Shooting_PauseAndMove.class,
+					Shooting_PauseAndMove.getSpawningProbabilityWeight(lvl)),
+			spawnEnemyWithDefaultConstructorArguments(Orbiter_CircleView.class,
+					Orbiter_CircleView.getSpawningProbabilityWeight(lvl)),
+			spawnEnemyWithDefaultConstructorArguments(Orbiter_TriangleView.class,
+					Orbiter_TriangleView.getSpawningProbabilityWeight(lvl)),
+			spawnEnemyWithDefaultConstructorArguments(Orbiter_RectangleView.class,
+					Orbiter_RectangleView.getSpawningProbabilityWeight(lvl)),
+
+			//bosses
+			boss1(),
 			boss2(),
-//			boss3(),
-//			boss4(),
+			boss3(),
+			boss4(),
 			spawnEnemyWithDefaultConstructorArguments(HorizontalMovement_FinalBoss.class,HorizontalMovement_FinalBoss.getSpawningProbabilityWeight(lvl) )
 		};		
 		SpawnableWave.initializeSpawnableWaves(ALL_WAVES);

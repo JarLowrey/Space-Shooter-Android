@@ -35,7 +35,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 		this.setY( - this.getHeight() /2 );//start all enemies 3/4 way offscreen
 		
 		numSpawn++;
-		score=scaleScore(level, scoreForKilling);
+		score = scaleScore(level, scoreForKilling);
 		probSpawnBeneficialObject= scaleProbabilitySpawnBeneficialObjectOnDeath(level,probSpawnBeneficialObjectUponDeath);
 		LevelSystem.enemies.add(this);
 	}
@@ -105,11 +105,11 @@ public abstract class EnemyView extends Projectile_GravityView{
 		if(level < AttributesOfLevels.LEVELS_LOW) {
 			value = defaultScore;
 		}else if(level < AttributesOfLevels.LEVELS_MED){
-			value = (int) (defaultScore * 1.4 );			
+			value = (int) (defaultScore * 1.2 );			
 		}else if(level < AttributesOfLevels.LEVELS_HIGH){
-			value = (int) (defaultScore * 1.9 );			
+			value = (int) (defaultScore * 1.5 );			
 		}else{
-			value = (int) (defaultScore * 2.5 );			
+			value = (int) (defaultScore * 1.8 );			
 		}
 		
 		return value;
