@@ -142,15 +142,15 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		KillableRunnable r = new KillableRunnable(){
 			@Override
 			public void doWork() {
-				spawningHandler.post(spawnCircularOrbiterWave(6,500,3));
-				spawningHandler.postDelayed(spawnCircularOrbiterWave(7,500,2),CIRCLE_SPAWN_DELAY);
-				spawningHandler.postDelayed(spawnCircularOrbiterWave(9,500,1),CIRCLE_SPAWN_DELAY * 2);
+				spawningHandler.post(spawnCircularOrbiterWave(4,500,3));
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(5,500,2),CIRCLE_SPAWN_DELAY);
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(7,500,1),CIRCLE_SPAWN_DELAY * 2);
 			} 
 		};
 		
 		int probabilityWeight = 0;
 		if(level > FIRST_LEVEL_COORDINATED_CIRCLE_ORBITERS_ATTACK_APPEARS){
-			probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 30;
+			probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 70;
 		}
 		
 		return new SpawnableWave(r,(long) (CIRCLE_SPAWN_DELAY * 3.5),probabilityWeight);
