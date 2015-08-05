@@ -334,13 +334,17 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	private void closeStoreAndResumeLevel(){	
+		//adjust views
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
-		
+		scoreInGame.setText(MainActivity.formatInt( levelCreator.getResourceCount()) );
 		stars_creator_store.stopSpawningStars();
 		stars_creator_game.startSpawningStars();
 
 		createNewProtagonistView();
+		canBeginShooting = true;
+		beginShootingRunnablePosted=false;
+		
 		levelCreator.resumeLevel(this);
 		
 		//create ally if needed		
@@ -356,8 +360,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			
 			ally = new AllyView(gameLayout, protagonist, friend_lvl);
 		}
-		
-		scoreInGame.setText(MainActivity.formatInt( levelCreator.getResourceCount()) );
 	}
 	
 	/**

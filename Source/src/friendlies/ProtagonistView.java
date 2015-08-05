@@ -38,17 +38,18 @@ public class ProtagonistView extends Friendly_ShooterView{
 				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_height),
 				R.drawable.ship_protagonist);
 
+		//set Vars
 		this.setX(  MainActivity.getWidthPixels()/2 - 
 				getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
-
 		myGame=interactWithGame;
-
-		restartThreads();
 
 		//apply upgrades
 		StoreUpgradeHandler.createProtagonistGunSet(this);
 		this.setHealth( getProtagonistMaxHealth(getContext()) );
 		this.killMoveRunnable();//stop him from automatically moving at spawn
+		
+		//prepare ship
+		restartThreads();
 	}
 	
 	
