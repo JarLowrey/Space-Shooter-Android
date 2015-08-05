@@ -434,9 +434,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			}else if(v.getId() == R.id.btn_purchase_friend){
 					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_FRIEND, this, levelCreator);
 			}else if(v.getId() == R.id.start_next_level){
-					if(StoreUpgradeHandler.getGunLevel(this) < 0){
-						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
-					}else{
+//					if(StoreUpgradeHandler.getGunLevel(this) < 0){
+//						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
+//					}else{
 							new GameAlertDialogBuilder(this)
 					    .setTitle("Continue")
 					    .setMessage("Venture out into the void")
@@ -449,9 +449,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					        	closeStoreAndResumeLevel();
 					        }
 					     })
-//					    .setIcon(android.R.drawable.ic_dialog_alert)
 					     .show();
-					}
+//					}
 			}else if(v.getId() == R.id.gameOverAccept){
 					finish();
 			}else if(v.getId() == R.id.gameOverShare){
