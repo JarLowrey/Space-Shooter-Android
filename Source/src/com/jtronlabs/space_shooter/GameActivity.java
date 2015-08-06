@@ -329,7 +329,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.playSoundClip(this, R.raw.background_store, true);
 
 		resourceCount.setText(MainActivity.formatInt(levelCreator.getResourceCount()));
-		levelCount.setText("Days In Space : "+ MainActivity.formatInt(lvl) );
+		levelCount.setText(MainActivity.formatInt(lvl) + " Days In Space ");
 		setHealthBars( );
 		
 		if(lvl % 15 == 0 && lvl !=0){

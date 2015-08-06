@@ -74,18 +74,18 @@ public class LevelSpawner extends Factory_Bosses{
 	//HELPER METHODS
 
 	private void initLevelEndScoreAndSpawningThresholds(){
-		/*  score needed is in terms of how many diagonal moving views are killed in 1 level
+		/*  score is in terms of how many diagonal moving views are killed in a level
 			score  scales as the diagonal moving views (and all other enemies) scale score.
 			Each class of levels has a different scaling factor, ie every level will have 2-20x more diagonals in a level.
 			Algorithm: Include the previous measure and then increase by the marginal amount. Return relevant amount.
 		*/
-		final int referenceScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
+		final int diagScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
 		
-		final int begLevels = referenceScore*3 + referenceScore * Math.min(LEVELS_BEGINNER, getLevel() ) * 2;
-		final int lowLevels = begLevels + referenceScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 4;
-		final int medLevels = lowLevels + referenceScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 8;
-		final int highLevels = medLevels + referenceScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * 12;
-		final int allOtherLevels = highLevels + referenceScore * ( getLevel() - LEVELS_HIGH ) * 20;
+		final int begLevels = diagScore * 3 + diagScore * Math.min(LEVELS_BEGINNER, getLevel() ) * 2; 
+		final int lowLevels = (int) (begLevels + diagScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 1.7);
+		final int medLevels = (int) (lowLevels + diagScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 1.2);
+		final int highLevels = (int) (medLevels + diagScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * .9);
+		final int allOtherLevels = (int) (highLevels + diagScore * ( getLevel() - LEVELS_HIGH ) * .3);
 		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
 			scoreNeededToEndLevel = begLevels;
@@ -97,7 +97,9 @@ public class LevelSpawner extends Factory_Bosses{
 			scoreNeededToEndLevel = highLevels;
 		}else{
 			scoreNeededToEndLevel = allOtherLevels;
-		}
+		}		
+		scoreNeededToEndLevel = Math.min(scoreNeededToEndLevel, diagScore*100);
+		
 		
 		initThresholdForSpawningMoreEnemiesAndMeteors();
 	}
