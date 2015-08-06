@@ -26,6 +26,17 @@
             android:text="0"
             android:textAppearance="?android:attr/textAppearanceLarge" />
         
+	    <helpers.GameTextView 
+			android:id="@+id/progress_in_level"
+	        android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+            android:layout_margin="@dimen/activity_margin_small"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="100%"
+	        />
+        
 	    <ImageView
 	        android:id="@+id/rocket_exhaust"
 	        android:layout_width="@dimen/exhaust_width"
@@ -323,7 +334,7 @@
 				        
 				        
 				    </LinearLayout>
-				    
+								    
 				    <helpers.GameTextView 
 						android:id="@+id/total_score"
 				        android:layout_height="wrap_content"

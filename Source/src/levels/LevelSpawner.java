@@ -102,6 +102,10 @@ public class LevelSpawner extends Factory_Bosses{
 		initThresholdForSpawningMoreEnemiesAndMeteors();
 	}
 	
+	public int getPercentageLeftInLevel(){
+		double levelProgress = ( ( (double)scoreGainedThisLevel() ) / scoreNeededToEndLevel ) * 100;
+		return 100 - (int) levelProgress;
+	}
 	private boolean canSpawnMoreEnemies(){
 		return LevelSystem.totalSumOfLivingEnemiesScore() < scoreThresholdForSpawningMoreEnemies && 
 						timeSinceSpawnedLastWave >= timeUntilCanSpawnNextWave;

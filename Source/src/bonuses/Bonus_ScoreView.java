@@ -23,7 +23,7 @@ public class Bonus_ScoreView extends BonusView implements MovingViewInterface{
 		
 		SharedPreferences gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		final int level = gameState.getInt(GameActivity.STATE_LEVEL, 0);
-		
+		 
 		int amtToIncrementScore = 0;		
 		if(level < AttributesOfLevels.LEVELS_BEGINNER) {
 			amtToIncrementScore = 1000;

@@ -61,7 +61,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private ImageButton btnMove,btnShoot;
 	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
 	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
-	private GameTextView resourceCount,levelCount,scoreInGame;
+	private GameTextView resourceCount,
+		levelCount,
+		scoreInGame,
+		progressInLevel;
 	private ProgressBar healthBar,healthBarStore;
 	public ProtagonistView protagonist;
 	private AllyView ally;
@@ -96,6 +99,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		btnMove.setOnTouchListener(this);
 		btnShoot.setOnTouchListener(this);
 		scoreInGame = (GameTextView)findViewById(R.id.score_in_game);
+		progressInLevel = (GameTextView)findViewById(R.id.progress_in_level);
 		gameLayout=(RelativeLayout)findViewById(R.id.gameplay_layout);
 		healthBar=(ProgressBar)findViewById(R.id.health_bar);
 		healthBarStore = (ProgressBar)findViewById(R.id.health_bar_store);//technically this is in store
@@ -539,6 +543,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		levelCreator.setResources(newScore);
 		
+		progressInLevel.setText(levelCreator.getPercentageLeftInLevel()+"%");
 		scoreInGame.setText(MainActivity.formatInt(newScore));
 	}
 //
