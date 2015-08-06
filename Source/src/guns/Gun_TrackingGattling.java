@@ -32,7 +32,7 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 	}
 	
 	public boolean shoot(){ 
-		MediaController.playSoundEffect(gameScreen.getContext(), MediaController.SOUND_LASER_SHOOT2);
+		MediaController.playSoundEffect(gameScreen.getContext(), MediaController.SOUND_LASER_SHOOT);
 		
 		
 		if(currentNumShots >= cutoffTotalShots){

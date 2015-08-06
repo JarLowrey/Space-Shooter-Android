@@ -6,7 +6,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Vibrator;
-import android.util.Log;
 
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
@@ -89,7 +88,7 @@ public class MediaController {
     } 
     
     private static SoundPool soundEffects;//sound pool should be used for effects that are called a lot, like shooting
-    public static int SOUND_BONUS,SOUND_COINS,SOUND_EXPLOSION1,SOUND_FRIENDLY_HIT,SOUND_LASER_SHOOT2,
+    public static int SOUND_BONUS,SOUND_COINS,SOUND_EXPLOSION1,SOUND_FRIENDLY_HIT,SOUND_LASER_SHOOT,SOUND_LASER_LOOPING,
     	SOUND_ROCKET_LAUNCH;
         
     /**
@@ -98,26 +97,51 @@ public class MediaController {
      * @param soundEffect	given int from this class used to determine sound effect id
      */ 
     public static void playSoundEffect(Context c, int soundEffect){
+    	setupSoundEffect(c);
+
+    	playSound(c,false,soundEffect);
+    }
+    
+    public static int playLoopingSoundEffect(Context c, int soundEffect){
+    	setupSoundEffect(c);
+
+    	return playSound(c,true,soundEffect);
+    }
+    
+    public static void stopLoopingSoundEffect(Context c, int soundEffectStreamId){
+    	soundEffects.stop(soundEffectStreamId);
+    }
+    
+    private static void setupSoundEffect(Context c){
     	if(soundEffects == null){
     		soundEffects = new SoundPool(20, AudioManager.STREAM_MUSIC,0);
     		SOUND_BONUS = soundEffects.load(c, R.raw.bonus, 1);
     		SOUND_COINS = soundEffects.load(c, R.raw.coins, 1);
     		SOUND_EXPLOSION1 = soundEffects.load(c, R.raw.explosion1, 1);
     		SOUND_FRIENDLY_HIT = soundEffects.load(c, R.raw.friendly_hit, 1);
-    		SOUND_LASER_SHOOT2 = soundEffects.load(c, R.raw.laser_shoot, 1);
+    		SOUND_LASER_SHOOT = soundEffects.load(c, R.raw.laser_shoot, 1);
+    		SOUND_LASER_LOOPING = soundEffects.load(c, R.raw.laser_looping, 1);
     		SOUND_ROCKET_LAUNCH = soundEffects.load(c, R.raw.rocket_launch,1);
-    	}
-
+    	}    	
+    }
+    
+    /**
+     * 
+     * @param c
+     * @param isLooping
+     * @param soundEffectId
+     * @return StreamId of sound effect played. Required to stop a looping sound
+     */
+    private static int playSound(Context c,boolean isLooping, int soundEffectId){
 		SharedPreferences gameState = c.getSharedPreferences(MainActivity.GAME_SETTING_PREFS, 0);
 		final boolean soundIsOn = gameState.getBoolean(MainActivity.SOUND_PREF, true);
 		
-		if(soundIsOn){
-			soundEffects.play(soundEffect,1,1, 1,0,1);
-		}
+		int loopParameter = (isLooping) ? -1 : 0;
 		
-		if(soundEffect != SOUND_BONUS && soundEffect != SOUND_COINS && soundEffect != SOUND_EXPLOSION1 && soundEffect != SOUND_FRIENDLY_HIT && soundEffect!=SOUND_LASER_SHOOT2){
-			Log.d("lowrey","Sound Effect not found!!!");
+		if(soundIsOn){
+			return soundEffects.play(soundEffectId,1,1, 1,loopParameter,1);			
+		}else{
+			return -1;
 		}
     }
-    
 }

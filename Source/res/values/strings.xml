@@ -38,13 +38,13 @@
     
     <string-array name="gun_descriptions">
 	    <item>The ship\'s main blaster was damaged on launch. It wouldn\'t take much to fix it up.</item>
-	    <item>There\'s room for another gun here&#8230; Though we\'d have to reroute some power from the main blaster.</item>
-	    <item>An upgrade to the phase annihilator and the spare weapon parts we\'ve found add up to three shooty blastys.</item>
+	    <item>There\'s room for another gun here&#8230;</item>
+	    <item>An upgrade to the phase annihilator would give us three shooty blastys!</item>
 	    <item>The guns could be tilted outwards, but some major structural changes would need to be made.</item>
 	    <item>Consolidating the small lasers would result in an increase in overall damage output.</item>
 	    <item>Combining all the lasers could make one nasty alien killing machine.</item>
 	    <item>Perhaps putting all the power in one gun wasn\'t the best idea. Let\'s get some more lasers back in here!</item>
-	    <item>I liked those angles, lets get those back and up the damage some more. That\'ll show \'em</item>
+	    <item>That angled gun was nice, lets get that back and up the damage some more. That\'ll show \'em!</item>
     </string-array>
 	
 	<!-- 

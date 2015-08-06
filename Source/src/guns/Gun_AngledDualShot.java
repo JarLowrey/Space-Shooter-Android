@@ -17,7 +17,7 @@ public  class Gun_AngledDualShot extends Gun {
 	}
 	
 	public boolean shoot(){
-		MediaController.playSoundEffect(gameScreen.getContext(),MediaController.SOUND_LASER_SHOOT2);
+		MediaController.playSoundEffect(gameScreen.getContext(),MediaController.SOUND_LASER_SHOOT);
 		
 		//travel horizontally at a speed such that the bullets will move in DEFAULT_ANGLE direction
 		float bulletSpeedX = (float) (bulletSpeedY * Math.tan(Math.toRadians(DEFAULT_ANGLE)));

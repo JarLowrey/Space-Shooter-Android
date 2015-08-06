@@ -22,7 +22,7 @@ import enemies_orbiters.Orbiter_Rectangle_Array;
 
 public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		
-	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 1500;
+	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 3000;
 	
 	public Factory_ScriptedWaves(RelativeLayout layout) { 
 		super(layout);

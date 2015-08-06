@@ -30,7 +30,7 @@ public  class Gun_TrackingSingle extends Gun_Tracking {
 	}
 	
 	public boolean shoot(){		
-		MediaController.playSoundEffect(gameScreen.getContext(), MediaController.SOUND_LASER_SHOOT2);
+		MediaController.playSoundEffect(gameScreen.getContext(), MediaController.SOUND_LASER_SHOOT);
 		
 		//create 2 bullets
 		BulletView bullet = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);

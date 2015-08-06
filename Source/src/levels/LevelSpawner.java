@@ -118,13 +118,13 @@ public class LevelSpawner extends Factory_Bosses{
 		final int diagScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
 		final int meteorScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
 		
-		final int minimumNumEnemies = meteorScore * 5 + diagScore * 2; 								//bare minimum, 5 meteors and 2 diagonal shooters can be on screen.
-		final int begLevels = minimumNumEnemies + diagScore * Math.min(LEVELS_BEGINNER, getLevel() ) ; //by end of beg levels, 4 diagShooters + 5 meteors should be on screen
-		final int lowLevels = (int) (begLevels + diagScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 4);//by end of low levels, 6 diagShooters + 5 meteors should be on screen
-		final int medLevels = (int) (lowLevels + diagScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 6.666);//by end of med levels, 9 diagShooters + 5 meteors should be on screen
-		final int highLevels = (int) (medLevels + diagScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 6.666);//by end of high levels, 12 diagShooters + 5 meteors should be on screen
-		int allOtherLevels = highLevels + diagScore * ( getLevel() - LEVELS_HIGH ) / 8;				//increase takes longer than other levels. 
-		allOtherLevels = Math.min(allOtherLevels, meteorScore * 5 + diagScore * 15);				//MAX: 15 diagShooters + 5 meteors should be on screen
+		final int minimumNumEnemies = meteorScore * 5 + diagScore * 2; 														//bare minimum, 5 meteors and 2 diagonal shooters can be on screen.
+		final int begLevels = minimumNumEnemies + diagScore * Math.min(LEVELS_BEGINNER, getLevel() ) ; 						//by end of beg levels, 4 diagShooters + 5 meteors should be on screen
+		final int lowLevels = (int) (begLevels + diagScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) / 4);	//by end of low levels, 6 diagShooters + 5 meteors should be on screen
+		final int medLevels = (int) (lowLevels + diagScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) / 5);		//by end of med levels, 9 diagShooters + 5 meteors should be on screen
+		final int highLevels = (int) (medLevels + diagScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) / 6.5);	//by end of high levels, 12 diagShooters + 5 meteors should be on screen
+		int allOtherLevels = highLevels + diagScore * ( getLevel() - LEVELS_HIGH ) / 8;										//increase takes longer than other levels. 
+		allOtherLevels = Math.min(allOtherLevels, meteorScore * 5 + diagScore * 15);										//MAX: 15 diagShooters + 5 meteors should be on screen
 		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
 			scoreThresholdForSpawningMoreEnemies = begLevels;

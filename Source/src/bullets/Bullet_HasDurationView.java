@@ -1,6 +1,7 @@
 package bullets;
 
 import helpers.KillableRunnable;
+import helpers.MediaController;
 import interfaces.Shooter;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -14,6 +15,7 @@ public class Bullet_HasDurationView extends BulletView
  
 	private long myLifeSpanInMilliseconds;
 	private int positionOnShooterAsPercentage;
+	private int soundEffectStreamId;
 	private KillableRunnable maintainBullet;
 	
 	
@@ -26,6 +28,8 @@ public class Bullet_HasDurationView extends BulletView
 		myLifeSpanInMilliseconds = lifeSpanInMilliseconds;
 		
 		this.reassignMoveRunnable(null);//bullet does not move, instead it grows
+		
+		soundEffectStreamId = MediaController.playLoopingSoundEffect(getContext(), MediaController.SOUND_LASER_LOOPING);
 		
 		maintainBullet = new KillableRunnable(){
 			private long currentLife=0;
@@ -79,6 +83,8 @@ public class Bullet_HasDurationView extends BulletView
 	@Override 
 	public void removeGameObject(){
 		maintainBullet.kill();
+		
+		MediaController.stopLoopingSoundEffect(getContext(), soundEffectStreamId);
 				
 		super.removeGameObject();
 	}
