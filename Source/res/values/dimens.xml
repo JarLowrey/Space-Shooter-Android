@@ -103,7 +103,14 @@
 
 	    <dimen name="title_padding_from_center">350dp</dimen>
 	    <dimen name="buttons_padding_from_center">180dp</dimen>
+	    
+    <!-- Game Over Layout -->
     
+		<dimen name="game_over_score_and_level_result_width">175dp</dimen>
+		<dimen name="game_over_btns_width">210dp</dimen>
+		<dimen name="game_over_dialog_width">290dp</dimen>
+		<dimen name="game_over_dialog_height">220dp</dimen>
+		
     <!-- ETC -->
     	<dimen name="medal_length">60dp</dimen>
 	    <dimen name="logo_len">75dp</dimen>
@@ -128,11 +135,5 @@
 	    
 	    <dimen name="ad_banner_small_margin">60dp</dimen>
 	    <dimen name="ad_banner_margin">130dp</dimen>
-	    
-	    
-		<dimen name="game_over_score_width">140dp</dimen>
-		<dimen name="game_over_response_time_width">180dp</dimen>
-		<dimen name="game_over_btns_width">210dp</dimen>
-		<dimen name="game_over_dialog_width">290dp</dimen>
-		<dimen name="game_over_dialog_height">220dp</dimen>
+
 </resources>

@@ -311,7 +311,7 @@
 				        android:layout_height="wrap_content"
 						android:layout_width="wrap_content"	
 						android:layout_alignTop="@+id/score_title"
-						android:layout_marginLeft="@dimen/activity_margin_med"
+						android:layout_marginLeft="@dimen/activity_margin_xsmall"
 						android:gravity="center"
 						android:orientation="vertical"
 				        >
@@ -338,9 +338,10 @@
 				    <helpers.GameTextView 
 						android:id="@+id/total_score"
 				        android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
+						android:layout_width="@dimen/game_over_score_and_level_result_width"
 						android:layout_below="@+id/score_title"
 						android:layout_alignRight="@+id/days_title"
+						android:gravity="right"
 						style="@style/VeryLargeText"
 						android:textColor="@android:color/white"
 						android:text="0"
@@ -361,7 +362,8 @@
 				    <helpers.GameTextView 
 						android:id="@+id/num_days_passed"
 				        android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
+						android:layout_width="@dimen/game_over_score_and_level_result_width"
+						android:gravity="right"
 						android:layout_below="@+id/days_title"
 						android:layout_alignRight="@+id/days_title"
 						style="@style/VeryLargeText"
