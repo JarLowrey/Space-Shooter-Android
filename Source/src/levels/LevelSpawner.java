@@ -81,11 +81,11 @@ public class LevelSpawner extends Factory_Bosses{
 		*/
 		final int diagScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
 		
-		final int begLevels = diagScore * 3 + diagScore * Math.min(LEVELS_BEGINNER, getLevel() ) * 2; 
-		final int lowLevels = (int) (begLevels + diagScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 1.7);
-		final int medLevels = (int) (lowLevels + diagScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 1.2);
-		final int highLevels = (int) (medLevels + diagScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * .9);
-		final int allOtherLevels = (int) (highLevels + diagScore * ( getLevel() - LEVELS_HIGH ) * .3);
+		final int begLevels = diagScore * 6 + diagScore * Math.min(LEVELS_BEGINNER, getLevel() ) * 12; 
+		final int lowLevels = (int) (begLevels + diagScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 5);
+		final int medLevels = (int) (lowLevels + diagScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 2.5);
+		final int highLevels = (int) (medLevels + diagScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * 1.5 );
+		final int allOtherLevels = (int) (highLevels + diagScore * ( getLevel() - LEVELS_HIGH ) );
 		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
 			scoreNeededToEndLevel = begLevels;
@@ -98,7 +98,7 @@ public class LevelSpawner extends Factory_Bosses{
 		}else{
 			scoreNeededToEndLevel = allOtherLevels;
 		}		
-		scoreNeededToEndLevel = Math.min(scoreNeededToEndLevel, diagScore*100);
+		scoreNeededToEndLevel = Math.min(scoreNeededToEndLevel, diagScore*1000);
 		
 		
 		initThresholdForSpawningMoreEnemiesAndMeteors();

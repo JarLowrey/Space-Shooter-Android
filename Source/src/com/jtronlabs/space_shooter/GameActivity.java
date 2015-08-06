@@ -329,7 +329,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.playSoundClip(this, R.raw.background_store, true);
 
 		resourceCount.setText(MainActivity.formatInt(levelCreator.getResourceCount()));
-		levelCount.setText(MainActivity.formatInt(lvl) + " Days In Space ");
+		if( lvl == 1 ){
+			levelCount.setText("1 Day In Space ");			
+		}else{
+			levelCount.setText(MainActivity.formatInt(lvl) + " Days In Space ");
+		}
 		setHealthBars( );
 		
 		if(lvl % 15 == 0 && lvl !=0){
@@ -364,6 +368,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			
 			ally = new AllyView(gameLayout, protagonist, friend_lvl);
 		}
+		
+		progressInLevel.setText("100%");
 	}
 	
 	/**
