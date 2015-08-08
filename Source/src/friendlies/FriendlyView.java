@@ -1,11 +1,16 @@
 package friendlies;
 
 import helpers.MediaController;
-import levels.LevelSystem;
+import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
-public class FriendlyView extends Moving_ProjectileView{
+import com.jtronlabs.space_shooter.GameLoop;
+
+public abstract class FriendlyView extends Moving_ProjectileView{
+
+	public final static float DEFAULT_SPEED_Y=MovingView.DEFAULT_SPEED_Y * 13,//Density Pixels per millisecond
+			DEFAULT_SPEED_X=DEFAULT_SPEED_Y;
 	
 	public FriendlyView(RelativeLayout layout,float projectileSpeedY
 			,float projectileSpeedX, 
@@ -13,13 +18,13 @@ public class FriendlyView extends Moving_ProjectileView{
 		super( layout, projectileSpeedY,projectileSpeedX, 
 				 projectileDamage, projectileHealth, width, height, imageId);
 		
-		LevelSystem.friendlies.add(this);
+		GameLoop.friendlies.add(this);
 	}
 	
 
 	@Override
 	public void removeGameObject() {
-		LevelSystem.friendlies.remove(this);
+		GameLoop.friendlies.remove(this);
 		defaultCleanupOnRemoval();//needs to be called last for all pending callbacks to 'this' to be removed
 	}
  

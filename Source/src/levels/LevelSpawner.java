@@ -1,6 +1,5 @@
 package levels;
 
-import helpers.KillableRunnable;
 import android.widget.RelativeLayout;
 import enemies.EnemyView;
 import enemies.HorizontalMovement_FinalBoss;
@@ -8,8 +7,6 @@ import enemies.Shooting_DiagonalMovingView;
 import enemies.Shooting_DurationLaserView;
 import enemies.Shooting_PauseAndMove;
 import enemies.Shooting_SpasticView;
-import enemies_non_shooters.Gravity_MeteorView;
-import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
@@ -26,45 +23,35 @@ public class LevelSpawner extends Factory_Bosses{
 	 
 	public LevelSpawner(RelativeLayout layout) {
 		super(layout);
-	} 
-
-	public void startLevelSpawning(){
-		initLevelEndScoreAndSpawningThresholds();
-		reinitializeAllSpawnableWaves();
-		
-		//spawn any special enemies at the beginning of the level
-		spawningHandler.post( 
-				SpecialSpawnableLevel.specialSpawnableForThisLevel( 
-						getLevel()).runnableToSpawn()
-				);
-		
-		spawningHandler.post(new KillableRunnable() {
-			@Override
-			public void doWork() {
-				timeSinceSpawnedLastWave += WAVE_SPAWNER_WAIT;
-				
-				if ( !isLevelFinishedSpawning() ) {
-					spawningHandler.post( backgroundMeteors().runnableToSpawn() );
-					
-					if( canSpawnMoreEnemies() ){						
-						SpawnableWave nextSpawn = SpawnableWave.getRandomWaveUsingWeightedProbabilities();
-						
-						spawningHandler.post( nextSpawn.runnableToSpawn() );				
-
-						//reset the spawn timers
-						timeUntilCanSpawnNextWave = nextSpawn.howLongUntilCanSpawnAgain();
-						timeSinceSpawnedLastWave = 0;
-					}
-					
-					spawningHandler.postDelayed(this,WAVE_SPAWNER_WAIT);
-				}
-			}
-			
-		});
 	}
 	
-	//GETTER METHODS
+	public void initializeLevelAndSpawnFirstEnemy(){
+		initLevelEndScoreAndSpawningThresholds();
+		reinitializeAllSpawnableWaves();
 
+		//spawn any special enemies at the beginning of the level
+		SpecialSpawnableLevel.specialSpawnableForThisLevel(getLevel()).spawn();
+	}
+	
+	public void spawnEnemiesIfPossible(){		
+		timeSinceSpawnedLastWave += WAVE_SPAWNER_WAIT;
+		
+		if ( !isLevelFinishedSpawning() ) {
+			if(canSpawnMoreMeteors()){
+				backgroundMeteor().spawn();	
+			}
+			if( canSpawnMoreEnemies() ){						
+				SpawnableWave nextSpawn = SpawnableWave.getRandomWaveUsingWeightedProbabilities();
+				
+				nextSpawn.spawn();				
+
+				//reset the spawn timers
+				timeUntilCanSpawnNextWave = nextSpawn.howLongUntilCanSpawnAgain();
+				timeSinceSpawnedLastWave = 0;
+			}
+		}
+	}
+	
 	@Override
 	public boolean isLevelFinishedSpawning() {
 		return scoreGainedThisLevel() > scoreNeededToEndLevel;
@@ -337,21 +324,6 @@ public class LevelSpawner extends Factory_Bosses{
 						
 		};
 		SpecialSpawnableLevel.initializeSpecialSpawnableLevels(ALL_SPECIAL_SPAWNABLE_LEVELS);
-	}	 
-	
-	/**
-	 * Meteors are an integral part of the game, as they provide a background, constant enemy and movement. This is a special method
-	 * that returns a KillableRunnable to spawn Meteors if so desired (which is typically the case).
-	 * @return 
-	 */
-	private SpawnableWave backgroundMeteors(){
-		if( canSpawnMoreMeteors() ){
-			final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
-			Class meteor = (Math.random() < .5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class;
-			return spawnEnemyWithDefaultConstructorArguments(meteor,0 );//probability weight does not matter here
-		}else{
-			return doNothing();
-		}
 	}
 	
 }

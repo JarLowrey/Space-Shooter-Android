@@ -1,6 +1,8 @@
 package levels;
 
 import helpers.KillableRunnable;
+import android.content.Context;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
@@ -8,6 +10,7 @@ import com.jtronlabs.space_shooter.R;
 
 import enemies.Shooting_DiagonalMovingView;
 import enemies_non_shooters.Gravity_MeteorView;
+import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_Rectangle_Array;
 
@@ -29,71 +32,61 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 	}
 			
 	public final static SpawnableWave doNothing(){
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork() {}
+		return new SpawnableWave(0,0){//probability weight of 0, as it should not be randomly used in levelSpawning
+				@Override 
+				public void spawn(){}
 		};
-		return new SpawnableWave(r,0,0);//probability weight of 0, as it should not be randomly used in levelSpawning
 	}
 
 	//meteor showers
+	protected SpawnableWave backgroundMeteor(){
+		final Class<? extends Gravity_MeteorView> meteorClass = (Math.random()<.5) ? Meteor_SidewaysView.class : Gravity_MeteorView.class ;
+		return spawnEnemyWithDefaultConstructorArguments(meteorClass,0 );//probability weight does not matter here
+	}
+	
 	final SpawnableWave meteorShowersThatForceUserToMiddle(){
-		KillableRunnable r = new KillableRunnable(){//this does not last a whole wave, which is fine.
-			@Override
-			public void doWork() {
+		return new SpawnableWave(WAIT_TIME_AFTER_METEOR_WAVE / 2,Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) ){
+			@Override 
+			public void spawn(){
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx().getResources().getDimension(R.dimen.meteor_length));
 				numMeteors/=2;
 				numMeteors-=2;
 				
 				spawnMeteorShower(numMeteors,400,true);
 				spawnMeteorShower(numMeteors,400,false);
-				
 			}
-		}; 
-
-		return new SpawnableWave(r,WAIT_TIME_AFTER_METEOR_WAVE / 2,// half as tall as the other 2 meteor waves
-				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
+		};
 	}
 	final SpawnableWave meteorShowersThatForceUserToRight(){
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork() {
+		return new SpawnableWave(WAIT_TIME_AFTER_METEOR_WAVE,Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) ){
+			@Override 
+			public void spawn(){
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx().getResources().getDimension(R.dimen.meteor_length));
 				numMeteors-=4;
 				spawnMeteorShower(numMeteors,400,true);
-				
 			}
 		};
-
-		return new SpawnableWave(r,WAIT_TIME_AFTER_METEOR_WAVE,
-				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
 	}
 	final SpawnableWave meteorShowersThatForceUserToLeft(){
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork() {
+		return new SpawnableWave(WAIT_TIME_AFTER_METEOR_WAVE,
+				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) ){
+			@Override 
+			public void spawn(){
 				int numMeteors = (int) (MainActivity.getWidthPixels()/ctx().getResources().getDimension(R.dimen.meteor_length));
 				numMeteors-=4;
 				spawnMeteorShower(numMeteors,400,false);
-				
 			}
 		};
-
-		return new SpawnableWave(r,WAIT_TIME_AFTER_METEOR_WAVE,
-				Gravity_MeteorView.getSpawningProbabilityWeightOfMeteorShowers(getLevel()) );
 	}	
 	//shooter waves
 	final SpawnableWave refreshArrayShooters(){
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork() {
+		return new SpawnableWave(8000/((getLevel()/5)+1),Orbiter_Rectangle_Array.getSpawningProbabilityWeight(getLevel()) ){
+			@Override 
+			public void spawn(){
 				Orbiter_Rectangle_Array.refreshSimpleShooterArray(gameScreen,
 						getLevel() );
 			}
 		};
-		
-		
-		return new SpawnableWave(r,8000/((getLevel()/5)+1),Orbiter_Rectangle_Array.getSpawningProbabilityWeight(getLevel()) );
 	}
 	
 	//generic waves
@@ -103,9 +96,9 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 			final int delayBtwEachEnemy, 
 			int delayAfterSpawningAllEnemies){
 		
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork() {				
+		return new SpawnableWave(delayAfterSpawningAllEnemies + delayBtwEachEnemy * howManyEnemies,probabilityWeight ){
+			@Override 
+			public void spawn(){
 				for(int i = 0; i < howManyEnemies; i++){
 					spawningHandler.postDelayed(new KillableRunnable(){//spawn a diagonal moving  enemy every DELAY interval
 						@Override
@@ -116,48 +109,47 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				}
 			}
 		};
-		return new SpawnableWave(r,delayAfterSpawningAllEnemies + delayBtwEachEnemy * howManyEnemies,probabilityWeight );
 	}
 	public final SpawnableWave spawnEnemyWithDefaultConstructorArguments(final Class c,int probabilityWeight){
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork(){
+		return new SpawnableWave(1050,probabilityWeight ){
+			@Override 
+			public void spawn(){
 				spawnDefaultEnemy(c);
 			}
 		};
-		return new SpawnableWave(r,1050,probabilityWeight );
-	}
-	private void spawnDefaultEnemy(Class c){
-		try {
-			Class [] constructorArgs = new Class[] {RelativeLayout.class,int.class}; //get constructor with list of arguments
-			c.getDeclaredConstructor(constructorArgs).newInstance(gameScreen,getLevel()); //instantiate the passed class with parameters
-		} catch (Exception e){
-			e.printStackTrace();
-		}		
 	}
 	
 	//SPECIAL SPAWNING WAVES
 	final SpawnableWave coordinatedCircularAttack(int level){
 		final int CIRCLE_SPAWN_DELAY = 14000;
-		KillableRunnable r = new KillableRunnable(){
-			@Override
-			public void doWork() {
-				spawningHandler.post(spawnCircularOrbiterWave(4,500,3));
-				spawningHandler.postDelayed(spawnCircularOrbiterWave(5,500,2),CIRCLE_SPAWN_DELAY);
-				spawningHandler.postDelayed(spawnCircularOrbiterWave(7,500,1),CIRCLE_SPAWN_DELAY * 2);
-			} 
-		};
 		
 		int probabilityWeight = 0;
 		if(level > FIRST_LEVEL_COORDINATED_CIRCLE_ORBITERS_ATTACK_APPEARS){
 			probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 70;
 		}
 		
-		return new SpawnableWave(r,(long) (CIRCLE_SPAWN_DELAY * 3.5),probabilityWeight);
+		return new SpawnableWave((long) (CIRCLE_SPAWN_DELAY * 3.5),probabilityWeight){
+			@Override 
+			public void spawn(){
+				spawningHandler.post(spawnCircularOrbiterWave(4,500,3));
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(5,500,2),CIRCLE_SPAWN_DELAY);
+				spawningHandler.postDelayed(spawnCircularOrbiterWave(7,500,1),CIRCLE_SPAWN_DELAY * 2);
+			}
+		};
 	}
 	
 	
 	//HELPER WAVES
+	private void spawnDefaultEnemy(Class c){
+		try {
+			Class [] constructorArgs = new Class[] {RelativeLayout.class,int.class}; //get constructor with list of arguments
+			c.getDeclaredConstructor(constructorArgs).newInstance(gameScreen,getLevel()); //instantiate the passed class with parameters
+		} catch (Exception e){
+			Log.d("lowrey","default enemy not spawned with correct constructor arguments!");
+			e.printStackTrace();
+		}	
+	}
+	
 	private final void spawnMeteorShower(final int numMeteors,final int millisecondsBetweenEachMeteor,final boolean beginOnLeft) {
 		spawningHandler.post(
 				new KillableRunnable(){

@@ -16,8 +16,7 @@ import guns.Gun_SingleShotStraight;
 
 public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	
-	public static final float DEFAULT_SPEED_Y = 10,
-			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,
+	public static final float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	public final static int DEFAULT_SCORE=130, 

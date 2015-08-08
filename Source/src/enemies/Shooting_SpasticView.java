@@ -22,6 +22,9 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 			DEFAULT_SCORE=150;
 	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
+	
+	private static final long INTERVAL_WITH_ONE_SET_SPEED = 100;
+	private long timeSinceLastRandomSpeedSet =0;
 		 
 	public Shooting_SpasticView (RelativeLayout layout,int level) {
 		super(layout,level,
@@ -69,20 +72,6 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 		this.addGun(g1);
 		this.addGun(g2);
 		this.startShooting();
-	}
-
-	@Override
-	public void reachedGravityPosition() {		
-		this.reassignMoveRunnable(new KillableRunnable(){
-			@Override
-			public void doWork() {
-				setRandomSpeed();
-				
-				move();
-				
-				postDelayed (this, HOW_OFTEN_TO_MOVE);
-			}
-		});
 	}
 	
 	private void setRandomSpeed(){
@@ -156,6 +145,17 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 		}
 		
 		return numEnemies;
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		if(hasReachedGravityThreshold()){
+			timeSinceLastRandomSpeedSet += millisecondsSinceLastSpeedUpdate;
+			if(timeSinceLastRandomSpeedSet >=INTERVAL_WITH_ONE_SET_SPEED){
+				setRandomSpeed();
+				timeSinceLastRandomSpeedSet = 0;
+			}
+		}
 	}
 
 }

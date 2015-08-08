@@ -7,6 +7,8 @@ import parents.Projectile_GravityView;
 import android.widget.RelativeLayout;
 import bonuses.BonusView;
 
+import com.jtronlabs.space_shooter.GameLoop;
+
 public abstract class EnemyView extends Projectile_GravityView{
 	
 	public static final int MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR = 3;
@@ -37,7 +39,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 		numSpawn++;
 		score = scaleScore(level, scoreForKilling);
 		probSpawnBeneficialObject= scaleProbabilitySpawnBeneficialObjectOnDeath(level,probSpawnBeneficialObjectUponDeath);
-		LevelSystem.enemies.add(this);
+		GameLoop.enemies.add(this);
 	}
 	
 	/**
@@ -62,7 +64,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 		else {//fallen offscreen
 			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
 		}
-		LevelSystem.enemies.remove(this);
+		GameLoop.enemies.remove(this);
 
 		numRemoved++;
 		super.removeGameObject();

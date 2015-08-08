@@ -5,7 +5,7 @@ import android.widget.RelativeLayout;
 public class Meteor_SidewaysView extends Gravity_MeteorView{
 	
 	public final static float
-			DEFAULT_SPEED_X=2;
+			DEFAULT_SPEED_X = DEFAULT_SPEED_Y / 4;
 	
 	public Meteor_SidewaysView(RelativeLayout layout,int level) {
 		super(layout,level);

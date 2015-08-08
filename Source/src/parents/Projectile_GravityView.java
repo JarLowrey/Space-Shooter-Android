@@ -1,6 +1,6 @@
 package parents;
 
-import helpers.KillableRunnable;
+import android.util.Log;
 import android.widget.RelativeLayout;
 /**
  * A ProjectileView with a constant downwards force. This force is removed when the instance reaches its lowest threshold. 
@@ -23,29 +23,7 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 
 		hasReachedGravityThreshold=false;
 		gravityThreshold=NO_THRESHOLD;
-
-		reassignMoveRunnable( new KillableRunnable(){
-	    	@Override
-	        public void doWork() {
-	    		move();
-	    		
-	    		float y=Projectile_GravityView.this.getY();
-	    		hasReachedGravityThreshold = (y+getHeight()) > gravityThreshold;
-
-        		//if View is at lowest threshold stop reposting runnable
-        		if(!hasReachedGravityThreshold){
-        			postDelayed(this, HOW_OFTEN_TO_MOVE/2);
-        		}else{
-        			reachedGravityPosition();
-        		}
-	    	}
-	    });
 	}
-    /**
-     * Once the View has achieved it's threshold, allow further logic to be called
-     */
-    protected abstract void reachedGravityPosition();
-    
 	public void setGravityThreshold (int newLowestPositionThreshold){
 		gravityThreshold=newLowestPositionThreshold;
 	}
@@ -57,5 +35,13 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 
 	public boolean hasReachedGravityThreshold() {
 		return hasReachedGravityThreshold;
+	}
+
+	@Override
+	public void move(long millisecondsSinceLastSpeedUpdate) {
+		float y=Projectile_GravityView.this.getY();
+		hasReachedGravityThreshold = ( y+getHeight() ) > gravityThreshold;
+		
+		super.move(millisecondsSinceLastSpeedUpdate);
 	}
 }

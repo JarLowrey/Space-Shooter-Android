@@ -29,6 +29,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 	public final static int MIN_SHOOTING_FREQ = 150;
 	
 	GameActivityInterface myGame;
+	private double percentDistanceTouchFromMidpointButtonX = 0,
+			percentDistanceTouchFromMidpointButtonY = 0;
+	
 	private KillableRunnable exhaustRunnable;
 	
 	public ProtagonistView(RelativeLayout layout,GameActivityInterface interactWithGame) {
@@ -46,7 +49,6 @@ public class ProtagonistView extends Friendly_ShooterView{
 		//apply upgrades
 		StoreUpgradeHandler.createProtagonistGunSet(this);
 		this.setHealth( getProtagonistMaxHealth(getContext()) );
-		this.killMoveRunnable();//stop him from automatically moving at spawn
 		
 		//prepare ship
 		restartThreads();
@@ -59,7 +61,8 @@ public class ProtagonistView extends Friendly_ShooterView{
 	private int count = 0;
     
 	private KillableRunnable showExhaustRunnable(){
-		final long howOftenExhaustMoves = (ProtagonistView.HOW_OFTEN_TO_MOVE/2);
+		final long howOftenExhaustMoves = (10);
+		
 		return new KillableRunnable(){
 			private boolean hasPlayedSound = false;
 			
@@ -152,31 +155,42 @@ public class ProtagonistView extends Friendly_ShooterView{
 		super.restartThreads();
 	}
 	
-	public void beginMoving(final float percentXAwayFromMidPointOfMovementButton,final float percentYAwayFromMidPointOfMovementButton){
-
-		setSpeedX(ProtagonistView.DEFAULT_SPEED_X*percentXAwayFromMidPointOfMovementButton);
-		setSpeedY(ProtagonistView.DEFAULT_SPEED_Y*percentYAwayFromMidPointOfMovementButton);
-		
-		reassignMoveRunnable( new KillableRunnable(){
-			@Override
-			public void doWork() {
-				move(0,
-						(int) MainActivity.getWidthPixels() - ProtagonistView.this.getWidth(),
-						(int)(.4 * MainActivity.getHeightPixels()),
-						(int)(GameActivity.getBottomScreen() - ProtagonistView.this.getHeight()));
-				postDelayed(this,ProtagonistView.HOW_OFTEN_TO_MOVE);
-			}
-		});
-	}
-	public void stopMoving(){
-		this.killMoveRunnable();
-	}
-
 	@Override 
 	public void removeGameObject(){ 
 		super.removeGameObject();
 		
 		exhaustRunnable.kill();
+	}
+
+	public void updatePercentDistanceFromMidpointOfMoveButton(double xPercent,double yPercent){
+		percentDistanceTouchFromMidpointButtonX = xPercent;
+		percentDistanceTouchFromMidpointButtonY = yPercent;
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		//check for user finger position, if inside button then set movement speed and the GameLoop will take care of moving
+		
+		setSpeedX((float) (ProtagonistView.DEFAULT_SPEED_X*percentDistanceTouchFromMidpointButtonX));
+		setSpeedY((float) (ProtagonistView.DEFAULT_SPEED_Y*percentDistanceTouchFromMidpointButtonY));	
+	}
+	
+	@Override
+	public void move(long millisecondsSinceLastSpeedUpdate){
+		final int boundLeft = 0;
+		final int boundRight = (int) MainActivity.getWidthPixels() - ProtagonistView.this.getWidth();
+		final int boundTop = (int)(.4 * MainActivity.getHeightPixels());
+		final int boundBottom = (int)(GameActivity.getBottomScreen() - ProtagonistView.this.getHeight());
+		
+		//Move by setting this instances X or Y position to its current position plus its respective speed.
+		float x = this.getX();
+		float y = this.getY();
+		y+=getSpeedY() * millisecondsSinceLastSpeedUpdate ;
+		x+=getSpeedX() * millisecondsSinceLastSpeedUpdate ;
+		
+		//ensure ProtagonistView never moves out of screen bounds
+		if(y>boundTop && y<boundBottom){this.setY(y);}
+		if(x>boundLeft && x<boundRight){this.setX(x);}
 	}
 
 }

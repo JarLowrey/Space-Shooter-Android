@@ -1,10 +1,5 @@
 package levels;
 
-import guns.Gun_SingleShotStraight;
-import guns.Gun_TrackingGattling;
-import guns.Gun_TrackingSingle;
-import helpers.KillableRunnable;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import bullets.Bullet_Basic;
@@ -20,6 +15,9 @@ import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_RectangleView;
 import friendlies.ProtagonistView;
+import guns.Gun_SingleShotStraight;
+import guns.Gun_TrackingGattling;
+import guns.Gun_TrackingSingle;
 
 /**
  * Create a default enemy using EnemyFactory class, then overwrite position, speed, damage size, background, guns, bullets, etc To make a boss
@@ -33,10 +31,11 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		super(layout);
 	} 
 	
-	final SpawnableWave boss1(){
-		KillableRunnable r = new KillableRunnable(){
+	final SpawnableWave boss1(){		
+		return new SpawnableWave(3000 - (getLevel()/5) * 1000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss1(getLevel()) ){
 			@Override
-			public void doWork() {
+			public void spawn(){
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
 						getLevel(),
 						600,//score
@@ -68,15 +67,13 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();
 			}
 		};
-		
-		return new SpawnableWave(r,3000 - (getLevel()/5) * 1000,
-				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss1(getLevel()) );
 	}
 	
-	final SpawnableWave boss2(){
-		KillableRunnable r = new KillableRunnable(){
+	final SpawnableWave boss2(){		
+		return new SpawnableWave(10000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss2(getLevel()) ){
 			@Override
-			public void doWork() {
+			public void spawn(){
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
 						getLevel(),
 						2500,
@@ -111,18 +108,16 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						(int) (Shooting_HorizontalMovementView.DEFAULT_BULLET_DAMAGE * 0.8),
 						95));
 				
-				enemy.startShooting();
+				enemy.startShooting();				
 			}
 		};
-		
-		return new SpawnableWave(r,10000,
-				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss2(getLevel()) );
 	}
 	
-	final SpawnableWave boss3(){
-		KillableRunnable r = new KillableRunnable(){
+	final SpawnableWave boss3(){		
+		return new SpawnableWave(20000 - (getLevel()/5) * 4000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss3(getLevel()) ){
 			@Override
-			public void doWork() {
+			public void spawn(){
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
 						getLevel(),
 						5000,
@@ -169,15 +164,13 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.startShooting();	
 			}
 		};
-		
-		return new SpawnableWave(r,20000 - (getLevel()/5) * 4000,
-				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss3(getLevel()) );
 	}
 	
-	final SpawnableWave boss4(){ 
-		KillableRunnable r = new KillableRunnable(){
+	final SpawnableWave boss4()	{	
+		return new SpawnableWave(25000 - (getLevel()%5) * 5000,
+				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss4(getLevel()) ){
 			@Override
-			public void doWork() {
+			public void spawn(){
 				Shooting_HorizontalMovementView enemy = new Shooting_HorizontalMovementView(gameScreen,
 						getLevel(),
 						20000,
@@ -194,8 +187,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						(int)gameScreen.getResources().getDimension(R.dimen.bullet_xskinny_width), 
 						(int)gameScreen.getResources().getDimension(R.dimen.bullet_rec_long_height), 
 						R.drawable.bullet_laser_round_red,
-						Bullet_Duration.DEFAULT_BULLET_DURATION,
-						50),
+						Bullet_Duration.DEFAULT_BULLET_DURATION),
 					5000, 
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Bullet_Duration.DEFAULT_BULLET_DAMAGE,
@@ -250,18 +242,15 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 						(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
 						80));
 				
-				enemy.startShooting();	
+				enemy.startShooting();
 			}
-		};  
-		
-		return new SpawnableWave(r,25000 - (getLevel()%5) * 5000,
-				Shooting_HorizontalMovementView.getSpawningProbabilityWeightForBoss4(getLevel()) );
+		};
 	}
 
-	public final SpawnableWave spawnGiantMeteor(){
-		KillableRunnable r = new KillableRunnable(){
+	public final SpawnableWave spawnGiantMeteor(){		
+		return new SpawnableWave(2000,Gravity_MeteorView.getSpawningProbabilityWeightOfGiantMeteors(getLevel())){
 			@Override
-			public void doWork() {
+			public void spawn(){
 				Gravity_MeteorView enemy = new Meteor_SidewaysView(gameScreen,getLevel() );
 				
 				//change width and height. set X and Y positions
@@ -277,8 +266,6 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				enemy.setScoreValue(100);
 			}
 		};
-		
-		return new SpawnableWave(r,2000,Gravity_MeteorView.getSpawningProbabilityWeightOfGiantMeteors(getLevel()));
 	}
 	
 }

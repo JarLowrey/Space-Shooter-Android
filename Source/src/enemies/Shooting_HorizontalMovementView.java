@@ -35,26 +35,6 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 		this.setX((float) (MainActivity.getWidthPixels()/2 - width/2.0) );
 		this.setGravityThreshold((int) MainActivity.getHeightPixels()/3);
 	}
-
-	@Override
-	protected void reachedGravityPosition() {
-		this.setSpeedY(0);
-		this.setSpeedX(DEFAULT_SPEED_X);
-		
-		reassignMoveRunnable( new KillableRunnable(){ 
-			@Override
-			public void doWork() {
-				final float leftPos = Shooting_HorizontalMovementView.this.getX();
-				final float rightPos = leftPos + Shooting_HorizontalMovementView.this.getWidth();
-				if(leftPos < 0 || rightPos > MainActivity.getWidthPixels()){
-					Shooting_HorizontalMovementView.this.setSpeedX(Shooting_HorizontalMovementView.this.getSpeedX() * -1);//reverse horizontal direction
-				}
-				
-				move();
-				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
-		}); 
-	}
 	
 	public static int getSpawningProbabilityWeightForBoss1(int level) {
 		int probabilityWeight = 0;
@@ -91,5 +71,19 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			return getSpawningProbabilityWeightForBoss1(level) / 15;
 		}
 		return 0;
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		if(hasReachedGravityThreshold()){
+			this.setSpeedY(0);
+			this.setSpeedX(DEFAULT_SPEED_X);
+			
+			final float leftPos = Shooting_HorizontalMovementView.this.getX();
+			final float rightPos = leftPos + Shooting_HorizontalMovementView.this.getWidth();
+			if(leftPos < 0 || rightPos > MainActivity.getWidthPixels()){
+				Shooting_HorizontalMovementView.this.setSpeedX(Shooting_HorizontalMovementView.this.getSpeedX() * -1);//reverse horizontal direction
+			}
+		}
 	}
 }

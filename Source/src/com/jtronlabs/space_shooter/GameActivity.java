@@ -31,7 +31,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import backgroundViews.ParticleBackgroundAnimation;
 
 import com.google.android.gms.ads.AdRequest;
@@ -165,8 +164,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
         
         scoreInGame.setVisibility(View.GONE);
         
-        KillableRunnable.killAll();
-		levelCreator.pauseLevel();
+//        KillableRunnable.killAll();
+        GameLoop.instance().stopLevel();
 		
 		//protagonist attributes saved when he is removeGameObject() in pauseLevel
 		//store upgrades are saved straight to persistent storage when bought (so does not need to be saved here).
@@ -177,7 +176,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.stopNonLoopingSound();
 		
 		adView.pause();
-		Log.d("lowrey","num enemies on pause = "+levelCreator.enemies.size());
+		Log.d("lowrey","num enemies on pause = "+GameLoop.enemies.size());
     }
 
     @Override
@@ -195,12 +194,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//allow shooting to begin after resuming from any pause
 		canBeginShooting=true;
 		beginShootingRunnablePosted=false;
-		
-		//I have NO IDEA why, but enemies can exist onResume(). These enemies are gone onPause(), and all debugging has failed thus 
-		//far. Simple workaround is to remove these misplaced enemies
-		for(int i=levelCreator.enemies.size()-1;i>=0;i--){
-			levelCreator.enemies.get(i).removeGameObject();
-		}
+//		
+//		//I have NO IDEA why, but enemies can exist onResume(). These enemies are gone onPause(), and all debugging has failed thus 
+//		//far. Simple workaround is to remove these misplaced enemies
+//		for(int i=GameLoop.enemies.size()-1;i>=0;i--){
+//			GameLoop.enemies.get(i).removeGameObject();
+//		}
 				
 		levelCreator.loadScoreAndLevel();//need to reload variables first thing
 
@@ -217,7 +216,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}else if(levelCreator.getLevel()==0){
 			createNewProtagonistView();
 			stars_creator_game.startSpawningStars();
-			levelCreator.resumeLevel(this);
+			GameLoop.instance().startLevelAndLoop(this,levelCreator);
 		}else{
 			openStore();
 		}
@@ -270,7 +269,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.stopLoopingSound();
 		
 		KillableRunnable.killAll(); 
-		levelCreator.pauseLevel(); 
+		GameLoop.instance().stopLevel(); 
 		gameOverAndResetSavedVariables();
 		
 		//set text
@@ -352,8 +351,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		createNewProtagonistView();
 		canBeginShooting = true;
 		beginShootingRunnablePosted=false;
-		
-		levelCreator.resumeLevel(this);
+
+		GameLoop.instance().startLevelAndLoop(this,levelCreator);
 		
 		//create ally if needed		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
@@ -387,10 +386,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		final float midY = (bottom-top)/2;
 		float xPosInPercent = (xTouch-midX)/(right-left);
 		float yPosInPercent = (yTouch-midY)/(bottom-top);
-		xPosInPercent = (Math.abs(xPosInPercent)>1) ? xPosInPercent/(Math.abs(xPosInPercent)) : xPosInPercent ;//maximum value is +/- 1
-		yPosInPercent = (Math.abs(yPosInPercent)>1) ? yPosInPercent/(Math.abs(yPosInPercent)) : yPosInPercent ;
+		if(Math.abs(xPosInPercent)>1 || Math.abs(yPosInPercent)>1) {//has moved outside of the button
+			Log.d("lowrey","moved outside the button!");
+			xPosInPercent = 0;
+			yPosInPercent = 0 ;
+		}
 		final float[] percents = {xPosInPercent,yPosInPercent};
+		
 //		Log.d("lowrey","x= "+xPosInPercent+" y= "+yPosInPercent);
+		
 		return percents;
 	} 
 	
@@ -399,13 +403,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public boolean onTouch(View v, MotionEvent event) {
 		if(event.getAction() == MotionEvent.ACTION_MOVE){
 			if(v.getId() == R.id.btn_move){
-					final float[] percentXY = percentXYAwayFromMidPoint(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
-					protagonist.beginMoving(percentXY[0],percentXY[1]);
+					final float[] percentXY = percentXYAwayFromMidPoint(v.getX(), v.getY(), 
+							v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
+					protagonist.updatePercentDistanceFromMidpointOfMoveButton(percentXY[0],percentXY[1]);
 			}
 		}else if(event.getAction() == MotionEvent.ACTION_DOWN){
 			if(v.getId() == R.id.btn_move){
-				final float[] percentXY_2 = percentXYAwayFromMidPoint(v.getX(), v.getY(), v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
-				protagonist.beginMoving(percentXY_2[0],percentXY_2[1]);
+				final float[] percentXY_2 = percentXYAwayFromMidPoint(v.getX(), v.getY(), 
+						v.getX()+v.getWidth(), v.getY()+v.getHeight(),event.getX(),event.getY());
+				protagonist.updatePercentDistanceFromMidpointOfMoveButton(percentXY_2[0],percentXY_2[1]);
 			}else if(v.getId() == R.id.btn_shoot){
 					if(canBeginShooting){
 						protagonist.startShooting();
@@ -416,7 +422,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}else if(event.getAction() == MotionEvent.ACTION_UP){
 //			v.performClick();//why is this needed?
 			if(v.getId() == R.id.btn_move){
-				protagonist.stopMoving();
+				protagonist.updatePercentDistanceFromMidpointOfMoveButton(0,0);//stop moving
 			}else if(v.getId() == R.id.btn_shoot){		
 				protagonist.stopShooting();	
 				

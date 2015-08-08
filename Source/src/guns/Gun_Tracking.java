@@ -6,6 +6,7 @@ import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 
 public abstract class Gun_Tracking extends Gun{
@@ -25,8 +26,8 @@ public abstract class Gun_Tracking extends Gun{
 		
 		//check if there is a target set
 		if(shootTowardsMe==null){
-			if(LevelSystem.enemies.size()>0){//set target to to any living enemy
-				shootTowardsMe= (Moving_ProjectileView) LevelSystem.enemies.get(0);
+			if(GameLoop.enemies.size()>0){//set target to to any living enemy
+				shootTowardsMe= (Moving_ProjectileView) GameLoop.enemies.get(0);
 			}
 		}
 

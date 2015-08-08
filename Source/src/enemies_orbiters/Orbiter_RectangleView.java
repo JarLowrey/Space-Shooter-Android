@@ -6,6 +6,7 @@ import levels.AttributesOfLevels;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
@@ -14,7 +15,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	
 	public static final int DEFAULT_ORBIT_Y=(int) (MainActivity.getHeightPixels()/3),
 			DEFAULT_ORBIT_X=(int) (MainActivity.getWidthPixels()/2),
-			DEFAULT_ORBIT_LENGTH = 6,
+			DEFAULT_ORBIT_LENGTH = (int) (3 * GameLoop.instance().targetFrameRate()),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_rectangle;
 	
 	private int currentSideOfRectangle,orbitDist;
@@ -52,53 +53,39 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 		howManyTimesMoved=0;//(int) (.75*orbitDist);
 	}
 
-
 	@Override
-	protected void reachedGravityPosition() {
-		this.assignRectangularMoveRunnable(DEFAULT_SPEED_X,DEFAULT_SPEED_Y);
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		if(hasReachedGravityThreshold()){
+			howManyTimesMoved = (howManyTimesMoved+1) % orbitDist;
+		
+			//change side
+			if (howManyTimesMoved == 0) {
+				currentSideOfRectangle = (currentSideOfRectangle + 1) % 4;
+				
+				switch (currentSideOfRectangle) {
+					case 0://right  
+						Orbiter_RectangleView.this.setSpeedY(0);
+						Orbiter_RectangleView.this.setSpeedX(DEFAULT_SPEED_X);
+						break;
+					case 1://down
+						Orbiter_RectangleView.this.setSpeedX(0);
+						Orbiter_RectangleView.this.setSpeedY(DEFAULT_SPEED_X);
+						break;
+					case 2://left
+						Orbiter_RectangleView.this.setSpeedY(0);
+						Orbiter_RectangleView.this.setSpeedX( - DEFAULT_SPEED_X);
+						break;
+					case 3://up
+						Orbiter_RectangleView.this.setSpeedX(0);
+						Orbiter_RectangleView.this.setSpeedY( - DEFAULT_SPEED_X);
+						break;
+				}
+			}
+		}else{
+//			super.updateViewSpeed(millisecondsSinceLastSpeedUpdate
+		}
 	}
 	
-	protected void assignRectangularMoveRunnable(final float spdX,final float spdY){
-		
-		this.setSpeedX(spdX);//start moving right
-		this.setSpeedY(0);
-		
-		reassignMoveRunnable( new KillableRunnable() {
-			@Override
-			public void doWork() {
-				howManyTimesMoved = (howManyTimesMoved+1) % orbitDist;
-			
-				//change side
-				if (howManyTimesMoved == 0) {
-					currentSideOfRectangle = (currentSideOfRectangle + 1) % 4;
-					
-					switch (currentSideOfRectangle) {
-						case 0://right  
-							Orbiter_RectangleView.this.setSpeedY(0);
-							Orbiter_RectangleView.this.setSpeedX(spdX);
-							break;
-						case 1://down
-							Orbiter_RectangleView.this.setSpeedX(0);
-							Orbiter_RectangleView.this.setSpeedY(spdY);
-							break;
-						case 2://left
-							Orbiter_RectangleView.this.setSpeedY(0);
-							Orbiter_RectangleView.this.setSpeedX( - spdX);
-							break;
-						case 3://up
-							Orbiter_RectangleView.this.setSpeedX(0);
-							Orbiter_RectangleView.this.setSpeedY( - spdY);
-							break;
-					}
-				}
-				
-				move();
-				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
-		});
-	}
-
-
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
 		

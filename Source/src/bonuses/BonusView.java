@@ -1,15 +1,17 @@
 package bonuses;
 
-import levels.LevelSystem;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.R;
 
 public abstract class BonusView extends MovingView {
 	
 	public BonusView(RelativeLayout layout,float positionX,float positionY) {
-		super(layout,DEFAULT_SPEED_Y,0,
+		super(layout,
+				DEFAULT_SPEED_Y,
+				0,
 				(int) layout.getContext().getResources().getDimension(R.dimen.bonus_background_len),
 				(int)layout.getContext().getResources().getDimension(R.dimen.bonus_background_len)
 				,0);	//children classes will set image resource
@@ -19,8 +21,7 @@ public abstract class BonusView extends MovingView {
 		this.setX(positionX);
 		this.setY(positionY);
 		
-		//add to collision detector
-		LevelSystem.bonuses.add(this);
+		GameLoop.bonuses.add(this);
 	}
 	
 	/**
@@ -30,7 +31,7 @@ public abstract class BonusView extends MovingView {
 	
 	@Override
 	public void removeGameObject(){		
-		LevelSystem.bonuses.remove(this);
+		GameLoop.bonuses.remove(this);
 		super.defaultCleanupOnRemoval();
 	}
 	
@@ -42,5 +43,17 @@ public abstract class BonusView extends MovingView {
 		}else{
 			new Bonus_HealView(layout,positionX,positionY);
 		}
+	}
+
+
+	@Override
+	public void restartThreads() {
+		defaultCleanupOnRemoval();		
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		// do nothing - constant speed
+		
 	}
 }

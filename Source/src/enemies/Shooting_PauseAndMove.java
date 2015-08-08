@@ -11,7 +11,6 @@ import com.jtronlabs.space_shooter.R;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
-import helpers.KillableRunnable;
 
 public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	
@@ -21,7 +20,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
 	
-	private long amtOfTimeToPause; 
+	private long amtOfTimeToPause,currentTimePaused = 0;
 	 
 	public Shooting_PauseAndMove (RelativeLayout layout,int level) {
 		super(layout,level,
@@ -64,18 +63,14 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	}
 
 	@Override
-	public void reachedGravityPosition() {
-		killMoveRunnable();
-		
-		this.postDelayed(new KillableRunnable(){
-			@Override
-			public void doWork() {
-				setGravityThreshold((int) MainActivity.getHeightPixels()); 
-				reviveMoveRunnable();
-			}
-		},this.amtOfTimeToPause);
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		currentTimePaused += millisecondsSinceLastSpeedUpdate;
+		if(hasReachedGravityThreshold() && currentTimePaused >= amtOfTimeToPause){
+			this.setSpeedY(DEFAULT_SPEED_Y);
+		}else if(hasReachedGravityThreshold()){
+			this.setSpeedY( 0 );
+		}
 	}
-	
 	public static int getSpawningProbabilityWeight(int level) {
 		int probabilityWeight = 0;
 		

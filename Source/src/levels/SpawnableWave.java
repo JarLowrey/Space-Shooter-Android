@@ -1,24 +1,22 @@
 package levels;
 
-import helpers.KillableRunnable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class SpawnableWave {
+public abstract class SpawnableWave {
 
 	private static ArrayList<SpawnableWave> allWaves;
 	
 	private long time;
 	private int spawningWeight;
-	private KillableRunnable r;
 	
-	public SpawnableWave(KillableRunnable runnableToSpawn, long howLongUntilCanSpawnAgain, int spawningProbabilityWeight){
-		r = runnableToSpawn;
+	public SpawnableWave(long howLongUntilCanSpawnAgain, int spawningProbabilityWeight){
 		time = howLongUntilCanSpawnAgain;
 		spawningWeight= spawningProbabilityWeight;
 	} 
+	
+	public abstract void spawn();
 	
 	/**
 	 * MUST BE AT LEAST ONE ENTRY IN THIS ARRAY. Otherwise getRandomWave will throw an error
@@ -60,9 +58,6 @@ public class SpawnableWave {
 	//GETTER methods
 	public long howLongUntilCanSpawnAgain(){
 		return time;
-	}	
-	public KillableRunnable runnableToSpawn(){
-		return r;
 	}
 	public int spawningProbabilityWeight(){
 		return spawningWeight;

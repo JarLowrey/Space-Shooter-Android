@@ -1,8 +1,7 @@
 package friendlies;
 
+import parents.MovingView;
 import guns.Gun_SingleShotStraight;
-import helpers.KillableRunnable;
-import parents.Moving_ProjectileView;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.RelativeLayout;
@@ -14,6 +13,9 @@ import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
 public class AllyView extends Friendly_ShooterView{
+
+	public final static float DEFAULT_SPEED_Y=MovingView.DEFAULT_SPEED_Y ,//Density Pixels per millisecond
+			DEFAULT_SPEED_X=DEFAULT_SPEED_Y;
 	
 	public static int MAX_ALLY_LEVEL = 7, 
 			DEFAULT_BULLET_FREQ = 1250;
@@ -37,40 +39,6 @@ public class AllyView extends Friendly_ShooterView{
 		trackMe = viewToTrack;
 		this.setX(trackMe.getX() - this.getLayoutParams().width);
 		this.setY(trackMe.getY());
-		
-		reassignMoveRunnable( new KillableRunnable(){
-			@Override
-			public void doWork() {
-				final double pixelDistanceDelta = 3.5 * MainActivity.getScreenDens();
-				
-				//Ally tracks X midpoint of Protagonist
-				final float allyMidPointX = (AllyView.this.getX()+AllyView.this.getWidth() + AllyView.this.getX())/2;
-				final float protagonistMidPointX = (trackMe.getX()+trackMe.getWidth() + trackMe.getX())/2;
-				
-				if( allyMidPointX < protagonistMidPointX - pixelDistanceDelta){
-					AllyView.this.setSpeedX(Math.abs(DEFAULT_SPEED_X));//move right
-				}else if ( allyMidPointX > protagonistMidPointX + pixelDistanceDelta) {
-					AllyView.this.setSpeedX( - Math.abs(DEFAULT_SPEED_X));//move left
-				}else{
-					AllyView.this.setSpeedX( 0 );//dont move
-				}
-				
-				//Ally tracks top of Protagonist. Botttom of Ally desires to be at top of protagonist
-				final float allyBottom = AllyView.this.getY()+AllyView.this.getHeight();
-				final float protagonistTop = trackMe.getY();
-				
-				if( allyBottom < protagonistTop - pixelDistanceDelta){
-					AllyView.this.setSpeedY(Math.abs(DEFAULT_SPEED_Y));//move up
-				}else if ( allyBottom > protagonistTop + pixelDistanceDelta) {
-					AllyView.this.setSpeedY( - Math.abs(DEFAULT_SPEED_Y));//move down
-				}else{
-					AllyView.this.setSpeedY( 0 );//dont move
-				}
-				
-				move();
-				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
-		});
 
 		//apply gun upgrades
 		final int allyLvl = allyLevel(getContext());
@@ -141,5 +109,34 @@ public class AllyView extends Friendly_ShooterView{
 		
 		return retVal;
 	}
-	
+
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		final double pixelDistanceDelta = 3.5 * MainActivity.getScreenDens();
+		
+		//Ally tracks X midpoint of Protagonist
+		final float allyMidPointX = (AllyView.this.getX()+AllyView.this.getWidth() + AllyView.this.getX())/2;
+		final float protagonistMidPointX = (trackMe.getX()+trackMe.getWidth() + trackMe.getX())/2;
+		
+		if( allyMidPointX < protagonistMidPointX - pixelDistanceDelta){
+			AllyView.this.setSpeedX(Math.abs(DEFAULT_SPEED_X ));//move right
+		}else if ( allyMidPointX > protagonistMidPointX + pixelDistanceDelta) {
+			AllyView.this.setSpeedX( - Math.abs(DEFAULT_SPEED_X ));//move left
+		}else{
+			AllyView.this.setSpeedX( 0 );//dont move
+		}
+		
+		//Ally tracks top of Protagonist. Botttom of Ally desires to be at top of protagonist
+		final float allyBottom = AllyView.this.getY()+AllyView.this.getHeight();
+		final float protagonistTop = trackMe.getY();
+		
+		if( allyBottom < protagonistTop - pixelDistanceDelta){
+			AllyView.this.setSpeedY(Math.abs(DEFAULT_SPEED_Y ));//move up
+		}else if ( allyBottom > protagonistTop + pixelDistanceDelta) {
+			AllyView.this.setSpeedY( - Math.abs(DEFAULT_SPEED_Y ));//move down
+		}else{
+			AllyView.this.setSpeedY( 0 );//dont move
+		}	
+	}
 }

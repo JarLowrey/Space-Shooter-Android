@@ -1,6 +1,5 @@
 package enemies;
 
-import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
@@ -19,8 +18,8 @@ import guns.Gun_TrackingGattling;
 
 public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementView{
 
-	private boolean isInvisible;
-	public static int DEFAULT_SPEED_X = 10;
+	private boolean isInvisible = false;
+	private long timeSinceLastVisibilityChange = 0, howLongToBeVisible,howLongToBeInvisible;
 		
 	public HorizontalMovement_FinalBoss(RelativeLayout layout,int level) {
 		super(layout,level,
@@ -188,31 +187,29 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 	}
 	
 	@Override
-	protected void reachedGravityPosition() {
-		super.reachedGravityPosition();
-
-		this.startShooting();
-		isInvisible = false;
+	public void move(long millisecondsSinceLastSpeedUpdate){
+		if(hasReachedGravityThreshold()){
+			//make boss intermittently invisible
+			timeSinceLastVisibilityChange += millisecondsSinceLastSpeedUpdate;
 		
-		this.post(new KillableRunnable(){
-			@Override
-			public void doWork() {
-				if(isInvisible){
-					HorizontalMovement_FinalBoss.this.setImageResource(R.drawable.ship_enemy_boss5);
-					
-					isInvisible = false;
-					postDelayed(this,(long)( 5000+Math.random()*2000 ));
-				}else{
-					HorizontalMovement_FinalBoss.this.setImageResource( 0 );
-					
-					isInvisible = true;
-					postDelayed(this,(long)( 2000+Math.random() * 2000 ));
-				}
-			}
-		});
+			if(isInvisible  && timeSinceLastVisibilityChange < howLongToBeInvisible){
+				HorizontalMovement_FinalBoss.this.setImageResource(R.drawable.ship_enemy_boss5);
+				
+				timeSinceLastVisibilityChange = 0;
+				isInvisible = false;
+				howLongToBeVisible = (long)( 5000+Math.random()*2000 );
+			}else if (timeSinceLastVisibilityChange < howLongToBeVisible){
+				HorizontalMovement_FinalBoss.this.setImageResource( 0 );
+				
+				timeSinceLastVisibilityChange = 0;
+				isInvisible = true;
+				howLongToBeInvisible = (long) (2000+Math.random() * 2000);
+			}		
+		}
+		
+		super.move(millisecondsSinceLastSpeedUpdate);
 	}
 	
-
 	public static int getSpawningProbabilityWeight(int level) {
 		//start at 1/100 giant meteor, increase a little every 30 levels until equal to 1/90 giant meteor
 		int probabilityWeight = 0;

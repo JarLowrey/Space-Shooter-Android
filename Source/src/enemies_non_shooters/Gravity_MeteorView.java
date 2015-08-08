@@ -18,6 +18,7 @@ public class Gravity_MeteorView extends EnemyView{
 			DEFAULT_BACKGROUND=R.drawable.meteor,
 			DEFAULT_ROTATION_SPEED=7;
 	public final static float 
+			DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y * 2.2),
 			DEFAULT_SPEED_X=0,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float) .01;
 	
@@ -28,7 +29,7 @@ public class Gravity_MeteorView extends EnemyView{
 		public void doWork() { 
 			currentRotation+=DEFAULT_ROTATION_SPEED * direction;
 			Gravity_MeteorView.this.setRotation(currentRotation);
-			postDelayed(this,2*MovingView.HOW_OFTEN_TO_MOVE);
+			postDelayed(this,100);
 		} 
 	};
 	
@@ -63,11 +64,6 @@ public class Gravity_MeteorView extends EnemyView{
 		super.restartThreads();
 	}
 
-	@Override
-	public void reachedGravityPosition() {
-		removeGameObject();
-	}
-	
 	protected static float gravitySpeedMultiplier(int level,float defaultSpeed){
 		float speed = defaultSpeed;
 		if (level > AttributesOfLevels.LEVELS_LOW && (level/5)%2 == 0){
@@ -98,5 +94,10 @@ public class Gravity_MeteorView extends EnemyView{
 
 		
 		return probabilityWeight;
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		//do nothing, constant speed in X and Y after instantiation
 	}
 }

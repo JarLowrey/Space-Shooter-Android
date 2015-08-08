@@ -3,6 +3,7 @@ package enemies_orbiters;
 import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import levels.AttributesOfLevels;
+import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
@@ -11,15 +12,15 @@ import com.jtronlabs.space_shooter.R;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface {
 	
-	public static final int DEFAULT_ANGULAR_VELOCITY=3, 
+	public static final float DEFAULT_ANGULAR_VELOCITY=MovingView.DEFAULT_SPEED_Y / 3, 
 			MAX_ANGULAR_VELOCITY = 30, 
 			MAX_RADIUS = (int) (140  * MainActivity.getScreenDens()),
-			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens()),
+			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens());
+	public static final int
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
 	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels());
 	
-	private int currentDegree;
-	private int angularVelocity;
+	private float angularVelocity,currentDegree;
 	private double radius;
 
 	public Orbiter_CircleView(RelativeLayout layout,int level) {
@@ -69,30 +70,27 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		this.setX(orbitX-width/2);
 	}
 	
-	public void setAngularVelocity(int newVelocity){
-		this.angularVelocity=newVelocity;
+	public void setAngularVelocity(float f){
+		this.angularVelocity=f;
 	}
-	public int getAngularVelocity(){
+	public float getAngularVelocity(){
 		return angularVelocity;
 	}
-
+	
 	@Override
-	protected void reachedGravityPosition() {
-		reassignMoveRunnable( new KillableRunnable(){
-			@Override
-			public void doWork() {
-				currentDegree = ( angularVelocity+currentDegree )%360;
-				float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
-				float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));
-				
-				Orbiter_CircleView.this.setX( orbitX+x );
-				Orbiter_CircleView.this.setY( orbitY+y );
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		if(hasReachedGravityThreshold()){
+			currentDegree = ( angularVelocity+currentDegree )%360;
+			float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
+			float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));
 			
-				howManyTimesMoved++;
-				
-				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
-		});
+			Orbiter_CircleView.this.setX( orbitX+x );
+			Orbiter_CircleView.this.setY( orbitY+y );
+		
+			howManyTimesMoved++;
+		}else{
+//			super.updateViewSpeed(millisecondsSinceLastSpeedUpdate
+		}
 	}
 
 	@Override

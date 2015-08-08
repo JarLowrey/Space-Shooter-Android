@@ -1,18 +1,17 @@
 package enemies_orbiters;
 
-import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import levels.AttributesOfLevels;
-import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
 
 public class Orbiter_TriangleView extends Shooting_OrbiterView implements MovingViewInterface {
 
-	public final static int DEFAULT_ORBIT_LENGTH=10,
+	public final static int DEFAULT_ORBIT_LENGTH=(int) (3 * GameLoop.instance().targetFrameRate()),
 			DEFAULT_ANGLE = 30,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_triangle;
 	
@@ -51,39 +50,33 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 		howManyTimesMoved=(int) (orbitDist * (2/3.0));
 	}
 
-
 	@Override
-	protected void reachedGravityPosition() {
-		
-		reassignMoveRunnable( new KillableRunnable(){
-			@Override
-			public void doWork() {
-				//change side
-				if (howManyTimesMoved % orbitDist == 0) {
-					currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
-
-					//triangle is equilateral
-					switch (currentSideOfTriangle) {
-					case 0:
-						Orbiter_TriangleView.this.setSpeedY(0);
-						Orbiter_TriangleView.this.setSpeedX( - DEFAULT_SPEED_X * 2);
-						break;
-					case 1:
-						Orbiter_TriangleView.this.setSpeedY(DEFAULT_SPEED_Y);
-						Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
-						break;
-					case 2:
-						Orbiter_TriangleView.this.setSpeedY( - DEFAULT_SPEED_Y);
-						Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
-						break;
-					}
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		if(hasReachedGravityThreshold()){
+			//change side
+			if (howManyTimesMoved % orbitDist == 0) {
+				currentSideOfTriangle = (currentSideOfTriangle + 1) % 3;
+	
+				//triangle is equilateral
+				switch (currentSideOfTriangle) {
+				case 0:
+					Orbiter_TriangleView.this.setSpeedY(0);
+					Orbiter_TriangleView.this.setSpeedX( - DEFAULT_SPEED_X * 2);
+					break;
+				case 1:
+					Orbiter_TriangleView.this.setSpeedY(DEFAULT_SPEED_Y);
+					Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
+					break;
+				case 2:
+					Orbiter_TriangleView.this.setSpeedY( - DEFAULT_SPEED_Y);
+					Orbiter_TriangleView.this.setSpeedX(DEFAULT_SPEED_X);
+					break;
 				}
-				howManyTimesMoved++;
-				
-				move();
-				postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
 			}
-		}); 
+			howManyTimesMoved++;
+		}else{
+//			super.updateViewSpeed(millisecondsSinceLastSpeedUpdate);
+		}
 	}
 	
 

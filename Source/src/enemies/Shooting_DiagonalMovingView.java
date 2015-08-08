@@ -1,6 +1,7 @@
 package enemies;
 
 import levels.AttributesOfLevels;
+import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
@@ -24,8 +25,6 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 1000,
 			DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 4000;
 	public final static float 
-			DEFAULT_SPEED_Y=12,
-			DEFAULT_SPEED_X=DEFAULT_SPEED_Y,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	protected double leftThreshold,rightThreshold;
@@ -81,38 +80,10 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 				DEFAULT_BULLET_DAMAGE,50);
 		this.addGun(defaultGun);
 		this.startShooting();	
-		
-
-		reassignMoveRunnable( new KillableRunnable(){
-			@Override
-			public void doWork() {		
-					final float rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
-					final float leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
-					float mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();
-					
-					final boolean pastRightSide  = rightSideOfShip>=rightThreshold;
-					final boolean pastLeftSide = leftSideOfShip<=leftThreshold;
-					if(pastRightSide){
-						mySpeedX = Math.abs(mySpeedX) * -1;
-						Shooting_DiagonalMovingView.this.setSpeedX(mySpeedX);
-					}else if(pastLeftSide){
-						mySpeedX = Math.abs(mySpeedX);
-						Shooting_DiagonalMovingView.this.setSpeedX(mySpeedX);
-					}
-					
-					move();
-					postDelayed(this,Moving_ProjectileView.HOW_OFTEN_TO_MOVE);
-			}
-		});
 	}
 	
 	public void restartThreads(){
 		super.restartThreads();
-	}
-
-	@Override
-	public void reachedGravityPosition() {
-		removeGameObject();
 	}
 
 	public static int getSpawningProbabilityWeight(int level) {
@@ -147,6 +118,23 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 		}
 		
 		return numEnemies;
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		final float rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
+		final float leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
+		double mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();
+		
+		final boolean pastRightSide  = rightSideOfShip>=rightThreshold;
+		final boolean pastLeftSide = leftSideOfShip<=leftThreshold;
+		if(pastRightSide){
+			mySpeedX = Math.abs(mySpeedX) * -1;
+			Shooting_DiagonalMovingView.this.setSpeedX(mySpeedX);
+		}else if(pastLeftSide){
+			mySpeedX = Math.abs(mySpeedX);
+			Shooting_DiagonalMovingView.this.setSpeedX(mySpeedX);
+		}
 	}
 			
 }

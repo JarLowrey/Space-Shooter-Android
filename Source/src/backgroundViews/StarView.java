@@ -1,6 +1,5 @@
 package backgroundViews;
 
-import helpers.KillableRunnable;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
@@ -10,9 +9,9 @@ import com.jtronlabs.space_shooter.R;
 public class StarView extends MovingView{
 	
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.star;
-	public static final float DEFAULT_SPEED_Y = 5;
+	public static final float DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y / 3);//Density Pixels per millisecond
 	
-	private int numTimesStarCanMove;
+	private int numTimesStarCanMove, numTimesMoved = 0;
 	
 //	private float alpha;//computationally expensive
 	
@@ -32,24 +31,6 @@ public class StarView extends MovingView{
 		addToBackground(this);
 		
 		numTimesStarCanMove = (int) (Math.random() * 25) + 30;
-		final int numTimesStarCanMoveCopy = numTimesStarCanMove;
-		reassignMoveRunnable(new KillableRunnable(){
-			private int numTimesMoved = 0;
-			@Override
-			public void doWork() {
-				move();
-
-//				alpha *= .95;
-//				setAlpha(alpha);
-				
-				numTimesMoved++;
-				if(numTimesMoved > numTimesStarCanMoveCopy){
-					setRandomLocation();
-					numTimesMoved=0;
-				}
-				StarView.this.postDelayed(this, HOW_OFTEN_TO_MOVE);
-			}			
-		}); 
 	}
 	
 	/**
@@ -71,15 +52,36 @@ public class StarView extends MovingView{
 	}
 	
 	@Override
-	public void move(){//do not remove if it passes the bounds of the screen (super.move() does this)
+	public void move(long millisecondsSinceLastSpeedUpdate){//do not remove if it passes the bounds of the screen (super.move() does this)
+
+//		alpha *= .95;
+//		setAlpha(alpha);
+		
+		numTimesMoved++;
+		if(numTimesMoved > numTimesStarCanMove){
+			setRandomLocation();
+			numTimesMoved=0;
+		}
+		
 		float x = this.getX();
 		float y = this.getY();
 		
-		y+=this.getSpeedY();
-		x+=this.getSpeedX();
+		y+=this.getSpeedY() * millisecondsSinceLastSpeedUpdate;//speed in dp/millisec
+		x+=this.getSpeedX() * millisecondsSinceLastSpeedUpdate;
 		
-		this.setY(y);
+		this.setY(y); 
 		this.setX(x);
+	}
+
+	@Override
+	public void restartThreads() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		//do nothing - constant speed until random location
 	}
 
 }

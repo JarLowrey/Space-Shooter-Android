@@ -1,11 +1,6 @@
 package enemies;
 
-import guns.Gun;
-import guns.Gun_SingleShotStraight;
-import helpers.KillableRunnable;
-import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
-import parents.MovingView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Duration;
 import bullets.Bullet_Interface;
@@ -14,6 +9,8 @@ import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
 import friendlies.ProtagonistView;
+import guns.Gun;
+import guns.Gun_SingleShotStraight;
 
 //TODO cannot get Duration bullets to rotate along with the view properly
 
@@ -26,11 +23,11 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 	
 	public static final float DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .1;
 	
-//	private static final float ROTATION_THRESHOLD = 20,
-//			DEFAULT_ANGULAR_SPEED = 1;	
+	private static final float ROTATION_THRESHOLD = 20,
+			DEFAULT_ANGULAR_SPEED = 1;	
 	 
 //	private int currLevel;
-	private KillableRunnable rotationRunnable;
+	private double myAngularSpeed = DEFAULT_ANGULAR_SPEED;
 	
 	public Shooting_DurationLaserView(RelativeLayout layout, int level) {
 		super(layout, 
@@ -57,8 +54,7 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 				(int)getContext().getResources().getDimension(R.dimen.bullet_xskinny_width), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
 				R.drawable.bullet_laser_round_red,
-				Bullet_Duration.DEFAULT_BULLET_DURATION,
-				X_POS_ON_SHOOTER),
+				Bullet_Duration.DEFAULT_BULLET_DURATION),
 			bulletFreq, 
 			Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 			Bullet_Duration.DEFAULT_BULLET_DAMAGE,
@@ -67,59 +63,24 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 		this.startShooting();
 		
 	}
-
-	@Override
-	protected void reachedGravityPosition() {
-//		rotationRunnable = null;		
+	
+//	
+//	private void constantRotation(){			
+//		double nextRotationAngle = myAngularSpeed + getRotation();
 //		
-//		if(currLevel > AttributesOfLevels.LEVELS_LOW){
-//			if(currLevel < AttributesOfLevels.LEVELS_MED){//if level > MED rotate randomly within a threshold
-//				rotationRunnable = constantRotation();
-//			}else{ //level is high so rotate so facing protagonist
-//				rotationRunnable = aimingRotation();
-//			}
+//		//change direction if beyond threshold
+//		if(nextRotationAngle < -ROTATION_THRESHOLD || nextRotationAngle > ROTATION_THRESHOLD){
+//			myAngularSpeed *= -1;
+//			nextRotationAngle = myAngularSpeed + getRotation();;
 //		}
-//		
-//		rotationRunnable = constantRotation();
-//
-//		if(rotationRunnable!=null){	this.post(rotationRunnable); }
-	}
-	
-//	private KillableRunnable constantRotation(){
-//		return new KillableRunnable(){
-//			private float myAngularSpeed = DEFAULT_ANGULAR_SPEED;
-//			
-//			@Override
-//			public void doWork() {				
-//				float nextRotationAngle = myAngularSpeed + getRotation();
-//				
-//				//change direction if beyond threshold
-//				if(nextRotationAngle < -ROTATION_THRESHOLD || nextRotationAngle > ROTATION_THRESHOLD){
-//					myAngularSpeed *= -1;
-//					nextRotationAngle = myAngularSpeed + getRotation();;
-//				}
-//				Shooting_DurationLaserView.this.setRotation(nextRotationAngle);
-//
-//				Log.d("lowrey","rotate " +nextRotationAngle);
-//				
-//				ConditionalHandler.postIfAlive(this, HOW_OFTEN_TO_MOVE, Shooting_DurationLaserView.this);				
-//			}
-//		};
+//		Shooting_DurationLaserView.this.setRotation((float) nextRotationAngle);
 //	}
-	
-	//TODO aim this view towards the protagonist
-	private KillableRunnable aimingRotation(){
-		MovingView viewToAimAt = ( (GameActivityInterface)getContext() ).getProtagonist();
-		return null;
-	}
-	
-	@Override
-	public void removeGameObject(){
-		this.removeCallbacks(rotationRunnable);
-		
-		super.removeGameObject();
-	}
-	
+//	
+//	//TODO aim this view towards the protagonist
+//	private void aimingRotation(){
+//		MovingView viewToAimAt = ( (GameActivityInterface)getContext() ).getProtagonist();
+//	}
+//	
 //	@Override
 //	public void setRotation(float rotation){
 //		super.setRotation(rotation);
@@ -172,5 +133,19 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 		}
 		
 		return numEnemies;
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		if(hasReachedGravityThreshold()){
+			this.setSpeedY(0);
+//			if(currLevel > AttributesOfLevels.LEVELS_LOW){
+//				if(currLevel < AttributesOfLevels.LEVELS_MED){//if level > MED rotate randomly within a threshold
+//					constantRotation();
+//				}else{ //level is high so rotate so facing protagonist
+//					aimingRotation();
+//				}
+//			}
+		}
 	}
 }

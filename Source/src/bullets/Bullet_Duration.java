@@ -10,13 +10,11 @@ public class Bullet_Duration extends Bullet_Interface{
 			DEFAULT_BULLET_DURATION = 800;
 
 	private long bulletLifeSpan;
-	private int positionOnShooterAsAPercentage;
 	
 	public Bullet_Duration(int bulletWidth, int bulletHeight, int bulletBackgroundId, 
-			long bulletsLifeSpan,int positionOnShooterAsAPercentageOfWidthFromTheLeftSide){
+			long bulletsLifeSpan){
 		super(bulletWidth,bulletHeight,bulletBackgroundId);
 		
-		positionOnShooterAsAPercentage = positionOnShooterAsAPercentageOfWidthFromTheLeftSide;
 		bulletLifeSpan = bulletsLifeSpan;
 	}
 	
@@ -26,7 +24,7 @@ public class Bullet_Duration extends Bullet_Interface{
 	public BulletView getBullet(RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage){
 		Bullet_HasDurationView bullet = new Bullet_HasDurationView(layout,shooter, bulletSpeedY,
 				bulletDamage,width,height,backgroundId,
-				bulletLifeSpan,positionOnShooterAsAPercentage);
+				bulletLifeSpan);
 		
 		return bullet;
 	}

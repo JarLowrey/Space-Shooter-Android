@@ -1,10 +1,8 @@
 package enemies_tracking;
 
-import guns.Gun;
-import guns.Gun_SingleShotStraight;
-import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
+import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
@@ -16,13 +14,15 @@ import com.jtronlabs.space_shooter.R;
 import enemies.Enemy_ShooterView;
 import enemies.Shooting_DiagonalMovingView;
 import friendlies.ProtagonistView;
+import guns.Gun;
+import guns.Gun_SingleShotStraight;
 
 public class Shooting_TrackingView extends Enemy_ShooterView{
 
 	public static final float
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .02,
 			DEFAULT_BULLET_FREQ=850,
-			DEFAULT_SPEED_X = 16;
+			DEFAULT_SPEED_X = (float) (MovingView.DEFAULT_SPEED_X *.9);
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/50,
@@ -49,34 +49,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		//set up the enemy to track the given MovingView
 		viewToTrack = ((GameActivityInterface)getContext()).getProtagonist();
 		setRandomXPos();
-		
-		//tracking view maintains constant downward speed
-		reassignMoveRunnable( new KillableRunnable(){
-			@Override
-			public void doWork() {
-				Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
-				
-				move();				
-				postDelayed(this,HOW_OFTEN_TO_MOVE);
-			}
-		});
-		
-		
-		if(Math.random()< 0.5 && level>AttributesOfLevels.LEVELS_LOW){//the tracking view accelerates as it moves down the screen
-			reassignMoveRunnable( new KillableRunnable(){
-				@Override
-				public void doWork() {
-					Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
-					Shooting_TrackingView.this.setSpeedY(
-							(float) (Shooting_TrackingView.this.getSpeedY()+0.3*MainActivity.getScreenDens()));
-					
-					move();				
-					postDelayed(this,HOW_OFTEN_TO_MOVE);
-				}
-			});
-		}
-		   
-
+	
 		//add guns
 		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
 		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
@@ -110,12 +83,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	public void restartThreads(){
 		super.restartThreads();
 	}
-	
-	@Override
-	public void reachedGravityPosition() {
-		removeGameObject();
-	}
-	
+
 	private static float getDefaultSpeedY(int level){
 		if(level< AttributesOfLevels.LEVELS_MED){
 			return DEFAULT_SPEED_Y;
@@ -160,5 +128,11 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		}
 		
 		return numEnemies;
+	}
+
+	@Override
+	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+		Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
+		//constant speed Y
 	}
 }

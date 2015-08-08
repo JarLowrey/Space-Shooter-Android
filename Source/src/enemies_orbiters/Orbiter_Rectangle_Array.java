@@ -2,6 +2,8 @@ package enemies_orbiters;
 
 import java.util.ArrayList;
 
+import parents.MovingView;
+
 import levels.AttributesOfLevels;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -26,9 +28,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			DEFAULT_HEALTH=(int) ( ProtagonistView.DEFAULT_BULLET_DAMAGE * 3.5 ),
 			DEFAULT_BULLET_DAMAGE = Enemy_ShooterView.DEFAULT_BULLET_DAMAGE;
 	
-	public final static float 
-			DEFAULT_SPEED_Y = 10,
-			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,
+	public final static float
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .05,
 			LOWEST_POSSIBLE_SPOT_ON_SCREEN_AS_A_PERCENTAGE_OF_TOTAL_SCREEN_SIZE=(float) .33;
 
@@ -124,24 +124,24 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 	public static int getMaxNumShips() {
 		return numCols*numRows;
 	}
-	
-
-	@Override
-	public void reachedGravityPosition() {
-		boolean canBeginRectMovement = true;
-		for(Orbiter_Rectangle_Array en : allSimpleShooters){
-			canBeginRectMovement = canBeginRectMovement && ( en.isRemoved() || en.hasReachedGravityThreshold() );
-		}
-		
-		//begin moving once lowest shooter has reached correct position from gravity		
-		if( canBeginRectMovement ){
-			for (int i = 0; i < allSimpleShooters.size(); i++) {
-				final Orbiter_Rectangle_Array enemy =  allSimpleShooters.get(i);
-				enemy.assignRectangularMoveRunnable(Orbiter_Rectangle_Array.DEFAULT_SPEED_X,Orbiter_Rectangle_Array.DEFAULT_SPEED_Y);
-			}
-		}
-	}
-	
+//	
+//
+//	@Override
+//	public void reachedGravityPosition() {
+//		boolean canBeginRectMovement = true;
+//		for(Orbiter_Rectangle_Array en : allSimpleShooters){
+//			canBeginRectMovement = canBeginRectMovement && ( en.isRemoved() || en.hasReachedGravityThreshold() );
+//		}
+//		
+//		//begin moving once lowest shooter has reached correct position from gravity		
+//		if( canBeginRectMovement ){
+//			for (int i = 0; i < allSimpleShooters.size(); i++) {
+//				final Orbiter_Rectangle_Array enemy =  allSimpleShooters.get(i);
+//				enemy.assignRectangularMoveRunnable(Orbiter_Rectangle_Array.DEFAULT_SPEED_X,Orbiter_Rectangle_Array.DEFAULT_SPEED_Y);
+//			}
+//		}
+//	}
+//	
 	private static int getDefaultHealth(int level){
 		if( level < AttributesOfLevels.LEVELS_MED){
 			return DEFAULT_HEALTH;

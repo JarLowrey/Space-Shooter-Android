@@ -3,12 +3,14 @@ package parents;
 import helpers.KillableRunnable;
 import helpers.MediaController;
 import interfaces.MovingViewInterface;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.space_shooter.GameActivity;
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 
 /**
@@ -19,18 +21,16 @@ import com.jtronlabs.space_shooter.MainActivity;
 public abstract class MovingView extends ImageView implements MovingViewInterface{
 
 	public static final float
-		DEFAULT_SPEED_Y = 20,
-		DEFAULT_SPEED_X = DEFAULT_SPEED_Y; //Gravity looks good at about 20 DPI. This can be overridden in a child class
-	
-	public static final int HOW_OFTEN_TO_MOVE=100;
-	
-	private float speedX,speedY;
+		DEFAULT_SPEED_Y = (float) 0.122, //units = frame rate independent density pixels per milliseconds
+		DEFAULT_SPEED_X = (float) (DEFAULT_SPEED_Y * .75); 
+		
+	private double speedX,speedY;
 	private RelativeLayout myLayout;
 	
 	boolean isRemoved;
 	
-	private KillableRunnable moveRunnable;
-	
+	public abstract void updateViewSpeed(long millisecondsSinceLastSpeedUpdate);
+		
 	public MovingView(RelativeLayout layout,float movingSpeedY,float movingSpeedX,int width,int height,int imageId) {
 		super(layout.getContext());
 
@@ -40,52 +40,13 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		this.setImageResource(imageId);
 
 		addToForeground(this);
-		
-		moveRunnable = new KillableRunnable(){
-			@Override
-			public void doWork() {
-				move();
-				postDelayed(this, HOW_OFTEN_TO_MOVE);
-			}
-		};
 
-		speedY = ( Math.abs(movingSpeedY)*MainActivity.getScreenDens() );
-		speedX = ( movingSpeedX*MainActivity.getScreenDens() );
+		setSpeedY( movingSpeedY );
+		setSpeedX( movingSpeedX );
+		
+//		Log.d("lowrey","on creation, speedY = "+speedY+" speedX = "+speedX);
 		
 		isRemoved=false;
-		
-		this.post(moveRunnable);
-	}
-	
-	@Override
-	public void reassignMoveRunnable(KillableRunnable r){
-		if(moveRunnable!= null){
-			moveRunnable.kill();
-			moveRunnable = r;
-			this.post(r);
-		}else{
-			moveRunnable = null; //will this cause bugs?
-		}
-	}
-	
-	@Override 
-	public void killMoveRunnable(){
-		if(moveRunnable!=null){
-			moveRunnable.kill();
-			//do not set moveRunnable to null else reviveMoveRunnable will not work
-		}
-	}
-	@Override 
-	public void reviveMoveRunnable(){
-		if(moveRunnable!=null){
-			moveRunnable.revive();
-			this.post(moveRunnable);
-		}
-	}
-	
-	@Override
-	public void restartThreads(){
-		postDelayed(moveRunnable, HOW_OFTEN_TO_MOVE);		
 	}
 	
 	public boolean RectToRectCollisionDetection(View two){
@@ -113,12 +74,12 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	 * @param direction-whichDirection the View should move. Input needs to be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT
 	 * @return Always returns false, overwrite for different behavior
 	 */
-	public void move(){
+	public void move(long millisecondsSinceLastSpeedUpdate){
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
 		float x = this.getX();
 		float y = this.getY();
-		y+=this.getSpeedY();
-		x+=this.getSpeedX();
+		y+=this.getSpeedY() * millisecondsSinceLastSpeedUpdate ;
+		x+=this.getSpeedX() * millisecondsSinceLastSpeedUpdate ;
 		
 		//check that object is still within screen bounds
 		if(y < -getHeight() || y > GameActivity.getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
@@ -129,62 +90,37 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		}
 	}
 	
-	public void move(int boundLeft,int boundRight, int boundTop, int boundBottom){
-		//Move by setting this instances X or Y position to its current position plus its respective speed.
-		float x = this.getX();
-		float y = this.getY();
-		y+=getSpeedY();
-		x+=getSpeedX();
-		
-		//check that object is still within screen bounds
-		if(y < -getHeight() || y > GameActivity.getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
-			this.removeGameObject();
-		}else{
-			if(y>boundTop && y<boundBottom){this.setY(y);}
-			if(x>boundLeft && x<boundRight){this.setX(x);}
-
-//			if(y<boundTop){this.setY(boundTop);this.setX(x);}//if outside of bounds, set position to bound (this algorithm does not currently work)
-//			else if(y>boundBottom){this.setY(boundBottom-this.getHeight());this.setX(x);}
-//			else if(x<boundLeft){this.setX(boundLeft);this.setY(y);}
-//			else if( x>boundRight){this.setX(boundRight-this.getWidth());this.setY(y);}
-//			else{
-//				this.setY(y);
-//				this.setX(x);
-//			}
-		}
-	}
-
 	/**
 	 * 
 	 * @param newSpeed
-	 * 		Speed in DPI units
+	 * 		units = frame rate independent density pixels per milliseconds
 	 */
-	public void setSpeedX(float newSpeed){
-		speedX = newSpeed*MainActivity.getScreenDens();
+	public void setSpeedX(double newSpeed){
+		speedX = ( newSpeed*MainActivity.getScreenDens() ) / GameLoop.instance().targetFrameRate();
 	}
 	/**
 	 * 
 	 * @param newSpeed
-	 * 		Speed in DPI units
+	 * 		units = frame rate independent density pixels per milliseconds
 	 */
-	public float getSpeedX(){
-		return speedX/MainActivity.getScreenDens();
+	public double getSpeedX(){
+		return ( speedX * GameLoop.instance().targetFrameRate()) / MainActivity.getScreenDens();
 	}
 	/**
 	 * 
 	 * @param newSpeed
-	 * 		Speed in DPI units
+	 * 		units = frame rate independent density pixels per milliseconds
 	 */
 	public void setSpeedY(float newSpeed){
-		speedY = newSpeed*MainActivity.getScreenDens();
+		speedY = ( newSpeed*MainActivity.getScreenDens() ) / GameLoop.instance().targetFrameRate();
 	}
 	/**
 	 * 
 	 * @return 
-	 * 		Speed in DPI units
+	 * 		units = frame rate independent density pixels per milliseconds
 	 */
-	public float getSpeedY(){
-		return speedY/MainActivity.getScreenDens();
+	public double getSpeedY(){
+		return ( GameLoop.instance().targetFrameRate() * speedY) / MainActivity.getScreenDens();
 	}
 	public boolean isRemoved(){
 		return isRemoved;
@@ -197,8 +133,6 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	protected void defaultCleanupOnRemoval(){
 		isRemoved=true;
 		this.removeCallbacks(null);	
-		killMoveRunnable();
-		
 		myLayout.removeView(this);
 	}
 	

@@ -1,32 +1,14 @@
 package levels;
 
-import helpers.CollisionDetector;
-import helpers.MediaController;
-
-import java.util.ArrayList;
-
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.RelativeLayout;
-import bonuses.BonusView;
-import bullets.BulletView;
 
 import com.jtronlabs.space_shooter.GameActivity;
-import com.jtronlabs.space_shooter.R;
+import com.jtronlabs.space_shooter.GameLoop;
 
 import enemies.EnemyView;
-import friendlies.FriendlyView;
 
 public class LevelSystem extends LevelSpawner{
-
-	public static ArrayList<BulletView> friendlyBullets = new ArrayList<BulletView>();
-	public static ArrayList<BulletView> enemyBullets = new ArrayList<BulletView>();
-	public static ArrayList<FriendlyView> friendlies = new ArrayList<FriendlyView>();
-	public static ArrayList<EnemyView> enemies = new ArrayList<EnemyView>();
-	public static ArrayList<BonusView> bonuses = new ArrayList<BonusView>();
-
-	private static CollisionDetector gameDetector;
       
 	/**     
 	 * 
@@ -35,68 +17,14 @@ public class LevelSystem extends LevelSpawner{
 	 */
 	public LevelSystem(RelativeLayout layout) {
 		super(layout);
-		gameDetector = new CollisionDetector(this);
-	}
-
-	/**
-	 * Set levelPaused flag to false. Begin generating background effects. Load
-	 * resources and level Number, set Wave to 0. Set waves to spawn every
-	 * DEFAULT_WAVE_DURATION seconds. Start Collision detection
-	 */
-	public void resumeLevel(Context c) {
-		Log.d("lowrey","level resumed!!!");
-
-		MediaController.stopLoopingSound();
-		MediaController.playSoundClip(ctx(), R.raw.background_playing_game,true);
-		
-		// conditionalHandler = new ConditionalHandler(this);//must be reset
-		// every time level is resumed for previous wave spawnings to stop
-//		createBackgroundEffects();
-
-		/*
-		 * Waves are a series of runnables. each runnable increments progress in
-		 * level, and each new level resets that progress. If handler has
-		 * runnables canceled before level finishes, then current wave will not
-		 * change. thus, when restarting a level simply find which runnable to
-		 * call by using that current progress integer, and subtract the delay
-		 * from the currrentWave for the next wave's post
-		 */
-
-		startLevelSpawning();
-
-		gameDetector.startDetecting();
 	}
 	
 	public static int totalSumOfLivingEnemiesScore(){
 		int sum = 0;
-		for(EnemyView enemy : enemies){
+		for(EnemyView enemy : GameLoop.enemies){
 			sum += enemy.getScoreForKilling();
 		}
 		return sum;
-	}
-
-	/**
-	 * flag level as paused, stop collision detector and level spawner. Remove
-	 * every Game Object from the activity
-	 */
-	public void pauseLevel() {
-		// clean up - kill Views & associated threads, stop all spawning &
-		// background threads
-		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
-			friendlyBullets.get(i).removeGameObject();
-		}
-		for (int i = enemyBullets.size() - 1; i >= 0; i--) {
-			enemyBullets.get(i).removeGameObject();
-		}
-		for (int i = friendlies.size() - 1; i >= 0; i--) {
-			friendlies.get(i).removeGameObject();
-		}
-		for (int i = enemies.size() - 1; i >= 0; i--) {
-			enemies.get(i).removeGameObject();
-		}
-		for (int i = bonuses.size() - 1; i >= 0; i--) {
-			bonuses.get(i).removeGameObject();
-		}
 	}
 
 	/**
@@ -128,11 +56,11 @@ public class LevelSystem extends LevelSpawner{
 		 * Thus just remove friendlies and friendly bullets and whatever else to
 		 * clean up the screen.
 		 */
-		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
-			friendlyBullets.get(i).removeGameObject();
+		for (int i = GameLoop.friendlyBullets.size() - 1; i >= 0; i--) {
+			GameLoop.friendlyBullets.get(i).removeGameObject();
 		}
-		for (int i = friendlies.size() - 1; i >= 0; i--) {
-			friendlies.get(i).removeGameObject();
+		for (int i = GameLoop.friendlies.size() - 1; i >= 0; i--) {
+			GameLoop.friendlies.get(i).removeGameObject();
 		}
 
 		//check if user has lost game, beaten game, or beaten the level. 

@@ -22,11 +22,6 @@ public interface MovingViewInterface{
 	 */
 	public void removeGameObject();
 	
-	public void reassignMoveRunnable(KillableRunnable r);
-	public void killMoveRunnable();
-	public void reviveMoveRunnable();
-	
-	
 	public boolean isRemoved();
 	
 	//default, built in, final, Android interface methods
