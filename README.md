@@ -4,4 +4,4 @@ A space shooter game in the style of Galaga, Galaxian or Space Invaders. This ga
 
 See it here
 
-###play store offering on the way
+https://play.google.com/store/apps/details?id=com.jtronlabs.space_shooter&hl=en
