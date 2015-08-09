@@ -74,7 +74,7 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			this.setSpeedY(0);
 			this.setSpeedX(DEFAULT_SPEED_X);

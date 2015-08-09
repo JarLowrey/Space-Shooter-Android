@@ -32,8 +32,8 @@ public class Bullet_HasDurationView extends BulletView
 	}
 
 	@Override
-	public void move(long millisecondsSinceLastSpeedUpdate){
-		currentLife += millisecondsSinceLastSpeedUpdate;
+	public void move(long deltaTime){
+		currentLife += deltaTime;
 		
 		//grow bullet
 		
@@ -52,7 +52,7 @@ public class Bullet_HasDurationView extends BulletView
 		RelativeLayout.LayoutParams params = (LayoutParams) getLayoutParams();
 		final float height = Bullet_HasDurationView.this.getHeight();
 		
-		params.height = (int) (height + getSpeedY() * millisecondsSinceLastSpeedUpdate);//speed in dp/millisec
+		params.height = (int) (height + getSpeedY() * deltaTime);//speed in dp/millisec
 
 		Bullet_HasDurationView.this.setLayoutParams(getLayoutParams());
 		

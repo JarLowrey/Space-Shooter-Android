@@ -112,7 +112,7 @@ public class AllyView extends Friendly_ShooterView{
 
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		final double pixelDistanceDelta = 3.5 * MainActivity.getScreenDens();
 		
 		//Ally tracks X midpoint of Protagonist

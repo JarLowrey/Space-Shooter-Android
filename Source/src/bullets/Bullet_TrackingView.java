@@ -26,7 +26,7 @@ public class Bullet_TrackingView extends BulletView
 	
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate){
+	public void updateViewSpeed(long deltaTime){
 		MovingView viewTracking = ( (GameActivityInterface)getContext() ).getProtagonist();
 		final float objectTrackingMidPoint = (2* viewTracking.getX()+viewTracking.getWidth() ) /2;
 		final float bulletXMidPos = (2 * getX()+getWidth() ) / 2; 
@@ -44,9 +44,9 @@ public class Bullet_TrackingView extends BulletView
 	}
 	
 	@Override
-	public void move(long millisecondsSinceLastSpeedUpdate){
+	public void move(long deltaTime){
 		setBulletRotation();//use new speed and set rotation
 		
-		super.move(millisecondsSinceLastSpeedUpdate);
+		super.move(deltaTime);
 	}
 }

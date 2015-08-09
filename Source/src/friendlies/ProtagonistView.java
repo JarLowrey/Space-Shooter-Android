@@ -168,7 +168,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		//check for user finger position, if inside button then set movement speed and the GameLoop will take care of moving
 		
 		setSpeedX((float) (ProtagonistView.DEFAULT_SPEED_X*percentDistanceTouchFromMidpointButtonX));
@@ -176,7 +176,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	
 	@Override
-	public void move(long millisecondsSinceLastSpeedUpdate){
+	public void move(long deltaTime){
 		final int boundLeft = 0;
 		final int boundRight = (int) MainActivity.getWidthPixels() - ProtagonistView.this.getWidth();
 		final int boundTop = (int)(.4 * MainActivity.getHeightPixels());
@@ -185,8 +185,8 @@ public class ProtagonistView extends Friendly_ShooterView{
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
 		float x = this.getX();
 		float y = this.getY();
-		y+=getSpeedY() * millisecondsSinceLastSpeedUpdate ;
-		x+=getSpeedX() * millisecondsSinceLastSpeedUpdate ;
+		y+=getSpeedY() * deltaTime ;
+		x+=getSpeedX() * deltaTime ;
 		
 		//ensure ProtagonistView never moves out of screen bounds
 		if(y>boundTop && y<boundBottom){this.setY(y);}

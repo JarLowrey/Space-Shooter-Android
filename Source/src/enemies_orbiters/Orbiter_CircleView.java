@@ -78,7 +78,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	}
 	
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			currentDegree = ( angularVelocity+currentDegree )%360;
 			float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
@@ -89,7 +89,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		
 			howManyTimesMoved++;
 		}else{
-//			super.updateViewSpeed(millisecondsSinceLastSpeedUpdate
+//			super.updateViewSpeed(deltaTime
 		}
 	}
 

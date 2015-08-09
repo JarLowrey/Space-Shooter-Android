@@ -97,7 +97,7 @@ public class Gravity_MeteorView extends EnemyView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		//do nothing, constant speed in X and Y after instantiation
 	}
 }

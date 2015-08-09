@@ -52,7 +52,7 @@ public abstract class BonusView extends MovingView {
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		// do nothing - constant speed
 		
 	}

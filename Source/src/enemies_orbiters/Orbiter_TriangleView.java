@@ -51,7 +51,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			//change side
 			if (howManyTimesMoved % orbitDist == 0) {
@@ -75,7 +75,7 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 			}
 			howManyTimesMoved++;
 		}else{
-//			super.updateViewSpeed(millisecondsSinceLastSpeedUpdate);
+//			super.updateViewSpeed(deltaTime);
 		}
 	}
 	

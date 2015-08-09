@@ -29,7 +29,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	
 	boolean isRemoved;
 	
-	public abstract void updateViewSpeed(long millisecondsSinceLastSpeedUpdate);
+	public abstract void updateViewSpeed(long deltaTime);
 		
 	public MovingView(RelativeLayout layout,float movingSpeedY,float movingSpeedX,int width,int height,int imageId) {
 		super(layout.getContext());
@@ -74,12 +74,12 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	 * @param direction-whichDirection the View should move. Input needs to be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT
 	 * @return Always returns false, overwrite for different behavior
 	 */
-	public void move(long millisecondsSinceLastSpeedUpdate){
+	public void move(long deltaTime){
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
 		float x = this.getX();
 		float y = this.getY();
-		y+=this.getSpeedY() * millisecondsSinceLastSpeedUpdate ;
-		x+=this.getSpeedX() * millisecondsSinceLastSpeedUpdate ;
+		y+=this.getSpeedY() * deltaTime ;
+		x+=this.getSpeedX() * deltaTime ;
 		
 		//check that object is still within screen bounds
 		if(y < -getHeight() || y > GameActivity.getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){

@@ -63,8 +63,8 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
-		currentTimePaused += millisecondsSinceLastSpeedUpdate;
+	public void updateViewSpeed(long deltaTime) {
+		currentTimePaused += deltaTime;
 		if(hasReachedGravityThreshold() && currentTimePaused >= amtOfTimeToPause){
 			this.setSpeedY(DEFAULT_SPEED_Y);
 		}else if(hasReachedGravityThreshold()){

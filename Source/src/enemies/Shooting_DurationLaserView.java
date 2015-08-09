@@ -136,7 +136,7 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			this.setSpeedY(0);
 //			if(currLevel > AttributesOfLevels.LEVELS_LOW){

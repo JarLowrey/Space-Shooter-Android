@@ -92,7 +92,7 @@ public class BulletView extends Moving_ProjectileView{
 	
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		//do nothing - move at constant speed
 	}
 }

@@ -148,9 +148,9 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
-			timeSinceLastRandomSpeedSet += millisecondsSinceLastSpeedUpdate;
+			timeSinceLastRandomSpeedSet += deltaTime;
 			if(timeSinceLastRandomSpeedSet >=INTERVAL_WITH_ONE_SET_SPEED){
 				setRandomSpeed();
 				timeSinceLastRandomSpeedSet = 0;

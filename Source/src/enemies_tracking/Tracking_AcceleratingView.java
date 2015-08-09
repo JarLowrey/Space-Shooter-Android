@@ -14,8 +14,8 @@ public class Tracking_AcceleratingView extends Shooting_TrackingView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate){
-		super.updateViewSpeed(millisecondsSinceLastSpeedUpdate);
+	public void updateViewSpeed(long deltaTime){
+		super.updateViewSpeed(deltaTime);
 		
 		Tracking_AcceleratingView.this.setSpeedY(
 				(float) (Tracking_AcceleratingView.this.getSpeedY()+MovingView.DEFAULT_SPEED_Y / 30));

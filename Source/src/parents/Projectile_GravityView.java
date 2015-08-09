@@ -38,10 +38,10 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 	}
 
 	@Override
-	public void move(long millisecondsSinceLastSpeedUpdate) {
+	public void move(long deltaTime) {
 		float y=Projectile_GravityView.this.getY();
 		hasReachedGravityThreshold = ( y+getHeight() ) > gravityThreshold;
 		
-		super.move(millisecondsSinceLastSpeedUpdate);
+		super.move(deltaTime);
 	}
 }

@@ -52,7 +52,7 @@ public class StarView extends MovingView{
 	}
 	
 	@Override
-	public void move(long millisecondsSinceLastSpeedUpdate){//do not remove if it passes the bounds of the screen (super.move() does this)
+	public void move(long deltaTime){//do not remove if it passes the bounds of the screen (super.move() does this)
 
 //		alpha *= .95;
 //		setAlpha(alpha);
@@ -66,8 +66,8 @@ public class StarView extends MovingView{
 		float x = this.getX();
 		float y = this.getY();
 		
-		y+=this.getSpeedY() * millisecondsSinceLastSpeedUpdate;//speed in dp/millisec
-		x+=this.getSpeedX() * millisecondsSinceLastSpeedUpdate;
+		y+=this.getSpeedY() * deltaTime;//speed in dp/millisec
+		x+=this.getSpeedX() * deltaTime;
 		
 		this.setY(y); 
 		this.setX(x);
@@ -80,7 +80,7 @@ public class StarView extends MovingView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		//do nothing - constant speed until random location
 	}
 

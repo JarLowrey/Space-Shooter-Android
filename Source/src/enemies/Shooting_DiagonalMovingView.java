@@ -121,7 +121,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		final float rightSideOfShip = Shooting_DiagonalMovingView.this.getX()+Shooting_DiagonalMovingView.this.getWidth();
 		final float leftSideOfShip = Shooting_DiagonalMovingView.this.getX();
 		double mySpeedX = Shooting_DiagonalMovingView.this.getSpeedX();

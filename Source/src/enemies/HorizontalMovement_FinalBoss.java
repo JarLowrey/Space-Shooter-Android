@@ -187,10 +187,10 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 	}
 	
 	@Override
-	public void move(long millisecondsSinceLastSpeedUpdate){
+	public void move(long deltaTime){
 		if(hasReachedGravityThreshold()){
 			//make boss intermittently invisible
-			timeSinceLastVisibilityChange += millisecondsSinceLastSpeedUpdate;
+			timeSinceLastVisibilityChange += deltaTime;
 		
 			if(isInvisible  && timeSinceLastVisibilityChange < howLongToBeInvisible){
 				HorizontalMovement_FinalBoss.this.setImageResource(R.drawable.ship_enemy_boss5);
@@ -207,7 +207,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 			}		
 		}
 		
-		super.move(millisecondsSinceLastSpeedUpdate);
+		super.move(deltaTime);
 	}
 	
 	public static int getSpawningProbabilityWeight(int level) {

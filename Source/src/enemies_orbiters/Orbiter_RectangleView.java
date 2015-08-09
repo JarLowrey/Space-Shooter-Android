@@ -54,7 +54,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			howManyTimesMoved = (howManyTimesMoved+1) % orbitDist;
 		
@@ -82,7 +82,7 @@ public class Orbiter_RectangleView extends Shooting_OrbiterView implements Movin
 				}
 			}
 		}else{
-//			super.updateViewSpeed(millisecondsSinceLastSpeedUpdate
+//			super.updateViewSpeed(deltaTime
 		}
 	}
 	

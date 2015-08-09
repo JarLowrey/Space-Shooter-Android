@@ -131,7 +131,7 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	}
 
 	@Override
-	public void updateViewSpeed(long millisecondsSinceLastSpeedUpdate) {
+	public void updateViewSpeed(long deltaTime) {
 		Shooting_TrackingView.this.setSpeedX(getTrackingSpeedX());
 		//constant speed Y
 	}

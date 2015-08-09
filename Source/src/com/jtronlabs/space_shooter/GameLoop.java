@@ -35,7 +35,8 @@ public class GameLoop {
 			MIN_TICK_TIME = 5;
 	
 	private long targetFrameRate,
-		howOftenToRerunLoop;
+		howOftenToRerunLoop,
+		timeAtLastFrame;
 	
 	private Handler gameLoopHandler;
 	private KillableRunnable loopingRunnable;
@@ -44,8 +45,8 @@ public class GameLoop {
 		
 	private GameLoop(){
 		gameLoopHandler = new Handler();
-		targetFrameRate = 40;
-		howOftenToRerunLoop = 1000 / targetFrameRate;//default to ~30 FPS = 30 Frames Per 1000 Milliseconds
+		targetFrameRate = 50;
+		howOftenToRerunLoop = 1000 / targetFrameRate;
 	}
 	
 	public long targetFrameRate(){
@@ -69,8 +70,7 @@ public class GameLoop {
 		
 		
 		loopingRunnable = new KillableRunnable(){
-			private long timeAtLastSpawn = SystemClock.uptimeMillis(),
-					prevTimeToWait = 0;
+			private long timeAtLastSpawn = SystemClock.uptimeMillis();
 			
 			@Override
 			public void doWork() {
@@ -83,8 +83,8 @@ public class GameLoop {
 		    			(! levelingSystem.isLevelFinishedSpawning()
 		    	    			 ||  enemies.size() !=0 || enemyBullets.size() != 0  || bonuses.size() != 0)){
 					
-					updateAllViewSpeeds(SystemClock.uptimeMillis() - startTime + prevTimeToWait);
-					moveAllViews(SystemClock.uptimeMillis() - startTime + prevTimeToWait);
+					updateAllViewSpeeds(SystemClock.uptimeMillis() - timeAtLastFrame );
+					moveAllViews(SystemClock.uptimeMillis() - timeAtLastFrame );
 					CollisionDetector.detectCollisions();
 					checkAllViewsForRemovalFromStaticLists();
 										
@@ -100,7 +100,8 @@ public class GameLoop {
 					if(timeToWait < MIN_TICK_TIME){ //apply a minimum wait time so system does not starve
 						timeToWait = MIN_TICK_TIME;
 					}
-					prevTimeToWait = timeToWait;
+					timeAtLastFrame = SystemClock.uptimeMillis();
+//					Log.d("lowrey", "howLongThisLoopIterationTook = "+howLongThisLoopIterationTook);
 					gameLoopHandler.postDelayed(this,timeToWait);
 				}
 				
@@ -159,37 +160,37 @@ public class GameLoop {
 	}
 	
 
-	private void updateAllViewSpeeds(long millisecondsSinceLastSpeedUpdate) {
+	private void updateAllViewSpeeds(long deltaTime) {
 		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
-			friendlyBullets.get(i).updateViewSpeed(millisecondsSinceLastSpeedUpdate);
+			friendlyBullets.get(i).updateViewSpeed(deltaTime);
 		}
 		for (int i = enemyBullets.size() - 1; i >= 0; i--) {
-			enemyBullets.get(i).updateViewSpeed(millisecondsSinceLastSpeedUpdate);
+			enemyBullets.get(i).updateViewSpeed(deltaTime);
 		}
 		for (int i = friendlies.size() - 1; i >= 0; i--) {
-			friendlies.get(i).updateViewSpeed(millisecondsSinceLastSpeedUpdate);
+			friendlies.get(i).updateViewSpeed(deltaTime);
 		}
 		for (int i = enemies.size() - 1; i >= 0; i--) {
-			enemies.get(i).updateViewSpeed(millisecondsSinceLastSpeedUpdate);
+			enemies.get(i).updateViewSpeed(deltaTime);
 		}
 		//bonuses have constant speed
 	}
 
-	private void moveAllViews(long millisecondsSinceLastSpeedUpdate) {
+	private void moveAllViews(long deltaTime) {
 		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
-			friendlyBullets.get(i).move(millisecondsSinceLastSpeedUpdate);
+			friendlyBullets.get(i).move(deltaTime);
 		}
 		for (int i = enemyBullets.size() - 1; i >= 0; i--) {
-			enemyBullets.get(i).move(millisecondsSinceLastSpeedUpdate);
+			enemyBullets.get(i).move(deltaTime);
 		}
 		for (int i = friendlies.size() - 1; i >= 0; i--) {
-			friendlies.get(i).move(millisecondsSinceLastSpeedUpdate);
+			friendlies.get(i).move(deltaTime);
 		}
 		for (int i = enemies.size() - 1; i >= 0; i--) {
-			enemies.get(i).move(millisecondsSinceLastSpeedUpdate);
+			enemies.get(i).move(deltaTime);
 		}
 		for (int i = bonuses.size() - 1; i >= 0; i--) {
-			bonuses.get(i).move(millisecondsSinceLastSpeedUpdate);
+			bonuses.get(i).move(deltaTime);
 		}
 	}
 }
