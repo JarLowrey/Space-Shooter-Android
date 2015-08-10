@@ -15,6 +15,8 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	public final static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
+	private boolean hasBegunHorizontalMovement = false;
+	
 	
 	public Shooting_HorizontalMovementView(RelativeLayout layout, 
 			int level,
@@ -76,7 +78,11 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	@Override
 	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
-			this.setSpeedY(0);
+			if(!hasBegunHorizontalMovement){
+				hasBegunHorizontalMovement = true;
+				this.setSpeedY(0);
+				this.setSpeedX(DEFAULT_SPEED_X);
+			}
 			
 			final float nextLeftPos = (float) (Shooting_HorizontalMovementView.this.getX() - this.getSpeedX());
 			final float nextRightPos = (float) (nextLeftPos + Shooting_HorizontalMovementView.this.getWidth() + this.getSpeedX());
