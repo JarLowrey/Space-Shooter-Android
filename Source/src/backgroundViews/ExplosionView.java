@@ -14,6 +14,9 @@ public class ExplosionView extends MovingView {
 		super(layout, 0,0, parent.getWidth(), parent.getHeight(), imageId);
 		
 		MediaController.playSoundEffect(getContext(), MediaController.SOUND_EXPLOSION1);
+		if(vibrationPattern == null){
+			vibrationPattern = new long[0];
+		}
 		MediaController.vibrate(getContext(), vibrationPattern);
 
 		this.setX(parent.getX());

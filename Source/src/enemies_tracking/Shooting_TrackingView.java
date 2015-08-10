@@ -22,7 +22,8 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	public static final float
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .02,
 			DEFAULT_BULLET_FREQ=850,
-			DEFAULT_SPEED_X = (float) (MovingView.DEFAULT_SPEED_X *.9);
+			DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_X * 2.1),
+			DEFAULT_SPEED_X = (float) (MovingView.DEFAULT_SPEED_X * 1.1);
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/50,

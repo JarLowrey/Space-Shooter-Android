@@ -7,7 +7,10 @@ import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.R;
 
 public abstract class BonusView extends MovingView {
-	
+
+	public static final float
+		DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_X * 2);
+			
 	public BonusView(RelativeLayout layout,float positionX,float positionY) {
 		super(layout,
 				DEFAULT_SPEED_Y,

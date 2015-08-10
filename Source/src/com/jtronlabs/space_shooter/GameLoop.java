@@ -81,8 +81,8 @@ public class GameLoop {
 		//do game logic setup
 		if(currentActivityIsTheGame){
 			levelingSystem.initializeLevelEndCriteriaAndSpawnFirstEnemy();
+			timeAtLastSpawn = 0; //force GameLoop to spawn right away
 		}
-		timeAtLastSpawn = 0; //force GameLoop to spawn right away
 		
 		loopingRunnable = new KillableRunnable(){			
 			@Override
@@ -97,13 +97,10 @@ public class GameLoop {
 				checkAllViewsForRemovalFromStaticLists();
 				
 				final boolean levelEntitiesStillAlive = enemies.size() !=0 || enemyBullets.size() != 0  || bonuses.size() != 0;
-				final boolean levelIsRunning =  
-						 currentActivityIsTheGame 
-						 && theGameCopyPointer.getProtagonist().getHealth() > 0 
-						 && !levelingSystem.isLevelFinishedSpawning()
-						 || levelEntitiesStillAlive;
+				final boolean continueLevel = currentActivityIsTheGame && !levelingSystem.isLevelFinishedSpawning() || levelEntitiesStillAlive;
+				final boolean protagAlive = currentActivityIsTheGame && theGameCopyPointer.getProtagonist().getHealth() > 0;
 						 				
-				if(levelIsRunning){
+				if( continueLevel && protagAlive){
 					//check to spawn new enemies 
 					if(levelingSystem!= null && startTime - timeAtLastSpawn >= TIME_BETWEEN_SPAWNS){
 						levelingSystem.spawnEnemiesIfPossible();
@@ -122,7 +119,6 @@ public class GameLoop {
 					timeToWait = MIN_TICK_TIME;
 				}
 				timeAtLastFrame = SystemClock.uptimeMillis();
-//				Log.d("lowrey", "howLongThisLoopIterationTook = "+howLongThisLoopIterationTook);
 				gameLoopHandler.postDelayed(this,timeToWait);
 			}
 		};
