@@ -1,9 +1,6 @@
 package parents;
 
-import helpers.KillableRunnable;
-import helpers.MediaController;
 import interfaces.MovingViewInterface;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -21,7 +18,7 @@ import com.jtronlabs.space_shooter.MainActivity;
 public abstract class MovingView extends ImageView implements MovingViewInterface{
 
 	public static final float
-		DEFAULT_SPEED_Y = (float) 0.122, //units = frame rate independent density pixels per milliseconds
+		DEFAULT_SPEED_Y = (float) 0.145, //units = frame rate independent density pixels per milliseconds
 		DEFAULT_SPEED_X = (float) (DEFAULT_SPEED_Y * .75); 
 		
 	private double speedX,speedY;
@@ -134,35 +131,6 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		isRemoved=true;
 		this.removeCallbacks(null);	
 		myLayout.removeView(this);
-	}
-	
-	protected void createExplosion(int width,int height,int explosionImgId,long[] vibrationPattern){
-		MediaController.playSoundEffect(getContext(), MediaController.SOUND_EXPLOSION1);
-		
-		if(vibrationPattern!=null){
-			 //vibrate the phone  
-			MediaController.vibrate(getContext(), vibrationPattern);
-		}
-
-		final ImageView exp = new ImageView(getContext());
-		exp.setImageResource( explosionImgId );
-		exp.setLayoutParams(new RelativeLayout.LayoutParams(width,height));
-		
-		exp.setX(this.getX());
-		exp.setY(this.getY());
-
-		addToForeground(exp);
-		
-		exp.postDelayed(new KillableRunnable(){
-			@Override
-			public void doWork() {
-				myLayout.removeView(exp);
-			}
-		},500);	
-	}
-	
-	protected void createExplosion(int width,int height,int explosionId){
-		createExplosion(width,height,explosionId,null);
 	}
 	
 	protected void addToForeground(View view){

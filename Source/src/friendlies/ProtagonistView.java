@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.RelativeLayout;
+import backgroundViews.ExplosionView;
 
 import com.jtronlabs.space_shooter.GameActivity;
 import com.jtronlabs.space_shooter.MainActivity;
@@ -139,9 +140,12 @@ public class ProtagonistView extends Friendly_ShooterView{
 		
 		if(isDead){
 			final long vibratePat[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};
-			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibratePat);
-			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
-			createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1);
+			new ExplosionView(this.getMyLayout(),this,
+					R.drawable.explosion1,vibratePat);
+			new ExplosionView(this.getMyLayout(),this,
+					R.drawable.explosion1,null);
+			new ExplosionView(this.getMyLayout(),this,
+					R.drawable.explosion1,null);
 		}else{
 			MediaController.vibrate(getContext(), 130);
 		}

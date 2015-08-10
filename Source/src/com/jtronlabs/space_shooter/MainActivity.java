@@ -115,6 +115,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onPause(){
 		super.onPause();
 
+		GameLoop.instance().stopLevelAndLoop();
+		
 		stars_creator.stopSpawningStars();
 		
 		adView.pause();
@@ -124,6 +126,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	public void onResume(){ 
 		super.onResume();
+		
+		GameLoop.instance().startLevelAndLoop(this, null);
 
 		stars_creator.startSpawningStars();
 		

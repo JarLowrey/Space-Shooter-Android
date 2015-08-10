@@ -8,6 +8,7 @@ import interfaces.GameActivityInterface;
 import java.util.ArrayList;
 
 import levels.LevelSystem;
+import parents.MovingView;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -29,14 +30,17 @@ public class GameLoop {
 	public static ArrayList<FriendlyView> friendlies = new ArrayList<FriendlyView>();
 	public static ArrayList<EnemyView> enemies = new ArrayList<EnemyView>();
 	public static ArrayList<BonusView> bonuses = new ArrayList<BonusView>();
+	public static ArrayList<MovingView> specialEffects = new ArrayList<MovingView>();
 	
 	private static final long 
 			TIME_BETWEEN_SPAWNS = 1000,//check for spawn every second
-			MIN_TICK_TIME = 5;
+			MIN_TICK_TIME = 5,
+			DEFAULT_FRAME_RATE = 40;
 	
 	private long targetFrameRate,
 		howOftenToRerunLoop,
-		timeAtLastFrame;
+		timeAtLastFrame,
+		timeAtLastSpawn;
 	
 	private Handler gameLoopHandler;
 	private KillableRunnable loopingRunnable;
@@ -45,7 +49,7 @@ public class GameLoop {
 		
 	private GameLoop(){
 		gameLoopHandler = new Handler();
-		targetFrameRate = 50;
+		targetFrameRate = DEFAULT_FRAME_RATE;
 		howOftenToRerunLoop = 1000 / targetFrameRate;
 	}
 	
@@ -64,50 +68,62 @@ public class GameLoop {
 		//do initial level setup stuff
 		MediaController.stopLoopingSound();
 		MediaController.playSoundClip(ctx, R.raw.background_playing_game,true);
+		GameActivityInterface theGame;
+		try{
+			theGame = (GameActivityInterface)ctx;
+		}catch(ClassCastException e){
+			theGame = null;		//the current context is not the game, but rather some other activity that needs this loop, likely for special effects
+		}
+		final GameActivityInterface theGameCopyPointer = theGame;
 		
+		final boolean currentActivityIsTheGame = theGameCopyPointer != null && levelingSystem!= null;
+
 		//do game logic setup
-		levelingSystem.initializeLevelAndSpawnFirstEnemy();
+		if(currentActivityIsTheGame){
+			levelingSystem.initializeLevelEndCriteriaAndSpawnFirstEnemy();
+		}
+		timeAtLastSpawn = 0; //force GameLoop to spawn right away
 		
-		
-		loopingRunnable = new KillableRunnable(){
-			private long timeAtLastSpawn = SystemClock.uptimeMillis();
-			
+		loopingRunnable = new KillableRunnable(){			
 			@Override
 			public void doWork() {
-//		Log.d("lowrey","enemiesNo="+enemies.size() +" enemy bulletsNo=" +
-//				enemyBullets.size()+" waveNo="+levelingSystem.getWave() +" level="+levelingSystem.getLevel() );
-				
 				final long startTime = SystemClock.uptimeMillis();
+
+				if(currentActivityIsTheGame){ levelingSystem.updateLevelTimeAndSpawnIfNeeded(SystemClock.uptimeMillis() - timeAtLastFrame); }
 				
-				if(((GameActivityInterface)ctx).getProtagonist().getHealth() > 0 &&					//continue with loop only if level has not finished
-		    			(! levelingSystem.isLevelFinishedSpawning()
-		    	    			 ||  enemies.size() !=0 || enemyBullets.size() != 0  || bonuses.size() != 0)){
-					
-					updateAllViewSpeeds(SystemClock.uptimeMillis() - timeAtLastFrame );
-					moveAllViews(SystemClock.uptimeMillis() - timeAtLastFrame );
-					CollisionDetector.detectCollisions();
-					checkAllViewsForRemovalFromStaticLists();
-										
-					if(startTime - timeAtLastSpawn >= TIME_BETWEEN_SPAWNS){//spawn new enemies if possible
+				updateAllViewSpeeds(SystemClock.uptimeMillis() - timeAtLastFrame );
+				moveAllViews(SystemClock.uptimeMillis() - timeAtLastFrame );
+				CollisionDetector.detectCollisions();
+				checkAllViewsForRemovalFromStaticLists();
+				
+				final boolean levelEntitiesStillAlive = enemies.size() !=0 || enemyBullets.size() != 0  || bonuses.size() != 0;
+				final boolean levelIsRunning =  
+						 currentActivityIsTheGame 
+						 && theGameCopyPointer.getProtagonist().getHealth() > 0 
+						 && !levelingSystem.isLevelFinishedSpawning()
+						 || levelEntitiesStillAlive;
+						 				
+				if(levelIsRunning){
+					//check to spawn new enemies 
+					if(levelingSystem!= null && startTime - timeAtLastSpawn >= TIME_BETWEEN_SPAWNS){
 						levelingSystem.spawnEnemiesIfPossible();
 						timeAtLastSpawn = SystemClock.uptimeMillis();
 					}
-					
-					//calculate how long until next gameLoop iteration
-					final long stopTime = SystemClock.uptimeMillis();
-					final long howLongThisLoopIterationTook = stopTime - startTime;
-					long timeToWait = howOftenToRerunLoop - howLongThisLoopIterationTook;
-					if(timeToWait < MIN_TICK_TIME){ //apply a minimum wait time so system does not starve
-						timeToWait = MIN_TICK_TIME;
-					}
-					timeAtLastFrame = SystemClock.uptimeMillis();
-//					Log.d("lowrey", "howLongThisLoopIterationTook = "+howLongThisLoopIterationTook);
-					gameLoopHandler.postDelayed(this,timeToWait);
+				}else if (currentActivityIsTheGame){//the current activity is the level, and the level has now ended. End the loop
+					levelingSystem.endLevel();	
+					return;
 				}
 				
-				else{//level over
-					levelingSystem.endLevel();					
+				//calculate how long until next gameLoop iteration
+				final long stopTime = SystemClock.uptimeMillis();
+				final long howLongThisLoopIterationTook = stopTime - startTime;
+				long timeToWait = howOftenToRerunLoop - howLongThisLoopIterationTook;
+				if(timeToWait < MIN_TICK_TIME){ //apply a minimum wait time so system does not starve
+					timeToWait = MIN_TICK_TIME;
 				}
+				timeAtLastFrame = SystemClock.uptimeMillis();
+//				Log.d("lowrey", "howLongThisLoopIterationTook = "+howLongThisLoopIterationTook);
+				gameLoopHandler.postDelayed(this,timeToWait);
 			}
 		};
 		
@@ -130,12 +146,15 @@ public class GameLoop {
 		for (int i = bonuses.size() - 1; i >= 0; i--) {
 			if(bonuses.get(i).isRemoved()){bonuses.remove(i);}
 		}
+		for (int i = specialEffects.size() - 1; i >= 0; i--) {
+			if(specialEffects.get(i).isRemoved()){specialEffects.remove(i);}
+		}
 	}
 	/**
 	 * flag level as paused, stop collision detector and level spawner. Remove
 	 * every Game Object from the activity
 	 */
-	public void stopLevel() {
+	public void stopLevelAndLoop() {
         KillableRunnable.killAll();
 		
 		// clean up - kill Views & associated threads, stop all spawning &
@@ -155,6 +174,9 @@ public class GameLoop {
 		for (int i = bonuses.size() - 1; i >= 0; i--) {
 			bonuses.get(i).removeGameObject();
 		}
+		for (int i = specialEffects.size() - 1; i >= 0; i--) {
+			specialEffects.get(i).removeGameObject();
+		}
 		
 		checkAllViewsForRemovalFromStaticLists();
 	}
@@ -172,6 +194,9 @@ public class GameLoop {
 		}
 		for (int i = enemies.size() - 1; i >= 0; i--) {
 			enemies.get(i).updateViewSpeed(deltaTime);
+		}
+		for (int i = specialEffects.size() - 1; i >= 0; i--) {
+			specialEffects.get(i).updateViewSpeed(deltaTime);
 		}
 		//bonuses have constant speed
 	}
@@ -191,6 +216,9 @@ public class GameLoop {
 		}
 		for (int i = bonuses.size() - 1; i >= 0; i--) {
 			bonuses.get(i).move(deltaTime);
+		}
+		for (int i = specialEffects.size() - 1; i >= 0; i--) {
+			specialEffects.get(i).move(deltaTime);
 		}
 	}
 }

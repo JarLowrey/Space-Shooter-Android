@@ -7,6 +7,7 @@ import interfaces.Shooter;
 import java.util.ArrayList;
 
 import android.widget.RelativeLayout;
+import backgroundViews.ExplosionView;
 import bullets.BulletView;
 import bullets.Bullet_HasDurationView;
 
@@ -58,7 +59,8 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			
 			if(isDead){ 
 				final long vibrationPattern[] = {0,40};
-				createExplosion(this.getWidth(),this.getHeight(),R.drawable.explosion1,vibrationPattern);
+				new ExplosionView(this.getMyLayout(),this,
+						R.drawable.explosion1,vibrationPattern);
 			}
 			
 			return isDead;

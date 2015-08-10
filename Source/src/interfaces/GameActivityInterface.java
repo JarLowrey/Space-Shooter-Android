@@ -14,4 +14,5 @@ public interface GameActivityInterface {
 	  
 	public void resetResourcesGameTextView();
 	public ImageView getExhaust();
+	void setTimerText(long numMilliecondsLeft);
 }

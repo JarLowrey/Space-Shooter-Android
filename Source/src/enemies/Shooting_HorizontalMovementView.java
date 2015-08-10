@@ -77,12 +77,12 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			this.setSpeedY(0);
-			this.setSpeedX(DEFAULT_SPEED_X);
 			
-			final float leftPos = Shooting_HorizontalMovementView.this.getX();
-			final float rightPos = leftPos + Shooting_HorizontalMovementView.this.getWidth();
-			if(leftPos < 0 || rightPos > MainActivity.getWidthPixels()){
-				Shooting_HorizontalMovementView.this.setSpeedX(Shooting_HorizontalMovementView.this.getSpeedX() * -1);//reverse horizontal direction
+			final float nextLeftPos = (float) (Shooting_HorizontalMovementView.this.getX() - this.getSpeedX());
+			final float nextRightPos = (float) (nextLeftPos + Shooting_HorizontalMovementView.this.getWidth() + this.getSpeedX());
+			if(nextLeftPos < 0 || nextRightPos > MainActivity.getWidthPixels()){
+				Shooting_HorizontalMovementView.this.
+					setSpeedX(Shooting_HorizontalMovementView.this.getSpeedX() * -1);//reverse horizontal direction
 			}
 		}
 	}

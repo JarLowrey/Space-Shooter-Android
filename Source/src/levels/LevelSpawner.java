@@ -14,7 +14,7 @@ import enemies_tracking.Shooting_TrackingView;
 
 public class LevelSpawner extends Factory_Bosses{
 	
-	private int scoreNeededToEndLevel,
+	private int
 		scoreThresholdForSpawningMoreMeteors,
 		scoreThresholdForSpawningMoreEnemies;
 	private long timeUntilCanSpawnNextWave = 0,
@@ -25,8 +25,8 @@ public class LevelSpawner extends Factory_Bosses{
 		super(layout);
 	}
 	
-	public void initializeLevelAndSpawnFirstEnemy(){
-		initLevelEndScoreAndSpawningThresholds();
+	public void initializeLevelEndCriteriaAndSpawnFirstEnemy(){
+		initLevelEndCriteriaAndSpawningThresholds();
 		reinitializeAllSpawnableWaves();
 
 		//spawn any special enemies at the beginning of the level
@@ -52,47 +52,40 @@ public class LevelSpawner extends Factory_Bosses{
 		}
 	}
 	
-	@Override
-	public boolean isLevelFinishedSpawning() {
-		return scoreGainedThisLevel() > scoreNeededToEndLevel;
-	}
-	
-	
 	//HELPER METHODS
 
-	private void initLevelEndScoreAndSpawningThresholds(){
-		/*  score is in terms of how many diagonal moving views are killed in a level
-			score  scales as the diagonal moving views (and all other enemies) scale score.
-			Each class of levels has a different scaling factor, ie every level will have 2-20x more diagonals in a level.
+	private void initLevelEndCriteriaAndSpawningThresholds(){
+		/*  
 			Algorithm: Include the previous measure and then increase by the marginal amount. Return relevant amount.
 		*/
-		final int diagScore = EnemyView.scaleScore( getLevel() , Shooting_DiagonalMovingView.DEFAULT_SCORE);
+		timeNeededToEndLevel = 1000;//milliseconds
 		
-		final int begLevels = diagScore * 6 + diagScore * Math.min(LEVELS_BEGINNER, getLevel() ) * 12; 
-		final int lowLevels = (int) (begLevels + diagScore * ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 5);
-		final int medLevels = (int) (lowLevels + diagScore * ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 2.5);
-		final int highLevels = (int) (medLevels + diagScore * ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * 1.5 );
-		final int allOtherLevels = (int) (highLevels + diagScore * ( getLevel() - LEVELS_HIGH ) );
+		//find how many seconds level will last
+		final int begLevels = 30 + Math.min(LEVELS_BEGINNER, getLevel() ) * 15; 						
+		final int lowLevels = (int) (begLevels +  ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 10);
+		final int medLevels = (int) (lowLevels +  ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 5);
+		final int highLevels = (int) (medLevels + ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * 2 );
+		final int allOtherLevels = (int) (highLevels + ( getLevel() - LEVELS_HIGH ) );
 		
 		if(getLevel() < AttributesOfLevels.LEVELS_BEGINNER){
-			scoreNeededToEndLevel = begLevels;
+			timeNeededToEndLevel *= begLevels;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_LOW) {
-			scoreNeededToEndLevel = lowLevels;
+			timeNeededToEndLevel *= lowLevels;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_MED){	
-			scoreNeededToEndLevel = medLevels;
+			timeNeededToEndLevel *= medLevels;
 		}else if(getLevel() < AttributesOfLevels.LEVELS_HIGH){	
-			scoreNeededToEndLevel = highLevels;
+			timeNeededToEndLevel *= highLevels;
 		}else{
-			scoreNeededToEndLevel = allOtherLevels;
+			timeNeededToEndLevel *= allOtherLevels;
 		}		
-		scoreNeededToEndLevel = Math.min(scoreNeededToEndLevel, diagScore*1000);
+		timeNeededToEndLevel = Math.min(timeNeededToEndLevel, 60 * 5 * 1000);// max = 5 minutes
 		
 		
 		initThresholdForSpawningMoreEnemiesAndMeteors();
 	}
 	
 	public int getPercentageLeftInLevel(){  
-		double levelProgress = ( ( (double)scoreGainedThisLevel() ) / scoreNeededToEndLevel ) * 100;
+		double levelProgress = ( ( (double)scoreGainedThisLevel() ) / timeNeededToEndLevel ) * 100;
 		return Math.max(0, 100 - (int) levelProgress);
 	}
 	private boolean canSpawnMoreEnemies(){

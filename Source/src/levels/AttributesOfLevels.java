@@ -42,6 +42,9 @@ public abstract class AttributesOfLevels {
 	
 	protected ArrayList<Integer> levelsWihSpecialEnemies = new ArrayList<Integer>();
 	
+	protected long timeSpentOnThisLevel,
+		timeNeededToEndLevel;//this variable is set at the beginning of every level in the LevelSpawner child class
+	
 	Handler spawningHandler;
 
 	public AttributesOfLevels(RelativeLayout layout) {
@@ -51,9 +54,7 @@ public abstract class AttributesOfLevels {
 	
 
 	public static final int WAVE_SPAWNER_WAIT = 1000;
-	
-	public abstract boolean isLevelFinishedSpawning();	
-	
+		
 	public GameActivityInterface getInteractivityInterface(){
 		return (GameActivityInterface)ctx();
 	}
@@ -108,5 +109,15 @@ public abstract class AttributesOfLevels {
 		//find how much score was incremented this level to know how much to add to total score
 		final int scoreBeforeLevel = gameState.getInt(GameActivity.STATE_RESOURCES, 0);
 		return (getResourceCount() - scoreBeforeLevel);		
-	}    
+	}
+
+	public void updateLevelTimeAndSpawnIfNeeded(long deltaTime) {
+		timeSpentOnThisLevel += deltaTime;
+		long millisecondsLeft = timeNeededToEndLevel - timeSpentOnThisLevel;
+		millisecondsLeft = Math.max(millisecondsLeft, 0);
+		((GameActivityInterface)gameScreen.getContext()).setTimerText(millisecondsLeft);
+	}
+	public boolean isLevelFinishedSpawning(){
+		return timeSpentOnThisLevel >= timeNeededToEndLevel;
+	}
 }

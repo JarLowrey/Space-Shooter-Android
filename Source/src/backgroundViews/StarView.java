@@ -3,6 +3,7 @@ package backgroundViews;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
@@ -11,9 +12,8 @@ public class StarView extends MovingView{
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.star;
 	public static final float DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y / 3);//Density Pixels per millisecond
 	
-	private int numTimesStarCanMove, numTimesMoved = 0;
-	
-//	private float alpha;//computationally expensive
+	private long timeSinceLastRandomReset,
+			starLifespan;
 	
 	public StarView(RelativeLayout layout) {
 		super(layout, 
@@ -23,14 +23,13 @@ public class StarView extends MovingView{
 				(int)layout.getContext().getResources().getDimension(R.dimen.star_len), 
 				DEFAULT_BACKGROUND_ID);
 		
-//		alpha = (float) Math.random();
-//		setAlpha(alpha);
-		
 		setRandomLocation();
 
 		addToBackground(this);
 		
-		numTimesStarCanMove = (int) (Math.random() * 25) + 30;
+		GameLoop.specialEffects.add(this);
+
+		starLifespan = (int) (Math.random() * 4000) + 3000;
 	}
 	
 	/**
@@ -53,14 +52,10 @@ public class StarView extends MovingView{
 	
 	@Override
 	public void move(long deltaTime){//do not remove if it passes the bounds of the screen (super.move() does this)
-
-//		alpha *= .95;
-//		setAlpha(alpha);
-		
-		numTimesMoved++;
-		if(numTimesMoved > numTimesStarCanMove){
+		timeSinceLastRandomReset +=deltaTime;
+		if(timeSinceLastRandomReset >= starLifespan){
 			setRandomLocation();
-			numTimesMoved=0;
+			timeSinceLastRandomReset=0;
 		}
 		
 		float x = this.getX();
@@ -75,8 +70,7 @@ public class StarView extends MovingView{
 
 	@Override
 	public void restartThreads() {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override

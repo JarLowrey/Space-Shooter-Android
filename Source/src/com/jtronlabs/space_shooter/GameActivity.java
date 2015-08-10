@@ -9,6 +9,7 @@ import helpers.MediaController;
 import helpers.StoreUpgradeHandler;
 import interfaces.GameActivityInterface;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,7 +166,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
         scoreInGame.setVisibility(View.GONE);
         
 //        KillableRunnable.killAll();
-        GameLoop.instance().stopLevel();
+        GameLoop.instance().stopLevelAndLoop();
 		
 		//protagonist attributes saved when he is removeGameObject() in pauseLevel
 		//store upgrades are saved straight to persistent storage when bought (so does not need to be saved here).
@@ -216,7 +217,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		}else if(levelCreator.getLevel()==0){
 			createNewProtagonistView();
 			stars_creator_game.startSpawningStars();
-			GameLoop.instance().startLevelAndLoop(this,levelCreator);
+			GameLoop.instance().startLevelAndLoop(this,levelCreator);//start after creating protagonist
 		}else{
 			openStore();
 		}
@@ -269,7 +270,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.stopLoopingSound();
 		
 		KillableRunnable.killAll(); 
-		GameLoop.instance().stopLevel(); 
+		GameLoop.instance().stopLevelAndLoop(); 
 		gameOverAndResetSavedVariables();
 		
 		//set text
@@ -316,11 +317,14 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	} 
 	
 	public void openStore(){
+		GameLoop.instance().stopLevelAndLoop();//stop game loop
+		
 		final int lvl = levelCreator.getLevel();
 		
 		gameLayout.setVisibility(View.GONE);
 		storeLayout.setVisibility(View.VISIBLE);
 		
+		//after restarting the game loop, create necessary Views
 		stars_creator_game.stopSpawningStars();
 		stars_creator_store.startSpawningStars();
 		
@@ -338,21 +342,28 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		if(lvl % 15 == 0 && lvl !=0){
 			//TODO display interstitial ad
 		}
+		
+		GameLoop.instance().startLevelAndLoop(this, null);//start passive game loop for moving background image stars
 	}
 	
-	private void closeStoreAndResumeLevel(){	
+	private void closeStoreAndResumeLevel(){			
+		GameLoop.instance().stopLevelAndLoop();//stop passive game loop for moving background image stars
+
 		//adjust views
 		storeLayout.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 		scoreInGame.setText(MainActivity.formatInt( levelCreator.getResourceCount()) );
-		stars_creator_store.stopSpawningStars();
-		stars_creator_game.startSpawningStars();
 
-		createNewProtagonistView();
 		canBeginShooting = true;
 		beginShootingRunnablePosted=false;
 
-		GameLoop.instance().startLevelAndLoop(this,levelCreator);
+		/* after restarting the game loop, create necessary Views */
+		//create protagonist
+		createNewProtagonistView();
+		
+		//create special effects
+		stars_creator_store.stopSpawningStars();
+		stars_creator_game.startSpawningStars();
 		
 		//create ally if needed		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
@@ -368,7 +379,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			ally = new AllyView(gameLayout, protagonist, friend_lvl);
 		}
 		
-		progressInLevel.setText("100%");
+
+		GameLoop.instance().startLevelAndLoop(this,levelCreator);//start real game loop after all views created
 	}
 	
 	/**
@@ -555,8 +567,18 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		levelCreator.setResources(newScore);
 		
-		progressInLevel.setText(levelCreator.getPercentageLeftInLevel()+"%");
 		scoreInGame.setText(MainActivity.formatInt(newScore));
+	}
+	
+	@Override
+	public void setTimerText(long numMilliecondsLeft){
+		DecimalFormat df = new DecimalFormat("#.0"); 
+		if(numMilliecondsLeft == 0){
+			progressInLevel.setText("0");	
+		}else{
+			progressInLevel.setText(""+
+					df.format(numMilliecondsLeft/1000.0));			
+		}
 	}
 //
 //	@Override
