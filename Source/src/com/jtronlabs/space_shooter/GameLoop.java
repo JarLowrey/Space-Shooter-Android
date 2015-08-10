@@ -97,7 +97,7 @@ public class GameLoop {
 				checkAllViewsForRemovalFromStaticLists();
 				
 				final boolean levelEntitiesStillAlive = enemies.size() !=0 || enemyBullets.size() != 0  || bonuses.size() != 0;
-				final boolean continueLevel = currentActivityIsTheGame && !levelingSystem.isLevelFinishedSpawning() || levelEntitiesStillAlive;
+				final boolean continueLevel = currentActivityIsTheGame && ( !levelingSystem.isLevelFinishedSpawning() || levelEntitiesStillAlive );
 				final boolean protagAlive = currentActivityIsTheGame && theGameCopyPointer.getProtagonist().getHealth() > 0;
 						 				
 				if( continueLevel && protagAlive){

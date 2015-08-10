@@ -26,6 +26,8 @@ public class LevelSpawner extends Factory_Bosses{
 	}
 	
 	public void initializeLevelEndCriteriaAndSpawnFirstEnemy(){
+		timeSpentOnThisLevel = 0;
+		
 		initLevelEndCriteriaAndSpawningThresholds();
 		reinitializeAllSpawnableWaves();
 
@@ -53,7 +55,6 @@ public class LevelSpawner extends Factory_Bosses{
 	}
 	
 	//HELPER METHODS
-
 	private void initLevelEndCriteriaAndSpawningThresholds(){
 		/*  
 			Algorithm: Include the previous measure and then increase by the marginal amount. Return relevant amount.
