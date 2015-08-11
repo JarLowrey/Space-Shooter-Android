@@ -32,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import backgroundViews.ParticleBackgroundAnimation;
 
 import com.google.android.gms.ads.AdRequest;
@@ -70,6 +71,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	private AllyView ally;
 	public ImageView rocketExhaust;
 	private RelativeLayout gameLayout,storeLayout;
+	private ScrollView storeScrollView;
 	private AdView adView;
 	
 	private boolean isGameOver ;
@@ -107,9 +109,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		rocketExhaust = (ImageView)findViewById(R.id.rocket_exhaust);
 		
 		//set up Store View and listeners
-		resourceCount = (GameTextView)findViewById(R.id.resource_count);
+		resourceCount = (GameTextView)findViewById(R.id.resource_count);  
 		levelCount = (GameTextView)findViewById(R.id.level_count);
 		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
+		storeScrollView = (ScrollView)findViewById(R.id.store_scrollview);
 		btnIncBulletDmg= (ImageButton)findViewById(R.id.btn_inc_bullet_dmg); 
 		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_defence);  
 		btnIncBulletFreq= (ImageButton)findViewById(R.id.btn_inc_bullet_freq); 
@@ -289,7 +292,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		gameOverLayout.addView(adView);
 		
 		gameOverLayout.setVisibility(View.VISIBLE);
-		storeLayout.setVisibility(View.GONE);
+		storeScrollView.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.GONE);
 	}
 	
@@ -322,7 +325,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		final int lvl = levelCreator.getLevel();
 		
 		gameLayout.setVisibility(View.GONE);
-		storeLayout.setVisibility(View.VISIBLE);
+		storeScrollView.setVisibility(View.VISIBLE);
 		
 		//after restarting the game loop, create necessary Views
 		stars_creator_game.stopSpawningStars();
@@ -335,7 +338,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		if( lvl == 1 ){
 			levelCount.setText("1 Day In Space ");			
 		}else{
-			levelCount.setText(MainActivity.formatInt(lvl) + " Days In Space ");
+			levelCount.setText(MainActivity.formatInt(lvl) + " Days "); 
 		}
 		setHealthBars( );
 		
@@ -350,7 +353,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		GameLoop.instance().stopLevelAndLoop();//stop passive game loop for moving background image stars
 
 		//adjust views
-		storeLayout.setVisibility(View.GONE);
+		storeScrollView.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
 		scoreInGame.setText(MainActivity.formatInt( levelCreator.getResourceCount()) );
 
@@ -605,7 +608,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		adView = new AdView(this);
 		adView.setAdUnitId("ca-app-pub-1314947069846070/4608411941");
 		adView.setAdSize(AdSize.BANNER);
-
+   
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 			    RelativeLayout.LayoutParams.WRAP_CONTENT, 
 			    RelativeLayout.LayoutParams.WRAP_CONTENT); 

@@ -62,8 +62,8 @@ public class LevelSpawner extends Factory_Bosses{
 		timeNeededToEndLevel = 1000;//milliseconds
 		
 		//find how many seconds level will last
-		final int begLevels = 30 + Math.min(LEVELS_BEGINNER, getLevel() ) * 15; 						
-		final int lowLevels = (int) (begLevels +  ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 10);
+		final int begLevels = 30 + Math.min(LEVELS_BEGINNER, getLevel() ) * 10; 						
+		final int lowLevels = (int) (begLevels +  ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 8);
 		final int medLevels = (int) (lowLevels +  ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 5);
 		final int highLevels = (int) (medLevels + ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * 2 );
 		final int allOtherLevels = (int) (highLevels + ( getLevel() - LEVELS_HIGH ) );
@@ -79,7 +79,7 @@ public class LevelSpawner extends Factory_Bosses{
 		}else{
 			timeNeededToEndLevel *= allOtherLevels;
 		}		
-		timeNeededToEndLevel = Math.min(timeNeededToEndLevel, 60 * 5 * 1000);// max = 5 minutes
+		timeNeededToEndLevel = (long) Math.min(timeNeededToEndLevel, 60 * 2.5 * 1000);// max = 2.5 minutes
 		
 		
 		initThresholdForSpawningMoreEnemiesAndMeteors();

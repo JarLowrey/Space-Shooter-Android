@@ -112,6 +112,22 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 	}
 	
 
+	@Override
+	public void updateViewSpeed(long deltaTime) {
+		//only start the rectangle movement once all the array orbiters have reached their position
+		boolean canBeginMoving = true;
+		for(Orbiter_Rectangle_Array enemy : allSimpleShooters){
+			canBeginMoving = canBeginMoving && enemy.hasReachedGravityThreshold();
+		}
+		if(canBeginMoving){
+			super.updateViewSpeed(deltaTime);//begin rectangular motion
+		}else if(hasReachedGravityThreshold()){
+			this.setSpeedY(0);
+		}else{
+			//maintain constant speed (gravity) downwards
+		}
+	}
+
 	public void removeGameObject() {
 		allSimpleShooters.remove(this);
 		occupiedPositions[myPosition] = false;
