@@ -1,26 +1,23 @@
 package enemies_orbiters;
 
-import helpers.KillableRunnable;
 import interfaces.MovingViewInterface;
 import levels.AttributesOfLevels;
-import parents.MovingView;
-import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
-public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface {
+public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface { 
 	
-	public static final float DEFAULT_ANGULAR_VELOCITY=MovingView.DEFAULT_SPEED_Y / 3, 
-			MAX_ANGULAR_VELOCITY = 30, 
+	public static final float LINEAR_SPEED = 15 * MainActivity.getScreenDens();
+	public static final float 
 			MAX_RADIUS = (int) (140  * MainActivity.getScreenDens()),
 			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens());
 	public static final int
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
-	public static final int DEFAULT_CIRCLE_RADIUS=(int)(MainActivity.getWidthPixels());
 	
-	private float angularVelocity,currentDegree;
+	private float angularVelocity,
+		currentDegree;
 	private double radius;
 
 	public Orbiter_CircleView(RelativeLayout layout,int level) {
@@ -35,7 +32,6 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		radius = Math.random() * ( MainActivity.getWidthPixels()-width) / 2 ;
 		radius = Math.max(radius,MIN_RADIUS);
 		radius = Math.min(radius,MAX_RADIUS);
-		angularVelocity=DEFAULT_ANGULAR_VELOCITY;
 		
 		init(width,height);
 	}
@@ -44,43 +40,43 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 			int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,
-			int circularRadius,int angVelocity) {
+			int circularRadius) {
 		super(layout, level,score,speedY,
 				collisionDamage, health,
 				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
 		
 		radius=circularRadius;
-		
-		angularVelocity=angVelocity;
+		radius = Math.max(radius,MIN_RADIUS);
+		radius = Math.min(radius,MAX_RADIUS);
 		
 		init(width,height);
 	}
 
 	private void init(int width,int height){
-		currentDegree=270;
+		currentDegree=260;
 		
 		//ensure radius and angular velocity are within bounds
-		if(Math.abs(angularVelocity)>MAX_ANGULAR_VELOCITY){angularVelocity = MAX_ANGULAR_VELOCITY;}
 		radius = Math.max(radius,MIN_RADIUS);
 		radius = Math.min(radius,MAX_RADIUS);		
 		howManyTimesMoved=0; 
+		
+		//linear speed = radius * angular speed
+		//angular speed = linear speed / radius
+		angularVelocity=(float) (LINEAR_SPEED / radius);
 		
 		//begin orbit at top of circle
 		this.setGravityThreshold((int) (orbitY - radius));
 		this.setX(orbitX-width/2);
 	}
 	
-	public void setAngularVelocity(float f){
-		this.angularVelocity=f;
-	}
 	public float getAngularVelocity(){
 		return angularVelocity;
 	}
 	
 	@Override
-	public void updateViewSpeed(long deltaTime) {
+	public void move(long deltaTime) {
 		if(hasReachedGravityThreshold()){
-			currentDegree = ( angularVelocity+currentDegree )%360;
+			currentDegree = ( angularVelocity*deltaTime +currentDegree )%360;
 			float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
 			float x = (float) (radius * Math.cos(Math.toRadians(currentDegree)));
 			
@@ -89,7 +85,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		
 			howManyTimesMoved++;
 		}else{
-//			super.updateViewSpeed(deltaTime
+			super.move(deltaTime);
 		}
 	}
 
@@ -122,5 +118,10 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		}
 		
 		return probabilityWeight;
+	}
+
+	@Override
+	public void updateViewSpeed(long deltaTime) {
+		//do nothing - constant speed
 	}
 }

@@ -299,14 +299,6 @@ public class LevelSpawner extends Factory_Bosses{
 						),
 						FIRST_LEVEL_RECTANGLE_ORBITERS_APPEAR),
 			new SpecialSpawnableLevel(
-					spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_CircleView.class,
-						Orbiter_CircleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
-						Orbiter_CircleView.getNumEnemiesInLotsOfEnemiesWave(lvl),
-						Orbiter_CircleView.DELAY_BTW_SPAWN_IN_LOTS_OF_ENEMIES_WAVE,
-						Orbiter_CircleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
-						),
-						FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR),
-			new SpecialSpawnableLevel(
 					spawnLotsOfEnemiesWithDefaultConstructorArguments(Orbiter_TriangleView.class,
 						Orbiter_TriangleView.getSpawningProbabilityWeightForLotsOfEnemiesWave(lvl),
 						Orbiter_TriangleView.getNumEnemiesInLotsOfEnemiesWave(lvl),

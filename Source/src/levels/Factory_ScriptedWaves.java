@@ -124,7 +124,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		final int CIRCLE_SPAWN_DELAY = 14000;
 		
 		int probabilityWeight = 0;
-		if(level > FIRST_LEVEL_COORDINATED_CIRCLE_ORBITERS_ATTACK_APPEARS){
+		if(level > FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR){
 			probabilityWeight = Shooting_DiagonalMovingView.getSpawningProbabilityWeight(level) / 70;
 		}
 		
@@ -207,7 +207,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 						(int)orbitX,(int)orbitY,
 						(int)width, (int)height,
 						Orbiter_CircleView.DEFAULT_BACKGROUND,
-						(int)radius,10);
+						(int)radius);
 								
 				numSpawned++;
 				
