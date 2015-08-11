@@ -37,7 +37,7 @@ public abstract class AttributesOfLevels {
 			FIRST_LEVEL_BOSS2_APPEARS = 13,
 			FIRST_LEVEL_BOSS3_APPEARS = 28,
 			FIRST_LEVEL_BOSS4_APPEARS = 34,
-			FIRST_LEVEL_BOSS5_APPEARS = 46;
+			FIRST_LEVEL_BOSS5_APPEARS = 0;
 	
 	protected ArrayList<Integer> levelsWihSpecialEnemies = new ArrayList<Integer>();
 	

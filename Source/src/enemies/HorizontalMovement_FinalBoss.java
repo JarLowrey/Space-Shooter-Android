@@ -19,7 +19,10 @@ import guns.Gun_TrackingGattling;
 public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementView{
 
 	private boolean isInvisible = false;
-	private long timeSinceLastVisibilityChange = 0, howLongToBeVisible,howLongToBeInvisible;
+	
+	private long timeSinceLastVisibilityChange = 0,
+			howLongToBeVisible,
+			howLongToBeInvisible;
 		
 	public HorizontalMovement_FinalBoss(RelativeLayout layout,int level) {
 		super(layout,level,
@@ -32,6 +35,8 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				(int)layout.getContext().getResources().getDimension(R.dimen.boss5_height),
 				R.drawable.ship_enemy_boss5);
 
+		howLongToBeInvisible = (long) (Math.random() * 2000 + 1000);
+		howLongToBeVisible = (long) (Math.random() * 4000 + 3000);
 		this.setGravityThreshold((int) MainActivity.getHeightPixels()/4);
 		
 		//default Gun loadout
@@ -175,6 +180,8 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 				Bullet_Interface.DEFAULT_BULLET_SPEED_Y/2, 
 				(int) (Orbiter_RectangleView.DEFAULT_BULLET_DAMAGE * 1.5),
 				30));
+		
+		this.startShooting();
 	}
 	
 	@Override
@@ -192,15 +199,13 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 			//make boss intermittently invisible
 			timeSinceLastVisibilityChange += deltaTime;
 		
-			if(isInvisible  && timeSinceLastVisibilityChange < howLongToBeInvisible){
-				HorizontalMovement_FinalBoss.this.setImageResource(R.drawable.ship_enemy_boss5);
-				
+			if(isInvisible  && timeSinceLastVisibilityChange >= howLongToBeInvisible){
+				this.setImageResource(R.drawable.ship_enemy_boss5);
 				timeSinceLastVisibilityChange = 0;
 				isInvisible = false;
 				howLongToBeVisible = (long)( 5000+Math.random()*2000 );
-			}else if (timeSinceLastVisibilityChange < howLongToBeVisible){
-				HorizontalMovement_FinalBoss.this.setImageResource( 0 );
-				
+			}else if ( !isInvisible && timeSinceLastVisibilityChange >= howLongToBeVisible){
+				this.setImageResource( 0 );
 				timeSinceLastVisibilityChange = 0;
 				isInvisible = true;
 				howLongToBeInvisible = (long) (2000+Math.random() * 2000);
