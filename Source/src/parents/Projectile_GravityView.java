@@ -40,7 +40,8 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 	@Override
 	public void move(long deltaTime) {
 		float y=Projectile_GravityView.this.getY();
-		hasReachedGravityThreshold = ( y+getHeight() ) > gravityThreshold;
+		//can only reach gravity threshold 1 time. After that, a new movement behavior should take over
+		hasReachedGravityThreshold = hasReachedGravityThreshold || ( y+getHeight() ) > gravityThreshold; 
 		
 		super.move(deltaTime);
 	}

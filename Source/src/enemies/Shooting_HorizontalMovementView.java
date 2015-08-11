@@ -1,8 +1,7 @@
 package enemies;
 
-import helpers.KillableRunnable;
 import levels.AttributesOfLevels;
-import parents.Moving_ProjectileView;
+import parents.MovingView;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
@@ -13,6 +12,8 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			DEFAULT_ANGLE = 30;
 
 	public final static float 
+			DEFAULT_SPEED_Y = MovingView.DEFAULT_SPEED_Y * 2,
+			DEFAULT_SPEED_X = (float) (MovingView.DEFAULT_SPEED_X * 1.5),
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	private boolean hasBegunHorizontalMovement = false;

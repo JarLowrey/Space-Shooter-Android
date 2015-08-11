@@ -12,7 +12,6 @@ import parents.MovingView;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
@@ -94,7 +93,6 @@ public class GameLoop {
 				updateAllViewSpeeds(SystemClock.uptimeMillis() - timeAtLastFrame );
 				moveAllViews(SystemClock.uptimeMillis() - timeAtLastFrame );
 				CollisionDetector.detectCollisions();
-				checkAllViewsForRemovalFromStaticLists();
 				
 				final boolean levelEntitiesStillAlive = enemies.size() !=0 || enemyBullets.size() != 0  || bonuses.size() != 0;
 				final boolean continueLevel = currentActivityIsTheGame && ( !levelingSystem.isLevelFinishedSpawning() || levelEntitiesStillAlive );
@@ -125,27 +123,6 @@ public class GameLoop {
 		
 		gameLoopHandler.post(loopingRunnable);
 	}
-
-	private void checkAllViewsForRemovalFromStaticLists() {
-		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
-			if(friendlyBullets.get(i).isRemoved()){friendlyBullets.remove(i);}
-		}
-		for (int i = enemyBullets.size() - 1; i >= 0; i--) {
-			if(enemyBullets.get(i).isRemoved()){enemyBullets.remove(i);}
-		}
-		for (int i = friendlies.size() - 1; i >= 0; i--) {
-			if(friendlies.get(i).isRemoved()){friendlies.remove(i);}
-		}
-		for (int i = enemies.size() - 1; i >= 0; i--) {
-			if(enemies.get(i).isRemoved()){enemies.remove(i);}
-		}
-		for (int i = bonuses.size() - 1; i >= 0; i--) {
-			if(bonuses.get(i).isRemoved()){bonuses.remove(i);}
-		}
-		for (int i = specialEffects.size() - 1; i >= 0; i--) {
-			if(specialEffects.get(i).isRemoved()){specialEffects.remove(i);}
-		}
-	}
 	/**
 	 * flag level as paused, stop collision detector and level spawner. Remove
 	 * every Game Object from the activity
@@ -173,8 +150,6 @@ public class GameLoop {
 		for (int i = specialEffects.size() - 1; i >= 0; i--) {
 			specialEffects.get(i).removeGameObject();
 		}
-		
-		checkAllViewsForRemovalFromStaticLists();
 	}
 	
 

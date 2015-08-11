@@ -2,13 +2,12 @@ package backgroundViews;
 
 import helpers.KillableRunnable;
 import helpers.MediaController;
+import parents.MovingView;
+import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.GameLoop;
 
-import android.widget.RelativeLayout;
-import parents.MovingView;
-
-public class ExplosionView extends MovingView {
+public class ExplosionView extends SpecialEffectView {
 
 	public ExplosionView(final RelativeLayout layout,MovingView parent, int imageId,long[] vibrationPattern) {
 		super(layout, 0,0, parent.getWidth(), parent.getHeight(), imageId);

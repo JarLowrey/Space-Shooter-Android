@@ -87,6 +87,11 @@ public class BulletView extends Moving_ProjectileView{
 	 */
 	public void removeGameObject(){
 		theOneWhoShotMe.getMyBullets().remove(this);
+		if(theOneWhoShotMe.isFriendly()){
+			GameLoop.friendlyBullets.remove(this);
+		}else{
+			GameLoop.enemyBullets.remove(this);
+		}
 		this.defaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 	

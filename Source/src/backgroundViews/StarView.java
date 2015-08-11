@@ -3,11 +3,10 @@ package backgroundViews;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
-public class StarView extends MovingView{
+public class StarView extends SpecialEffectView{
 	
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.star;
 	public static final float DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y / 3);//Density Pixels per millisecond
@@ -26,8 +25,6 @@ public class StarView extends MovingView{
 		setRandomLocation();
 
 		addToBackground(this);
-		
-		GameLoop.specialEffects.add(this);
 
 		starLifespan = (int) (Math.random() * 4000) + 3000;
 	}

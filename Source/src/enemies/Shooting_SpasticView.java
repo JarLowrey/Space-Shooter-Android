@@ -1,8 +1,8 @@
 package enemies;
  
-import helpers.KillableRunnable;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 import bullets.Bullet_Tracking;
@@ -23,7 +23,7 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	public static float 
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
 	
-	private static final long INTERVAL_WITH_ONE_SET_SPEED = 100;
+	private static final long INTERVAL_WITH_ONE_SET_SPEED = 150;
 	private long timeSinceLastRandomSpeedSet =0;
 		 
 	public Shooting_SpasticView (RelativeLayout layout,int level) {
@@ -74,7 +74,9 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 		this.startShooting();
 	}
 	
-	private void setRandomSpeed(){
+	private void setRandomSpeed(long deltaTime){
+		timeSinceLastRandomSpeedSet = 0;
+		
 		//set a random speed, thus the person is "spastic"
 		float ySpeed = (float) (Math.random() * DEFAULT_SPEED_Y * .8 + DEFAULT_SPEED_Y * .2);
 		float xSpeed = (float) (Math.random() * DEFAULT_SPEED_X * .8 + DEFAULT_SPEED_X * .2);
@@ -89,13 +91,13 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 		float x = this.getX();
 		float y = this.getY();
 		
-		y += ySpeed;
-		x += xSpeed;
+		y += ySpeed * deltaTime;
+		x += xSpeed * deltaTime;
 		
-		if(y < 0){
+		if(y <= 0) {
 			ySpeed *= -1;
 		}
-		if(x < 0 || ( x+this.getWidth() ) > MainActivity.getWidthPixels()){
+		if(x <= 0 || ( x+this.getWidth() ) >= MainActivity.getWidthPixels()){
 			xSpeed *= -1;		
 		}
 		
@@ -151,9 +153,17 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	public void updateViewSpeed(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			timeSinceLastRandomSpeedSet += deltaTime;
-			if(timeSinceLastRandomSpeedSet >=INTERVAL_WITH_ONE_SET_SPEED){
-				setRandomSpeed();
-				timeSinceLastRandomSpeedSet = 0;
+			
+			float x = (float) (this.getX() +this.getSpeedX()*deltaTime);
+			float y = (float) (this.getY() +this.getSpeedY()*deltaTime);
+
+			if(timeSinceLastRandomSpeedSet >= INTERVAL_WITH_ONE_SET_SPEED){
+				Log.d("lowrey","updated spastic view speed");
+				setRandomSpeed(deltaTime);
+			}
+			else if( y <=0 ||
+					x <= 0 || ( x+this.getWidth() ) >= MainActivity.getWidthPixels() ){//do not let go offscreen it it happens in between speed updates
+				setRandomSpeed(deltaTime);
 			}
 		}
 	}
