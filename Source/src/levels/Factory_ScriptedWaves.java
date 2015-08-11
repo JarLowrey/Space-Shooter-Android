@@ -1,7 +1,6 @@
 package levels;
 
 import helpers.KillableRunnable;
-import android.content.Context;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
@@ -13,6 +12,7 @@ import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
 import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_Rectangle_Array;
+import enemies_orbiters.Shooting_OrbiterView;
 
 /** 
  * spawn a number of a given enemy over a duration of time
@@ -207,7 +207,7 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 						(int)orbitX,(int)orbitY,
 						(int)width, (int)height,
 						Orbiter_CircleView.DEFAULT_BACKGROUND,
-						(int)radius);
+						(int)radius,Shooting_OrbiterView.DEFAULT_ORBIT_TIME);
 								
 				numSpawned++;
 				

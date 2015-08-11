@@ -4,16 +4,17 @@ import interfaces.MovingViewInterface;
 import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface { 
 	
-	public static final float TANGENTIAL_SPEED = 20;
+	public static final float TANGENTIAL_SPEED = (float) (0.5 * GameLoop.instance().targetFrameRate());
 	public static final float 
 			MAX_RADIUS = (int) (140  * MainActivity.getScreenDens()),
 			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens());
-	public static final int
+	public static final int DEFAULT_ORBIT_TIME = 3000,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
 	
 	private float angularVelocity,
@@ -40,10 +41,10 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 			int collisionDamage, 
 			int health,float probSpawnBeneficialObjecyUponDeath,
 			int orbitPixelX,int orbitPixelY,int width,int height,int imageId,
-			int circularRadius) {
+			int circularRadius,long orbitRevolutionTimeLength) {
 		super(layout, level,score,speedY,
 				collisionDamage, health,
-				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId);
+				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId,orbitRevolutionTimeLength);
 		
 		radius=circularRadius;
 		radius = Math.max(radius,MIN_RADIUS);
@@ -54,11 +55,11 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 
 	private void init(int width,int height){
 		currentDegree=260;
+		orbitRevolutionTime=DEFAULT_ORBIT_TIME;
 		
 		//ensure radius and angular velocity are within bounds
 		radius = Math.max(radius,MIN_RADIUS);
-		radius = Math.min(radius,MAX_RADIUS);		
-		howManyTimesMoved=0; 
+		radius = Math.min(radius,MAX_RADIUS);
 		
 		//linear speed = radius * angular speed
 		//angular speed = linear speed / radius
@@ -82,8 +83,6 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 			
 			Orbiter_CircleView.this.setX( orbitX+x );
 			Orbiter_CircleView.this.setY( orbitY+y );
-		
-			howManyTimesMoved++;
 		}else{
 			super.move(deltaTime);
 		}

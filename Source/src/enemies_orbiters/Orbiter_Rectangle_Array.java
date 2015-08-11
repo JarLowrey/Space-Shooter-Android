@@ -2,8 +2,6 @@ package enemies_orbiters;
 
 import java.util.ArrayList;
 
-import parents.MovingView;
-
 import levels.AttributesOfLevels;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;

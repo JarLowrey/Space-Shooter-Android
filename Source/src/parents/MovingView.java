@@ -103,6 +103,13 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	public double getSpeedX(){
 		return ( speedX * GameLoop.instance().targetFrameRate()) / MainActivity.getScreenDens();
 	}
+	
+	public double getFrameAndScreenDensDependentSpeedX(){
+		return speedX;
+	}
+	public double getFrameAndScreenDensDependentSpeedY(){
+		return speedY;
+	}
 	/**
 	 * 
 	 * @param newSpeed
