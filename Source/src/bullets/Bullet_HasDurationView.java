@@ -9,16 +9,16 @@ public class Bullet_HasDurationView extends BulletView
 {	 
 	public static final float DEFAULT_SPEED_Y = Bullet_Interface.DEFAULT_BULLET_SPEED_Y * 8;
 	private long myLifeSpanInMilliseconds, currentLife;
-	private int soundEffectStreamId;
+	private int soundEffectStreamId, positionOnShooterAsAPercentage;
 	
 	
 	public Bullet_HasDurationView(RelativeLayout layout, Shooter shooter,
 			float bulletSpeedY, int bulletDamage, int width, int height,
-			int imageId, long lifeSpanInMilliseconds) {
+			int imageId, long lifeSpanInMilliseconds, int posOnShooterAsAPercentage) {
 		super(layout, shooter, bulletSpeedY, bulletDamage, width, height, imageId);
 		
 		myLifeSpanInMilliseconds = lifeSpanInMilliseconds;
-		
+		positionOnShooterAsAPercentage = posOnShooterAsAPercentage;
 		soundEffectStreamId = MediaController.playLoopingSoundEffect(getContext(), MediaController.SOUND_LASER_LOOPING);
 		
 		this.setSpeedX(0);
@@ -49,6 +49,7 @@ public class Bullet_HasDurationView extends BulletView
 		final float shooterMidY = ( theOneWhoShotMe.getY() * 2 + theOneWhoShotMe.getHeight() ) / 2;
 		Bullet_HasDurationView.this.setY(shooterMidY);
 		
+		this.setXPositionOnShooterAsAPercentage(positionOnShooterAsAPercentage);
 
 		RelativeLayout.LayoutParams params = (LayoutParams) getLayoutParams();
 		final float height = Bullet_HasDurationView.this.getHeight();

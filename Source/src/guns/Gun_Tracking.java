@@ -18,7 +18,7 @@ public abstract class Gun_Tracking extends Gun{
 				bulletDmg, positionOnShooterAsAPercentage);
 	}
 
-	public static float MAX_X_SPEED=15*MainActivity.getScreenDens();
+	public static float MAX_X_SPEED=Bullet_Interface.DEFAULT_BULLET_SPEED_Y;
 	
 	protected float getTrackingXSpeed(Shooter shooter, Moving_ProjectileView shootTowardsMe,float bulletSpeedY){
 		

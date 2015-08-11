@@ -100,4 +100,10 @@ public class BulletView extends Moving_ProjectileView{
 	public void updateViewSpeed(long deltaTime) {
 		//do nothing - move at constant speed
 	}
+	
+	@Override 
+	public void move(long deltaTime){
+		setBulletRotation();
+		super.move(deltaTime);
+	}
 }

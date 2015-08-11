@@ -13,7 +13,7 @@ import com.jtronlabs.space_shooter.MainActivity;
 public class Gun_TrackingGattling extends Gun_Tracking {
 
 	public static float MAX_X_SPEED=15*MainActivity.getScreenDens();
-	public static int DEFAULT_NUM_GATTLING_SHOTS=8;
+	public static int DEFAULT_NUM_GATTLING_SHOTS=6;
 	
 	private int currentNumShots,cutoffTotalShots;
 	private float originalBulletFreq;
