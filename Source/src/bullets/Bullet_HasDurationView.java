@@ -7,6 +7,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 public class Bullet_HasDurationView extends BulletView
 {	 
+	public static final float DEFAULT_SPEED_Y = Bullet_Interface.DEFAULT_BULLET_SPEED_Y * 8;
 	private long myLifeSpanInMilliseconds, currentLife;
 	private int soundEffectStreamId;
 	
@@ -21,7 +22,7 @@ public class Bullet_HasDurationView extends BulletView
 		soundEffectStreamId = MediaController.playLoopingSoundEffect(getContext(), MediaController.SOUND_LASER_LOOPING);
 		
 		this.setSpeedX(0);
-		this.setSpeedY(0);
+		this.setSpeedY(DEFAULT_SPEED_Y);
 	}
 	
 	@Override 

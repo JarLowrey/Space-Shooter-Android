@@ -4,8 +4,6 @@ import interfaces.Shooter;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.space_shooter.MainActivity;
-
 public class Bullet_Tracking extends Bullet_Interface{
 
 	public Bullet_Tracking(MovingView viewToTrack,
