@@ -9,7 +9,7 @@ import com.jtronlabs.space_shooter.R;
 
 public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface { 
 	
-	public static final float LINEAR_SPEED = 15 * MainActivity.getScreenDens();
+	public static final float TANGENTIAL_SPEED = 20;
 	public static final float 
 			MAX_RADIUS = (int) (140  * MainActivity.getScreenDens()),
 			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens());
@@ -62,7 +62,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		
 		//linear speed = radius * angular speed
 		//angular speed = linear speed / radius
-		angularVelocity=(float) (LINEAR_SPEED / radius);
+		angularVelocity=(float) (TANGENTIAL_SPEED / radius);
 		
 		//begin orbit at top of circle
 		this.setGravityThreshold((int) (orbitY - radius));
