@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.ScrollView;
 
 import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 public class GameAlertDialogBuilder extends AlertDialog.Builder{
 	
@@ -30,7 +31,8 @@ public class GameAlertDialogBuilder extends AlertDialog.Builder{
 		ScrollView scrollPane = new ScrollView( getContext());
 		scrollPane.setPadding(PADDING, PADDING, PADDING, PADDING);
 		 
-		GameTextView messageView = new GameTextView(getContext(),GameTextView.BIT_FONT_REGULAR);
+		GameTextView messageView = new GameTextView(getContext(),getContext().getString(R.string.bit_font_bold));
+		messageView.setFont(getContext().getResources().getString(R.string.bit_font_regular));
 		messageView.setTextSize(20);//20dp
 		messageView.setText(title);
 		

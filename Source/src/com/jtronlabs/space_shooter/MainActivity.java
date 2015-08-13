@@ -60,7 +60,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	    credits.setOnClickListener(this);
 	    
 	    TextView title = (TextView)findViewById(R.id.title);
-	    Typeface spaceAgeFont = Typeface.createFromAsset(this.getAssets(), GameTextView.SPACE_AGE);
+	    Typeface spaceAgeFont = Typeface.createFromAsset(this.getAssets(), getString(R.string.space_age));
 	    title.setTypeface(spaceAgeFont);
 	    title.setTextSize(140);					//yScale = 140dp
 	    title.setTextScaleX((float) (90.0/150));//xScale = 90dp

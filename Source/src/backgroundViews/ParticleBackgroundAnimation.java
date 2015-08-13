@@ -8,7 +8,7 @@ public class ParticleBackgroundAnimation {
 	
 	private RelativeLayout screen;
 	private StarView[] myStars;
-	
+	 
 	public ParticleBackgroundAnimation(RelativeLayout layout, int numStars){
 		screen = layout;
 		

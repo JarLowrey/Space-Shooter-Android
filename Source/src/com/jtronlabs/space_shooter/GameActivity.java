@@ -52,16 +52,16 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			STATE_GUN_CONFIG="gunConfig",
 			STATE_BULLET_FREQ_LEVEL="bulletFreqLevel",
 			STATE_BULLET_DAMAGE_LEVEL="bulletDamageLevel",
-			STATE_DEFENCE_LEVEL="defenceLevel",
+			STATE_DEFENSE_LEVEL="defenseLevel",
 			STATE_RESOURCE_MULTIPLIER_LEVEL="resourceMultLevel",
 			STATE_FRIEND_LEVEL="friendLevel",
 			STATE_LEVEL="level";
 //			STATE_WAVE="wave";
 	
 //	private Button btnMoveLeft,btnMoveRight,btnMoveUp,btnMoveDown;
-	private ImageButton btnMove,btnShoot;
-	private ImageButton	btnIncBulletDmg,btnIncBulletVerticalSpeed,
-	btnIncBulletFreq,btnIncScoreWeight,btnNewGun,btnHeal,btnPurchaseFriend,btnNextLevel;
+	private ImageButton btnMove,btnShoot,storeNextLevel;
+	private RelativeLayout	storeIncBulletDmg,storeIncdefense,
+		storeIncBulletFreq,storeIncScoreWeight,storeNewGun,storeRepair,storePurchaseFriend;
 	private GameTextView resourceCount,
 		levelCount,
 		scoreInGame,
@@ -113,14 +113,17 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCount = (GameTextView)findViewById(R.id.level_count);
 		storeLayout = (RelativeLayout)findViewById(R.id.store_layout);
 		storeScrollView = (ScrollView)findViewById(R.id.store_scrollview);
-		btnIncBulletDmg= (ImageButton)findViewById(R.id.btn_inc_bullet_dmg); 
-		btnIncBulletVerticalSpeed= (ImageButton)findViewById(R.id.btn_inc_defence);  
-		btnIncBulletFreq= (ImageButton)findViewById(R.id.btn_inc_bullet_freq); 
-		btnIncScoreWeight= (ImageButton)findViewById(R.id.btn_inc_score_weight); 
-		btnNewGun= (ImageButton)findViewById(R.id.btn_new_gun); 
-		btnHeal= (ImageButton)findViewById(R.id.btn_heal); 
-		btnPurchaseFriend= (ImageButton)findViewById(R.id.btn_purchase_friend); 
-		btnNextLevel= (ImageButton)findViewById(R.id.start_next_level); 
+		
+		storeIncBulletDmg= (RelativeLayout)findViewById(R.id.buy_inc_bullet_dmg_layout); 
+		storeIncdefense = (RelativeLayout)findViewById(R.id.buy_inc_defense_layout); 
+		storeIncBulletFreq= (RelativeLayout)findViewById(R.id.buy_inc_bullet_freq_layout); 
+		storeIncScoreWeight= (RelativeLayout)findViewById(R.id.buy_inc_score_weight_layout); 
+		storeNewGun= (RelativeLayout)findViewById(R.id.buy_new_gun_layout); 
+		storeRepair= (RelativeLayout)findViewById(R.id.buy_repair_layout);      
+		storePurchaseFriend= (RelativeLayout)findViewById(R.id.buy_inc_friend_layout); 
+		
+		storeNextLevel= (ImageButton)findViewById(R.id.start_next_level);   
+		storeNextLevel.setOnTouchListener(this);
 		
 		//Set up misc views and listeners
 		ImageButton accept = (ImageButton)findViewById(R.id.gameOverAccept);
@@ -128,14 +131,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		ImageButton share = (ImageButton)findViewById(R.id.gameOverShare);
 		share.setOnTouchListener(this);
 		
-		btnIncBulletDmg.setOnTouchListener(this); 
-		btnIncBulletVerticalSpeed.setOnTouchListener(this); 
-		btnIncBulletFreq.setOnTouchListener(this); 
-		btnIncScoreWeight.setOnTouchListener(this); 
-		btnHeal.setOnTouchListener(this); 
-		btnPurchaseFriend.setOnTouchListener(this); 
-		btnNextLevel.setOnTouchListener(this); 
-		btnNewGun.setOnTouchListener(this); 
+		storeIncBulletDmg.setOnTouchListener(this); 
+		storeIncdefense.setOnTouchListener(this);
+		storeIncBulletFreq.setOnTouchListener(this); 
+		storeIncScoreWeight.setOnTouchListener(this); 
+		storeNewGun.setOnTouchListener(this); 
+		storeRepair.setOnTouchListener(this); 
+		storePurchaseFriend.setOnTouchListener(this); 
 		
 		//set up control panel
 		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
@@ -307,7 +309,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		editor.putInt(STATE_TOTAL_RESOURCES, 0);
 		editor.putInt(STATE_RESOURCES, 0);//store upgrades	
-		editor.putInt(STATE_DEFENCE_LEVEL, 0);
+		editor.putInt(STATE_DEFENSE_LEVEL, 0);
 		editor.putInt(STATE_GUN_CONFIG, -1);
 		editor.putInt(STATE_BULLET_DAMAGE_LEVEL, 0);
 		editor.putInt(STATE_BULLET_FREQ_LEVEL, 0);
@@ -321,6 +323,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	
 	public void openStore(){
 		GameLoop.instance().stopLevelAndLoop();//stop game loop
+		
+		setStoreItemsTitles();
+		setStoreItemsMessages();
 		
 		final int lvl = levelCreator.getLevel();
 		
@@ -412,8 +417,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		return percents;
 	} 
-	
-	
+	 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if(event.getAction() == MotionEvent.ACTION_MOVE){
@@ -450,20 +454,20 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					},(long)ProtagonistView.getShootingDelay(this) );
 					beginShootingRunnablePosted=true;
 				}
-			}else if(v.getId() == R.id.btn_heal){
-				StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_HEAL, this, levelCreator); 
-			}else if(v.getId() == R.id.btn_inc_bullet_dmg){
-				StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_BULLET_DAMAGE, this, levelCreator);	
-			}else if(v.getId() == R.id.btn_inc_bullet_freq){
-					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_BULLET_FREQ, this, levelCreator);
-			}else if(v.getId() == R.id.btn_inc_defence){
-					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_DEFENCE, this, levelCreator);
-			}else if(v.getId() == R.id.btn_inc_score_weight){
-					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_SCORE_MULTIPLIER, this, levelCreator);
-			}else if(v.getId() == R.id.btn_new_gun){
-					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_GUN, this, levelCreator);	
-			}else if(v.getId() == R.id.btn_purchase_friend){
-					StoreUpgradeHandler.confirmUpgradeDialog(StoreUpgradeHandler.UPGRADE_FRIEND, this, levelCreator);
+			}else if(v.getId() == R.id.buy_repair_layout){ 
+				StoreUpgradeHandler.confirmUpgradeDialog(R.id.buy_repair_layout, this, levelCreator); 
+			}else if(v.getId() == R.id.buy_inc_bullet_dmg_layout){
+				StoreUpgradeHandler.confirmUpgradeDialog(R.id.buy_inc_bullet_dmg_layout, this, levelCreator);	
+			}else if(v.getId() == R.id.buy_inc_bullet_freq_layout){
+					StoreUpgradeHandler.confirmUpgradeDialog(R.id.buy_inc_bullet_freq_layout, this, levelCreator);
+			}else if(v.getId() == R.id.buy_inc_defense_layout){
+					StoreUpgradeHandler.confirmUpgradeDialog(R.id.buy_inc_defense_layout, this, levelCreator);
+			}else if(v.getId() == R.id.buy_inc_score_weight_layout){
+					StoreUpgradeHandler.confirmUpgradeDialog(R.id.buy_inc_score_weight_layout, this, levelCreator);
+			}else if(v.getId() == R.id.buy_new_gun_layout){
+					StoreUpgradeHandler.confirmUpgradeDialog(R.id.buy_new_gun_layout, this, levelCreator);	
+			}else if(v.getId() == R.id.buy_inc_friend_layout){
+					StoreUpgradeHandler.confirmUpgradeDialog(R.id.buy_inc_friend_layout, this, levelCreator);
 			}else if(v.getId() == R.id.start_next_level){
 //					if(StoreUpgradeHandler.getGunLevel(this) < 0){
 //						Toast.makeText(getApplicationContext(),"It's not safe! Repair ship blasters first", Toast.LENGTH_LONG).show();
@@ -642,4 +646,41 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		resourceCount.setText(MainActivity.formatInt( levelCreator.getResourceCount() ) );		
 	}
 	
+	@Override
+	public void setStoreItemsTitles(){
+		GameTextView repairTitle = (GameTextView)findViewById(R.id.buy_repair_title);
+		GameTextView newGunTitle = (GameTextView)findViewById(R.id.buy_new_gun_title);
+		GameTextView defenseTitle = (GameTextView)findViewById(R.id.buy_inc_defense_title);
+		GameTextView bulletDmgTitle = (GameTextView)findViewById(R.id.buy_inc_bullet_dmg_title);
+		GameTextView bulletFreqTitle = (GameTextView)findViewById(R.id.buy_inc_bullet_freq_title);
+		GameTextView allyTitle = (GameTextView)findViewById(R.id.buy_inc_friend_title);
+		GameTextView scoreWeightTitle = (GameTextView)findViewById(R.id.buy_inc_score_weight_title);
+		
+		repairTitle.setText(StoreUpgradeHandler.getUpgradeTitle(this, R.id.buy_repair_layout));
+		newGunTitle.setText(StoreUpgradeHandler.getUpgradeTitle(this, R.id.buy_new_gun_layout));
+		defenseTitle.setText(StoreUpgradeHandler.getUpgradeTitle(this, R.id.buy_inc_defense_layout));
+		bulletDmgTitle.setText(StoreUpgradeHandler.getUpgradeTitle(this, R.id.buy_inc_bullet_dmg_layout));
+		bulletFreqTitle.setText(StoreUpgradeHandler.getUpgradeTitle(this, R.id.buy_inc_bullet_freq_layout));
+		allyTitle.setText(StoreUpgradeHandler.getUpgradeTitle(this, R.id.buy_inc_friend_layout));
+		scoreWeightTitle.setText(StoreUpgradeHandler.getUpgradeTitle(this, R.id.buy_inc_score_weight_layout));
+	}
+
+	@Override
+	public void setStoreItemsMessages(){
+		GameTextView repairMsg = (GameTextView)findViewById(R.id.buy_repair_message);
+		GameTextView newGunMsg = (GameTextView)findViewById(R.id.buy_new_gun_message);
+		GameTextView defenseMsg = (GameTextView)findViewById(R.id.buy_inc_defense_message);
+		GameTextView bulletDmgMsg = (GameTextView)findViewById(R.id.buy_inc_bullet_dmg_message);
+		GameTextView bulletFreqMsg = (GameTextView)findViewById(R.id.buy_inc_bullet_freq_message);
+		GameTextView allyMsg = (GameTextView)findViewById(R.id.buy_inc_friend_message);
+		GameTextView scoreWeightMsg = (GameTextView)findViewById(R.id.buy_inc_score_weight_message);
+		
+		repairMsg.setText(StoreUpgradeHandler.getUpgradeMessage(this, R.id.buy_repair_layout));
+		newGunMsg.setText(StoreUpgradeHandler.getUpgradeMessage(this, R.id.buy_new_gun_layout));
+		defenseMsg.setText(StoreUpgradeHandler.getUpgradeMessage(this, R.id.buy_inc_defense_layout));
+		bulletDmgMsg.setText(StoreUpgradeHandler.getUpgradeMessage(this, R.id.buy_inc_bullet_dmg_layout));
+		bulletFreqMsg.setText(StoreUpgradeHandler.getUpgradeMessage(this, R.id.buy_inc_bullet_freq_layout));
+		allyMsg.setText(StoreUpgradeHandler.getUpgradeMessage(this, R.id.buy_inc_friend_layout));
+		scoreWeightMsg.setText(StoreUpgradeHandler.getUpgradeMessage(this, R.id.buy_inc_score_weight_layout));
+	}
 }

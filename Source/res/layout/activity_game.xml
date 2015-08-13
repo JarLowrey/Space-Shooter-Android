@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.jtronlabs.space_shooter"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -94,12 +95,14 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent" 
        android:fillViewport="true"
-        android:visibility="gone">
+       android:visibility="gone">
 		  	
 	   <RelativeLayout
 	        android:id="@+id/store_layout"
+        	android:descendantFocusability="blocksDescendants"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent">
+	        android:layout_height="wrap_content">
+		    
 		    <ProgressBar
 		        android:id="@+id/health_bar_store"
 		        style="?android:attr/progressBarStyleHorizontal"
@@ -143,16 +146,300 @@
 		            android:src="@drawable/resources" />
 			</RelativeLayout>
 			
-	        <helpers.GameTextView
-	            android:id="@+id/explanation"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_above="@+id/purchase_buttons_in_store"
-	            android:layout_margin="@dimen/activity_margin_small"
-	            android:layout_centerHorizontal="true"
-	            android:gravity="center"
-	            android:text="We&apos;ve found refuge for the night. Scrap salvaged throughout the day can be used for repairs and upgrades." />
-			 
+			<RelativeLayout
+			    android:id="@+id/buy_repair_layout"
+			    android:clickable="true"
+			    android:layout_width="@dimen/store_purchases_length"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/game_state_info_in_store"
+			    android:layout_centerHorizontal="true"
+			    android:layout_margin="@dimen/activity_margin_xsmall"
+			    android:background="@drawable/store_item_background"
+			    >
+			    <ImageView
+			        android:id="@+id/buy_repair_image"
+		            android:layout_width="@dimen/store_item_len"
+		            android:layout_height="@dimen/store_item_len"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_centerVertical="true"
+				    android:src="@drawable/heal"
+		  			android:layout_alignParentLeft="true" 
+			      />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_repair_title"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/buy_repair_image"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_alignParentTop="true"
+		            android:textSize="@dimen/store_item_title_text_size" 
+			        android:text="Title"
+			        />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_repair_message"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_toRightOf="@+id/buy_repair_image"
+		            android:layout_below = "@+id/buy_repair_title"
+		            custom:custom_font="@string/bit_font_regular"
+  		            android:textSize="@dimen/store_item_message_text_size"
+			        android:text="This is a message in the store"
+			        />
+			</RelativeLayout>
+			
+			<RelativeLayout
+			    android:id="@+id/buy_new_gun_layout"
+			    android:clickable="true"
+			    android:layout_width="@dimen/store_purchases_length"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/buy_repair_layout"
+			    android:layout_centerHorizontal="true"
+			    android:layout_margin="@dimen/activity_margin_xsmall"
+			    android:background="@drawable/store_item_background"
+			    >
+			    <ImageView
+			        android:id="@+id/buy_new_gun_image"
+		            android:layout_width="@dimen/store_item_len"
+		            android:layout_height="@dimen/store_item_len"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_centerVertical="true"
+				    android:src="@drawable/upgrade_inc_gun"
+		  			android:layout_alignParentLeft="true" 
+			      />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_new_gun_title"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/buy_new_gun_image"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_alignParentTop="true"
+		            android:textSize="@dimen/store_item_title_text_size" 
+			        android:text="Title"
+			        />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_new_gun_message"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_toRightOf="@+id/buy_new_gun_image"
+		            android:layout_below = "@+id/buy_new_gun_title"
+		            custom:custom_font="@string/bit_font_regular"
+  		            android:textSize="@dimen/store_item_message_text_size"
+			        android:text="This is a message in the store"
+			        />
+			</RelativeLayout>
+			
+			<RelativeLayout
+			    android:id="@+id/buy_inc_defense_layout"
+			    android:clickable="true"
+			    android:layout_width="@dimen/store_purchases_length"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/buy_new_gun_layout"
+			    android:layout_centerHorizontal="true"
+			    android:layout_margin="@dimen/activity_margin_xsmall"
+			    android:background="@drawable/store_item_background"
+			    >
+			    <ImageView
+			        android:id="@+id/buy_inc_defense_image"
+		            android:layout_width="@dimen/store_item_len"
+		            android:layout_height="@dimen/store_item_len"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_centerVertical="true"
+				    android:src="@drawable/shield"
+		  			android:layout_alignParentLeft="true" 
+			      />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_defense_title"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/buy_inc_defense_image"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_alignParentTop="true"
+		            android:textSize="@dimen/store_item_title_text_size" 
+			        android:text="Title"
+			        />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_defense_message"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_toRightOf="@+id/buy_inc_defense_image"
+		            android:layout_below = "@+id/buy_inc_defense_title"
+		            custom:custom_font="@string/bit_font_regular"
+  		            android:textSize="@dimen/store_item_message_text_size"
+			        android:text="This is a message in the store"
+			        />
+			</RelativeLayout>
+			
+			<RelativeLayout
+			    android:id="@+id/buy_inc_bullet_dmg_layout"
+			    android:clickable="true"
+			    android:layout_width="@dimen/store_purchases_length"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/buy_inc_defense_layout"
+			    android:layout_centerHorizontal="true"
+			    android:layout_margin="@dimen/activity_margin_xsmall"
+			    android:background="@drawable/store_item_background"
+			    >
+			    <ImageView
+			        android:id="@+id/buy_inc_bullet_dmg_image"
+		            android:layout_width="@dimen/store_item_len"
+		            android:layout_height="@dimen/store_item_len"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_centerVertical="true"
+				    android:src="@drawable/upgrade_inc_damage"
+		  			android:layout_alignParentLeft="true" 
+			      />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_bullet_dmg_title"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/buy_inc_bullet_dmg_image"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_alignParentTop="true"
+		            android:textSize="@dimen/store_item_title_text_size" 
+			        android:text="Title"
+			        />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_bullet_dmg_message"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_toRightOf="@+id/buy_inc_bullet_dmg_image"
+		            android:layout_below = "@+id/buy_inc_bullet_dmg_title"
+		            custom:custom_font="@string/bit_font_regular"
+  		            android:textSize="@dimen/store_item_message_text_size"
+			        android:text="This is a message in the store"
+			        />
+			</RelativeLayout>
+			
+			<RelativeLayout
+			    android:id="@+id/buy_inc_bullet_freq_layout"
+			    android:clickable="true"
+			    android:layout_width="@dimen/store_purchases_length"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/buy_inc_bullet_dmg_layout"
+			    android:layout_centerHorizontal="true"
+			    android:layout_margin="@dimen/activity_margin_xsmall"
+			    android:background="@drawable/store_item_background"
+			    >
+			    <ImageView
+			        android:id="@+id/buy_inc_bullet_freq_image"
+		            android:layout_width="@dimen/store_item_len"
+		            android:layout_height="@dimen/store_item_len"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_centerVertical="true"
+				    android:src="@drawable/upgrade_inc_freq"
+		  			android:layout_alignParentLeft="true" 
+			      />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_bullet_freq_title"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/buy_inc_bullet_freq_image"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_alignParentTop="true"
+		            android:textSize="@dimen/store_item_title_text_size" 
+			        android:text="Title"
+			        />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_bullet_freq_message"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_toRightOf="@+id/buy_inc_bullet_freq_image"
+		            android:layout_below = "@+id/buy_inc_bullet_freq_title"
+		            custom:custom_font="@string/bit_font_regular"
+  		            android:textSize="@dimen/store_item_message_text_size"
+			        android:text="This is a message in the store"
+			        />
+			</RelativeLayout>
+			
+			<RelativeLayout
+			    android:id="@+id/buy_inc_friend_layout"
+			    android:clickable="true"
+			    android:layout_width="@dimen/store_purchases_length"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/buy_inc_bullet_freq_layout"
+			    android:layout_centerHorizontal="true"
+			    android:layout_margin="@dimen/activity_margin_xsmall"
+			    android:background="@drawable/store_item_background"
+			    >
+			    <ImageView
+			        android:id="@+id/buy_inc_friend_image"
+		            android:layout_width="@dimen/store_item_len"
+		            android:layout_height="@dimen/store_item_len"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_centerVertical="true"
+				    android:src="@drawable/ship_ally_0"
+		  			android:layout_alignParentLeft="true" 
+			      />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_friend_title"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/buy_inc_friend_image"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_alignParentTop="true"
+		            android:textSize="@dimen/store_item_title_text_size" 
+			        android:text="Title"
+			        />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_friend_message"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_toRightOf="@+id/buy_inc_friend_image"
+		            android:layout_below = "@+id/buy_inc_friend_title"
+		            custom:custom_font="@string/bit_font_regular"
+  		            android:textSize="@dimen/store_item_message_text_size"
+			        android:text="This is a message in the store"
+			        />
+			</RelativeLayout>
+			
+			<RelativeLayout
+			    android:id="@+id/buy_inc_score_weight_layout"
+			    android:clickable="true"
+			    android:layout_width="@dimen/store_purchases_length"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/buy_inc_friend_layout"
+			    android:layout_centerHorizontal="true"
+			    android:layout_margin="@dimen/activity_margin_xsmall"
+			    android:background="@drawable/store_item_background"
+			    >
+			    <ImageView
+			        android:id="@+id/buy_inc_score_weight_image"
+		            android:layout_width="@dimen/store_item_len"
+		            android:layout_height="@dimen/store_item_len"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_centerVertical="true"
+				    android:src="@drawable/resources"
+		  			android:layout_alignParentLeft="true" 
+			      />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_score_weight_title"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_toRightOf="@+id/buy_inc_score_weight_image"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_alignParentTop="true"
+		            android:textSize="@dimen/store_item_title_text_size" 
+			        android:text="Title"
+			        />
+			    <helpers.GameTextView
+			   		android:id="@+id/buy_inc_score_weight_message"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_margin="@dimen/activity_margin_xsmall"
+		            android:layout_toRightOf="@+id/buy_inc_score_weight_image"
+		            android:layout_below = "@+id/buy_inc_score_weight_title"
+		            custom:custom_font="@string/bit_font_regular"
+  		            android:textSize="@dimen/store_item_message_text_size"
+			        android:text="This is a message in the store"
+			        />
+			</RelativeLayout>
+			 			 <!-- 
 	      <RelativeLayout
 	            android:id="@+id/purchase_buttons_in_store"
 	            android:layout_width="@dimen/store_purchases_length"
@@ -208,7 +495,7 @@
 				    android:text="bulletfreq" />
 				
 				<ImageButton
-				    android:id="@+id/btn_inc_defence"
+				    android:id="@+id/btn_inc_defense"
 				    android:src="@drawable/shield"
 				    style="?android:attr/buttonStyleSmall"
 				    android:layout_width="@dimen/store_item_len"
@@ -220,8 +507,8 @@
 				    android:layout_toRightOf="@+id/btn_new_gun"
 				    android:layout_alignParentTop="true"
 				    
-				    android:contentDescription="defence"
-				    android:text="defence" />
+				    android:contentDescription="defense"
+				    android:text="defense" />
 		
 				<ImageButton
 				    android:id="@+id/btn_inc_score_weight"
@@ -272,7 +559,7 @@
 				    android:text="friend" />
 		    	</RelativeLayout>
 		    	
-	      
+	      -->
 		
 				<ImageButton
 				    android:id="@+id/start_next_level"
@@ -281,9 +568,17 @@
 				    android:layout_height="@dimen/store_btn_next_level_len"
 				    android:layout_centerHorizontal="true"
 		        	android:background="@drawable/btn_gray"
-		        	android:layout_marginTop="@dimen/activity_margin_small"
-					android:layout_below="@+id/purchase_buttons_in_store"
+		        	android:layout_below="@+id/buy_inc_score_weight_layout"
+					android:layout_margin="@dimen/activity_margin_med"
 				    android:text="Next Level" />
+				
+				<!-- Place holder for the adView -->
+				<Space
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+		        	android:layout_below="@+id/start_next_level"
+					android:layout_marginTop="@dimen/ad_banner_small_margin"				    
+				    />
 	    	</RelativeLayout>
 		</ScrollView>
 	    

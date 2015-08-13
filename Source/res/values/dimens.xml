@@ -95,6 +95,8 @@
     <!-- Store Layout -->
 
 	    <dimen name="store_item_len">60dp</dimen>
+	    <dimen name="store_item_title_text_size">20dp</dimen>
+	    <dimen name="store_item_message_text_size">16dp</dimen>
 	    <dimen name="store_purchases_length">300dp</dimen> <!-- 5 * store_item_len -->
 	    <dimen name="store_btn_next_level_len">90dp</dimen>
 	    <dimen name="store_btn_margin_vertical">40dp</dimen>

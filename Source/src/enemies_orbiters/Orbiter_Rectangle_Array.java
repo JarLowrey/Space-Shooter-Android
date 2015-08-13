@@ -110,7 +110,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 			
 		}
 	}
-	
+	 
 
 	@Override
 	public void updateViewSpeed(long deltaTime) {

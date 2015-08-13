@@ -1,5 +1,10 @@
 package helpers;
 
+import enemies.EnemyView;
+import friendlies.AllyView;
+import friendlies.ProtagonistView;
+import guns.Gun_AngledDualShot;
+import guns.Gun_SingleShotStraight;
 import interfaces.GameActivityInterface;
 
 import java.text.NumberFormat;
@@ -13,146 +18,49 @@ import android.content.SharedPreferences;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import bullets.Bullet_Basic;
-import bullets.Bullet_Duration;
 import bullets.Bullet_Interface;
 
 import com.jtronlabs.space_shooter.GameActivity;
 import com.jtronlabs.space_shooter.R;
 
-import enemies.EnemyView;
-import friendlies.AllyView;
-import friendlies.ProtagonistView;
-import guns.Gun_AngledDualShot;
-import guns.Gun_SingleShotStraight;
-
 public class StoreUpgradeHandler {
 
-	public static final int UPGRADE_BULLET_DAMAGE=0,UPGRADE_DEFENCE=1,UPGRADE_BULLET_FREQ=3,
-			UPGRADE_GUN=4,UPGRADE_FRIEND=5,UPGRADE_SCORE_MULTIPLIER=6,UPGRADE_HEAL=7;
-
-	public static void confirmUpgradeDialog(final int whichUpgrade, final Context ctx, final LevelSystem levelCreator){
-		String 			msg="",title="";
-		final int 		playerScore = levelCreator.getResourceCount(),
-						level = levelCreator.getLevel();
-		int 			cost=0;
-		boolean 		maxLevelItem = false, 
-						notEnoughScoreToFullyRepairButUserIsAttempting = false;
-		final String 	maxMsg = "Maximum upgrade attained";
-
+	public static void confirmUpgradeDialog(final int upgradeLayoutId, final Context ctx, final LevelSystem levelCreator){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-	
-		switch(whichUpgrade){
-		case UPGRADE_BULLET_DAMAGE:
-			title = "Damage";
-			cost = 	(int) (ctx.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) 
-					* Math.pow((getBulletDamageLevel(ctx)+1),2)) ;
-			msg = ctx.getResources().getString(R.string.upgrade_bullet_damage);
-			final int damageScalingFactor = ProtagonistView.getBulletDamage(ctx) / ProtagonistView.DEFAULT_BULLET_DAMAGE;
-			if( damageScalingFactor == EnemyView.MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR){
-				msg = maxMsg;
-				maxLevelItem = true;
-			}
-			break;
-		case UPGRADE_DEFENCE:
-			title = "Defence";
-			cost = (int) (ctx.getResources().getInteger(R.integer.inc_defence_base_cost) 
-					* Math.pow((getDefenceLevel(ctx)+1),2)) ;
-			msg=ctx.getResources().getString(R.string.upgrade_defence);
-			break;
-		case UPGRADE_BULLET_FREQ:
-			title = "Fire Rate";
-			cost = (int) (ctx.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) 
-					* Math.pow((getBulletBulletFreqLevel(ctx)+1),2)) ;
-			msg=ctx.getResources().getString(R.string.upgrade_bullet_frequency);
-			if(ProtagonistView.getShootingDelay(ctx) == ProtagonistView.MIN_SHOOTING_FREQ){
-				msg = maxMsg;
-				maxLevelItem = true;
-			}
-			break;
-		case UPGRADE_GUN:
-			title = "Ship Blasters";
-			final int gunlvl = getGunLevel(ctx);
-			if(gunlvl < maxGunLevel(ctx)-1 ){
-				cost = ctx.getResources().getIntArray(R.array.gun_upgrade_costs)[gunlvl+1];
-				msg = ctx.getResources().getStringArray(R.array.gun_descriptions)[gunlvl+1];
-			}else{
-				msg = maxMsg;
-				maxLevelItem = true;				
-			}
-			break;
-		case UPGRADE_FRIEND:
-			title = "Ally";
-			int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
-			if(friendLvl < AllyView.MAX_ALLY_LEVEL){
-				cost = ctx.getResources().getInteger(R.integer.friend_base_cost) ;
-				if(friendLvl < 1){
-					msg=ctx.getResources().getString(R.string.upgrade_buy_friend);					
-				}else{
-					msg=ctx.getResources().getString(R.string.upgrade_friend_level);					
-				}
-			}else{
-				maxLevelItem=true;
-				msg = maxMsg;
-			}
-			break;
-		case UPGRADE_SCORE_MULTIPLIER:
-			title = "Resources";
-			cost = (int) (ctx.getResources().getInteger(R.integer.score_multiplier_base_cost) * 
-				Math.pow(5, gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0))) ;
-			msg=ctx.getResources().getString(R.string.upgrade_score_multiplier);
-			break;
-		case UPGRADE_HEAL:
-			title = "Repair";
-			if(ProtagonistView.getProtagonistCurrentHealth(ctx) == ProtagonistView.getProtagonistMaxHealth(ctx)){
-				maxLevelItem=true;
-				msg="Ship fully repaired";
-			}else{
-				cost = getFullRepairCost(ctx,level);
-				
-				if (playerScore < cost && playerScore != 0)	{ 
-					msg = ctx.getResources().getString(R.string.upgrade_partial_repair); 
-					cost = playerScore;
-					notEnoughScoreToFullyRepairButUserIsAttempting = true;
-				} else if(playerScore == 0){
-					msg = "No repair possible."; 
-					maxLevelItem = true;
-				}else{
-					msg = ctx.getResources().getString(R.string.upgrade_full_repair); 
-				}
-			}
-			break;
-		}
-		if(!maxLevelItem){//add cost to message before its displayed
-			msg+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);//add cost formatted with commas
-		}
+
+		final int 	level = levelCreator.getLevel();
+		final String message = getUpgradeMessage(ctx,upgradeLayoutId);
+		final int cost = getUpgradeCost(ctx, upgradeLayoutId);
+		final int playerScore = gameState.getInt(GameActivity.STATE_RESOURCES, 0);
+		
 		AlertDialog.Builder confirmStoreChoice = new GameAlertDialogBuilder(ctx)
-				    .setTitle( title ) 
-				    .setMessage( msg );
+				    .setTitle( getUpgradeTitle(ctx,upgradeLayoutId) ) 
+				    .setMessage( getUpgradeMessage(ctx,upgradeLayoutId) );
 		
 		
-		if(maxLevelItem){
+		if(message.equals(ctx.getResources().getString(R.string.upgrade_max_level)) ||
+				message.equals( ctx.getResources().getString(R.string.upgrade_repair_message_full) )){
 			confirmStoreChoice.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 		     });
 		}else{			
-			final int costCopy = cost;
-			final boolean repairAttempt = notEnoughScoreToFullyRepairButUserIsAttempting;
-			
 			confirmStoreChoice.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { dialog.cancel(); }
 		     })
 		    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
-	        		if(costCopy <= playerScore || repairAttempt){
+	        		if(cost <= playerScore){
 	        			MediaController.playSoundEffect(ctx, MediaController.SOUND_COINS);
-		        		StoreUpgradeHandler.applyUpgrade(whichUpgrade,ctx,costCopy,level,playerScore);
+		        		StoreUpgradeHandler.applyUpgrade(upgradeLayoutId,ctx,cost,level,playerScore);
 		        		
 		        		//update Views in the store
-		        		int newScore = Math.max(playerScore - costCopy, 0);//if repairAttempt, then don't decrement the full amount
+		        		int newScore = Math.max(playerScore - cost, 0);//if repairAttempt, then don't decrement the full amount
 		        		levelCreator.setResources(newScore);
 		        		levelCreator.saveResourceCount();  
 		        		((GameActivityInterface)ctx).resetResourcesGameTextView();
 		    			((GameActivityInterface)ctx).setHealthBars( );
+		    			((GameActivityInterface)ctx).setStoreItemsMessages();
+		    			((GameActivityInterface)ctx).setStoreItemsTitles();
 		    			Toast.makeText(ctx.getApplicationContext(),"Purchased!", Toast.LENGTH_SHORT).show();       			
 	        		}else{
 	        			Toast.makeText(ctx.getApplicationContext(),"Not enough resources", Toast.LENGTH_SHORT).show();
@@ -171,34 +79,34 @@ public class StoreUpgradeHandler {
 		SharedPreferences.Editor editor = gameState.edit();
 		
 		switch(whichUpgrade){
-		case UPGRADE_BULLET_DAMAGE:
+		case R.id.buy_inc_bullet_dmg_layout:
 			final int gunDmg = gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0);
 			editor.putInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, gunDmg+1);
 			break;
-		case UPGRADE_DEFENCE:
-			final int defence = gameState.getInt(GameActivity.STATE_DEFENCE_LEVEL, 0);
-			editor.putInt(GameActivity.STATE_DEFENCE_LEVEL, defence+1);
+		case R.id.buy_inc_defense_layout:
+			final int defense = gameState.getInt(GameActivity.STATE_DEFENSE_LEVEL, 0);
+			editor.putInt(GameActivity.STATE_DEFENSE_LEVEL, defense+1);
 			editor.putInt(GameActivity.STATE_HEALTH, ProtagonistView.getProtagonistMaxHealth(ctx));
 			break;
-		case UPGRADE_BULLET_FREQ:
+		case R.id.buy_inc_bullet_freq_layout:
 			final int gunFreq = gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
 			editor.putInt(GameActivity.STATE_BULLET_FREQ_LEVEL, gunFreq+1);
 			break;
-		case UPGRADE_GUN:
+		case R.id.buy_new_gun_layout:
 			final int gunSet = gameState.getInt(GameActivity.STATE_GUN_CONFIG, -1);
 			editor.putInt(GameActivity.STATE_GUN_CONFIG, gunSet+1);
 			break;
-		case UPGRADE_FRIEND:
+		case R.id.buy_inc_friend_layout:
 			final int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0);
 			editor.putInt(GameActivity.STATE_FRIEND_LEVEL, friendLvl+1);
 			break;
-		case UPGRADE_SCORE_MULTIPLIER:
+		case R.id.buy_inc_score_weight_layout:
 			final int resourceLvl = gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
 			editor.putInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, resourceLvl+1);
 			break;
-		case UPGRADE_HEAL:
+		case R.id.buy_repair_layout:
 			cost = Math.min(playerScore, cost); //allow user to repair less than the full health bar
-			final int amtToHeal = (int)( ( ( (double)cost ) / getFullRepairCost(ctx,level) ) * 
+			final int amtToHeal = (int)( ( ( (double)cost ) / getRepairCost(ctx,level) ) * 
 					( ProtagonistView.getProtagonistMaxHealth(ctx) - 
 							ProtagonistView.getProtagonistCurrentHealth(ctx) )
 							);
@@ -431,16 +339,16 @@ public class StoreUpgradeHandler {
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		return gameState.getInt(GameActivity.STATE_BULLET_DAMAGE_LEVEL, 0);
 	}
-	public static int getDefenceLevel(Context ctx){
+	public static int getdefenseLevel(Context ctx){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
-		return gameState.getInt(GameActivity.STATE_DEFENCE_LEVEL, 0);
+		return gameState.getInt(GameActivity.STATE_DEFENSE_LEVEL, 0);
 	}
 	public static int getBulletBulletFreqLevel(Context ctx){
 		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
 		return gameState.getInt(GameActivity.STATE_BULLET_FREQ_LEVEL, 0);
 	}
 	
-	private static int getFullRepairCost(Context ctx,int level){
+	private static int getRepairCost(Context ctx,int level){
 		int cost; 
 		
 		final double proportionHealthLeft = ((double)(ProtagonistView.getProtagonistMaxHealth(ctx) - 
@@ -449,6 +357,179 @@ public class StoreUpgradeHandler {
 				ctx.getResources().getInteger(R.integer.heal_base_cost) * level) ;
 		cost = Math.min(cost, ctx.getResources().getInteger(R.integer.heal_max_cost));
 		
+		return cost;
+	}
+	
+	public static String getUpgradeTitle(Context ctx, int upgradeLayoutId){
+		String title = "";
+		
+		switch(upgradeLayoutId){
+		case R.id.buy_inc_bullet_dmg_layout:
+			title = ctx.getResources().getString(R.string.upgrade_inc_bullet_dmg_title);
+			break;
+		case R.id.buy_repair_layout:
+			title = ctx.getResources().getString(R.string.upgrade_repair_title);
+			break;
+		case R.id.buy_inc_bullet_freq_layout:
+			title = ctx.getResources().getString(R.string.upgrade_inc_bullet_freq_title);
+			break;
+		case R.id.buy_inc_defense_layout:
+			title = ctx.getResources().getString(R.string.upgrade_inc_defense_title);
+			break;
+		case R.id.buy_inc_score_weight_layout:
+			title = ctx.getResources().getString(R.string.upgrade_inc_score_weight_title);
+			break;
+		case R.id.buy_new_gun_layout:
+			title = ctx.getResources().getString(R.string.upgrade_new_gun_title);
+			break;
+		case R.id.buy_inc_friend_layout:
+			title = ctx.getResources().getString(R.string.upgrade_inc_friend_title);
+			break;
+		}
+		
+		return title;
+	}
+	
+	public static String getUpgradeMessage(Context ctx, int upgradeLayoutId){
+		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+
+		String message = "";
+		int playerScore = gameState.getInt(GameActivity.STATE_RESOURCES, 0),
+				level = gameState.getInt(GameActivity.STATE_LEVEL, 0),
+				cost = getUpgradeCost(ctx,upgradeLayoutId);
+		boolean maxLevelItem = false,
+				usePlayerScore = false,
+				addCostToMessage = true;
+
+		switch(upgradeLayoutId){
+		case R.id.buy_inc_bullet_dmg_layout:
+			message = ctx.getResources().getString(R.string.upgrade_bullet_damage);
+			
+			final int damageScalingFactor = ProtagonistView.getBulletDamage(ctx) / ProtagonistView.DEFAULT_BULLET_DAMAGE;
+			maxLevelItem = damageScalingFactor == EnemyView.MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR;
+			break;
+		case R.id.buy_repair_layout:
+			if(ProtagonistView.getProtagonistCurrentHealth(ctx) == ProtagonistView.getProtagonistMaxHealth(ctx)){
+				message=ctx.getResources().getString(R.string.upgrade_repair_message_full);
+				addCostToMessage = false;
+			}else{				
+				if (playerScore < cost && playerScore != 0)	{ 
+					message = ctx.getResources().getString(R.string.upgrade_repair_message_partial); 
+					usePlayerScore = true;
+				} else if(playerScore == 0){
+					message = ctx.getResources().getString(R.string.upgrade_repair_message_no_score); 
+				}else{
+					message = ctx.getResources().getString(R.string.upgrade_repair_message_default); 
+				}
+			}
+			break;
+		case R.id.buy_inc_bullet_freq_layout:
+			message = ctx.getResources().getString(R.string.upgrade_bullet_frequency);
+			maxLevelItem = ProtagonistView.getShootingDelay(ctx) == ProtagonistView.MIN_SHOOTING_FREQ;
+			break;
+		case R.id.buy_inc_defense_layout:
+			message = ctx.getResources().getString(R.string.upgrade_defense);
+			break;
+		case R.id.buy_inc_score_weight_layout:
+			message = ctx.getResources().getString(R.string.upgrade_score_multiplier);
+			break;
+		case R.id.buy_new_gun_layout:
+			final int gunlvl = getGunLevel(ctx);
+			if(gunlvl < maxGunLevel(ctx)-1 ){
+				message = ctx.getResources().getStringArray(R.array.gun_descriptions)[gunlvl+1];
+			}else{
+				maxLevelItem = true;				
+			}
+			break;
+		case R.id.buy_inc_friend_layout:
+			int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
+			if(friendLvl < AllyView.MAX_ALLY_LEVEL){
+				cost = ctx.getResources().getInteger(R.integer.friend_base_cost) ;
+				if(friendLvl < 1){
+					message = ctx.getResources().getString(R.string.upgrade_buy_friend);					
+				}else{
+					message = ctx.getResources().getString(R.string.upgrade_friend_level);					
+				}
+			}else{
+				maxLevelItem=true;
+			}
+			break;
+		}
+		
+		if(maxLevelItem){
+			message = ctx.getResources().getString(R.string.upgrade_max_level);
+		}
+		
+		if(usePlayerScore){
+			message+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(playerScore);
+		}else if(addCostToMessage){
+			message+="\n\n"+NumberFormat.getNumberInstance(Locale.US).format(cost);
+		}
+		
+		return message;
+	}
+	
+	public static int getUpgradeCost(Context ctx,int upgradeLayoutId){
+		SharedPreferences gameState = ctx.getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+
+		int cost=0,
+			level = gameState.getInt(GameActivity.STATE_LEVEL, 0),
+			playerScore = gameState.getInt(GameActivity.STATE_RESOURCES, 0);
+	
+		switch(upgradeLayoutId){
+		case R.id.buy_inc_bullet_dmg_layout:
+			cost = 	(int) (ctx.getResources().getInteger(R.integer.inc_bullet_damage_base_cost) 
+					* Math.pow((getBulletDamageLevel(ctx)+1),2)) ;
+			final int damageScalingFactor = ProtagonistView.getBulletDamage(ctx) / ProtagonistView.DEFAULT_BULLET_DAMAGE;
+			if( damageScalingFactor == EnemyView.MAXIMUM_ENEMY_HEALTH_SCALING_FACTOR){
+				cost = -1;
+			}
+			break;
+		case R.id.buy_inc_defense_layout:
+			cost = (int) (ctx.getResources().getInteger(R.integer.inc_defense_base_cost) 
+					* Math.pow((getdefenseLevel(ctx)+1),2)) ;
+			break;
+		case R.id.buy_inc_bullet_freq_layout:
+			cost = (int) (ctx.getResources().getInteger(R.integer.inc_bullet_frequency_base_cost) 
+					* Math.pow((getBulletBulletFreqLevel(ctx)+1),2)) ;
+			if(ProtagonistView.getShootingDelay(ctx) == ProtagonistView.MIN_SHOOTING_FREQ){
+				cost = -1;
+			}
+			break;
+		case R.id.buy_new_gun_layout:
+			final int gunlvl = getGunLevel(ctx);
+			if(gunlvl < maxGunLevel(ctx)-1 ){
+				cost = ctx.getResources().getIntArray(R.array.gun_upgrade_costs)[gunlvl+1];
+			}else{
+				cost  = -1;				
+			}
+			break;
+		case R.id.buy_inc_friend_layout:
+			int friendLvl = gameState.getInt(GameActivity.STATE_FRIEND_LEVEL, 0 );
+			if(friendLvl < AllyView.MAX_ALLY_LEVEL){
+				cost = ctx.getResources().getInteger(R.integer.friend_base_cost);
+			}else{
+				cost = -1;
+			}
+			break;
+		case R.id.buy_inc_score_weight_layout:
+			cost = (int) (ctx.getResources().getInteger(R.integer.score_multiplier_base_cost) * 
+				Math.pow(5, gameState.getInt(GameActivity.STATE_RESOURCE_MULTIPLIER_LEVEL, 0))) ;
+			break;
+		case R.id.buy_repair_layout:
+			if(ProtagonistView.getProtagonistCurrentHealth(ctx) == ProtagonistView.getProtagonistMaxHealth(ctx)){
+				cost = -1;
+			}else{
+				cost = getRepairCost(ctx,level);
+				
+				if (playerScore < cost && playerScore != 0)	{ 
+					cost = playerScore;
+				} else if(playerScore == 0){
+					cost = -1;
+				}
+			}
+			break;
+		}
 		return cost;
 	}
 }

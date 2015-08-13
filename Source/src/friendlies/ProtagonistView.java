@@ -110,7 +110,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		return gameState.getInt(GameActivity.STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH);
 	}
 	public static int getProtagonistMaxHealth(Context ctx){
-		return ProtagonistView.DEFAULT_HEALTH + (ProtagonistView.DEFAULT_HEALTH/10) * StoreUpgradeHandler.getDefenceLevel(ctx);		
+		return ProtagonistView.DEFAULT_HEALTH + (ProtagonistView.DEFAULT_HEALTH/10) * StoreUpgradeHandler.getdefenseLevel(ctx);		
 	}
 	
 	@Override
