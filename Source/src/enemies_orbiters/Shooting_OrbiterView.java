@@ -1,5 +1,6 @@
 package enemies_orbiters;
 
+import parents.MovingView;
 import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
@@ -18,6 +19,8 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	public static final long DEFAULT_ORBIT_TIME = 3000;
 	
 	public static final float 
+			DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y * .5),
+			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,			
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	public final static int DEFAULT_SCORE=130, 
