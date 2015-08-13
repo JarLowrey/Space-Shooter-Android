@@ -18,7 +18,7 @@ import com.jtronlabs.space_shooter.MainActivity;
 public abstract class MovingView extends ImageView implements MovingViewInterface{
 
 	public static final float
-		DEFAULT_SPEED_Y = (float) 0.16, //units = frame rate independent density pixels per milliseconds
+		DEFAULT_SPEED_Y = (float) 0.2, //units = frame rate independent density pixels per milliseconds
 		DEFAULT_SPEED_X = (float) (DEFAULT_SPEED_Y * .6); 
 		
 	private double speedX,speedY;

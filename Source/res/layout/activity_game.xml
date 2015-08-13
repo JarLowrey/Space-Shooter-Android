@@ -136,7 +136,7 @@
 					android:layout_alignParentRight="true"
 		            android:text="0"
 		            android:textAppearance="?android:attr/textAppearanceLarge" />
-		
+		<!-- 
 		        <ImageView
 		            android:id="@+id/resources_img"
 		            android:layout_width="@dimen/store_item_len"
@@ -144,6 +144,7 @@
 					android:layout_toLeftOf="@+id/resource_count"
 					android:layout_centerVertical="true"
 		            android:src="@drawable/resources" />
+		            -->
 			</RelativeLayout>
 			
 			<RelativeLayout

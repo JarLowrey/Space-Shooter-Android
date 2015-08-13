@@ -13,7 +13,8 @@ import com.jtronlabs.space_shooter.GameActivity;
 
 public abstract class AttributesOfLevels {
 	protected RelativeLayout gameScreen;
-	private int resourceNo,levelNo;
+	private int resourceNo,
+		levelNo;
 	
 	public static final int STANDARD_PROB_WEIGHT = 1000;
 	

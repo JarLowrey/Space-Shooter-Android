@@ -209,7 +209,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				
 		levelCreator.loadScoreAndLevel();//need to reload variables first thing
 
-		scoreInGame.setText(MainActivity.formatInt(levelCreator.getResourceCount() ) );
+		scoreInGame.setText("$"+MainActivity.formatInt(levelCreator.getResourceCount() ) );
 		adView.resume();
 		
 		//don't open the store up on the initial level
@@ -339,7 +339,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		MediaController.stopLoopingSound();
 		MediaController.playSoundClip(this, R.raw.background_store, true);
 
-		resourceCount.setText(MainActivity.formatInt(levelCreator.getResourceCount()));
+		resourceCount.setText("$"+MainActivity.formatInt(levelCreator.getResourceCount()));
 		if( lvl == 1 ){
 			levelCount.setText("1 Day In Space ");			
 		}else{
@@ -360,7 +360,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		//adjust views
 		storeScrollView.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
-		scoreInGame.setText(MainActivity.formatInt( levelCreator.getResourceCount()) );
+		scoreInGame.setText("$"+MainActivity.formatInt( levelCreator.getResourceCount()) );
 
 		canBeginShooting = true;
 		beginShootingRunnablePosted=false;
@@ -574,7 +574,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		levelCreator.setResources(newScore);
 		
-		scoreInGame.setText(MainActivity.formatInt(newScore));
+		scoreInGame.setText("$"+MainActivity.formatInt(newScore));
 	}
 	
 	@Override
@@ -643,7 +643,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 	@Override
 	public void resetResourcesGameTextView() {
-		resourceCount.setText(MainActivity.formatInt( levelCreator.getResourceCount() ) );		
+		resourceCount.setText("$"+MainActivity.formatInt(levelCreator.getResourceCount() ) );		
 	}
 	
 	@Override

@@ -1,8 +1,7 @@
 package enemies;
 
-import levels.AttributesOfLevels;
 import parents.MovingView;
-import parents.Moving_ProjectileView;
+import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
@@ -13,10 +12,12 @@ import com.jtronlabs.space_shooter.R;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
-import helpers.KillableRunnable;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
+	public static final float	DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y * .8), //units = frame rate independent density pixels per milliseconds
+			DEFAULT_SPEED_X = (float) (DEFAULT_SPEED_Y * .6); 
+
 	public final static int DEFAULT_SCORE=70,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 6.3),
