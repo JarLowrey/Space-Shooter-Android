@@ -4,7 +4,10 @@ import levels.AttributesOfLevels;
 import parents.MovingView;
 import android.widget.RelativeLayout;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
+
+import enemies_non_shooters.Gravity_MeteorView;
 
 public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 
@@ -12,8 +15,8 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			DEFAULT_ANGLE = 30;
 
 	public final static float 
-			DEFAULT_SPEED_Y = MovingView.DEFAULT_SPEED_Y * 2,
-			DEFAULT_SPEED_X = (float) (MovingView.DEFAULT_SPEED_X * 1.5),
+			DEFAULT_SPEED_Y = Gravity_MeteorView.DEFAULT_SPEED_Y * 2,
+			DEFAULT_SPEED_X = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 1.5),
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	private boolean hasBegunHorizontalMovement = false;
@@ -85,8 +88,8 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 				this.setSpeedX(DEFAULT_SPEED_X);
 			}
 			
-			final float nextLeftPos = (float) (Shooting_HorizontalMovementView.this.getX() - this.getSpeedX() * 2);
-			final float nextRightPos = (float) (nextLeftPos + Shooting_HorizontalMovementView.this.getWidth() + this.getSpeedX() * 2);
+			final float nextLeftPos = (float) (Shooting_HorizontalMovementView.this.getX() + this.getSpeedX() * deltaTime);
+			final float nextRightPos = (float) (nextLeftPos + Shooting_HorizontalMovementView.this.getWidth() + this.getSpeedX() * deltaTime );
 			if(nextLeftPos < 0 || nextRightPos > MainActivity.getWidthPixels()){
 				Shooting_HorizontalMovementView.this.
 					setSpeedX(Shooting_HorizontalMovementView.this.getSpeedX() * -1);//reverse horizontal direction

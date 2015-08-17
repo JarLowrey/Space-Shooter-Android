@@ -6,10 +6,12 @@ import android.widget.RelativeLayout;
 import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.R;
 
+import enemies_non_shooters.Gravity_MeteorView;
+
 public abstract class BonusView extends MovingView {
 
 	public static final float
-		DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_X * 2);
+		DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 1.4);
 			
 	public BonusView(RelativeLayout layout,float positionX,float positionY) {
 		super(layout,

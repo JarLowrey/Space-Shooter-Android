@@ -1,15 +1,16 @@
 package backgroundViews;
 
-import parents.MovingView;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
+import enemies_non_shooters.Gravity_MeteorView;
+
 public class StarView extends SpecialEffectView{
 	
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.star;
-	public static final float DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y / 3);//Density Pixels per millisecond
+	public static final float DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y / 3);//Density Pixels per millisecond
 	
 	private long timeSinceLastRandomReset,
 			starLifespan;

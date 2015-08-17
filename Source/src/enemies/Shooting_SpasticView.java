@@ -10,6 +10,7 @@ import bullets.Bullet_Tracking;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
+import enemies_non_shooters.Gravity_MeteorView;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
@@ -21,6 +22,8 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 9),
 			DEFAULT_SCORE=150;
 	public static float 
+			DEFAULT_SPEED_Y = Gravity_MeteorView.DEFAULT_SPEED_Y,
+			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
 	
 	private static final long INTERVAL_WITH_ONE_SET_SPEED = 150;

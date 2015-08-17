@@ -9,13 +9,14 @@ import bullets.Bullet_Interface;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
+import enemies_non_shooters.Gravity_MeteorView;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
 
 public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	
-	public static final float	DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y * .8), //units = frame rate independent density pixels per milliseconds
+	public static final float	DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * .6), //units = frame rate independent density pixels per milliseconds
 			DEFAULT_SPEED_X = (float) (DEFAULT_SPEED_Y * .6); 
 
 	public final static int DEFAULT_SCORE=70,

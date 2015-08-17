@@ -8,6 +8,7 @@ import bullets.Bullet_Interface;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
+import enemies_non_shooters.Gravity_MeteorView;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import guns.Gun_SingleShotStraight;
@@ -25,7 +26,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	public Shooting_PauseAndMove (RelativeLayout layout,int level) {
 		super(layout,level,
 				DEFAULT_SCORE,
-				DEFAULT_SPEED_Y,
+				Gravity_MeteorView.DEFAULT_SPEED_Y,
 				0,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,
@@ -66,7 +67,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	public void updateViewSpeed(long deltaTime) {
 		currentTimePaused += deltaTime;
 		if(hasReachedGravityThreshold() && currentTimePaused >= amtOfTimeToPause){
-			this.setSpeedY(DEFAULT_SPEED_Y);
+			this.setSpeedY(Gravity_MeteorView.DEFAULT_SPEED_Y);
 		}else if(hasReachedGravityThreshold()){
 			this.setSpeedY( 0 );
 		}

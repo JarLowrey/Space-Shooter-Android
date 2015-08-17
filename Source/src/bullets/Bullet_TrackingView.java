@@ -2,6 +2,8 @@ package bullets;
 
 import com.jtronlabs.space_shooter.MainActivity;
 
+import enemies_non_shooters.Gravity_MeteorView;
+
 import interfaces.GameActivityInterface;
 import interfaces.Shooter;
 import parents.MovingView;
@@ -10,8 +12,8 @@ import android.widget.RelativeLayout;
 public class Bullet_TrackingView extends BulletView
 {
 	public static final float 
-			MAX_TRACKING_SPEED = (float) (MovingView.DEFAULT_SPEED_X*.75),
-			DEFAULT_TRACKING_SPEED = (float) (MovingView.DEFAULT_SPEED_X*.3);
+			MAX_TRACKING_SPEED = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y*.75),
+			DEFAULT_TRACKING_SPEED = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y*.3);
 	
 	private float trackingSpeed;
 	

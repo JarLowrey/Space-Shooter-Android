@@ -2,7 +2,6 @@ package enemies_non_shooters;
 
 import helpers.KillableRunnable;
 import levels.AttributesOfLevels;
-import parents.MovingView;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.R;
@@ -12,13 +11,15 @@ import friendlies.ProtagonistView;
 
 public class Gravity_MeteorView extends EnemyView{
 	
+	public static final float
+	DEFAULT_SPEED_Y = (float) 0.3; //units = frame rate independent density pixels per milliseconds
+
 	public final static int DEFAULT_SCORE=20,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/25, 
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 2),
 			DEFAULT_BACKGROUND=R.drawable.meteor,
 			DEFAULT_ROTATION_SPEED=7;
 	public final static float 
-			DEFAULT_SPEED_Y = (float) (MovingView.DEFAULT_SPEED_Y * 1.85),
 			DEFAULT_SPEED_X=0,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float) .01;
 	

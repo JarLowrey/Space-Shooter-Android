@@ -6,6 +6,8 @@ import android.widget.RelativeLayout;
 import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 
+import enemies_non_shooters.Gravity_MeteorView;
+
 public class Tracking_AcceleratingView extends Shooting_TrackingView{
 
 	public Tracking_AcceleratingView(RelativeLayout layout, int level) {
@@ -18,6 +20,6 @@ public class Tracking_AcceleratingView extends Shooting_TrackingView{
 		super.updateViewSpeed(deltaTime);
 		
 		Tracking_AcceleratingView.this.setSpeedY(
-				(float) (Tracking_AcceleratingView.this.getSpeedY()+MovingView.DEFAULT_SPEED_Y / 30));
+				(float) (Tracking_AcceleratingView.this.getSpeedY()+Gravity_MeteorView.DEFAULT_SPEED_Y *0.001));
 	}
 }
