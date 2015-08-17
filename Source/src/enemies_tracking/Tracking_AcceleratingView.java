@@ -20,6 +20,6 @@ public class Tracking_AcceleratingView extends Shooting_TrackingView{
 		super.updateViewSpeed(deltaTime);
 		
 		Tracking_AcceleratingView.this.setSpeedY(
-				(float) (Tracking_AcceleratingView.this.getSpeedY()+Gravity_MeteorView.DEFAULT_SPEED_Y *0.001));
+				(float) (Tracking_AcceleratingView.this.getSpeedY()+Gravity_MeteorView.DEFAULT_SPEED_Y *0.01 * 1.0/deltaTime));
 	}
 }

@@ -1,16 +1,13 @@
 package bullets;
 
-import enemies_non_shooters.Gravity_MeteorView;
-import parents.MovingView;
 import interfaces.Shooter;
 import android.widget.RelativeLayout;
-
-  
+import enemies_non_shooters.Gravity_MeteorView;
 
 public abstract class Bullet_Interface{
 	
 	public final static float 
-		DEFAULT_BULLET_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 1.45);//Density Pixels per millisecond;
+		DEFAULT_BULLET_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y );//Density Pixels per millisecond;
 	
 	public final static int BULLET_LEFT=20,
 			BULLET_MIDDLE=50,

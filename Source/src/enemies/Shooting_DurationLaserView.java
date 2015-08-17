@@ -34,7 +34,7 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 		super(layout, 
 				level, 
 				DEFAULT_SCORE, 
-				Gravity_MeteorView.DEFAULT_SPEED_Y, 
+				Gravity_MeteorView.DEFAULT_SPEED_Y , 
 				0,
 				DEFAULT_COLLISION_DAMAGE, 
 				DEFAULT_HEALTH, 

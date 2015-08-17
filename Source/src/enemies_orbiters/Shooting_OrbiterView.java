@@ -19,7 +19,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	public static final long DEFAULT_ORBIT_TIME = 3000;
 	
 	public static final float 
-			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * .6),
+			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * .5),
 			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,			
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	

@@ -392,29 +392,36 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	}
 	
 	/**
+	 * Returns percentage finger is away from midpoint of button in X and Y. 0 is at midpoint, 1 is at edge of button
 	 * 
 	 * @param left
 	 * @param top
 	 * @param right 
 	 * @param bottom
-	 * @param xTouch
-	 * @param yTouch
+	 * @param xTouch relative position within this view
+	 * @param yTouch relative position within this view
 	 * @return 1=top left, 2=top mid, 3=top right, 4=mid left, 5=mid mid, 6=mid right, 7=bottom left, 8=bottom mid, 9=bottom right
 	 */
 	private float[] percentXYAwayFromMidPoint(float left, float top,float right,float bottom,float xTouch,float yTouch){
-		final float midX = (right-left)/2;
-		final float midY = (bottom-top)/2;
-		float xPosInPercent = (xTouch-midX)/(right-left);
-		float yPosInPercent = (yTouch-midY)/(bottom-top);
-		if(Math.abs(xPosInPercent)>1 || Math.abs(yPosInPercent)>1) {//has moved outside of the button
-			Log.d("lowrey","moved outside the button!");
+		final float xRadius = (float) ((right-left)/2.0), 
+					yRadius = (float) ((bottom-top)/2.0);
+		//at top of view, yTouch is 0, and at left xTouch is 0. We want those to be -1 (-100%) so 
+		//subtract the respective radius and divide by radius to get a percent value
+		float xPosInPercent = (xTouch-xRadius)/xRadius;
+		float yPosInPercent = (yTouch-yRadius)/yRadius;
+		
+//		Log.d("lowrey","xPos "+ xPosInPercent + " yPos "+ yPosInPercent);
+
+		//check for special conditions
+		if(Math.abs(xPosInPercent) < 0.03){
 			xPosInPercent = 0;
-			yPosInPercent = 0 ;
 		}
+		if(Math.abs(yPosInPercent) < 0.03){
+			yPosInPercent = 0;
+		}
+			
 		final float[] percents = {xPosInPercent,yPosInPercent};
-		
-//		Log.d("lowrey","x= "+xPosInPercent+" y= "+yPosInPercent);
-		
+				
 		return percents;
 	} 
 	 

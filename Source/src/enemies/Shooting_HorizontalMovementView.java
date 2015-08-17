@@ -15,8 +15,8 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			DEFAULT_ANGLE = 30;
 
 	public final static float 
-			DEFAULT_SPEED_Y = Gravity_MeteorView.DEFAULT_SPEED_Y * 2,
-			DEFAULT_SPEED_X = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 1.5),
+			DEFAULT_SPEED_Y = Gravity_MeteorView.DEFAULT_SPEED_Y ,
+			DEFAULT_SPEED_X = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 0.8),
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
 	private boolean hasBegunHorizontalMovement = false;

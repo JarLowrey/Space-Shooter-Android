@@ -2,7 +2,6 @@ package enemies_tracking;
 
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
-import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
@@ -23,8 +22,8 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	public static final float
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .02,
 			DEFAULT_BULLET_FREQ=850,
-			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 2 ),
-			DEFAULT_SPEED_X = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 1.1);
+			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y ),
+			DEFAULT_SPEED_X = (float) (DEFAULT_SPEED_Y * .5);
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
 			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/50,

@@ -1,8 +1,5 @@
 package friendlies;
 
-import parents.MovingView;
-import enemies_non_shooters.Gravity_MeteorView;
-import guns.Gun_SingleShotStraight;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.RelativeLayout;
@@ -14,9 +11,12 @@ import com.jtronlabs.space_shooter.GameActivity;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
+import enemies_non_shooters.Gravity_MeteorView;
+import guns.Gun_SingleShotStraight;
+
 public class AllyView extends Friendly_ShooterView{
 
-	public final static float DEFAULT_SPEED_Y=Gravity_MeteorView.DEFAULT_SPEED_Y ,//Density Pixels per millisecond
+	public final static float DEFAULT_SPEED_Y=(float) (Gravity_MeteorView.DEFAULT_SPEED_Y *.5),//Density Pixels per millisecond
 			DEFAULT_SPEED_X=DEFAULT_SPEED_Y;
 	
 	public static int MAX_ALLY_LEVEL = 7, 

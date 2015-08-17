@@ -16,11 +16,13 @@ import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
 import enemies.EnemyView;
+import enemies_non_shooters.Gravity_MeteorView;
 
 public class ProtagonistView extends Friendly_ShooterView{
 
-	public static final float BULLET_SPEED_MULTIPLIER = (float) 1.15;
-
+	public static final float BULLET_SPEED_MULTIPLIER = (float) 1.15,
+			DEFAULT_SPEED_Y=(float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 3.5),//Density Pixels per millisecond
+			DEFAULT_SPEED_X=DEFAULT_SPEED_Y;
 	public static final int 
 			BULLET_FREQ_UPGRADE_WEIGHT=15,
 			DEFAULT_HEALTH=10000,

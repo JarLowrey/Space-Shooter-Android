@@ -1,7 +1,6 @@
 package friendlies;
 
 import helpers.MediaController;
-import parents.MovingView;
 import parents.Moving_ProjectileView;
 import android.widget.RelativeLayout;
 
@@ -10,9 +9,6 @@ import com.jtronlabs.space_shooter.GameLoop;
 import enemies_non_shooters.Gravity_MeteorView;
 
 public abstract class FriendlyView extends Moving_ProjectileView{
-
-	public final static float DEFAULT_SPEED_Y=Gravity_MeteorView.DEFAULT_SPEED_Y * 10,//Density Pixels per millisecond
-			DEFAULT_SPEED_X=DEFAULT_SPEED_Y;
 	
 	public FriendlyView(RelativeLayout layout,float projectileSpeedY
 			,float projectileSpeedX, 

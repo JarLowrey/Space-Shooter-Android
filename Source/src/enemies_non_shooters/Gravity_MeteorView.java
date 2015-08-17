@@ -12,7 +12,7 @@ import friendlies.ProtagonistView;
 public class Gravity_MeteorView extends EnemyView{
 	
 	public static final float
-	DEFAULT_SPEED_Y = (float) 0.3; //units = frame rate independent density pixels per milliseconds
+	DEFAULT_SPEED_Y = (float) 0.33; //units = frame rate independent density pixels per milliseconds
 
 	public final static int DEFAULT_SCORE=20,
 			DEFAULT_COLLISION_DAMAGE= ProtagonistView.DEFAULT_HEALTH/25, 
