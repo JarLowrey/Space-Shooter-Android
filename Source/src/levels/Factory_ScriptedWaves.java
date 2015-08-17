@@ -25,7 +25,7 @@ import enemies_orbiters.Shooting_OrbiterView;
 
 public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 		
-	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 3000;
+	private final static int WAIT_TIME_AFTER_METEOR_WAVE = 3200;
 	
 	public Factory_ScriptedWaves(RelativeLayout layout) { 
 		super(layout);

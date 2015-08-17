@@ -11,6 +11,7 @@ import enemies_orbiters.Orbiter_CircleView;
 import enemies_orbiters.Orbiter_RectangleView;
 import enemies_orbiters.Orbiter_TriangleView;
 import enemies_tracking.Shooting_TrackingView;
+import enemies_tracking.Tracking_AcceleratingView;
 
 public class LevelSpawner extends Factory_Bosses{
 	
@@ -62,9 +63,9 @@ public class LevelSpawner extends Factory_Bosses{
 		timeNeededToEndLevel = 1000;//milliseconds
 		
 		//find how many seconds level will last
-		final int begLevels = 15 + Math.min(LEVELS_BEGINNER, getLevel() ) * 15; 						
-		final int lowLevels = (int) (begLevels +  ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 10);
-		final int medLevels = (int) (lowLevels +  ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 5);
+		final int begLevels = 15 + Math.min(LEVELS_BEGINNER, getLevel() ) * 8; 						
+		final int lowLevels = (int) (begLevels +  ( Math.min(LEVELS_LOW, getLevel() ) - LEVELS_BEGINNER ) * 5);
+		final int medLevels = (int) (lowLevels +  ( Math.min(LEVELS_MED, getLevel() ) - LEVELS_LOW ) * 3);
 		final int highLevels = (int) (medLevels + ( Math.min(LEVELS_HIGH, getLevel() ) - LEVELS_MED ) * 2 );
 		final int allOtherLevels = (int) (highLevels + ( getLevel() - LEVELS_HIGH ) );
 		
@@ -79,7 +80,7 @@ public class LevelSpawner extends Factory_Bosses{
 		}else{
 			timeNeededToEndLevel *= allOtherLevels;
 		}		
-		timeNeededToEndLevel = (long) Math.min(timeNeededToEndLevel, 60 * 2 * 1000);// max = 2 minutes
+		timeNeededToEndLevel = (long) Math.min(timeNeededToEndLevel, 60 * 1.5 * 1000);// max = 1.5 minutes
 		
 		
 		initThresholdForSpawningMoreEnemiesAndMeteors();
@@ -216,6 +217,8 @@ public class LevelSpawner extends Factory_Bosses{
 					Shooting_SpasticView.getSpawningProbabilityWeight(lvl)),
 			spawnEnemyWithDefaultConstructorArguments(Shooting_TrackingView.class,
 					Shooting_TrackingView.getSpawningProbabilityWeight(lvl)),
+				spawnEnemyWithDefaultConstructorArguments(Tracking_AcceleratingView.class,
+						Tracking_AcceleratingView.getSpawningProbabilityWeight(lvl)),
 			spawnEnemyWithDefaultConstructorArguments(Shooting_DiagonalMovingView.class,
 					Shooting_DiagonalMovingView.getSpawningProbabilityWeight(lvl)),
 			spawnEnemyWithDefaultConstructorArguments(Shooting_PauseAndMove.class,

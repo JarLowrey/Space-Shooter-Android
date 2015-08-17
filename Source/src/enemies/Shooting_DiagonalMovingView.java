@@ -1,6 +1,5 @@
 package enemies;
 
-import parents.MovingView;
 import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;

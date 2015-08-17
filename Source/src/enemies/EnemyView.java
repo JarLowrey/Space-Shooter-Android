@@ -2,7 +2,6 @@ package enemies;
 
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
-import levels.LevelSystem;
 import parents.Projectile_GravityView;
 import android.widget.RelativeLayout;
 import bonuses.BonusView;

@@ -1,10 +1,8 @@
 package enemies;
 
 import levels.AttributesOfLevels;
-import parents.MovingView;
 import android.widget.RelativeLayout;
 
-import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 
 import enemies_non_shooters.Gravity_MeteorView;

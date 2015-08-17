@@ -6,8 +6,6 @@ import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.GameLoop;
 
-import enemies_non_shooters.Gravity_MeteorView;
-
 public abstract class FriendlyView extends Moving_ProjectileView{
 	
 	public FriendlyView(RelativeLayout layout,float projectileSpeedY
