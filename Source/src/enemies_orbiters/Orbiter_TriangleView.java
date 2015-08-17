@@ -12,6 +12,10 @@ public class Orbiter_TriangleView extends Shooting_OrbiterView implements Moving
 	public final static int 
 			DEFAULT_ANGLE = 30,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_triangle;
+
+	public static final float 
+			DEFAULT_SPEED_Y = (float) (Shooting_OrbiterView.DEFAULT_SPEED_Y * .4),
+			DEFAULT_SPEED_X = DEFAULT_SPEED_Y;
 	
 	public Orbiter_TriangleView(RelativeLayout layout,int level) {
 		super(layout, level, 

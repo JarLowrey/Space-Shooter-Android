@@ -10,7 +10,7 @@ import enemies_non_shooters.Gravity_MeteorView;
 public class StarView extends SpecialEffectView{
 	
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.star;
-	public static final float DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y / 3);//Density Pixels per millisecond
+	public static final float DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y / 5);//Density Pixels per millisecond
 	
 	private long timeSinceLastRandomReset,
 			starLifespan;
@@ -73,7 +73,7 @@ public class StarView extends SpecialEffectView{
 
 	@Override
 	public void updateViewSpeed(long deltaTime) {
-		//do nothing - constant speed until random location
+		//do nothing - constant speed
 	}
 
 }

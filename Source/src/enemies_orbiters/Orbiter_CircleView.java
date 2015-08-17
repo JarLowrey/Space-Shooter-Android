@@ -12,7 +12,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	
 	public static final float TANGENTIAL_SPEED = (float) (0.5 * GameLoop.instance().targetFrameRate());
 	public static final float 
-			MAX_RADIUS = (int) (140  * MainActivity.getScreenDens()),
+			MAX_RADIUS = (int) (60  * MainActivity.getScreenDens()),
 			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens());
 	public static final int DEFAULT_ORBIT_TIME = 3000,
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_orbiter_circle;
@@ -46,11 +46,13 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 				collisionDamage, health,
 				 probSpawnBeneficialObjecyUponDeath, orbitPixelX, orbitPixelY, width, height, imageId,orbitRevolutionTimeLength);
 		
-		radius=circularRadius;
-		radius = Math.max(radius,MIN_RADIUS);
-		radius = Math.min(radius,MAX_RADIUS);
-		
 		init(width,height);
+
+		radius=circularRadius;//reset radius and such 
+		
+		angularVelocity=(float) (TANGENTIAL_SPEED / radius);
+		this.setGravityThreshold((int) (orbitY - radius));
+		this.setX(orbitX-width/2);
 	}
 
 	private void init(int width,int height){

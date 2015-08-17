@@ -22,7 +22,7 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 9),
 			DEFAULT_SCORE=150;
 	public static float 
-			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 0.7),
+			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 0.6),
 			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH = (float).1;
 	
@@ -129,7 +129,7 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	public static int getSpawningProbabilityWeightForLotsOfEnemiesWave(int level){
 		int probabilityWeight = 0;
 	
-		if(level >= AttributesOfLevels.FIRST_LEVEL_LOTS_OF_DIAGONALS_APPEAR){
+		if(level >= AttributesOfLevels.FIRST_LEVEL_SPASTICS_APPEAR){
 			probabilityWeight = getSpawningProbabilityWeight(level) / 15 ;
 		}
 		

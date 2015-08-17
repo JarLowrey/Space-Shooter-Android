@@ -33,7 +33,9 @@ public class LevelSpawner extends Factory_Bosses{
 		reinitializeAllSpawnableWaves();
 
 		//spawn any special enemies at the beginning of the level
-		SpecialSpawnableLevel.specialSpawnableForThisLevel(getLevel()).spawn();
+		for(SpawnableWave wave : SpecialSpawnableLevel.specialSpawnableWavesForThisLevel(getLevel()) ){
+			wave.spawn();
+		}
 	}
 	
 	public void spawnEnemiesIfPossible(){		
@@ -317,7 +319,7 @@ public class LevelSpawner extends Factory_Bosses{
 						Orbiter_TriangleView.DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE
 						),
 						FIRST_LEVEL_TRIANGLE_ORBITERS_APPEAR),
-			new SpecialSpawnableLevel(coordinatedCircularAttack(lvl), FIRST_LEVEL_CIRCLE_ORBITERS_APPEAR)
+			new SpecialSpawnableLevel(coordinatedCircularAttack(lvl), FIRST_LEVEL_COORDINATED_CIRCLE_ORBITERS_APPEAR)
 						
 		};
 		SpecialSpawnableLevel.initializeSpecialSpawnableLevels(ALL_SPECIAL_SPAWNABLE_LEVELS);

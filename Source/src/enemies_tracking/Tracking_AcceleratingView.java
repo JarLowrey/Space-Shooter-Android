@@ -20,6 +20,6 @@ public class Tracking_AcceleratingView extends Shooting_TrackingView{
 	}
 
 	public static int getSpawningProbabilityWeight(int level) {
-		return (int) (Shooting_TrackingView.getSpawningProbabilityWeight(level) / 2);
+		return (int) (Shooting_TrackingView.getSpawningProbabilityWeight(level) / 2); 
 	}
 }

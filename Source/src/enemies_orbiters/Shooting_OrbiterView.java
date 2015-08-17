@@ -19,7 +19,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	public static final long DEFAULT_ORBIT_TIME = 3000;
 	
 	public static final float 
-			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * .5),
+			DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * .45),
 			DEFAULT_SPEED_X = DEFAULT_SPEED_Y,			
 			DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .08;
 	
@@ -27,7 +27,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			DEFAULT_ORBIT_Y = (int) (MainActivity.getHeightPixels()/3),
 			DEFAULT_HEALTH = ProtagonistView.DEFAULT_BULLET_DAMAGE * 12;
 	
-	private final static double TOP_PORTION_OF_SCREEN = .5;
+	private final static double TOP_PORTION_OF_SCREEN = .4;
 	protected final static int HOW_MANY_TIMES_LESS_LIKELY_TO_SPAWN_MANY_ORBITERS = 12;
 	
 	protected int orbitY,orbitX;
