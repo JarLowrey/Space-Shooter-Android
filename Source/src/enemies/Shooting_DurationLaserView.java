@@ -20,7 +20,7 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 	public static final int DEFAULT_BACKGROUND_ID = R.drawable.ship_enemy_duration_laser,
 			DEFAULT_SCORE = 200,
 			DEFAULT_HEALTH = ProtagonistView.DEFAULT_BULLET_DAMAGE * 12,
-			DEFAULT_BULLET_FREQ = 4000;
+			DEFAULT_BULLET_FREQ = 5000;
 	
 	public static final float DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH=(float) .1;
 	

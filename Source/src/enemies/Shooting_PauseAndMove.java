@@ -1,9 +1,11 @@
 package enemies;
  
+import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
+import bullets.Bullet_Tracking;
 
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
@@ -35,10 +37,10 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 				(int)layout.getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_height), 
 				DEFAULT_BACKGROUND);
 
-		init( (int)getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_width) );
+		init( (int)getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_width),level );
 	}
 	
-	private void init(int width){
+	private void init(int width,int level){
 		//spawn anywhere in X on screen
 		setRandomXPos();
 		
@@ -46,20 +48,33 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 		amtOfTimeToPause= (long) (freq*3.2);
 		this.setGravityThreshold((int) (MainActivity.getHeightPixels()/6 + Math.random() * MainActivity.getHeightPixels()/2.7));
 
-		//override default gun
+		//give this man some flipping guns
 		this.removeAllGuns();
-		Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-				R.drawable.bullet_laser_round_red),
-				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
-		Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
-				R.drawable.bullet_laser_round_red),
-				freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
-		this.addGun(g1);
-		this.addGun(g2);
+		if(level >= AttributesOfLevels.FIRST_LEVEL_PAUSE_AND_SHOOT_APPEAR){
+			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
+					R.drawable.bullet_laser_round_red),
+					freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
+			Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
+					R.drawable.bullet_laser_round_red),
+					freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,80);
+			this.addGun(g1);
+			this.addGun(g2);
+		}else if(Math.random() < 0.5){
+			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), 
+					this, 
+					new Bullet_Tracking(
+						( (GameActivityInterface)getContext()).getProtagonist(),
+						this,
+						(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
+						(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
+						R.drawable.bullet_laser_round_red),
+					freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
+			this.addGun(g1);
+		}
 		this.startShooting();
 	}
 

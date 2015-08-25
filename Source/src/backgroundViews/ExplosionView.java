@@ -34,7 +34,7 @@ public class ExplosionView extends SpecialEffectView {
 	@Override
 	public void restartThreads() {
 		// do nothing
-		
+		 
 	}
 
 	@Override

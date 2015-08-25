@@ -21,8 +21,7 @@ import enemies_non_shooters.Gravity_MeteorView;
 public class ProtagonistView extends Friendly_ShooterView{
 
 	public static final float BULLET_SPEED_MULTIPLIER = (float) 1.15,
-			DEFAULT_SPEED_Y=(float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 4.5),//Density Pixels per millisecond
-			DEFAULT_SPEED_X=DEFAULT_SPEED_Y;
+			MAX_SPEED = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 2);
 	public static final int 
 			BULLET_FREQ_UPGRADE_WEIGHT=15,
 			DEFAULT_HEALTH=10000,
@@ -38,7 +37,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 	private KillableRunnable exhaustRunnable;
 	
 	public ProtagonistView(RelativeLayout layout,GameActivityInterface interactWithGame) {
-		super(layout,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
+		super(layout,
+				0,0,
+				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, 
 				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width), 
 				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_height),
@@ -48,6 +49,9 @@ public class ProtagonistView extends Friendly_ShooterView{
 		this.setX(  MainActivity.getWidthPixels()/2 - 
 				getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
 		myGame=interactWithGame;
+		int protagonistPosition = (int) ( ((GameActivityInterface)getContext()).getBottomScreen()
+				- getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
+		setY( protagonistPosition );
 
 		//apply upgrades
 		StoreUpgradeHandler.createProtagonistGunSet(this);
@@ -175,10 +179,16 @@ public class ProtagonistView extends Friendly_ShooterView{
 
 	@Override
 	public void updateViewSpeed(long deltaTime) {
-		//check for user finger position, if inside button then set movement speed and the GameLoop will take care of moving
-		
-		setSpeedX((float) (ProtagonistView.DEFAULT_SPEED_X*percentDistanceTouchFromMidpointButtonX));
-		setSpeedY((float) (ProtagonistView.DEFAULT_SPEED_Y*percentDistanceTouchFromMidpointButtonY));	
+		double speedX = percentDistanceTouchFromMidpointButtonX;
+		double speedY = percentDistanceTouchFromMidpointButtonY;
+		if( Math.abs(speedX)>MAX_SPEED){
+			speedX = speedX/Math.abs(speedX) * MAX_SPEED;
+		}
+		if( Math.abs(speedY)>MAX_SPEED){
+			speedY = speedY/Math.abs(speedY) * MAX_SPEED;
+		}
+		setSpeedX(speedX);
+		setSpeedY(speedY);	
 	}
 	
 	@Override
@@ -186,7 +196,7 @@ public class ProtagonistView extends Friendly_ShooterView{
 		final int boundLeft = 0;
 		final int boundRight = (int) MainActivity.getWidthPixels() - ProtagonistView.this.getWidth();
 		final int boundTop = (int)(.4 * MainActivity.getHeightPixels());
-		final int boundBottom = (int)(GameActivity.getBottomScreen() - ProtagonistView.this.getHeight());
+		final int boundBottom = (int)(((GameActivityInterface)getContext()).getBottomScreen() - ProtagonistView.this.getHeight());
 		
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
 		float x = this.getX();

@@ -12,6 +12,7 @@ public interface GameActivityInterface {
 	public void incrementScore(int score); 
 	public ProtagonistView getProtagonist();
 	  
+	public int getBottomScreen();
 	public void resetResourcesGameTextView();
 	public ImageView getExhaust();
 	void setTimerText(long numMilliecondsLeft);

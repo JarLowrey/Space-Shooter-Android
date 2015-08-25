@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 public class Bullet_Duration extends Bullet_Interface{
 	
 	public static final int DEFAULT_BULLET_DAMAGE = ProtagonistView.DEFAULT_HEALTH / 90,
-			DEFAULT_BULLET_DURATION = 2000;
+			DEFAULT_BULLET_DURATION = 1200;
 
 	private long bulletLifeSpan;
 	private int posOnShooterAsAPercentage;

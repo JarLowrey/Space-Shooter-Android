@@ -1,12 +1,12 @@
 package parents;
 
+import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.jtronlabs.space_shooter.GameActivity;
 import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 
@@ -42,25 +42,6 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		isRemoved=false;
 	}
 	
-	public boolean RectToRectCollisionDetection(View two){
-		float left1,right1,top1,bottom1;
-		float left2,right2,top2,bottom2;
-		
-		//find the values of the x,y positions of the two views
-		left1=getX();
-		right1=getX()+getWidth();
-		top1=getY();
-		bottom1=getY()+getHeight();
-
-		left2=two.getX();
-		right2=two.getX()+two.getWidth();
-		top2=two.getY();
-		bottom2=two.getY()+two.getHeight();
-		
-		//Simple collision detection - determine if the two rectangular areas intersect
-		//http://devmag.org.za/2009/04/13/basic-collision-detection-in-2d-part-1/
-		return !((bottom1 < top2) ||(top1 > bottom2) || (left1>right2) || (right1<left2));
-	}
 	
 	/**
 	 * Move the View on the screen according to is speedY or speedX.
@@ -75,7 +56,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		x+=this.getSpeedX() * deltaTime ;
 		
 		//check that object is still within screen bounds
-		if(y < -getHeight() || y > GameActivity.getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
+		if(y < -getHeight() || y > ((GameActivityInterface)getContext()).getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
 			this.removeGameObject();
 		}else{
 			this.setY(y);
@@ -111,7 +92,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	 * @param newSpeed
 	 * 		units = frame rate independent density pixels per milliseconds
 	 */
-	public void setSpeedY(float newSpeed){
+	public void setSpeedY(double newSpeed){
 		speedY = ( newSpeed*MainActivity.getScreenDens() ) / GameLoop.instance().targetFrameRate();
 	}
 	/**

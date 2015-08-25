@@ -154,7 +154,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		createAdViewInStore();
 	}
 	
-	public static int getBottomScreen(){
+	@Override
+	public int getBottomScreen(){
 		return offscreenBottom;
 	} 
 	/**
@@ -412,11 +413,11 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 //		Log.d("lowrey","xPos "+ xPosInPercent + " yPos "+ yPosInPercent);
 
-		//check for special conditions
-		if(Math.abs(xPosInPercent) < 0.03){
+		//make it easier to stay still or move in a straight line. The user's finger does not need to be exactly on 0 mark
+		if(Math.abs(xPosInPercent) < 0.04){
 			xPosInPercent = 0;
 		}
-		if(Math.abs(yPosInPercent) < 0.03){
+		if(Math.abs(yPosInPercent) < 0.04){
 			yPosInPercent = 0;
 		}
 			
@@ -643,8 +644,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		//create protagonist View & restore his state
 		protagonist = new ProtagonistView(gameLayout,GameActivity.this);
-		int protagonistPosition = (int) (offscreenBottom - protagonist.getLayoutParams().height * 1.5);// * 1.5 is for some botttom margin
-		protagonist.setY( protagonistPosition );
 		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
 	}
 

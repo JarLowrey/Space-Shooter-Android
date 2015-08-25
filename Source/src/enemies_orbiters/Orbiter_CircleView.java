@@ -51,17 +51,13 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 		radius=circularRadius;//reset radius and such 
 		
 		angularVelocity=(float) (TANGENTIAL_SPEED / radius);
-		this.setGravityThreshold((int) (orbitY - radius));
+//		this.setGravityThreshold((int) (orbitY - radius));
 		this.setX(orbitX-width/2);
 	}
 
 	private void init(int width,int height){
 		currentDegree=260;
 		orbitRevolutionTime=DEFAULT_ORBIT_TIME;
-		
-		//ensure radius and angular velocity are within bounds
-		radius = Math.max(radius,MIN_RADIUS);
-		radius = Math.min(radius,MAX_RADIUS);
 		
 		//linear speed = radius * angular speed
 		//angular speed = linear speed / radius
