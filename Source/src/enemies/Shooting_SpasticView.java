@@ -52,7 +52,7 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 
 		float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 
-		//override default gun
+		//assign guns
 		this.removeAllGuns();
 		Gun g1 = new Gun_SingleShotStraight(getMyLayout(), 
 				this, 
@@ -75,7 +75,7 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 		this.addGun(g1);
 		this.addGun(g2);
 		
-		if(level<AttributesOfLevels.LEVELS_MED){
+		if(level > AttributesOfLevels.LEVELS_MED){
 			Gun g0 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Tracking(
 					( (GameActivityInterface)getContext()).getProtagonist(),
 					this,

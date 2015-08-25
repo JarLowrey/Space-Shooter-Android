@@ -72,30 +72,29 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 
 		//add guns
 		float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 1.3 * DEFAULT_BULLET_FREQ * Math.random());
-		removeAllGuns();
 		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_height), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 				R.drawable.bullet_laser_round_red),
-				bulletFreq, 
+				(float) (bulletFreq * 0.80), 
 				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-				DEFAULT_BULLET_DAMAGE,50);
+				Bullet_Interface.WEAK_BULLET_DMG,50);
 		this.addGun(defaultGun);
-		if(level<AttributesOfLevels.LEVELS_LOW * 1.5){
-			if(Math.random() < 0.5){
-				removeAllGuns();
-				bulletFreq *= 0.80;
-				Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-						(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-						(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-						R.drawable.bullet_laser_round_red),
-						bulletFreq, 
-						Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-						Bullet_Interface.WEAK_BULLET_DMG,50);
-				this.addGun(g1);
-			}
-		}else if(level<AttributesOfLevels.LEVELS_LOW * 1.5){
+		
+		if(level > AttributesOfLevels.LEVELS_LOW * 1.5 && level < AttributesOfLevels.LEVELS_MED){
 			removeAllGuns();
+			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_rec_short_height), 
+					R.drawable.bullet_laser_round_red),
+					bulletFreq, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					DEFAULT_BULLET_DAMAGE,50);
+			this.addGun(g1);
+		}else if(level>AttributesOfLevels.LEVELS_MED){
+			removeAllGuns();
+			bulletFreq *= 0.60;
+			
 			Gun g0 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
@@ -104,9 +103,6 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Bullet_Interface.WEAK_BULLET_DMG,50);
 			this.addGun(g0);
-			
-
-			bulletFreq *= 0.60;
 
 			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
@@ -114,14 +110,14 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 					R.drawable.bullet_laser_round_red),
 					bulletFreq, 
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-					Bullet_Interface.WEAK_BULLET_DMG,10);
+					Bullet_Interface.WEAK_BULLET_DMG,35);
 			Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					R.drawable.bullet_laser_round_red),
 					bulletFreq, 
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-					Bullet_Interface.WEAK_BULLET_DMG,90);
+					Bullet_Interface.WEAK_BULLET_DMG,65);
 			this.addGun(g1);
 			this.addGun(g2);
 		}
