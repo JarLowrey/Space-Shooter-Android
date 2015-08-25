@@ -50,7 +50,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 
 		//give this man some flipping guns
 		this.removeAllGuns();
-		if(level >= AttributesOfLevels.FIRST_LEVEL_PAUSE_AND_SHOOT_APPEAR){
+		if(level >= AttributesOfLevels.FIRST_LEVEL_PAUSE_AND_SHOOT_APPEAR && level < AttributesOfLevels.LEVELS_MED){
 			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.bullet_mid_fat_width), 
 					(int)getContext().getResources().getDimension(R.dimen.bullet_rec_long_height), 
