@@ -20,8 +20,8 @@ import enemies_non_shooters.Gravity_MeteorView;
 
 public class ProtagonistView extends Friendly_ShooterView{
 
-	public static final float BULLET_SPEED_MULTIPLIER = (float) 1.15,
-			MAX_SPEED = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 2);
+	public static final float BULLET_SPEED_MULTIPLIER = (float) 1.2,
+			MAX_SPEED = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * 2.5);
 	public static final int 
 			BULLET_FREQ_UPGRADE_WEIGHT=15,
 			DEFAULT_HEALTH=10000,
