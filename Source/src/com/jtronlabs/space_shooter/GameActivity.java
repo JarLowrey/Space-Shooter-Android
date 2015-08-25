@@ -41,7 +41,6 @@ import com.google.android.gms.ads.AdView;
 
 public class GameActivity extends Activity implements OnTouchListener, GameActivityInterface{
 
-	private static int offscreenBottom;
 
 	private boolean canBeginShooting=true,beginShootingRunnablePosted=false;
 	
@@ -140,8 +139,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		storePurchaseFriend.setOnTouchListener(this); 
 		
 		//set up control panel
-		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
-		offscreenBottom = (int) MainActivity.getHeightPixels() - controlPanel.getLayoutParams().height ;
+		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.dimen.control_panel_height);
 		
 		//set up the game
 		levelCreator = new LevelSystem(gameLayout);
@@ -154,10 +152,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		createAdViewInStore();
 	}
 	
-	@Override
-	public int getBottomScreen(){
-		return offscreenBottom;
-	} 
 	/**
 	 * Pause game. Eventually, state will need to be saved to database, as after on pause any
 	 * variables are liable for Android garbage collection!

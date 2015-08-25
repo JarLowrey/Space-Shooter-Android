@@ -9,6 +9,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 /**
  * 
@@ -55,8 +56,10 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		y+=this.getSpeedY() * deltaTime ;
 		x+=this.getSpeedX() * deltaTime ;
 		
-		//check that object is still within screen bounds
-		if(y < -getHeight() || y > ((GameActivityInterface)getContext()).getBottomScreen() || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
+		//check that object is still within screen bounds		
+		final float bottomScreen = (int) MainActivity.getHeightPixels() - getContext().getResources().getDimension(R.dimen.control_panel_height) ;
+
+		if(y < -getHeight() || y > bottomScreen || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
 			this.removeGameObject();
 		}else{
 			this.setY(y);
