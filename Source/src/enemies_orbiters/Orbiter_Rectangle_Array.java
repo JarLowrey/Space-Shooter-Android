@@ -83,8 +83,10 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 		
 		//add guns
 		removeAllGuns();
-		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ*1.5 + 3 * DEFAULT_BULLET_FREQ * Math.random());
-		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, 
+		float bulletFreq = (float) (DEFAULT_BULLET_FREQ*1.5 + 3 * DEFAULT_BULLET_FREQ * Math.random());
+		
+		if(level<AttributesOfLevels.LEVELS_LOW){
+			Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, 
 				new Bullet_Basic(
 				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
 				(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
@@ -92,7 +94,26 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 				bulletFreq, 
 				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 				DEFAULT_BULLET_DAMAGE,50);
-		this.addGun(defaultGun);
+			this.addGun(defaultGun);
+		}else{
+			bulletFreq *= 1.2;
+			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_red),
+					bulletFreq, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					Bullet_Interface.WEAK_BULLET_DMG,50);
+			Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_red),
+					bulletFreq, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					Bullet_Interface.WEAK_BULLET_DMG,50);
+			this.addGun(g1);
+			this.addGun(g2);
+		}
 		this.startShooting();
 	}
 

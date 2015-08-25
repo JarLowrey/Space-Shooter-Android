@@ -26,7 +26,6 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 			DEFAULT_SPEED_X = (float) (DEFAULT_SPEED_Y * .5);
 	
 	public static final int DEFAULT_COLLISION_DAMAGE=ProtagonistView.DEFAULT_HEALTH/10,
-			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/50,
 			DEFAULT_SCORE=100,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE  * 5),
 			DEFAULT_BACKGROUND=R.drawable.ship_enemy_tracker,
@@ -52,15 +51,45 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 		setRandomXPos();
 	
 		//add guns
-		final float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
-		Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
-				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-				(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
-				R.drawable.bullet_laser_round_red),
-				bulletFreq, 
-				Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
-				DEFAULT_BULLET_DAMAGE,50);
-		this.addGun(defaultGun);
+		removeAllGuns();
+		float bulletFreq = (float) (DEFAULT_BULLET_FREQ + 2 * DEFAULT_BULLET_FREQ * Math.random());
+		if(level< AttributesOfLevels.LEVELS_LOW){
+			Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_red),
+					bulletFreq, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					Bullet_Interface.WEAK_BULLET_DMG,50);
+			this.addGun(defaultGun);
+		}else if(level< AttributesOfLevels.LEVELS_MED){
+			bulletFreq *= 0.70;
+			Gun defaultGun = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_red),
+					bulletFreq, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					Bullet_Interface.WEAK_BULLET_DMG,50);
+			this.addGun(defaultGun);
+		}else{
+			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_red),
+					bulletFreq, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					Bullet_Interface.WEAK_BULLET_DMG,20);
+			Gun g2 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
+					R.drawable.bullet_laser_round_red),
+					bulletFreq, 
+					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
+					Bullet_Interface.WEAK_BULLET_DMG,80);
+			this.addGun(g1);
+			this.addGun(g2);
+		}
 		this.startShooting();
 	}
 	
