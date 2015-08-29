@@ -53,7 +53,10 @@ public class ProtagonistView extends Friendly_ShooterView{
 
 		//apply upgrades
 		StoreUpgradeHandler.createProtagonistGunSet(this);
-		this.setHealth( getProtagonistMaxHealth(getContext()) );
+		
+		SharedPreferences gameState = getContext().getSharedPreferences(GameActivity.GAME_STATE_PREFS, 0);
+		setHealth(gameState.getInt(GameActivity.STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
+
 		
 		//prepare ship
 		restartThreads();

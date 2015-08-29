@@ -121,7 +121,7 @@ public class GameLoop {
 			}
 		};
 		
-		gameLoopHandler.post(loopingRunnable);
+		gameLoopHandler.postDelayed(loopingRunnable,100);
 	}
 	/**
 	 * flag level as paused, stop collision detector and level spawner. Remove

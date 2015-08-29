@@ -214,8 +214,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			 * called, thus resetting everything and leading to onCreate being called again. isGameOver will be set to false and
 			 * this if statement will be skipped.
 			*/
-		}else if(levelCreator.getLevel()==0){
-			createNewProtagonistView();
+		}else if(levelCreator.getLevel()==0){		
+			protagonist = new ProtagonistView(gameLayout,GameActivity.this);
 			stars_creator_game.startSpawningStars();
 			GameLoop.instance().startLevelAndLoop(this,levelCreator);//start after creating protagonist
 		}else{
@@ -361,8 +361,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		beginShootingRunnablePosted=false;
 
 		/* after restarting the game loop, create necessary Views */
-		//create protagonist
-		createNewProtagonistView();
+		//create protagonist		
+		protagonist = new ProtagonistView(gameLayout,GameActivity.this);
+
 		
 		//create special effects
 		stars_creator_store.stopSpawningStars();
@@ -633,14 +634,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		adView.loadAd(adRequest);	
 	}
 	
-	private void createNewProtagonistView(){
-		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
-		
-		//create protagonist View & restore his state
-		protagonist = new ProtagonistView(gameLayout,GameActivity.this);
-		protagonist.setHealth(gameState.getInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH));
-	}
-
 	@Override
 	public void resetResourcesGameTextView() {
 		resourceCount.setText("$"+MainActivity.formatInt(levelCreator.getResourceCount() ) );		
