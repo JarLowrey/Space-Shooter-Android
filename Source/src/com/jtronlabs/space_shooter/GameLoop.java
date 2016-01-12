@@ -12,12 +12,16 @@ import parents.MovingView;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
+
 import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
 import friendlies.FriendlyView;
 
 /**
+ * Game Loop needs to be designed in this fashion : http://gamedev.stackexchange.com/questions/75558/frameskipping-in-android-gameloop-causing-choppy-sprites-open-gl-es-2-0
+ * 		Game state contains data, update logic handles phyics and runs faster than rendering, display logic renders as fast as possible (slower than physics)
  * Singleton class responsible for updating game state
  * @author lowre_000
  *
@@ -110,14 +114,17 @@ public class GameLoop {
 				}
 				
 				//calculate how long until next gameLoop iteration
-				final long stopTime = SystemClock.uptimeMillis();
-				final long howLongThisLoopIterationTook = stopTime - startTime;
+				final long howLongThisLoopIterationTook = SystemClock.uptimeMillis() - startTime;
 				long timeToWait = howOftenToRerunLoop - howLongThisLoopIterationTook;
+
+				if(howLongThisLoopIterationTook > timeToWait)
+					Log.d("lowrey", "wait: " + timeToWait + " duration: " + howLongThisLoopIterationTook+" max-time: "+howOftenToRerunLoop);
+				/*
 				if(timeToWait < MIN_TICK_TIME){ //apply a minimum wait time so system does not starve
 					timeToWait = MIN_TICK_TIME;
-				}
+				}*/
 				timeAtLastFrame = SystemClock.uptimeMillis();
-				gameLoopHandler.postDelayed(this,timeToWait);
+				gameLoopHandler.postDelayed(this, timeToWait);
 			}
 		};
 		

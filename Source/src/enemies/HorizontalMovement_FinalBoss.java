@@ -2,6 +2,8 @@ package enemies;
 
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
+
+import android.view.View;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
@@ -200,12 +202,12 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 			timeSinceLastVisibilityChange += deltaTime;
 		
 			if(isInvisible  && timeSinceLastVisibilityChange >= howLongToBeInvisible){
-				this.setImageResource(R.drawable.ship_enemy_boss5);
+				this.setVisibility(View.VISIBLE);
 				timeSinceLastVisibilityChange = 0;
 				isInvisible = false;
 				howLongToBeVisible = (long)( 5000+Math.random()*2000 );
 			}else if ( !isInvisible && timeSinceLastVisibilityChange >= howLongToBeVisible){
-				this.setImageResource( 0 );
+				this.setVisibility(View.INVISIBLE);
 				timeSinceLastVisibilityChange = 0;
 				isInvisible = true;
 				howLongToBeInvisible = (long) (2000+Math.random() * 2000);
