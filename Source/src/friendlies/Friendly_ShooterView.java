@@ -20,9 +20,9 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 	
 	protected boolean isShooting;
 
-	public Friendly_ShooterView(RelativeLayout layout, float projectileSpeedY,float projectileSpeedX, 
+	public Friendly_ShooterView(float xInitialPosition,float yInitialPosition,RelativeLayout layout, float projectileSpeedY,float projectileSpeedX,
 			int projectileDamage,int projectileHealth,int width,int height,int imageId) {
-		super(layout,projectileSpeedY,projectileSpeedX,
+		super(xInitialPosition,yInitialPosition,layout,projectileSpeedY,projectileSpeedX,
 				projectileDamage,projectileHealth, width, height, imageId);
 		
 		isShooting=false;
@@ -36,7 +36,7 @@ public abstract class Friendly_ShooterView extends FriendlyView implements Shoot
 		
 		for(BulletView b : myBullets){
 			if(b instanceof Bullet_HasDurationView){
-				b.removeGameObject();
+				b.setViewToBeRemovedOnNextRendering();
 			}
 		}
 		

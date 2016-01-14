@@ -17,7 +17,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 	private int score;
 	private double probSpawnBeneficialObject;
 	
-	public EnemyView(RelativeLayout layout,
+	public EnemyView(float xInitialPosition,RelativeLayout layout,
 			int level,
 			int scoreForKilling,
 			float projectileSpeedY,
@@ -26,15 +26,15 @@ public abstract class EnemyView extends Projectile_GravityView{
 			int projectileHealth,
 			float probSpawnBeneficialObjectUponDeath,
 			int width,int height,int imageId) {
-		super( layout,
+		super( xInitialPosition,
+				- height / 2 ,//start all enemies 3/4 way offscreen,
+				layout,
 				scaleSpeedY(level,projectileSpeedY),
 				scaleSpeedX(level,projectileSpeedX),
 				scaleCollisionDamage(level,projectileDamage),
 				scaleHealth(level,projectileHealth),
 				width, height, imageId);
-		
-		this.setY( - this.getHeight() /2 );//start all enemies 3/4 way offscreen
-		
+
 		numSpawn++;
 		score = scaleScore(level, scoreForKilling);
 		probSpawnBeneficialObject= scaleProbabilitySpawnBeneficialObjectOnDeath(level,probSpawnBeneficialObjectUponDeath);

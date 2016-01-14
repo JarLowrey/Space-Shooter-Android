@@ -31,21 +31,22 @@ public class Shooting_DurationLaserView extends Enemy_ShooterView{
 	private double myAngularSpeed = DEFAULT_ANGULAR_SPEED;
 	
 	public Shooting_DurationLaserView(RelativeLayout layout, int level) {
-		super(layout, 
-				level, 
-				DEFAULT_SCORE, 
-				Gravity_MeteorView.DEFAULT_SPEED_Y , 
+		super(
+				getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.ship_enemy_duration_laser_width)),
+				layout,
+				level,
+				DEFAULT_SCORE,
+				Gravity_MeteorView.DEFAULT_SPEED_Y,
 				0,
-				DEFAULT_COLLISION_DAMAGE, 
-				DEFAULT_HEALTH, 
-				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH, 
-				(int)layout.getContext().getResources().getDimension(R.dimen.ship_enemy_duration_laser_width),
-				(int)layout.getContext().getResources().getDimension(R.dimen.ship_enemy_duration_laser_height), 
+				DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,
+				DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+				(int) layout.getContext().getResources().getDimension(R.dimen.ship_enemy_duration_laser_width),
+				(int) layout.getContext().getResources().getDimension(R.dimen.ship_enemy_duration_laser_height),
 				DEFAULT_BACKGROUND_ID);
 
 //		currLevel = level;
-		
-		setRandomXPos();
+
 		this.setGravityThreshold((int) (MainActivity.getHeightPixels()/3 + Math.random()));
 
 		 //gun that shoots duration bullets

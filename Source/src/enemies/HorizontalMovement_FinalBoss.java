@@ -196,7 +196,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 	}
 	
 	@Override
-	public void move(long deltaTime){
+	public void movePhysicalPosition(long deltaTime){
 		if(hasReachedGravityThreshold()){
 			//make boss intermittently invisible
 			timeSinceLastVisibilityChange += deltaTime;
@@ -214,7 +214,7 @@ public class HorizontalMovement_FinalBoss extends Shooting_HorizontalMovementVie
 			}		
 		}
 		
-		super.move(deltaTime);
+		super.movePhysicalPosition(deltaTime);
 	}
 	
 	public static int getSpawningProbabilityWeight(int level) {

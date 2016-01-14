@@ -112,7 +112,7 @@ public abstract class AttributesOfLevels {
 		return (getResourceCount() - scoreBeforeLevel);		
 	}
 
-	public void updateLevelTimeAndSpawnIfNeeded(long deltaTime) {
+	public void updateLevelTimeCountdownDisplay(long deltaTime) {
 		timeSpentOnThisLevel += deltaTime;
 		long millisecondsLeft = timeNeededToEndLevel - timeSpentOnThisLevel;
 		millisecondsLeft = Math.max(millisecondsLeft, 0);

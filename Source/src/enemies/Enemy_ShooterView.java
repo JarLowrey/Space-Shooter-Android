@@ -26,11 +26,11 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 		
 		private boolean isShooting=true;
 		
-		public Enemy_ShooterView(RelativeLayout layout,int level,int scoreForKilling,
+		public Enemy_ShooterView(float xInitialPosition,RelativeLayout layout,int level,int scoreForKilling,
 				float projectileSpeedY,float projectileSpeedX, 
 				int projectileDamage,int projectileHealth,float probSpawnBeneficialObject,
 				int width,int height,int imageId) {
-			super(layout,level,scoreForKilling,projectileSpeedY,projectileSpeedX,
+			super(xInitialPosition,layout,level,scoreForKilling,projectileSpeedY,projectileSpeedX,
 					projectileDamage,projectileHealth,probSpawnBeneficialObject, width, height, imageId);
 
 			myGuns= new ArrayList<Gun>();
@@ -47,11 +47,11 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			
 			for(BulletView b : myBullets){
 				if(b instanceof Bullet_HasDurationView){
-					b.removeGameObject();
+					b.setViewToBeRemovedOnNextRendering();
 				}
 			}
-			
-			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks		
+
+			super.removeGameObject();//needs to be the last thing called for handler to remove all callbacks
 		}
 		@Override   
 		public boolean takeDamage(int howMuchDamage){ 

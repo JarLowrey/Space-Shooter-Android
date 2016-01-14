@@ -33,7 +33,7 @@ public class Orbiter_Rectangle_Array extends Orbiter_RectangleView{
 	public static ArrayList<Orbiter_Rectangle_Array> allSimpleShooters = new ArrayList<Orbiter_Rectangle_Array>();
 	private static boolean[] occupiedPositions;
 	
-	// Constantly move all instances of this class in a square shape
+	// Constantly movePhysicalPosition all instances of this class in a square shape
 	private static int numRows = DEFAULT_NUM_ROWS, 
 			numCols = DEFAULT_NUM_COLS;
 

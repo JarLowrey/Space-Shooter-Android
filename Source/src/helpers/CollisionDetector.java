@@ -30,11 +30,13 @@ public class CollisionDetector {
 	    	for(int i=GameLoop.enemies.size()-1;i>=0;i--){
 //	    		try{
 		    		EnemyView enemy = GameLoop.enemies.get(i);
-		    		if(RectToRectCollisionDetection(friendly,enemy)){
-		    			
-		    			friendly.takeDamage(enemy.getDamage());
-		    			enemy.takeDamage(friendly.getDamage());
-		    		}
+					if(!enemy.isRemoved()) {
+						if (RectToRectCollisionDetection(friendly, enemy)) {
+
+							friendly.takeDamage(enemy.getDamage());
+							enemy.takeDamage(friendly.getDamage());
+						}
+					}
 //	    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 	    	}
     	}
@@ -47,11 +49,15 @@ public class CollisionDetector {
 			for(int j=GameLoop.enemyBullets.size()-1;j>=0;j--){
 //				try{
 					BulletView bullet = GameLoop.enemyBullets.get(j);
-					if( RectToRectCollisionDetection(friendly,bullet)){
-	
-		    			friendly.takeDamage(bullet.getDamage());
-		    			if (! (bullet instanceof Bullet_HasDurationView) ){bullet.removeGameObject();}
-		    		}
+					if(!bullet.isRemoved()) {
+						if (RectToRectCollisionDetection(friendly, bullet)) {
+
+							friendly.takeDamage(bullet.getDamage());
+							if (!(bullet instanceof Bullet_HasDurationView)) {
+								bullet.setViewToBeRemovedOnNextRendering();
+							}
+						}
+					}
 //	    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 			}
     	}
@@ -66,10 +72,12 @@ public class CollisionDetector {
 		    	for(int i=GameLoop.bonuses.size()-1;i>=0;i--){
 //		    		try{
 			    		BonusView bonus = GameLoop.bonuses.get(i);
-			    		if( /*! bonus.isRemoved() &&*/ RectToRectCollisionDetection(friendly,bonus)){//game object could be removed in previous loop iteration
-			    			bonus.applyBenefit();
-			    			bonus.removeGameObject();
-			    		}
+						if(!bonus.isRemoved()) {
+							if ( /*! bonus.isRemoved() &&*/ RectToRectCollisionDetection(friendly, bonus)) {//game object could be removed in previous loop iteration
+								bonus.applyBenefit();
+								bonus.setViewToBeRemovedOnNextRendering();
+							}
+						}
 //		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 		    	}
 			}
@@ -83,11 +91,15 @@ public class CollisionDetector {
 	    		for(int j=GameLoop.friendlyBullets.size()-1;j>=0;j--){
 //	    			try{
 						BulletView bullet = GameLoop.friendlyBullets.get(j);
-						if( RectToRectCollisionDetection(bullet,enemy)){
-							
-		        			enemy.takeDamage(bullet.getDamage());
-		        			if (! (bullet instanceof Bullet_HasDurationView) ){bullet.removeGameObject();}
-		        		}
+						if(!bullet.isRemoved()) {
+							if (RectToRectCollisionDetection(bullet, enemy)) {
+
+								enemy.takeDamage(bullet.getDamage());
+								if (!(bullet instanceof Bullet_HasDurationView)) {
+									bullet.setViewToBeRemovedOnNextRendering();
+								}
+							}
+						}
 //		    		}catch(Exception e){Log.d("lowrey",e.getMessage());}
 	        	}
     	}

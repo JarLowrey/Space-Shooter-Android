@@ -13,8 +13,8 @@ public class Bullet_Tracking extends Bullet_Interface{
 
 	}
 	
-	public BulletView getBullet(RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage){
-		Bullet_TrackingView b = new Bullet_TrackingView(layout,shooter,
+	public BulletView getBullet(int posOnShooterAsAPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage){
+		Bullet_TrackingView b = new Bullet_TrackingView(posOnShooterAsAPercentage,layout,shooter,
 				bulletSpeedY, bulletDamage,width,height,backgroundId);
 		return b;
 	}

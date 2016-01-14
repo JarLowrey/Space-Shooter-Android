@@ -10,7 +10,7 @@ import com.jtronlabs.space_shooter.GameLoop;
 public class ExplosionView extends SpecialEffectView {
 
 	public ExplosionView(final RelativeLayout layout,MovingView parent, int imageId,long[] vibrationPattern) {
-		super(layout, 0,0, parent.getWidth(), parent.getHeight(), imageId);
+		super(parent.getX(),parent.getY(),layout, 0,0, parent.getWidth(), parent.getHeight(), imageId);
 		
 		MediaController.playSoundEffect(getContext(), MediaController.SOUND_EXPLOSION1);
 		if(vibrationPattern == null){
@@ -18,15 +18,12 @@ public class ExplosionView extends SpecialEffectView {
 		}
 		MediaController.vibrate(getContext(), vibrationPattern);
 
-		this.setX(parent.getX());
-		this.setY(parent.getY());
-
 		GameLoop.specialEffects.add(this);
 		
 		postDelayed(new KillableRunnable(){
 			@Override
 			public void doWork() {
-				ExplosionView.this.removeGameObject();
+				ExplosionView.this.setViewToBeRemovedOnNextRendering();
 			}
 		},500);	
 	}
@@ -41,11 +38,6 @@ public class ExplosionView extends SpecialEffectView {
 	public void updateViewSpeed(long deltaTime) {
 		// do nothing
 		
-	}
-
-	@Override
-	public void removeGameObject() {
-		super.defaultCleanupOnRemoval();		
 	}
 
 }

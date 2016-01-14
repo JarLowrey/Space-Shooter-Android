@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +24,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import backgroundViews.ParticleBackgroundAnimation;
+import backgroundViews.StarAnimationManager;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -38,17 +39,16 @@ public class MainActivity extends Activity implements OnClickListener{
 			HIGHEST_SCORE = "highestScore",
 			MAX_LEVEL = "maxLevel";
 	private static float screenDens,widthPixels,heightPixels;
+	private static boolean introHasPlayed = false;
 	private ImageButton vibrate, sound, credits;
-	private AdView adView;     
-	    
-	private ParticleBackgroundAnimation stars_creator;
+	private AdView adView;
 	           
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {       
 		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.activity_main); 
-	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
-		 
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 	    //set up settings buttons
 	    ImageButton settings = (ImageButton)findViewById(R.id.settings_btn); 
 	    settings.setOnClickListener(this);
@@ -80,9 +80,31 @@ public class MainActivity extends Activity implements OnClickListener{
 		playBtn.setOnClickListener(this);
 	    
 		createAdView();
-		
-		stars_creator = new ParticleBackgroundAnimation((RelativeLayout)findViewById(R.id.activity_main),
-				(int) (1.5*ParticleBackgroundAnimation.DEFAULT_NUM_STARS));
+
+		//handle the layouts and music of the AppIntro (logo displayed)
+		final RelativeLayout appIntro = (RelativeLayout) findViewById(R.id.app_intro_screen);
+		final RelativeLayout mainActivityBackground = (RelativeLayout) findViewById(R.id.activity_main);
+		if(introHasPlayed) {
+			MediaController.playSoundClip(MainActivity.this, R.raw.background_intro, true);
+			appIntro.setVisibility(View.GONE);
+			mainActivityBackground.setVisibility(View.VISIBLE);
+		}else{
+			//hide  app intro after a short time and display main activity
+			new CountDownTimer(4000, 1000) {
+				@Override
+				public void onTick(long millisUntilFinished) {
+				}
+
+				@Override
+				public void onFinish() {
+					introHasPlayed = true;
+
+					MediaController.playSoundClip(MainActivity.this, R.raw.background_intro, true);
+					appIntro.setVisibility(View.GONE);
+					mainActivityBackground.setVisibility(View.VISIBLE);
+				}
+			}.start();
+		}
 	}
 	
 	private void createAdView(){		
@@ -116,8 +138,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onPause();
 
 		GameLoop.instance().stopLevelAndLoop();
-		
-		stars_creator.stopSpawningStars();
+
+		//StarAnimationManager.cleanUpAndRemove();
 		
 		adView.pause();
 		MediaController.stopLoopingSound();
@@ -128,19 +150,25 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onResume();
 		
 		GameLoop.instance().startLevelAndLoop(this, null);
+		//set up the sounds. Must be done after gameloop, as the loop auto plays the game music
+		if(introHasPlayed) {
+			MediaController.playSoundClip(this, R.raw.background_intro, true);
+		}else{
+			MediaController.stopLoopingSound();
+			MediaController.stopNonLoopingSound();
+		}
 
-		stars_creator.startSpawningStars();
+		StarAnimationManager.createStars((RelativeLayout) findViewById(R.id.activity_main));
 		
 		//set GameTextViews here, as the text may have updated since onCreate 
 		//(user plays game, gets new record, and goes back to mainActivity)
 		SharedPreferences gameMeta = getSharedPreferences(MainActivity.GAME_META_DATA_PREFS,0);
 		GameTextView score = (GameTextView)findViewById(R.id.high_score);
-		score.setText( formatInt( gameMeta.getInt(HIGHEST_SCORE, 0)) );
+		score.setText(formatInt(gameMeta.getInt(HIGHEST_SCORE, 0)));
 		GameTextView days = (GameTextView)findViewById(R.id.max_day);
 		days.setText(formatInt(gameMeta.getInt(MAX_LEVEL, 0)) );
 		
 		adView.resume();
-		MediaController.playSoundClip(this, R.raw.background_intro, true);
 	}
 
     @Override

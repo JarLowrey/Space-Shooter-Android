@@ -14,7 +14,7 @@ public abstract class BonusView extends MovingView {
 		DEFAULT_SPEED_Y = (float) (Gravity_MeteorView.DEFAULT_SPEED_Y * .9);
 			
 	public BonusView(RelativeLayout layout,float positionX,float positionY) {
-		super(layout,
+		super(positionX,positionY,layout,
 				DEFAULT_SPEED_Y,
 				0,
 				(int) layout.getContext().getResources().getDimension(R.dimen.bonus_background_len),
@@ -23,8 +23,6 @@ public abstract class BonusView extends MovingView {
 		
 		//set background and position
 		this.setBackgroundResource(R.drawable.white_center_red_outline);
-		this.setX(positionX);
-		this.setY(positionY);
 		
 		GameLoop.bonuses.add(this);
 	}
@@ -37,7 +35,7 @@ public abstract class BonusView extends MovingView {
 	@Override
 	public void removeGameObject(){		
 		GameLoop.bonuses.remove(this);
-		super.defaultCleanupOnRemoval();
+		super.removeGameObject();
 	}
 	
 	public static void displayRandomBonusView(RelativeLayout layout,float positionX,float positionY){
@@ -53,12 +51,12 @@ public abstract class BonusView extends MovingView {
 
 	@Override
 	public void restartThreads() {
-		defaultCleanupOnRemoval();		
+		//do nothing
 	}
 
 	@Override
 	public void updateViewSpeed(long deltaTime) {
 		// do nothing - constant speed
-		
+
 	}
 }

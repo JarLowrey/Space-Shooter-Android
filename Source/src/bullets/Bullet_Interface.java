@@ -25,6 +25,6 @@ public abstract class Bullet_Interface{
 		backgroundId = bulletBackgroundId;
 	}
 	
-	public abstract BulletView getBullet(RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage);
+	public abstract BulletView getBullet(int posOnShooterAsAPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage);
 	
 }

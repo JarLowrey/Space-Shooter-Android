@@ -26,12 +26,11 @@ public class AllyView extends Friendly_ShooterView{
 	
 	/**
 	 * First 4 levels upgrade health. Next 4 levels upgrade gun damage.
-	 * @param context
 	 * @param viewToTrack
-	 * @param levelOfAlly
 	 */
-	public AllyView(RelativeLayout layout,ProtagonistView viewToTrack, int levelOfAlly) {
-		super(layout,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
+	public AllyView(RelativeLayout layout,ProtagonistView viewToTrack) {
+		super(viewToTrack.getX() - allyPictureAndDimensions(layout.getContext())[1],viewToTrack.getY(),
+				layout,DEFAULT_SPEED_Y,DEFAULT_SPEED_X,DEFAULT_COLLISION_DAMAGE,
 				allyHealth(layout.getContext()),
 				allyPictureAndDimensions(layout.getContext())[1], 
 				allyPictureAndDimensions(layout.getContext())[2],
@@ -39,8 +38,6 @@ public class AllyView extends Friendly_ShooterView{
 		
 		//set this runnable to track the protagonist
 		trackMe = viewToTrack;
-		this.setX(trackMe.getX() - this.getLayoutParams().width);
-		this.setY(trackMe.getY());
 
 		//apply gun upgrades
 		final int allyLvl = allyLevel(getContext());
@@ -123,11 +120,11 @@ public class AllyView extends Friendly_ShooterView{
 		final float protagonistMidPointX = (trackMe.getX()+trackMe.getWidth() + trackMe.getX())/2;
 		
 		if( allyMidPointX < protagonistMidPointX - pixelDistanceDelta){
-			AllyView.this.setSpeedX(Math.abs(DEFAULT_SPEED_X ));//move right
+			AllyView.this.setSpeedX(Math.abs(DEFAULT_SPEED_X ));//movePhysicalPosition right
 		}else if ( allyMidPointX > protagonistMidPointX + pixelDistanceDelta) {
-			AllyView.this.setSpeedX( - Math.abs(DEFAULT_SPEED_X ));//move left
+			AllyView.this.setSpeedX( - Math.abs(DEFAULT_SPEED_X ));//movePhysicalPosition left
 		}else{
-			AllyView.this.setSpeedX( 0 );//dont move
+			AllyView.this.setSpeedX( 0 );//dont movePhysicalPosition
 		}
 		
 		//Ally tracks top of Protagonist. Botttom of Ally desires to be at top of protagonist
@@ -135,11 +132,11 @@ public class AllyView extends Friendly_ShooterView{
 		final float protagonistTop = trackMe.getY();
 		
 		if( allyBottom < protagonistTop - pixelDistanceDelta){
-			AllyView.this.setSpeedY(Math.abs(DEFAULT_SPEED_Y ));//move up
+			AllyView.this.setSpeedY(Math.abs(DEFAULT_SPEED_Y ));//movePhysicalPosition up
 		}else if ( allyBottom > protagonistTop + pixelDistanceDelta) {
-			AllyView.this.setSpeedY( - Math.abs(DEFAULT_SPEED_Y ));//move down
+			AllyView.this.setSpeedY( - Math.abs(DEFAULT_SPEED_Y ));//movePhysicalPosition down
 		}else{
-			AllyView.this.setSpeedY( 0 );//dont move
+			AllyView.this.setSpeedY( 0 );//dont movePhysicalPosition
 		}	
 	}
 }

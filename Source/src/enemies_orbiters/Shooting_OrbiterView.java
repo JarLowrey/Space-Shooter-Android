@@ -33,12 +33,15 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 	protected int orbitY,orbitX;
 	protected long currentRevolutionTime = 0,
 		orbitRevolutionTime;
-	
+
+
+	//orbit a random X pos in middle of screen
 	public Shooting_OrbiterView(RelativeLayout layout, 
 			int level,
 			int scoreForKilling, 
 			int width,int height,int imageId) {
-		super(layout, level,
+		super(getRandomPosInVeryMiddleXOfScreen(),
+				layout, level,
 				scoreForKilling, 
 				DEFAULT_SPEED_Y,
 				0, 
@@ -53,7 +56,7 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		 * 	X:    	|width |radius|   free space   |radius|width |
 		 *  Y:		|height|radius|   free space   |radius|height|  restricted space  |
 		*/
-		orbitX = (int) (Math.random() * MainActivity.getWidthPixels() * .75 + MainActivity.getWidthPixels() * .125);//whatever, just put them in the middle part of screen
+		orbitX = (int) getX();//X position has already been set in the contructor to a random X. Thus just grab it to find the X that will be orbited around
 		orbitY = (int) (Math.random() * MainActivity.getHeightPixels() * TOP_PORTION_OF_SCREEN );
 //		orbitY=(int) (Math.random() *  ( MainActivity.getHeightPixels()*TOP_PORTION_OF_SCREEN-height*2-orbitLengthY() )/2 ) 
 //				+ orbitLengthY()+height/2 ;
@@ -66,6 +69,8 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		
 		init();
 	}
+
+	//orbit a specified X Pos on screen
 	public Shooting_OrbiterView(RelativeLayout layout,int level,
 			int scoreForKilling,
 			float speedY,
@@ -75,7 +80,8 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 			int orbitPixelX,int orbitPixelY,
 			int width,int height,int imageId,
 			long orbitTime) {
-		super(layout, level,
+		super( orbitPixelX-width/2, // this will be the orbitX value
+				layout, level,
 				scoreForKilling, 
 				speedY,
 				0, 
@@ -89,12 +95,14 @@ public abstract class Shooting_OrbiterView extends Enemy_ShooterView {
 		orbitY=orbitPixelY;
 
 		this.setGravityThreshold(orbitY);
-		
-		this.setX(orbitX);
 
 		orbitRevolutionTime = orbitTime;
 		
 		init();
+	}
+
+	private static float getRandomPosInVeryMiddleXOfScreen(){
+		return (int) (Math.random() * MainActivity.getWidthPixels() * .75 + MainActivity.getWidthPixels() * .125);
 	}
 	
 	@Override

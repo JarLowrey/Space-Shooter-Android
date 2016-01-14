@@ -31,7 +31,9 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 	protected double leftThreshold,rightThreshold;
 	
 	public Shooting_DiagonalMovingView(RelativeLayout layout, int level) {
-		super(layout,level,
+		super(
+				getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.ship_diagonal_width)),
+				layout,level,
 				DEFAULT_SCORE,
 				DEFAULT_SPEED_Y,
 				DEFAULT_SPEED_X,
@@ -57,16 +59,15 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			this.setX(xPos);
 			
 			//set column boundaries
-			leftThreshold=this.getSpeedX()+myColPos*shipXInterval;//farthest ship can move left is up to the boundary of the column it is in
-			rightThreshold=(myColPos+1)*shipXInterval-this.getWidth()-this.getSpeedX();//farthest ship can move right is up to irs right side being at the right side of the column it is in
+			leftThreshold=this.getSpeedX()+myColPos*shipXInterval;//farthest ship can movePhysicalPosition left is up to the boundary of the column it is in
+			rightThreshold=(myColPos+1)*shipXInterval-this.getWidth()-this.getSpeedX();//farthest ship can movePhysicalPosition right is up to irs right side being at the right side of the column it is in
 		}
 	}
 	
 	private void init(int width,int level){
 		//set full screen diagonal mover
-		this.setGravityThreshold((int) MainActivity.getHeightPixels()*2);//move Y to offscreen
+		this.setGravityThreshold((int) MainActivity.getHeightPixels() * 2);//movePhysicalPosition Y to offscreen
 		if(Math.random()<0.5){this.setSpeedX(this.getSpeedX() * -1);}
-		setRandomXPos();
 		leftThreshold=0;//far left of screen
 		rightThreshold=MainActivity.getWidthPixels()-this.getWidth();//far right of screen
 

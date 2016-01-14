@@ -7,6 +7,7 @@ import helpers.StoreUpgradeHandler;
 import interfaces.GameActivityInterface;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.RelativeLayout;
 import backgroundViews.ExplosionView;
@@ -37,19 +38,19 @@ public class ProtagonistView extends Friendly_ShooterView{
 	private KillableRunnable exhaustRunnable;
 	
 	public ProtagonistView(RelativeLayout layout,GameActivityInterface interactWithGame) {
-		super(layout,
+		super(
+				( MainActivity.getWidthPixels()/2 - layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 ),//middle of screen
+				( lowestPosY(layout.getContext())- layout.getContext().getResources().getDimension(R.dimen.activity_margin_med) ), //above control panel
+				layout,
 				0,0,
 				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH, 
-				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width),
 				(int)layout.getContext().getResources().getDimension(R.dimen.ship_protagonist_game_height),
 				R.drawable.ship_protagonist);
 
 		//set Vars
-		this.setX(  MainActivity.getWidthPixels()/2 - 
-				getContext().getResources().getDimension(R.dimen.ship_protagonist_game_width)/2 );//middle of screen
 		myGame=interactWithGame;
-		setY( lowestPosY()- getContext().getResources().getDimension(R.dimen.activity_margin_med) );
 
 		//apply upgrades
 		StoreUpgradeHandler.createProtagonistGunSet(this);
@@ -193,11 +194,11 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 	
 	@Override
-	public void move(long deltaTime){
+	public void movePhysicalPosition(long deltaTime){
 		final int boundLeft = 0;
 		final int boundRight = (int) MainActivity.getWidthPixels() - ProtagonistView.this.getWidth();
 		final int boundTop = (int)(.4 * MainActivity.getHeightPixels());
-		final int boundBottom = lowestPosY();
+		final int boundBottom = lowestPosY(getContext());
 		
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
 		float x = this.getX();
@@ -211,10 +212,10 @@ public class ProtagonistView extends Friendly_ShooterView{
 	}
 
 	
-	private int lowestPosY(){
+	private static int lowestPosY(Context ctx){
 
-		final float bottomScreen = (int) MainActivity.getHeightPixels() - getContext().getResources().getDimension(R.dimen.control_panel_height) ;
+		final float bottomScreen = (int) MainActivity.getHeightPixels() - ctx.getResources().getDimension(R.dimen.control_panel_height) ;
 		return (int) ( bottomScreen
-				- getLayoutParams().height - getContext().getResources().getDimension(R.dimen.activity_margin_xsmall) );
+				- ctx.getResources().getDimension(R.dimen.ship_protagonist_game_height) - ctx.getResources().getDimension(R.dimen.activity_margin_xsmall) );
 	}
 }

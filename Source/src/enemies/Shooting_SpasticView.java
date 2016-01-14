@@ -2,7 +2,7 @@ package enemies;
  
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
-import android.util.Log;
+
 import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
 import bullets.Bullet_Tracking;
@@ -16,7 +16,7 @@ import guns.Gun;
 import guns.Gun_SingleShotStraight;
 
 public class Shooting_SpasticView extends Enemy_ShooterView{
-	
+
 	public static int DEFAULT_BACKGROUND = R.drawable.ship_enemy_spastic,
 			DEFAULT_BULLET_DAMAGE= ProtagonistView.DEFAULT_HEALTH/25,
 			DEFAULT_HEALTH=(int) (ProtagonistView.DEFAULT_BULLET_DAMAGE * 9),
@@ -30,7 +30,9 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	private long timeSinceLastRandomSpeedSet =0;
 		 
 	public Shooting_SpasticView (RelativeLayout layout,int level) {
-		super(layout,level,
+		super(
+				getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_width)),
+				layout,level,
 				DEFAULT_SCORE,
 				DEFAULT_SPEED_Y,
 				0,
@@ -45,8 +47,6 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 	}
 	
 	private void init(int width,int level){
-		//spawn in random position of the screen
-		setRandomXPos();
 		this.setSpeedY(DEFAULT_SPEED_Y);
 		this.setGravityThreshold((int) (MainActivity.getHeightPixels()/4));
 
@@ -103,7 +103,7 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 			xSpeed*= -1;
 		}
 		
-		//ensure object does not move off sides or top of screen
+		//ensure object does not movePhysicalPosition off sides or top of screen
 		float x = this.getX();
 		float y = this.getY();
 		
@@ -174,7 +174,6 @@ public class Shooting_SpasticView extends Enemy_ShooterView{
 			float y = (float) (this.getY() +this.getSpeedY()*deltaTime);
 
 			if(timeSinceLastRandomSpeedSet >= INTERVAL_WITH_ONE_SET_SPEED){
-				Log.d("lowrey","updated spastic view speed");
 				setRandomSpeed(deltaTime);
 			}
 			else if( y <=0 ||

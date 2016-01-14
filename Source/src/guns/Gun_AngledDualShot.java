@@ -19,17 +19,13 @@ public  class Gun_AngledDualShot extends Gun {
 	public boolean shoot(){
 		MediaController.playSoundEffect(gameScreen.getContext(),MediaController.SOUND_LASER_SHOOT);
 		
-		//travel horizontally at a speed such that the bullets will move in DEFAULT_ANGLE direction
+		//travel horizontally at a speed such that the bullets will movePhysicalPosition in DEFAULT_ANGLE direction
 		float bulletSpeedX = (float) (bulletSpeedY * Math.tan(Math.toRadians(DEFAULT_ANGLE)));
 
 		//create left and right bullets
-		BulletView bulletLeft = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);
-		BulletView bulletRight = myBulletType.getBullet(gameScreen, shooter,bulletSpeedY,bulletDamage);
-		
-		//set position on shooter
-		bulletLeft.setXPositionOnShooterAsAPercentage(this.posOnShooter);
-		bulletRight.setXPositionOnShooterAsAPercentage(this.posOnShooter);
-		
+		BulletView bulletLeft = myBulletType.getBullet(this.posOnShooter,gameScreen, shooter,bulletSpeedY,bulletDamage);
+		BulletView bulletRight = myBulletType.getBullet(this.posOnShooter,gameScreen, shooter,bulletSpeedY,bulletDamage);
+
 		//set bullets speed x to non default value
 		bulletLeft.setSpeedX(bulletSpeedX * -1);
 		bulletRight.setSpeedX(bulletSpeedX);

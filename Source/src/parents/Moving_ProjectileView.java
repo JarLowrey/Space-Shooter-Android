@@ -14,12 +14,11 @@ import com.jtronlabs.space_shooter.R;
  */
 public abstract class Moving_ProjectileView extends MovingView implements Projectile{
 
-	float speedX;
 	int damage, health,maxHealth;
 	
-	public Moving_ProjectileView(RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
+	public Moving_ProjectileView(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
 			int projectileHealth,int width,int height,int imageId) {
-		super(layout, movingSpeedY, movingSpeedX, width, height, imageId);	
+		super(xInitialPosition,yInitialPosition,layout, movingSpeedY, movingSpeedX, width, height, imageId);
 
 		damage=projectileDamage;
 		health=projectileHealth;
@@ -37,7 +36,7 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 		health-=amountOfDamage;
 		
 		if(health<=0){
-			removeGameObject();
+			setViewToBeRemovedOnNextRendering();
 			dies = true;
 		}else{
 			//set the background behind this view, and then remove it after howLongBackgroundIsApplied milliseconds
@@ -86,9 +85,5 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 	@Override
 	public void restartThreads() {
 		// do nothing for this class. Override in a child class if there are threads added
-	}
-	@Override
-	public void removeGameObject() {
-		this.defaultCleanupOnRemoval();//needs to be the last thing called for handler to remove all callbacks
 	}
 }

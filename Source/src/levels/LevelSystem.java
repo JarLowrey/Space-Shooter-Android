@@ -57,9 +57,11 @@ public class LevelSystem extends LevelSpawner{
 		 * clean up the screen.
 		 */
 		for (int i = GameLoop.friendlyBullets.size() - 1; i >= 0; i--) {
+			GameLoop.friendlyBullets.get(i).setViewToBeRemovedOnNextRendering();
 			GameLoop.friendlyBullets.get(i).removeGameObject();
 		}
 		for (int i = GameLoop.friendlies.size() - 1; i >= 0; i--) {
+			GameLoop.friendlies.get(i).setViewToBeRemovedOnNextRendering();
 			GameLoop.friendlies.get(i).removeGameObject();
 		}
 

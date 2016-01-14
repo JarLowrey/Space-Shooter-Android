@@ -8,9 +8,9 @@ import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
-public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface { 
-	
-	public static final float TANGENTIAL_SPEED = (float) (0.5 * GameLoop.instance().targetFrameRate());
+public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingViewInterface {
+
+	public static final float TANGENTIAL_SPEED = (float) (GameLoop.TIME_BTW_PHYSICS_FRAMES/1000.0 * MainActivity.getScreenDens() * 250);
 	public static final float 
 			MAX_RADIUS = (int) (60  * MainActivity.getScreenDens()),
 			MIN_RADIUS = (int) (30  * MainActivity.getScreenDens());
@@ -73,7 +73,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 	}
 	
 	@Override
-	public void move(long deltaTime) {
+	public void movePhysicalPosition(long deltaTime) {
 		if(hasReachedGravityThreshold()){
 			currentDegree = ( angularVelocity*deltaTime +currentDegree )%360;
 			float y = (float) (radius * Math.sin(Math.toRadians(currentDegree)));
@@ -82,7 +82,7 @@ public class Orbiter_CircleView extends Shooting_OrbiterView implements MovingVi
 			Orbiter_CircleView.this.setX( orbitX+x );
 			Orbiter_CircleView.this.setY( orbitY+y );
 		}else{
-			super.move(deltaTime);
+			super.movePhysicalPosition(deltaTime);
 		}
 	}
 

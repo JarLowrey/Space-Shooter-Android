@@ -26,7 +26,9 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 	private long amtOfTimeToPause,currentTimePaused = 0;
 	 
 	public Shooting_PauseAndMove (RelativeLayout layout,int level) {
-		super(layout,level,
+		super(
+				getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_width)),
+				layout,level,
 				DEFAULT_SCORE,
 				(float) (Gravity_MeteorView.DEFAULT_SPEED_Y ),
 				0,
@@ -37,13 +39,10 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 				(int)layout.getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_height), 
 				DEFAULT_BACKGROUND);
 
-		init( (int)getContext().getResources().getDimension(R.dimen.ship_pause_and_shoot_width),level );
+		init( level );
 	}
 	
-	private void init(int width,int level){
-		//spawn anywhere in X on screen
-		setRandomXPos();
-		
+	private void init(int level){
 		float freq = (float) (DEFAULT_BULLET_FREQ + 5 * DEFAULT_BULLET_FREQ * Math.random());
 		amtOfTimeToPause= (long) (freq*3.2);
 		this.setGravityThreshold((int) (MainActivity.getHeightPixels()/6 + Math.random() * MainActivity.getHeightPixels()/2.7));

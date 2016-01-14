@@ -12,10 +12,10 @@ public class Bullet_HasDurationView extends BulletView
 	private int soundEffectStreamId, positionOnShooterAsAPercentage;
 	
 	
-	public Bullet_HasDurationView(RelativeLayout layout, Shooter shooter,
+	public Bullet_HasDurationView(int posOnShooterAsAPercentage, RelativeLayout layout, Shooter shooter,
 			float bulletSpeedY, int bulletDamage, int width, int height,
-			int imageId, long lifeSpanInMilliseconds, int posOnShooterAsAPercentage) {
-		super(layout, shooter, bulletSpeedY, bulletDamage, width, height, imageId);
+			int imageId, long lifeSpanInMilliseconds) {
+		super(posOnShooterAsAPercentage,layout, shooter, bulletSpeedY, bulletDamage, width, height, imageId);
 		
 		myLifeSpanInMilliseconds = lifeSpanInMilliseconds;
 		positionOnShooterAsAPercentage = posOnShooterAsAPercentage;
@@ -28,12 +28,12 @@ public class Bullet_HasDurationView extends BulletView
 	@Override 
 	public void removeGameObject(){		
 		MediaController.stopLoopingSoundEffect(getContext(), soundEffectStreamId);
-				
+
 		super.removeGameObject();
 	}
 
 	@Override
-	public void move(long deltaTime){
+	public void movePhysicalPosition(long deltaTime){
 		currentLife += deltaTime;
 		
 		//grow bullet
@@ -46,6 +46,7 @@ public class Bullet_HasDurationView extends BulletView
 //		}
 		
 		//position bullet on its shooter as the shooter moves
+
 		final float shooterMidY = ( theOneWhoShotMe.getY() * 2 + theOneWhoShotMe.getHeight() ) / 2;
 		Bullet_HasDurationView.this.setY(shooterMidY);
 		
@@ -60,7 +61,7 @@ public class Bullet_HasDurationView extends BulletView
 		
 		//remove bullet if its life has run out
 		if(currentLife >= myLifeSpanInMilliseconds){
-			Bullet_HasDurationView.this.removeGameObject();
+			Bullet_HasDurationView.this.setViewToBeRemovedOnNextRendering();
 		}
 	}
 }

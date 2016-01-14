@@ -27,17 +27,13 @@ public class Shooting_HorizontalMovementView extends Enemy_ShooterView{
 			int projectileDamage, int projectileHealth,
 			float probSpawnBeneficialObject, 
 			int width, int height, int imageId) {
-		super(layout, level,
-				scoreForKilling, projectileSpeedY,0,
+		super((float) (MainActivity.getWidthPixels() / 2 - width / 2.0),
+				layout, level,
+				scoreForKilling, projectileSpeedY, 0,
 				projectileDamage, projectileHealth, probSpawnBeneficialObject, width,
 				height, imageId);
 
-		init(width);
-	}
-	
-	private void init(int width){
-		this.setX((float) (MainActivity.getWidthPixels()/2 - width/2.0) );
-		this.setGravityThreshold((int) MainActivity.getHeightPixels()/3);
+		this.setGravityThreshold((int) MainActivity.getHeightPixels() / 3);
 	}
 	
 	public static int getSpawningProbabilityWeightForBoss1(int level) {

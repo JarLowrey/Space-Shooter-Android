@@ -35,7 +35,8 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 	private Moving_ProjectileView viewToTrack;
 	
 	public Shooting_TrackingView(RelativeLayout layout,int level) {
-		super(layout, level,
+		super(getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.ship_tracker_width)),
+				layout, level,
 				DEFAULT_SCORE,
 				getDefaultSpeedY(level), 
 				DEFAULT_SPEED_X,
@@ -48,7 +49,6 @@ public class Shooting_TrackingView extends Enemy_ShooterView{
 
 		//set up the enemy to track the given MovingView
 		viewToTrack = ((GameActivityInterface)getContext()).getProtagonist();
-		setRandomXPos();
 	
 		//add guns
 		removeAllGuns();

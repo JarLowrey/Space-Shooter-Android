@@ -1,4 +1,4 @@
-#Android .gitignore
+#Default Eclipse .gitignore for "Android Eclipse"
 
 # built application files
 Source/*.apk
@@ -58,6 +58,10 @@ Source/.buildpath
 
 
 
+
+
+#Default Eclipse .gitignore for "Android"
+
 # Built application files
 *.apk
 *.ap_
@@ -85,3 +89,88 @@ proguard/
 
 # Log Files
 *.log
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Since Android Studio 1.0, new projects are created with this gitignore file:
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#.gitignore for Android Studio
+#Source: http://stackoverflow.com/questions/16736856/what-should-be-in-my-gitignore-for-an-android-studio-project
+
+#built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+*.iml
+.idea
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.gradle
+build/
+
+#NDK
+obj/
+
+#Optional - for older project format, add this section to your gitignore file:
+
+/*/out
+/*/*/build
+/*/*/production
+*.iws
+*.ipr
+*~
+*.swp

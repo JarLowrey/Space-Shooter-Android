@@ -16,9 +16,9 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 	private boolean hasReachedGravityThreshold;
 	
 	
-	public Projectile_GravityView(RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
+	public Projectile_GravityView(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
 			int projectileHealth,int width,int height,int imageId){
-		super(layout, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth, width, height, imageId);
+		super(xInitialPosition,yInitialPosition,layout, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth, width, height, imageId);
 
 		hasReachedGravityThreshold=false;
 		gravityThreshold=NO_THRESHOLD;
@@ -37,11 +37,11 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 	}
 
 	@Override
-	public void move(long deltaTime) {
+	public void movePhysicalPosition(long deltaTime) {
 		float y=Projectile_GravityView.this.getY();
 		//can only reach gravity threshold 1 time. After that, a new movement behavior should take over
 		hasReachedGravityThreshold = hasReachedGravityThreshold || ( y+getHeight() ) > gravityThreshold; 
 		
-		super.move(deltaTime);
+		super.movePhysicalPosition(deltaTime);
 	}
 }

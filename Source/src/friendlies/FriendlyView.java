@@ -8,10 +8,10 @@ import com.jtronlabs.space_shooter.GameLoop;
 
 public abstract class FriendlyView extends Moving_ProjectileView{
 	
-	public FriendlyView(RelativeLayout layout,float projectileSpeedY
+	public FriendlyView(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float projectileSpeedY
 			,float projectileSpeedX, 
 			int projectileDamage,int projectileHealth,int width,int height,int imageId) {
-		super( layout, projectileSpeedY,projectileSpeedX, 
+		super( xInitialPosition, yInitialPosition,layout, projectileSpeedY,projectileSpeedX,
 				 projectileDamage, projectileHealth, width, height, imageId);
 		
 		GameLoop.friendlies.add(this);
@@ -21,7 +21,7 @@ public abstract class FriendlyView extends Moving_ProjectileView{
 	@Override
 	public void removeGameObject() {
 		GameLoop.friendlies.remove(this);
-		defaultCleanupOnRemoval();//needs to be called last for all pending callbacks to 'this' to be removed
+		super.removeGameObject();//needs to be called last for all pending callbacks to 'this' to be removed
 	}
  
 	@Override

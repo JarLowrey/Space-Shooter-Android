@@ -33,7 +33,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import backgroundViews.ParticleBackgroundAnimation;
+import backgroundViews.StarAnimationManager;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -78,8 +78,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
    
 	//MODEL     
 	private LevelSystem levelCreator;    
-	private ParticleBackgroundAnimation stars_creator_game,stars_creator_store;
-	
+
 	@Override       
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -139,16 +138,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		storePurchaseFriend.setOnTouchListener(this); 
 		
 		//set up control panel
-		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.dimen.control_panel_height);
+		RelativeLayout controlPanel = (RelativeLayout)findViewById(R.id.control_panel);
 		
 		//set up the game
 		levelCreator = new LevelSystem(gameLayout);
 		isGameOver = false;
-		
-		//onResume() is called after onCreate, so needed setup is done there
-		stars_creator_game = new ParticleBackgroundAnimation(gameLayout,ParticleBackgroundAnimation.DEFAULT_NUM_STARS);
-		stars_creator_store = new ParticleBackgroundAnimation(storeLayout,
-				(int) (1.5*ParticleBackgroundAnimation.DEFAULT_NUM_STARS));
+
 		createAdViewInStore();
 	}
 	
@@ -159,8 +154,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	@Override
     public void onPause() {
         super.onPause();
-        stars_creator_game.stopSpawningStars();
-        stars_creator_store.stopSpawningStars();
+		//StarAnimationManager.cleanUpAndRemove();
 
         
         scoreInGame.setVisibility(View.GONE);
@@ -216,8 +210,8 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			*/
 		}else if(levelCreator.getLevel()==0){		
 			protagonist = new ProtagonistView(gameLayout,GameActivity.this);
-			stars_creator_game.startSpawningStars();
 			GameLoop.instance().startLevelAndLoop(this,levelCreator);//start after creating protagonist
+			StarAnimationManager.createStars(gameLayout);
 		}else{
 			openStore();
 		}
@@ -318,43 +312,46 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	
 	public void openStore(){
 		GameLoop.instance().stopLevelAndLoop();//stop game loop
-		
-		setStoreItemsTitles();
-		setStoreItemsMessages();
-		
+
 		final int lvl = levelCreator.getLevel();
-		
+
+		//adjust layout visibility
 		gameLayout.setVisibility(View.GONE);
 		storeScrollView.setVisibility(View.VISIBLE);
-		
-		//after restarting the game loop, create necessary Views
-		stars_creator_game.stopSpawningStars();
-		stars_creator_store.startSpawningStars();
+
+		//modify views after adjusting visibility
+		setStoreItemsTitles();
+		setStoreItemsMessages();
 		
 		MediaController.stopLoopingSound();
 		MediaController.playSoundClip(this, R.raw.background_store, true);
 
-		resourceCount.setText("$"+MainActivity.formatInt(levelCreator.getResourceCount()));
+		resourceCount.setText("$" + MainActivity.formatInt(levelCreator.getResourceCount()));
 		if( lvl == 1 ){
 			levelCount.setText("1 Day In Space ");			
 		}else{
 			levelCount.setText(MainActivity.formatInt(lvl) + " Days "); 
 		}
-		setHealthBars( );
+		setHealthBars();
 		
 		if(lvl % 15 == 0 && lvl !=0){
 			//TODO display interstitial ad
 		}
-		
+
+		StarAnimationManager.createStars(storeLayout);
+		Log.d("lowrey","store opened!");
 		GameLoop.instance().startLevelAndLoop(this, null);//start passive game loop for moving background image stars
 	}
 	
 	private void closeStoreAndResumeLevel(){			
 		GameLoop.instance().stopLevelAndLoop();//stop passive game loop for moving background image stars
 
-		//adjust views
+		//adjust layout visibility
 		storeScrollView.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.VISIBLE);
+
+		//modify views after adjusting visibility
+		StarAnimationManager.createStars(gameLayout);
 		scoreInGame.setText("$"+MainActivity.formatInt( levelCreator.getResourceCount()) );
 
 		canBeginShooting = true;
@@ -363,11 +360,6 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		/* after restarting the game loop, create necessary Views */
 		//create protagonist		
 		protagonist = new ProtagonistView(gameLayout,GameActivity.this);
-
-		
-		//create special effects
-		stars_creator_store.stopSpawningStars();
-		stars_creator_game.startSpawningStars();
 		
 		//create ally if needed		
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
@@ -380,7 +372,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				ally = null;
 			}
 			
-			ally = new AllyView(gameLayout, protagonist, friend_lvl);
+			ally = new AllyView(gameLayout, protagonist);
 		}
 		
 
@@ -408,7 +400,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 //		Log.d("lowrey","xPos "+ xPosInPercent + " yPos "+ yPosInPercent);
 
-		//make it easier to stay still or move in a straight line. The user's finger does not need to be exactly on 0 mark
+		//make it easier to stay still or movePhysicalPosition in a straight line. The user's finger does not need to be exactly on 0 mark
 		if(Math.abs(xPosInPercent) < 0.04){
 			xPosInPercent = 0;
 		}

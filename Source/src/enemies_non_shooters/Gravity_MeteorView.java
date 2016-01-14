@@ -35,7 +35,8 @@ public class Gravity_MeteorView extends EnemyView{
 	};
 	
 	public Gravity_MeteorView(RelativeLayout layout,int level) {
-		super(layout,level,
+		super(getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.meteor_length)),
+				layout,level,
 				DEFAULT_SCORE , 
 				DEFAULT_SPEED_Y, 
 				DEFAULT_SPEED_X,
@@ -54,9 +55,6 @@ public class Gravity_MeteorView extends EnemyView{
 		this.setSpeedY(gravitySpeedMultiplier(level,DEFAULT_SPEED_Y));
 		this.setHealth(DEFAULT_HEALTH);
 		this.setScoreValue(DEFAULT_SCORE);
-
-		//spawn in middle 9/10 X of screen
-		setRandomXPos();
 	}
 	
 	@Override 

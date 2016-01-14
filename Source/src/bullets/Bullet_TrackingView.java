@@ -17,10 +17,10 @@ public class Bullet_TrackingView extends BulletView
 	
 	private float trackingSpeed;
 	
-	public Bullet_TrackingView(RelativeLayout layout, Shooter shooter,
+	public Bullet_TrackingView(int posOnShooterAsAPercentage,RelativeLayout layout, Shooter shooter,
 			float bulletSpeedY, int bulletDamage, int width, int height,
 			int imageId) {
-		super(layout, shooter, bulletSpeedY, bulletDamage, width, height, imageId);
+		super(posOnShooterAsAPercentage,layout, shooter, bulletSpeedY, bulletDamage, width, height, imageId);
 
 		final float trackSpeedDPI  = DEFAULT_TRACKING_SPEED * MainActivity.getScreenDens();
 		trackingSpeed = (trackSpeedDPI>MAX_TRACKING_SPEED) ? MAX_TRACKING_SPEED : trackSpeedDPI;
@@ -34,21 +34,21 @@ public class Bullet_TrackingView extends BulletView
 		final float bulletXMidPos = (2 * getX()+getWidth() ) / 2; 
 		final float diff = objectTrackingMidPoint - bulletXMidPos ;
 		
-		//if bullet is approximately at tracking destination, don't move it and set rotation to 0
+		//if bullet is approximately at tracking destination, don't movePhysicalPosition it and set rotation to 0
 		if( Math.abs(diff) < viewTracking.getWidth()/2 ){
 			setSpeedX(0);
 		}else{				
 			trackingSpeed = diff/Math.abs(diff) * Math.abs(trackingSpeed);//track in direction of difference
 			
-			//set speed and move sideways
+			//set speed and movePhysicalPosition sideways
 			setSpeedX(trackingSpeed); 
 		}
 	}
 	
 	@Override
-	public void move(long deltaTime){
+	public void movePhysicalPosition(long deltaTime){
 		setBulletRotation();//use new speed and set rotation
 		
-		super.move(deltaTime);
+		super.movePhysicalPosition(deltaTime);
 	}
 }
