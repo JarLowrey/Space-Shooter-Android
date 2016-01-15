@@ -96,7 +96,7 @@ public class GameLoop {
 		KillableRunnable physicsRunnable = new KillableRunnable() {
 			@Override
 			public void doWork() {
-				Log.d("lowrey", "Physics loop posted!");
+				//Log.d("lowrey", "Physics loop posted!");
 				final long startTime = SystemClock.uptimeMillis();
 
 
@@ -116,6 +116,7 @@ public class GameLoop {
 		KillableRunnable renderingRunnable = new KillableRunnable() {
 			@Override
 			public void doWork() {
+				//Log.d("lowrey", "Rendering loop posted!");
 				final long startTime = SystemClock.uptimeMillis();
 
 				//update timer display
@@ -136,8 +137,8 @@ public class GameLoop {
 						timeAtLastSpawn = SystemClock.uptimeMillis();
 					}
 				}else if (currentActivityIsTheGame){//the current activity is the level, and the level has now ended. End the loop
-					levelingSystem.endLevel();
 					stopLevelAndLoop();
+					levelingSystem.endLevel();
 					return;
 				}
 
@@ -157,9 +158,8 @@ public class GameLoop {
 			}
 		};
 
-		gameLoopHandler.postDelayed(physicsRunnable,100);
-		gameLoopHandler.postDelayed(renderingRunnable,100);
-		//gameLoopHandler.postDelayed(loopingRunnable,100);
+		gameLoopHandler.post(physicsRunnable);
+		gameLoopHandler.post(renderingRunnable);
 	}
 
 	/**
