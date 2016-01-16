@@ -20,6 +20,7 @@ import bonuses.BonusView;
 import bullets.BulletView;
 import enemies.EnemyView;
 import friendlies.FriendlyView;
+import parents.MovingView;
 
 /**
  * Game Loop needs to be designed in this fashion : http://gamedev.stackexchange.com/questions/75558/frameskipping-in-android-gameloop-causing-choppy-sprites-open-gl-es-2-0
@@ -71,7 +72,7 @@ public class GameLoop {
 	}
 	
 	public void startLevelAndLoop(final Context ctx, final LevelSystem levelingSystem){
-		Log.d("lowrey","Game Loop started!");
+		Log.d("lowrey", "Game Loop started!");
 		//do initial level setup stuff
 		MediaController.stopLoopingSound();
 		MediaController.playSoundClip(ctx, R.raw.background_playing_game,true);
@@ -123,6 +124,7 @@ public class GameLoop {
 				if(currentActivityIsTheGame){ levelingSystem.updateLevelTimeCountdownDisplay(SystemClock.uptimeMillis() - timeAtLastRenderingUpdate); }
 
 				//update sprite displays
+				removeAllViewsReadyToBeRemoved();
 				renderAllViewsPositions();
 
 				//check for level end circumstance and if it is time to spawn new enemies. This is in the rendering loop, as spawning a new enemy will result in a new picture being added to screen
@@ -236,55 +238,75 @@ public class GameLoop {
 		}
 	}
 
-
-	private void renderAllViewsPositions() {
+	private void removeAllViewsReadyToBeRemoved(){
 		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
 			BulletView b = friendlyBullets.get(i);
-			if(b.isRemoved()){
+			if(b.isRemoved()) {
+				friendlyBullets.remove(i);
 				b.removeGameObject();
-			}else{
-				b.renderPosition();
 			}
 		}
 		for (int i = enemyBullets.size() - 1; i >= 0; i--) {
 			BulletView b = enemyBullets.get(i);
 			if(b.isRemoved()){
+				enemyBullets.remove(i);
 				b.removeGameObject();
-			}else{
-				b.renderPosition();
 			}
 		}
 		for (int i = friendlies.size() - 1; i >= 0; i--) {
 			FriendlyView f = friendlies.get(i);
 			if(f.isRemoved()){
+				friendlies.remove(i);
 				f.removeGameObject();
-			}else{
-				f.renderPosition();
 			}
 		}
 		for (int i = enemies.size() - 1; i >= 0; i--) {
 			EnemyView e = enemies.get(i);
 			if(e.isRemoved()){
+				enemies.remove(i);
 				e.removeGameObject();
-			}else{
-				e.renderPosition();
 			}
 		}
 		for (int i = bonuses.size() - 1; i >= 0; i--) {
 			BonusView b = bonuses.get(i);
-			if(b.isRemoved()){
+			if(b.isRemoved()) {
+				bonuses.remove(i);
 				b.removeGameObject();
-			}else{
-				b.renderPosition();
 			}
 		}
 		for (int i = specialEffects.size() - 1; i >= 0; i--) {
 			SpecialEffectView s = specialEffects.get(i);
 			if(s.isRemoved()){
+				specialEffects.remove(i);
 				s.removeGameObject();
-			}else{
-				s.renderPosition();
 			}
+		}
+	}
+
+	private void renderAllViewsPositions() {
+		for (int i = friendlyBullets.size() - 1; i >= 0; i--) {
+			BulletView b = friendlyBullets.get(i);
+			b.renderPosition();
+		}
+		for (int i = enemyBullets.size() - 1; i >= 0; i--) {
+			BulletView b = enemyBullets.get(i);
+			b.renderPosition();
+		}
+		for (int i = friendlies.size() - 1; i >= 0; i--) {
+			FriendlyView f = friendlies.get(i);
+			f.renderPosition();
+		}
+		for (int i = enemies.size() - 1; i >= 0; i--) {
+			EnemyView e = enemies.get(i);
+			e.renderPosition();
+		}
+		for (int i = bonuses.size() - 1; i >= 0; i--) {
+			BonusView b = bonuses.get(i);
+			b.renderPosition();
+		}
+		for (int i = specialEffects.size() - 1; i >= 0; i--) {
+			SpecialEffectView s = specialEffects.get(i);
+			s.renderPosition();
 		}
 	}
 

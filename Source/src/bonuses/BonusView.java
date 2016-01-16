@@ -31,13 +31,7 @@ public abstract class BonusView extends MovingView {
 	 * Bonus has been picked up by protagonist or his ally. Apply benefit to protagonist.
 	 */
 	public abstract void applyBenefit();
-	
-	@Override
-	public void removeGameObject(){		
-		GameLoop.bonuses.remove(this);
-		super.removeGameObject();
-	}
-	
+
 	public static void displayRandomBonusView(RelativeLayout layout,float positionX,float positionY){
 		double rand = Math.random();
 		

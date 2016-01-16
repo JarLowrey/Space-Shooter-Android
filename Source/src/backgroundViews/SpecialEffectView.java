@@ -14,10 +14,4 @@ public abstract class SpecialEffectView extends MovingView {
 		GameLoop.specialEffects.add(this);
 	}
 
-	@Override
-	public void removeGameObject() {
-		super.removeGameObject();
-		GameLoop.specialEffects.remove(this);
-	}
-
 }

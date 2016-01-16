@@ -46,7 +46,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		
 		isRemoved=false;
 
-
+		//required to prevent View from flashing in the top left corner: (0,0) coordinates
 		setX(xInitialPosition);
 		setY(yInitialPosition);
 		super.setX(xInitialPosition);

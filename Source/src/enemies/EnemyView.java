@@ -27,7 +27,7 @@ public abstract class EnemyView extends Projectile_GravityView{
 			float probSpawnBeneficialObjectUponDeath,
 			int width,int height,int imageId) {
 		super( xInitialPosition,
-				- height / 2 ,//start all enemies 3/4 way offscreen,
+				- height ,//start all enemies offscreen
 				layout,
 				scaleSpeedY(level,projectileSpeedY),
 				scaleSpeedX(level,projectileSpeedX),
@@ -63,7 +63,6 @@ public abstract class EnemyView extends Projectile_GravityView{
 		else {//fallen offscreen
 			((GameActivityInterface)this.getContext()).incrementScore(this.getScoreForKilling()/3);
 		}
-		GameLoop.enemies.remove(this);
 
 		numRemoved++;
 		super.removeGameObject();

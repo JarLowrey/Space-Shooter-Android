@@ -51,8 +51,8 @@ public class LevelSystem extends LevelSpawner{
 		editor.commit();
 
 		boolean protagonistDied = getInteractivityInterface().getProtagonist().getHealth() <= 0;//check this before protagonist is removed
-		
-		/* kill Views. Level won't end until enemies, enemyBullets, and bonuses are already removed (see collision detector). 
+
+		/* kill Views. Level won't end until enemies, enemyBullets, and bonuses are already removed (see collision detector).
 		 * Thus just remove friendlies and friendly bullets and whatever else to
 		 * clean up the screen.
 		 */

@@ -259,7 +259,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 				final int height = (int)gameScreen.getResources().getDimension(R.dimen.meteor_giant_length);
 				
 				enemy.setLayoutParams(new LayoutParams(width,height));
-				enemy.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
+				//enemy.setX((float) ((MainActivity.getWidthPixels()-width)*Math.random()));//with non default size, set new position
 				
 				//make more powerful
 				enemy.setDamage( ProtagonistView.DEFAULT_HEALTH/6 );

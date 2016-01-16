@@ -16,14 +16,7 @@ public abstract class FriendlyView extends Moving_ProjectileView{
 		
 		GameLoop.friendlies.add(this);
 	}
-	
 
-	@Override
-	public void removeGameObject() {
-		GameLoop.friendlies.remove(this);
-		super.removeGameObject();//needs to be called last for all pending callbacks to 'this' to be removed
-	}
- 
 	@Override
 	public boolean takeDamage(int howMuchDamage){
 		MediaController.playSoundEffect(getContext(), MediaController.SOUND_FRIENDLY_HIT);
