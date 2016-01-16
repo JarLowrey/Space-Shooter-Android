@@ -137,7 +137,7 @@ public class GameLoop {
 						timeAtLastSpawn = SystemClock.uptimeMillis();
 					}
 				}else if (currentActivityIsTheGame){//the current activity is the level, and the level has now ended. End the loop
-					stopLevelAndLoop();//must stop loop before ending level!
+					//stopLevelAndLoop();//must stop loop before ending level!
 					levelingSystem.endLevel();
 					return;
 				}

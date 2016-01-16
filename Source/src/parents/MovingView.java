@@ -20,6 +20,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		
 	private double speedX,speedY;
 	private float xPosition,yPosition;
+	private int myHeight,myWidth;
 	private RelativeLayout myLayout;
 	
 	boolean isRemoved;
@@ -36,8 +37,10 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 
 		addToForeground(this);
 
-		setSpeedY( movingSpeedY );
-		setSpeedX( movingSpeedX );
+		setSpeedY(movingSpeedY);
+		setSpeedX(movingSpeedX);
+		myHeight = height;
+		myWidth = width;
 		
 //		Log.d("lowrey","on creation, speedY = "+speedY+" speedX = "+speedX);
 		
@@ -97,7 +100,7 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		//check that object is still within screen bounds		
 		final float bottomScreen = (int) MainActivity.getHeightPixels() - getContext().getResources().getDimension(R.dimen.control_panel_height) ;
 
-		if(/* y < -getHeight() ||*/ y > bottomScreen || x < -this.getWidth() || x > (MainActivity.getWidthPixels() + this.getWidth()) ){
+		if( y < -2*myHeight || y > bottomScreen || x < -myWidth || x > (MainActivity.getWidthPixels() + myWidth) ){
 			setViewToBeRemovedOnNextRendering();
 		}else{
 			this.setY(y);

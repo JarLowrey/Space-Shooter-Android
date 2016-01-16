@@ -1,5 +1,6 @@
 package enemies;
  
+import guns.Gun_TrackingSingle;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import android.widget.RelativeLayout;
@@ -63,6 +64,7 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 			this.addGun(g1);
 			this.addGun(g2);
 		}else if(Math.random() < 0.5){
+			/*
 			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), 
 					this, 
 					new Bullet_Tracking(
@@ -71,8 +73,20 @@ public class Shooting_PauseAndMove extends Enemy_ShooterView{
 						(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
 						(int)getContext().getResources().getDimension(R.dimen.bullet_round_med_length), 
 						R.drawable.bullet_laser_round_red),
-					freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,20);
+						freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y, DEFAULT_BULLET_DAMAGE,50);
 			this.addGun(g1);
+			*/
+			Gun g0 = new Gun_TrackingSingle(getMyLayout(),
+					((GameActivityInterface)getContext()).getProtagonist(),
+					this,
+					new Bullet_Basic(
+						(int) getContext().getResources().getDimension(R.dimen.bullet_round_med_length),
+						(int) getContext().getResources().getDimension(R.dimen.bullet_round_med_length),
+						R.drawable.bullet_laser_round_red),
+						freq, Bullet_Interface.DEFAULT_BULLET_SPEED_Y,
+						DEFAULT_BULLET_DAMAGE,
+						50);
+			this.addGun(g0);
 		}
 		this.startShooting();
 	}

@@ -94,8 +94,8 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 			this.addGun(g1);
 		}else if(level>AttributesOfLevels.LEVELS_MED){
 			removeAllGuns();
-			bulletFreq *= 0.60;
-			
+			bulletFreq *= 0.75;
+			/*
 			Gun g0 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
@@ -104,6 +104,7 @@ public class Shooting_DiagonalMovingView extends Enemy_ShooterView{
 					Bullet_Interface.DEFAULT_BULLET_SPEED_Y, 
 					Bullet_Interface.WEAK_BULLET_DMG,50);
 			this.addGun(g0);
+			*/
 
 			Gun g1 = new Gun_SingleShotStraight(getMyLayout(), this, new Bullet_Basic(
 					(int)getContext().getResources().getDimension(R.dimen.bullet_round_xsmall_length), 
