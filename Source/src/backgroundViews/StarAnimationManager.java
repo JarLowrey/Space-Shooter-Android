@@ -19,17 +19,18 @@ public class StarAnimationManager {
 		final int numStars = (int)(areaOnScreen / 19748.57142857143);
 
 		myStars = new StarView[numStars];
-		for(int i=0; i < myStars.length;i++){
-			myStars[i] = new StarView(layout);
-
-		}
+		createAllNewStars(layout);
 	}
 
 	public static StarAnimationManager createStars(RelativeLayout layout){
 		if(starManager == null){
 			starManager = new StarAnimationManager(layout);
 		}else{
-			starManager.reassignStarViewsLayout(layout);
+			if(myStars[0] == null){//extra check in case stars arent initialized properly
+				createAllNewStars(layout);
+			}else {
+				starManager.reassignStarViewsLayout(layout);
+			}
 		}
 		return starManager;
 	}
@@ -44,16 +45,10 @@ public class StarAnimationManager {
 		}
 	}
 
-	/*
-	public static void cleanUpAndRemove(){
+	private static void createAllNewStars(RelativeLayout layout){
 		for(int i=0; i < myStars.length;i++){
-			if(myStars[i] != null){
-				myStars[i].setViewToBeRemovedOnNextRendering();
-				myStars[i].removeGameObject();
-			}
-			myStars[i] = null;
+			myStars[i] = new StarView(layout);
+
 		}
-		starManager = null;
 	}
-	*/
 }
