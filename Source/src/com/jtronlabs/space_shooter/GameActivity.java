@@ -25,6 +25,7 @@ import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -188,6 +189,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 		Log.d("lowrey", "num enemies on pause = " + GameLoop.enemies.size());
     }
+	
+	@Override
+	public boolean onPrepareOptionsMenu (Menu menu) {
+		//disable options menu
+		return false;
+	}
 
 	@Override
 	public void onResume(){
@@ -330,14 +337,12 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		setStoreItemsMessages();
 		
 		MediaController.stopLoopingSound();
-		if(lvl % 1 == 0 && lvl != 0) { //stop music, play ad
-			if (mInterstitialAd.isLoaded()) {
-				mInterstitialAd.show();
-			}else{
-				//this will be completed after interstitial is shown as well
-				MediaController.playSoundClip(GameActivity.this, R.raw.background_store, true);
-				storeScrollView.setVisibility(View.VISIBLE);
-			}
+		if(lvl % 3 == 0 && lvl != 0 && mInterstitialAd.isLoaded()) {
+			mInterstitialAd.show();
+		}else {
+			//this will be completed after interstitial is shown as well
+			MediaController.playSoundClip(GameActivity.this, R.raw.background_store, true);
+			storeScrollView.setVisibility(View.VISIBLE);
 		}
 
 		resourceCount.setText("$" + MainActivity.formatInt(levelCreator.getResourceCount()));
@@ -362,7 +367,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 		//modify views after adjusting visibility
 		StarAnimationManager.createStars(gameLayout);
-		scoreInGame.setText("$"+MainActivity.formatInt( levelCreator.getResourceCount()) );
+		scoreInGame.setText("$" + MainActivity.formatInt(levelCreator.getResourceCount()) );
 
 		canBeginShooting = true;
 		beginShootingRunnablePosted=false;
