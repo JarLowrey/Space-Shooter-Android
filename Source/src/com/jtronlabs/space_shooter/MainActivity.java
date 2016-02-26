@@ -26,9 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import backgroundViews.StarAnimationManager;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends Activity implements OnClickListener{
 
@@ -41,8 +38,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	private static float screenDens,widthPixels,heightPixels;
 	private static boolean introHasPlayed = false;
 	private ImageButton vibrate, sound, credits;
-	private AdView adView;
-	           
+
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {       
 		super.onCreate(savedInstanceState); 
@@ -78,8 +74,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//set up buttons
 		ImageButton playBtn = (ImageButton)findViewById(R.id.playBtn);
 		playBtn.setOnClickListener(this);
-	    
-		createAdView();
+
 
 		//handle the layouts and music of the AppIntro (logo displayed)
 		final RelativeLayout appIntro = (RelativeLayout) findViewById(R.id.app_intro_screen);
@@ -106,32 +101,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			}.start();
 		}
 	}
-	
-	private void createAdView(){		
-		//Create and plate the Banner Ad in activity_main.xml
-		adView = new AdView(this);
-		adView.setAdUnitId("ca-app-pub-1314947069846070/4608411941");
-		adView.setAdSize(AdSize.BANNER);
- 
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-			    RelativeLayout.LayoutParams.WRAP_CONTENT, 
-			    RelativeLayout.LayoutParams.WRAP_CONTENT); 
-		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		adView.setLayoutParams(params);
-		
-		RelativeLayout background = (RelativeLayout)findViewById(R.id.activity_main);
-		background.addView(adView);
-		
-		// Request for Ads
-		AdRequest adRequest = new AdRequest.Builder()
-			.addTestDevice("FFAA2B4ECD49CBF2A0AB7F9D447410D7")
-			.build(); 
- 
-		// Load ad request into Adview
-		adView.loadAd(adRequest);	
-	}
-	
+
 	 
 	@Override
 	public void onPause(){
@@ -140,8 +110,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		GameLoop.instance().stopLevelAndLoop();
 
 		//StarAnimationManager.cleanUpAndRemove();
-		
-		adView.pause();
+
 		MediaController.stopLoopingSound();
 	}
 
@@ -167,15 +136,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		score.setText(formatInt(gameMeta.getInt(HIGHEST_SCORE, 0)));
 		GameTextView days = (GameTextView)findViewById(R.id.max_day);
 		days.setText(formatInt(gameMeta.getInt(MAX_LEVEL, 0)) );
-		
-		adView.resume();
-	}
 
-    @Override
-    public void onDestroy() {
-        adView.destroy();
-        super.onDestroy(); 
-    }
+	}
 	 
 	@Override
 	public void onClick(View v) {

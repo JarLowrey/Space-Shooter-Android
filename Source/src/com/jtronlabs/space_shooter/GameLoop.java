@@ -74,9 +74,8 @@ public class GameLoop {
 	public void startLevelAndLoop(final Context ctx, final LevelSystem levelingSystem){
 		Log.d("lowrey", "Game Loop started!");
 		//do initial level setup stuff
-		MediaController.stopLoopingSound();
-		MediaController.playSoundClip(ctx, R.raw.background_playing_game,true);
 		GameActivityInterface theGame;
+
 		try{
 			theGame = (GameActivityInterface)ctx;
 		}catch(ClassCastException e){

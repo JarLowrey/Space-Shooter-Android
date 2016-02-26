@@ -35,9 +35,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import backgroundViews.StarAnimationManager;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 public class GameActivity extends Activity implements OnTouchListener, GameActivityInterface{
 
@@ -71,7 +73,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 	public ImageView rocketExhaust;
 	private RelativeLayout gameLayout,storeLayout;
 	private ScrollView storeScrollView;
-	private AdView adView;
+	private InterstitialAd mInterstitialAd;
 	
 	private boolean isGameOver ;
 	private int scoreAtGameOver,levelAtGameOver;
@@ -144,7 +146,21 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		levelCreator = new LevelSystem(gameLayout);
 		isGameOver = false;
 
-		createAdViewInStore();
+
+		mInterstitialAd = new InterstitialAd(this);
+		mInterstitialAd.setAdUnitId("ca-app-pub-1314947069846070/1628537147");
+		mInterstitialAd.setAdListener(new AdListener() {
+			@Override
+			public void onAdClosed() {
+				requestNewInterstitial();
+
+				//ad shown whne store opens. Do not want it to flash on screen before ad, nor for music to play over top
+				MediaController.playSoundClip(GameActivity.this, R.raw.background_store, true);
+				storeScrollView.setVisibility(View.VISIBLE);
+			}
+		});
+		requestNewInterstitial();
+
 	}
 	
 	/**
@@ -169,17 +185,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		
 		MediaController.stopLoopingSound();
 		MediaController.stopNonLoopingSound();
-		
-		adView.pause();
-		Log.d("lowrey","num enemies on pause = "+GameLoop.enemies.size());
+
+		Log.d("lowrey", "num enemies on pause = " + GameLoop.enemies.size());
     }
 
-    @Override
-    public void onDestroy() {
-        adView.destroy();
-        super.onDestroy();
-    }
-	
 	@Override
 	public void onResume(){
 		super.onResume();
@@ -198,8 +207,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				
 		levelCreator.loadScoreAndLevel();//need to reload variables first thing
 
-		scoreInGame.setText("$"+MainActivity.formatInt(levelCreator.getResourceCount() ) );
-		adView.resume();
+		scoreInGame.setText("$" + MainActivity.formatInt(levelCreator.getResourceCount()));
 		
 		//don't open the store up on the initial level
 		if(isGameOver){
@@ -212,6 +220,9 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			protagonist = new ProtagonistView(gameLayout,GameActivity.this);
 			GameLoop.instance().startLevelAndLoop(this,levelCreator);//start after creating protagonist
 			StarAnimationManager.createStars(gameLayout);
+
+			MediaController.stopLoopingSound();
+			MediaController.playSoundClip(this, R.raw.background_playing_game, true);
 		}else{
 			openStore();
 		}
@@ -274,14 +285,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		GameTextView titleView = (GameTextView)findViewById(R.id.gameOverTitle);
 		titleView.setText(title);
 		GameTextView daysPassedView = (GameTextView)findViewById(R.id.num_days_passed);
-		daysPassedView.setText(MainActivity.formatInt(lvl) );
+		daysPassedView.setText(MainActivity.formatInt(lvl));
 		GameTextView finalScoreView = (GameTextView)findViewById(R.id.total_score);
-		finalScoreView.setText(MainActivity.formatInt(score) );
-		
-		//show adView
-		storeLayout.removeView(adView);
-		gameOverLayout.addView(adView);
-		
+		finalScoreView.setText(MainActivity.formatInt(score));
+
 		gameOverLayout.setVisibility(View.VISIBLE);
 		storeScrollView.setVisibility(View.GONE);
 		gameLayout.setVisibility(View.GONE);
@@ -294,10 +301,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		SharedPreferences.Editor editor = gameState.edit();
 		
-		editor.putInt(STATE_HEALTH,ProtagonistView.DEFAULT_HEALTH);	//protagonist properties
+		editor.putInt(STATE_HEALTH, ProtagonistView.DEFAULT_HEALTH);	//protagonist properties
 		
-		editor.putInt(STATE_TOTAL_RESOURCES, 0);
-		editor.putInt(STATE_RESOURCES, 0);//store upgrades	
+		editor.putInt(STATE_TOTAL_RESOURCES, 0);//total money across all levels
+		editor.putInt(STATE_RESOURCES, 0);//spendable money
 		editor.putInt(STATE_DEFENSE_LEVEL, 0);
 		editor.putInt(STATE_GUN_CONFIG, -1);
 		editor.putInt(STATE_BULLET_DAMAGE_LEVEL, 0);
@@ -305,7 +312,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		editor.putInt(STATE_RESOURCE_MULTIPLIER_LEVEL, 0);
 		editor.putInt(STATE_FRIEND_LEVEL, 0);
 		
-		editor.putInt(STATE_LEVEL, 0);		//reset level properties
+		editor.putInt(STATE_LEVEL, 0);		//reset starting level. Level properties can be see in file "AttributesOfLevels"
 		
 		editor.commit();
 	} 
@@ -317,14 +324,21 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 		//adjust layout visibility
 		gameLayout.setVisibility(View.GONE);
-		storeScrollView.setVisibility(View.VISIBLE);
 
 		//modify views after adjusting visibility
 		setStoreItemsTitles();
 		setStoreItemsMessages();
 		
 		MediaController.stopLoopingSound();
-		MediaController.playSoundClip(this, R.raw.background_store, true);
+		if(lvl % 1 == 0 && lvl != 0) { //stop music, play ad
+			if (mInterstitialAd.isLoaded()) {
+				mInterstitialAd.show();
+			}else{
+				//this will be completed after interstitial is shown as well
+				MediaController.playSoundClip(GameActivity.this, R.raw.background_store, true);
+				storeScrollView.setVisibility(View.VISIBLE);
+			}
+		}
 
 		resourceCount.setText("$" + MainActivity.formatInt(levelCreator.getResourceCount()));
 		if( lvl == 1 ){
@@ -333,17 +347,13 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 			levelCount.setText(MainActivity.formatInt(lvl) + " Days "); 
 		}
 		setHealthBars();
-		
-		if(lvl % 15 == 0 && lvl !=0){
-			//TODO display interstitial ad
-		}
 
 		StarAnimationManager.createStars(storeLayout);
 		Log.d("lowrey","store opened!");
 		GameLoop.instance().startLevelAndLoop(this, null);//start passive game loop for moving background image stars
 	}
 	
-	private void closeStoreAndResumeLevel(){			
+	private void closeStoreAndResumeLevel(){
 		GameLoop.instance().stopLevelAndLoop();//stop passive game loop for moving background image stars
 
 		//adjust layout visibility
@@ -358,10 +368,10 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 		beginShootingRunnablePosted=false;
 
 		/* after restarting the game loop, create necessary Views */
-		//create protagonist		
+		//create protagonist
 		protagonist = new ProtagonistView(gameLayout,GameActivity.this);
-		
-		//create ally if needed		
+
+		//create ally if needed
 		SharedPreferences gameState = getSharedPreferences(GAME_STATE_PREFS, 0);
 		int friend_lvl = gameState.getInt(STATE_FRIEND_LEVEL,0);
 		if( friend_lvl > 0 ){
@@ -371,12 +381,15 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 				ally.removeGameObject();
 				ally = null;
 			}
-			
+
 			ally = new AllyView(gameLayout, protagonist);
 		}
-		
 
-		GameLoop.instance().startLevelAndLoop(this,levelCreator);//start real game loop after all views created
+
+		GameLoop.instance().startLevelAndLoop(this, levelCreator);//start real game loop after all views created
+
+		MediaController.stopLoopingSound();
+		MediaController.playSoundClip(this, R.raw.background_playing_game, true);
 	}
 	
 	/**
@@ -475,7 +488,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 					     })
 					    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					        public void onClick(DialogInterface dialog, int which) {
-					        	dialog.cancel();
+								dialog.cancel();
 					        	closeStoreAndResumeLevel();
 					        }
 					     })
@@ -602,30 +615,14 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 //	}
 	
 
-	private void createAdViewInStore(){		
-		//Create and plate the Banner Ad in activity_main.xml
-		adView = new AdView(this);
-		adView.setAdUnitId("ca-app-pub-1314947069846070/4608411941");
-		adView.setAdSize(AdSize.BANNER);
-   
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-			    RelativeLayout.LayoutParams.WRAP_CONTENT, 
-			    RelativeLayout.LayoutParams.WRAP_CONTENT); 
-		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		adView.setLayoutParams(params);
-		
-		storeLayout.addView(adView);
-		
-		// Request for Ads
+	private void requestNewInterstitial() {
 		AdRequest adRequest = new AdRequest.Builder()
-			.addTestDevice("FFAA2B4ECD49CBF2A0AB7F9D447410D7")
-			.build(); 
- 
-		// Load ad request into Adview
-		adView.loadAd(adRequest);	
+				.addTestDevice("FFAA2B4ECD49CBF2A0AB7F9D447410D7")
+				.build();
+
+		mInterstitialAd.loadAd(adRequest);
 	}
-	
+
 	@Override
 	public void resetResourcesGameTextView() {
 		resourceCount.setText("$"+MainActivity.formatInt(levelCreator.getResourceCount() ) );		
