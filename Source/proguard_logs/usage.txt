@@ -138,7 +138,6 @@ com.google.android.gms.ads.InterstitialAd:
     public com.google.android.gms.ads.AdListener getAdListener()
     public java.lang.String getAdUnitId()
     public com.google.android.gms.ads.purchase.InAppPurchaseListener getInAppPurchaseListener()
-    public boolean isLoaded()
     public void setInAppPurchaseListener(com.google.android.gms.ads.purchase.InAppPurchaseListener)
     public void setPlayStorePurchaseParams(com.google.android.gms.ads.purchase.PlayStorePurchaseListener,java.lang.String)
     public java.lang.String getMediationAdapterClassName()
@@ -242,7 +241,6 @@ com.google.android.gms.ads.internal.client.zzz:
     public com.google.android.gms.ads.doubleclick.AppEventListener getAppEventListener()
     public com.google.android.gms.ads.purchase.InAppPurchaseListener getInAppPurchaseListener()
     public com.google.android.gms.ads.doubleclick.OnCustomRenderedAdLoadedListener getOnCustomRenderedAdLoadedListener()
-    public boolean isLoaded()
     public void setAppEventListener(com.google.android.gms.ads.doubleclick.AppEventListener)
     public void setInAppPurchaseListener(com.google.android.gms.ads.purchase.InAppPurchaseListener)
     public void setOnCustomRenderedAdLoadedListener(com.google.android.gms.ads.doubleclick.OnCustomRenderedAdLoadedListener)
@@ -4482,7 +4480,7 @@ com.jtronlabs.space_shooter.GameActivity:
     public static final java.lang.String STATE_RESOURCE_MULTIPLIER_LEVEL
     public static final java.lang.String STATE_FRIEND_LEVEL
     public static final java.lang.String STATE_LEVEL
-    559:560:public void setScore(int)
+    577:578:public void setScore(int)
 com.jtronlabs.space_shooter.GameLoop:
     private static final long TIME_BETWEEN_SPAWNS
     private static final long MIN_TICK_TIME

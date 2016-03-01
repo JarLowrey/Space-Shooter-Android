@@ -189,7 +189,7 @@ public class GameActivity extends Activity implements OnTouchListener, GameActiv
 
 		Log.d("lowrey", "num enemies on pause = " + GameLoop.enemies.size());
     }
-	
+
 	@Override
 	public boolean onPrepareOptionsMenu (Menu menu) {
 		//disable options menu

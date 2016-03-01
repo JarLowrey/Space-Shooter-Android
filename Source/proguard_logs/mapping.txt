@@ -13,6 +13,7 @@ backgroundViews.StarAnimationManager -> a.d:
     void <init>(android.widget.RelativeLayout) -> <init>
     backgroundViews.StarAnimationManager createStars(android.widget.RelativeLayout) -> a
     void reassignStarViewsLayout(android.widget.RelativeLayout) -> b
+    void createAllNewStars(android.widget.RelativeLayout) -> c
 backgroundViews.StarView -> a.e:
     long timeSinceLastRandomReset -> a
     long starLifespan -> b
@@ -340,10 +341,11 @@ com.google.android.gms.ads.AdView -> com.google.android.gms.ads.f:
 com.google.android.gms.ads.InterstitialAd -> com.google.android.gms.ads.g:
     com.google.android.gms.ads.internal.client.zzz zznQ -> a
     void <init>(android.content.Context) -> <init>
+    boolean isLoaded() -> a
     void loadAd(com.google.android.gms.ads.AdRequest) -> a
     void setAdListener(com.google.android.gms.ads.AdListener) -> a
     void setAdUnitId(java.lang.String) -> a
-    void show() -> a
+    void show() -> b
 com.google.android.gms.ads.doubleclick.AppEventListener -> com.google.android.gms.ads.a.a:
     void onAppEvent(java.lang.String,java.lang.String) -> a
 com.google.android.gms.ads.doubleclick.CustomRenderedAd -> com.google.android.gms.ads.a.b:
@@ -822,11 +824,12 @@ com.google.android.gms.ads.internal.client.zzz -> com.google.android.gms.ads.c.a
     com.google.android.gms.ads.doubleclick.OnCustomRenderedAdLoadedListener zzsY -> m
     void <init>(android.content.Context) -> <init>
     void <init>(android.content.Context,com.google.android.gms.ads.internal.client.zzg,com.google.android.gms.ads.doubleclick.PublisherInterstitialAd) -> <init>
+    boolean isLoaded() -> a
     void zza(com.google.android.gms.ads.internal.client.zzx) -> a
     void setAdListener(com.google.android.gms.ads.AdListener) -> a
     void zza(com.google.android.gms.ads.internal.client.zza) -> a
     void setAdUnitId(java.lang.String) -> a
-    void show() -> a
+    void show() -> b
     void zzL(java.lang.String) -> b
     void zzM(java.lang.String) -> c
 com.google.android.gms.ads.internal.formats.NativeAdOptionsParcel -> com.google.android.gms.ads.c.b.a:
@@ -11683,7 +11686,7 @@ com.jtronlabs.space_shooter.GameActivity -> com.jtronlabs.space_shooter.GameActi
     android.widget.RelativeLayout gameLayout -> v
     android.widget.RelativeLayout storeLayout -> w
     android.widget.ScrollView storeScrollView -> x
-    com.google.android.gms.ads.AdView adView -> y
+    com.google.android.gms.ads.InterstitialAd mInterstitialAd -> y
     boolean isGameOver -> z
     int scoreAtGameOver -> A
     int levelAtGameOver -> B
@@ -11691,7 +11694,7 @@ com.jtronlabs.space_shooter.GameActivity -> com.jtronlabs.space_shooter.GameActi
     void <init>() -> <init>
     void onCreate(android.os.Bundle) -> onCreate
     void onPause() -> onPause
-    void onDestroy() -> onDestroy
+    boolean onPrepareOptionsMenu(android.view.Menu) -> onPrepareOptionsMenu
     void onResume() -> onResume
     void gameOver() -> a
     void gameOverAndResetSavedVariables() -> i
@@ -11705,26 +11708,32 @@ com.jtronlabs.space_shooter.GameActivity -> com.jtronlabs.space_shooter.GameActi
     android.widget.ImageView getExhaust() -> e
     void incrementScore(int) -> a
     void setTimerText(long) -> a
-    void createAdViewInStore() -> k
+    void requestNewInterstitial() -> k
     void resetResourcesGameTextView() -> f
     void setStoreItemsTitles() -> g
     void setStoreItemsMessages() -> h
-    boolean access$002(com.jtronlabs.space_shooter.GameActivity,boolean) -> a
-    boolean access$102(com.jtronlabs.space_shooter.GameActivity,boolean) -> b
-    void access$200(com.jtronlabs.space_shooter.GameActivity) -> a
+    void access$000(com.jtronlabs.space_shooter.GameActivity) -> a
+    android.widget.ScrollView access$100(com.jtronlabs.space_shooter.GameActivity) -> b
+    boolean access$202(com.jtronlabs.space_shooter.GameActivity,boolean) -> a
+    boolean access$302(com.jtronlabs.space_shooter.GameActivity,boolean) -> b
+    void access$400(com.jtronlabs.space_shooter.GameActivity) -> c
 com.jtronlabs.space_shooter.GameActivity$1 -> com.jtronlabs.space_shooter.a:
     com.jtronlabs.space_shooter.GameActivity this$0 -> a
     void <init>(com.jtronlabs.space_shooter.GameActivity) -> <init>
-    void doWork() -> a
+    void onAdClosed() -> c
 com.jtronlabs.space_shooter.GameActivity$2 -> com.jtronlabs.space_shooter.b:
     com.jtronlabs.space_shooter.GameActivity this$0 -> a
     void <init>(com.jtronlabs.space_shooter.GameActivity) -> <init>
-    void onClick(android.content.DialogInterface,int) -> onClick
+    void doWork() -> a
 com.jtronlabs.space_shooter.GameActivity$3 -> com.jtronlabs.space_shooter.c:
     com.jtronlabs.space_shooter.GameActivity this$0 -> a
     void <init>(com.jtronlabs.space_shooter.GameActivity) -> <init>
     void onClick(android.content.DialogInterface,int) -> onClick
-com.jtronlabs.space_shooter.GameLoop -> com.jtronlabs.space_shooter.d:
+com.jtronlabs.space_shooter.GameActivity$4 -> com.jtronlabs.space_shooter.d:
+    com.jtronlabs.space_shooter.GameActivity this$0 -> a
+    void <init>(com.jtronlabs.space_shooter.GameActivity) -> <init>
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.jtronlabs.space_shooter.GameLoop -> com.jtronlabs.space_shooter.e:
     java.util.ArrayList friendlyBullets -> a
     java.util.ArrayList enemyBullets -> b
     java.util.ArrayList friendlies -> c
@@ -11758,12 +11767,12 @@ com.jtronlabs.space_shooter.GameLoop -> com.jtronlabs.space_shooter.d:
     long access$702(com.jtronlabs.space_shooter.GameLoop,long) -> d
     long access$402(com.jtronlabs.space_shooter.GameLoop,long) -> e
     void <clinit>() -> <clinit>
-com.jtronlabs.space_shooter.GameLoop$1 -> com.jtronlabs.space_shooter.e:
+com.jtronlabs.space_shooter.GameLoop$1 -> com.jtronlabs.space_shooter.f:
     boolean val$currentActivityIsTheGame -> a
     com.jtronlabs.space_shooter.GameLoop this$0 -> b
     void <init>(com.jtronlabs.space_shooter.GameLoop,boolean) -> <init>
     void doWork() -> a
-com.jtronlabs.space_shooter.GameLoop$2 -> com.jtronlabs.space_shooter.f:
+com.jtronlabs.space_shooter.GameLoop$2 -> com.jtronlabs.space_shooter.g:
     boolean val$currentActivityIsTheGame -> a
     levels.LevelSystem val$levelingSystem -> b
     interfaces.GameActivityInterface val$theGameCopyPointer -> c
@@ -11778,34 +11787,31 @@ com.jtronlabs.space_shooter.MainActivity -> com.jtronlabs.space_shooter.MainActi
     android.widget.ImageButton vibrate -> e
     android.widget.ImageButton sound -> f
     android.widget.ImageButton credits -> g
-    com.google.android.gms.ads.AdView adView -> h
     void <init>() -> <init>
     void onCreate(android.os.Bundle) -> onCreate
-    void createAdView() -> d
     void onPause() -> onPause
     void onResume() -> onResume
-    void onDestroy() -> onDestroy
     void onClick(android.view.View) -> onClick
-    void updateColorOfSettingsButtons() -> e
+    void updateColorOfSettingsButtons() -> d
     float getScreenDens() -> a
     float getWidthPixels() -> b
     float getHeightPixels() -> c
     java.lang.String formatInt(int) -> a
     boolean access$002(boolean) -> a
     void <clinit>() -> <clinit>
-com.jtronlabs.space_shooter.MainActivity$1 -> com.jtronlabs.space_shooter.g:
+com.jtronlabs.space_shooter.MainActivity$1 -> com.jtronlabs.space_shooter.h:
     android.widget.RelativeLayout val$appIntro -> a
     android.widget.RelativeLayout val$mainActivityBackground -> b
     com.jtronlabs.space_shooter.MainActivity this$0 -> c
     void <init>(com.jtronlabs.space_shooter.MainActivity,long,long,android.widget.RelativeLayout,android.widget.RelativeLayout) -> <init>
     void onTick(long) -> onTick
     void onFinish() -> onFinish
-com.jtronlabs.space_shooter.MainActivity$2 -> com.jtronlabs.space_shooter.h:
+com.jtronlabs.space_shooter.MainActivity$2 -> com.jtronlabs.space_shooter.i:
     com.jtronlabs.space_shooter.MainActivity this$0 -> a
     void <init>(com.jtronlabs.space_shooter.MainActivity) -> <init>
     void onClick(android.content.DialogInterface,int) -> onClick
-com.jtronlabs.space_shooter.R -> com.jtronlabs.space_shooter.i:
-com.jtronlabs.space_shooter.R$styleable -> com.jtronlabs.space_shooter.j:
+com.jtronlabs.space_shooter.R -> com.jtronlabs.space_shooter.j:
+com.jtronlabs.space_shooter.R$styleable -> com.jtronlabs.space_shooter.k:
     int[] AdsAttrs -> AdsAttrs
     int AdsAttrs_adSize -> AdsAttrs_adSize
     int AdsAttrs_adSizes -> AdsAttrs_adSizes
