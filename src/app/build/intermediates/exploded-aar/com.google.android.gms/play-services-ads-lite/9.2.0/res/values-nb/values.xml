@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/tmp/tmp-deduplicated4342974593780747067/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob/res/values-nb/strings.xml -->
+    <eat-comment/>
+    <string msgid="6361267646005304214" name="accept">"Godta"</string>
+    <string msgid="6585634416571795096" name="create_calendar_message">"Vil du la annonsen opprette en kalenderaktivitet?"</string>
+    <string msgid="5763102366548941325" name="create_calendar_title">"Opprett kalenderaktivitet"</string>
+    <string msgid="6520798050439307862" name="decline">"Avslå"</string>
+    <string msgid="9018493135943017231" name="store_picture_message">"Vil du la annonsen lagre bildet i bildegalleriet?"</string>
+    <string msgid="3745622764880844111" name="store_picture_title">"Lagre bilde"</string>
+</resources>

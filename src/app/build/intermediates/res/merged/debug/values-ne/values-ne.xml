@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string msgid="6361267646005304214" name="accept">"स्वीकार्नुहोस्"</string>
+    <string msgid="366047012176970604" name="cast_casting_to_device">"%1$s मा Cast गर्दै"</string>
+    <string msgid="4431992200264667209" name="cast_disconnect">"विच्छेद गर्नुहोस्"</string>
+    <string msgid="7884080323096468593" name="cast_forward">"फर्वार्ड गर्नुहोस्"</string>
+    <string msgid="6424889955881797947" name="cast_forward_10">"दश सेकेन्ड फर्वार्ड गर्नुहोस्"</string>
+    <string msgid="7868672855975238403" name="cast_forward_30">"तीस सेकेन्ड फर्वार्ड गर्नुहोस्"</string>
+    <string msgid="6885943100773268783" name="cast_intro_overlay_button_text">"@android:string/ok"</string>
+    <string msgid="5637297909372905371" name="cast_mute">"म्यूट गर्नुहोस्"</string>
+    <string msgid="5319032370587661362" name="cast_notification_connected_message">"<ns1:g id="NAME">%1$s</ns1:g> मा जडान गरियो"</string>
+    <string msgid="2758865089947797888" name="cast_notification_connecting_message">"<ns1:g id="NAME">%1$s</ns1:g> मा जडान गर्दै"</string>
+    <string msgid="5232008641593292969" name="cast_notification_disconnect">"विच्छेद गर्नुहोस्"</string>
+    <string msgid="5308503786390460607" name="cast_pause">"पज गर्नुहोस्"</string>
+    <string msgid="5906987965619702702" name="cast_play">"प्ले गर्नुहोस्"</string>
+    <string msgid="1739665135565985480" name="cast_rewind">"रिवाइन्ड गर्नुहोस्"</string>
+    <string msgid="6432793028560778843" name="cast_rewind_10">"दश सेकेन्ड रिवाइन्ड गर्नुहोस्"</string>
+    <string msgid="4677199707225681325" name="cast_rewind_30">"तीस सेकेन्ड रिवाइन्ड गर्नुहोस्"</string>
+    <string msgid="3991548379225047363" name="cast_skip_next">"अर्को वस्तुमा जानुहोस्"</string>
+    <string msgid="8369073097776576935" name="cast_skip_prev">"अघिल्लो वस्तुमा जानुहोस्"</string>
+    <string msgid="9191388946729723891" name="cast_stop">"रोक्नुहोस्"</string>
+    <string msgid="1219622777438777099" name="cast_stop_live_stream">"लाइभ स्ट्रिमलाई रोक्नुहोस्"</string>
+    <string msgid="4250321332248956563" name="cast_tracks_chooser_dialog_audio">"अडियो"</string>
+    <string msgid="1162380934229249476" name="cast_tracks_chooser_dialog_cancel">"रद्द गर्नुहोस्"</string>
+    <string msgid="5563446400083425854" name="cast_tracks_chooser_dialog_no_audio_tracks">"कुनै पनि अडियो ट्रयाक उपलब्ध छैन"</string>
+    <string msgid="7413336699113748535" name="cast_tracks_chooser_dialog_no_text_tracks">"कुनै पनि पाठको ट्रयाक उपलब्ध छैन"</string>
+    <string msgid="2332432312191219516" name="cast_tracks_chooser_dialog_no_tracks_available">"कुनै पनि ट्र्याक उपलब्ध छैन"</string>
+    <string msgid="1176688358580178396" name="cast_tracks_chooser_dialog_none">"कुनै पनि छैन"</string>
+    <string msgid="3804878371876790270" name="cast_tracks_chooser_dialog_ok">"ठीक छ"</string>
+    <string msgid="2454147715032376208" name="cast_tracks_chooser_dialog_subtitles">"उपशीर्षकहरू"</string>
+    <string msgid="2913461521603516868" name="cast_unmute">"अनम्यूट गर्नुहोस्"</string>
+    <string msgid="4770915072144378781" name="common_google_play_services_api_unavailable_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> लाई एक वा थप Google Play सेवाहरू आवश्यकता पर्छ जुन हाल उपलब्ध छैन। कृपया सहायताको लागि विकासकर्तासँग सम्पर्क गर्नुहोस्।"</string>
+    <string msgid="2050101795821476669" name="common_google_play_services_enable_button">"Google Play सेवाहरू सक्षम पार्नुहोस्"</string>
+    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> ले तपाईँले Google Play सेवाहरू सक्षम नगरेसम्म काम गर्दैन।"</string>
+    <string msgid="3147157405986503375" name="common_google_play_services_enable_title">"Google Play सेवाहरू सक्षम पार्नुहोस्"</string>
+    <string msgid="7118643132557593940" name="common_google_play_services_install_button">"Google Play सेवाहरू प्राप्त गर्नुहोस्"</string>
+    <string msgid="1666261992894286769" name="common_google_play_services_install_text_phone">"Google Play सेवाहरू बिना <ns1:g id="APP_NAME">%1$s</ns1:g> सञ्‍चालन हुँदैन, जुन तपाईँको फोनमा छैन।"</string>
+    <string msgid="1701766622451829291" name="common_google_play_services_install_text_tablet">"Google Play सेवाहरू बिना <ns1:g id="APP_NAME">%1$s</ns1:g> सञ्‍चालन हुँदैन, जुन तपाईँको ट्याब्लेटमा छैन।"</string>
+    <string msgid="7442193194585196676" name="common_google_play_services_install_title">"Google Play सेवाहरू प्राप्त गर्नुहोस्"</string>
+    <string msgid="479501935061677276" name="common_google_play_services_invalid_account_text">"निर्दिष्ट खाता यो उपकरणमा छैन। कृपया एउटा अलग खाता चयन गर्नुहोस्।"</string>
+    <string msgid="5775407690646375078" name="common_google_play_services_invalid_account_title">"अमान्य खाता"</string>
+    <string msgid="6857745590248226927" name="common_google_play_services_network_error_text">"Google Play सेवाहरूसँग जडान गर्न डेटा जडान आवश्यक छ।"</string>
+    <string msgid="4183541461338112307" name="common_google_play_services_network_error_title">"नेटवर्क त्रुटि"</string>
+    <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"Google Play सेवाहरूका त्रुटि"</string>
+    <string msgid="8897126254633757462" name="common_google_play_services_resolution_required_text">"कृपया <ns1:g id="APP_NAME">%1$s</ns1:g> द्वारा आवश्यक कारबाही पूरा गर्नुहोस्।"</string>
+    <string msgid="7524004365913123453" name="common_google_play_services_resolution_required_title">"Google Play services मा एक कारबाहीको आवश्यक छ।"</string>
+    <string msgid="3111284987662714014" name="common_google_play_services_restricted_profile_text">"निषेधित प्रोफाइलबाट खाताहरू पहुँच समर्थित छैन।"</string>
+    <string msgid="8137798410446890929" name="common_google_play_services_restricted_profile_title">"निषेधित प्रोफाइल"</string>
+    <string msgid="2431909537598981235" name="common_google_play_services_sign_in_failed_text">"निर्दिष्ट खातामा साइन इन गर्दा त्रुटि भयो। कृपया फरक खाता रोज्नुहोस्।"</string>
+    <string msgid="4402642931312190213" name="common_google_play_services_sign_in_failed_title">"साइन इन असफल भयो"</string>
+    <string msgid="9089562800660647919" name="common_google_play_services_unknown_issue">"<ns1:g id="APP_NAME">%1$s</ns1:g> लाई Google Play सेवाहरू सँग समस्या भइरहेको छ। यदि समस्या हटेन भने सहयोगका लागि विकासकर्तालाई सम्पर्क गर्नुहोस्।"</string>
+    <string msgid="1064791666906610763" name="common_google_play_services_unsupported_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> Google Play सेवाहरूमा निर्भर छ, जुन तपाईँको यन्त्रद्वारा समथित छैन। सहायताको लागि निर्मातासँग सम्पर्क गर्नुहोस्।"</string>
+    <string msgid="539866123733096737" name="common_google_play_services_unsupported_title">"Google Play सेवाहरू"</string>
+    <string msgid="8172070149091615356" name="common_google_play_services_update_button">"अद्यावधिक गर्नुहोस्"</string>
+    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> तपाईंले Google प्ले सेवाहरू अद्यावधिक नगरेसम्म सञ्चालन हुँदैन।"</string>
+    <string msgid="8706675115216073244" name="common_google_play_services_update_title">"Google Play सेवाहरू अद्यावधिक गर्नुहोस्"</string>
+    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"Google Play सेवाहरू <ns1:g id="APP_NAME">%1$s</ns1:g> बिना सञ्‍चालन हुँदैन, जुन हाल अद्यावधिक भइरहेका छन्।"</string>
+    <string msgid="2270671469198016014" name="common_google_play_services_updating_title">"Google Play सेवाहरू अद्यावधिक भइरहेका छन्"</string>
+    <string msgid="2804989272736383918" name="common_google_play_services_wear_update_text">"Google Play सेवाहरूको नयाँ संस्करण आवश्यक छ। यो आफै छिट्टै नै अद्यावधिक हुनेछ।"</string>
+    <string msgid="5201977337835724196" name="common_open_on_phone">"फोनमा खोल्नुहोस्"</string>
+    <string msgid="3441753203274453993" name="common_signin_button_text">"साइन इन गर्नुहोस्"</string>
+    <string msgid="669893613918351210" name="common_signin_button_text_long">"Google मार्फत साइन‍ इन गर्नुहोस्"</string>
+    <string msgid="6585634416571795096" name="create_calendar_message">"विज्ञापनलाई पात्रो सम्बन्धी कार्यक्रम सिर्जना गर्न अनुमति दिने हो?"</string>
+    <string msgid="5763102366548941325" name="create_calendar_title">"पात्रो सम्बन्धी कार्यक्रम सिर्जना गर्नुहोस्"</string>
+    <string msgid="6520798050439307862" name="decline">"अस्वीकार गर्नुहोस्"</string>
+    <string msgid="1303870564366209730" name="place_autocomplete_clear_button">"खोज खाली गर्नुहोस्"</string>
+    <string msgid="2809095107724486040" name="place_autocomplete_search_hint">"खोज"</string>
+    <string msgid="9018493135943017231" name="store_picture_message">"Ad लाई तस्बिर ग्यालरीमा छवि भण्डारण गर्न अनुमति दिने हो?"</string>
+    <string msgid="3745622764880844111" name="store_picture_title">"छविलाई सुरक्षित गर्नुहोस्"</string>
+    <string msgid="363496807345461806" name="wallet_buy_button_place_holder">"Google मार्फत किन्नुहोस्"</string>
+</resources>

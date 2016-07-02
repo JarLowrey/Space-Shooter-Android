@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/quantum_ic_pause_grey600_48" />
+<!-- From: file:/tmp/tmp-deduplicated6473225542751369835/java/com/google/android/gmscore/integ/client/cast/framework/res/drawable/cast_ic_mini_controller_pause.xml -->

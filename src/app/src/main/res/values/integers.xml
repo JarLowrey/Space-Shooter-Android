@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="heal_base_cost">100</integer>
+    <integer name="heal_max_cost">7500</integer>
+    <integer name="inc_defense_base_cost">1000</integer>
+    <integer name="inc_bullet_damage_base_cost">400</integer>
+    <integer name="inc_bullet_frequency_base_cost">400</integer>
+    <integer name="score_multiplier_base_cost">10000</integer>
+    <integer name="friend_base_cost">7500</integer>
+    
+    
+    
+    <integer-array name="gun_upgrade_costs">
+        <item>0</item>
+        <item>4000</item>
+        <item>10000</item>
+        <item>20000</item>
+        <item>35000</item>
+        <item>55000</item>
+        <item>80000</item>
+        <item>110000</item>
+    </integer-array>
+    
+	<!-- gun costs can be found in friendly shooter's costToUpgradeGun function -->
+</resources>

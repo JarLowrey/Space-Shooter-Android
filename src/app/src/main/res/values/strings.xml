@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Fonts! -->
+    <string name="bit_font_bold">8_bit_operator_plus_8_bold.ttf</string>
+    <string name="bit_font_regular">8_bit_operator_plus_8_regular.ttf</string>
+    <string name="space_age">space_age_0.ttf</string>
+    
+    <string name="upgrade_new_gun_title">Ship Blasters</string>
+    <string name="upgrade_repair_title">Repair</string>
+    <string name="upgrade_inc_defense_title">Defense</string>
+    <string name="upgrade_inc_bullet_dmg_title">Damage</string>
+    <string name="upgrade_inc_bullet_freq_title">Fire Rate</string>
+    <string name="upgrade_inc_friend_title">Ally</string>
+    <string name="upgrade_inc_score_weight_title">Resources</string>
+    
+    <string name="upgrade_max_level">Maximum upgrade attained</string>
+    
+    <string name="upgrade_repair_message_default">Fully repair craft</string>
+    <string name="upgrade_repair_message_no_score">No repair possible</string>
+    <string name="upgrade_repair_message_full">Ship fully repaired</string>
+    <string name="upgrade_repair_message_partial">Partially repair craft. Not enough resources for full repair!</string>
+        
+    <string name="upgrade_defense">Increase shield capacity</string>
+    <string name="upgrade_bullet_damage">Increase bullet damage</string>
+    <string name="upgrade_bullet_frequency">Increase firing rate</string>
+    <string name="upgrade_score_multiplier">Improve ability to gather space debris. Increases rate of resource retrieval.</string>
+    <string name="upgrade_buy_friend">Other ships were also sent on this mission. Unfortunately our homing beacon was destoyed on launch. Repair beacon and try to signal a ship.</string>
+    <string name="upgrade_friend_level">Increase the freqeuncy of the beacon\'s signal to attract stronger allies.</string>
+
+    
+    <string name="app_name">JASIG</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <string name="set_new_pb">NEW PERSONAL BEST</string>
+    <string name="need_to_improve">BETTER LUCK EARTHLING</string>
+    <string name="good_job">WELL DONE EARTHLING</string>
+    
+    <color name="dark_yellow">#736D22</color>
+    <color name="yellow">#B6BD00</color>
+    <color name="light_yellow">#DEF200</color>
+    <color name="orange">#FFB000</color>
+    <color name="very_light_green">#00FF38</color>
+    <color name="light_green">#008500</color>
+    <color name="dark_green">#00FF00</color>
+    <color name="dark_red">#960303</color>
+    <color name="red">#f50000</color>
+    <color name="light_red">#FF4242</color>
+    <color name="light_blue">#00D5FF</color>
+    <color name="blue">#003BFF</color>
+    <color name="dark_blue">#012290</color>
+    <color name="very_dark_blue">#2E4963</color>
+    <color name="gray">#918383</color>
+    <color name="dark_gray">#4D4D4D</color>
+    <color name="black">#000000</color>    
+    
+    <string-array name="gun_descriptions">
+	    <item>The ship\'s main blaster was damaged on launch. It wouldn\'t take much to fix it up.</item>
+	    <item>There\'s room for another gun here&#8230;</item>
+	    <item>An upgrade to the phase annihilator would give us three shooty blastys!</item>
+	    <item>The guns could be tilted outwards, but some major structural changes would need to be made.</item>
+	    <item>Lets pump that middle gun up a notch.</item>
+	    <item>Combining all the lasers could make one nasty alien killing machine.</item>
+	    <item>A giant laser is nice, but a giant laser and with some buddies is nicer!</item>
+	    <item>That angled gun was nice, lets get that back and up the damage some more. That\'ll show \'em!</item>
+    </string-array>
+	
+	<!-- 
+    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity">MainActivity</string>
+    <string name="title_activity_intro">IntroActivity</string>
+    -->
+    <string name="credits">
+        					<b>Programmer and Designer</b>\n
+        						\t\t James Lowrey (JTronLabs)\n
+       						\n
+							<b>Part2Art.com and Arral.com</b> \n
+									\t\t Skorpio \n
+							\n
+							<b>OpenGameArt.org</b>\n
+									\t\t Skorpio \n
+									\t\t Tummyache \n
+									\t\t fluffrabbit \n
+									\t\t nexust \n
+							\n
+							<b>Pixabay.com</b>\n
+									\t\t Nemo \n
+									\t\t OpenIcons \n
+									\t\t OpenClipartVectors \n
+							\n
+							<b>Freesound.org</b>\n 
+									\t\t oshuaempyre \n
+									\t\t LittleRobotSoundFactory \n
+									\t\t ReadeOnly \n
+									\t\t lavik89 \n
+									\t\t suntemple \n
+									\t\t Celticvalkyria \n
+									\t\t rap2h\n
+									\t\t inferno \n
+									\t\t Koops \n
+							\n
+							<b>Fonts</b>\n
+									\t\tGrandoplex Productions  \n
+									\t\tMickeyAvenue \n
+							\n
+							<!-- <b>Licenses</b>\n
+								\t\t CC-BY-SA 3.0 \n 
+								\t\t CC BY 3.0 \n-->
+							Arin Carver for design tips\n
+							\n
+							And thank you for playing!\n
+						 </string>
+
+	<!-- Sounds
+	http://www.freesound.org/people/lavik89/sounds/168984/
+	http://www.freesound.org/people/ReadeOnly/sounds/186958/
+	http://www.freesound.org/people/LittleRobotSoundFactory/sounds/270326/
+	http://www.freesound.org/people/suntemple/sounds/253177/
+	http://www.freesound.org/people/LittleRobotSoundFactory/sounds/276213/
+	http://www.freesound.org/people/LittleRobotSoundFactory/sounds/270545/
+	http://www.freesound.org/people/LittleRobotSoundFactory/sounds/270554/
+	http://www.freesound.org/people/LittleRobotSoundFactory/sounds/270329/
+	http://www.freesound.org/people/joshuaempyre/sounds/251461/
+	http://www.freesound.org/people/rap2h/sounds/151539/
+	http://www.freesound.org/people/Celticvalkyria/sounds/273539/
+	http://www.freesound.org/people/LittleRobotSoundFactory/sounds/270343/
+	https://www.freesound.org/people/inferno/sounds/18380/
+	https://www.freesound.org/people/Koops/sounds/12506/
+	 -->
+	 <!-- Fonts
+	 http://www.1001freefonts.com/8_bit_operator.font	 
+	  -->
+</resources>

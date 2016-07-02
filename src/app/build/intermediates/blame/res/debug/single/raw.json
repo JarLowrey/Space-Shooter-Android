@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/laser_looping.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/laser_looping.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/rocket_launch.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/rocket_launch.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/background_intro.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/background_intro.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/laser_shoot.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/laser_shoot.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/background_playing_game.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/background_playing_game.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/jingle_lose.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/jingle_lose.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/jingle_win.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/jingle_win.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/explosion1.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/explosion1.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/friendly_hit.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/friendly_hit.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/gtm_analytics",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics-impl/9.2.0/res/raw/gtm_analytics"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/coins.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/coins.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/bonus.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/bonus.wav"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/raw/background_store.wav",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/raw/background_store.wav"
+    }
+]

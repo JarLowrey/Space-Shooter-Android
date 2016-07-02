@@ -1,0 +1,314 @@
+[
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_mini_controller_upcoming_stop.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_mini_controller_upcoming_stop.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_btn_check_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_check_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/view_damaged.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/view_damaged.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_full_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_ratingbar_full_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_plus_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/btn_gray_and_red.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/btn_gray_and_red.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_rewind30.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_rewind30.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_mini_controller_play.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_mini_controller_play.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_plus_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_stop_live_stream.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_stop_live_stream.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/btn_red.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/btn_red.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_connecting_mono_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_connecting_mono_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/bullet_laser_round_red.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/bullet_laser_round_red.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_top_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/ic_white_background.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/ic_white_background.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/btn_green.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/btn_green.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_disconnect.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_disconnect.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_forward30.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_forward30.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/intro_background.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/intro_background.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_forward.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_forward.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_connecting_mono_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_connecting_mono_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_mini_controller_progress_drawable.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_mini_controller_progress_drawable.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_cast_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_cast_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_forward10.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_forward10.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_settings_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_settings_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_mini_controller_upcoming_play.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_mini_controller_upcoming_play.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_plus_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/btn_gray.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/btn_gray.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_mono_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_mono_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_mono_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_mono_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_pause_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_pause_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/control_panel_background.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/control_panel_background.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_play.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_play.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_settings_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_settings_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_rewind.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_rewind.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_small_icon.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_small_icon.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_play_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_play_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/gameover_background.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/gameover_background.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_connecting.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/9.2.0/res/drawable/cast_ic_notification_connecting.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/store_item_background.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/store_item_background.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_rewind10.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_rewind10.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_plus_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/btn_gray_no_highlight.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/btn_gray_no_highlight.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_mini_controller_pause.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_mini_controller_pause.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/white_center_red_outline.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/white_center_red_outline.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_play_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_play_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/star.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/star.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/bullet_laser_round_green.xml",
+        "source": "/home/james/Documents/jasig/src/app/src/main/res/drawable/bullet_laser_round_green.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_skip_next.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_skip_next.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_pause_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_pause_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/res/drawable/common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_mini_controller_stop.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_mini_controller_stop.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_pause.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_pause.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_skip_prev.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_ic_notification_skip_prev.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_btn_default_mtrl_shape.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/mr_ic_cast_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_cast_light.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "/home/james/Documents/jasig/src/app/build/intermediates/res/merged/debug/drawable/cast_mini_controller_gradient_light.xml",
+        "source": "/home/james/Documents/jasig/src/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.2.0/res/drawable/cast_mini_controller_gradient_light.xml"
+    }
+]

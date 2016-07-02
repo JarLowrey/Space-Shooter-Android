@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/tmp/tmp-deduplicated6473225542751369835/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/cast/framework/res/values-ar/cast_strings.xml -->
+    <eat-comment/>
+    <string msgid="366047012176970604" name="cast_casting_to_device">"‏جارٍ الإرسال إلى %1$s"</string>
+    <string msgid="4431992200264667209" name="cast_disconnect">"إلغاء الربط"</string>
+    <string msgid="7884080323096468593" name="cast_forward">"إلى الأمام"</string>
+    <string msgid="6424889955881797947" name="cast_forward_10">"إلى الأمام عشر ثوانٍ"</string>
+    <string msgid="7868672855975238403" name="cast_forward_30">"إلى الأمام ثلاثين ثانية"</string>
+    <string msgid="6885943100773268783" name="cast_intro_overlay_button_text">"@android:string/ok"</string>
+    <string msgid="5637297909372905371" name="cast_mute">"كتم الصوت"</string>
+    <string msgid="5308503786390460607" name="cast_pause">"إيقاف مؤقت"</string>
+    <string msgid="5906987965619702702" name="cast_play">"تشغيل"</string>
+    <string msgid="1739665135565985480" name="cast_rewind">"إرجاع"</string>
+    <string msgid="6432793028560778843" name="cast_rewind_10">"إرجاع عشر ثوانٍ"</string>
+    <string msgid="4677199707225681325" name="cast_rewind_30">"إرجاع ثلاثين ثانية"</string>
+    <string msgid="3991548379225047363" name="cast_skip_next">"التخطي إلى العنصر التالي"</string>
+    <string msgid="8369073097776576935" name="cast_skip_prev">"التخطي إلى العنصر السابق"</string>
+    <string msgid="9191388946729723891" name="cast_stop">"إيقاف"</string>
+    <string msgid="1219622777438777099" name="cast_stop_live_stream">"إيقاف البث المباشر"</string>
+    <string msgid="4250321332248956563" name="cast_tracks_chooser_dialog_audio">"الصوت"</string>
+    <string msgid="1162380934229249476" name="cast_tracks_chooser_dialog_cancel">"إلغاء"</string>
+    <string msgid="5563446400083425854" name="cast_tracks_chooser_dialog_no_audio_tracks">"لا تتوفر أي مقاطع صوتية"</string>
+    <string msgid="7413336699113748535" name="cast_tracks_chooser_dialog_no_text_tracks">"لا تتوفر أي مقاطع صوتية مزودة بنصوص"</string>
+    <string msgid="2332432312191219516" name="cast_tracks_chooser_dialog_no_tracks_available">"لا تتوفر أي مقاطع صوتية"</string>
+    <string msgid="1176688358580178396" name="cast_tracks_chooser_dialog_none">"لا شيء"</string>
+    <string msgid="3804878371876790270" name="cast_tracks_chooser_dialog_ok">"موافق"</string>
+    <string msgid="2454147715032376208" name="cast_tracks_chooser_dialog_subtitles">"الترجمات المصاحبة"</string>
+    <string msgid="2913461521603516868" name="cast_unmute">"إعادة الصوت"</string>
+</resources>

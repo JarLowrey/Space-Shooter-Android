@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/tmp/tmp-deduplicated4342974593780747067/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob/res/values-bn/strings.xml -->
+    <eat-comment/>
+    <string msgid="6361267646005304214" name="accept">"গ্রহণ করুন"</string>
+    <string msgid="6585634416571795096" name="create_calendar_message">"বিজ্ঞাপনকে একটি ক্যালেন্ডার ইভেন্ট তৈরি করার অনুমতি দেবেন?"</string>
+    <string msgid="5763102366548941325" name="create_calendar_title">"ক্যালেন্ডার ইভেন্ট তৈরি করুন"</string>
+    <string msgid="6520798050439307862" name="decline">"অস্বীকার করুন"</string>
+    <string msgid="9018493135943017231" name="store_picture_message">"বিজ্ঞাপনকে, ছবির গ্যালারিতে চিত্র সংরক্ষণ করার অনুমতি দেবেন?"</string>
+    <string msgid="3745622764880844111" name="store_picture_title">"চিত্র সংরক্ষন করুন"</string>
+</resources>

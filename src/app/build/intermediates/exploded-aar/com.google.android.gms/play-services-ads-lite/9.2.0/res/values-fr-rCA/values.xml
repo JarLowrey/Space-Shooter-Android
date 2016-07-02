@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/tmp/tmp-deduplicated4342974593780747067/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob/res/values-fr-rCA/strings.xml -->
+    <eat-comment/>
+    <string msgid="6361267646005304214" name="accept">"Accepter"</string>
+    <string msgid="6585634416571795096" name="create_calendar_message">"Autoriser l\'annonce à créer un événement dans l\'agenda?"</string>
+    <string msgid="5763102366548941325" name="create_calendar_title">"Créer un événement dans l\'agenda"</string>
+    <string msgid="6520798050439307862" name="decline">"Refuser"</string>
+    <string msgid="9018493135943017231" name="store_picture_message">"Autoriser l\'annonce à stocker l\'image dans la galerie d\'image?"</string>
+    <string msgid="3745622764880844111" name="store_picture_title">"Enregistrer l\'image"</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/tmp/tmp-deduplicated4342974593780747067/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob/res/values-ne/strings.xml -->
+    <eat-comment/>
+    <string msgid="6361267646005304214" name="accept">"स्वीकार्नुहोस्"</string>
+    <string msgid="6585634416571795096" name="create_calendar_message">"विज्ञापनलाई पात्रो सम्बन्धी कार्यक्रम सिर्जना गर्न अनुमति दिने हो?"</string>
+    <string msgid="5763102366548941325" name="create_calendar_title">"पात्रो सम्बन्धी कार्यक्रम सिर्जना गर्नुहोस्"</string>
+    <string msgid="6520798050439307862" name="decline">"अस्वीकार गर्नुहोस्"</string>
+    <string msgid="9018493135943017231" name="store_picture_message">"Ad लाई तस्बिर ग्यालरीमा छवि भण्डारण गर्न अनुमति दिने हो?"</string>
+    <string msgid="3745622764880844111" name="store_picture_title">"छविलाई सुरक्षित गर्नुहोस्"</string>
+</resources>
