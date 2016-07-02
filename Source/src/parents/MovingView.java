@@ -151,7 +151,11 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 			myLayout.removeView(this);
 		}
 	}
+	public void unRemove(){
+		isRemoved=false;
+		addToForeground(this);
 
+	}
 
 	public void setViewToBeRemovedOnNextRendering(){//to be called when collision detection results in a dead object, or when an object moves off the screen
 		isRemoved = true;

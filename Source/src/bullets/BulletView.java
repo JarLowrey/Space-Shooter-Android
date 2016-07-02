@@ -17,8 +17,19 @@ import com.jtronlabs.space_shooter.GameLoop;
 public class BulletView extends Moving_ProjectileView{
 
 	protected Shooter theOneWhoShotMe;
-	
-	public BulletView(int xPosOnShooterAsPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,
+	protected static ArrayList<BulletView> bulletPool = new ArrayList<BulletView>();
+
+	public static getBullet(int xPosOnShooterAsPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,
+							int bulletDamage,int width,int height,int imageId){
+		for(BulletView b: bulletPool){
+			if(b.isRemoved()){
+				b.unRemove();
+			}
+		}
+		return new BulletView(xPosOnShooterAsPercentage,layout,shooter,bulletSpeedY,bulletDamage,width,height,imageId);
+	}
+
+	private BulletView(int xPosOnShooterAsPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,
 			int bulletDamage,int width,int height,int imageId) {
 		super(xPosOnShooterAsPercentageToGlobalXPos(xPosOnShooterAsPercentage,shooter,width),
 				((MovingView)shooter).getMidY(),
