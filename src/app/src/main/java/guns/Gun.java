@@ -1,10 +1,18 @@
 package guns;
   
+import bullets.BulletView;
+import bullets.Bullet_Basic;
+import bullets.Bullet_HasDurationView;
+import bullets.Bullet_TrackingView;
 import helpers.KillableRunnable;
 import interfaces.Shooter;
+
+import android.util.Log;
 import android.widget.RelativeLayout;
 import bullets.Bullet_Interface;
+import parents.MovingView;
 
+import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 
 
@@ -50,7 +58,30 @@ public abstract class Gun {
 		myBulletType = bulletType;
 		shooter=theShooter;
 	} 
-	
+
+	protected BulletView getBullet(){
+		for(BulletView b: GameLoop.bulletPool){
+			if( b.isRemoved() && myBulletType.getClass().equals(b.getClass()) ){
+				//renew bullets properties (like speed, position, etc)
+				b.unRemoveBullet(posOnShooter,
+						gameScreen,
+						bulletSpeedY,
+						myBulletType.getBulletWidth(),
+						myBulletType.getBulletHeight(),
+						myBulletType.getBulletBackgroundId(),
+						shooter,
+						bulletDamage
+				);
+				b.initBullet(shooter);
+			}
+		}
+
+		BulletView b = myBulletType.makeBullet(this.posOnShooter,gameScreen,shooter,bulletSpeedY,bulletDamage);
+		GameLoop.bulletPool.add(b);
+
+		return b;
+	}
+
 	public void startShootingImmediately(){
 		postDelayedIfShooting(shootingRunnable,0,shooter);
 	}

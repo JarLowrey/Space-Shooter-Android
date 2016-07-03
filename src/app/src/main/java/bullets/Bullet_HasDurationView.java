@@ -49,8 +49,8 @@ public class Bullet_HasDurationView extends BulletView
 
 		final float shooterMidY = ( theOneWhoShotMe.getY() * 2 + theOneWhoShotMe.getHeight() ) / 2;
 		Bullet_HasDurationView.this.setY(shooterMidY);
-		
-		this.setXPositionOnShooterAsAPercentage(positionOnShooterAsAPercentage);
+
+		this.setX(xPosOnShooterAsPercentageToGlobalXPos(positionOnShooterAsAPercentage,theOneWhoShotMe,this.getWidth()));
 
 		RelativeLayout.LayoutParams params = (LayoutParams) getLayoutParams();
 		final float height = Bullet_HasDurationView.this.getHeight();

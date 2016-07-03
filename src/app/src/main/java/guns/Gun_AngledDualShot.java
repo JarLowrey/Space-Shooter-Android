@@ -23,8 +23,8 @@ public  class Gun_AngledDualShot extends Gun {
 		float bulletSpeedX = (float) (bulletSpeedY * Math.tan(Math.toRadians(DEFAULT_ANGLE)));
 
 		//create left and right bullets
-		BulletView bulletLeft = myBulletType.getBullet(this.posOnShooter,gameScreen, shooter,bulletSpeedY,bulletDamage);
-		BulletView bulletRight = myBulletType.getBullet(this.posOnShooter,gameScreen, shooter,bulletSpeedY,bulletDamage);
+		BulletView bulletLeft = getBullet();
+		BulletView bulletRight = getBullet();
 
 		//set bullets speed x to non default value
 		bulletLeft.setSpeedX(bulletSpeedX * -1);

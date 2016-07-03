@@ -4,26 +4,46 @@
     api-level="21"
     density="xxhdpi"
     format="7"
-    timestamp="259482194919"
+    timestamp="10400151773785"
     token="-2680208976640398122" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="264" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="20" />
     <task
         name="verifier"
-        duration="0" />
+        duration="2" />
 
-    <build timestamp="7545961619770" >
+    <artifact
+        location="/home/james/Documents/jasig/src/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+        type="DEX" />
+    <artifact
+        location="/home/james/Documents/jasig/src/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_9/classes.dex"
+        type="DEX" />
+
+    <build timestamp="10160234964963" >
         <artifact
             location="/home/james/Documents/jasig/src/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
+    </build>
+    <build timestamp="10305213899129" >
+        <artifact
+            location="/home/james/Documents/jasig/src/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
+            type="DEX" />
+    </build>
+    <build timestamp="10400151773785" >
+        <artifact
+            location="/home/james/Documents/jasig/src/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+            type="DEX" />
+        <artifact
+            location="/home/james/Documents/jasig/src/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_9/classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

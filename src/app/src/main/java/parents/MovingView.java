@@ -3,6 +3,7 @@ package parents;
 import interfaces.GameActivityInterface;
 import interfaces.MovingViewInterface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -29,21 +30,27 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		
 	public MovingView(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float movingSpeedY,float movingSpeedX,int width,int height,int imageId) {
 		super(layout.getContext());
+		init(xInitialPosition,yInitialPosition,layout,movingSpeedY,movingSpeedX,width,height,imageId);
+	}
 
+	public void unRemove(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float movingSpeedY,float movingSpeedX,int width,int height,int imageId){
+		init(xInitialPosition,yInitialPosition,layout,movingSpeedY,movingSpeedX,width,height,imageId);
+	}
+
+	private void init(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float movingSpeedY,float movingSpeedX,int width,int height,int imageId){
 		myLayout = layout;
-		
-		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
+
+		this.setSize(width,height);
 		this.setImageResource(imageId);
 
+		//remove from old layout, add to foreground of new layout
+		ViewGroup currentParent = (ViewGroup)this.getParent();
+		if(currentParent!=null){ currentParent.removeView(this); }
 		addToForeground(this);
 
 		setSpeedY(movingSpeedY);
 		setSpeedX(movingSpeedX);
-		myHeight = height;
-		myWidth = width;
-		
-//		Log.d("lowrey","on creation, speedY = "+speedY+" speedX = "+speedX);
-		
+
 		isRemoved=false;
 
 		//required to prevent View from flashing in the top left corner: (0,0) coordinates
@@ -73,6 +80,11 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		super.setX(xPosition);
 		super.setY(yPosition);
 	}
+	public void setSize(int width,int height){
+		this.setLayoutParams( new RelativeLayout.LayoutParams(width,height) );
+		myHeight = height;
+		myWidth = width;
+	}
 
 	protected static float getRandomXPosInMiddle(float width){
 		return (float) ((MainActivity.getWidthPixels() - 2 * width) * Math.random() + width / 2);
@@ -87,8 +99,6 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	
 	/**
 	 * Move the View on the screen according to is speedY or speedX.
-	 * @param direction-whichDirection the View should movePhysicalPosition. Input needs to be ProjectileView.UP, ProjectileView.RIGHT,ProjectileView.DOWN, or ProjectileView.LEFT
-	 * @return Always returns false, overwrite for different behavior
 	 */
 	public void movePhysicalPosition(long deltaTime){
 		//Move by setting this instances X or Y position to its current position plus its respective speed.
@@ -150,11 +160,6 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		if(isRemoved){
 			myLayout.removeView(this);
 		}
-	}
-	public void unRemove(){
-		isRemoved=false;
-		addToForeground(this);
-
 	}
 
 	public void setViewToBeRemovedOnNextRendering(){//to be called when collision detection results in a dead object, or when an object moves off the screen

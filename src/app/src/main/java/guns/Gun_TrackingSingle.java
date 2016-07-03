@@ -33,7 +33,7 @@ public  class Gun_TrackingSingle extends Gun_Tracking {
 		MediaController.playSoundEffect(gameScreen.getContext(), MediaController.SOUND_LASER_SHOOT);
 		
 		//create 2 bullets
-		BulletView bullet = myBulletType.getBullet(this.posOnShooter,gameScreen, shooter,bulletSpeedY,bulletDamage);
+		BulletView bullet = getBullet();
 
 		//set bullet's X speed 
 		bullet.setSpeedX(getTrackingXSpeed(shooter,shootTowardsMe,this.bulletSpeedY));

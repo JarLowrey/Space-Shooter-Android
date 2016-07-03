@@ -23,7 +23,7 @@ public class Bullet_Duration extends Bullet_Interface{
 	//no threads needed, so no cleanup needed
 	public void removeBulletType(){}
 	
-	public BulletView getBullet(int posOnShooterAsAPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,int bulletDamage){
+	public BulletView makeBullet(int posOnShooterAsAPercentage, RelativeLayout layout, Shooter shooter, float bulletSpeedY, int bulletDamage){
 		Bullet_HasDurationView bullet = new Bullet_HasDurationView(posOnShooterAsAPercentage,layout,shooter, bulletSpeedY,
 				bulletDamage,width,height,backgroundId,
 				bulletLifeSpan);

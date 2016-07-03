@@ -44,7 +44,7 @@ public class Gun_TrackingGattling extends Gun_Tracking {
 		}
 		
 		//create one bullet at center of shooter
-		BulletView bullet = myBulletType.getBullet(this.posOnShooter,gameScreen, shooter,bulletSpeedY,bulletDamage);
+		BulletView bullet = getBullet();
 
 		//set bullet's X speed 
 		bullet.setSpeedX(getTrackingXSpeed(shooter,shootTowardsMe,this.bulletSpeedY));

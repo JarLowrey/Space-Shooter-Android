@@ -19,42 +19,53 @@ import java.util.ArrayList;
 public class BulletView extends Moving_ProjectileView{
 
 	protected Shooter theOneWhoShotMe;
-	protected static ArrayList<BulletView> bulletPool = new ArrayList<BulletView>();
-
-	public static BulletView getBullet(int xPosOnShooterAsPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,
-							int bulletDamage,int width,int height,int imageId){
-		for(BulletView b: bulletPool){
-			if(b.isRemoved()){
-				b.unRemove();
-			}
-		}
-		return new BulletView(xPosOnShooterAsPercentage,layout,shooter,bulletSpeedY,bulletDamage,width,height,imageId);
-	}
 
 	public BulletView(int xPosOnShooterAsPercentage,RelativeLayout layout,Shooter shooter,float bulletSpeedY,
 			int bulletDamage,int width,int height,int imageId) {
 		super(xPosOnShooterAsPercentageToGlobalXPos(xPosOnShooterAsPercentage,shooter,width),
 				((MovingView)shooter).getMidY(),
 				layout,
-				bulletSpeedY,
-				0 ,bulletDamage,1, width, height, imageId);
-	
+				getBulletSpeedY(bulletSpeedY,shooter),
+				0,
+				bulletDamage,1, width, height, imageId);
+
+		initBullet(shooter);
+	}
+
+	public void unRemoveBullet(int xPosOnShooterAsPercentage,RelativeLayout layout,float bulletSpeedY,
+							   int width,int height,int imageId,Shooter shooter,int bulletDamage){
+		this.setDamage(bulletDamage);
+
+		super.unRemove(BulletView.xPosOnShooterAsPercentageToGlobalXPos(xPosOnShooterAsPercentage,shooter,width),
+				((MovingView)shooter).getMidY(),
+				layout,
+				getBulletSpeedY(bulletSpeedY,shooter),
+				0,
+				width,
+				height,
+				imageId);
+
+		initBullet(shooter);
+	}
+
+	public void initBullet(Shooter shooter){
 		//set instance variables
 		theOneWhoShotMe=shooter;
-		 
+
 		//position bullet behind shooter
-		ViewGroup parent = (ViewGroup)theOneWhoShotMe.getParent();
-		if(parent!=null){
-			parent.removeView(this);//bullet already added to parent in MovingView's instantiation
-			int shooterIndex = parent.indexOfChild( (View) theOneWhoShotMe);
-			parent.addView(this, shooterIndex);
+		ViewGroup newParent = (ViewGroup)theOneWhoShotMe.getParent();
+		if(newParent!=null){
+			newParent.removeView(this);//bullet already added to parent in MovingView's instantiation or in unRemove method
+			int shooterIndex = newParent.indexOfChild( (View) theOneWhoShotMe);
+
+			ViewGroup currentParent = (ViewGroup)this.getParent();
+			if(currentParent!=null){ currentParent.removeView(this); }
+			newParent.addView(this, shooterIndex);
 
 			if(theOneWhoShotMe.isFriendly()){
-				setSpeedY( - Math.abs(bulletSpeedY) );
 				GameLoop.friendlyBullets.add(this);
 			}else{
-				setSpeedY( Math.abs(bulletSpeedY) );
-				GameLoop.enemyBullets.add(this);			
+				GameLoop.enemyBullets.add(this);
 			}
 			theOneWhoShotMe.getMyBullets().add(this);
 		}else{
@@ -62,6 +73,13 @@ public class BulletView extends Moving_ProjectileView{
 			//for some reason, shooters continue to fire even after being killed. This simple check ensure that the shooter
 			//has not been removed from his parent. If he has, then remove this bullet
 		}
+	}
+	private static float getBulletSpeedY(float movingSpeedY,Shooter shooter){
+		float speedY = Math.abs(movingSpeedY);
+		if(shooter.isFriendly()){
+			speedY *= -1 ;
+		}
+		return speedY;
 	}
 	
 	public void setBulletRotation(){	
@@ -78,7 +96,7 @@ public class BulletView extends Moving_ProjectileView{
 	}
 
 
-	private static float xPosOnShooterAsPercentageToGlobalXPos(int positionOnShooterAsAPercentageOfWidthFromTheLeftSide,Shooter shooter, float bulletWidth){
+	public static float xPosOnShooterAsPercentageToGlobalXPos(int positionOnShooterAsAPercentageOfWidthFromTheLeftSide,Shooter shooter, float bulletWidth){
 		if(positionOnShooterAsAPercentageOfWidthFromTheLeftSide < 0 || positionOnShooterAsAPercentageOfWidthFromTheLeftSide > 100){
 			throw new IllegalArgumentException("Not a valid percentage");
 		}
@@ -87,13 +105,11 @@ public class BulletView extends Moving_ProjectileView{
 		return (middleOfBulletOnShootingPos);
 
 	}
-	/**
-	 *
-	 * @param positionOnShooterAsAPercentageOfWidthFromTheLeftSide 100 indicates right side of shoot, 0 is left side, and 50 is middle
-	 */
+	/*
 	public void setXPositionOnShooterAsAPercentage(int positionOnShooterAsAPercentageOfWidthFromTheLeftSide) throws IllegalArgumentException{
 		setX(xPosOnShooterAsPercentageToGlobalXPos(positionOnShooterAsAPercentageOfWidthFromTheLeftSide,theOneWhoShotMe,this.getLayoutParams().width));
 	}
+	*/
 
 	/**
 	 * Remove bullet from Shooter's list of bullets  and GameActivity's list
