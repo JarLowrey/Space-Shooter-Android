@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.jtronlabs.space_shooter.MainActivity;
+import com.jtronlabs.space_shooter.R;
 
 public class StarAnimationManager {
 	private static StarAnimationManager starManager;
@@ -19,36 +20,17 @@ public class StarAnimationManager {
 		final int numStars = (int)(areaOnScreen / 19748.57142857143);
 
 		myStars = new StarView[numStars];
-		createAllNewStars(layout);
 	}
 
 	public static StarAnimationManager createStars(RelativeLayout layout){
 		if(starManager == null){
 			starManager = new StarAnimationManager(layout);
-		}else{
-			if(myStars[0] == null){//extra check in case stars arent initialized properly
-				createAllNewStars(layout);
-			}else {
-				starManager.reassignStarViewsLayout(layout);
-			}
 		}
+
+		for(int i=0; i < myStars.length;i++){
+			myStars[i]= (StarView)SpecialEffectView.getEffect(layout, StarView.DEFAULT_BACKGROUND_ID,StarView.class,null,null);
+		}
+
 		return starManager;
-	}
-
-	private void reassignStarViewsLayout(RelativeLayout newLayout){
-		for(int i=0; i < myStars.length;i++){
-			RelativeLayout originalLayout = (RelativeLayout)myStars[i].getParent();
-			originalLayout.removeView(myStars[i]);
-
-
-			newLayout.addView(myStars[i],0);//add star to background
-		}
-	}
-
-	private static void createAllNewStars(RelativeLayout layout){
-		for(int i=0; i < myStars.length;i++){
-			myStars[i] = new StarView(layout);
-
-		}
 	}
 }

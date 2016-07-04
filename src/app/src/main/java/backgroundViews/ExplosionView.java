@@ -12,6 +12,16 @@ public class ExplosionView extends SpecialEffectView {
 	public ExplosionView(final RelativeLayout layout,MovingView parent, int imageId,long[] vibrationPattern) {
 		super(parent.getX(),parent.getY(),layout, 0,0, parent.getWidth(), parent.getHeight(), imageId);
 		
+		initExplosion(vibrationPattern);
+	}
+
+	public void unremoveExplosion(final RelativeLayout layout,MovingView parent, int imageId,long[] vibrationPattern){
+		super.unRemoveSpecialEffectView(parent.getX(),parent.getY(),layout, 0,0, parent.getWidth(), parent.getHeight(), imageId);
+
+		initExplosion(vibrationPattern);
+	}
+
+	private void initExplosion(long[] vibrationPattern){
 		MediaController.playSoundEffect(getContext(), MediaController.SOUND_EXPLOSION1);
 		if(vibrationPattern == null){
 			vibrationPattern = new long[0];
@@ -19,13 +29,13 @@ public class ExplosionView extends SpecialEffectView {
 		MediaController.vibrate(getContext(), vibrationPattern);
 
 		GameLoop.specialEffects.add(this);
-		
+
 		postDelayed(new KillableRunnable(){
 			@Override
 			public void doWork() {
 				ExplosionView.this.setViewToBeRemovedOnNextRendering();
 			}
-		},500);	
+		},500);
 	}
 
 	@Override

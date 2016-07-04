@@ -1,5 +1,6 @@
 package friendlies;
 
+import backgroundViews.SpecialEffectView;
 import guns.Gun;
 import helpers.KillableRunnable;
 import helpers.MediaController;
@@ -147,13 +148,18 @@ public class ProtagonistView extends Friendly_ShooterView{
 		myGame.setHealthBars();//must set health bars after taking damage
 		
 		if(isDead){
-			final long vibratePat[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};
+			final long vibrationPattern[] = {0,50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600};
+			SpecialEffectView.getEffect(this.getMyLayout(),R.drawable.explosion1,ExplosionView.class,this,vibrationPattern);
+			SpecialEffectView.getEffect(this.getMyLayout(),R.drawable.explosion1,ExplosionView.class,this,vibrationPattern);
+			SpecialEffectView.getEffect(this.getMyLayout(),R.drawable.explosion1,ExplosionView.class,this,vibrationPattern);
+			/*
 			new ExplosionView(this.getMyLayout(),this,
-					R.drawable.explosion1,vibratePat);
+					R.drawable.explosion1,vibrationPattern);
 			new ExplosionView(this.getMyLayout(),this,
 					R.drawable.explosion1,null);
 			new ExplosionView(this.getMyLayout(),this,
 					R.drawable.explosion1,null);
+					*/
 		}else{
 			MediaController.vibrate(getContext(), 130);
 		}

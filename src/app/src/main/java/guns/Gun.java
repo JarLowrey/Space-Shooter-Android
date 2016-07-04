@@ -15,6 +15,8 @@ import parents.MovingView;
 import com.jtronlabs.space_shooter.GameLoop;
 import com.jtronlabs.space_shooter.MainActivity;
 
+import java.util.ArrayList;
+
 
 /**
  * 
@@ -22,7 +24,9 @@ import com.jtronlabs.space_shooter.MainActivity;
  *
  */
 public abstract class Gun {
-	
+
+	private static ArrayList<BulletView> bulletPool = new ArrayList<BulletView>();
+
 	/**
 	 * Create bullets of the shooter's type at the shooter's position. Properties such as number of bullets, 
 	 * direction of bullets, initial position of bullets, and more may be different
@@ -60,7 +64,7 @@ public abstract class Gun {
 	} 
 
 	protected BulletView getBullet(){
-		for(BulletView b: GameLoop.bulletPool){
+		for(BulletView b: bulletPool){
 			if( b.isRemoved() && myBulletType.getClass().equals(b.getClass()) ){
 				//renew bullets properties (like speed, position, etc)
 				b.unRemoveBullet(posOnShooter,
@@ -77,7 +81,7 @@ public abstract class Gun {
 		}
 
 		BulletView b = myBulletType.makeBullet(this.posOnShooter,gameScreen,shooter,bulletSpeedY,bulletDamage);
-		GameLoop.bulletPool.add(b);
+		bulletPool.add(b);
 
 		return b;
 	}

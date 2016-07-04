@@ -1,5 +1,6 @@
 package enemies;
 
+import backgroundViews.SpecialEffectView;
 import friendlies.ProtagonistView;
 import guns.Gun;
 import interfaces.Shooter;
@@ -59,8 +60,9 @@ public abstract class Enemy_ShooterView extends EnemyView implements Shooter{
 			
 			if(isDead){ 
 				final long vibrationPattern[] = {0,40};
-				new ExplosionView(this.getMyLayout(),this,
-						R.drawable.explosion1,vibrationPattern);
+				SpecialEffectView.getEffect(this.getMyLayout(),R.drawable.explosion1,ExplosionView.class,this,vibrationPattern);
+				//new ExplosionView(this.getMyLayout(),this,
+				//		R.drawable.explosion1,vibrationPattern);
 			}
 			
 			return isDead;

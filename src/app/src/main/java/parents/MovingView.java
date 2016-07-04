@@ -44,8 +44,6 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 		this.setImageResource(imageId);
 
 		//remove from old layout, add to foreground of new layout
-		ViewGroup currentParent = (ViewGroup)this.getParent();
-		if(currentParent!=null){ currentParent.removeView(this); }
 		addToForeground(this);
 
 		setSpeedY(movingSpeedY);
@@ -168,13 +166,14 @@ public abstract class MovingView extends ImageView implements MovingViewInterfac
 	}
 
 	protected void addToForeground(View view){
+		ViewGroup currentParent = (ViewGroup)view.getParent();
+		if(currentParent!=null){ currentParent.removeView(view); }
 		myLayout.addView(view,myLayout.getChildCount()-2);
 	}
 
 	protected void addToBackground(View view){
-		//addToForeground is called in every instantiation of every MovingView. Thus addToBackground is non default,
-		//and thus the view needs to be removed from its parent before it can be re-added
-		myLayout.removeView(view);
+		ViewGroup currentParent = (ViewGroup)view.getParent();
+		if(currentParent!=null){ currentParent.removeView(view); }
 		myLayout.addView(view,0);
 	}
 	

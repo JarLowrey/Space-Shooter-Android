@@ -32,7 +32,6 @@ import parents.MovingView;
 public class GameLoop {
 
 	public static ArrayList<EnemyView> enemyPool = new ArrayList<EnemyView>();
-	public static ArrayList<BulletView> bulletPool = new ArrayList<BulletView>();
 
 	public static ArrayList<BulletView> friendlyBullets = new ArrayList<BulletView>();
 	public static ArrayList<BulletView> enemyBullets = new ArrayList<BulletView>();

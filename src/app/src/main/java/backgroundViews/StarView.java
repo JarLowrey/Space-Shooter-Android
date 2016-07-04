@@ -25,9 +25,24 @@ public class StarView extends SpecialEffectView{
 				(int) layout.getContext().getResources().getDimension(R.dimen.star_len),
 				DEFAULT_BACKGROUND_ID);
 
+		initStar();
+	}
+
+	private void initStar(){
 		addToBackground(this);
 
 		starLifespan = (int) (Math.random() * 4000) + 3000;
+	}
+	public void unRemoveStarView(RelativeLayout layout){
+		super.unRemoveSpecialEffectView(MovingView.randomXPosition(),MovingView.randomYPosition(),
+				layout,
+				(float) (Math.random() * DEFAULT_SPEED_Y) + DEFAULT_SPEED_Y,
+				0,
+				(int) layout.getContext().getResources().getDimension(R.dimen.star_len),
+				(int) layout.getContext().getResources().getDimension(R.dimen.star_len),
+				DEFAULT_BACKGROUND_ID);
+
+		initStar();
 	}
 
 	@Override

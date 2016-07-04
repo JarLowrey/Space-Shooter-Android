@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.RelativeLayout;
 import backgroundViews.ExplosionView;
+import backgroundViews.SpecialEffectView;
 import bullets.Bullet_Basic;
 import bullets.Bullet_Interface;
 
@@ -66,8 +67,10 @@ public class AllyView extends Friendly_ShooterView{
 		
 		if(isDead){
 			final long vibrationPattern[] = {0,100,100};
-			new ExplosionView(this.getMyLayout(),this,
-					R.drawable.explosion1,vibrationPattern);
+			SpecialEffectView.getEffect(this.getMyLayout(),R.drawable.explosion1,ExplosionView.class,this,vibrationPattern);
+
+			//new ExplosionView(this.getMyLayout(),this,
+			//		R.drawable.explosion1,vibrationPattern);
 		}
 		
 		return isDead;
