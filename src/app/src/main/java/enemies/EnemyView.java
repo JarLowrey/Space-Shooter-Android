@@ -1,5 +1,7 @@
 package enemies;
 
+import enemies_non_shooters.Gravity_MeteorView;
+import enemies_non_shooters.Meteor_SidewaysView;
 import interfaces.GameActivityInterface;
 import levels.AttributesOfLevels;
 import parents.Projectile_GravityView;
@@ -7,6 +9,8 @@ import android.widget.RelativeLayout;
 import bonuses.BonusView;
 
 import com.jtronlabs.space_shooter.GameLoop;
+
+import java.util.ArrayList;
 
 public abstract class EnemyView extends Projectile_GravityView{
 	
@@ -16,7 +20,32 @@ public abstract class EnemyView extends Projectile_GravityView{
 			DELAY_AFTER_SPAWN_IN_LOTS_OF_ENEMIES_WAVE = 8000;
 	private int score;
 	private double probSpawnBeneficialObject;
-	
+
+	private static ArrayList<EnemyView> enemyPool = new ArrayList<EnemyView>();
+
+	public static EnemyView getEnemy(Class desiredClass,RelativeLayout layout, int level){
+		for(EnemyView e: enemyPool){
+			Class c = e.getClass();
+			if( e.isRemoved() && c.equals(desiredClass) ){
+
+				if(c.toString().toLowerCase().contains("meteor")){
+					((Gravity_MeteorView)e).unRemoveMeteorView(layout,level);
+				}
+
+				return e;
+			}
+		}
+
+		EnemyView e = null;
+		if(desiredClass.equals(Gravity_MeteorView.class)){
+			e = new Gravity_MeteorView(layout,level);
+		}else if(desiredClass.equals(Meteor_SidewaysView.class)){
+			e = new Meteor_SidewaysView(layout,level);
+		}
+
+		return e;
+	}
+
 	public EnemyView(float xInitialPosition,RelativeLayout layout,
 			int level,
 			int scoreForKilling,
@@ -35,10 +64,33 @@ public abstract class EnemyView extends Projectile_GravityView{
 				scaleHealth(level,projectileHealth),
 				width, height, imageId);
 
+		initEnemyView(level,scoreForKilling,probSpawnBeneficialObjectUponDeath);
+	}
+	private void initEnemyView(int level,int scoreForKilling,float probSpawnBeneficialObjectUponDeath){
 		numSpawn++;
 		score = scaleScore(level, scoreForKilling);
 		probSpawnBeneficialObject= scaleProbabilitySpawnBeneficialObjectOnDeath(level,probSpawnBeneficialObjectUponDeath);
 		GameLoop.enemies.add(this);
+	}
+	public void unRemoveEnemy(float xInitialPosition,RelativeLayout layout,
+							  int level,
+							  int scoreForKilling,
+							  float projectileSpeedY,
+							  float projectileSpeedX,
+							  int projectileDamage,
+							  int projectileHealth,
+							  float probSpawnBeneficialObjectUponDeath,
+							  int width,int height,int imageId){
+		super.unRemoveProjGravView( xInitialPosition,
+				- height ,//start all enemies offscreen
+				layout,
+				scaleSpeedY(level,projectileSpeedY),
+				scaleSpeedX(level,projectileSpeedX),
+				scaleCollisionDamage(level,projectileDamage),
+				scaleHealth(level,projectileHealth),
+				width, height, imageId);
+
+		initEnemyView(level,scoreForKilling,probSpawnBeneficialObjectUponDeath);
 	}
 	
 	/**

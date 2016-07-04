@@ -20,9 +20,19 @@ public abstract class Moving_ProjectileView extends MovingView implements Projec
 			int projectileHealth,int width,int height,int imageId) {
 		super(xInitialPosition,yInitialPosition,layout, movingSpeedY, movingSpeedX, width, height, imageId);
 
+		initMoving_ProjectileView(projectileDamage,projectileHealth);
+	}
+	private void initMoving_ProjectileView(int projectileDamage,
+										   int projectileHealth){
 		damage=projectileDamage;
 		health=projectileHealth;
 		maxHealth=projectileHealth;//set at beginning of life, or overwrite on heal()
+	}
+	public void unRemoveProjectile(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
+						 int projectileHealth,int width,int height,int imageId) {
+		super.unRemove(xInitialPosition,yInitialPosition,layout,movingSpeedY,movingSpeedX,width,height,imageId);
+
+		initMoving_ProjectileView(projectileDamage,projectileHealth);
 	}
 
 	/**

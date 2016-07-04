@@ -20,8 +20,18 @@ public abstract class Projectile_GravityView extends Moving_ProjectileView {
 			int projectileHealth,int width,int height,int imageId){
 		super(xInitialPosition,yInitialPosition,layout, movingSpeedY, movingSpeedX,projectileDamage,projectileHealth, width, height, imageId);
 
+		initProjGravView();
+	}
+	private void initProjGravView(){
 		hasReachedGravityThreshold=false;
 		gravityThreshold=NO_THRESHOLD;
+	}
+	public void unRemoveProjGravView(float xInitialPosition,float yInitialPosition,RelativeLayout layout,float movingSpeedY,float movingSpeedX,int projectileDamage,
+									 int projectileHealth,int width,int height,int imageId){
+		super.unRemoveProjectile(xInitialPosition,yInitialPosition,layout,movingSpeedY,movingSpeedX,projectileDamage,
+		projectileHealth,width,height,imageId);
+
+		initProjGravView();
 	}
 	public void setGravityThreshold (int newLowestPositionThreshold){
 		gravityThreshold=newLowestPositionThreshold;

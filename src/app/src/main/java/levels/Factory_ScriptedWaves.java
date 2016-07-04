@@ -1,5 +1,6 @@
 package levels;
 
+import enemies.EnemyView;
 import helpers.KillableRunnable;
 import android.util.Log;
 import android.widget.RelativeLayout;
@@ -160,17 +161,17 @@ public abstract class Factory_ScriptedWaves extends AttributesOfLevels{
 				@Override
 				public void doWork() {
 					//create a meteor, find how many meteors can possibly be on screen at once, and then find which meteor out of the maxNum is the current one
-					Gravity_MeteorView  met= new Gravity_MeteorView(gameScreen,getLevel() );
+					Gravity_MeteorView  met= (Gravity_MeteorView) EnemyView.getEnemy(Gravity_MeteorView.class,gameScreen,getLevel() );
 					final int width = met.getLayoutParams().width;//view not added to screen yet, so must use layout params instead of View.getWidth()
 					final int numMeteorsPossibleOnScreenAtOnce = (int) (MainActivity.getWidthPixels()/width);
 					final int currentMeteor = numSpawned % numMeteorsPossibleOnScreenAtOnce;
-					
-					
+
+
 					//reverse direction if full meteor shower has occurred
 					if(numSpawned >= numMeteorsPossibleOnScreenAtOnce && numSpawned % numMeteorsPossibleOnScreenAtOnce ==0){
-						meteorsFallLeftToRight = !meteorsFallLeftToRight;					
+						meteorsFallLeftToRight = !meteorsFallLeftToRight;
 					}
-	
+
 					int myXPosition;
 					if(meteorsFallLeftToRight){
 						myXPosition = width * currentMeteor;

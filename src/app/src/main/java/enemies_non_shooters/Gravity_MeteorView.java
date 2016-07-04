@@ -33,24 +33,41 @@ public class Gravity_MeteorView extends EnemyView{
 			postDelayed(this,100);
 		} 
 	};
-	
+
 	public Gravity_MeteorView(RelativeLayout layout,int level) {
 		super(getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.meteor_length)),
 				layout,level,
-				DEFAULT_SCORE , 
-				DEFAULT_SPEED_Y, 
+				DEFAULT_SCORE ,
+				DEFAULT_SPEED_Y,
 				DEFAULT_SPEED_X,
-				DEFAULT_COLLISION_DAMAGE, 
+				DEFAULT_COLLISION_DAMAGE,
 				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
 				(int)layout.getContext().getResources().getDimension(R.dimen.meteor_length),
-				(int)layout.getContext().getResources().getDimension(R.dimen.meteor_length), 
+				(int)layout.getContext().getResources().getDimension(R.dimen.meteor_length),
 				DEFAULT_BACKGROUND);
-	
+
+		initMeteorView(layout,level);
+	}
+
+	public void unRemoveMeteorView(RelativeLayout layout,int level){
+		super.unRemoveEnemy(getRandomXPosInMiddle(layout.getContext().getResources().getDimension(R.dimen.meteor_length)),
+				layout,level,
+				DEFAULT_SCORE ,
+				DEFAULT_SPEED_Y,
+				DEFAULT_SPEED_X,
+				DEFAULT_COLLISION_DAMAGE,
+				DEFAULT_HEALTH,DEFAULT_SPAWN_BENEFICIAL_OBJECT_ON_DEATH,
+				(int)layout.getContext().getResources().getDimension(R.dimen.meteor_length),
+				(int)layout.getContext().getResources().getDimension(R.dimen.meteor_length),
+				DEFAULT_BACKGROUND);
+		initMeteorView(layout,level);
+	}
+	private void initMeteorView(RelativeLayout layout,int level){
 		if(Math.random() < 0.5){direction*=-1;}
 		currentRotation=0;
 		//ConditionalHandler.postIfAlive(rotateRunnable, this);
 		this.setRotation((float) (Math.random() * 360));
-		
+
 		//reset scaled stats. Meteors are special
 		this.setSpeedY(gravitySpeedMultiplier(level,DEFAULT_SPEED_Y));
 		this.setHealth(DEFAULT_HEALTH);

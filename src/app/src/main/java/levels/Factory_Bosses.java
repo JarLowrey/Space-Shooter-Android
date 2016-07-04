@@ -10,6 +10,7 @@ import bullets.Bullet_Tracking;
 import com.jtronlabs.space_shooter.MainActivity;
 import com.jtronlabs.space_shooter.R;
 
+import enemies.EnemyView;
 import enemies.Shooting_HorizontalMovementView;
 import enemies_non_shooters.Gravity_MeteorView;
 import enemies_non_shooters.Meteor_SidewaysView;
@@ -252,7 +253,7 @@ public abstract class Factory_Bosses extends Factory_ScriptedWaves
 		return new SpawnableWave(2000,Gravity_MeteorView.getSpawningProbabilityWeightOfGiantMeteors(getLevel())){
 			@Override
 			public void spawn(){
-				Gravity_MeteorView enemy = new Meteor_SidewaysView(gameScreen,getLevel() );
+				Gravity_MeteorView enemy = (Meteor_SidewaysView) EnemyView.getEnemy(Meteor_SidewaysView.class,gameScreen,getLevel() );
 				
 				//change width and height. set X and Y positions
 				final int width = (int)gameScreen.getResources().getDimension(R.dimen.meteor_giant_length);
